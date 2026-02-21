@@ -1,325 +1,869 @@
 <!-- ════════════════════════════════════════════════════════════
      Maritime Cyber Intelligence Feed
-     - 30+ 기관의 사이버보안 뉴스를 RSS로 실시간 수집
+     - 30+ 기관의 사이버보안 사이트 연결, 기사 제목 가져오기
      - allorigins.win CORS 프록시 사용
      - 카테고리 탭 + 기관 선택 + 뉴스 패널 구조
 ════════════════════════════════════════════════════════════ -->
 
 <style>
-  #mci-wrap * { box-sizing: border-box; margin: 0; padding: 0; }
-  #mci-wrap { font-family: 'Segoe UI', 'Apple SD Gothic Neo', Arial, sans-serif; max-width: 740px; }
+  #mci-wrap * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  #mci-wrap {
+    font-family: "Segoe UI", "Apple SD Gothic Neo", Arial, sans-serif;
+    max-width: 740px;
+  }
 
   /* ── Tabs ── */
-  #mci-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-  .mci-tab {
-    border: none; padding: 7px 15px; border-radius: 20px; cursor: pointer;
-    font-size: 12px; font-weight: 700; letter-spacing: 0.3px;
-    transition: background 0.2s, color 0.2s; line-height: 1.4;
+  #mci-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
   }
-  .mci-tab.active  { background: #0a2342; color: #fff; }
-  .mci-tab:not(.active) { background: #e8f0f7; color: #4a6278; }
-  .mci-tab:not(.active):hover { background: #d1e0ee; }
+  .mci-tab {
+    border: none;
+    padding: 6px 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    transition:
+      background 0.2s,
+      color 0.2s;
+    line-height: 1.4;
+    text-align: left;
+    width: 80%;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+  }
+  .mci-tab.active {
+    background: #0a2342;
+    color: #fff;
+  }
+  .mci-tab:not(.active) {
+    background: #e8f0f7;
+    color: #4a6278;
+  }
+  .mci-tab:not(.active):hover {
+    background: #d1e0ee;
+  }
 
   /* ── Org chips ── */
-  #mci-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
-  .mci-chip {
-    border: 1.5px solid #cbd8e5; background: #fff;
-    padding: 5px 13px; border-radius: 20px; cursor: pointer;
-    font-size: 12px; font-weight: 700; color: #0a2342;
-    transition: background 0.18s, color 0.18s, border-color 0.18s;
-    white-space: nowrap;
+  #mci-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+    width: 80%;
   }
-  .mci-chip:hover   { background: #154f7a; color: #fff; border-color: #154f7a; }
-  .mci-chip.active  { background: #0a2342; color: #fff; border-color: #0a2342; }
+  .mci-chip {
+    border: 1.5px solid #cbd8e5;
+    background: #fff;
+    padding: 6px 11px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 700;
+    color: #0a2342;
+    transition:
+      background 0.18s,
+      color 0.18s,
+      border-color 0.18s;
+    text-align: left;
+    width: 100%;
+    line-height: 1.5;
+  }
+  .mci-chip:hover {
+    background: #154f7a;
+    color: #fff;
+    border-color: #154f7a;
+  }
+  .mci-chip.active {
+    background: #0a2342;
+    color: #fff;
+    border-color: #0a2342;
+  }
+  .mci-chip-abbr {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 1px;
+  }
+  .mci-chip-full {
+    font-size: 12px;
+    font-weight: 500;
+    display: block;
+  }
 
   /* ── News panel ── */
   #mci-panel {
-    background: #f7fafe; border: 1px solid #d1e0ee;
-    border-radius: 12px; padding: 16px 18px; min-height: 88px;
+    background: #f7fafe;
+    border: 1px solid #d1e0ee;
+    border-radius: 10px;
+    padding: 13px 14px;
+    min-height: 70px;
+    width: 80%;
   }
 
   /* ── News rows ── */
   .mci-row {
-    display: flex; align-items: flex-start; gap: 9px;
-    padding: 9px 0; border-bottom: 1px solid #e2eaf3;
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 9px 0;
+    border-bottom: 1px solid #e2eaf3;
   }
-  .mci-row:last-child { border-bottom: none; }
+  .mci-row:last-child {
+    border-bottom: none;
+  }
   .mci-dot {
-    width: 7px; height: 7px; min-width: 7px; border-radius: 50%;
-    background: #1a9e82; margin-top: 5px;
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    border-radius: 50%;
+    background: #1a9e82;
+    margin-top: 5px;
   }
   .mci-link {
-    color: #0a2342; text-decoration: none; font-size: 13px;
-    font-weight: 500; line-height: 1.55;
+    color: #0a2342;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.55;
   }
-  .mci-link:hover { color: #1a9e82; text-decoration: underline; }
-  .mci-date { font-size: 11px; color: #9ab5c9; margin-top: 2px; }
+  .mci-link:hover {
+    color: #1a9e82;
+    text-decoration: underline;
+  }
+  .mci-date {
+    font-size: 11px;
+    color: #9ab5c9;
+    margin-top: 2px;
+  }
   .mci-cyber-badge {
-    display: inline-block; background: #e8f8f4; color: #1a9e82;
-    font-size: 9px; font-weight: 800; padding: 1px 7px;
-    border-radius: 10px; margin-left: 7px; vertical-align: middle;
+    display: inline-block;
+    background: #e8f8f4;
+    color: #1a9e82;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 7px;
+    vertical-align: middle;
     letter-spacing: 0.5px;
   }
 
   /* ── Visit button ── */
   .mci-visit-btn {
-    display: inline-flex; align-items: center; gap: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 8px 18px;
     background: linear-gradient(135deg, #0a2342 0%, #154f7a 55%, #1a9e82 100%);
-    color: #fff; border-radius: 8px; text-decoration: none;
-    font-size: 13px; font-weight: 700;
-    box-shadow: 0 3px 10px rgba(10,35,66,0.18);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 3px 10px rgba(10, 35, 66, 0.18);
   }
 
   /* ── Spinner ── */
   .mci-spinner {
-    width: 18px; height: 18px; border: 2.5px solid #d1e0ee;
-    border-top-color: #1a9e82; border-radius: 50%;
-    animation: mci-spin 0.7s linear infinite; flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid #d1e0ee;
+    border-top-color: #1a9e82;
+    border-radius: 50%;
+    animation: mci-spin 0.7s linear infinite;
+    flex-shrink: 0;
   }
-  @keyframes mci-spin { to { transform: rotate(360deg); } }
+  @keyframes mci-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ── Refresh button click effect ── */
+  #mci-refresh:active {
+    background: #e8f0f7;
+    border-color: #9ab5c9;
+  }
+  #mci-refresh.mci-refresh-spinning svg {
+    animation: mci-refresh-spin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes mci-refresh-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ── Section hierarchy ── */
+  .mci-section {
+    margin-bottom: 16px;
+  }
+  .mci-section-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .mci-section-num {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+  }
+  .mci-section-title {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .mci-section-rule {
+    flex: 1;
+    height: 1px;
+    background: #e2eaf3;
+  }
+  .mci-section-body {
+    border-left: 3px solid;
+    border-radius: 0 0 0 4px;
+    padding-left: 12px;
+  }
 </style>
 
 <div id="mci-wrap">
-
   <!-- ① Header bar -->
-  <div style="display:flex;align-items:center;justify-content:space-between;
-              margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2eaf3;
+    "
+  >
     <div>
-      <span style="font-size:15px;font-weight:800;color:#0a2342;">&#x1F6E1;&#xFE0F; Maritime Cyber Intelligence</span>
-      <div style="font-size:11.5px;color:#6b8599;margin-top:3px;">
+      <span style="font-size: 15px; font-weight: 800; color: #0a2342"
+        >Maritime Cyber Intelligence</span
+      >
+      <div style="font-size: 11.5px; color: #6b8599; margin-top: 3px">
         Live cybersecurity news · 30+ maritime &amp; cyber organizations
       </div>
     </div>
-    <button id="mci-refresh"
-      style="background:none;border:1.5px solid #cbd8e5;border-radius:8px;
-             padding:5px 11px;cursor:pointer;color:#4a6278;font-size:12px;font-weight:600;"
-      title="Refresh current feed">Refresh</button>
+    <button
+      id="mci-refresh"
+      style="
+        background: none;
+        border: 1.5px solid #cbd8e5;
+        border-radius: 8px;
+        padding: 6px;
+        cursor: pointer;
+        color: #4a6278;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+      "
+      title="Refresh current feed"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+      </svg>
+    </button>
   </div>
 
   <!-- ② Category tabs -->
-  <div id="mci-tabs">
-    <button class="mci-tab active" data-cat="maritime">&#x2693; Maritime Leadership</button>
-    <button class="mci-tab"        data-cat="class">&#x1F3DB;&#xFE0F; Classification</button>
-    <button class="mci-tab"        data-cat="port">&#x1F3D7;&#xFE0F; Port &amp; Coast Guard</button>
-    <button class="mci-tab"        data-cat="cyber">&#x1F6E1;&#xFE0F; Cyber Orgs</button>
-    <button class="mci-tab"        data-cat="ai">&#x1F916; AI &amp; ML</button>
+  <div class="mci-section">
+    <div class="mci-section-head">
+      <span class="mci-section-num">
+        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="20" viewBox="0 0 52 20">
+          <rect width="52" height="20" rx="10" fill="#0a2342"/>
+          <text x="26" y="8" font-family="'Segoe UI',Arial,sans-serif" font-size="6" font-weight="800" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="1">STEP</text>
+          <text x="26" y="17" font-family="'Segoe UI',Arial,sans-serif" font-size="9" font-weight="800" fill="white" text-anchor="middle" letter-spacing="0">1</text>
+        </svg>
+      </span>
+      <span class="mci-section-title" style="color: #0a2342">Category</span>
+      <span class="mci-section-rule"></span>
+    </div>
+    <div class="mci-section-body" style="border-color: #0a2342">
+      <div id="mci-tabs">
+        <button class="mci-tab active" data-cat="maritime">
+          &#x2693; Maritime Leadership
+        </button>
+        <button class="mci-tab" data-cat="class">
+          &#x1F3DB;&#xFE0F; Classification
+        </button>
+        <button class="mci-tab" data-cat="port">
+          &#x1F3D7;&#xFE0F; Port &amp; Coast Guard
+        </button>
+        <button class="mci-tab" data-cat="cyber">
+          &#x1F6E1;&#xFE0F; Cyber Orgs
+        </button>
+        <button class="mci-tab" data-cat="ai">&#x1F916; AI &amp; ML</button>
+      </div>
+    </div>
   </div>
 
   <!-- ③ Org chips (JS rendered) -->
-  <div id="mci-chips"></div>
+  <div class="mci-section">
+    <div class="mci-section-head">
+      <span class="mci-section-num">
+        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="20" viewBox="0 0 52 20">
+          <rect width="52" height="20" rx="10" fill="#154f7a"/>
+          <text x="26" y="8" font-family="'Segoe UI',Arial,sans-serif" font-size="6" font-weight="800" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="1">STEP</text>
+          <text x="26" y="17" font-family="'Segoe UI',Arial,sans-serif" font-size="9" font-weight="800" fill="white" text-anchor="middle" letter-spacing="0">2</text>
+        </svg>
+      </span>
+      <span class="mci-section-title" style="color: #154f7a">Organization</span>
+      <span class="mci-section-rule"></span>
+    </div>
+    <div class="mci-section-body" style="border-color: #154f7a">
+      <div id="mci-chips"></div>
+    </div>
+  </div>
 
-  <!-- ④ News panel (JS rendered) -->
-  <div id="mci-panel">
-    <p style="color:#9ab5c9;font-size:13px;">
-      &#x2190; 위의 기관을 선택하면 최신 사이버보안 뉴스를 가져옵니다.
-    </p>
+  <!-- ④ Introduction and visit to the site -->
+  <div class="mci-section">
+    <div class="mci-section-head">
+      <span class="mci-section-num">
+        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="20" viewBox="0 0 52 20">
+          <rect width="52" height="20" rx="10" fill="#1a9e82"/>
+          <text x="26" y="8" font-family="'Segoe UI',Arial,sans-serif" font-size="6" font-weight="800" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="1">STEP</text>
+          <text x="26" y="17" font-family="'Segoe UI',Arial,sans-serif" font-size="9" font-weight="800" fill="white" text-anchor="middle" letter-spacing="0">3</text>
+        </svg>
+      </span>
+      <span class="mci-section-title" style="color: #1a9e82"
+        >Introduction and visit to the site.</span
+      >
+      <span class="mci-section-rule"></span>
+    </div>
+    <div class="mci-section-body" style="border-color: #1a9e82">
+      <div id="mci-panel">
+        <p style="color: #9ab5c9; font-size: 13px">
+          &#x2190; Select the organizations above to get the latest
+          cybersecurity news.
+        </p>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
-  <div style="margin-top:9px;text-align:right;font-size:11px;color:#9ab5c9;">
-    RSS via <a href="https://allorigins.win" target="_blank"
-      style="color:#9ab5c9;">allorigins.win</a> proxy &middot;
+  <div
+    style="margin-top: 9px; text-align: right; font-size: 11px; color: #9ab5c9"
+  >
+    RSS via
+    <a href="https://allorigins.win" target="_blank" style="color: #9ab5c9"
+      >allorigins.win</a
+    >
+    proxy &middot;
     <span id="mci-ts"></span>
   </div>
-
-</div><!-- #mci-wrap -->
+</div>
+<!-- #mci-wrap -->
 
 <script>
-(function () {
-  'use strict';
+  (function () {
+    "use strict";
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      사이버보안 키워드 필터 (maritime 기관용)
   ────────────────────────────────────────────── */
-  const CW = [
-    'cyber','security','hack','ransomware','attack','vulnerab','breach',
-    'malware','phishing','threat','incident','digital','ict','isps',
-    'data protect','nis2','maritime security','criti','intrusion',
-    'spoof','gps','ais','vsat','OT','IT','navigation system'
-  ];
-  function isCyber(t){ const s=(t||'').toLowerCase(); return CW.some(k=>s.includes(k)); }
+    const CW = [
+      "cyber",
+      "security",
+      "hack",
+      "ransomware",
+      "attack",
+      "vulnerab",
+      "breach",
+      "malware",
+      "phishing",
+      "threat",
+      "incident",
+      "digital",
+      "ict",
+      "isps",
+      "data protect",
+      "nis2",
+      "maritime security",
+      "criti",
+      "intrusion",
+      "spoof",
+      "gps",
+      "ais",
+      "vsat",
+      "OT",
+      "IT",
+      "navigation system",
+    ];
+    function isCyber(t) {
+      const s = (t || "").toLowerCase();
+      return CW.some((k) => s.includes(k));
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      기관 데이터
   ────────────────────────────────────────────── */
-  const DATA = {
-    maritime: {
-      label: 'Global Maritime Leadership',
-      orgs: [
-        { id:'imo-mepc', name:'IMO MEPC', full:'IMO Marine Environment Protection Committee',
-          url:'https://www.imo.org/en/MediaCentre/MeetingSummaries/Pages/MEPC-default.aspx',
-          rss:'https://www.imo.org/rss/feeds/RSS-All-News.xml', filterCyber:true },
-        { id:'imo-msc', name:'IMO MSC', full:'IMO Maritime Safety Committee',
-          url:'https://www.imo.org/en/MediaCentre/MeetingSummaries/Pages/MSC-Default.aspx',
-          rss:'https://www.imo.org/rss/feeds/RSS-All-News.xml', filterCyber:true },
-        { id:'ism', name:'IMO ISM', full:'International Safety Management Code',
-          url:'https://www.imo.org/en/ourwork/humanelement/pages/ISMCode.aspx',
-          rss:'https://www.imo.org/rss/feeds/RSS-All-News.xml', filterCyber:true },
-        { id:'iacs', name:'IACS', full:'International Association of Classification Societies',
-          url:'https://iacs.org.uk/', rss:null },
-        { id:'bimco', name:'BIMCO', full:'Baltic and International Maritime Council',
-          url:'https://www.bimco.org/products/publications/titles/the-guidelines-on-cyber-security-onboard-ships/', rss:null },
-        { id:'ocimf', name:'OCIMF', full:'Oil Companies International Marine Forum',
-          url:'https://www.ocimf.org/', rss:null },
-        { id:'iaph', name:'IAPH', full:'International Association of Ports and Harbors',
-          url:'https://www.iaphworldports.org/', rss:null }
-      ]
-    },
-    class: {
-      label: 'Classification Societies',
-      orgs: [
-        { id:'abs',     name:'ABS',        full:'American Bureau of Shipping',
-          url:'https://ww2.eagle.org/en.html', rss:null },
-        { id:'bv',      name:'BV',         full:'Bureau Veritas Marine & Offshore',
-          url:'https://group.bureauveritas.com/', rss:null },
-        { id:'classnk', name:'ClassNK',    full:'Nippon Kaiji Kyokai',
-          url:'https://www.classnk.or.jp/hp/ko/index.html', rss:null },
-        { id:'lr',      name:"Lloyd's",    full:"Lloyd's Register",
-          url:'https://www.lr.org/en/', rss:null },
-        { id:'ccs',     name:'CCS',        full:'China Classification Society',
-          url:'https://www.ccs.org.cn/ccswzen/', rss:null },
-        { id:'dnv',     name:'DNV GL',     full:'Det Norske Veritas',
-          url:'https://www.dnv.com/about/', rss:null },
-        { id:'prs',     name:'PRS',        full:'Polski Rejestr Statków',
-          url:'https://prs.pl/en/prs-en/', rss:null },
-        { id:'rina',    name:'RINA',       full:'Registro Italiano Navale',
-          url:'https://www.rina.org/en', rss:null },
-        { id:'crs',     name:'CRS',        full:'Croatian Register of Shipping',
-          url:'https://www.crs.hr/', rss:null },
-        { id:'kr',      name:'KR',         full:'Korean Register',
-          url:'https://www.krs.co.kr/kor/', rss:null },
-        { id:'rs',      name:'RS',         full:'Russian Maritime Register of Shipping',
-          url:'https://rs-class.org/en/', rss:null },
-        { id:'irs',     name:'IRS',        full:'Indian Register of Shipping',
-          url:'https://www.irclass.org/', rss:null }
-      ]
-    },
-    port: {
-      label: 'Port & Coast Guard Authorities',
-      orgs: [
-        { id:'csa',  name:'CSA',  full:'Cyber Security Agency of Singapore',
-          url:'https://www.csa.gov.sg/',
-          rss:'https://www.csa.gov.sg/rss/news.xml' },
-        { id:'uscg', name:'USCG', full:'United States Coast Guard',
-          url:'https://www.dco.uscg.mil/Our-Organization/CGCYBER/', rss:null },
-        { id:'ncsc', name:'NCSC', full:'National Cyber Security Centre (UK)',
-          url:'https://www.ncsc.gov.uk/',
-          rss:'https://www.ncsc.gov.uk/feeds/alerts.xml' },
-        { id:'dma',  name:'DMA',  full:'Danish Maritime Authority',
-          url:'https://www.dma.dk/', rss:null },
-        { id:'anssi',name:'ANSSI',full:"Agence nationale de la sécurité des systèmes d'information",
-          url:'https://cyber.gouv.fr/en',
-          rss:'https://www.ssi.gouv.fr/en/feed/' },
-        { id:'jcg',  name:'JCG',  full:'Japan Coast Guard',
-          url:'https://www.kaiho.mlit.go.jp/e/index_e.html', rss:null },
-        { id:'amsa', name:'AMSA', full:'Australian Maritime Safety Authority',
-          url:'https://www.amsa.gov.au/', rss:null },
-        { id:'ccg',  name:'CCG',  full:'Canadian Coast Guard',
-          url:'https://www.ccg-gcc.gc.ca/index-eng.html', rss:null },
-        { id:'bsi',  name:'BSI',  full:'Bundesamt für Sicherheit in der Informationstechnik',
-          url:'https://www.bsi.bund.de/DE/Home/home_node.html',
-          rss:'https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed/RSSNewsfeed.xml' },
-        { id:'cmsa', name:'CMSA', full:'China Maritime Safety Administration',
-          url:'https://en.msa.gov.cn/', rss:null },
-        { id:'mof',  name:'MOF',  full:'Ministry of Oceans and Fisheries (Korea)',
-          url:'https://www.mof.go.kr/en/index.do', rss:null }
-      ]
-    },
-    cyber: {
-      label: 'Cybersecurity Organizations',
-      orgs: [
-        { id:'nist',    name:'NIST',        full:'National Institute of Standards and Technology',
-          url:'https://www.nist.gov/news-events/cybersecurity',
-          rss:'https://www.nist.gov/news-events/cybersecurity.rss' },
-        { id:'iso-sc27',name:'ISO/IEC SC27',full:'ISO/IEC JTC 1 SC 27 — IT Security Techniques',
-          url:'https://www.iso.org/committee/45306.html', rss:null },
-        { id:'enisa',   name:'ENISA',       full:'EU Agency for Cybersecurity',
-          url:'https://www.enisa.europa.eu/news',
-          rss:'https://www.enisa.europa.eu/news/enisa-news/RSS' },
-        { id:'mitre',   name:'MITRE',       full:'MITRE Corporation — ATT&CK / CVE',
-          url:'https://www.mitre.org/news-insights',
-          rss:'https://www.mitre.org/news-insights/rss.xml' },
-        { id:'first',   name:'FIRST',       full:'Forum of Incident Response & Security Teams',
-          url:'https://www.first.org/news/',
-          rss:'https://www.first.org/news/rss' },
-        { id:'oecd',    name:'OECD',        full:'OECD — Digital Security',
-          url:'https://www.oecd.org/digital/ieconomy/cybersecurity/', rss:null },
-        { id:'itu-sg17',name:'ITU-T SG17',  full:'ITU-T Study Group 17 — Security',
-          url:'https://www.itu.int/en/ITU-T/studygroups/2022-2024/17/Pages/default.aspx', rss:null }
-      ]
-    },
-    ai: {
-      label: 'AI & Machine Learning Resources',
-      orgs: [
-        { id:'aitimes',   name:'AI Times',       full:'AI Times — AI 전문 뉴스',
-          url:'https://www.aitimes.kr', rss:null,
-          desc:'국내 AI 전문 미디어. 인공지능 산업 동향 및 최신 뉴스 제공.' },
-        { id:'kaggle',    name:'Kaggle',          full:'Kaggle — ML Competition & Dataset Platform',
-          url:'https://www.kaggle.com/', rss:null,
-          desc:'세계 최대 데이터 사이언스 플랫폼. 데이터셋, 노트북, 경진대회 제공.' },
-        { id:'cs231n',    name:'CS231n',          full:'Stanford CS231n — CNNs for Visual Recognition',
-          url:'http://cs231n.stanford.edu/', rss:null,
-          desc:'Stanford 대표 딥러닝 강좌. 합성곱 신경망(CNN) 이론 및 컴퓨터 비전 실습.' },
-        { id:'cs234',     name:'CS234',           full:'Stanford CS234 — Reinforcement Learning',
-          url:'http://web.stanford.edu/class/cs234/index.html', rss:null,
-          desc:'Stanford 강화학습 강좌. MDP, 정책 최적화, 딥 RL 이론과 응용 다룸.' },
-        { id:'cs224w',    name:'CS224w',          full:'Stanford CS224w — Machine Learning with Graphs',
-          url:'http://web.stanford.edu/class/cs224w/', rss:null,
-          desc:'Stanford 그래프 머신러닝 강좌. GNN, 지식 그래프, 네트워크 분석 포함.' },
-        { id:'cs285',     name:'CS285 (Berkeley)',full:'UC Berkeley CS285 — Deep Reinforcement Learning',
-          url:'http://rail.eecs.berkeley.edu/deeprlcourse/', rss:null,
-          desc:'Berkeley 딥 강화학습 강좌. 정책 그래디언트, 모델 기반 RL, 로보틱스 응용.' },
-        { id:'cs294-158', name:'CS294-158',       full:'UC Berkeley CS294-158 — Deep Unsupervised Learning',
-          url:'https://sites.google.com/view/berkeley-cs294-158-sp20/home', rss:null,
-          desc:'Berkeley 비지도 딥러닝 강좌. 생성 모델(VAE, GAN, Flow), 자기지도 학습 포함.' },
-        { id:'ucl-rl',    name:'UCL RL Course',   full:'UCL Course on Reinforcement Learning — David Silver',
-          url:'http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html', rss:null,
-          desc:'DeepMind David Silver 교수의 강화학습 강좌. AlphaGo 개발자가 직접 강의.' }
-      ]
-    }
-  };
+    const DATA = {
+      maritime: {
+        label: "Global Maritime Leadership",
+        orgs: [
+          {
+            id: "imo-mepc",
+            name: "IMO MEPC",
+            full: "IMO Marine Environment Protection Committee",
+            url: "https://www.imo.org/en/MediaCentre/MeetingSummaries/Pages/MEPC-default.aspx",
+            rss: "https://www.imo.org/rss/feeds/RSS-All-News.xml",
+            filterCyber: true,
+            desc: "IMO sub-committee for marine environment protection. Issues cybersecurity guidelines (MSC-FAL.1/Circ.3), MEPC resolutions, and oversees maritime environmental and security regulations.",
+          },
+          {
+            id: "imo-msc",
+            name: "IMO MSC",
+            full: "IMO Maritime Safety Committee",
+            url: "https://www.imo.org/en/MediaCentre/MeetingSummaries/Pages/MSC-Default.aspx",
+            rss: "https://www.imo.org/rss/feeds/RSS-All-News.xml",
+            filterCyber: true,
+            desc: "IMO sub-committee for maritime safety. Manages SOLAS and STCW conventions, and publishes maritime cybersecurity recommendations (MSC-FAL.1/Circ.3).",
+          },
+          {
+            id: "ism",
+            name: "IMO ISM",
+            full: "International Safety Management Code",
+            url: "https://www.imo.org/en/ourwork/humanelement/pages/ISMCode.aspx",
+            rss: "https://www.imo.org/rss/feeds/RSS-All-News.xml",
+            filterCyber: true,
+            desc: "Defines the International Safety Management Code (ISM Code). Provides guidance to integrate cyber risks into a vessel's Safety Management System (SMS).",
+          },
+          {
+            id: "iacs",
+            name: "IACS",
+            full: "International Association of Classification Societies",
+            url: "https://iacs.org.uk/",
+            rss: null,
+            desc: "Association of 12 classification societies. Publishes unified requirements UR E26 (cyber resilience) and UR E27 (cybersecurity) as the global vessel cyber standard baseline.",
+          },
+          {
+            id: "bimco",
+            name: "BIMCO",
+            full: "Baltic and International Maritime Council",
+            url: "https://www.bimco.org/products/publications/titles/the-guidelines-on-cyber-security-onboard-ships/",
+            rss: null,
+            desc: "World's largest international shipping association. Published the Guidelines on Cyber Security Onboard Ships, the industry's primary vessel cyber reference.",
+          },
+          {
+            id: "ocimf",
+            name: "OCIMF",
+            full: "Oil Companies International Marine Forum",
+            url: "https://www.ocimf.org/",
+            rss: null,
+            desc: "International forum of oil companies for marine operations. Provides cybersecurity recommendations and best practices for tanker and terminal OT systems.",
+          },
+          {
+            id: "iaph",
+            name: "IAPH",
+            full: "International Association of Ports and Harbors",
+            url: "https://www.iaphworldports.org/",
+            rss: null,
+            desc: "Global association of ports and harbors. Operates the IAPH Cyber Security Toolkit and Port Cyber Resilience programme for port authority cyber readiness.",
+          },
+        ],
+      },
+      class: {
+        label: "Classification Societies",
+        orgs: [
+          {
+            id: "abs",
+            name: "ABS",
+            full: "American Bureau of Shipping",
+            url: "https://ww2.eagle.org/en.html",
+            rss: null,
+            desc: "US classification society. Offers ABS CyberSafe certification and cybersecurity consulting and certification services for vessels and offshore assets.",
+          },
+          {
+            id: "bv",
+            name: "BV",
+            full: "Bureau Veritas Marine & Offshore",
+            url: "https://group.bureauveritas.com/",
+            rss: null,
+            desc: "French classification society. Provides BV Cyber Systems certification for digital ships and OT risk assessment services for the marine sector.",
+          },
+          {
+            id: "classnk",
+            name: "ClassNK",
+            full: "Nippon Kaiji Kyokai",
+            url: "https://www.classnk.or.jp/hp/ko/index.html",
+            rss: null,
+            desc: "Japanese classification society. Publishes NK-CYBER guidelines and provides cyber resilience certification, leading smart ship security technology.",
+          },
+          {
+            id: "lr",
+            name: "Lloyd's",
+            full: "Lloyd's Register",
+            url: "https://www.lr.org/en/",
+            rss: null,
+            desc: "British classification society. Offers ShipRight cyber procedures and maritime cybersecurity certification and consulting solutions.",
+          },
+          {
+            id: "ccs",
+            name: "CCS",
+            full: "China Classification Society",
+            url: "https://www.ccs.org.cn/ccswzen/",
+            rss: null,
+            desc: "Chinese classification society. Provides vessel cybersecurity inspection standards and certification services aligned with Chinese maritime cyber regulations.",
+          },
+          {
+            id: "dnv",
+            name: "DNV GL",
+            full: "Det Norske Veritas",
+            url: "https://www.dnv.com/about/",
+            rss: null,
+            desc: "Norwegian classification society. Operates the DNV Cyber Secure tiered certification system and provides maritime OT/IT cybersecurity advisory and audit services.",
+          },
+          {
+            id: "prs",
+            name: "PRS",
+            full: "Polski Rejestr Statków",
+            url: "https://prs.pl/en/prs-en/",
+            rss: null,
+            desc: "Polish classification society. Offers ship cyber risk assessments and cybersecurity certification services based on IACS UR E26/E27.",
+          },
+          {
+            id: "rina",
+            name: "RINA",
+            full: "Registro Italiano Navale",
+            url: "https://www.rina.org/en",
+            rss: null,
+            desc: "Italian classification society. Provides RINA Cyber certification and integrated digital risk management and consulting services for maritime stakeholders.",
+          },
+          {
+            id: "crs",
+            name: "CRS",
+            full: "Croatian Register of Shipping",
+            url: "https://www.crs.hr/",
+            rss: null,
+            desc: "Croatian classification society. Conducts ship IT/OT cyber risk inspections and delivers IACS-compliant cybersecurity certification services.",
+          },
+          {
+            id: "kr",
+            name: "KR",
+            full: "Korean Register",
+            url: "https://www.krs.co.kr/kor/",
+            rss: null,
+            desc: "Korean classification society. Issues smart ship cybersecurity guidelines and Cyber Safety (CS) certification; leads domestic maritime cyber standard development.",
+          },
+          {
+            id: "rs",
+            name: "RS",
+            full: "Russian Maritime Register of Shipping",
+            url: "https://rs-class.org/en/",
+            rss: null,
+            desc: "Russian maritime register. Provides vessel cybersecurity regulations and digital ship system certification services.",
+          },
+          {
+            id: "irs",
+            name: "IRS",
+            full: "Indian Register of Shipping",
+            url: "https://www.irclass.org/",
+            rss: null,
+            desc: "Indian classification society. Offers ship cybersecurity inspection standards, cyber resilience certification services, and publishes IRS Cyber guidelines.",
+          },
+        ],
+      },
+      port: {
+        label: "Port & Coast Guard Authorities",
+        orgs: [
+          {
+            id: "csa",
+            name: "CSA",
+            full: "Cyber Security Agency of Singapore",
+            url: "https://www.csa.gov.sg/",
+            rss: "https://www.csa.gov.sg/rss/news.xml",
+            desc: "Singapore Cyber Security Agency. Publishes OT cybersecurity guidelines for maritime and port infrastructure; oversees national cyber regulation and certification.",
+          },
+          {
+            id: "uscg",
+            name: "USCG",
+            full: "United States Coast Guard",
+            url: "https://www.dco.uscg.mil/Our-Organization/CGCYBER/",
+            rss: null,
+            desc: "United States Coast Guard. Enforces maritime cyber risk management regulations under MTSA, operates the CG-CYBER division, and conducts port OT security inspections.",
+          },
+          {
+            id: "ncsc",
+            name: "NCSC",
+            full: "National Cyber Security Centre (UK)",
+            url: "https://www.ncsc.gov.uk/",
+            rss: "https://www.ncsc.gov.uk/feeds/alerts.xml",
+            desc: "UK National Cyber Security Centre. Shares maritime cyber threat intelligence and publishes incident response guides and technical advisories for the shipping sector.",
+          },
+          {
+            id: "dma",
+            name: "DMA",
+            full: "Danish Maritime Authority",
+            url: "https://www.dma.dk/",
+            rss: null,
+            desc: "Danish Maritime Authority. Establishes maritime cybersecurity regulations based on EU NIS2 and issues cybersecurity guidelines for vessels and ports.",
+          },
+          {
+            id: "anssi",
+            name: "ANSSI",
+            full: "Agence nationale de la sécurité des systèmes d'information",
+            url: "https://cyber.gouv.fr/en",
+            rss: "https://www.ssi.gouv.fr/en/feed/",
+            desc: "French national information systems security agency. Provides cybersecurity advisories for maritime OT systems and security certification for energy and port infrastructure.",
+          },
+          {
+            id: "jcg",
+            name: "JCG",
+            full: "Japan Coast Guard",
+            url: "https://www.kaiho.mlit.go.jp/e/index_e.html",
+            rss: null,
+            desc: "Japan Coast Guard. Manages cyber threat response for ports and vessels and operates the maritime digital infrastructure security framework.",
+          },
+          {
+            id: "amsa",
+            name: "AMSA",
+            full: "Australian Maritime Safety Authority",
+            url: "https://www.amsa.gov.au/",
+            rss: null,
+            desc: "Australian Maritime Safety Authority. Applies maritime cybersecurity regulatory frameworks and conducts cyber risk assessments during vessel inspections.",
+          },
+          {
+            id: "ccg",
+            name: "CCG",
+            full: "Canadian Coast Guard",
+            url: "https://www.ccg-gcc.gc.ca/index-eng.html",
+            rss: null,
+            desc: "Canadian Coast Guard. Manages maritime safety and digital maritime infrastructure security, aligned with Canada's national maritime cyber strategy.",
+          },
+          {
+            id: "bsi",
+            name: "BSI",
+            full: "Bundesamt für Sicherheit in der Informationstechnik",
+            url: "https://www.bsi.bund.de/DE/Home/home_node.html",
+            rss: "https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed/RSSNewsfeed.xml",
+            desc: "German Federal Office for Information Security. Publishes IT-Grundschutz baseline protection and OT security guidelines for maritime and industrial sectors; develops BSI-CS standards.",
+          },
+          {
+            id: "cmsa",
+            name: "CMSA",
+            full: "China Maritime Safety Administration",
+            url: "https://en.msa.gov.cn/",
+            rss: null,
+            desc: "China Maritime Safety Administration. Establishes vessel cybersecurity inspection regulations and operates port digital security policies under Chinese maritime cyber standards.",
+          },
+          {
+            id: "mof",
+            name: "MOF",
+            full: "Ministry of Oceans and Fisheries (Korea)",
+            url: "https://www.mof.go.kr/en/index.do",
+            rss: null,
+            desc: "Korean Ministry of Oceans and Fisheries. Oversees smart port and vessel cybersecurity policy and supports maritime cybersecurity R&D programmes.",
+          },
+        ],
+      },
+      cyber: {
+        label: "Cybersecurity Organizations",
+        orgs: [
+          {
+            id: "nist",
+            name: "NIST",
+            full: "National Institute of Standards and Technology",
+            url: "https://www.nist.gov/news-events/cybersecurity",
+            rss: "https://www.nist.gov/news-events/cybersecurity.rss",
+            desc: "US National Institute of Standards and Technology. Develops the Cybersecurity Framework (CSF 2.0), SP 800 series, and other globally adopted security standards.",
+          },
+          {
+            id: "iso-sc27",
+            name: "ISO/IEC SC27",
+            full: "ISO/IEC JTC 1 SC 27 — IT Security Techniques",
+            url: "https://www.iso.org/committee/45306.html",
+            rss: null,
+            desc: "International IT security standardization committee. Develops ISO/IEC 27001 (ISMS), 27019 (energy), 27031 (BCM), and other core information security standards.",
+          },
+          {
+            id: "enisa",
+            name: "ENISA",
+            full: "EU Agency for Cybersecurity",
+            url: "https://www.enisa.europa.eu/news",
+            rss: "https://www.enisa.europa.eu/news/enisa-news/RSS",
+            desc: "EU Agency for Cybersecurity. Publishes ENISA Threat Landscape reports covering maritime and port cyber threats, and supports NIS2 Directive implementation.",
+          },
+          {
+            id: "mitre",
+            name: "MITRE",
+            full: "MITRE Corporation — ATT&CK / CVE",
+            url: "https://www.mitre.org/news-insights",
+            rss: "https://www.mitre.org/news-insights/rss.xml",
+            desc: "US non-profit research organization. Operates the ATT&amp;CK attack framework, CVE vulnerability catalog, and D3FEND defensive knowledge base.",
+          },
+          {
+            id: "first",
+            name: "FIRST",
+            full: "Forum of Incident Response & Security Teams",
+            url: "https://www.first.org/news/",
+            rss: "https://www.first.org/news/rss",
+            desc: "Global forum for incident response and security teams. Develops CVSS vulnerability scoring, TLP information-sharing standards, and global incident response frameworks.",
+          },
+          {
+            id: "oecd",
+            name: "OECD",
+            full: "OECD — Digital Security",
+            url: "https://www.oecd.org/digital/ieconomy/cybersecurity/",
+            rss: null,
+            desc: "Organisation for Economic Co-operation and Development. Publishes digital economy cybersecurity policy recommendations and supports national cyber risk governance.",
+          },
+          {
+            id: "itu-sg17",
+            name: "ITU-T SG17",
+            full: "ITU-T Study Group 17 — Security",
+            url: "https://www.itu.int/en/ITU-T/studygroups/2022-2024/17/Pages/default.aspx",
+            rss: null,
+            desc: "ITU Telecommunication Standardization Study Group 17. Develops X.800-series and other international standards for communications and network security, including maritime comms.",
+          },
+        ],
+      },
+      ai: {
+        label: "AI & Machine Learning Resources",
+        orgs: [
+          {
+            id: "aitimes",
+            name: "AI Times",
+            full: "AI Times — AI 전문 뉴스",
+            url: "https://www.aitimes.kr",
+            rss: null,
+            desc: "Leading Korean AI news media. Covers the latest artificial intelligence industry trends, research breakthroughs, and business developments.",
+          },
+          {
+            id: "kaggle",
+            name: "Kaggle",
+            full: "Kaggle — ML Competition & Dataset Platform",
+            url: "https://www.kaggle.com/",
+            rss: null,
+            desc: "World's largest data science platform. Provides datasets, community notebooks, and ML competitions for building and benchmarking models.",
+          },
+          {
+            id: "cs231n",
+            name: "CS231n",
+            full: "Stanford CS231n — CNNs for Visual Recognition",
+            url: "http://cs231n.stanford.edu/",
+            rss: null,
+            desc: "Stanford's flagship deep learning course. Covers convolutional neural network (CNN) theory and computer vision applications through lectures and hands-on assignments.",
+          },
+          {
+            id: "cs234",
+            name: "CS234",
+            full: "Stanford CS234 — Reinforcement Learning",
+            url: "http://web.stanford.edu/class/cs234/index.html",
+            rss: null,
+            desc: "Stanford reinforcement learning course. Covers MDPs, policy optimization, and deep RL theory with practical applications across games, robotics, and control.",
+          },
+          {
+            id: "cs224w",
+            name: "CS224w",
+            full: "Stanford CS224w — Machine Learning with Graphs",
+            url: "http://web.stanford.edu/class/cs224w/",
+            rss: null,
+            desc: "Stanford machine learning with graphs course. Covers graph neural networks (GNNs), knowledge graphs, link prediction, and network analysis methods.",
+          },
+          {
+            id: "cs285",
+            name: "CS285 (Berkeley)",
+            full: "UC Berkeley CS285 — Deep Reinforcement Learning",
+            url: "http://rail.eecs.berkeley.edu/deeprlcourse/",
+            rss: null,
+            desc: "UC Berkeley deep reinforcement learning course. Covers policy gradients, model-based RL, offline RL, and robotics applications with research-level depth.",
+          },
+          {
+            id: "cs294-158",
+            name: "CS294-158",
+            full: "UC Berkeley CS294-158 — Deep Unsupervised Learning",
+            url: "https://sites.google.com/view/berkeley-cs294-158-sp20/home",
+            rss: null,
+            desc: "UC Berkeley deep unsupervised learning course. Covers generative models (VAE, GAN, normalizing flows) and self-supervised learning methods.",
+          },
+          {
+            id: "ucl-rl",
+            name: "UCL RL Course",
+            full: "UCL Course on Reinforcement Learning — David Silver",
+            url: "http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html",
+            rss: null,
+            desc: "Reinforcement learning lecture series by DeepMind's David Silver. Covers the full RL curriculum from the lead researcher behind AlphaGo.",
+          },
+        ],
+      },
+    };
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      State
   ────────────────────────────────────────────── */
-  let currentCat = 'maritime';
-  let currentOrg = null;
-  const cache = {};
+    let currentCat = "maritime";
+    let currentOrg = null;
+    const cache = {};
 
-  function $id(id) { return document.getElementById(id); }
+    function $id(id) {
+      return document.getElementById(id);
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      날짜 포매팅
   ────────────────────────────────────────────── */
-  function fmtDate(str) {
-    if (!str) return '';
-    const d = new Date(str);
-    if (isNaN(d.getTime())) return str.slice(0, 10);
-    return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
-  }
+    function fmtDate(str) {
+      if (!str) return "";
+      const d = new Date(str);
+      if (isNaN(d.getTime())) return str.slice(0, 10);
+      return d.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      링크 추출 (RSS 2.0 + Atom 공통)
   ────────────────────────────────────────────── */
-  function extractLink(el, fallback) {
-    const linkEl = el.querySelector('link');
-    if (!linkEl) return fallback;
-    const txt = (linkEl.textContent || '').trim();
-    if (txt && txt.startsWith('http')) return txt;
-    const href = linkEl.getAttribute('href') || '';
-    if (href.startsWith('http')) return href;
-    const inner = txt.replace(/<!\[CDATA\[(.*?)\]\]>/s, '$1').trim();
-    return inner.startsWith('http') ? inner : fallback;
-  }
+    function extractLink(el, fallback) {
+      const linkEl = el.querySelector("link");
+      if (!linkEl) return fallback;
+      const txt = (linkEl.textContent || "").trim();
+      if (txt && txt.startsWith("http")) return txt;
+      const href = linkEl.getAttribute("href") || "";
+      if (href.startsWith("http")) return href;
+      const inner = txt.replace(/<!\[CDATA\[(.*?)\]\]>/s, "$1").trim();
+      return inner.startsWith("http") ? inner : fallback;
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      뉴스 렌더링
   ────────────────────────────────────────────── */
-  function renderNews(org, items) {
-    const panel = $id('mci-panel');
+    function renderNews(org, items) {
+      const panel = $id("mci-panel");
 
-    const header = `
+      const header = `
       <div style="display:flex;align-items:center;justify-content:space-between;
                   margin-bottom:12px;flex-wrap:wrap;gap:6px;">
         <div>
@@ -332,24 +876,38 @@
         </a>
       </div>`;
 
-    if (!items.length) {
-      panel.innerHTML = header + `
+      const descBlock = org.desc
+        ? `<p style="color:#4a6278;font-size:12px;line-height:1.65;margin-bottom:12px;
+                   background:#eef6f3;border-left:3px solid #1a9e82;
+                   padding:9px 12px;border-radius:0 6px 6px 0;">${org.desc}</p>`
+        : "";
+
+      if (!items.length) {
+        panel.innerHTML =
+          header +
+          descBlock +
+          `
         <div style="text-align:center;padding:14px 0;">
           <div style="color:#9ab5c9;font-size:12px;margin-bottom:12px;">
-            사이버보안 관련 뉴스를 찾을 수 없습니다. 전체 뉴스 사이트를 방문하세요.
+            Can't find any cybersecurity-related news. Visit our full news site.
           </div>
           <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
             &#x1F310; Visit ${org.name} &#x2197;
           </a>
         </div>`;
-      return;
-    }
+        return;
+      }
 
-    const rows = items.map(item => {
-      const badge = (isCyber(item.title) || isCyber(item.desc))
-        ? '<span class="mci-cyber-badge">CYBER</span>' : '';
-      const safeTitle = item.title.replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      return `
+      const rows = items
+        .map((item) => {
+          const badge =
+            isCyber(item.title) || isCyber(item.desc)
+              ? '<span class="mci-cyber-badge">CYBER</span>'
+              : "";
+          const safeTitle = item.title
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+          return `
         <div class="mci-row">
           <div class="mci-dot"></div>
           <div>
@@ -361,39 +919,37 @@
             <div class="mci-date">${fmtDate(item.date)}</div>
           </div>
         </div>`;
-    }).join('');
+        })
+        .join("");
 
-    panel.innerHTML = header + rows;
-  }
+      panel.innerHTML = header + descBlock + rows;
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      RSS 없는 기관 패널 (desc 있으면 리소스 카드)
   ────────────────────────────────────────────── */
-  function renderNoRss(org) {
-    if (org.desc) {
-      $id('mci-panel').innerHTML = `
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;
-                    flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-          <div>
-            <strong style="color:#0a2342;font-size:14px;">${org.name}</strong>
-            <span style="color:#6b8599;font-size:11px;margin-left:7px;">${org.full}</span>
-          </div>
-          <a href="${org.url}" target="_blank" rel="noopener"
-             style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
-                    background:linear-gradient(135deg,#1a3a5c 0%,#1a6e5a 100%);
-                    color:#fff;border-radius:8px;text-decoration:none;
-                    font-size:12px;font-weight:700;white-space:nowrap;">
-            &#x1F517; Visit Resource &#x2197;
-          </a>
+    function renderNoRss(org) {
+      if (org.desc) {
+        $id("mci-panel").innerHTML = `
+        <div style="margin-bottom:10px;">
+          <strong style="color:#0a2342;font-size:14px;">${org.name}</strong>
+          <span style="color:#6b8599;font-size:11px;margin-left:7px;">${org.full}</span>
         </div>
-        <p style="color:#4a6278;font-size:13px;line-height:1.65;
+        <p style="color:#4a6278;font-size:13px;line-height:1.65;margin-bottom:12px;
                   background:#eef6f3;border-left:3px solid #1a9e82;
                   padding:9px 12px;border-radius:0 6px 6px 0;">
           ${org.desc}
-        </p>`;
-      return;
-    }
-    $id('mci-panel').innerHTML = `
+        </p>
+        <a href="${org.url}" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+                  background:linear-gradient(135deg,#1a3a5c 0%,#1a6e5a 100%);
+                  color:#fff;border-radius:8px;text-decoration:none;
+                  font-size:12px;font-weight:700;white-space:nowrap;">
+          &#x1F517; Visit to the Resource &#x2197;
+        </a>`;
+        return;
+      }
+      $id("mci-panel").innerHTML = `
       <div style="display:flex;align-items:center;justify-content:space-between;
                   flex-wrap:wrap;gap:10px;margin-bottom:10px;">
         <div>
@@ -405,15 +961,20 @@
         </a>
       </div>
       <p style="color:#9ab5c9;font-size:12px;">
-        RSS 피드를 제공하지 않습니다. 공식 사이트에서 최신 뉴스를 확인하세요.
+        We do not provide an RSS feed. Please check the official website for the latest news.
       </p>`;
-  }
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      RSS 로딩 실패 패널
   ────────────────────────────────────────────── */
-  function renderError(org) {
-    $id('mci-panel').innerHTML = `
+    function renderError(org) {
+      const descBlock = org.desc
+        ? `<p style="color:#4a6278;font-size:12px;line-height:1.65;margin-top:10px;
+                   background:#eef6f3;border-left:3px solid #1a9e82;
+                   padding:9px 12px;border-radius:0 6px 6px 0;">${org.desc}</p>`
+        : "";
+      $id("mci-panel").innerHTML = `
       <div style="display:flex;align-items:center;justify-content:space-between;
                   flex-wrap:wrap;gap:10px;margin-bottom:10px;">
         <div>
@@ -428,20 +989,27 @@
         </a>
       </div>
       <p style="color:#9ab5c9;font-size:12px;">
-        RSS 피드를 가져올 수 없습니다. 공식 사이트에서 최신 뉴스를 확인하세요.
-      </p>`;
-  }
+        Unable to load RSS feed. Check the official website for the latest news.
+      </p>
+      ${descBlock}`;
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      핵심: RSS 피드 가져오기 + 파싱
   ────────────────────────────────────────────── */
-  async function loadNews(org) {
-    const panel = $id('mci-panel');
+    async function loadNews(org) {
+      const panel = $id("mci-panel");
 
-    if (cache[org.id]) { renderNews(org, cache[org.id]); return; }
-    if (!org.rss)      { renderNoRss(org); return; }
+      if (cache[org.id]) {
+        renderNews(org, cache[org.id]);
+        return;
+      }
+      if (!org.rss) {
+        renderNoRss(org);
+        return;
+      }
 
-    panel.innerHTML = `
+      panel.innerHTML = `
       <div style="display:flex;align-items:center;gap:10px;padding:22px 0;">
         <div class="mci-spinner"></div>
         <span style="color:#6b8599;font-size:13px;">
@@ -449,96 +1017,121 @@
         </span>
       </div>`;
 
-    try {
-      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(org.rss);
-      const ctrl  = new AbortController();
-      const tid   = setTimeout(() => ctrl.abort(), 12000);
+      try {
+        const proxy =
+          "https://api.allorigins.win/get?url=" + encodeURIComponent(org.rss);
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), 12000);
 
-      const res  = await fetch(proxy, { signal: ctrl.signal });
-      clearTimeout(tid);
-      const json = await res.json();
+        const res = await fetch(proxy, { signal: ctrl.signal });
+        clearTimeout(tid);
+        const json = await res.json();
 
-      const raw = json.contents || '';
-      const xml = new DOMParser().parseFromString(raw, 'text/xml');
+        const raw = json.contents || "";
+        const xml = new DOMParser().parseFromString(raw, "text/xml");
 
-      if (xml.querySelector('parsererror')) throw new Error('XML parse error');
+        if (xml.querySelector("parsererror"))
+          throw new Error("XML parse error");
 
-      let els = [...xml.querySelectorAll('item')];
-      if (!els.length) els = [...xml.querySelectorAll('entry')];
-      if (!els.length) throw new Error('No feed items');
+        let els = [...xml.querySelectorAll("item")];
+        if (!els.length) els = [...xml.querySelectorAll("entry")];
+        if (!els.length) throw new Error("No feed items");
 
-      let items = els.map(el => {
-        const title = (el.querySelector('title')?.textContent || '').trim() || '(untitled)';
-        const link  = extractLink(el, org.url);
-        const date  = (el.querySelector('pubDate, published, updated')?.textContent || '').trim();
-        const desc  = (el.querySelector('description, summary, content')?.textContent || '').trim();
-        return { title, link, date, desc };
-      });
+        let items = els.map((el) => {
+          const title =
+            (el.querySelector("title")?.textContent || "").trim() ||
+            "(untitled)";
+          const link = extractLink(el, org.url);
+          const date = (
+            el.querySelector("pubDate, published, updated")?.textContent || ""
+          ).trim();
+          const desc = (
+            el.querySelector("description, summary, content")?.textContent || ""
+          ).trim();
+          return { title, link, date, desc };
+        });
 
-      if (org.filterCyber) {
-        const cyber = items.filter(i => isCyber(i.title) || isCyber(i.desc));
-        items = cyber.length ? cyber.slice(0, 7) : items.slice(0, 5);
-      } else {
-        items = items.slice(0, 7);
+        if (org.filterCyber) {
+          const cyber = items.filter(
+            (i) => isCyber(i.title) || isCyber(i.desc),
+          );
+          items = cyber.length ? cyber.slice(0, 7) : items.slice(0, 5);
+        } else {
+          items = items.slice(0, 7);
+        }
+
+        cache[org.id] = items;
+        renderNews(org, items);
+        $id("mci-ts").textContent =
+          "Updated " + new Date().toLocaleTimeString();
+      } catch (e) {
+        renderError(org);
       }
-
-      cache[org.id] = items;
-      renderNews(org, items);
-      $id('mci-ts').textContent = 'Updated ' + new Date().toLocaleTimeString();
-
-    } catch (e) {
-      renderError(org);
     }
-  }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      Chips 렌더링
   ────────────────────────────────────────────── */
-  function renderChips(cat) {
-    const chips = $id('mci-chips');
-    chips.innerHTML = '';
-    DATA[cat].orgs.forEach(org => {
-      const btn = document.createElement('button');
-      btn.className = 'mci-chip' + (currentOrg && currentOrg.id === org.id ? ' active' : '');
-      btn.textContent = org.name;
-      btn.title = org.full;
-      btn.addEventListener('click', function () {
-        chips.querySelectorAll('.mci-chip').forEach(c => c.classList.remove('active'));
-        this.classList.add('active');
-        currentOrg = org;
-        loadNews(org);
+    function renderChips(cat) {
+      const chips = $id("mci-chips");
+      chips.innerHTML = "";
+      DATA[cat].orgs.forEach((org) => {
+        const btn = document.createElement("button");
+        btn.className =
+          "mci-chip" +
+          (currentOrg && currentOrg.id === org.id ? " active" : "");
+        btn.textContent = org.full;
+        btn.title = org.url;
+        btn.addEventListener("click", function () {
+          chips
+            .querySelectorAll(".mci-chip")
+            .forEach((c) => c.classList.remove("active"));
+          this.classList.add("active");
+          currentOrg = org;
+          loadNews(org);
+        });
+        chips.appendChild(btn);
       });
-      chips.appendChild(btn);
-    });
-  }
+    }
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      탭 이벤트
   ────────────────────────────────────────────── */
-  document.querySelectorAll('.mci-tab').forEach(tab => {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.mci-tab').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      currentCat = this.dataset.cat;
-      currentOrg = null;
-      renderChips(currentCat);
-      $id('mci-panel').innerHTML =
-        '<p style="color:#9ab5c9;font-size:13px;">&#x2190; 위의 기관을 선택하면 최신 사이버보안 뉴스를 가져옵니다.</p>';
+    document.querySelectorAll(".mci-tab").forEach((tab) => {
+      tab.addEventListener("click", function () {
+        document
+          .querySelectorAll(".mci-tab")
+          .forEach((t) => t.classList.remove("active"));
+        this.classList.add("active");
+        currentCat = this.dataset.cat;
+        currentOrg = null;
+        renderChips(currentCat);
+        $id("mci-panel").innerHTML =
+          '<p style="color:#9ab5c9;font-size:13px;">&#x2190; Select the organizations above to get the latest cybersecurity news.</p>';
+      });
     });
-  });
 
-  /* ──────────────────────────────────────────────
+    /* ──────────────────────────────────────────────
      Refresh 버튼
   ────────────────────────────────────────────── */
-  $id('mci-refresh').addEventListener('click', function () {
-    if (currentOrg) {
-      delete cache[currentOrg.id];
-      loadNews(currentOrg);
-    }
-  });
+    $id("mci-refresh").addEventListener("click", function () {
+      const btn = this;
+      const svg = btn.querySelector("svg");
+      btn.classList.add("mci-refresh-spinning");
+      svg.addEventListener(
+        "animationend",
+        function () {
+          btn.classList.remove("mci-refresh-spinning");
+        },
+        { once: true },
+      );
+      if (currentOrg) {
+        delete cache[currentOrg.id];
+        loadNews(currentOrg);
+      }
+    });
 
-  /* ── Init ── */
-  renderChips('maritime');
-
-})();
+    /* ── Init ── */
+    renderChips("maritime");
+  })();
 </script>
