@@ -1,0 +1,1 @@
+# GeneralRoom-Asset-img-member
