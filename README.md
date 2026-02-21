@@ -120,7 +120,7 @@ Contributions welcome: book reviews, paper summaries, compliance checklists, ris
 ## Related Links
 
 - Blog: [Maritime 4.0 — shippauljobs.blogspot.com](https://shippauljobs.blogspot.com/)
-- Team: [The Crew](Asset/theCrew.html)
+- Team: [The Crew] (Asset/theCrew.html) , https://shippauljobs.blogspot.com/2025/06/the-crew-behind-shipjobs.html  
 
 ---
 
