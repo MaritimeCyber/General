@@ -104,11 +104,11 @@
 
   /* ── News panel ── */
   #mci-panel {
-    background: #f7fafe;
+    background: #000000;
     border: 1px solid #d1e0ee;
     border-radius: 10px;
     padding: 13px 14px;
-    min-height: 70px;
+    min-height: 105px;
     width: 80%;
   }
 
@@ -132,19 +132,19 @@
     margin-top: 5px;
   }
   .mci-link {
-    color: #0a2342;
+    color: #e8f4ff;
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
     line-height: 1.55;
   }
   .mci-link:hover {
-    color: #1a9e82;
+    color: #39e07a;
     text-decoration: underline;
   }
   .mci-date {
     font-size: 11px;
-    color: #9ab5c9;
+    color: #7ecba8;
     margin-top: 2px;
   }
   .mci-cyber-badge {
@@ -255,7 +255,7 @@
   >
     <div>
       <span style="font-size: 15px; font-weight: 800; color: #0a2342"
-        >Maritime Cyber Intelligence</span
+        >with ShipJobs</span
       >
       <div style="font-size: 11.5px; color: #6b8599; margin-top: 3px">
         Live cybersecurity news · 30+ maritime &amp; cyber organizations
@@ -362,7 +362,7 @@
     </div>
     <div class="mci-section-body" style="border-color: #1a9e82">
       <div id="mci-panel">
-        <p style="color: #9ab5c9; font-size: 13px">
+        <p style="color: #39e07a; font-size: 13px">
           &#x2190; Select the organizations above to get the latest
           cybersecurity news.
         </p>
@@ -864,16 +864,9 @@
       const panel = $id("mci-panel");
 
       const header = `
-      <div style="display:flex;align-items:center;justify-content:space-between;
-                  margin-bottom:12px;flex-wrap:wrap;gap:6px;">
-        <div>
-          <strong style="color:#0a2342;font-size:14px;">${org.name}</strong>
-          <span style="color:#6b8599;font-size:11px;margin-left:7px;">${org.full}</span>
-        </div>
-        <a href="${org.url}" target="_blank" rel="noopener"
-           style="color:#1a9e82;font-size:12px;font-weight:700;text-decoration:none;">
-          All news &#x2197;
-        </a>
+      <div style="margin-bottom:12px;">
+        <strong style="color:#ffffff;font-size:14px;">${org.name}</strong>
+        <span style="color:#a8c4d8;font-size:11px;margin-left:7px;">${org.full}</span>
       </div>`;
 
       const descBlock = org.desc
@@ -922,7 +915,14 @@
         })
         .join("");
 
-      panel.innerHTML = header + descBlock + rows;
+      const visitBtn = `
+      <div style="margin-top:12px;text-align:right;">
+        <a href="${org.url}" target="_blank" rel="noopener"
+           style="color:#1a9e82;font-size:12px;font-weight:700;text-decoration:none;">
+          All news &#x2197;
+        </a>
+      </div>`;
+      panel.innerHTML = header + descBlock + rows + visitBtn;
     }
 
     /* ──────────────────────────────────────────────
@@ -932,8 +932,8 @@
       if (org.desc) {
         $id("mci-panel").innerHTML = `
         <div style="margin-bottom:10px;">
-          <strong style="color:#0a2342;font-size:14px;">${org.name}</strong>
-          <span style="color:#6b8599;font-size:11px;margin-left:7px;">${org.full}</span>
+          <strong style="color:#ffffff;font-size:14px;">${org.name}</strong>
+          <span style="color:#a8c4d8;font-size:11px;margin-left:7px;">${org.full}</span>
         </div>
         <p style="color:#4a6278;font-size:13px;line-height:1.65;margin-bottom:12px;
                   background:#eef6f3;border-left:3px solid #1a9e82;
@@ -950,19 +950,16 @@
         return;
       }
       $id("mci-panel").innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between;
-                  flex-wrap:wrap;gap:10px;margin-bottom:10px;">
-        <div>
-          <strong style="color:#0a2342;">${org.name}</strong>
-          <span style="color:#6b8599;font-size:12px;margin-left:8px;">${org.full}</span>
-        </div>
-        <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
-          &#x1F310; Visit News &#x2197;
-        </a>
+      <div style="margin-bottom:10px;">
+        <strong style="color:#ffffff;">${org.name}</strong>
+        <span style="color:#a8c4d8;font-size:12px;margin-left:8px;">${org.full}</span>
       </div>
-      <p style="color:#9ab5c9;font-size:12px;">
+      <p style="color:#9ab5c9;font-size:12px;margin-bottom:12px;">
         We do not provide an RSS feed. Please check the official website for the latest news.
-      </p>`;
+      </p>
+      <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
+        &#x1F310; Visit News &#x2197;
+      </a>`;
     }
 
     /* ──────────────────────────────────────────────
@@ -975,23 +972,20 @@
                    padding:9px 12px;border-radius:0 6px 6px 0;">${org.desc}</p>`
         : "";
       $id("mci-panel").innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between;
-                  flex-wrap:wrap;gap:10px;margin-bottom:10px;">
-        <div>
-          <strong style="color:#0a2342;">${org.name}</strong>
-          <span style="background:#fdecea;color:#c0392b;font-size:10px;
-                font-weight:800;padding:2px 8px;border-radius:10px;margin-left:8px;">
-            FEED UNAVAILABLE
-          </span>
-        </div>
-        <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
-          &#x1F310; Visit ${org.name} &#x2197;
-        </a>
+      <div style="margin-bottom:10px;">
+        <strong style="color:#ffffff;">${org.name}</strong>
+        <span style="background:#fdecea;color:#c0392b;font-size:10px;
+              font-weight:800;padding:2px 8px;border-radius:10px;margin-left:8px;">
+          FEED UNAVAILABLE
+        </span>
       </div>
-      <p style="color:#9ab5c9;font-size:12px;">
+      <p style="color:#9ab5c9;font-size:12px;margin-bottom:10px;">
         Unable to load RSS feed. Check the official website for the latest news.
       </p>
-      ${descBlock}`;
+      ${descBlock}
+      <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
+        &#x1F310; Visit ${org.name} &#x2197;
+      </a>`;
     }
 
     /* ──────────────────────────────────────────────
@@ -1012,7 +1006,7 @@
       panel.innerHTML = `
       <div style="display:flex;align-items:center;gap:10px;padding:22px 0;">
         <div class="mci-spinner"></div>
-        <span style="color:#6b8599;font-size:13px;">
+        <span style="color:#a8c4d8;font-size:13px;">
           ${org.name} 피드를 가져오는 중&#x2026;
         </span>
       </div>`;
@@ -1107,7 +1101,7 @@
         currentOrg = null;
         renderChips(currentCat);
         $id("mci-panel").innerHTML =
-          '<p style="color:#9ab5c9;font-size:13px;">&#x2190; Select the organizations above to get the latest cybersecurity news.</p>';
+          '<p style="color:#39e07a;font-size:13px;">&#x2190; Select the organizations above to get the latest cybersecurity news.</p>';
       });
     });
 
