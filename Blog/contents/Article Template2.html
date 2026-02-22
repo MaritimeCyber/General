@@ -1,0 +1,1096 @@
+<p>&nbsp;</p><h1 class="text-text-100 mt-3 -mb-1 text-[1.375rem] font-bold">Security Zones in Practice: 10 Pitfalls and How to Avoid Them</h1>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><em>A ShipJobs practical guide based on real-world implementation experience</em></p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Introduction: The Security Zone Paradox</h2>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">When IACS UR E26 Section 4.2.1 mandates that "all CBSs in the scope of applicability shall be grouped into security zones," it sounds straightforward enough. The requirement seems clear: organize your systems, segment your networks, protect the boundaries. Simple, right?</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Not quite.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">After working with shipyards, system suppliers, and shipowners across multiple E26 implementation projects, we've observed a recurring pattern: <strong>what appears simple in the standard becomes remarkably complex in practice</strong>. The gap between regulatory text and operational reality has created a minefield of misconceptions, costly mistakes, and retrofit nightmares.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">This article examines the ten most common pitfalls we've encountered in security zone implementation—and more importantly, how to avoid them.</p>
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">The Fundamental Misunderstanding</h2>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Before diving into specific pitfalls, let's address a fundamental issue that underlies many problems: <strong>confusion about what security zones actually are</strong>.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">UR E26 defines a security zone as:</p>
+<blockquote class="ml-2 border-l-4 border-border-300/10 pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">"A collection of CBSs in the scope of applicability of this UR that meet the same security requirements. Each zone consists of a single interface or a group of interfaces, to which an access control policy is applied."</p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Sounds technical. But here's what this actually means in plain language:</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>A security zone is NOT primarily about physical network segments</strong>. It's about <strong>grouping systems with similar security needs</strong> so they can be protected and managed consistently.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">This distinction matters because it reveals why so many implementations go wrong: teams focus on network topology while neglecting security policy.</p><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><br /></p>
+<span></span><span><!--more--></span><h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #1: "One Network = One Zone"</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">The most common error we see: treating network segments and security zones as synonymous. Teams create VLAN 10, call it "Security Zone 1," and assume they're done.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Network engineers naturally think in terms of subnets and VLANs</li>
+<li class="whitespace-normal break-words pl-2">Vendors deliver systems with predefined network configurations</li>
+<li class="whitespace-normal break-words pl-2">The term "network segmentation" appears throughout E26, creating confusion</li>
+<li class="whitespace-normal break-words pl-2">Traditional IT security often does equate zones with network segments</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">A single network segment might contain systems with <strong>vastly different security requirements</strong>:</p><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><span face="var(--font-mono)" style="color: #14181f;">Example: Engine Room Network (10.50.1.0/24)</span></p><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">├─ Main Engine Control (Cat III, essential service)
+├─ Auxiliary Engine Monitoring (Cat II)  
+├─ Fuel Oil Treatment (Cat II)
+├─ Bilge Alarm Panel (Cat II)
+└─ Engine Room CCTV (Cat I, out of scope)</code></pre></div></div>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Should these all be in the same security zone? According to our interpretation of E26's requirements: <strong>No</strong>.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">The main engine control system needs:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Highest protection level (Cat III)</li>
+<li class="whitespace-normal break-words pl-2">Strictest access controls</li>
+<li class="whitespace-normal break-words pl-2">Independent operation capability (UR E26 4.4.2)</li>
+<li class="whitespace-normal break-words pl-2">Ability to isolate without affecting essential services</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Putting it in the same zone as CCTV cameras makes no sense from a security perspective.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold"><br /></h3><h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Zone by security requirements, not by physical location.</strong></p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Design zones based on:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">System category (I, II, III per UR E22)</li>
+<li class="whitespace-normal break-words pl-2">Criticality to ship operations</li>
+<li class="whitespace-normal break-words pl-2">Required isolation capabilities</li>
+<li class="whitespace-normal break-words pl-2">Common access control policies</li>
+<li class="whitespace-normal break-words pl-2">Shared security characteristics (from UR E27)</li>
+</ol>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Then map these logical zones onto your physical network—not the other way around.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The Retrofit Disaster</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">A shipyard delivered 8 container vessels with "security zones" that were simply renamed VLANs. During the first Annual Survey, the Classification Society identified 23 non-conformities because:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Essential systems couldn't be isolated independently</li>
+<li class="whitespace-normal break-words pl-2">Zone boundaries didn't align with security policies</li>
+<li class="whitespace-normal break-words pl-2">Cat III systems shared zones with Cat II systems</li>
+<li class="whitespace-normal break-words pl-2">No clear isolation strategy for cyber incidents</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>The cost</strong>: Complete network redesign on all 8 vessels. <strong>Timeline</strong>: 18 months. <strong>Budget impact</strong>: €2.4M beyond original contract.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Could this have been avoided? Absolutely. By designing zones based on security requirements from the start.</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #2: Too Many Zones</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">In reaction to Pitfall #1, some teams swing to the opposite extreme: creating dozens of micro-zones, each containing just one or two systems.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">We've seen zone diagrams with 40+ zones on a single vessel. One ambitious project defined 63 zones across a fleet of 6 ships.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Misinterpreting "defense in depth" to mean "maximum isolation"</li>
+<li class="whitespace-normal break-words pl-2">Each supplier wanting "their own zone" for liability reasons</li>
+<li class="whitespace-normal break-words pl-2">Belief that more zones = more security</li>
+<li class="whitespace-normal break-words pl-2">Confusion between security zones and network segments</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>More zones don't automatically mean more security</strong>—they mean more complexity.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Each additional zone creates:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">More firewall policies to maintain</li>
+<li class="whitespace-normal break-words pl-2">More boundary protection devices to manage</li>
+<li class="whitespace-normal break-words pl-2">More potential points of misconfiguration</li>
+<li class="whitespace-normal break-words pl-2">More documentation to maintain</li>
+<li class="whitespace-normal break-words pl-2">More complexity for crew operations</li>
+<li class="whitespace-normal break-words pl-2">Higher cost (more equipment, more labor)</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>UR E26 doesn't require isolated zones for every system</strong>. It requires that systems with similar security needs be grouped together and protected appropriately.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Hidden Cost</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Consider the operational burden:</p><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><span face="var(--font-mono)" style="color: #14181f;">Scenario: Security Update Rollout</span></p><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">
+6 Zones:
+- 6 firewall devices to update
+- 6 sets of rules to verify  
+- 6 isolation tests to perform
+- Manageable in 1-2 days
+
+40 Zones:  
+- 40 firewall devices to update
+- 40 sets of rules to verify
+- 40 isolation tests to perform
+- Requires 2+ weeks
+- High risk of errors</code></pre></div></div>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">One shipowner told us: "We designed for maximum security but ended up with minimum maintainability. The crew can't manage it, suppliers can't troubleshoot it, and our OPEX is through the roof."</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Optimize for the minimum necessary zones</strong>, based on:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Distinct security requirements</strong> (not just "nice to have" separation)</li>
+<li class="whitespace-normal break-words pl-2"><strong>Operational independence needs</strong> (UR E26 4.4.3)</li>
+<li class="whitespace-normal break-words pl-2"><strong>Criticality tiers</strong> (essential vs. non-essential services)</li>
+<li class="whitespace-normal break-words pl-2"><strong>Regulatory mandates</strong> (navigation ≠ machinery per E26 4.2.1.3)</li>
+<li class="whitespace-normal break-words pl-2"><strong>Practical maintainability</strong> (crew capability, cost, complexity)</li>
+</ol>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Our typical design</strong>: 4-8 zones for most commercial vessels, rarely exceeding 12 even for complex ships.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The Over-Engineered LNG Carrier</h3>
+<p class="font-claude-response-body break-words whitespace-pre-wrap leading-[1.7]">Initial design: 47 security zones
+Firewall rules: 2,340+
+Documentation: 890 pages of zone specifications</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>First-year operations</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">18 cyber-related alarms (all false positives)</li>
+<li class="whitespace-normal break-words pl-2">6 incidents of crew accidentally isolating critical systems</li>
+<li class="whitespace-normal break-words pl-2">3 supplier interventions requiring remote access (each taking 4+ hours due to zone complexity)</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Re-design to 9 zones</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Firewall rules: 340</li>
+<li class="whitespace-normal break-words pl-2">Documentation: 140 pages</li>
+<li class="whitespace-normal break-words pl-2">False positive rate: reduced by 85%</li>
+<li class="whitespace-normal break-words pl-2">Remote access time: reduced to &lt;1 hour</li>
+<li class="whitespace-normal break-words pl-2">Annual maintenance cost: reduced by 60%</li>
+</ul>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #3: Ignoring the Wireless Wild West</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Treating wireless networks as an afterthought, or worse, ignoring the E26 requirement that "wireless devices shall be in dedicated security zones" (4.2.1.3).</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Wireless infrastructure often added late in the build process</li>
+<li class="whitespace-normal break-words pl-2">Multiple suppliers installing their own wireless access points</li>
+<li class="whitespace-normal break-words pl-2">Crew bringing personal WiFi routers onboard</li>
+<li class="whitespace-normal break-words pl-2">Bluetooth devices proliferating without documentation</li>
+<li class="whitespace-normal break-words pl-2">"It's just WiFi, how dangerous could it be?"</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Wireless networks are <strong>inherently more vulnerable</strong> than wired networks (UR E26 4.2.5.2 acknowledges this). Every wireless access point is a potential entry vector.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">What we commonly find on vessels:</p><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><span face="var(--font-mono)" style="color: #14181f;">Undocumented Wireless Networks:</span></p><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">├─ Engine monitoring system (supplier-installed)
+├─ HVAC control (different supplier, different WiFi)
+├─ Cargo monitoring (yet another isolated WiFi)
+├─ Crew welfare network (IT department)
+├─ Guest network (captain's initiative)  
+├─ Multiple personal hotspots (crew phones)
+└─ Bluetooth devices (uncountable)</code></pre></div></div>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>None of these are in documented security zones</strong>. All violate E26 requirements. Each represents a gap in the ship's cyber resilience.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Consequences</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Real incident from our case files (details anonymized):</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">A container vessel's steering system experienced unexplained intermittent failures. Investigation revealed:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Supplier had installed wireless transmitters for rudder angle sensors</li>
+<li class="whitespace-normal break-words pl-2">Crew had installed a personal WiFi router nearby for better cabin coverage</li>
+<li class="whitespace-normal break-words pl-2">The router was on the same frequency</li>
+<li class="whitespace-normal break-words pl-2">Interference caused packet loss → steering anomalies</li>
+</ol>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Not a cyber attack, but a violation of E26 wireless requirements that created a safety risk.</strong></p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Wireless-First Zone Design</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Inventory ALL wireless</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Document every radio transmitter (WiFi, Bluetooth, proprietary)</li>
+<li class="whitespace-normal break-words pl-2">Include supplier equipment, IT infrastructure, crew devices</li>
+<li class="whitespace-normal break-words pl-2">Map frequencies and coverage areas</li>
+<li class="whitespace-normal break-words pl-2">Identify all wireless-enabled components in CBS</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Dedicated wireless zones</strong> (not optional, it's required):</li>
+</ol><div><span face="var(--font-mono)" style="color: #14181f;"><br /></span></div><div><span face="var(--font-mono)" style="color: #14181f;">Wireless Zone Architecture:</span></div><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   
+   Zone W1: OT Wireless (isolated)
+   └─ Engine/machinery wireless sensors
+   └─ Controlled by OT security policies
+   └─ No dual-homed devices (E26 4.2.5.3)
+   
+   Zone W2: Navigation Wireless (isolated)  
+   └─ Navigation system wireless components
+   └─ Separate from OT and IT
+   
+   Zone W3: Crew/Guest WiFi (untrusted)
+   └─ Internet-connected only
+   └─ Physically segmented from all OT zones
+   └─ Encrypted (WPA3) per E26 4.2.5.3</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="3">
+<li class="whitespace-normal break-words pl-2"><strong>Strict policies</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">No unauthorized wireless devices</li>
+<li class="whitespace-normal break-words pl-2">All wireless in asset inventory (UR E26 4.1.1)</li>
+<li class="whitespace-normal break-words pl-2">Regular wireless scanning (detect rogue APs)</li>
+<li class="whitespace-normal break-words pl-2">Encryption mandatory (UR E26 4.2.5.3)</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Physical and logical separation</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Wireless devices cannot be "dual-homed" (E26 4.2.5.3 explicit requirement)</li>
+<li class="whitespace-normal break-words pl-2">No wireless to wired bridging without zone boundary protection</li>
+<li class="whitespace-normal break-words pl-2">Regular audit of wireless spectrum</li>
+</ul>
+</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The Hidden WiFi</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Classification Society survey discovered 14 undocumented wireless access points during a Special Survey. Systems integrator had no records. Suppliers had installed them "for convenience" during commissioning.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Result</strong>: Vessel detained, 6-week delay, €450K in costs (surveyor time, fixes, re-testing, schedule disruption).</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Prevention cost would have been</strong>: Comprehensive wireless inventory and proper zone allocation during design phase. Estimate: €15K.</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #4: The "Air Gap" Illusion</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Believing that physical disconnection ("air gapping") automatically creates a secure zone boundary—and that air-gapped systems don't need zone documentation.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">"If it's not connected, it's not vulnerable" mentality</li>
+<li class="whitespace-normal break-words pl-2">Confusing "isolated" with "air-gapped"</li>
+<li class="whitespace-normal break-words pl-2">Assuming air gaps are permanent</li>
+<li class="whitespace-normal break-words pl-2">Underestimating indirect connection vectors</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>True air gaps are rare and difficult to maintain</strong>. What teams call "air-gapped" is often just "temporarily disconnected."</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Common "air gap" scenarios that aren't:</p><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><span face="var(--font-mono)" style="color: #14181f;">Scenario 1: The Maintenance Laptop</span></p><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">System: "Air-gapped" ballast control system
+Reality: Service engineer connects laptop for diagnostics every 3 months
+Vector: Laptop has been to 40 other ships, multiple shore facilities
+Status: Not air-gapped, just periodically connected
+
+Scenario 2: The USB Update
+System: "Air-gapped" main engine ECU  
+Reality: Software updates via USB stick from shore
+Vector: USB stick used on shore computers, other ships
+Status: Not air-gapped, indirect connection via removable media
+
+Scenario 3: The "Temporary" Connection
+System: "Air-gapped" cargo system
+Reality: Connected to office network for "one-time" data export
+Vector: "Temporary" cable still installed, used monthly
+Status: Not air-gapped, intermittently connected</code></pre></div></div>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>UR E26 recognizes this</strong>: Systems that are "air-gapped" but receive maintenance or updates via removable media are still subject to malware protection requirements (4.2.3), access control (4.2.4), and mobile device controls (4.2.7).</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Honest Assessment of "Air Gaps"</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Challenge every air gap claim</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">How are software updates delivered?</li>
+<li class="whitespace-normal break-words pl-2">How is maintenance performed?</li>
+<li class="whitespace-normal break-words pl-2">Are there any removable media interfaces?</li>
+<li class="whitespace-normal break-words pl-2">Any "temporary" connections for commissioning/testing?</li>
+<li class="whitespace-normal break-words pl-2">Any wireless capabilities (even if "disabled")?</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Document air gaps properly</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">If truly air-gapped → still document as a zone</li>
+<li class="whitespace-normal break-words pl-2">Specify how the gap is maintained</li>
+<li class="whitespace-normal break-words pl-2">Define procedures for any breaches (updates, maintenance)</li>
+<li class="whitespace-normal break-words pl-2">Implement compensating controls (UR E27 Section 2.4)</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Design for reality, not theory</strong>:</li>
+</ol><div><br /></div>
+<div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="sticky opacity-0 group-hover/copy:opacity-100 top-2 py-2 h-12 w-0 float-right"><div class="absolute right-0 h-8 px-2 items-center inline-flex z-10"><button aria-label="클립보드에 복사" class="inline-flex items-center justify-center relative shrink-0 can-focus select-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none disabled:drop-shadow-none border-transparent transition font-base duration-300 ease-[cubic-bezier(0.165,0.85,0.45,1)] h-8 w-8 rounded-md active:scale-95 backdrop-blur-md Button_ghost__BUAoh" data-state="closed" type="button"><div class="relative"><div class="transition-all opacity-100 scale-100" style="align-items: center; display: flex; height: 20px; justify-content: center; width: 20px;"><svg aria-hidden="true" class="transition-all opacity-100 scale-100" fill="currentColor" height="20" style="flex-shrink: 0;" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 3C13.3284 3 14 3.67157 14 4.5V6H15.5C16.3284 6 17 6.67157 17 7.5V15.5C17 16.3284 16.3284 17 15.5 17H7.5C6.67157 17 6 16.3284 6 15.5V14H4.5C3.67157 14 3 13.3284 3 12.5V4.5C3 3.67157 3.67157 3 4.5 3H12.5ZM14 12.5C14 13.3284 13.3284 14 12.5 14H7V15.5C7 15.7761 7.22386 16 7.5 16H15.5C15.7761 16 16 15.7761 16 15.5V7.5C16 7.22386 15.7761 7 15.5 7H14V12.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V12.5C4 12.7761 4.22386 13 4.5 13H12.5C12.7761 13 13 12.7761 13 12.5V4.5C13 4.22386 12.7761 4 12.5 4H4.5Z"></path></svg></div><div class="absolute inset-0 flex items-center justify-center"><div class="transition-all opacity-0 scale-50" style="align-items: center; display: flex; height: 20px; justify-content: center; width: 20px;"><svg aria-hidden="true" class="transition-all opacity-0 scale-50" fill="currentColor" height="20" style="flex-shrink: 0;" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M15.1883 5.10908C15.3699 4.96398 15.6346 4.96153 15.8202 5.11592C16.0056 5.27067 16.0504 5.53125 15.9403 5.73605L15.8836 5.82003L8.38354 14.8202C8.29361 14.9279 8.16242 14.9925 8.02221 14.9989C7.88203 15.0051 7.74545 14.9526 7.64622 14.8534L4.14617 11.3533L4.08172 11.2752C3.95384 11.0811 3.97542 10.817 4.14617 10.6463C4.31693 10.4755 4.58105 10.4539 4.77509 10.5818L4.85321 10.6463L7.96556 13.7586L15.1161 5.1794L15.1883 5.10908Z"></path></svg></div></div></div></button></div></div><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">  Instead of: "Air-gapped, no security measures needed"
+   
+   Design for:  
+   ├─ Removable media controls (UR E26 4.2.4.3.4)
+   ├─ Malware scanning before media insertion (E26 4.2.3)
+   ├─ Portable device restrictions (E26 4.2.7)
+   ├─ Procedures for "temporary" connections
+   └─ Access control for physical interfaces</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="4">
+<li class="whitespace-normal break-words pl-2"><strong>When air gaps make sense</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Cat III systems where network connection isn't operationally necessary</li>
+<li class="whitespace-normal break-words pl-2">Systems with very infrequent update requirements</li>
+<li class="whitespace-normal break-words pl-2">Systems where the cost of network security exceeds air gap cost</li>
+<li class="whitespace-normal break-words pl-2">Legacy systems where adding network security is impractical</li>
+</ul>
+<strong>But</strong>: Document them, protect them, manage them as zones.</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The "Isolated" DP System</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">DP Class 3 system delivered as "air-gapped from all networks for maximum security."</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Reality discovered during commissioning</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Redundant workstations connected to ship network for "data logging"</li>
+<li class="whitespace-normal break-words pl-2">Service USB ports accessible in public corridor</li>
+<li class="whitespace-normal break-words pl-2">WiFi adapter installed (disabled in software) for "future use"</li>
+<li class="whitespace-normal break-words pl-2">Bluetooth enabled for "wireless keyboard option"</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Not remotely air-gapped</strong>. Required complete re-design to either:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">True air gap (remove all connection capability), OR</li>
+<li class="whitespace-normal break-words pl-2">Proper network zone integration with boundary protection</li>
+</ol>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Shipowner chose option 2. <strong>Cost</strong>: €180K redesign + 4-week delay.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Lesson</strong>: If you're going to claim air gap, commit fully. Otherwise, design proper zone integration from the start.</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #5: Forgetting "Untrusted Networks"</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Focusing all zone design on internal ship systems while neglecting the boundary between ship and shore—what E26 calls "untrusted networks."</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Zone design starts with ship systems (the familiar)</li>
+<li class="whitespace-normal break-words pl-2">Shore connections added later ("just IT stuff")</li>
+<li class="whitespace-normal break-words pl-2">Misconception that untrusted networks are IT department's problem</li>
+<li class="whitespace-normal break-words pl-2">Underestimating OT systems' shore connectivity</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>More OT systems connect to shore than most people realize</strong>:</p><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><span face="var(--font-mono)" style="color: #14181f;">Typical Vessel's Shore Connections:</span></p><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">
+1. Remote Monitoring
+   ├─ Engine performance monitoring
+   ├─ Fleet management system
+   ├─ Condition-based maintenance
+   └─ Fuel optimization
+
+2. Remote Maintenance  
+   ├─ Supplier diagnostic access
+   ├─ Software updates/patches
+   ├─ Configuration changes
+   └─ Emergency support
+
+3. Data Exchange
+   ├─ Noon reports
+   ├─ Cargo data integration
+   ├─ Compliance reporting  
+   └─ Weather routing
+
+4. "Smart Ship" Services
+   ├─ Predictive analytics
+   ├─ Digital twin data feeds
+   ├─ AI-based optimization
+   └─ Cloud-based platforms</code></pre></div></div>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Every one of these is an interface to an untrusted network</strong> and must be documented and protected per UR E26 Section 4.2.6.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">E26 is explicit:</p>
+<blockquote class="ml-2 border-l-4 border-border-300/10 pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">"For CBSs in the scope of applicability of this UR, no IP address shall be exposed to untrusted networks." (4.2.6.3)</p>
+</blockquote>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Consequences</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">We reviewed a Zones and Conduit Diagram for a new VLCC. It showed beautiful internal zone architecture but had a single box labeled "Shore Connection" with no details.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">During detailed review:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">14 different OT systems had shore connectivity</li>
+<li class="whitespace-normal break-words pl-2">6 different VPN solutions in use</li>
+<li class="whitespace-normal break-words pl-2">3 systems exposed public IP addresses directly</li>
+<li class="whitespace-normal break-words pl-2">No consistent firewall policy</li>
+<li class="whitespace-normal break-words pl-2"><strong>Zero documentation of how this complied with E26 4.2.6</strong></li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Classification Society: "This is not approvable. Re-submit with compliant design."</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Untrusted Network Interface as Primary Design Concern</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Inventory all shore connectivity</strong>:</li></ol>&nbsp; &nbsp;For Each CBS in Scope:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   ├─ Does it connect to shore? (even indirectly)
+   ├─ How? (VPN, direct, satellite, mobile data)
+   ├─ For what purpose?  
+   ├─ What data flows?
+   ├─ How often?
+   ├─ Who initiates? (ship or shore)
+   └─ Who has remote access?</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="2">
+<li class="whitespace-normal break-words pl-2"><strong>Consolidated shore interface</strong>:</li></ol>&nbsp; &nbsp;Recommended Architecture:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   
+   Untrusted Network (Internet/Shore)
+           |
+           ↓
+   [DMZ Zone] - Zone Boundary Protection
+      ├─ VPN concentrator
+      ├─ Firewall (explicit rules per E26 4.2.6.3)
+      ├─ Intrusion detection  
+      └─ Connection logging
+           |
+           ↓
+   [Shore Interface Zone] - Internal boundary
+      ├─ Jump server / bastion host
+      ├─ Multi-factor authentication (E27 item 31)
+      ├─ Session recording
+      └─ Explicit approval mechanism (E26 4.2.6.3.1)
+           |
+           ↓
+   Individual OT Security Zones</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="3">
+<li class="whitespace-normal break-words pl-2"><strong>E26 4.2.6.3 compliance checklist</strong>:
+<ul class="contains-task-list">
+<li class="task-list-item"><input disabled="" type="checkbox" /> No CBS has IP exposed to untrusted network</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Secure connections with encryption (network/transport layer)</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Endpoint authentication both ends</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Onboard personnel can terminate connection (4.2.6.3.1)</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Remote access requires explicit acceptance (4.2.6.3.1)</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Managed interruptions don't compromise safety (4.2.6.3.1)</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> All remote access events logged (4.2.6.3.1)</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Multi-factor authentication for human access (4.2.6.3.2)</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Failed login attempts limited (E27 item 33)</li>
+<li class="task-list-item"><input disabled="" type="checkbox" /> Automatic logout on connection loss (4.2.6.3.2)</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Document in Zones and Conduit Diagram</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Show untrusted network zone(s)</li>
+<li class="whitespace-normal break-words pl-2">Show all conduits (connections) to untrusted networks</li>
+<li class="whitespace-normal break-words pl-2">Specify boundary protection for each conduit</li>
+<li class="whitespace-normal break-words pl-2">Reference firewall rules in CSDD</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Special consideration: Supplier remote access</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Not "always on"—only enabled when needed</li>
+<li class="whitespace-normal break-words pl-2">Requires ship approval for each session (E26 4.2.6.3.1)</li>
+<li class="whitespace-normal break-words pl-2">Time-limited sessions</li>
+<li class="whitespace-normal break-words pl-2">Logged and auditable (E27 item 13)</li>
+<li class="whitespace-normal break-words pl-2">Ability to terminate from ship side</li>
+</ul>
+</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The Vendor VPN Nightmare</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Shipowner discovered (during cyber incident investigation) that 8 different equipment suppliers had "permanent" VPN connections to ship systems. Some had been active for years without shipowner knowledge.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Compliance violations</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">No explicit access approval mechanism</li>
+<li class="whitespace-normal break-words pl-2">No session termination capability from ship</li>
+<li class="whitespace-normal break-words pl-2">No multi-factor authentication (several used default passwords)</li>
+<li class="whitespace-normal break-words pl-2">No logging of remote access events</li>
+<li class="whitespace-normal break-words pl-2">IP addresses exposed to untrusted networks</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Result</strong>: Complete remote access redesign across 24-vessel fleet. Cost: €1.2M + 8 months.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Root cause</strong>: Shore connectivity treated as "vendor's responsibility" rather than integrated into zone design.</p><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><br /></p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #6: Static Documentation for Dynamic Systems</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Creating beautiful Zones and Conduit Diagrams during newbuild—then never updating them as the ship evolves.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">E26 is new; update procedures not yet established</li>
+<li class="whitespace-normal break-words pl-2">Assumption that zones are "set and forget"</li>
+<li class="whitespace-normal break-words pl-2">Management of Change (MoC) processes don't trigger zone diagram updates</li>
+<li class="whitespace-normal break-words pl-2">No clear owner for maintaining zone documentation</li>
+<li class="whitespace-normal break-words pl-2">Updates are tedious and time-consuming</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Ships are living systems</strong>. Over a vessel's 20-25 year life:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Systems are upgraded</li>
+<li class="whitespace-normal break-words pl-2">New equipment is added</li>
+<li class="whitespace-normal break-words pl-2">Network configurations change</li>
+<li class="whitespace-normal break-words pl-2">Suppliers install "temporary" connections that become permanent</li>
+<li class="whitespace-normal break-words pl-2">Software updates alter network behavior</li>
+<li class="whitespace-normal break-words pl-2">Wireless devices proliferate</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>UR E26 4.1.1.3 is explicit</strong>:</p>
+<blockquote class="ml-2 border-l-4 border-border-300/10 pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">"The inventory shall be kept updated during the entire life of the ship. Software and hardware modifications potentially introducing new vulnerabilities or modifying functional dependencies or connections among systems shall be recorded in the inventory."</p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">This applies equally to the Zones and Conduit Diagram—it's part of the vessel asset inventory.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Consequences</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>First Annual Survey scenario</strong>:</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Surveyor: "Please show me the current Zones and Conduit Diagram."
+Ship: <em>Produces diagram from delivery 2 years ago</em>
+Surveyor: <em>Walks to engine room, finds new monitoring system installed 6 months ago</em> "Is this in your diagram?"
+Ship: "Uh... probably not?"
+Surveyor: "Show me how this system is allocated to a security zone."
+Ship: <em>Cannot</em></p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Result</strong>: Non-conformity. Must update diagram, re-verify zone allocation, potentially re-test boundary protection. Survey delayed.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Living Documentation Strategy</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Assign clear ownership</strong>:</li></ol>&nbsp; &nbsp;Documentation Responsibility Matrix:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   
+   During Newbuild:
+   └─ Systems Integrator owns and maintains
+   
+   After Delivery:
+   ├─ Fleet IT/OT Manager: overall ownership
+   ├─ Ship's Master: verification of accuracy
+   ├─ Superintendent: approval of changes
+   └─ DPA: integration with SMS</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="2">
+<li class="whitespace-normal break-words pl-2"><strong>MoC triggers for zone updates</strong>:</li></ol>&nbsp; &nbsp;Any of these trigger zone diagram review:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   ├─ New CBS installation
+   ├─ CBS upgrade/modification
+   ├─ Network configuration changes
+   ├─ New shore connectivity
+   ├─ Wireless device addition
+   ├─ Software updates affecting network behavior
+   └─ "Temporary" connections exceeding 30 days</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="3">
+<li class="whitespace-normal break-words pl-2"><strong>Version control discipline</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Date stamp all diagrams clearly</li>
+<li class="whitespace-normal break-words pl-2">Version number (major.minor):
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Major: new zones, zone reallocation</li>
+<li class="whitespace-normal break-words pl-2">Minor: updates within existing zones</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2">Change log: what changed, when, why, by whom</li>
+<li class="whitespace-normal break-words pl-2">Annual review even if no changes</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Lightweight update process</strong>:
+Don't require full re-submission to Class for minor updates. Instead:</li></ol>Update Process:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   
+   Minor Changes (within existing zones):
+   ├─ Update diagram internally
+   ├─ Document in change log
+   ├─ Present at next Annual Survey
+   └─ No pre-approval required
+   
+   Major Changes (new zones, re-allocation):
+   ├─ Update diagram
+   ├─ Submit to Classification Society
+   ├─ Await approval
+   └─ Implement
+   
+   Emergency Changes (safety/security critical):
+   ├─ Implement immediately if needed
+   ├─ Document thoroughly  
+   ├─ Submit to Class within 30 days
+   └─ Regularize at next survey</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="5">
+<li class="whitespace-normal break-words pl-2"><strong>Digital tools</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Use editable format (not just PDF)</li>
+<li class="whitespace-normal break-words pl-2">Consider network diagramming tools (Visio, Lucidchart, draw.io)</li>
+<li class="whitespace-normal break-words pl-2">Maintain source files on ship and shore</li>
+<li class="whitespace-normal break-words pl-2">Cloud backup (in secure, controlled manner)</li>
+</ul>
+</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The Well-Maintained Fleet</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">One shipowner we work with has 18 LNG carriers. Their approach:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Zones and Conduit Diagrams in SharePoint (version controlled)</li>
+<li class="whitespace-normal break-words pl-2">Fleet-wide monthly review call (30 min, all vessels)</li>
+<li class="whitespace-normal break-words pl-2">Any changes discussed, diagram updates coordinated</li>
+<li class="whitespace-normal break-words pl-2">Quarterly consolidated submission to Classification Society</li>
+<li class="whitespace-normal break-words pl-2">Annual audit by independent consultant (us)</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Result over 3 years</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Zero Annual Survey delays due to zone documentation</li>
+<li class="whitespace-normal break-words pl-2">Rapid incident response (accurate diagrams enable faster troubleshooting)</li>
+<li class="whitespace-normal break-words pl-2">Proactive identification of configuration drift</li>
+<li class="whitespace-normal break-words pl-2"><strong>Estimated cost savings</strong>: €500K+ vs. reactive approach</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Key insight</strong>: "The diagram is not a deliverable, it's a living tool. We use it weekly for troubleshooting, planning, and training. Of course we keep it updated."</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #7: Boundary Protection as an Afterthought</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Designing zone architecture meticulously, then treating the actual boundary protection (firewalls, routers, diodes) as "implementation details" to be figured out later.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Separation of responsibilities (network architect vs. installation team)</li>
+<li class="whitespace-normal break-words pl-2">"We'll specify firewall during procurement"</li>
+<li class="whitespace-normal break-words pl-2">Budget pressure (boundary devices are expensive)</li>
+<li class="whitespace-normal break-words pl-2">Assumption that "any firewall will do"</li>
+<li class="whitespace-normal break-words pl-2">Not understanding E26's specific requirements</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>UR E26 4.2.1 states</strong>:</p>
+<blockquote class="ml-2 border-l-4 border-border-300/10 pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">"Security zones shall either be isolated (i.e. air gapped) or connected to other security zones or networks by means providing control of data communicated between the zones (e.g. firewalls/routers, simplex serial links, TCP/IP diodes, dry contacts, etc.)"</p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Note "providing control of data communicated"—not just "separated by." There are <strong>specific technical requirements</strong> for boundary protection:</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">From E26 4.2.2:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Firewalls or equivalent means</li>
+<li class="whitespace-normal break-words pl-2">Protection against excessive data flow rate (DoS)</li>
+<li class="whitespace-normal break-words pl-2">Principle of Least Functionality</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">From E26 4.2.1.1:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Only explicitly allowed traffic shall traverse</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>This requires</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Explicit firewall rules (not default-allow)</li>
+<li class="whitespace-normal break-words pl-2">DoS protection capability</li>
+<li class="whitespace-normal break-words pl-2">Traffic monitoring/logging</li>
+<li class="whitespace-normal break-words pl-2">Management interface security</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Consequences</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Common scenario</strong>:</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Zones and Conduit Diagram shows 6 zones with 12 conduits (zone-to-zone connections). Approved by Classification Society during design review.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">FAT time: "What firewall will you use for these boundaries?"</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Systems Integrator: "We... haven't specified that yet. Can we use [commercial IT firewall brand]?"</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Issue: Commercial IT firewall may not meet:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">OT network requirements (deterministic performance)</li>
+<li class="whitespace-normal break-words pl-2">Environmental qualifications (UR E10)</li>
+<li class="whitespace-normal break-words pl-2">DoS protection requirements for OT traffic</li>
+<li class="whitespace-normal break-words pl-2">Visibility into OT protocols</li>
+<li class="whitespace-normal break-words pl-2">Available port count/bandwidth</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Result: Emergency procurement, schedule delay, potential redesign of zone boundaries to fit available equipment.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Boundary Protection as Core Design Element</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Specify boundary protection during zone design</strong>:</li></ol>For Each Conduit (zone boundary):<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   ├─ What data must traverse? (protocols, rates, direction)
+   ├─ What protection level is needed?
+   │   ├─ Stateful firewall
+   │   ├─ Application-aware firewall  
+   │   ├─ Data diode (unidirectional)
+   │   └─ Protocol gateway/proxy
+   ├─ What performance is required? (latency, throughput)
+   ├─ What environmental rating? (UR E10)
+   └─ What management capability? (local, remote, none)</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="2">
+<li class="whitespace-normal break-words pl-2"><strong>Early vendor engagement</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Identify suitable products during design</li>
+<li class="whitespace-normal break-words pl-2">Verify technical specifications match requirements</li>
+<li class="whitespace-normal break-words pl-2">Confirm availability and lead time</li>
+<li class="whitespace-normal break-words pl-2">Get budget pricing</li>
+<li class="whitespace-normal break-words pl-2">Don't wait until procurement phase</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Firewall rule specification</strong>:
+<strong>Poor approach</strong>: "Firewall between Zone 1 and Zone 2"
+<strong>ShipJobs approach</strong>:</li></ol>Conduit C1: Engine Control Zone → Monitoring Zone<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   
+   Allowed Traffic:
+   ├─ MODBUS TCP: Engine ECU (10.1.5.10) → Monitoring Server (10.2.1.20)
+   │   Port: 502, Direction: Unidirectional (data diode)
+   ├─ OPC UA: Engine Sensors (10.1.5.0/24) → HMI (10.2.1.15)
+   │   Port: 4840, Direction: Monitored reads only
+   └─ NTP: Monitoring NTP Server (10.2.1.5) → All Engine Zone devices
+       Port: 123, Direction: Inbound to Zone 1 only
+   
+   Denied: All other traffic (default deny)
+   
+   DoS Protection: Rate limit 100 Mbps, 10,000 pps
+   
+   Logging: All denied connection attempts
+   
+   Hardware: Industrial firewall, -25 to +55°C rated</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="4">
+<li class="whitespace-normal break-words pl-2"><strong>Testing boundary protection</strong> (critical for FAT):
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Verify explicit allow rules work</li>
+<li class="whitespace-normal break-words pl-2">Verify default deny (attempt prohibited traffic)</li>
+<li class="whitespace-normal break-words pl-2">Verify DoS protection (flood test)</li>
+<li class="whitespace-normal break-words pl-2">Verify logging functionality</li>
+<li class="whitespace-normal break-words pl-2">Document results</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Types of boundary protection</strong>:
+Know when to use each:
+<strong>Firewall</strong> (most common):
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Bidirectional traffic needed</li>
+<li class="whitespace-normal break-words pl-2">Complex rule sets</li>
+<li class="whitespace-normal break-words pl-2">Multiple protocols</li>
+<li class="whitespace-normal break-words pl-2">Example: Navigation Zone ↔ Monitoring Zone</li>
+</ul>
+<strong>Data Diode</strong> (unidirectional):
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Monitoring only (no control back)</li>
+<li class="whitespace-normal break-words pl-2">Highest security requirement</li>
+<li class="whitespace-normal break-words pl-2">Defense in depth</li>
+<li class="whitespace-normal break-words pl-2">Example: Engine Control → Shore Monitoring</li>
+</ul>
+<strong>Protocol Gateway</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Protocol translation needed</li>
+<li class="whitespace-normal break-words pl-2">Deep packet inspection required</li>
+<li class="whitespace-normal break-words pl-2">Example: Proprietary protocol → Standard protocol</li>
+</ul>
+<strong>Physical Isolation</strong> (air gap):
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">No network communication required</li>
+<li class="whitespace-normal break-words pl-2">Highest security + operational independence</li>
+<li class="whitespace-normal break-words pl-2">Example: Emergency systems</li>
+</ul>
+</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The Firewall Bottleneck</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">New build specified 8 security zones requiring 14 boundary protection devices (firewalls). Design approved.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Procurement phase: Selected low-cost IT firewalls not rated for marine environment.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Commissioning: Firewalls failed environmental testing (vibration, temperature, EMI).</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Emergency re-procurement of industrial-grade firewalls: <strong>€180K additional cost, 6-week delay</strong>.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Prevention</strong>: Specify environmental and technical requirements for boundary protection <strong>during zone design</strong>, not during procurement.</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #8: Neglecting Human Factors</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Designing technically perfect zone architecture that the crew cannot operate or maintain.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Engineers design for technical elegance, not operational simplicity</li>
+<li class="whitespace-normal break-words pl-2">Underestimating crew workload and cyber security competence</li>
+<li class="whitespace-normal break-words pl-2">Not involving ship personnel in design process</li>
+<li class="whitespace-normal break-words pl-2">Assuming shore support will handle everything</li>
+<li class="whitespace-normal break-words pl-2">Forgetting E26 must work 24/7/365 in all conditions</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Ship crews are not cyber security experts</strong>. They're navigators, engineers, deck officers with:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Minimal cyber training (slowly improving)</li>
+<li class="whitespace-normal break-words pl-2">High workload (especially short-handed vessels)</li>
+<li class="whitespace-normal break-words pl-2">Responsibility for vessel safety (cyber security is one of many concerns)</li>
+<li class="whitespace-normal break-words pl-2">Limited shore support (especially in transit)</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>UR E26 4.4.3.3 requires</strong>:</p>
+<blockquote class="ml-2 border-l-4 border-border-300/10 pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">"There shall be available instructions and clear marking on the device that allows the personnel to isolate the network in an efficient manner."</p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">This implies: <strong>Crew must be able to operate zone isolation during an incident</strong>.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">But if your zone architecture requires:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Logging into 6 different firewall management interfaces</li>
+<li class="whitespace-normal break-words pl-2">Understanding complex network topology</li>
+<li class="whitespace-normal break-words pl-2">Making critical decisions about which zones to isolate</li>
+<li class="whitespace-normal break-words pl-2">Technical knowledge beyond typical crew training</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Your crew cannot execute E26 response procedures effectively</strong>.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Consequences</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Real incident</strong> (anonymized):</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Vessel experienced suspected cyber incident (unusual network traffic). Incident Response Plan said: "Isolate affected security zone."</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Chief Engineer attempted to isolate zone per procedure. Couldn't determine which firewall controlled which zone. Accidentally isolated wrong zone. Disrupted ballast system during cargo operations.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Result</strong>: Near miss (stability issue), investigation, procedure revision, crew retraining.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Root cause</strong>: Zone architecture designed without crew input, overly complex for shipboard operation.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Design for Human Operation</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Crew involvement in design</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Review Zones and Conduit Diagram with Master, Chief Engineer</li>
+<li class="whitespace-normal break-words pl-2">Explain what each zone does, why it exists</li>
+<li class="whitespace-normal break-words pl-2">Walk through isolation procedures</li>
+<li class="whitespace-normal break-words pl-2">Get their input: "Can you operate this?"</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Simplicity as a design principle</strong>:</li></ol>Technical Perfection vs. Operational Reality:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   
+   Option A: 12 zones, maximum isolation
+   └─ Crew cannot determine which zone is affected during incident
+   
+   Option B: 6 zones, operational clarity
+   └─ Crew can quickly identify and isolate affected zone
+   
+   Choose Option B.</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="3">
+<li class="whitespace-normal break-words pl-2"><strong>Clear labeling and documentation</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Physical labels on firewalls: "Engine Zone Firewall"</li>
+<li class="whitespace-normal break-words pl-2">One-page laminated poster: Zone diagram with isolation instructions</li>
+<li class="whitespace-normal break-words pl-2">Color coding (optional but helpful)</li>
+<li class="whitespace-normal break-words pl-2">Located near network equipment, not buried in a manual</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Isolation procedures that work</strong>:</li></ol>Poor procedure:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   "Isolate Security Zone 3 by accessing firewall management 
+   interface at https://192.168.100.5, login with admin 
+   credentials, navigate to Zone Policies &gt; Outbound Rules &gt; 
+   Disable All"
+   
+   ShipJobs procedure:
+   "ZONE 3 - CARGO SYSTEM ISOLATION
+   
+   Location: Engine Control Room, port side rack
+   
+   To Isolate:
+   1. Locate firewall labeled 'CARGO ZONE FW'
+   2. Press and hold RED button for 5 seconds
+   3. Verify 'ISOLATED' LED illuminates
+   4. Inform bridge and shore office
+   
+   To restore:
+   1. Press GREEN button
+   2. Verify 'CONNECTED' LED illuminates
+   3. Test cargo system functions"</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="5">
+<li class="whitespace-normal break-words pl-2"><strong>Training and drills</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Include zone isolation in cyber drills</li>
+<li class="whitespace-normal break-words pl-2">Practice during commissioning (before delivery)</li>
+<li class="whitespace-normal break-words pl-2">Annual refresher</li>
+<li class="whitespace-normal break-words pl-2">Document in SMS</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Shore support model</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Crew handles: immediate isolation, basic troubleshooting</li>
+<li class="whitespace-normal break-words pl-2">Shore handles: detailed investigation, complex changes, recovery</li>
+<li class="whitespace-normal break-words pl-2">Clear escalation criteria</li>
+</ul>
+</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The User-Friendly Fleet</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">One shipowner's fleet cyber security philosophy: "If our crew can't operate it during a typhoon at 3 AM, it's not a good design."</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Their zone architecture:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">5 zones maximum (regardless of vessel complexity)</li>
+<li class="whitespace-normal break-words pl-2">Physical isolation switches (not software menus)</li>
+<li class="whitespace-normal break-words pl-2">Laminated one-page zone diagram at every control station</li>
+<li class="whitespace-normal break-words pl-2">Monthly drills (5-minute isolation exercises)</li>
+<li class="whitespace-normal break-words pl-2">Crew feedback loop (quarterly survey on procedures)</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Result</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Successful isolation during two actual incidents (malware detected, isolated, contained)</li>
+<li class="whitespace-normal break-words pl-2">High crew confidence in procedures</li>
+<li class="whitespace-normal break-words pl-2">Fast incident response (isolation in &lt;2 minutes)</li>
+<li class="whitespace-normal break-words pl-2">Low false isolation rate</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Quote from Master</strong>: "I don't need to understand firewalls to protect my ship. The design makes it simple to do the right thing."</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #9: Ignoring Existing Installations (Retrofit Denial)</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Designing "perfect" greenfield zone architecture while ignoring that most of the world's fleet is <strong>already built</strong> and must retrofit E26 compliance.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">UR E26 examples focus on newbuild scenarios</li>
+<li class="whitespace-normal break-words pl-2">Retrofit is harder, so teams avoid thinking about it</li>
+<li class="whitespace-normal break-words pl-2">Assumption that existing vessels are "grandfathered" (they're not, entirely)</li>
+<li class="whitespace-normal break-words pl-2">Shipyards prefer designing new over fixing old</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>E26 scope</strong> (1.3.1) includes ships "contracted for construction on or after 1 July 2024."</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">But:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Many ships currently under construction were contracted before cutoff</li>
+<li class="whitespace-normal break-words pl-2">Existing fleet has 20+ years of service life</li>
+<li class="whitespace-normal break-words pl-2">Charterers increasingly demand E26 compliance</li>
+<li class="whitespace-normal break-words pl-2">Insurance may require cyber resilience measures</li>
+<li class="whitespace-normal break-words pl-2">Major conversions may trigger E26 requirements</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Retrofitting security zones onto existing vessels is painful</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Network infrastructure already installed (expensive to change)</li>
+<li class="whitespace-normal break-words pl-2">Systems from multiple suppliers, different eras</li>
+<li class="whitespace-normal break-words pl-2">Limited space for new equipment</li>
+<li class="whitespace-normal break-words pl-2">Operational disruptions during retrofit</li>
+<li class="whitespace-normal break-words pl-2">No "as-designed" documentation (often)</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Real Question</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Not "Is E26 mandatory for this vessel?"</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">But: <strong>"How can we achieve cyber resilience given real-world constraints?"</strong></p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Pragmatic Retrofit Strategy</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Assess current state honestly</strong>:</li></ol>Retrofit Assessment:<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   ├─ Network discovery (what's actually installed)
+   ├─ System inventory (all CBS, not just new ones)
+   ├─ Connectivity mapping (understand what talks to what)
+   ├─ Identify de facto zones (they exist, even if not designed)
+   └─ Document vulnerabilities and gaps</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="2">
+<li class="whitespace-normal break-words pl-2"><strong>Zone overlay on existing architecture</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Don't force "ideal" zones onto incompatible infrastructure</li>
+<li class="whitespace-normal break-words pl-2">Work with what exists</li>
+<li class="whitespace-normal break-words pl-2">Identify minimum necessary changes</li>
+<li class="whitespace-normal break-words pl-2">Prioritize based on risk, not perfection</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Compensating countermeasures</strong> (UR E27 Section 2.4):
+<strong>Example</strong>: Cannot physically separate navigation from machinery network without major expense.
+<strong>Instead</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Logical segmentation (VLANs)</li>
+<li class="whitespace-normal break-words pl-2">Enhanced monitoring (IDS)</li>
+<li class="whitespace-normal break-words pl-2">Strict access controls</li>
+<li class="whitespace-normal break-words pl-2">Procedural controls</li>
+<li class="whitespace-normal break-words pl-2">Document as compensating countermeasure</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Phased approach</strong>:</li></ol>Phase 1: No/Low-Cost Improvements (immediate)<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   ├─ Document existing de facto zones
+   ├─ Implement logical segmentation where possible
+   ├─ Add firewall rules to existing equipment
+   ├─ Enhance access controls
+   └─ Update procedures
+
+   Phase 2: Moderate Investment (next drydock)
+   ├─ Install boundary protection devices
+   ├─ Upgrade critical systems  
+   ├─ Add monitoring/logging capability
+   └─ Crew training
+
+   Phase 3: Major Changes (special survey/major conversion)
+   ├─ Network infrastructure upgrade
+   ├─ Full zone architecture implementation
+   └─ Approach newbuild standard</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="5">
+<li class="whitespace-normal break-words pl-2"><strong>Criteria for triggering retrofit</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Charter requirements</li>
+<li class="whitespace-normal break-words pl-2">Insurance requirements</li>
+<li class="whitespace-normal break-words pl-2">Operational safety needs</li>
+<li class="whitespace-normal break-words pl-2">Major system upgrades (good opportunity)</li>
+<li class="whitespace-normal break-words pl-2">Regulatory requirements (if applicable)</li>
+<li class="whitespace-normal break-words pl-2">Risk assessment findings</li>
+</ul>
+</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: The 15-Year-Old Tanker</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Owner faced charter requirement for "E26-equivalent cyber resilience" on a 2009-built Aframax.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Initial quote for full retrofit</strong>: €1.8M, 60-day drydock.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>ShipJobs approach</strong>:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Documented existing network (it had logical zones, just not labeled)</li>
+<li class="whitespace-normal break-words pl-2">Added 4 industrial firewalls at key boundaries (€80K)</li>
+<li class="whitespace-normal break-words pl-2">Implemented access controls and logging (mostly software/procedures)</li>
+<li class="whitespace-normal break-words pl-2">Created Zones and Conduit Diagram reflecting actual architecture</li>
+<li class="whitespace-normal break-words pl-2">Developed Ship Cyber Security Program appropriate for vessel age</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Cost</strong>: €280K
+<strong>Time</strong>: Completed alongside other drydock work, no additional days
+<strong>Outcome</strong>: Charterer accepted, Classification Society reviewed positively</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Key insight</strong>: "The vessel was more cyber resilient than we thought; we just hadn't documented or formalized it. We didn't need to rebuild everything."</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Pitfall #10: Treating E26 as a Checkbox</h2>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mistake</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Viewing security zones as a compliance exercise ("get the diagram approved") rather than as a foundation for actual cyber resilience.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Why It Happens</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Regulatory pressure to "get certified"</li>
+<li class="whitespace-normal break-words pl-2">Procurement mentality ("just meet the minimum")</li>
+<li class="whitespace-normal break-words pl-2">Separation between compliance team and operations team</li>
+<li class="whitespace-normal break-words pl-2">Not understanding that E26 is about <strong>resilience</strong>, not just rules</li>
+<li class="whitespace-normal break-words pl-2">Time/budget pressure</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Reality</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>UR E26 is titled "Cyber resilience of ships"</strong>—not "Cyber compliance of ships."</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Resilience means:</p>
+<blockquote class="ml-2 border-l-4 border-border-300/10 pl-4 text-text-300">
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">"The capability to reduce the occurrence and mitigating the effects of cyber incidents..." (E26 Section 2)</p>
+</blockquote>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>A Zones and Conduit Diagram is not resilience</strong>. It's a tool to support resilience by:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Organizing systems for effective protection</li>
+<li class="whitespace-normal break-words pl-2">Enabling rapid incident response (isolation)</li>
+<li class="whitespace-normal break-words pl-2">Limiting lateral movement of attacks</li>
+<li class="whitespace-normal break-words pl-2">Supporting recovery operations</li>
+<li class="whitespace-normal break-words pl-2">Facilitating ongoing management</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">If your zones exist only to satisfy a surveyor, <strong>they provide no actual security value</strong>.</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The Mindset Shift</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>From</strong>: "What's the minimum to get approved?"
+<strong>To</strong>: "How can zones help us actually defend this ship?"</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">The ShipJobs Approach</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Zones as Operational Tools</strong>:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Design zones for actual use cases</strong>:</li></ol>Use Case 1: Malware Detection<br /><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">   If malware detected in Crew WiFi zone →
+   └─ Isolate that zone (already designed for isolation)
+   └─ Other zones continue operating
+   └─ Incident contained
+
+   Use Case 2: Supplier Remote Access
+   Supplier needs access to Engine Control System →
+   └─ Connect via dedicated Shore Access Zone
+   └─ Jump to Engine Zone only  
+   └─ Session logged, monitored
+   └─ Can be terminated by crew
+   └─ Other zones never exposed
+
+   Use Case 3: System Upgrade
+   Upgrading navigation software →
+   └─ Isolate Navigation Zone  
+   └─ Machinery operations unaffected
+   └─ Verify in isolation before reconnecting
+   └─ Planned, controlled process</code></pre></div></div>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3" start="2">
+<li class="whitespace-normal break-words pl-2"><strong>Use zones for operational decisions</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Where to install new equipment? (Which zone?)</li>
+<li class="whitespace-normal break-words pl-2">How to connect this system to shore? (Via which zone?)</li>
+<li class="whitespace-normal break-words pl-2">Which systems can be upgraded together? (Same zone)</li>
+<li class="whitespace-normal break-words pl-2">What's the impact of this failure? (Zone dependencies)</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Zones in incident response</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Incident Response Plan references zones by name</li>
+<li class="whitespace-normal break-words pl-2">Isolation procedures are zone-based</li>
+<li class="whitespace-normal break-words pl-2">Recovery priorities are zone-based</li>
+<li class="whitespace-normal break-words pl-2">Drills practice zone isolation</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Zones in everyday operations</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Network monitoring organized by zone</li>
+<li class="whitespace-normal break-words pl-2">Access requests specify zone</li>
+<li class="whitespace-normal break-words pl-2">Change management considers zone impact</li>
+<li class="whitespace-normal break-words pl-2">Crew understands what each zone does</li>
+</ul>
+</li>
+<li class="whitespace-normal break-words pl-2"><strong>Measure actual resilience</strong>:
+<strong>Not</strong>: "Do we have an approved Zones and Conduit Diagram?"
+<strong>But</strong>:
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Can we isolate a compromised zone in &lt;5 minutes?</li>
+<li class="whitespace-normal break-words pl-2">Can the ship operate with Zone X isolated?</li>
+<li class="whitespace-normal break-words pl-2">Do crew know which zone contains which systems?</li>
+<li class="whitespace-normal break-words pl-2">Can we recover a failed zone without affecting others?</li>
+<li class="whitespace-normal break-words pl-2">Have we tested isolation procedures?</li>
+</ul>
+</li>
+</ol>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Case Study: Two LNG Carriers</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Vessel A</strong>: Beautiful Zones and Conduit Diagram, approved by Class. 8 zones, detailed documentation. <strong>Never practiced isolation</strong>. Crew didn't know what the zones were.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Cyber incident (malware on crew laptop): Crew didn't isolate anything (didn't know how). Malware spread to multiple systems. 3-day operational disruption, port state control detention.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Vessel B</strong>: Simple 5-zone design. Monthly isolation drills. Crew could draw zone diagram from memory.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Similar incident: Crew isolated affected zone in 90 seconds. Malware contained. Ship operations continued. Incident resolved in 6 hours.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Question</strong>: Which vessel had better cyber resilience?</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>Answer</strong>: Obviously Vessel B—despite simpler zone architecture, because they treated it as an operational tool, not a compliance checkbox.</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">The ShipJobs Security Zone Design Framework</h2>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Drawing from the lessons above, here's our recommended approach:</p>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Step 1: Security Requirements Analysis</h3><h3 class="text-text-100 mt-2 -mb-1 text-base font-bold"><span face="var(--font-mono)" style="color: #14181f;">For Each CBS in Scope:</span></h3><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">├─ System Category (I, II, III per E22)
+├─ Criticality (essential service?)
+├─ Independence requirement (must it operate if isolated?)
+├─ Data flow requirements (what talks to what?)  
+├─ Shore connectivity (yes/no)
+└─ Wireless components (yes/no)</code></pre></div></div>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Step 2: Logical Zone Design</h3><h3 class="text-text-100 mt-2 -mb-1 text-base font-bold"><span face="var(--font-mono)" style="color: #14181f;">Group CBS by Shared Requirements:</span></h3><div class="relative group/copy bg-bg-000/50 border-0.5 border-border-400 rounded-lg"><div class="overflow-x-auto"><pre class="code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed p-3.5" style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #14181f; font-family: var(--font-mono);"><code style="background-attachment: initial; background-clip: initial; background-image: initial; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; font-family: var(--font-mono); text-wrap-mode: wrap;">
+Zone 1: Essential Propulsion &amp; Steering
+└─ Cat III, must operate independently, no shore connection
+
+Zone 2: Essential Safety Systems
+└─ Cat III, independent operation, limited shore connectivity
+
+Zone 3: Operational OT (Machinery)
+└─ Cat II, can operate isolated, some shore connectivity
+
+Zone 4: Navigation &amp; Communication
+└─ Statutory systems, separate from zones 1-3, shore connectivity
+
+Zone 5: Monitoring &amp; Management  
+└─ Cat II/I, shore connectivity heavy, can be isolated
+
+Zone 6: Crew/Guest IT
+└─ Untrusted, internet-connected, fully isolated from zones 1-5
+
+Wireless Zones (dedicated):
+└─ W1: OT Wireless (separated by function)
+└─ W2: Crew WiFi</code></pre></div></div>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Step 3: Boundary Protection Specification</h3>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">For each conduit (zone-to-zone connection):</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Allowed traffic (explicit protocols, sources, destinations)</li>
+<li class="whitespace-normal break-words pl-2">Boundary device type (firewall, diode, air gap)</li>
+<li class="whitespace-normal break-words pl-2">Technical specifications (performance, environmental rating)</li>
+<li class="whitespace-normal break-words pl-2">Firewall rules (detailed, tested)</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Step 4: Physical Implementation</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Map logical zones onto network infrastructure</li>
+<li class="whitespace-normal break-words pl-2">Install boundary protection devices</li>
+<li class="whitespace-normal break-words pl-2">Verify isolation capability</li>
+<li class="whitespace-normal break-words pl-2">Test performance</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Step 5: Documentation</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Zones and Conduit Diagram (per E26 5.1.1)</li>
+<li class="whitespace-normal break-words pl-2">Cyber Security Design Description (per E26 5.1.2)</li>
+<li class="whitespace-normal break-words pl-2">Vessel Asset Inventory (per E26 4.1.1)</li>
+<li class="whitespace-normal break-words pl-2">Include zone allocation for each CBS</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Step 6: Operational Integration</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Incident Response Plan references zones</li>
+<li class="whitespace-normal break-words pl-2">Isolation procedures written and tested</li>
+<li class="whitespace-normal break-words pl-2">Crew trained</li>
+<li class="whitespace-normal break-words pl-2">Management of Change triggers zone review</li>
+<li class="whitespace-normal break-words pl-2">Annual audit of zone documentation</li>
+</ul>
+<h3 class="text-text-100 mt-2 -mb-1 text-base font-bold">Step 7: Continuous Improvement</h3>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Learn from incidents</li>
+<li class="whitespace-normal break-words pl-2">Incorporate crew feedback</li>
+<li class="whitespace-normal break-words pl-2">Update as systems evolve</li>
+<li class="whitespace-normal break-words pl-2">Benchmark against industry practice</li>
+<li class="whitespace-normal break-words pl-2">Share lessons learned</li>
+</ul>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">Conclusion: Zones That Work</h2>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Security zones under UR E26 are not a bureaucratic exercise. Done properly, they are the <strong>architectural foundation of a ship's cyber resilience</strong>.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">The ten pitfalls we've examined share a common theme: <strong>misunderstanding the purpose of zones</strong>, leading to implementations that satisfy compliance requirements on paper but provide little actual security value.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">The path forward:</p>
+<ol class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-decimal flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2"><strong>Design zones based on security requirements</strong>, not network topology</li>
+<li class="whitespace-normal break-words pl-2"><strong>Optimize for operational simplicity</strong>, not technical perfection</li>
+<li class="whitespace-normal break-words pl-2"><strong>Include wireless from the start</strong>, don't retrofit it</li>
+<li class="whitespace-normal break-words pl-2"><strong>Be honest about air gaps</strong>, they're rarer than claimed</li>
+<li class="whitespace-normal break-words pl-2"><strong>Treat shore connectivity as a primary design concern</strong>, not an afterthought</li>
+<li class="whitespace-normal break-words pl-2"><strong>Maintain living documentation</strong>, zones evolve with the ship</li>
+<li class="whitespace-normal break-words pl-2"><strong>Specify boundary protection early</strong>, it's not an implementation detail</li>
+<li class="whitespace-normal break-words pl-2"><strong>Design for human operation</strong>, crews must be able to execute procedures</li>
+<li class="whitespace-normal break-words pl-2"><strong>Plan for retrofit reality</strong>, most vessels are already built</li>
+<li class="whitespace-normal break-words pl-2"><strong>Measure actual resilience</strong>, not just diagram approval</li>
+</ol>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">The goal is not to have the most zones, the most complex architecture, or the most impressive diagram.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>The goal is a ship that can continue safe operations even when facing cyber incidents</strong>—and security zones are the structure that makes this possible.</p>
+<hr class="border-border-200 border-t-0.5 my-3 mx-1.5" />
+<h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold">What's Next?</h2>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">This article examined the practical challenges of security zone implementation. In our next piece, we'll tackle an equally contentious topic:</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><strong>"41 Security Capabilities: Do You Really Need Them All?"</strong></p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">We'll explore:</p>
+<ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3">
+<li class="whitespace-normal break-words pl-2">Which UR E27 security capabilities matter most</li>
+<li class="whitespace-normal break-words pl-2">When compensating countermeasures make sense</li>
+<li class="whitespace-normal break-words pl-2">How to prioritize implementations on limited budgets</li>
+<li class="whitespace-normal break-words pl-2">The ShipJobs Prioritization Framework for security capabilities</li>
+</ul>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]">Until then, if you're working on zone design and want to discuss your specific challenges, we're here to help.</p>
+<p class="font-claude-response-body break-words whitespace-normal leading-[1.7]"><em>Fair winds and secure networks,</em>
+<strong>The ShipJobs Team</strong></p>
