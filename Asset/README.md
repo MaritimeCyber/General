@@ -7,9 +7,12 @@ This directory contains all static resources and knowledge assets maintained by 
 ```
 Asset/
 ├── Books/          # Reviews and summaries of maritime cyber security books
+│   └── img/        # Book cover and reference images
 ├── Paper/          # Research papers and technical reports
+│   └── img/        # Paper-related figures and thumbnails
 ├── Compliances/    # Cyber compliance documents and class society guidelines
 ├── Project/        # Project deliverables, tools, and templates
+├── theCrew.html    # Team introduction page
 └── img/
     └── member/     # Team member profile images
 ```

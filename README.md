@@ -37,12 +37,17 @@ This repository is operated with the following goals:
 General/
 ├── Asset/
 │   ├── Books/              # Book reviews and summaries
+│   │   └── img/            # Book cover and reference images
 │   ├── Paper/              # Maritime cyber security research papers
+│   │   └── img/            # Paper-related figures and thumbnails
 │   ├── Compliances/        # Cyber compliance docs & class society guidelines by country/organization
 │   ├── Project/            # Project deliverables and tools
+│   ├── theCrew.html        # Team introduction page
 │   └── img/
 │       └── member/         # Team member profile images
-├── Asset/theCrew.html      # Team introduction page
+├── Blog/
+│   ├── SideBar/            # Blog sidebar widgets (GitHub link, intro, icon)
+│   └── contents/           # Article templates
 └── README.md
 ```
 

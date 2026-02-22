@@ -19,6 +19,14 @@ The maritime and shipbuilding industries are undergoing rapid digital transforma
 | **Maritime & Shipbuilding** | Smart ship, smart yard, digital twin |
 | **Risk & Compliance** | Cyber risk management, regulatory compliance methodology |
 
+## Folder Structure
+
+```
+Books/
+├── img/            # Book cover images and related visuals
+└── [review files]  # Individual book review markdown files
+```
+
 ## File Naming Convention
 
 ```

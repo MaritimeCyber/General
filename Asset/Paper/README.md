@@ -26,6 +26,7 @@ Papers are organized by topic subfolder where volume justifies it:
 
 ```
 Paper/
+├── img/            # Paper-related figures, thumbnails, and visual references
 ├── IMO_IACS/
 ├── ClassSociety/
 ├── Academic/
