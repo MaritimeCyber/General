@@ -24,7 +24,7 @@ The maritime and shipbuilding industries are undergoing rapid digital transforma
 ```
 Books/
 ├── img/            # Book cover images and related visuals
-└── [review files]  # Individual book review markdown files
+└── review/         # Individual book review markdown files
 ```
 
 ## File Naming Convention

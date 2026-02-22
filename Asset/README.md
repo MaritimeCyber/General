@@ -7,13 +7,20 @@ This directory contains all static resources and knowledge assets maintained by 
 ```
 Asset/
 ├── Books/          # Reviews and summaries of maritime cyber security books
-│   └── img/        # Book cover and reference images
+│   ├── img/        # Book cover and reference images
+│   └── review/     # Individual book review markdown files
 ├── Paper/          # Research papers and technical reports
-│   └── img/        # Paper-related figures and thumbnails
+│   ├── img/        # Paper-related figures and thumbnails
+│   └── review/     # Individual paper summary markdown files
 ├── Compliances/    # Cyber compliance documents and class society guidelines
-├── Project/        # Project deliverables, tools, and templates
+│   ├── UR-E10-Rev.9-Aug-2023-UL.pdf
+│   ├── UR-E22-Rev.3-June-2023-UL.pdf
+│   ├── UR-E26-Rev.1-Nov-2023-CR.pdf
+│   └── UR-E27-Rev.1-Sep-2023-CLN.pdf
+├── Project/        # SCARP project deliverables, tools, and templates
 ├── theCrew.html    # Team introduction page
 └── img/
+    ├── common/     # Shared logos and site assets
     └── member/     # Team member profile images
 ```
 

@@ -50,9 +50,17 @@ This folder collects, organizes, and summarizes the key compliance documents, gu
 | **BIMCO Guidelines** | The Guidelines on Cyber Security Onboard Ships (v4) |
 | **IAPH** | Cyber Security Guidelines for Ports and Port Facilities |
 
-## Organization
+## Current Contents
 
-Documents are organized by issuing body:
+```
+Compliances/
+├── UR-E10-Rev.9-Aug-2023-UL.pdf    # IACS UR E10 — Equipment (Rev.9, Aug 2023)
+├── UR-E22-Rev.3-June-2023-UL.pdf   # IACS UR E22 — Control Systems (Rev.3, Jun 2023)
+├── UR-E26-Rev.1-Nov-2023-CR.pdf    # IACS UR E26 — Cyber Resilience of Ships (Rev.1, Nov 2023)
+└── UR-E27-Rev.1-Sep-2023-CLN.pdf   # IACS UR E27 — Cyber Resilience of On-board Systems (Rev.1, Sep 2023)
+```
+
+As the collection grows, documents will be organized by issuing body:
 
 ```
 Compliances/

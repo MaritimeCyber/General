@@ -22,17 +22,13 @@ Academic research and technical reports are foundational to building evidence-ba
 
 ## Organization
 
-Papers are organized by topic subfolder where volume justifies it:
-
 ```
 Paper/
 ├── img/            # Paper-related figures, thumbnails, and visual references
-├── IMO_IACS/
-├── ClassSociety/
-├── Academic/
-├── Government/
-└── [individual .md summary files]
+└── review/         # Individual paper summary markdown files
 ```
+
+As the collection grows, summary files in `review/` may be reorganized into topic subfolders (e.g., `IMO_IACS/`, `ClassSociety/`, `Academic/`, `Government/`).
 
 ## File Naming Convention
 

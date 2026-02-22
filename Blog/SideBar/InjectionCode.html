@@ -1,0 +1,28 @@
+<!-- ═══════════════════════════════════════════════════════
+     GitHub Raw Content Injector
+     Usage : Paste this into a Blogger HTML widget.
+             Change GITHUB_RAW_URL to any raw GitHub file URL.
+═══════════════════════════════════════════════════════ -->
+
+<div id="Maritime-Cyber-​​Intelligence"></div>
+
+<script>
+(function () {
+  var GITHUB_RAW_URL =
+    'https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/SideBar/Maritime%20Cyber%20%E2%80%8B%E2%80%8BIntelligence.html';
+
+  var target = document.getElementById('Maritime-Cyber-​​Intelligence');
+
+  fetch(GITHUB_RAW_URL)
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.text();
+    })
+    .then(function (html) {
+      target.innerHTML = html;
+    })
+    .catch(function (err) {
+      console.warn('[gh-inject] Failed to load:', err);
+    });
+})();
+</script>

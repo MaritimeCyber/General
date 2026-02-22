@@ -1,4 +1,7 @@
-# Project — Maritime Cyber Security Tools & Code
+# Project — SCARP (Ship Cybersecurity and Resilience Program)
+
+> **Status:** Project directory initialized. Tools and code are under active development.
+> The folder structure below reflects the planned layout; files will be added as each tool is completed.
 
 ## Background
 
