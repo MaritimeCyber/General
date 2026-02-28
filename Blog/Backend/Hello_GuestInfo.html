@@ -140,6 +140,9 @@
 
     <!-- ④ 안전 확인 문구 -->
     <div id="hg-confirm"></div>
+
+    <!-- ⑤ 추가 확인 정보 -->
+    <div id="hg-extra"></div>
   </div>
   <!-- /hg-main -->
 </div>
@@ -331,7 +334,53 @@
     }
 
     /* ─────────────────────────────────────────────────────────
-     3) 렌더링 — 문장형 인사말
+     3) 유입 경로 감지 (document.referrer)
+     ───────────────────────────────────────────────────────── */
+    function getReferrer() {
+      var ref = document.referrer;
+
+      // referrer 없음 → 직접 방문 (북마크·주소 직접 입력·앱 등)
+      if (!ref) {
+        return { icon: "🏠", text: "직접 방문하셨군요, 반갑습니다!" };
+      }
+
+      var host = "";
+      try { host = new URL(ref).hostname.toLowerCase(); } catch (e) { host = ref.toLowerCase(); }
+
+      // 검색엔진
+      if (/google\./i.test(host))      return { icon: "🔍", text: "Google 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/naver\./i.test(host))       return { icon: "🔍", text: "Naver 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/bing\./i.test(host))        return { icon: "🔍", text: "Bing 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/daum\.|kakao\./i.test(host))return { icon: "🔍", text: "Daum 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/yahoo\./i.test(host))       return { icon: "🔍", text: "Yahoo 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/duckduckgo\./i.test(host))  return { icon: "🔍", text: "DuckDuckGo 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/baidu\./i.test(host))       return { icon: "🔍", text: "百度(Baidu) 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/yandex\./i.test(host))      return { icon: "🔍", text: "Yandex 검색을 통해 오셨군요, 반갑습니다!" };
+
+      // 소셜/비즈니스
+      if (/linkedin\./i.test(host))          return { icon: "💼", text: "LinkedIn을 통해 오셨군요, 반갑습니다!" };
+      if (/facebook\.|fb\.com/i.test(host))  return { icon: "📘", text: "Facebook을 통해 오셨군요, 반갑습니다!" };
+      if (/twitter\.|x\.com/i.test(host))    return { icon: "🐦", text: "X (Twitter)를 통해 오셨군요, 반갑습니다!" };
+      if (/instagram\./i.test(host))         return { icon: "📷", text: "Instagram을 통해 오셨군요, 반갑습니다!" };
+      if (/youtube\./i.test(host))           return { icon: "🎬", text: "YouTube를 통해 오셨군요, 반갑습니다!" };
+      if (/reddit\./i.test(host))            return { icon: "🟠", text: "Reddit을 통해 오셨군요, 반갑습니다!" };
+      if (/t\.me|telegram\./i.test(host))    return { icon: "✈️", text: "Telegram을 통해 오셨군요, 반갑습니다!" };
+
+      // 개발/전문
+      if (/github\./i.test(host))            return { icon: "💻", text: "GitHub을 통해 오셨군요, 반갑습니다!" };
+      if (/medium\./i.test(host))            return { icon: "📝", text: "Medium을 통해 오셨군요, 반갑습니다!" };
+
+      // 블로그 내부 이동
+      if (/blogspot\.|blogger\./i.test(host))
+        return { icon: "⚓", text: "블로그 내 다른 페이지에서 오셨군요, 반갑습니다!" };
+
+      // 그 외 외부 링크
+      var display = host.replace(/^www\./, "");
+      return { icon: "🔗", text: display + " 링크를 통해 오셨군요, 반갑습니다!" };
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     4) 렌더링 — 문장형 인사말
      ───────────────────────────────────────────────────────── */
     function render(d) {
       var code = d && d.country_code ? d.country_code : "_default";
@@ -361,6 +410,19 @@
         timeStr =
           d.timezone + (d.utc_offset ? " (UTC" + d.utc_offset + ")" : "");
       }
+
+      /* ── 문장 0: 유입 경로 ── */
+      var refInfo = getReferrer();
+      var s0 =
+        '<div style="' +
+        'display:inline-flex; align-items:center; gap:5px;' +
+        'background:#e8f6f3; border-left:3px solid #1a9e82;' +
+        'padding:5px 10px; border-radius:0 4px 4px 0;' +
+        'font-size:12px; font-weight:600; color:#1a9e82;' +
+        'margin-bottom:10px;">' +
+        '<span style="font-size:14px;">' + refInfo.icon + '</span>' +
+        '<span>' + refInfo.text + '</span>' +
+        '</div>';
 
       /* ── 문장 1: IP 님, ── */
       var ipText = d && d.ip ? maskIP(d.ip) : "Guest";
@@ -399,12 +461,88 @@
         s3 += "에 접속하셨습니다.</p>";
       }
 
-      document.getElementById("hg-body").innerHTML = s1 + s2 + s3;
+      document.getElementById("hg-body").innerHTML = s0 + s1 + s2 + s3;
 
       /* ── 안전 확인 문구 ── */
       document.getElementById("hg-confirm").innerHTML =
         "귀하의 접속 정보가 위와 같이 확인되며,<br>" +
         "현재 <strong>안전하게 연결</strong>되어 있습니다. ⚓";
+
+      /* ── 추가 확인 정보 ── */
+      var extras = [];
+
+      // ISP / 통신사 (org에서 "AS12345 " 접두어 제거)
+      if (d && d.org) {
+        extras.push({ label: "📡 통신사", value: d.org.replace(/^AS\d+\s*/, "") });
+      }
+
+      // 현지 현재 시각
+      if (d && d.timezone) {
+        try {
+          var localTime = new Date().toLocaleString("ko-KR", {
+            timeZone: d.timezone,
+            hour: "2-digit", minute: "2-digit", second: "2-digit",
+            hour12: false
+          });
+          extras.push({ label: "🕐 현지 시각", value: localTime });
+        } catch (e) {}
+      }
+
+      // 현지 통화
+      if (d && d.currency) {
+        extras.push({ label: "💱 현지 통화", value: d.currency });
+      }
+
+      // 국가 전화 코드
+      if (d && d.country_calling_code) {
+        extras.push({ label: "📞 국가 코드", value: d.country_calling_code });
+      }
+
+      // 화면 해상도 + 뷰포트
+      try {
+        extras.push({
+          label: "🖥 화면 해상도",
+          value: screen.width + " × " + screen.height +
+                 "  /  뷰포트 " + window.innerWidth + " × " + window.innerHeight
+        });
+      } catch (e) {}
+
+      // 브라우저 언어 설정
+      if (navigator.language) {
+        extras.push({ label: "🔤 언어 설정", value: navigator.language });
+      }
+
+      // 네트워크 타입 (지원 브라우저만)
+      try {
+        var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (conn && conn.effectiveType) {
+          var netLabel = { "slow-2g": "Slow-2G", "2g": "2G", "3g": "3G", "4g": "4G / WiFi" };
+          extras.push({
+            label: "📶 네트워크",
+            value: (netLabel[conn.effectiveType] || conn.effectiveType.toUpperCase()) +
+                   (conn.downlink ? "  (" + conn.downlink + " Mbps)" : "")
+          });
+        }
+      } catch (e) {}
+
+      // 추가 정보 HTML 빌드
+      if (extras.length > 0) {
+        var exHTML =
+          '<div style="margin-top:12px; padding:9px 11px; background:#f9fafa;' +
+          ' border-radius:4px; font-size:11.5px; color:#5a7080; line-height:1.9;">' +
+          '<div style="font-weight:700; color:#b0c4ce; font-size:10px;' +
+          ' letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">' +
+          '추가 확인 정보</div>';
+        extras.forEach(function (e) {
+          exHTML +=
+            '<div style="display:flex; gap:6px;">' +
+            '<span style="color:#b0c4ce; flex-shrink:0; min-width:72px;">' + e.label + '</span>' +
+            '<span style="color:#424242; font-weight:600;">' + e.value + '</span>' +
+            '</div>';
+        });
+        exHTML += '</div>';
+        document.getElementById("hg-extra").innerHTML = exHTML;
+      }
 
       /* ── 표시 ── */
       document.getElementById("hg-loading").style.display = "none";
