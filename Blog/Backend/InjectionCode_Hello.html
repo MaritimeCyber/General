@@ -12,22 +12,35 @@
 <div id="Hello_GuestInfo.html"></div>
 
 <script>
-(function () {
-  var GITHUB_RAW_URL =
-    'https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Blog/Backend/Hello_GuestInfo.html';
+  (function () {
+    var GITHUB_RAW_URL =
+      "https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/Hello_GuestInfo.html";
 
-  var target = document.getElementById('Hello_GuestInfo.html');
+    var target = document.getElementById("Hello_GuestInfo.html");
 
-  fetch(GITHUB_RAW_URL)
-    .then(function (res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.text();
-    })
-    .then(function (html) {
-      target.innerHTML = html;
-    })
-    .catch(function (err) {
-      console.warn('[gh-inject] Failed to load:', err);
-    });
-})();
+    fetch(GITHUB_RAW_URL)
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.text();
+      })
+      .then(function (html) {
+        target.innerHTML = html;
+
+        // innerHTML로 삽입된 <script>는 브라우저가 자동 실행하지 않으므로
+        // 새 <script> 엘리먼트로 교체하여 강제 실행
+        var scripts = target.querySelectorAll("script");
+        scripts.forEach(function (oldScript) {
+          var newScript = document.createElement("script");
+          // src 등 속성 복사
+          Array.prototype.forEach.call(oldScript.attributes, function (attr) {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+          newScript.textContent = oldScript.textContent;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      })
+      .catch(function (err) {
+        console.warn("[gh-inject] Failed to load:", err);
+      });
+  })();
 </script>

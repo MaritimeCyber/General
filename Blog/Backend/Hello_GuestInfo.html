@@ -12,16 +12,23 @@
 
 <style>
   /* ── 기본 리셋 ── */
-  #hg-wrap, #hg-wrap * {
+  #hg-wrap,
+  #hg-wrap * {
     box-sizing: border-box;
-    font-family: 'Roboto', Arial, sans-serif;
-    margin: 0; padding: 0;
+    font-family: "Roboto", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
   }
 
   /* ── 로딩 펄스 애니메이션 ── */
   @keyframes hg-pulse {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.35; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
   }
 
   /* ── 정보 행 ── */
@@ -58,397 +65,492 @@
 
 <!-- ── 위젯 컨테이너 ── -->
 <div id="hg-wrap">
-
   <!-- 로딩 상태 -->
-  <div id="hg-loading" style="
-    text-align: center;
-    padding: 22px 10px;
-    color: #6b8599;
-    font-size: 12.5px;
-    letter-spacing: 0.3px;
-    animation: hg-pulse 1.6s ease-in-out infinite;
-  ">
+  <div
+    id="hg-loading"
+    style="
+      text-align: center;
+      padding: 22px 10px;
+      color: #6b8599;
+      font-size: 12.5px;
+      letter-spacing: 0.3px;
+      animation: hg-pulse 1.6s ease-in-out infinite;
+    "
+  >
     ⚓ Detecting your location…
   </div>
 
   <!-- 본문 (로딩 완료 후 표시) -->
-  <div id="hg-main" style="display:none">
-
+  <div id="hg-main" style="display: none">
     <!-- ① 메인 인사 문장 -->
-    <div style="margin-bottom: 14px;">
-
+    <div style="margin-bottom: 14px">
       <!-- 인사말 (현지어) + 국기 -->
-      <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:6px;">
-        <span id="hg-greeting" style="
-          font-size: 26px;
-          font-weight: 900;
-          color: #424242;
-          line-height: 1.2;
-        "></span>
-        <span id="hg-flag" style="font-size:20px; line-height:1;"></span>
-        <span id="hg-lang" style="
-          font-size: 10.5px;
-          font-weight: 400;
-          color: #9fb5c2;
-          letter-spacing: 0.3px;
-        "></span>
+      <div
+        style="
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+          margin-bottom: 6px;
+        "
+      >
+        <span
+          id="hg-greeting"
+          style="
+            font-size: 26px;
+            font-weight: 900;
+            color: #424242;
+            line-height: 1.2;
+          "
+        ></span>
+        <span id="hg-flag" style="font-size: 20px; line-height: 1"></span>
+        <span
+          id="hg-lang"
+          style="
+            font-size: 10.5px;
+            font-weight: 400;
+            color: #9fb5c2;
+            letter-spacing: 0.3px;
+          "
+        ></span>
       </div>
 
       <!-- IP 님, 단말기를 통해 접속하신 것을 환영합니다 -->
-      <div style="
-        font-size: 13px;
-        color: #424242;
-        line-height: 1.85;
-      ">
-        <span id="hg-ip-pill" style="
-          display: inline-block;
-          background: #1a9e82;
-          color: #fff;
-          font-size: 11.5px;
-          font-weight: 700;
-          padding: 1px 8px;
-          border-radius: 20px;
-          letter-spacing: 0.3px;
-          vertical-align: middle;
-        "></span>
-        <span style="color:#424242; font-weight:600;"> 님,</span>
-        <br>
-        <span id="hg-device-text" style="
-          font-weight: 700;
-          color: #1a9e82;
-        "></span>
-        <span style="color:#5a7080;"> 을 통해 접속하신 것을</span>
-        <br>
-        <span style="color:#424242; font-weight:600;">환영합니다!</span>
-        <span style="font-size:15px;"> ⚓</span>
+      <div style="font-size: 13px; color: #424242; line-height: 1.85">
+        <span
+          id="hg-ip-pill"
+          style="
+            display: inline-block;
+            background: #1a9e82;
+            color: #fff;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 1px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            vertical-align: middle;
+          "
+        ></span>
+        <span style="color: #424242; font-weight: 600"> 님,</span>
+        <br />
+        <span
+          id="hg-device-text"
+          style="font-weight: 700; color: #1a9e82"
+        ></span>
+        <span style="color: #5a7080"> 을 통해 접속하신 것을</span>
+        <br />
+        <span style="color: #424242; font-weight: 600">환영합니다!</span>
+        <span style="font-size: 15px"> ⚓</span>
       </div>
     </div>
 
     <!-- ② 구분선 -->
-    <div style="
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    ">
-      <div style="flex:1; height:1px; background:#e0e0e0;"></div>
-      <div style="width:6px; height:6px; border-radius:50%; background:#1a9e82; flex-shrink:0;"></div>
-      <div style="flex:1; height:1px; background:#e0e0e0;"></div>
+    <div
+      style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px"
+    >
+      <div style="flex: 1; height: 1px; background: #e0e0e0"></div>
+      <div
+        style="
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #1a9e82;
+          flex-shrink: 0;
+        "
+      ></div>
+      <div style="flex: 1; height: 1px; background: #e0e0e0"></div>
     </div>
 
     <!-- ③ 상세 정보 행 -->
     <div id="hg-location" class="hg-row"></div>
-    <div id="hg-region"   class="hg-row"></div>
-    <div id="hg-device"   class="hg-row"></div>
-
-  </div><!-- /hg-main -->
-
-</div><!-- /hg-wrap -->
-
+    <div id="hg-region" class="hg-row"></div>
+    <div id="hg-device" class="hg-row"></div>
+  </div>
+  <!-- /hg-main -->
+</div>
+<!-- /hg-wrap -->
 
 <script>
-(function () {
-  'use strict';
+  (function () {
+    "use strict";
 
-  /* ─────────────────────────────────────────────────────────
+    /* ─────────────────────────────────────────────────────────
      1) 국가 코드 → 인사말 테이블
      ───────────────────────────────────────────────────────── */
-  var GREETINGS = {
-    // 동아시아
-    KR: { text: '안녕하세요!',     rom: 'Annyeonghaseyo',  lang: 'Korean'     },
-    JP: { text: 'こんにちは!',     rom: 'Konnichiwa',      lang: 'Japanese'   },
-    CN: { text: '你好！',           rom: 'Nǐ hǎo',         lang: 'Chinese'    },
-    TW: { text: '你好！',           rom: 'Nǐ hǎo',         lang: 'Chinese'    },
-    HK: { text: '你好！',           rom: 'Néih hóu',       lang: 'Cantonese'  },
-    MN: { text: 'Сайн уу!',        rom: 'Sain uu',         lang: 'Mongolian'  },
+    var GREETINGS = {
+      // 동아시아
+      KR: { text: "안녕하세요!", rom: "Annyeonghaseyo", lang: "Korean" },
+      JP: { text: "こんにちは!", rom: "Konnichiwa", lang: "Japanese" },
+      CN: { text: "你好！", rom: "Nǐ hǎo", lang: "Chinese" },
+      TW: { text: "你好！", rom: "Nǐ hǎo", lang: "Chinese" },
+      HK: { text: "你好！", rom: "Néih hóu", lang: "Cantonese" },
+      MN: { text: "Сайн уу!", rom: "Sain uu", lang: "Mongolian" },
 
-    // 동남아시아
-    PH: { text: 'Kumusta!',        rom: '',                lang: 'Filipino'   },
-    ID: { text: 'Halo!',           rom: '',                lang: 'Indonesian' },
-    MY: { text: 'Hai!',            rom: '',                lang: 'Malay'      },
-    TH: { text: 'สวัสดีครับ!',      rom: 'Sawasdee!',      lang: 'Thai'       },
-    VN: { text: 'Xin chào!',       rom: '',                lang: 'Vietnamese' },
-    SG: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    MM: { text: 'မင်္ဂလာပါ!',      rom: 'Mingalaba!',     lang: 'Burmese'    },
-    KH: { text: 'ជំរាបសួរ!',       rom: 'Chum reap suor!',lang: 'Khmer'      },
-    LA: { text: 'ສະບາຍດີ!',        rom: 'Sabaidee!',      lang: 'Lao'        },
+      // 동남아시아
+      PH: { text: "Kumusta!", rom: "", lang: "Filipino" },
+      ID: { text: "Halo!", rom: "", lang: "Indonesian" },
+      MY: { text: "Hai!", rom: "", lang: "Malay" },
+      TH: { text: "สวัสดีครับ!", rom: "Sawasdee!", lang: "Thai" },
+      VN: { text: "Xin chào!", rom: "", lang: "Vietnamese" },
+      SG: { text: "Hello!", rom: "", lang: "English" },
+      MM: { text: "မင်္ဂလာပါ!", rom: "Mingalaba!", lang: "Burmese" },
+      KH: { text: "ជំរាបសួរ!", rom: "Chum reap suor!", lang: "Khmer" },
+      LA: { text: "ສະບາຍດີ!", rom: "Sabaidee!", lang: "Lao" },
 
-    // 남아시아
-    IN: { text: 'नमस्ते!',         rom: 'Namaste!',        lang: 'Hindi'      },
-    PK: { text: 'ہیلو!',           rom: 'Salam!',          lang: 'Urdu'       },
-    BD: { text: 'হ্যালো!',          rom: 'Hyalo!',          lang: 'Bengali'    },
-    LK: { text: 'හෙලෝ!',           rom: 'Āyubōvan!',      lang: 'Sinhala'    },
-    NP: { text: 'नमस्ते!',         rom: 'Namaste!',        lang: 'Nepali'     },
+      // 남아시아
+      IN: { text: "नमस्ते!", rom: "Namaste!", lang: "Hindi" },
+      PK: { text: "ہیلو!", rom: "Salam!", lang: "Urdu" },
+      BD: { text: "হ্যালো!", rom: "Hyalo!", lang: "Bengali" },
+      LK: { text: "හෙලෝ!", rom: "Āyubōvan!", lang: "Sinhala" },
+      NP: { text: "नमस्ते!", rom: "Namaste!", lang: "Nepali" },
 
-    // 서남아시아 / 중동
-    AE: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    SA: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    OM: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    KW: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    QA: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    BH: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    YE: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    JO: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    IQ: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    SY: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    LB: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    EG: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    IR: { text: 'سلام!',            rom: 'Salâm!',          lang: 'Persian'    },
-    TR: { text: 'Merhaba!',        rom: '',                lang: 'Turkish'    },
-    IL: { text: 'שלום!',           rom: 'Shalom!',         lang: 'Hebrew'     },
+      // 서남아시아 / 중동
+      AE: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      SA: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      OM: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      KW: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      QA: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      BH: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      YE: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      JO: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      IQ: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      SY: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      LB: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      EG: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      IR: { text: "سلام!", rom: "Salâm!", lang: "Persian" },
+      TR: { text: "Merhaba!", rom: "", lang: "Turkish" },
+      IL: { text: "שלום!", rom: "Shalom!", lang: "Hebrew" },
 
-    // 유럽 — 서부
-    GB: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    IE: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    FR: { text: 'Bonjour!',        rom: '',                lang: 'French'     },
-    DE: { text: 'Hallo!',          rom: '',                lang: 'German'     },
-    NL: { text: 'Hallo!',          rom: '',                lang: 'Dutch'      },
-    BE: { text: 'Bonjour!',        rom: '',                lang: 'French'     },
-    CH: { text: 'Hallo!',          rom: '',                lang: 'German'     },
-    AT: { text: 'Servus!',         rom: '',                lang: 'Austrian'   },
-    LU: { text: 'Moien!',          rom: '',                lang: 'Luxembourgish' },
-    ES: { text: '¡Hola!',          rom: '',                lang: 'Spanish'    },
-    PT: { text: 'Olá!',            rom: '',                lang: 'Portuguese' },
-    IT: { text: 'Ciao!',           rom: '',                lang: 'Italian'    },
-    MC: { text: 'Bonjour!',        rom: '',                lang: 'French'     },
+      // 유럽 — 서부
+      GB: { text: "Hello!", rom: "", lang: "English" },
+      IE: { text: "Hello!", rom: "", lang: "English" },
+      FR: { text: "Bonjour!", rom: "", lang: "French" },
+      DE: { text: "Hallo!", rom: "", lang: "German" },
+      NL: { text: "Hallo!", rom: "", lang: "Dutch" },
+      BE: { text: "Bonjour!", rom: "", lang: "French" },
+      CH: { text: "Hallo!", rom: "", lang: "German" },
+      AT: { text: "Servus!", rom: "", lang: "Austrian" },
+      LU: { text: "Moien!", rom: "", lang: "Luxembourgish" },
+      ES: { text: "¡Hola!", rom: "", lang: "Spanish" },
+      PT: { text: "Olá!", rom: "", lang: "Portuguese" },
+      IT: { text: "Ciao!", rom: "", lang: "Italian" },
+      MC: { text: "Bonjour!", rom: "", lang: "French" },
 
-    // 유럽 — 북부
-    SE: { text: 'Hej!',            rom: '',                lang: 'Swedish'    },
-    NO: { text: 'Hei!',            rom: '',                lang: 'Norwegian'  },
-    DK: { text: 'Hej!',            rom: '',                lang: 'Danish'     },
-    FI: { text: 'Moi!',            rom: '',                lang: 'Finnish'    },
-    IS: { text: 'Halló!',          rom: '',                lang: 'Icelandic'  },
+      // 유럽 — 북부
+      SE: { text: "Hej!", rom: "", lang: "Swedish" },
+      NO: { text: "Hei!", rom: "", lang: "Norwegian" },
+      DK: { text: "Hej!", rom: "", lang: "Danish" },
+      FI: { text: "Moi!", rom: "", lang: "Finnish" },
+      IS: { text: "Halló!", rom: "", lang: "Icelandic" },
 
-    // 유럽 — 동부
-    RU: { text: 'Привет!',         rom: 'Privet!',         lang: 'Russian'    },
-    UA: { text: 'Привіт!',         rom: 'Pryvit!',         lang: 'Ukrainian'  },
-    PL: { text: 'Cześć!',          rom: '',                lang: 'Polish'     },
-    CZ: { text: 'Ahoj!',           rom: '',                lang: 'Czech'      },
-    SK: { text: 'Ahoj!',           rom: '',                lang: 'Slovak'     },
-    HU: { text: 'Szia!',           rom: '',                lang: 'Hungarian'  },
-    RO: { text: 'Salut!',          rom: '',                lang: 'Romanian'   },
-    BG: { text: 'Здравейте!',      rom: 'Zdraveyte!',      lang: 'Bulgarian'  },
-    RS: { text: 'Zdravo!',         rom: '',                lang: 'Serbian'    },
-    HR: { text: 'Zdravo!',         rom: '',                lang: 'Croatian'   },
-    SI: { text: 'Zdravo!',         rom: '',                lang: 'Slovenian'  },
-    GR: { text: 'Γεια σου!',       rom: 'Yeia sou!',       lang: 'Greek'      },
+      // 유럽 — 동부
+      RU: { text: "Привет!", rom: "Privet!", lang: "Russian" },
+      UA: { text: "Привіт!", rom: "Pryvit!", lang: "Ukrainian" },
+      PL: { text: "Cześć!", rom: "", lang: "Polish" },
+      CZ: { text: "Ahoj!", rom: "", lang: "Czech" },
+      SK: { text: "Ahoj!", rom: "", lang: "Slovak" },
+      HU: { text: "Szia!", rom: "", lang: "Hungarian" },
+      RO: { text: "Salut!", rom: "", lang: "Romanian" },
+      BG: { text: "Здравейте!", rom: "Zdraveyte!", lang: "Bulgarian" },
+      RS: { text: "Zdravo!", rom: "", lang: "Serbian" },
+      HR: { text: "Zdravo!", rom: "", lang: "Croatian" },
+      SI: { text: "Zdravo!", rom: "", lang: "Slovenian" },
+      GR: { text: "Γεια σου!", rom: "Yeia sou!", lang: "Greek" },
 
-    // 아메리카
-    US: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    CA: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    MX: { text: '¡Hola!',          rom: '',                lang: 'Spanish'    },
-    BR: { text: 'Olá!',            rom: '',                lang: 'Portuguese' },
-    AR: { text: '¡Hola!',          rom: '',                lang: 'Spanish'    },
-    CL: { text: '¡Hola!',          rom: '',                lang: 'Spanish'    },
-    CO: { text: '¡Hola!',          rom: '',                lang: 'Spanish'    },
-    PE: { text: '¡Hola!',          rom: '',                lang: 'Spanish'    },
-    VE: { text: '¡Hola!',          rom: '',                lang: 'Spanish'    },
+      // 아메리카
+      US: { text: "Hello!", rom: "", lang: "English" },
+      CA: { text: "Hello!", rom: "", lang: "English" },
+      MX: { text: "¡Hola!", rom: "", lang: "Spanish" },
+      BR: { text: "Olá!", rom: "", lang: "Portuguese" },
+      AR: { text: "¡Hola!", rom: "", lang: "Spanish" },
+      CL: { text: "¡Hola!", rom: "", lang: "Spanish" },
+      CO: { text: "¡Hola!", rom: "", lang: "Spanish" },
+      PE: { text: "¡Hola!", rom: "", lang: "Spanish" },
+      VE: { text: "¡Hola!", rom: "", lang: "Spanish" },
 
-    // 오세아니아
-    AU: { text: 'G\'day!',         rom: '',                lang: 'English'    },
-    NZ: { text: 'Kia ora!',        rom: '',                lang: 'Māori/English' },
+      // 오세아니아
+      AU: { text: "G'day!", rom: "", lang: "English" },
+      NZ: { text: "Kia ora!", rom: "", lang: "Māori/English" },
 
-    // 아프리카
-    ZA: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    NG: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    KE: { text: 'Jambo!',          rom: '',                lang: 'Swahili'    },
-    ET: { text: 'ሰላም!',            rom: 'Selam!',          lang: 'Amharic'    },
-    GH: { text: 'Hello!',          rom: '',                lang: 'English'    },
-    MA: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    DZ: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
-    TN: { text: 'مرحباً!',         rom: 'Marhaban!',       lang: 'Arabic'     },
+      // 아프리카
+      ZA: { text: "Hello!", rom: "", lang: "English" },
+      NG: { text: "Hello!", rom: "", lang: "English" },
+      KE: { text: "Jambo!", rom: "", lang: "Swahili" },
+      ET: { text: "ሰላም!", rom: "Selam!", lang: "Amharic" },
+      GH: { text: "Hello!", rom: "", lang: "English" },
+      MA: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      DZ: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
+      TN: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
 
-    // 기본값
-    _default: { text: 'Hello!',    rom: '',                lang: 'English'    }
-  };
+      // 기본값
+      _default: { text: "Hello!", rom: "", lang: "English" },
+    };
 
-  /* ─────────────────────────────────────────────────────────
+    /* ─────────────────────────────────────────────────────────
      2) 국가 코드 → 국기 이모지
      ───────────────────────────────────────────────────────── */
-  function toFlag(code) {
-    if (!code || code.length !== 2) return '🌐';
-    var pts = code.toUpperCase().split('').map(function (c) {
-      return 0x1F1E6 + (c.charCodeAt(0) - 65);
-    });
-    return String.fromCodePoint(pts[0], pts[1]);
-  }
+    function toFlag(code) {
+      if (!code || code.length !== 2) return "🌐";
+      var pts = code
+        .toUpperCase()
+        .split("")
+        .map(function (c) {
+          return 0x1f1e6 + (c.charCodeAt(0) - 65);
+        });
+      return String.fromCodePoint(pts[0], pts[1]);
+    }
 
-  /* ─────────────────────────────────────────────────────────
+    /* ─────────────────────────────────────────────────────────
      3) IP 마스킹 (마지막 옥텟 숨김)
      ───────────────────────────────────────────────────────── */
-  function maskIP(ip) {
-    if (!ip) return '—';
-    var parts = ip.split('.');
-    if (parts.length === 4) {
-      return parts[0] + '.' + parts[1] + '.' + parts[2] + '.**';
+    function maskIP(ip) {
+      if (!ip) return "—";
+      var parts = ip.split(".");
+      if (parts.length === 4) {
+        return parts[0] + "." + parts[1] + "." + parts[2] + ".**";
+      }
+      // IPv6: 마지막 그룹 마스킹
+      var v6 = ip.split(":");
+      v6[v6.length - 1] = "****";
+      return v6.join(":");
     }
-    // IPv6: 마지막 그룹 마스킹
-    var v6 = ip.split(':');
-    v6[v6.length - 1] = '****';
-    return v6.join(':');
-  }
 
-  /* ─────────────────────────────────────────────────────────
+    /* ─────────────────────────────────────────────────────────
      4) 단말기 · OS · 브라우저 감지
      ───────────────────────────────────────────────────────── */
-  function getDevice() {
-    var ua = navigator.userAgent;
+    function getDevice() {
+      var ua = navigator.userAgent;
 
-    // 기기 유형
-    var device = '🖥️ Desktop';
-    if (/iPad|Tablet/i.test(ua)) {
-      device = '📱 Tablet';
-    } else if (/Mobi|Android|iPhone/i.test(ua)) {
-      device = '📱 Mobile';
+      // 기기 유형
+      var device = "🖥️ Desktop";
+      if (/iPad|Tablet/i.test(ua)) {
+        device = "📱 Tablet";
+      } else if (/Mobi|Android|iPhone/i.test(ua)) {
+        device = "📱 Mobile";
+      }
+
+      // 운영체제
+      var os = "Unknown OS";
+      if (/Windows NT 10/i.test(ua)) os = "Windows 10/11";
+      else if (/Windows NT 6\.3/i.test(ua)) os = "Windows 8.1";
+      else if (/Windows NT 6\.1/i.test(ua)) os = "Windows 7";
+      else if (/Windows/i.test(ua)) os = "Windows";
+      else if (/iPhone OS/i.test(ua)) {
+        var iosv = ua.match(/iPhone OS ([\d_]+)/);
+        os = "iOS " + (iosv ? iosv[1].replace(/_/g, ".") : "");
+      } else if (/iPad.*OS/i.test(ua)) {
+        var ipadv = ua.match(/OS ([\d_]+)/);
+        os = "iPadOS " + (ipadv ? ipadv[1].replace(/_/g, ".") : "");
+      } else if (/Android/i.test(ua)) {
+        var av = ua.match(/Android ([\d.]+)/);
+        os = "Android " + (av ? av[1] : "");
+      } else if (/Mac OS X/i.test(ua)) {
+        var mv = ua.match(/Mac OS X ([\d_]+)/);
+        os = "macOS " + (mv ? mv[1].replace(/_/g, ".") : "");
+      } else if (/Linux/i.test(ua)) {
+        os = "Linux";
+      }
+
+      // 브라우저
+      var browser = "Unknown Browser";
+      if (/Edg\//i.test(ua)) {
+        var ev = ua.match(/Edg\/([\d.]+)/);
+        browser = "Edge " + (ev ? ev[1].split(".")[0] : "");
+      } else if (/OPR\//i.test(ua)) {
+        var ov = ua.match(/OPR\/([\d.]+)/);
+        browser = "Opera " + (ov ? ov[1].split(".")[0] : "");
+      } else if (/Firefox\//i.test(ua)) {
+        var fv = ua.match(/Firefox\/([\d.]+)/);
+        browser = "Firefox " + (fv ? fv[1].split(".")[0] : "");
+      } else if (/Chrome\//i.test(ua) && !/Chromium/i.test(ua)) {
+        var cv = ua.match(/Chrome\/([\d.]+)/);
+        browser = "Chrome " + (cv ? cv[1].split(".")[0] : "");
+      } else if (/Safari\//i.test(ua) && !/Chrome/i.test(ua)) {
+        var sv = ua.match(/Version\/([\d.]+)/);
+        browser = "Safari " + (sv ? sv[1].split(".")[0] : "");
+      }
+
+      return { device: device, os: os, browser: browser };
     }
 
-    // 운영체제
-    var os = 'Unknown OS';
-    if (/Windows NT 10/i.test(ua))           os = 'Windows 10/11';
-    else if (/Windows NT 6\.3/i.test(ua))    os = 'Windows 8.1';
-    else if (/Windows NT 6\.1/i.test(ua))    os = 'Windows 7';
-    else if (/Windows/i.test(ua))            os = 'Windows';
-    else if (/iPhone OS/i.test(ua)) {
-      var iosv = ua.match(/iPhone OS ([\d_]+)/);
-      os = 'iOS ' + (iosv ? iosv[1].replace(/_/g, '.') : '');
-    } else if (/iPad.*OS/i.test(ua)) {
-      var ipadv = ua.match(/OS ([\d_]+)/);
-      os = 'iPadOS ' + (ipadv ? ipadv[1].replace(/_/g, '.') : '');
-    } else if (/Android/i.test(ua)) {
-      var av = ua.match(/Android ([\d.]+)/);
-      os = 'Android ' + (av ? av[1] : '');
-    } else if (/Mac OS X/i.test(ua)) {
-      var mv = ua.match(/Mac OS X ([\d_]+)/);
-      os = 'macOS ' + (mv ? mv[1].replace(/_/g, '.') : '');
-    } else if (/Linux/i.test(ua)) {
-      os = 'Linux';
-    }
-
-    // 브라우저
-    var browser = 'Unknown Browser';
-    if (/Edg\//i.test(ua)) {
-      var ev = ua.match(/Edg\/([\d.]+)/);
-      browser = 'Edge ' + (ev ? ev[1].split('.')[0] : '');
-    } else if (/OPR\//i.test(ua)) {
-      var ov = ua.match(/OPR\/([\d.]+)/);
-      browser = 'Opera ' + (ov ? ov[1].split('.')[0] : '');
-    } else if (/Firefox\//i.test(ua)) {
-      var fv = ua.match(/Firefox\/([\d.]+)/);
-      browser = 'Firefox ' + (fv ? fv[1].split('.')[0] : '');
-    } else if (/Chrome\//i.test(ua) && !/Chromium/i.test(ua)) {
-      var cv = ua.match(/Chrome\/([\d.]+)/);
-      browser = 'Chrome ' + (cv ? cv[1].split('.')[0] : '');
-    } else if (/Safari\//i.test(ua) && !/Chrome/i.test(ua)) {
-      var sv = ua.match(/Version\/([\d.]+)/);
-      browser = 'Safari ' + (sv ? sv[1].split('.')[0] : '');
-    }
-
-    return { device: device, os: os, browser: browser };
-  }
-
-  /* ─────────────────────────────────────────────────────────
+    /* ─────────────────────────────────────────────────────────
      5) 행 렌더링 헬퍼
      ───────────────────────────────────────────────────────── */
-  function renderRow(id, icon, html) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.innerHTML =
-      '<span class="hg-row-icon">' + icon + '</span>' +
-      '<span>' + html + '</span>';
-  }
+    function renderRow(id, icon, html) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.innerHTML =
+        '<span class="hg-row-icon">' +
+        icon +
+        "</span>" +
+        "<span>" +
+        html +
+        "</span>";
+    }
 
-  /* ─────────────────────────────────────────────────────────
+    /* ─────────────────────────────────────────────────────────
      6) 환영 문구 (시간대 반영)
      ───────────────────────────────────────────────────────── */
-  function getTimeGreet(tz) {
-    try {
-      var now = new Date();
-      var hour = parseInt(
-        now.toLocaleString('en-US', { timeZone: tz, hour: 'numeric', hour12: false })
-      );
-      if (hour >= 5  && hour < 12) return 'Good morning';
-      if (hour >= 12 && hour < 18) return 'Good afternoon';
-      if (hour >= 18 && hour < 22) return 'Good evening';
-      return 'Hello';
-    } catch (e) { return 'Hello'; }
-  }
+    function getTimeGreet(tz) {
+      try {
+        var now = new Date();
+        var hour = parseInt(
+          now.toLocaleString("en-US", {
+            timeZone: tz,
+            hour: "numeric",
+            hour12: false,
+          }),
+        );
+        if (hour >= 5 && hour < 12) return "Good morning";
+        if (hour >= 12 && hour < 18) return "Good afternoon";
+        if (hour >= 18 && hour < 22) return "Good evening";
+        return "Hello";
+      } catch (e) {
+        return "Hello";
+      }
+    }
 
-  /* ─────────────────────────────────────────────────────────
+    /* ─────────────────────────────────────────────────────────
      7) 렌더링
      ───────────────────────────────────────────────────────── */
-  function render(d) {
-    var code  = (d && d.country_code) ? d.country_code : '_default';
-    var g     = GREETINGS[code] || GREETINGS['_default'];
-    var dev   = getDevice();
-    var flag  = toFlag(d ? d.country_code : '');
-    var timeG = d && d.timezone ? getTimeGreet(d.timezone) : '';
+    function render(d) {
+      var code = d && d.country_code ? d.country_code : "_default";
+      var g = GREETINGS[code] || GREETINGS["_default"];
+      var dev = getDevice();
+      var flag = toFlag(d ? d.country_code : "");
+      var timeG = d && d.timezone ? getTimeGreet(d.timezone) : "";
 
-    // ── 인사말 (현지어) ──
-    // 끝 '!' → '?' 로 변경하여 질문형 인사 연출
-    var greetWord = g.text.replace(/[!！]$/, '?');
-    document.getElementById('hg-greeting').textContent = greetWord;
+      // ── 인사말 (현지어) ──
+      // 끝 '!' → '?' 로 변경하여 질문형 인사 연출
+      var greetWord = g.text.replace(/[!！]$/, "?");
+      document.getElementById("hg-greeting").textContent = greetWord;
 
-    // ── 국기 + 언어명 ──
-    document.getElementById('hg-flag').textContent = flag;
-    var langLabel = g.lang || '';
-    if (g.rom) langLabel += ' · ' + g.rom;
-    document.getElementById('hg-lang').textContent = langLabel;
+      // ── 국기 + 언어명 ──
+      document.getElementById("hg-flag").textContent = flag;
+      var langLabel = g.lang || "";
+      if (g.rom) langLabel += " · " + g.rom;
+      document.getElementById("hg-lang").textContent = langLabel;
 
-    // ── IP 배지 ──
-    var ipText = (d && d.ip) ? maskIP(d.ip) : 'Guest';
-    document.getElementById('hg-ip-pill').textContent = ipText;
+      // ── IP 배지 ──
+      var ipText = d && d.ip ? maskIP(d.ip) : "Guest";
+      document.getElementById("hg-ip-pill").textContent = ipText;
 
-    // ── 단말기 문구 (브라우저 · OS) ──
-    var deviceText = dev.browser + ' · ' + dev.os;
-    document.getElementById('hg-device-text').textContent = deviceText;
+      // ── 단말기 문구 (브라우저 · OS) ──
+      var deviceText = dev.browser + " · " + dev.os;
+      document.getElementById("hg-device-text").textContent = deviceText;
 
-    // ── 상세 행: 위치 ──
-    if (d && d.country_name) {
-      renderRow('hg-location', flag,
-        '<strong>' + d.country_name + '</strong>' +
-        (d.region ? ' &nbsp;·&nbsp; ' + d.region : '') +
-        (d.city   ? ' &nbsp;·&nbsp; ' + d.city   : '') +
-        '<span class="hg-badge">Location</span>'
+      // ── 상세 행: 위치 ──
+      if (d && d.country_name) {
+        renderRow(
+          "hg-location",
+          flag,
+          "<strong>" +
+            d.country_name +
+            "</strong>" +
+            (d.region ? " &nbsp;·&nbsp; " + d.region : "") +
+            (d.city ? " &nbsp;·&nbsp; " + d.city : "") +
+            '<span class="hg-badge">Location</span>',
+        );
+      } else {
+        renderRow("hg-location", "🌐", "Location unavailable");
+      }
+
+      // ── 상세 행: 시간대 + 현지 시간대 인사 ──
+      if (d && d.timezone) {
+        renderRow(
+          "hg-region",
+          "🕐",
+          (timeG ? timeG + "! &nbsp;— &nbsp;" : "") +
+            '<span style="color:#9fb5c2">' +
+            d.timezone +
+            "</span>" +
+            (d.utc_offset ? " (UTC" + d.utc_offset + ")" : ""),
+        );
+      } else {
+        document.getElementById("hg-region").style.display = "none";
+      }
+
+      // ── 상세 행: 단말기 전체 ──
+      renderRow(
+        "hg-device",
+        dev.device.split(" ")[0],
+        dev.device.replace(/^[^ ]+ /, "") +
+          " &nbsp;·&nbsp; " +
+          dev.os +
+          " &nbsp;·&nbsp; " +
+          dev.browser +
+          '<span class="hg-badge">Device</span>',
       );
-    } else {
-      renderRow('hg-location', '🌐', 'Location unavailable');
+
+      // ── 표시 ──
+      document.getElementById("hg-loading").style.display = "none";
+      document.getElementById("hg-main").style.display = "block";
     }
 
-    // ── 상세 행: 시간대 + 현지 시간대 인사 ──
-    if (d && d.timezone) {
-      renderRow('hg-region', '🕐',
-        (timeG ? timeG + '! &nbsp;— &nbsp;' : '') +
-        '<span style="color:#9fb5c2">' + d.timezone + '</span>' +
-        (d.utc_offset ? ' (UTC' + d.utc_offset + ')' : '')
-      );
-    } else {
-      document.getElementById('hg-region').style.display = 'none';
-    }
-
-    // ── 상세 행: 단말기 전체 ──
-    renderRow('hg-device', dev.device.split(' ')[0],
-      dev.device.replace(/^[^ ]+ /, '') +
-      ' &nbsp;·&nbsp; ' + dev.os +
-      ' &nbsp;·&nbsp; ' + dev.browser +
-      '<span class="hg-badge">Device</span>'
-    );
-
-    // ── 표시 ──
-    document.getElementById('hg-loading').style.display = 'none';
-    document.getElementById('hg-main').style.display    = 'block';
-  }
-
-  /* ─────────────────────────────────────────────────────────
-     8) IP 지오로케이션 API 호출 (ipapi.co — 무료 tier)
+    /* ─────────────────────────────────────────────────────────
+     8) localStorage 캐시 헬퍼 (TTL: 30분)
+        → Rate-Limit 방지 + 반복 방문 즉시 표시
      ───────────────────────────────────────────────────────── */
-  try {
-    fetch('https://ipapi.co/json/')
-      .then(function (r) { return r.json(); })
-      .then(function (data) { render(data); })
-      .catch(function () { render(null); });
-  } catch (e) {
-    render(null);
-  }
+    var CACHE_KEY = "hg_ip_cache";
+    var CACHE_TTL = 30 * 60 * 1000; // 30분
 
-})();
+    function getCached() {
+      try {
+        var raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        var obj = JSON.parse(raw);
+        if (Date.now() - obj.ts > CACHE_TTL) {
+          localStorage.removeItem(CACHE_KEY);
+          return null;
+        }
+        return obj.data;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function setCached(data) {
+      try {
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ ts: Date.now(), data: data }),
+        );
+      } catch (e) {}
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     9) IP 지오로케이션 API 호출 (ipapi.co — 무료 tier)
+        · 캐시 히트  → 즉시 render (API 호출 없음)
+        · 캐시 미스  → fetch 후 캐시 저장 → render
+        · 오류/타임아웃 6초 → render(null) 폴백
+     ───────────────────────────────────────────────────────── */
+    var cached = getCached();
+    if (cached) {
+      render(cached);
+    } else {
+      // 6초 안에 API 응답이 없으면 단말기 정보만으로 폴백
+      var fallbackTimer = setTimeout(function () {
+        render(null);
+      }, 6000);
+
+      try {
+        fetch("https://ipapi.co/json/")
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status); // 429, 5xx 명시 처리
+            return r.json();
+          })
+          .then(function (data) {
+            clearTimeout(fallbackTimer);
+            setCached(data);
+            render(data);
+          })
+          .catch(function () {
+            clearTimeout(fallbackTimer);
+            render(null);
+          });
+      } catch (e) {
+        clearTimeout(fallbackTimer);
+        render(null);
+      }
+    }
+  })();
 </script>
