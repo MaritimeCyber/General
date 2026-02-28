@@ -1,0 +1,33 @@
+<!-- ═══════════════════════════════════════════════════════
+     GitHub Raw Content Injector
+     Usage : Paste this into a Blogger HTML widget.
+             Change GITHUB_RAW_URL to any raw GitHub file URL.
+═══════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════════
+     Hello Guest Widget — shippauljobs.blogspot.com
+     기능: 방문자 IP · 국가 · 지역 · 도시 · 단말기 자동 감지
+          감지된 국가에 맞는 언어로 환영 인사 출력
+     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
+════════════════════════════════════════════════════════════ -->
+<div id="Hello_GuestInfo.html"></div>
+
+<script>
+(function () {
+  var GITHUB_RAW_URL =
+    'https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Blog/Backend/Hello_GuestInfo.html';
+
+  var target = document.getElementById('Hello_GuestInfo.html');
+
+  fetch(GITHUB_RAW_URL)
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.text();
+    })
+    .then(function (html) {
+      target.innerHTML = html;
+    })
+    .catch(function (err) {
+      console.warn('[gh-inject] Failed to load:', err);
+    });
+})();
+</script>
