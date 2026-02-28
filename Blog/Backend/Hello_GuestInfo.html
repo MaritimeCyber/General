@@ -1,7 +1,7 @@
 <!-- ════════════════════════════════════════════════════════════
      Hello Guest Widget — shippauljobs.blogspot.com
      기능: 방문자 IP · 국가 · 지역 · 도시 · 단말기 자동 감지
-          감지된 국가에 맞는 언어로 환영 인사 출력
+          모든 정보를 자연스러운 문장 인사말로 출력
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
 
@@ -11,7 +11,6 @@
 />
 
 <style>
-  /* ── 기본 리셋 ── */
   #hg-wrap,
   #hg-wrap * {
     box-sizing: border-box;
@@ -19,8 +18,6 @@
     margin: 0;
     padding: 0;
   }
-
-  /* ── 로딩 펄스 애니메이션 ── */
   @keyframes hg-pulse {
     0%,
     100% {
@@ -30,42 +27,49 @@
       opacity: 0.35;
     }
   }
-
-  /* ── 정보 행 ── */
-  .hg-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
+  /* IP 배지 */
+  #hg-ip-pill {
+    display: inline-block;
+    background: #1a9e82;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+  }
+  /* 문장 블록 */
+  .hg-para {
+    font-size: 13px;
+    color: #424242;
+    line-height: 1.9;
+    margin-bottom: 10px;
+  }
+  .hg-para .hl {
+    font-weight: 700;
+    color: #1a9e82;
+  }
+  .hg-para .dim {
+    font-size: 11.5px;
+    color: #9fb5c2;
+  }
+  /* 안전 확인 박스 */
+  #hg-confirm {
+    margin-top: 13px;
+    padding: 9px 12px;
+    background: #f4faf8;
+    border-left: 3px solid #1a9e82;
+    border-radius: 4px;
     font-size: 12px;
     color: #5a7080;
-    line-height: 1.55;
-    margin-bottom: 5px;
-  }
-  .hg-row-icon {
-    flex-shrink: 0;
-    font-size: 13px;
-    margin-top: 1px;
-  }
-
-  /* ── 배지 ── */
-  .hg-badge {
-    display: inline-block;
-    background: #e8f6f3;
-    color: #1a9e82;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    padding: 1px 6px;
-    border-radius: 4px;
-    vertical-align: middle;
-    margin-left: 4px;
+    line-height: 1.7;
   }
 </style>
 
 <!-- ── 위젯 컨테이너 ── -->
 <div id="hg-wrap">
-  <!-- 로딩 상태 -->
+  <!-- 로딩 -->
   <div
     id="hg-loading"
     style="
@@ -80,17 +84,16 @@
     ⚓ Detecting your location…
   </div>
 
-  <!-- 본문 (로딩 완료 후 표시) -->
+  <!-- 본문 -->
   <div id="hg-main" style="display: none">
-    <!-- ① 메인 인사 문장 -->
-    <div style="margin-bottom: 14px">
-      <!-- 인사말 (현지어) + 국기 -->
+    <!-- ① 인사말 -->
+    <div style="margin-bottom: 12px">
       <div
         style="
           display: flex;
           align-items: baseline;
           gap: 8px;
-          margin-bottom: 6px;
+          margin-bottom: 3px;
         "
       >
         <span
@@ -103,49 +106,21 @@
           "
         ></span>
         <span id="hg-flag" style="font-size: 20px; line-height: 1"></span>
-        <span
-          id="hg-lang"
-          style="
-            font-size: 10.5px;
-            font-weight: 400;
-            color: #9fb5c2;
-            letter-spacing: 0.3px;
-          "
-        ></span>
       </div>
-
-      <!-- IP 님, 단말기를 통해 접속하신 것을 환영합니다 -->
-      <div style="font-size: 13px; color: #424242; line-height: 1.85">
-        <span
-          id="hg-ip-pill"
-          style="
-            display: inline-block;
-            background: #1a9e82;
-            color: #fff;
-            font-size: 11.5px;
-            font-weight: 700;
-            padding: 1px 8px;
-            border-radius: 20px;
-            letter-spacing: 0.3px;
-            vertical-align: middle;
-          "
-        ></span>
-        <span style="color: #424242; font-weight: 600"> 님,</span>
-        <br />
-        <span
-          id="hg-device-text"
-          style="font-weight: 700; color: #1a9e82"
-        ></span>
-        <span style="color: #5a7080"> 을 통해 접속하신 것을</span>
-        <br />
-        <span style="color: #424242; font-weight: 600">환영합니다!</span>
-        <span style="font-size: 15px"> ⚓</span>
-      </div>
+      <div
+        id="hg-lang"
+        style="
+          font-size: 11px;
+          color: #9fb5c2;
+          letter-spacing: 0.3px;
+          margin-bottom: 2px;
+        "
+      ></div>
     </div>
 
     <!-- ② 구분선 -->
     <div
-      style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px"
+      style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px"
     >
       <div style="flex: 1; height: 1px; background: #e0e0e0"></div>
       <div
@@ -160,10 +135,11 @@
       <div style="flex: 1; height: 1px; background: #e0e0e0"></div>
     </div>
 
-    <!-- ③ 상세 정보 행 -->
-    <div id="hg-location" class="hg-row"></div>
-    <div id="hg-region" class="hg-row"></div>
-    <div id="hg-device" class="hg-row"></div>
+    <!-- ③ 문장형 본문 (JS로 채움) -->
+    <div id="hg-body"></div>
+
+    <!-- ④ 안전 확인 문구 -->
+    <div id="hg-confirm"></div>
   </div>
   <!-- /hg-main -->
 </div>
@@ -177,15 +153,12 @@
      1) 국가 코드 → 인사말 테이블
      ───────────────────────────────────────────────────────── */
     var GREETINGS = {
-      // 동아시아
       KR: { text: "안녕하세요!", rom: "Annyeonghaseyo", lang: "Korean" },
       JP: { text: "こんにちは!", rom: "Konnichiwa", lang: "Japanese" },
       CN: { text: "你好！", rom: "Nǐ hǎo", lang: "Chinese" },
       TW: { text: "你好！", rom: "Nǐ hǎo", lang: "Chinese" },
       HK: { text: "你好！", rom: "Néih hóu", lang: "Cantonese" },
       MN: { text: "Сайн уу!", rom: "Sain uu", lang: "Mongolian" },
-
-      // 동남아시아
       PH: { text: "Kumusta!", rom: "", lang: "Filipino" },
       ID: { text: "Halo!", rom: "", lang: "Indonesian" },
       MY: { text: "Hai!", rom: "", lang: "Malay" },
@@ -195,15 +168,11 @@
       MM: { text: "မင်္ဂလာပါ!", rom: "Mingalaba!", lang: "Burmese" },
       KH: { text: "ជំរាបសួរ!", rom: "Chum reap suor!", lang: "Khmer" },
       LA: { text: "ສະບາຍດີ!", rom: "Sabaidee!", lang: "Lao" },
-
-      // 남아시아
       IN: { text: "नमस्ते!", rom: "Namaste!", lang: "Hindi" },
       PK: { text: "ہیلو!", rom: "Salam!", lang: "Urdu" },
       BD: { text: "হ্যালো!", rom: "Hyalo!", lang: "Bengali" },
       LK: { text: "හෙලෝ!", rom: "Āyubōvan!", lang: "Sinhala" },
       NP: { text: "नमस्ते!", rom: "Namaste!", lang: "Nepali" },
-
-      // 서남아시아 / 중동
       AE: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
       SA: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
       OM: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
@@ -219,8 +188,6 @@
       IR: { text: "سلام!", rom: "Salâm!", lang: "Persian" },
       TR: { text: "Merhaba!", rom: "", lang: "Turkish" },
       IL: { text: "שלום!", rom: "Shalom!", lang: "Hebrew" },
-
-      // 유럽 — 서부
       GB: { text: "Hello!", rom: "", lang: "English" },
       IE: { text: "Hello!", rom: "", lang: "English" },
       FR: { text: "Bonjour!", rom: "", lang: "French" },
@@ -234,15 +201,11 @@
       PT: { text: "Olá!", rom: "", lang: "Portuguese" },
       IT: { text: "Ciao!", rom: "", lang: "Italian" },
       MC: { text: "Bonjour!", rom: "", lang: "French" },
-
-      // 유럽 — 북부
       SE: { text: "Hej!", rom: "", lang: "Swedish" },
       NO: { text: "Hei!", rom: "", lang: "Norwegian" },
       DK: { text: "Hej!", rom: "", lang: "Danish" },
       FI: { text: "Moi!", rom: "", lang: "Finnish" },
       IS: { text: "Halló!", rom: "", lang: "Icelandic" },
-
-      // 유럽 — 동부
       RU: { text: "Привет!", rom: "Privet!", lang: "Russian" },
       UA: { text: "Привіт!", rom: "Pryvit!", lang: "Ukrainian" },
       PL: { text: "Cześć!", rom: "", lang: "Polish" },
@@ -255,8 +218,6 @@
       HR: { text: "Zdravo!", rom: "", lang: "Croatian" },
       SI: { text: "Zdravo!", rom: "", lang: "Slovenian" },
       GR: { text: "Γεια σου!", rom: "Yeia sou!", lang: "Greek" },
-
-      // 아메리카
       US: { text: "Hello!", rom: "", lang: "English" },
       CA: { text: "Hello!", rom: "", lang: "English" },
       MX: { text: "¡Hola!", rom: "", lang: "Spanish" },
@@ -266,12 +227,8 @@
       CO: { text: "¡Hola!", rom: "", lang: "Spanish" },
       PE: { text: "¡Hola!", rom: "", lang: "Spanish" },
       VE: { text: "¡Hola!", rom: "", lang: "Spanish" },
-
-      // 오세아니아
       AU: { text: "G'day!", rom: "", lang: "English" },
       NZ: { text: "Kia ora!", rom: "", lang: "Māori/English" },
-
-      // 아프리카
       ZA: { text: "Hello!", rom: "", lang: "English" },
       NG: { text: "Hello!", rom: "", lang: "English" },
       KE: { text: "Jambo!", rom: "", lang: "Swahili" },
@@ -280,13 +237,11 @@
       MA: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
       DZ: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
       TN: { text: "مرحباً!", rom: "Marhaban!", lang: "Arabic" },
-
-      // 기본값
       _default: { text: "Hello!", rom: "", lang: "English" },
     };
 
     /* ─────────────────────────────────────────────────────────
-     2) 국가 코드 → 국기 이모지
+     2) 헬퍼 함수들
      ───────────────────────────────────────────────────────── */
     function toFlag(code) {
       if (!code || code.length !== 2) return "🌐";
@@ -299,47 +254,33 @@
       return String.fromCodePoint(pts[0], pts[1]);
     }
 
-    /* ─────────────────────────────────────────────────────────
-     3) IP 마스킹 (마지막 옥텟 숨김)
-     ───────────────────────────────────────────────────────── */
     function maskIP(ip) {
       if (!ip) return "—";
       var parts = ip.split(".");
-      if (parts.length === 4) {
+      if (parts.length === 4)
         return parts[0] + "." + parts[1] + "." + parts[2] + ".**";
-      }
-      // IPv6: 마지막 그룹 마스킹
       var v6 = ip.split(":");
       v6[v6.length - 1] = "****";
       return v6.join(":");
     }
 
-    /* ─────────────────────────────────────────────────────────
-     4) 단말기 · OS · 브라우저 감지
-     ───────────────────────────────────────────────────────── */
     function getDevice() {
       var ua = navigator.userAgent;
+      var device = "데스크톱";
+      if (/iPad|Tablet/i.test(ua)) device = "태블릿";
+      else if (/Mobi|Android|iPhone/i.test(ua)) device = "모바일";
 
-      // 기기 유형
-      var device = "🖥️ Desktop";
-      if (/iPad|Tablet/i.test(ua)) {
-        device = "📱 Tablet";
-      } else if (/Mobi|Android|iPhone/i.test(ua)) {
-        device = "📱 Mobile";
-      }
-
-      // 운영체제
       var os = "Unknown OS";
       if (/Windows NT 10/i.test(ua)) os = "Windows 10/11";
       else if (/Windows NT 6\.3/i.test(ua)) os = "Windows 8.1";
       else if (/Windows NT 6\.1/i.test(ua)) os = "Windows 7";
       else if (/Windows/i.test(ua)) os = "Windows";
       else if (/iPhone OS/i.test(ua)) {
-        var iosv = ua.match(/iPhone OS ([\d_]+)/);
-        os = "iOS " + (iosv ? iosv[1].replace(/_/g, ".") : "");
+        var iv = ua.match(/iPhone OS ([\d_]+)/);
+        os = "iOS " + (iv ? iv[1].replace(/_/g, ".") : "");
       } else if (/iPad.*OS/i.test(ua)) {
-        var ipadv = ua.match(/OS ([\d_]+)/);
-        os = "iPadOS " + (ipadv ? ipadv[1].replace(/_/g, ".") : "");
+        var pv = ua.match(/OS ([\d_]+)/);
+        os = "iPadOS " + (pv ? pv[1].replace(/_/g, ".") : "");
       } else if (/Android/i.test(ua)) {
         var av = ua.match(/Android ([\d.]+)/);
         os = "Android " + (av ? av[1] : "");
@@ -350,7 +291,6 @@
         os = "Linux";
       }
 
-      // 브라우저
       var browser = "Unknown Browser";
       if (/Edg\//i.test(ua)) {
         var ev = ua.match(/Edg\/([\d.]+)/);
@@ -372,45 +312,26 @@
       return { device: device, os: os, browser: browser };
     }
 
-    /* ─────────────────────────────────────────────────────────
-     5) 행 렌더링 헬퍼
-     ───────────────────────────────────────────────────────── */
-    function renderRow(id, icon, html) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      el.innerHTML =
-        '<span class="hg-row-icon">' +
-        icon +
-        "</span>" +
-        "<span>" +
-        html +
-        "</span>";
-    }
-
-    /* ─────────────────────────────────────────────────────────
-     6) 환영 문구 (시간대 반영)
-     ───────────────────────────────────────────────────────── */
     function getTimeGreet(tz) {
       try {
-        var now = new Date();
-        var hour = parseInt(
-          now.toLocaleString("en-US", {
+        var h = parseInt(
+          new Date().toLocaleString("en-US", {
             timeZone: tz,
             hour: "numeric",
             hour12: false,
           }),
         );
-        if (hour >= 5 && hour < 12) return "Good morning";
-        if (hour >= 12 && hour < 18) return "Good afternoon";
-        if (hour >= 18 && hour < 22) return "Good evening";
-        return "Hello";
+        if (h >= 5 && h < 12) return "아침";
+        if (h >= 12 && h < 18) return "오후";
+        if (h >= 18 && h < 22) return "저녁";
+        return "심야";
       } catch (e) {
-        return "Hello";
+        return "";
       }
     }
 
     /* ─────────────────────────────────────────────────────────
-     7) 렌더링
+     3) 렌더링 — 문장형 인사말
      ───────────────────────────────────────────────────────── */
     function render(d) {
       var code = d && d.country_code ? d.country_code : "_default";
@@ -419,79 +340,82 @@
       var flag = toFlag(d ? d.country_code : "");
       var timeG = d && d.timezone ? getTimeGreet(d.timezone) : "";
 
-      // ── 인사말 (현지어) ──
-      // 끝 '!' → '?' 로 변경하여 질문형 인사 연출
+      /* ── 인사말 헤더 ── */
       var greetWord = g.text.replace(/[!！]$/, "?");
       document.getElementById("hg-greeting").textContent = greetWord;
-
-      // ── 국기 + 언어명 ──
       document.getElementById("hg-flag").textContent = flag;
-      var langLabel = g.lang || "";
-      if (g.rom) langLabel += " · " + g.rom;
+      var langLabel = g.lang + (g.rom ? " · " + g.rom : "");
       document.getElementById("hg-lang").textContent = langLabel;
 
-      // ── IP 배지 ──
-      var ipText = d && d.ip ? maskIP(d.ip) : "Guest";
-      document.getElementById("hg-ip-pill").textContent = ipText;
-
-      // ── 단말기 문구 (브라우저 · OS) ──
-      var deviceText = dev.browser + " · " + dev.os;
-      document.getElementById("hg-device-text").textContent = deviceText;
-
-      // ── 상세 행: 위치 ──
+      /* ── 위치 문자열 조합 ── */
+      var location = "";
       if (d && d.country_name) {
-        renderRow(
-          "hg-location",
-          flag,
-          "<strong>" +
-            d.country_name +
-            "</strong>" +
-            (d.region ? " &nbsp;·&nbsp; " + d.region : "") +
-            (d.city ? " &nbsp;·&nbsp; " + d.city : "") +
-            '<span class="hg-badge">Location</span>',
-        );
-      } else {
-        renderRow("hg-location", "🌐", "Location unavailable");
+        location = d.country_name;
+        if (d.region && d.region !== d.city) location += " " + d.region;
+        if (d.city) location += " " + d.city;
       }
 
-      // ── 상세 행: 시간대 + 현지 시간대 인사 ──
+      /* ── 시간 문자열 조합 ── */
+      var timeStr = "";
       if (d && d.timezone) {
-        renderRow(
-          "hg-region",
-          "🕐",
-          (timeG ? timeG + "! &nbsp;— &nbsp;" : "") +
-            '<span style="color:#9fb5c2">' +
-            d.timezone +
-            "</span>" +
-            (d.utc_offset ? " (UTC" + d.utc_offset + ")" : ""),
-        );
-      } else {
-        document.getElementById("hg-region").style.display = "none";
+        timeStr =
+          d.timezone + (d.utc_offset ? " (UTC" + d.utc_offset + ")" : "");
       }
 
-      // ── 상세 행: 단말기 전체 ──
-      renderRow(
-        "hg-device",
-        dev.device.split(" ")[0],
-        dev.device.replace(/^[^ ]+ /, "") +
-          " &nbsp;·&nbsp; " +
-          dev.os +
-          " &nbsp;·&nbsp; " +
-          dev.browser +
-          '<span class="hg-badge">Device</span>',
-      );
+      /* ── 문장 1: IP 님, ── */
+      var ipText = d && d.ip ? maskIP(d.ip) : "Guest";
+      var s1 =
+        '<p class="hg-para">' +
+        '<span id="hg-ip-pill">' +
+        ipText +
+        "</span>" +
+        ' <span style="font-weight:600;"> 님,</span>' +
+        "</p>";
 
-      // ── 표시 ──
+      /* ── 문장 2: 위치 + 단말기 ── */
+      var s2 = '<p class="hg-para">';
+      if (location) {
+        s2 += '현재 <span class="hl">' + location + "</span>에서<br>";
+      }
+      s2 +=
+        '<span class="hl">' +
+        dev.browser +
+        " · " +
+        dev.os +
+        "</span>" +
+        ' <span class="dim">(' +
+        dev.device +
+        ")</span>" +
+        "을 통해 접속하고 계십니다.";
+      s2 += "</p>";
+
+      /* ── 문장 3: 시간대 ── */
+      var s3 = "";
+      if (timeG || timeStr) {
+        s3 = '<p class="hg-para">';
+        if (timeG) s3 += '<span class="hl">' + timeG + "</span> 시간대";
+        if (timeG && timeStr) s3 += " · ";
+        if (timeStr) s3 += '<span class="dim">' + timeStr + "</span>";
+        s3 += "에 접속하셨습니다.</p>";
+      }
+
+      document.getElementById("hg-body").innerHTML = s1 + s2 + s3;
+
+      /* ── 안전 확인 문구 ── */
+      document.getElementById("hg-confirm").innerHTML =
+        "귀하의 접속 정보가 위와 같이 확인되며,<br>" +
+        "현재 <strong>안전하게 연결</strong>되어 있습니다. ⚓";
+
+      /* ── 표시 ── */
       document.getElementById("hg-loading").style.display = "none";
       document.getElementById("hg-main").style.display = "block";
     }
 
     /* ─────────────────────────────────────────────────────────
-     8) localStorage 캐시 헬퍼 (TTL: 30분)
-        → Rate-Limit 방지 + 반복 방문 즉시 표시
+     4) localStorage 캐시 (TTL 30분) + API 호출
      ───────────────────────────────────────────────────────── */
     var CACHE_KEY = "hg_ip_cache";
-    var CACHE_TTL = 30 * 60 * 1000; // 30분
+    var CACHE_TTL = 30 * 60 * 1000;
 
     function getCached() {
       try {
@@ -517,25 +441,17 @@
       } catch (e) {}
     }
 
-    /* ─────────────────────────────────────────────────────────
-     9) IP 지오로케이션 API 호출 (ipapi.co — 무료 tier)
-        · 캐시 히트  → 즉시 render (API 호출 없음)
-        · 캐시 미스  → fetch 후 캐시 저장 → render
-        · 오류/타임아웃 6초 → render(null) 폴백
-     ───────────────────────────────────────────────────────── */
     var cached = getCached();
     if (cached) {
       render(cached);
     } else {
-      // 6초 안에 API 응답이 없으면 단말기 정보만으로 폴백
       var fallbackTimer = setTimeout(function () {
         render(null);
       }, 6000);
-
       try {
         fetch("https://ipapi.co/json/")
           .then(function (r) {
-            if (!r.ok) throw new Error("HTTP " + r.status); // 429, 5xx 명시 처리
+            if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
           })
           .then(function (data) {
