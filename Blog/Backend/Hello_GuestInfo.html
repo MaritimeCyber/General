@@ -1,7 +1,7 @@
 <!-- ════════════════════════════════════════════════════════════
      Hello Guest Widget — shippauljobs.blogspot.com
      기능: 방문자 IP · 국가 · 지역 · 도시 · 단말기 자동 감지
-          모든 정보를 자연스러운 문장 인사말로 출력
+          감지된 국가 언어로 전체 인사말 출력
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
 
@@ -27,7 +27,6 @@
       opacity: 0.35;
     }
   }
-  /* IP 배지 */
   #hg-ip-pill {
     display: inline-block;
     background: #1a9e82;
@@ -39,7 +38,6 @@
     letter-spacing: 0.3px;
     vertical-align: middle;
   }
-  /* 문장 블록 */
   .hg-para {
     font-size: 13px;
     color: #424242;
@@ -54,7 +52,6 @@
     font-size: 11.5px;
     color: #9fb5c2;
   }
-  /* 안전 확인 박스 */
   #hg-confirm {
     margin-top: 13px;
     padding: 9px 12px;
@@ -67,7 +64,7 @@
   }
 </style>
 
-<!-- ── 위젯 컨테이너 ── -->
+<!-- 위젯 컨테이너 -->
 <div id="hg-wrap">
   <!-- 로딩 -->
   <div
@@ -135,7 +132,7 @@
       <div style="flex: 1; height: 1px; background: #e0e0e0"></div>
     </div>
 
-    <!-- ③ 문장형 본문 (JS로 채움) -->
+    <!-- ③ 문장형 본문 -->
     <div id="hg-body"></div>
 
     <!-- ④ 안전 확인 문구 -->
@@ -144,17 +141,15 @@
     <!-- ⑤ 추가 확인 정보 -->
     <div id="hg-extra"></div>
   </div>
-  <!-- /hg-main -->
 </div>
-<!-- /hg-wrap -->
 
 <script>
   (function () {
     "use strict";
 
-    /* ─────────────────────────────────────────────────────────
-     1) 국가 코드 → 인사말 테이블
-     ───────────────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════
+     A) 국가 코드 → 현지어 인사말
+  ═══════════════════════════════════════ */
     var GREETINGS = {
       KR: { text: "안녕하세요!", rom: "Annyeonghaseyo", lang: "Korean" },
       JP: { text: "こんにちは!", rom: "Konnichiwa", lang: "Japanese" },
@@ -243,9 +238,534 @@
       _default: { text: "Hello!", rom: "", lang: "English" },
     };
 
-    /* ─────────────────────────────────────────────────────────
-     2) 헬퍼 함수들
-     ───────────────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════
+     B) 국가 코드 → 언어 코드
+  ═══════════════════════════════════════ */
+    var LANG_MAP = {
+      KR: "ko",
+      JP: "ja",
+      CN: "zh",
+      TW: "zh",
+      HK: "zh",
+      MN: "en",
+      PH: "fil",
+      ID: "id",
+      MY: "id",
+      TH: "th",
+      VN: "vi",
+      SG: "en",
+      MM: "en",
+      KH: "en",
+      LA: "en",
+      IN: "hi",
+      PK: "en",
+      BD: "en",
+      LK: "en",
+      NP: "en",
+      AE: "ar",
+      SA: "ar",
+      OM: "ar",
+      KW: "ar",
+      QA: "ar",
+      BH: "ar",
+      YE: "ar",
+      JO: "ar",
+      IQ: "ar",
+      SY: "ar",
+      LB: "ar",
+      EG: "ar",
+      MA: "ar",
+      DZ: "ar",
+      TN: "ar",
+      IR: "fa",
+      TR: "tr",
+      IL: "en",
+      GB: "en",
+      IE: "en",
+      FR: "fr",
+      DE: "de",
+      NL: "nl",
+      BE: "fr",
+      CH: "de",
+      AT: "de",
+      LU: "en",
+      ES: "es",
+      PT: "pt",
+      IT: "it",
+      MC: "fr",
+      SE: "en",
+      NO: "en",
+      DK: "en",
+      FI: "en",
+      IS: "en",
+      RU: "ru",
+      UA: "uk",
+      PL: "en",
+      CZ: "en",
+      SK: "en",
+      HU: "en",
+      RO: "en",
+      BG: "en",
+      RS: "en",
+      HR: "en",
+      SI: "en",
+      GR: "en",
+      US: "en",
+      CA: "en",
+      MX: "es",
+      BR: "pt",
+      AR: "es",
+      CL: "es",
+      CO: "es",
+      PE: "es",
+      VE: "es",
+      AU: "en",
+      NZ: "en",
+      ZA: "en",
+      NG: "en",
+      KE: "en",
+      ET: "en",
+      GH: "en",
+      _default: "en",
+    };
+
+    /* ═══════════════════════════════════════
+     C) 언어별 번역 문자열
+  ═══════════════════════════════════════ */
+    var STRINGS = {
+      en: {
+        honorific: "",
+        fromLoc: "Currently visiting from {loc}",
+        connVia: "Connected via {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Your connection details have been verified as shown above.<br>You are currently <strong>safely connected</strong>. ⚓",
+        extraTitle: "Additional Info",
+        morning: "Morning",
+        afternoon: "Afternoon",
+        evening: "Evening",
+        lateNight: "Late Night",
+        directVisit: "You visited directly — welcome!",
+        viaSearch: "You arrived via {src} Search — welcome!",
+        viaSocial: "You came from {src} — welcome!",
+        viaBlog: "You navigated from another page on this blog — welcome!",
+        viaLink: "You arrived from {src} — welcome!",
+        desktop: "Desktop",
+        mobile: "Mobile",
+        tablet: "Tablet",
+      },
+      ko: {
+        honorific: "님,",
+        fromLoc: "현재 {loc}에서",
+        connVia: "{br} · {os} ({dev})을 통해 접속하고 계십니다.",
+        timeConn: "{tg} 시간대 · {tz}에 접속하셨습니다.",
+        confirmed:
+          "귀하의 접속 정보가 위와 같이 확인되며,<br>현재 <strong>안전하게 연결</strong>되어 있습니다. ⚓",
+        extraTitle: "추가 확인 정보",
+        morning: "아침",
+        afternoon: "오후",
+        evening: "저녁",
+        lateNight: "심야",
+        directVisit: "직접 방문하셨군요, 반갑습니다!",
+        viaSearch: "{src} 검색을 통해 오셨군요, 반갑습니다!",
+        viaSocial: "{src}을(를) 통해 오셨군요, 반갑습니다!",
+        viaBlog: "블로그 내 다른 페이지에서 오셨군요, 반갑습니다!",
+        viaLink: "{src} 링크를 통해 오셨군요, 반갑습니다!",
+        desktop: "데스크톱",
+        mobile: "모바일",
+        tablet: "태블릿",
+      },
+      ja: {
+        honorific: "様,",
+        fromLoc: "現在 {loc} よりアクセスしています",
+        connVia: "{br} · {os} ({dev}) を通じて接続しています。",
+        timeConn: "{tg} · {tz} に接続しました。",
+        confirmed:
+          "接続情報が上記のとおり確認されました。<br>現在<strong>安全に接続</strong>されています。 ⚓",
+        extraTitle: "追加確認情報",
+        morning: "朝",
+        afternoon: "午後",
+        evening: "夜",
+        lateNight: "深夜",
+        directVisit: "直接ご訪問いただきました。ようこそ！",
+        viaSearch: "{src} 検索からお越しいただきました。ようこそ！",
+        viaSocial: "{src} からお越しいただきました。ようこそ！",
+        viaBlog: "ブログ内の別ページからお越しいただきました。ようこそ！",
+        viaLink: "{src} からお越しいただきました。ようこそ！",
+        desktop: "デスクトップ",
+        mobile: "モバイル",
+        tablet: "タブレット",
+      },
+      zh: {
+        honorific: "您好,",
+        fromLoc: "您当前正从 {loc} 访问",
+        connVia: "通过 {br} · {os}（{dev}）连接。",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "您的连接信息已如上所示得到验证。<br>您目前处于<strong>安全连接</strong>状态。 ⚓",
+        extraTitle: "附加信息",
+        morning: "早晨",
+        afternoon: "下午",
+        evening: "晚上",
+        lateNight: "深夜",
+        directVisit: "您直接访问了本站，欢迎！",
+        viaSearch: "您通过 {src} 搜索来访，欢迎！",
+        viaSocial: "您通过 {src} 来访，欢迎！",
+        viaBlog: "您从博客的其他页面来访，欢迎！",
+        viaLink: "您通过 {src} 链接来访，欢迎！",
+        desktop: "桌面",
+        mobile: "手机",
+        tablet: "平板",
+      },
+      fr: {
+        honorific: ",",
+        fromLoc: "Vous vous connectez depuis {loc}",
+        connVia: "via {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Vos informations de connexion ont été vérifiées.<br>Vous êtes <strong>connecté en toute sécurité</strong>. ⚓",
+        extraTitle: "Informations supplémentaires",
+        morning: "Matin",
+        afternoon: "Après-midi",
+        evening: "Soir",
+        lateNight: "Nuit",
+        directVisit: "Vous avez visité directement — bienvenue !",
+        viaSearch: "Vous venez de {src} — bienvenue !",
+        viaSocial: "Vous venez de {src} — bienvenue !",
+        viaBlog: "Vous venez d'une autre page du blog — bienvenue !",
+        viaLink: "Vous venez de {src} — bienvenue !",
+        desktop: "Ordinateur",
+        mobile: "Mobile",
+        tablet: "Tablette",
+      },
+      de: {
+        honorific: ",",
+        fromLoc: "Sie verbinden sich aus {loc}",
+        connVia: "über {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Ihre Verbindungsdaten wurden verifiziert.<br>Sie sind derzeit <strong>sicher verbunden</strong>. ⚓",
+        extraTitle: "Weitere Informationen",
+        morning: "Morgen",
+        afternoon: "Nachmittag",
+        evening: "Abend",
+        lateNight: "Nacht",
+        directVisit: "Sie haben direkt besucht — willkommen!",
+        viaSearch: "Sie kamen über {src} — willkommen!",
+        viaSocial: "Sie kamen von {src} — willkommen!",
+        viaBlog: "Sie kamen von einer anderen Blog-Seite — willkommen!",
+        viaLink: "Sie kamen von {src} — willkommen!",
+        desktop: "Desktop",
+        mobile: "Mobil",
+        tablet: "Tablet",
+      },
+      es: {
+        honorific: ",",
+        fromLoc: "Se está conectando desde {loc}",
+        connVia: "a través de {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Su información de conexión ha sido verificada.<br>Está <strong>conectado de forma segura</strong>. ⚓",
+        extraTitle: "Información adicional",
+        morning: "Mañana",
+        afternoon: "Tarde",
+        evening: "Noche",
+        lateNight: "Madrugada",
+        directVisit: "¡Visitaste directamente — bienvenido!",
+        viaSearch: "¡Llegaste vía {src} — bienvenido!",
+        viaSocial: "¡Llegaste desde {src} — bienvenido!",
+        viaBlog: "¡Llegaste desde otra página del blog — bienvenido!",
+        viaLink: "¡Llegaste desde {src} — bienvenido!",
+        desktop: "Escritorio",
+        mobile: "Móvil",
+        tablet: "Tableta",
+      },
+      pt: {
+        honorific: ",",
+        fromLoc: "Você está se conectando de {loc}",
+        connVia: "via {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Suas informações de conexão foram verificadas.<br>Você está <strong>conectado com segurança</strong>. ⚓",
+        extraTitle: "Informações adicionais",
+        morning: "Manhã",
+        afternoon: "Tarde",
+        evening: "Noite",
+        lateNight: "Madrugada",
+        directVisit: "Você visitou diretamente — bem-vindo!",
+        viaSearch: "Você chegou via {src} — bem-vindo!",
+        viaSocial: "Você veio de {src} — bem-vindo!",
+        viaBlog: "Você veio de outra página do blog — bem-vindo!",
+        viaLink: "Você veio de {src} — bem-vindo!",
+        desktop: "Computador",
+        mobile: "Celular",
+        tablet: "Tablet",
+      },
+      it: {
+        honorific: ",",
+        fromLoc: "Stai accedendo da {loc}",
+        connVia: "tramite {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Le tue informazioni di connessione sono state verificate.<br>Sei <strong>connesso in modo sicuro</strong>. ⚓",
+        extraTitle: "Informazioni aggiuntive",
+        morning: "Mattina",
+        afternoon: "Pomeriggio",
+        evening: "Sera",
+        lateNight: "Notte",
+        directVisit: "Hai visitato direttamente — benvenuto!",
+        viaSearch: "Sei arrivato tramite {src} — benvenuto!",
+        viaSocial: "Sei venuto da {src} — benvenuto!",
+        viaBlog: "Sei venuto da un'altra pagina del blog — benvenuto!",
+        viaLink: "Sei venuto da {src} — benvenuto!",
+        desktop: "Desktop",
+        mobile: "Mobile",
+        tablet: "Tablet",
+      },
+      nl: {
+        honorific: ",",
+        fromLoc: "U maakt verbinding vanuit {loc}",
+        connVia: "via {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Uw verbindingsgegevens zijn geverifieerd.<br>U bent <strong>veilig verbonden</strong>. ⚓",
+        extraTitle: "Aanvullende informatie",
+        morning: "Ochtend",
+        afternoon: "Middag",
+        evening: "Avond",
+        lateNight: "Nacht",
+        directVisit: "U heeft direct bezocht — welkom!",
+        viaSearch: "U bent via {src} gekomen — welkom!",
+        viaSocial: "U bent van {src} gekomen — welkom!",
+        viaBlog: "U bent van een andere blogpagina gekomen — welkom!",
+        viaLink: "U bent van {src} gekomen — welkom!",
+        desktop: "Desktop",
+        mobile: "Mobiel",
+        tablet: "Tablet",
+      },
+      ru: {
+        honorific: ",",
+        fromLoc: "Вы подключаетесь из {loc}",
+        connVia: "через {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Данные подключения подтверждены.<br>Вы <strong>безопасно подключены</strong>. ⚓",
+        extraTitle: "Дополнительная информация",
+        morning: "Утро",
+        afternoon: "День",
+        evening: "Вечер",
+        lateNight: "Ночь",
+        directVisit: "Вы посетили напрямую — добро пожаловать!",
+        viaSearch: "Вы пришли через {src} — добро пожаловать!",
+        viaSocial: "Вы пришли из {src} — добро пожаловать!",
+        viaBlog: "Вы пришли с другой страницы блога — добро пожаловать!",
+        viaLink: "Вы пришли с {src} — добро пожаловать!",
+        desktop: "Компьютер",
+        mobile: "Мобильный",
+        tablet: "Планшет",
+      },
+      uk: {
+        honorific: ",",
+        fromLoc: "Ви підключаєтесь з {loc}",
+        connVia: "через {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Дані підключення підтверджено.<br>Ви <strong>безпечно підключені</strong>. ⚓",
+        extraTitle: "Додаткова інформація",
+        morning: "Ранок",
+        afternoon: "День",
+        evening: "Вечір",
+        lateNight: "Ніч",
+        directVisit: "Ви відвідали напряму — ласкаво просимо!",
+        viaSearch: "Ви прийшли через {src} — ласкаво просимо!",
+        viaSocial: "Ви прийшли з {src} — ласкаво просимо!",
+        viaBlog: "Ви прийшли з іншої сторінки блогу — ласкаво просимо!",
+        viaLink: "Ви прийшли з {src} — ласкаво просимо!",
+        desktop: "Комп'ютер",
+        mobile: "Мобільний",
+        tablet: "Планшет",
+      },
+      ar: {
+        honorific: ",",
+        fromLoc: "أنت تتصل من {loc}",
+        connVia: "عبر {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "تم التحقق من معلومات اتصالك.<br>أنت حالياً <strong>متصل بأمان</strong>. ⚓",
+        extraTitle: "معلومات إضافية",
+        morning: "صباح",
+        afternoon: "ظهر",
+        evening: "مساء",
+        lateNight: "منتصف الليل",
+        directVisit: "قمت بزيارة مباشرة — أهلاً وسهلاً!",
+        viaSearch: "وصلت عبر {src} — أهلاً وسهلاً!",
+        viaSocial: "جئت من {src} — أهلاً وسهلاً!",
+        viaBlog: "جئت من صفحة أخرى في المدونة — أهلاً وسهلاً!",
+        viaLink: "جئت من {src} — أهلاً وسهلاً!",
+        desktop: "كمبيوتر",
+        mobile: "جوّال",
+        tablet: "لوحي",
+      },
+      fa: {
+        honorific: ",",
+        fromLoc: "از {loc} متصل هستید",
+        connVia: "از طریق {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "اطلاعات اتصال شما تأیید شد.<br>شما اکنون <strong>به طور ایمن متصل</strong> هستید. ⚓",
+        extraTitle: "اطلاعات اضافی",
+        morning: "صبح",
+        afternoon: "ظهر",
+        evening: "عصر",
+        lateNight: "شب",
+        directVisit: "مستقیم بازدید کردید — خوش آمدید!",
+        viaSearch: "از {src} آمدید — خوش آمدید!",
+        viaSocial: "از {src} آمدید — خوش آمدید!",
+        viaBlog: "از صفحه دیگری از وبلاگ آمدید — خوش آمدید!",
+        viaLink: "از {src} آمدید — خوش آمدید!",
+        desktop: "کامپیوتر",
+        mobile: "موبایل",
+        tablet: "تبلت",
+      },
+      tr: {
+        honorific: ",",
+        fromLoc: "{loc} konumundan bağlanıyorsunuz",
+        connVia: "{br} · {os} ({dev}) üzerinden bağlısınız.",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Bağlantı bilgileriniz doğrulandı.<br>Şu anda <strong>güvenli bağlantıda</strong>sınız. ⚓",
+        extraTitle: "Ek Bilgiler",
+        morning: "Sabah",
+        afternoon: "Öğleden Sonra",
+        evening: "Akşam",
+        lateNight: "Gece",
+        directVisit: "Doğrudan ziyaret ettiniz — hoş geldiniz!",
+        viaSearch: "{src} üzerinden geldiniz — hoş geldiniz!",
+        viaSocial: "{src}'dan geldiniz — hoş geldiniz!",
+        viaBlog: "Blogun başka sayfasından geldiniz — hoş geldiniz!",
+        viaLink: "{src}'dan geldiniz — hoş geldiniz!",
+        desktop: "Masaüstü",
+        mobile: "Mobil",
+        tablet: "Tablet",
+      },
+      id: {
+        honorific: ",",
+        fromLoc: "Anda terhubung dari {loc}",
+        connVia: "melalui {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Informasi koneksi Anda telah diverifikasi.<br>Anda <strong>terhubung dengan aman</strong>. ⚓",
+        extraTitle: "Informasi Tambahan",
+        morning: "Pagi",
+        afternoon: "Siang",
+        evening: "Malam",
+        lateNight: "Tengah Malam",
+        directVisit: "Anda mengunjungi langsung — selamat datang!",
+        viaSearch: "Anda datang melalui {src} — selamat datang!",
+        viaSocial: "Anda datang dari {src} — selamat datang!",
+        viaBlog: "Anda datang dari halaman blog lain — selamat datang!",
+        viaLink: "Anda datang dari {src} — selamat datang!",
+        desktop: "Desktop",
+        mobile: "Ponsel",
+        tablet: "Tablet",
+      },
+      th: {
+        honorific: "ครับ/ค่ะ,",
+        fromLoc: "คุณกำลังเชื่อมต่อจาก {loc}",
+        connVia: "ผ่าน {br} · {os} ({dev})",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "ข้อมูลการเชื่อมต่อของคุณได้รับการยืนยัน<br>คุณ<strong>เชื่อมต่ออย่างปลอดภัย</strong> ⚓",
+        extraTitle: "ข้อมูลเพิ่มเติม",
+        morning: "เช้า",
+        afternoon: "บ่าย",
+        evening: "เย็น",
+        lateNight: "ดึก",
+        directVisit: "คุณเข้าชมโดยตรง — ยินดีต้อนรับ!",
+        viaSearch: "คุณมาจาก {src} — ยินดีต้อนรับ!",
+        viaSocial: "คุณมาจาก {src} — ยินดีต้อนรับ!",
+        viaBlog: "คุณมาจากหน้าอื่นในบล็อก — ยินดีต้อนรับ!",
+        viaLink: "คุณมาจาก {src} — ยินดีต้อนรับ!",
+        desktop: "คอมพิวเตอร์",
+        mobile: "มือถือ",
+        tablet: "แท็บเล็ต",
+      },
+      vi: {
+        honorific: ",",
+        fromLoc: "Bạn đang kết nối từ {loc}",
+        connVia: "qua {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Thông tin kết nối của bạn đã được xác nhận.<br>Bạn đang <strong>kết nối an toàn</strong>. ⚓",
+        extraTitle: "Thông tin bổ sung",
+        morning: "Buổi sáng",
+        afternoon: "Buổi chiều",
+        evening: "Buổi tối",
+        lateNight: "Đêm khuya",
+        directVisit: "Bạn đã truy cập trực tiếp — chào mừng!",
+        viaSearch: "Bạn đến từ {src} — chào mừng!",
+        viaSocial: "Bạn đến từ {src} — chào mừng!",
+        viaBlog: "Bạn đến từ trang khác của blog — chào mừng!",
+        viaLink: "Bạn đến từ {src} — chào mừng!",
+        desktop: "Máy tính",
+        mobile: "Di động",
+        tablet: "Máy tính bảng",
+      },
+      hi: {
+        honorific: "जी,",
+        fromLoc: "आप {loc} से जुड़ रहे हैं",
+        connVia: "{br} · {os} ({dev}) के माध्यम से।",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "आपकी कनेक्शन जानकारी सत्यापित हो गई है।<br>आप <strong>सुरक्षित रूप से जुड़े</strong> हैं। ⚓",
+        extraTitle: "अतिरिक्त जानकारी",
+        morning: "सुबह",
+        afternoon: "दोपहर",
+        evening: "शाम",
+        lateNight: "रात",
+        directVisit: "आपने सीधे विज़िट किया — स्वागत है!",
+        viaSearch: "आप {src} से आए — स्वागत है!",
+        viaSocial: "आप {src} से आए — स्वागत है!",
+        viaBlog: "आप ब्लॉग के दूसरे पेज से आए — स्वागत है!",
+        viaLink: "आप {src} से आए — स्वागत है!",
+        desktop: "कंप्यूटर",
+        mobile: "मोबाइल",
+        tablet: "टैबलेट",
+      },
+      fil: {
+        honorific: ",",
+        fromLoc: "Kumokonekta ka mula sa {loc}",
+        connVia: "sa pamamagitan ng {br} · {os} ({dev}).",
+        timeConn: "{tg} · {tz}",
+        confirmed:
+          "Na-verify ang iyong impormasyon sa koneksyon.<br>Ikaw ay <strong>ligtas na konektado</strong>. ⚓",
+        extraTitle: "Karagdagang Impormasyon",
+        morning: "Umaga",
+        afternoon: "Tanghali",
+        evening: "Gabi",
+        lateNight: "Hatinggabi",
+        directVisit: "Direkta kang bumisita — maligayang pagdating!",
+        viaSearch: "Nanggaling ka sa {src} — maligayang pagdating!",
+        viaSocial: "Nanggaling ka sa {src} — maligayang pagdating!",
+        viaBlog:
+          "Nanggaling ka sa ibang pahina ng blog — maligayang pagdating!",
+        viaLink: "Nanggaling ka sa {src} — maligayang pagdating!",
+        desktop: "Desktop",
+        mobile: "Mobile",
+        tablet: "Tablet",
+      },
+    };
+
+    /* ═══════════════════════════════════════
+     D) 헬퍼 함수들
+  ═══════════════════════════════════════ */
+
+    function fmt(tpl, vars) {
+      return tpl.replace(/\{(\w+)\}/g, function (_, k) {
+        return vars[k] !== undefined ? vars[k] : "";
+      });
+    }
+
     function toFlag(code) {
       if (!code || code.length !== 2) return "🌐";
       var pts = code
@@ -267,11 +787,12 @@
       return v6.join(":");
     }
 
+    /* deviceKey: 'desktop' | 'mobile' | 'tablet' */
     function getDevice() {
       var ua = navigator.userAgent;
-      var device = "데스크톱";
-      if (/iPad|Tablet/i.test(ua)) device = "태블릿";
-      else if (/Mobi|Android|iPhone/i.test(ua)) device = "모바일";
+      var deviceKey = "desktop";
+      if (/iPad|Tablet/i.test(ua)) deviceKey = "tablet";
+      else if (/Mobi|Android|iPhone/i.test(ua)) deviceKey = "mobile";
 
       var os = "Unknown OS";
       if (/Windows NT 10/i.test(ua)) os = "Windows 10/11";
@@ -312,9 +833,10 @@
         browser = "Safari " + (sv ? sv[1].split(".")[0] : "");
       }
 
-      return { device: device, os: os, browser: browser };
+      return { deviceKey: deviceKey, os: os, browser: browser };
     }
 
+    /* 시간대 키: 'morning' | 'afternoon' | 'evening' | 'lateNight' */
     function getTimeGreet(tz) {
       try {
         var h = parseInt(
@@ -324,234 +846,267 @@
             hour12: false,
           }),
         );
-        if (h >= 5 && h < 12) return "아침";
-        if (h >= 12 && h < 18) return "오후";
-        if (h >= 18 && h < 22) return "저녁";
-        return "심야";
+        if (h >= 5 && h < 12) return "morning";
+        if (h >= 12 && h < 18) return "afternoon";
+        if (h >= 18 && h < 22) return "evening";
+        return "lateNight";
       } catch (e) {
         return "";
       }
     }
 
-    /* ─────────────────────────────────────────────────────────
-     3) 유입 경로 감지 (document.referrer)
-     ───────────────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════
+     E) 유입 경로 감지 — { type, src, icon }
+  ═══════════════════════════════════════ */
     function getReferrer() {
       var ref = document.referrer;
-
-      // referrer 없음 → 직접 방문 (북마크·주소 직접 입력·앱 등)
-      if (!ref) {
-        return { icon: "🏠", text: "직접 방문하셨군요, 반갑습니다!" };
+      if (!ref) return { type: "direct", src: "", icon: "🏠" };
+      var host = "";
+      try {
+        host = new URL(ref).hostname.toLowerCase();
+      } catch (e) {
+        host = ref.toLowerCase();
       }
 
-      var host = "";
-      try { host = new URL(ref).hostname.toLowerCase(); } catch (e) { host = ref.toLowerCase(); }
+      if (/google\./i.test(host))
+        return { type: "search", src: "Google", icon: "🔍" };
+      if (/naver\./i.test(host))
+        return { type: "search", src: "Naver", icon: "🔍" };
+      if (/bing\./i.test(host))
+        return { type: "search", src: "Bing", icon: "🔍" };
+      if (/daum\.|kakao\./i.test(host))
+        return { type: "search", src: "Daum", icon: "🔍" };
+      if (/yahoo\./i.test(host))
+        return { type: "search", src: "Yahoo", icon: "🔍" };
+      if (/duckduckgo\./i.test(host))
+        return { type: "search", src: "DuckDuckGo", icon: "🔍" };
+      if (/baidu\./i.test(host))
+        return { type: "search", src: "百度 Baidu", icon: "🔍" };
+      if (/yandex\./i.test(host))
+        return { type: "search", src: "Yandex", icon: "🔍" };
 
-      // 검색엔진
-      if (/google\./i.test(host))      return { icon: "🔍", text: "Google 검색을 통해 오셨군요, 반갑습니다!" };
-      if (/naver\./i.test(host))       return { icon: "🔍", text: "Naver 검색을 통해 오셨군요, 반갑습니다!" };
-      if (/bing\./i.test(host))        return { icon: "🔍", text: "Bing 검색을 통해 오셨군요, 반갑습니다!" };
-      if (/daum\.|kakao\./i.test(host))return { icon: "🔍", text: "Daum 검색을 통해 오셨군요, 반갑습니다!" };
-      if (/yahoo\./i.test(host))       return { icon: "🔍", text: "Yahoo 검색을 통해 오셨군요, 반갑습니다!" };
-      if (/duckduckgo\./i.test(host))  return { icon: "🔍", text: "DuckDuckGo 검색을 통해 오셨군요, 반갑습니다!" };
-      if (/baidu\./i.test(host))       return { icon: "🔍", text: "百度(Baidu) 검색을 통해 오셨군요, 반갑습니다!" };
-      if (/yandex\./i.test(host))      return { icon: "🔍", text: "Yandex 검색을 통해 오셨군요, 반갑습니다!" };
+      if (/linkedin\./i.test(host))
+        return { type: "social", src: "LinkedIn", icon: "💼" };
+      if (/facebook\.|fb\.com/i.test(host))
+        return { type: "social", src: "Facebook", icon: "📘" };
+      if (/twitter\.|x\.com/i.test(host))
+        return { type: "social", src: "X (Twitter)", icon: "🐦" };
+      if (/instagram\./i.test(host))
+        return { type: "social", src: "Instagram", icon: "📷" };
+      if (/youtube\./i.test(host))
+        return { type: "social", src: "YouTube", icon: "🎬" };
+      if (/reddit\./i.test(host))
+        return { type: "social", src: "Reddit", icon: "🟠" };
+      if (/t\.me|telegram\./i.test(host))
+        return { type: "social", src: "Telegram", icon: "✈️" };
+      if (/github\./i.test(host))
+        return { type: "social", src: "GitHub", icon: "💻" };
+      if (/medium\./i.test(host))
+        return { type: "social", src: "Medium", icon: "📝" };
 
-      // 소셜/비즈니스
-      if (/linkedin\./i.test(host))          return { icon: "💼", text: "LinkedIn을 통해 오셨군요, 반갑습니다!" };
-      if (/facebook\.|fb\.com/i.test(host))  return { icon: "📘", text: "Facebook을 통해 오셨군요, 반갑습니다!" };
-      if (/twitter\.|x\.com/i.test(host))    return { icon: "🐦", text: "X (Twitter)를 통해 오셨군요, 반갑습니다!" };
-      if (/instagram\./i.test(host))         return { icon: "📷", text: "Instagram을 통해 오셨군요, 반갑습니다!" };
-      if (/youtube\./i.test(host))           return { icon: "🎬", text: "YouTube를 통해 오셨군요, 반갑습니다!" };
-      if (/reddit\./i.test(host))            return { icon: "🟠", text: "Reddit을 통해 오셨군요, 반갑습니다!" };
-      if (/t\.me|telegram\./i.test(host))    return { icon: "✈️", text: "Telegram을 통해 오셨군요, 반갑습니다!" };
-
-      // 개발/전문
-      if (/github\./i.test(host))            return { icon: "💻", text: "GitHub을 통해 오셨군요, 반갑습니다!" };
-      if (/medium\./i.test(host))            return { icon: "📝", text: "Medium을 통해 오셨군요, 반갑습니다!" };
-
-      // 블로그 내부 이동
       if (/blogspot\.|blogger\./i.test(host))
-        return { icon: "⚓", text: "블로그 내 다른 페이지에서 오셨군요, 반갑습니다!" };
+        return { type: "blog", src: "", icon: "⚓" };
 
-      // 그 외 외부 링크
-      var display = host.replace(/^www\./, "");
-      return { icon: "🔗", text: display + " 링크를 통해 오셨군요, 반갑습니다!" };
+      return { type: "link", src: host.replace(/^www\./, ""), icon: "🔗" };
     }
 
-    /* ─────────────────────────────────────────────────────────
-     4) 렌더링 — 문장형 인사말
-     ───────────────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════
+     F) 렌더링 — 방문자 현지어 문장형 인사말
+  ═══════════════════════════════════════ */
     function render(d) {
       var code = d && d.country_code ? d.country_code : "_default";
+      var langCode = LANG_MAP[code] || LANG_MAP["_default"] || "en";
+      var s = STRINGS[langCode] || STRINGS.en;
       var g = GREETINGS[code] || GREETINGS["_default"];
       var dev = getDevice();
       var flag = toFlag(d ? d.country_code : "");
-      var timeG = d && d.timezone ? getTimeGreet(d.timezone) : "";
+      var timeKey = d && d.timezone ? getTimeGreet(d.timezone) : "";
 
-      /* ── 인사말 헤더 ── */
+      /* 인사말 헤더 */
       var greetWord = g.text.replace(/[!！]$/, "?");
       document.getElementById("hg-greeting").textContent = greetWord;
       document.getElementById("hg-flag").textContent = flag;
-      var langLabel = g.lang + (g.rom ? " · " + g.rom : "");
-      document.getElementById("hg-lang").textContent = langLabel;
+      document.getElementById("hg-lang").textContent =
+        g.lang + (g.rom ? " · " + g.rom : "");
 
-      /* ── 위치 문자열 조합 ── */
-      var location = "";
+      /* 위치 문자열 */
+      var locParts = [];
       if (d && d.country_name) {
-        location = d.country_name;
-        if (d.region && d.region !== d.city) location += " " + d.region;
-        if (d.city) location += " " + d.city;
+        locParts.push(d.country_name);
+        if (d.region && d.region !== d.city) locParts.push(d.region);
+        if (d.city) locParts.push(d.city);
       }
+      var loc = locParts.join(" ");
 
-      /* ── 시간 문자열 조합 ── */
-      var timeStr = "";
-      if (d && d.timezone) {
-        timeStr =
-          d.timezone + (d.utc_offset ? " (UTC" + d.utc_offset + ")" : "");
-      }
+      /* 시간 문자열 */
+      var timeStr =
+        d && d.timezone
+          ? d.timezone + (d.utc_offset ? " (UTC" + d.utc_offset + ")" : "")
+          : "";
 
-      /* ── 문장 0: 유입 경로 ── */
-      var refInfo = getReferrer();
+      /* 번역된 단말기·시간대 이름 */
+      var devLabel = s[dev.deviceKey] || dev.deviceKey;
+      var tgLabel = timeKey ? s[timeKey] || timeKey : "";
+
+      /* 문장 0: 유입 경로 (현지어) */
+      var ref = getReferrer();
+      var refText;
+      if (ref.type === "direct") refText = s.directVisit;
+      else if (ref.type === "search")
+        refText = fmt(s.viaSearch, { src: ref.src });
+      else if (ref.type === "social")
+        refText = fmt(s.viaSocial, { src: ref.src });
+      else if (ref.type === "blog") refText = s.viaBlog;
+      else refText = fmt(s.viaLink, { src: ref.src });
+
       var s0 =
-        '<div style="' +
-        'display:inline-flex; align-items:center; gap:5px;' +
-        'background:#e8f6f3; border-left:3px solid #1a9e82;' +
-        'padding:5px 10px; border-radius:0 4px 4px 0;' +
-        'font-size:12px; font-weight:600; color:#1a9e82;' +
-        'margin-bottom:10px;">' +
-        '<span style="font-size:14px;">' + refInfo.icon + '</span>' +
-        '<span>' + refInfo.text + '</span>' +
-        '</div>';
+        '<div style="display:inline-flex;align-items:center;gap:5px;' +
+        "background:#e8f6f3;border-left:3px solid #1a9e82;padding:5px 10px;" +
+        'border-radius:0 4px 4px 0;font-size:12px;font-weight:600;color:#1a9e82;margin-bottom:10px;">' +
+        '<span style="font-size:14px;">' +
+        ref.icon +
+        "</span>" +
+        "<span>" +
+        refText +
+        "</span></div>";
 
-      /* ── 문장 1: IP 님, ── */
+      /* 문장 1: IP + honorific */
       var ipText = d && d.ip ? maskIP(d.ip) : "Guest";
       var s1 =
-        '<p class="hg-para">' +
-        '<span id="hg-ip-pill">' +
+        '<p class="hg-para"><span id="hg-ip-pill">' +
         ipText +
         "</span>" +
-        ' <span style="font-weight:600;"> 님,</span>' +
+        (s.honorific
+          ? ' <span style="font-weight:600;">' + s.honorific + "</span>"
+          : "") +
         "</p>";
 
-      /* ── 문장 2: 위치 + 단말기 ── */
+      /* 문장 2: 위치 + 단말기 */
       var s2 = '<p class="hg-para">';
-      if (location) {
-        s2 += '현재 <span class="hl">' + location + "</span>에서<br>";
+      if (loc) {
+        s2 +=
+          '<span class="hl">' + fmt(s.fromLoc, { loc: loc }) + "</span><br>";
       }
       s2 +=
-        '<span class="hl">' +
-        dev.browser +
-        " · " +
-        dev.os +
-        "</span>" +
-        ' <span class="dim">(' +
-        dev.device +
-        ")</span>" +
-        "을 통해 접속하고 계십니다.";
-      s2 += "</p>";
+        fmt(s.connVia, {
+          br: '<span class="hl">' + dev.browser + "</span>",
+          os: '<span class="hl">' + dev.os + "</span>",
+          dev: '<span class="dim">' + devLabel + "</span>",
+        }) + "</p>";
 
-      /* ── 문장 3: 시간대 ── */
+      /* 문장 3: 시간대 */
       var s3 = "";
-      if (timeG || timeStr) {
-        s3 = '<p class="hg-para">';
-        if (timeG) s3 += '<span class="hl">' + timeG + "</span> 시간대";
-        if (timeG && timeStr) s3 += " · ";
-        if (timeStr) s3 += '<span class="dim">' + timeStr + "</span>";
-        s3 += "에 접속하셨습니다.</p>";
+      if (tgLabel || timeStr) {
+        s3 =
+          '<p class="hg-para">' +
+          fmt(s.timeConn, {
+            tg: tgLabel ? '<span class="hl">' + tgLabel + "</span>" : "",
+            tz: timeStr ? '<span class="dim">' + timeStr + "</span>" : "",
+          }) +
+          "</p>";
       }
 
       document.getElementById("hg-body").innerHTML = s0 + s1 + s2 + s3;
 
-      /* ── 안전 확인 문구 ── */
-      document.getElementById("hg-confirm").innerHTML =
-        "귀하의 접속 정보가 위와 같이 확인되며,<br>" +
-        "현재 <strong>안전하게 연결</strong>되어 있습니다. ⚓";
+      /* 안전 확인 문구 (현지어) */
+      document.getElementById("hg-confirm").innerHTML = s.confirmed;
 
-      /* ── 추가 확인 정보 ── */
+      /* 추가 확인 정보 */
       var extras = [];
 
-      // ISP / 통신사 (org에서 "AS12345 " 접두어 제거)
-      if (d && d.org) {
-        extras.push({ label: "📡 통신사", value: d.org.replace(/^AS\d+\s*/, "") });
-      }
+      if (d && d.org)
+        extras.push({ label: "📡 ISP", value: d.org.replace(/^AS\d+\s*/, "") });
 
-      // 현지 현재 시각
       if (d && d.timezone) {
         try {
-          var localTime = new Date().toLocaleString("ko-KR", {
-            timeZone: d.timezone,
-            hour: "2-digit", minute: "2-digit", second: "2-digit",
-            hour12: false
-          });
-          extras.push({ label: "🕐 현지 시각", value: localTime });
+          var localTime = new Date().toLocaleString(
+            navigator.language || "en-US",
+            {
+              timeZone: d.timezone,
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: false,
+            },
+          );
+          extras.push({ label: "🕐 Local Time", value: localTime });
         } catch (e) {}
       }
 
-      // 현지 통화
-      if (d && d.currency) {
-        extras.push({ label: "💱 현지 통화", value: d.currency });
-      }
+      if (d && d.currency)
+        extras.push({ label: "💱 Currency", value: d.currency });
 
-      // 국가 전화 코드
-      if (d && d.country_calling_code) {
-        extras.push({ label: "📞 국가 코드", value: d.country_calling_code });
-      }
+      if (d && d.country_calling_code)
+        extras.push({ label: "📞 Dial Code", value: d.country_calling_code });
 
-      // 화면 해상도 + 뷰포트
       try {
         extras.push({
-          label: "🖥 화면 해상도",
-          value: screen.width + " × " + screen.height +
-                 "  /  뷰포트 " + window.innerWidth + " × " + window.innerHeight
+          label: "🖥 Resolution",
+          value:
+            screen.width +
+            " × " +
+            screen.height +
+            "  /  " +
+            window.innerWidth +
+            " × " +
+            window.innerHeight,
         });
       } catch (e) {}
 
-      // 브라우저 언어 설정
-      if (navigator.language) {
-        extras.push({ label: "🔤 언어 설정", value: navigator.language });
-      }
+      if (navigator.language)
+        extras.push({ label: "🔤 Language", value: navigator.language });
 
-      // 네트워크 타입 (지원 브라우저만)
       try {
-        var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        var conn =
+          navigator.connection ||
+          navigator.mozConnection ||
+          navigator.webkitConnection;
         if (conn && conn.effectiveType) {
-          var netLabel = { "slow-2g": "Slow-2G", "2g": "2G", "3g": "3G", "4g": "4G / WiFi" };
+          var nl = {
+            "slow-2g": "Slow-2G",
+            "2g": "2G",
+            "3g": "3G",
+            "4g": "4G / WiFi",
+          };
           extras.push({
-            label: "📶 네트워크",
-            value: (netLabel[conn.effectiveType] || conn.effectiveType.toUpperCase()) +
-                   (conn.downlink ? "  (" + conn.downlink + " Mbps)" : "")
+            label: "📶 Network",
+            value:
+              (nl[conn.effectiveType] || conn.effectiveType.toUpperCase()) +
+              (conn.downlink ? "  (" + conn.downlink + " Mbps)" : ""),
           });
         }
       } catch (e) {}
 
-      // 추가 정보 HTML 빌드
       if (extras.length > 0) {
         var exHTML =
-          '<div style="margin-top:12px; padding:9px 11px; background:#f9fafa;' +
-          ' border-radius:4px; font-size:11.5px; color:#5a7080; line-height:1.9;">' +
-          '<div style="font-weight:700; color:#b0c4ce; font-size:10px;' +
-          ' letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">' +
-          '추가 확인 정보</div>';
+          '<div style="margin-top:12px;padding:9px 11px;background:#f9fafa;' +
+          'border-radius:4px;font-size:11.5px;color:#5a7080;line-height:1.9;">' +
+          '<div style="font-weight:700;color:#b0c4ce;font-size:10px;' +
+          'letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">' +
+          s.extraTitle +
+          "</div>";
         extras.forEach(function (e) {
           exHTML +=
-            '<div style="display:flex; gap:6px;">' +
-            '<span style="color:#b0c4ce; flex-shrink:0; min-width:72px;">' + e.label + '</span>' +
-            '<span style="color:#424242; font-weight:600;">' + e.value + '</span>' +
-            '</div>';
+            '<div style="display:flex;gap:6px;">' +
+            '<span style="color:#b0c4ce;flex-shrink:0;min-width:72px;">' +
+            e.label +
+            "</span>" +
+            '<span style="color:#424242;font-weight:600;">' +
+            e.value +
+            "</span></div>";
         });
-        exHTML += '</div>';
+        exHTML += "</div>";
         document.getElementById("hg-extra").innerHTML = exHTML;
       }
 
-      /* ── 표시 ── */
+      /* 표시 */
       document.getElementById("hg-loading").style.display = "none";
       document.getElementById("hg-main").style.display = "block";
     }
 
-    /* ─────────────────────────────────────────────────────────
-     4) localStorage 캐시 (TTL 30분) + API 호출
-     ───────────────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════
+     G) localStorage 캐시 (TTL 30분) + API 호출
+  ═══════════════════════════════════════ */
     var CACHE_KEY = "hg_ip_cache";
     var CACHE_TTL = 30 * 60 * 1000;
 
