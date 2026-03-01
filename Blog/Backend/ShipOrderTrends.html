@@ -18,51 +18,74 @@
     margin: 0;
     padding: 0;
   }
-  #sot-wrap {
-    border: 1px solid #dde8ee;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
+  @keyframes sot-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
   }
   #sot-header {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    padding: 11px 14px;
-    background: #1a9e82;
-    color: #fff;
+    margin-bottom: 12px;
   }
   #sot-header-title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
+    font-size: 17px;
+    font-weight: 900;
+    color: #424242;
+    line-height: 1.2;
   }
   #sot-refresh-btn {
-    background: rgba(255, 255, 255, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    display: inline-block;
+    background: #1a9e82;
     color: #fff;
     font-size: 11.5px;
     font-weight: 700;
-    padding: 4px 11px;
+    padding: 2px 10px;
     border-radius: 20px;
-    cursor: pointer;
     letter-spacing: 0.3px;
-    transition: background 0.2s;
+    vertical-align: middle;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
   }
   #sot-refresh-btn:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.34);
+    opacity: 0.82;
   }
   #sot-refresh-btn:disabled {
-    opacity: 0.55;
+    opacity: 0.5;
     cursor: not-allowed;
+  }
+  #sot-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .sot-divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e0e0e0;
+  }
+  .sot-divider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1a9e82;
+    flex-shrink: 0;
   }
   #sot-tabs {
     display: flex;
     overflow-x: auto;
-    border-bottom: 1px solid #e0eff5;
+    border-bottom: 1px solid #e0e0e0;
     background: #f4faf8;
     padding: 0 6px;
     scrollbar-width: none;
+    margin-bottom: 4px;
   }
   #sot-tabs::-webkit-scrollbar {
     display: none;
@@ -72,8 +95,8 @@
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
-    color: #7a9aaa;
-    font-size: 14px;
+    color: #9fb5c2;
+    font-size: 13px;
     font-weight: 600;
     padding: 8px 10px;
     cursor: pointer;
@@ -88,15 +111,11 @@
     color: #1a9e82;
     border-bottom-color: #1a9e82;
   }
-  @keyframes sot-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
   #sot-loading {
     text-align: center;
-    padding: 24px 10px;
+    padding: 22px 10px;
     color: #6b8599;
-    font-size: 12px;
+    font-size: 12.5px;
     letter-spacing: 0.3px;
     animation: sot-pulse 1.6s ease-in-out infinite;
   }
@@ -107,8 +126,8 @@
     padding: 4px 0;
   }
   .sot-item {
-    padding: 10px 14px;
-    border-bottom: 1px solid #f0f5f8;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
   }
   .sot-item:last-child {
     border-bottom: none;
@@ -124,53 +143,50 @@
     color: #9fb5c2;
   }
   .sot-src {
+    display: inline-block;
+    background: #e8f6f3;
+    color: #1a9e82;
     font-size: 10.5px;
     font-weight: 700;
-    padding: 1px 6px;
+    padding: 1px 7px;
     border-radius: 10px;
-    letter-spacing: 0.2px;
-  }
-  .sot-src-sp {
-    background: #e6f0f7;
-    color: #2272b0;
-  }
-  .sot-src-hs {
-    background: #e6f5f1;
-    color: #1a7e62;
+    letter-spacing: 0.3px;
   }
   .sot-title {
     display: block;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
-    color: #1a3040;
+    color: #424242;
     text-decoration: none;
-    line-height: 1.5;
-    margin-bottom: 3px;
+    line-height: 1.7;
+    margin-bottom: 2px;
   }
   .sot-title:hover {
     color: #1a9e82;
-    text-decoration: underline;
   }
   .sot-snippet {
     font-size: 11.5px;
-    color: #6b8599;
-    line-height: 1.6;
+    color: #9fb5c2;
+    line-height: 1.7;
   }
   .sot-empty {
-    padding: 22px 14px;
-    font-size: 12px;
+    padding: 22px 0;
+    font-size: 13px;
     color: #9fb5c2;
     text-align: center;
   }
   #sot-footer {
+    margin-top: 13px;
+    padding: 9px 12px;
+    background: #f4faf8;
+    border-left: 3px solid #1a9e82;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #5a7080;
+    line-height: 1.7;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 7px 14px;
-    background: #f4faf8;
-    border-top: 1px solid #e0eff5;
-    font-size: 10.5px;
-    color: #9fb5c2;
   }
 </style>
 
@@ -179,6 +195,13 @@
   <div id="sot-header">
     <span id="sot-header-title">🚢 Ship Order Trends</span>
     <button id="sot-refresh-btn">⟳ Refresh</button>
+  </div>
+
+  <!-- 구분선 -->
+  <div id="sot-divider">
+    <div class="sot-divider-line"></div>
+    <div class="sot-divider-dot"></div>
+    <div class="sot-divider-line"></div>
   </div>
 
   <!-- 카테고리 탭 -->
@@ -211,12 +234,10 @@
     {
       url: "https://splash247.com/feed/",
       name: "Splash247",
-      cls: "sot-src-sp",
     },
     {
       url: "https://www.hellenicshippingnews.com/feed/",
       name: "HSN",
-      cls: "sot-src-hs",
     },
   ];
 
@@ -298,7 +319,7 @@
       })
       .then(function (d) {
         return (d.items || []).map(function (i) {
-          return Object.assign({}, i, { _src: feed.name, _cls: feed.cls });
+          return Object.assign({}, i, { _src: feed.name });
         });
       })
       .catch(function () {
@@ -308,7 +329,8 @@
 
   /* ── E) 필터 함수 ── */
   function isOrderNews(item) {
-    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var txt =
+      ((item.title || "") + " " + (item.description || "")).toLowerCase();
     return ORDER_KW.some(function (k) {
       return txt.indexOf(k) !== -1;
     });
@@ -316,7 +338,8 @@
 
   function matchesCat(item, cat) {
     if (cat === "all") return true;
-    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var txt =
+      ((item.title || "") + " " + (item.description || "")).toLowerCase();
     return CAT_KW[cat].some(function (k) {
       return txt.indexOf(k) !== -1;
     });
@@ -336,7 +359,7 @@
   function stripHTML(h) {
     var t = document.createElement("div");
     t.innerHTML = h || "";
-    return ((t.textContent || t.innerText || "").replace(/\s+/g, " ").trim());
+    return (t.textContent || t.innerText || "").replace(/\s+/g, " ").trim();
   }
 
   function escAttr(s) {
@@ -364,15 +387,21 @@
         return (
           '<div class="sot-item">' +
           '<div class="sot-meta">' +
-          '<span class="sot-date">' + fmtDate(i.pubDate) + "</span>" +
-          '<span class="sot-src ' + i._cls + '">' + i._src + "</span>" +
+          '<span class="sot-date">' +
+          fmtDate(i.pubDate) +
+          "</span>" +
+          '<span class="sot-src">' +
+          i._src +
+          "</span>" +
           "</div>" +
           '<a class="sot-title" href="' +
           escAttr(i.link) +
           '" target="_blank" rel="noopener">' +
           i.title +
           "</a>" +
-          '<div class="sot-snippet">' + snippet + "</div>" +
+          '<div class="sot-snippet">' +
+          snippet +
+          "</div>" +
           "</div>"
         );
       })
@@ -395,7 +424,9 @@
       .then(function (results) {
         var merged = [];
         results.forEach(function (arr) {
-          arr.forEach(function (i) { merged.push(i); });
+          arr.forEach(function (i) {
+            merged.push(i);
+          });
         });
         allItems = merged
           .filter(isOrderNews)
