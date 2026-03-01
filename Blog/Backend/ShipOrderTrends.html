@@ -2,7 +2,7 @@
      Ship Order Trends Widget — shippauljobs.blogspot.com
      기능: 글로벌 신조선 발주 뉴스 실시간 표시 (테이블, 페이지네이션)
            데이터 로딩 실패 시 관련 사이트 직접 링크 제공
-     출처: Google News RSS · gCaptain (폴백: 직접 링크)
+     출처: Google News RSS · gCaptain (폴백: allorigins → 직접 링크)
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
 
@@ -55,7 +55,6 @@
   #sot-status{margin-top:10px;padding:8px 10px;background:#f9fafa;border-radius:4px;
     font-size:10.5px;color:#9fb5c2;line-height:1.7;white-space:pre-wrap;display:none;}
   #sot-empty{display:none;padding:4px 0 8px;}
-  /* ── fallback link cards ── */
   #sot-fallback-msg{font-size:12px;color:#9fb5c2;text-align:center;padding:14px 0 12px;line-height:1.8;}
   #sot-link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:7px;}
   .sot-link-card{display:block;background:#f4faf8;border-left:3px solid #1a9e82;border-radius:4px;
@@ -63,7 +62,6 @@
   .sot-link-card:hover{background:#e8f6f3;}
   .sot-link-card-name{display:block;font-size:12px;font-weight:700;color:#424242;}
   .sot-link-card-cat{display:block;font-size:10.5px;color:#9fb5c2;margin-top:1px;}
-  /* ── cat-no-match ── */
   #sot-cat-empty{display:none;padding:22px 0;font-size:13px;color:#9fb5c2;text-align:center;line-height:1.9;}
   #sot-footer{margin-top:13px;padding:9px 12px;background:#f4faf8;border-left:3px solid #1a9e82;
     border-radius:4px;font-size:12px;color:#5a7080;line-height:1.7;
@@ -92,11 +90,7 @@
   <div id="sot-list">
     <div id="sot-table-wrap">
       <table id="sot-table">
-        <thead>
-          <tr>
-            <th>Date</th><th>Source</th><th>Type</th><th>Title</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Date</th><th>Source</th><th>Type</th><th>Title</th></tr></thead>
         <tbody id="sot-tbody"></tbody>
       </table>
     </div>
@@ -106,9 +100,7 @@
       <span id="sot-page-info">—</span>
       <button class="sot-page-btn" id="sot-next-btn">Next ▶</button>
     </div>
-    <!-- 카테고리 필터 결과 없음 -->
     <div id="sot-cat-empty"></div>
-    <!-- 데이터 로딩 실패 시 직접 링크 -->
     <div id="sot-empty">
       <div id="sot-fallback-msg">
         📡 실시간 데이터를 불러올 수 없습니다.<br>
@@ -143,7 +135,7 @@
     </div>
   </div>
   <div id="sot-footer">
-    <span>Splash247 · TradeWinds · gCaptain · HSN</span>
+    <span>Google News · gCaptain · Splash247 · TradeWinds</span>
     <span id="sot-updated">—</span>
   </div>
 </div>
@@ -161,18 +153,9 @@
   var pendingFeeds = 0;
 
   var FEEDS = [
-    {
-      url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en",
-      name: "Google News"
-    },
-    {
-      url: "https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en",
-      name: "Google News 2"
-    },
-    {
-      url: "https://gcaptain.com/feed/",
-      name: "gCaptain"
-    }
+    { url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en", name: "Google News" },
+    { url: "https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en", name: "Google News 2" },
+    { url: "https://gcaptain.com/feed/", name: "gCaptain" }
   ];
 
   var CAT_KW = {
@@ -184,16 +167,18 @@
     car: ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]
   };
 
-  /* ── JSONP ── */
+  /* ── A) JSONP (script-tag, no CORS) ── */
   function fetchViaJSONP(feed, onDone) {
     var cbName = "sotCb_" + Date.now() + "_" + Math.floor(Math.random() * 99999);
     var scriptEl = null;
+    var done = false;
 
     var timer = setTimeout(function () {
+      if (done) return; done = true;
       cleanup();
       feedLog.push(feed.name + ": JSONP timeout");
       onDone([]);
-    }, 14000);
+    }, 12000);
 
     function cleanup() {
       clearTimeout(timer);
@@ -202,29 +187,21 @@
     }
 
     window[cbName] = function (data) {
+      if (done) return; done = true;
       cleanup();
-      if (!data || data.status !== "ok" || !data.items) {
+      if (!data || data.status !== "ok" || !data.items || !data.items.length) {
         feedLog.push(feed.name + ": JSONP " + (data ? data.status : "null"));
-        onDone([]);
-        return;
+        onDone([]); return;
       }
-      var items = data.items.map(function (i) {
-        return {
-          title: (i.title || "").replace(/<[^>]+>/g, "").trim(),
-          link: i.link || i.guid || "",
-          pubDate: i.pubDate || "",
-          description: (i.description || "").replace(/<[^>]+>/g, "").slice(0, 200),
-          _src: feed.name
-        };
-      });
-      feedLog.push(feed.name + ": OK (" + items.length + ")");
-      onDone(items);
+      feedLog.push(feed.name + ": JSONP OK (" + data.items.length + ")");
+      onDone(mapRss2json(data.items, feed.name));
     };
 
     scriptEl = document.createElement("script");
     scriptEl.onerror = function () {
+      if (done) return; done = true;
       cleanup();
-      feedLog.push(feed.name + ": blocked");
+      feedLog.push(feed.name + ": JSONP blocked");
       onDone([]);
     };
     scriptEl.src = "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
@@ -232,33 +209,86 @@
     document.head.appendChild(scriptEl);
   }
 
-  /* ── fetch fallback ── */
-  function fetchViaHttp(feed, onDone) {
-    var url = "https://api.rss2json.com/v1/api.json?count=50&rss_url=" + encodeURIComponent(feed.url);
-    fetch(url, { cache: "no-store" })
+  /* ── B) fetch → rss2json ── */
+  function fetchViaRss2json(feed, onDone) {
+    fetch("https://api.rss2json.com/v1/api.json?count=50&rss_url=" + encodeURIComponent(feed.url), { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (!d || d.status !== "ok" || !d.items) { onDone([]); return; }
-        var items = d.items.map(function (i) {
-          return {
-            title: (i.title || "").replace(/<[^>]+>/g, "").trim(),
-            link: i.link || i.guid || "",
-            pubDate: i.pubDate || "",
-            description: (i.description || "").replace(/<[^>]+>/g, "").slice(0, 200),
-            _src: feed.name
-          };
-        });
-        feedLog.push(feed.name + ": fetch OK (" + items.length + ")");
-        onDone(items);
+        if (!d || d.status !== "ok" || !d.items || !d.items.length) { onDone([]); return; }
+        feedLog.push(feed.name + ": rss2json OK (" + d.items.length + ")");
+        onDone(mapRss2json(d.items, feed.name));
       })
       .catch(function () { onDone([]); });
   }
 
-  /* ── chain ── */
+  /* ── C) allorigins proxy (WORKS for Google News!) ── */
+  function fetchViaAllOrigins(feed, onDone) {
+    fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url), { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.contents) { feedLog.push(feed.name + ": allorigins no-content"); onDone([]); return; }
+        var items = parseRSSXML(d.contents, feed.name);
+        feedLog.push(feed.name + ": allorigins " + (items.length ? "OK (" + items.length + ")" : "0 items"));
+        onDone(items);
+      })
+      .catch(function (e) { feedLog.push(feed.name + ": allorigins fail"); onDone([]); });
+  }
+
+  /* ── common mappers ── */
+  function mapRss2json(items, srcName) {
+    return items.map(function (i) {
+      return {
+        title: (i.title || "").replace(/<[^>]+>/g, "").trim(),
+        link: i.link || i.guid || "",
+        pubDate: i.pubDate || "",
+        description: (i.description || "").replace(/<[^>]+>/g, "").slice(0, 200),
+        _src: srcName
+      };
+    }).filter(function (i) { return i.title; });
+  }
+
+  function parseRSSXML(xmlStr, srcName) {
+    try {
+      var doc = (new DOMParser()).parseFromString(xmlStr, "text/xml");
+      if (doc.getElementsByTagName("parsererror").length) return [];
+      var nodes = doc.getElementsByTagName("item");
+      var result = [];
+      for (var i = 0; i < Math.min(nodes.length, 50); i++) {
+        var node = nodes[i];
+        var titleEl = node.getElementsByTagName("title")[0];
+        var title = titleEl ? titleEl.textContent.trim() : "";
+        if (!title) continue;
+        /* Google News link is a text node, not attribute */
+        var linkEl = node.getElementsByTagName("link")[0];
+        var link = "";
+        if (linkEl) {
+          link = linkEl.textContent.trim();
+          if (!link) link = linkEl.getAttribute("href") || "";
+          /* Google News wraps links inside <link> as CDATA text */
+          if (!link) {
+            var nxt = linkEl.nextSibling;
+            if (nxt && nxt.nodeType === 3) link = nxt.textContent.trim();
+          }
+        }
+        if (!link) {
+          var guidEl = node.getElementsByTagName("guid")[0];
+          if (guidEl) link = guidEl.textContent.trim();
+        }
+        var pubEl = node.getElementsByTagName("pubDate")[0];
+        result.push({ title: title, link: link, pubDate: pubEl ? pubEl.textContent.trim() : "", description: "", _src: srcName });
+      }
+      return result;
+    } catch (e) { return []; }
+  }
+
+  /* ── chain: JSONP → rss2json → allorigins ── */
   function fetchFeed(feed, allDone) {
     fetchViaJSONP(feed, function (items) {
       if (items.length) { allDone(items); return; }
-      fetchViaHttp(feed, allDone);
+      fetchViaRss2json(feed, function (items2) {
+        if (items2.length) { allDone(items2); return; }
+        fetchViaAllOrigins(feed, allDone);
+      });
     });
   }
 
@@ -280,6 +310,7 @@
   }
 
   function fmtDate(ds) {
+    if (!ds) return "\u2014";
     var d = new Date(ds);
     if (isNaN(d.getTime())) return "\u2014";
     return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
@@ -296,39 +327,30 @@
     var nextBtn = document.getElementById("sot-next-btn");
     var tableWrap = document.getElementById("sot-table-wrap");
     var pagination = document.getElementById("sot-pagination");
-    var emptyEl = document.getElementById("sot-empty");       /* fallback links */
-    var catEmpty = document.getElementById("sot-cat-empty");  /* category no-match */
+    var emptyEl = document.getElementById("sot-empty");
+    var catEmpty = document.getElementById("sot-cat-empty");
     var statusEl = document.getElementById("sot-status");
 
-    /* diagnostic log */
-    if (feedLog.length) {
-      statusEl.textContent = "\uD83D\uDCCB " + feedLog.join("  \xB7  ");
-      statusEl.style.display = "block";
-    } else {
-      statusEl.style.display = "none";
-    }
+    statusEl.style.display = feedLog.length ? "block" : "none";
+    if (feedLog.length) statusEl.textContent = "\uD83D\uDCCB " + feedLog.join("  \xB7  ");
 
-    /* hide all content areas first */
     tableWrap.style.display = "none";
     pagination.style.display = "none";
     emptyEl.style.display = "none";
     catEmpty.style.display = "none";
 
     if (allItems.length === 0) {
-      /* loading failed — show direct links */
       emptyEl.style.display = "block";
       return;
     }
 
     if (!filteredItems.length) {
-      /* category filter returned nothing */
       catEmpty.style.display = "block";
       catEmpty.innerHTML = "\uC774 \uCE74\uD14C\uACE0\uB9AC\uC5D0 \uD574\uB2F9\uD558\uB294 \uB274\uC2A4\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.<br><span style='font-size:11px'>All \uD0ED\uC744 \uC120\uD0DD\uD558\uAC70\uB098 Refresh\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694.</span>";
       return;
     }
 
     tableWrap.style.display = "block";
-
     var total = filteredItems.length;
     var totalPages = Math.ceil(total / ITEMS_PER_PAGE);
     var start = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -375,30 +397,28 @@
     feedLog = [];
     allItems = [];
     pendingFeeds = FEEDS.length;
-
     var collected = [];
 
     function onFeedDone(items) {
-      collected = collected.concat(items);
+      if (items && items.length) collected = collected.concat(items);
       pendingFeeds--;
       if (pendingFeeds > 0) return;
 
-      /* deduplicate */
+      /* deduplicate by normalized title (first 80 chars) */
       var seen = {};
       var merged = collected.filter(function (i) {
-        var key = (i.title || "").toLowerCase().slice(0, 60);
-        if (seen[key]) return false;
+        var key = (i.title || "").toLowerCase().replace(/\s+/g," ").slice(0, 80);
+        if (!key || seen[key]) return false;
         seen[key] = true;
         return true;
       });
 
-      var cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
-      if (merged.length) {
-        var recent = merged.filter(function (i) { return new Date(i.pubDate).getTime() > cutoff; });
-        allItems = (recent.length ? recent : merged).sort(function (a, b) {
-          return new Date(b.pubDate) - new Date(a.pubDate);
-        });
-      }
+      /* sort newest first (no date cutoff — Google News already returns recent items) */
+      allItems = merged.sort(function (a, b) {
+        var ta = a.pubDate ? new Date(a.pubDate).getTime() : 0;
+        var tb = b.pubDate ? new Date(b.pubDate).getTime() : 0;
+        return tb - ta;
+      });
 
       loading.style.display = "none";
       list.style.display = "block";
@@ -412,24 +432,17 @@
       applyFilter();
     }
 
-    FEEDS.forEach(function (feed) {
-      fetchFeed(feed, onFeedDone);
-    });
+    FEEDS.forEach(function (feed) { fetchFeed(feed, onFeedDone); });
   }
 
   /* ── events ── */
   document.getElementById("sot-refresh-btn").addEventListener("click", refresh);
-
   document.getElementById("sot-prev-btn").addEventListener("click", function () {
     if (currentPage > 1) { currentPage--; renderPage(); }
   });
-
   document.getElementById("sot-next-btn").addEventListener("click", function () {
-    if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) {
-      currentPage++; renderPage();
-    }
+    if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) { currentPage++; renderPage(); }
   });
-
   document.querySelectorAll("#sot-tabs .sot-tab").forEach(function (tab) {
     tab.addEventListener("click", function () {
       document.querySelectorAll("#sot-tabs .sot-tab").forEach(function (t) { t.classList.remove("active"); });
@@ -439,7 +452,6 @@
     });
   });
 
-  /* ── init ── */
   refresh();
 })();
 </script>
