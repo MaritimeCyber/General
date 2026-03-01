@@ -1,7 +1,7 @@
 <!-- ════════════════════════════════════════════════════════════
      Ship Order Trends Widget — shippauljobs.blogspot.com
      기능: 글로벌 신조선 발주 뉴스 실시간 표시 (테이블, 페이지네이션)
-     출처: Splash247 · Hellenic Shipping News
+     출처: Google News RSS · gCaptain
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
 
@@ -98,7 +98,7 @@
     <div id="sot-empty"></div>
   </div>
   <div id="sot-footer">
-    <span>Splash247 · Hellenic Shipping News</span>
+    <span>Google News · gCaptain</span>
     <span id="sot-updated">—</span>
   </div>
 </div>
@@ -115,15 +115,30 @@
   var feedLog = [];
   var pendingFeeds = 0;
 
+  /*
+   * 소스 변경 이유: Splash247 · Hellenic Shipping News가 rss2json 서버 IP를
+   * HTTP 403으로 차단. Google News RSS는 rss2json에서 차단하지 않음.
+   * gCaptain은 오픈 WordPress 피드로 접근 가능.
+   */
   var FEEDS = [
-    { url: "https://splash247.com/feed/", name: "Splash247" },
-    { url: "https://www.hellenicshippingnews.com/feed/", name: "HSN" }
+    {
+      url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en",
+      name: "Google News"
+    },
+    {
+      url: "https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en",
+      name: "Google News 2"
+    },
+    {
+      url: "https://gcaptain.com/feed/",
+      name: "gCaptain"
+    }
   ];
 
   var CAT_KW = {
     all: [],
     tanker: ["tanker","vlcc","suezmax","aframax","product tanker","crude","chemical tanker","mr tanker"],
-    container: ["container","teu","boxship","containership","feeder","ultra large"],
+    container: ["container","teu","boxship","containership","feeder","ultra large","box ship"],
     lng: ["lng","lpg","fsru","flng","gas carrier","liquefied","ammonia","methanol"],
     bulk: ["bulker","bulk carrier","capesize","panamax","handysize","handymax","ultramax","kamsarmax"],
     car: ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]
@@ -149,7 +164,7 @@
     window[cbName] = function (data) {
       cleanup();
       if (!data || data.status !== "ok" || !data.items) {
-        feedLog.push(feed.name + ": JSONP ✗ status=" + (data ? data.status : "null"));
+        feedLog.push(feed.name + ": JSONP ✗ " + (data ? data.status : "null"));
         onDone([]);
         return;
       }
@@ -162,14 +177,14 @@
           _src: feed.name
         };
       });
-      feedLog.push(feed.name + ": JSONP ✓ (" + items.length + ")");
+      feedLog.push(feed.name + ": JSONP \u2713 (" + items.length + ")");
       onDone(items);
     };
 
     scriptEl = document.createElement("script");
     scriptEl.onerror = function () {
       cleanup();
-      feedLog.push(feed.name + ": JSONP ✗ load-error");
+      feedLog.push(feed.name + ": JSONP \u2717 load-error");
       onDone([]);
     };
     scriptEl.src = "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
@@ -177,14 +192,14 @@
     document.head.appendChild(scriptEl);
   }
 
-  /* ── fetch fallback (rss2json without JSONP) ── */
+  /* ── fetch fallback ── */
   function fetchViaHttp(feed, onDone) {
     var url = "https://api.rss2json.com/v1/api.json?count=50&rss_url=" + encodeURIComponent(feed.url);
     fetch(url, { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (!d || d.status !== "ok" || !d.items) {
-          feedLog.push(feed.name + ": fetch ✗ status=" + (d ? d.status : "null"));
+          feedLog.push(feed.name + ": fetch \u2717 " + (d ? d.status : "null"));
           onDone([]);
           return;
         }
@@ -197,11 +212,11 @@
             _src: feed.name
           };
         });
-        feedLog.push(feed.name + ": fetch ✓ (" + items.length + ")");
+        feedLog.push(feed.name + ": fetch \u2713 (" + items.length + ")");
         onDone(items);
       })
       .catch(function (e) {
-        feedLog.push(feed.name + ": fetch ✗ " + e.message);
+        feedLog.push(feed.name + ": fetch \u2717 " + e.message);
         onDone([]);
       });
   }
@@ -232,15 +247,15 @@
     fetch(url, { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (!d || !d.contents) { feedLog.push(feed.name + ": allorigins ✗ no-content"); onDone([]); return; }
+        if (!d || !d.contents) { feedLog.push(feed.name + ": allorigins \u2717 no-content"); onDone([]); return; }
         var items = parseRSSXML(d.contents, feed.name);
-        feedLog.push(feed.name + ": allorigins " + (items.length ? "✓ (" + items.length + ")" : "✗ 0 items"));
+        feedLog.push(feed.name + ": allorigins " + (items.length ? "\u2713 (" + items.length + ")" : "\u2717 0 items"));
         onDone(items);
       })
-      .catch(function (e) { feedLog.push(feed.name + ": allorigins ✗ " + e.message); onDone([]); });
+      .catch(function (e) { feedLog.push(feed.name + ": allorigins \u2717 " + e.message); onDone([]); });
   }
 
-  /* ── fetch one feed: JSONP first, then http, then allorigins ── */
+  /* ── chain: JSONP → fetch → allorigins ── */
   function fetchFeed(feed, allDone) {
     fetchViaJSONP(feed, function (items) {
       if (items.length) { allDone(items); return; }
@@ -270,7 +285,7 @@
 
   function fmtDate(ds) {
     var d = new Date(ds);
-    if (isNaN(d.getTime())) return "—";
+    if (isNaN(d.getTime())) return "\u2014";
     return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
   }
 
@@ -289,7 +304,7 @@
     var statusEl = document.getElementById("sot-status");
 
     if (feedLog.length) {
-      statusEl.textContent = "📋 " + feedLog.join("  ·  ");
+      statusEl.textContent = "\uD83D\uDCCB " + feedLog.join("  \xB7  ");
       statusEl.style.display = "block";
     } else {
       statusEl.style.display = "none";
@@ -300,8 +315,8 @@
       pagination.style.display = "none";
       emptyEl.style.display = "block";
       emptyEl.innerHTML = allItems.length === 0
-        ? "⚠️ 데이터를 불러오지 못했습니다.<br><span style='font-size:11px'>위 진단 로그를 확인해 주세요.</span>"
-        : "이 카테고리에 해당하는 뉴스가 없습니다.<br><span style='font-size:11px'>All 탭을 선택하거나 Refresh를 눌러 주세요.</span>";
+        ? "\u26A0\uFE0F \uB370\uC774\uD130\uB97C \uBD88\uB7EC\uC624\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.<br><span style='font-size:11px'>\uC704 \uC9C4\uB2E8 \uB85C\uADF8\uB97C \uD655\uC778\uD574 \uC8FC\uC138\uC694.</span>"
+        : "\uC774 \uCE74\uD14C\uACE0\uB9AC\uC5D0 \uD574\uB2F9\uD558\uB294 \uB274\uC2A4\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.<br><span style='font-size:11px'>All \uD0ED\uC744 \uC120\uD0DD\uD558\uAC70\uB098 Refresh\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694.</span>";
       return;
     }
 
@@ -317,7 +332,7 @@
       var typeLabel = detectType(i);
       var typeCel = typeLabel
         ? '<span class="sot-type-tag">' + typeLabel + "</span>"
-        : '<span class="sot-td-none">—</span>';
+        : '<span class="sot-td-none">\u2014</span>';
       return "<tr>" +
         '<td class="sot-td-date">' + fmtDate(i.pubDate) + "</td>" +
         '<td><span class="sot-src">' + escHTML(i._src) + "</span></td>" +
@@ -329,7 +344,7 @@
 
     pagination.style.display = totalPages > 1 ? "flex" : "none";
     pageInfo.textContent = "Page " + currentPage + " / " + totalPages +
-      "  ·  " + (start + 1) + "–" + end + " of " + total;
+      "  \xB7  " + (start + 1) + "\u2013" + end + " of " + total;
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
   }
@@ -348,7 +363,7 @@
     var upd = document.getElementById("sot-updated");
 
     btn.disabled = true;
-    btn.textContent = "⟳";
+    btn.textContent = "\u27F3";
     loading.style.display = "block";
     list.style.display = "none";
     feedLog = [];
@@ -362,11 +377,19 @@
       pendingFeeds--;
       if (pendingFeeds > 0) return;
 
-      /* all feeds done */
+      /* all feeds done — deduplicate by title */
+      var seen = {};
+      var merged = collected.filter(function (i) {
+        var key = (i.title || "").toLowerCase().slice(0, 60);
+        if (seen[key]) return false;
+        seen[key] = true;
+        return true;
+      });
+
       var cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
-      if (collected.length) {
-        var recent = collected.filter(function (i) { return new Date(i.pubDate).getTime() > cutoff; });
-        allItems = (recent.length ? recent : collected).sort(function (a, b) {
+      if (merged.length) {
+        var recent = merged.filter(function (i) { return new Date(i.pubDate).getTime() > cutoff; });
+        allItems = (recent.length ? recent : merged).sort(function (a, b) {
           return new Date(b.pubDate) - new Date(a.pubDate);
         });
       }
@@ -374,10 +397,10 @@
       loading.style.display = "none";
       list.style.display = "block";
       btn.disabled = false;
-      btn.textContent = "⟳ Refresh";
+      btn.textContent = "\u27F3 Refresh";
 
       var now = new Date();
-      upd.textContent = (allItems.length ? allItems.length + " articles  ·  " : "") +
+      upd.textContent = (allItems.length ? allItems.length + " articles  \xB7  " : "") +
         "Updated " + now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
       applyFilter();
