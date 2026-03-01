@@ -1,7 +1,7 @@
 <!-- ════════════════════════════════════════════════════════════
      Ship Order Trends Widget — shippauljobs.blogspot.com
      기능: 글로벌 신조선 발주 뉴스 실시간 표시 (테이블, 페이지네이션)
-     출처: Splash247 · Hellenic Shipping News (RSS via rss2json / allorigins)
+     출처: Splash247 · Hellenic Shipping News
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
 
@@ -19,13 +19,8 @@
     padding: 0;
   }
   @keyframes sot-pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.35;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
   }
   #sot-header {
     display: flex;
@@ -53,30 +48,18 @@
     cursor: pointer;
     transition: opacity 0.2s;
   }
-  #sot-refresh-btn:hover:not(:disabled) {
-    opacity: 0.82;
-  }
-  #sot-refresh-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+  #sot-refresh-btn:hover:not(:disabled) { opacity: 0.82; }
+  #sot-refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   #sot-divider {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 14px;
   }
-  .sot-divider-line {
-    flex: 1;
-    height: 1px;
-    background: #e0e0e0;
-  }
+  .sot-divider-line { flex: 1; height: 1px; background: #e0e0e0; }
   .sot-divider-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #1a9e82;
-    flex-shrink: 0;
+    width: 6px; height: 6px;
+    border-radius: 50%; background: #1a9e82; flex-shrink: 0;
   }
   #sot-tabs {
     display: flex;
@@ -87,9 +70,7 @@
     scrollbar-width: none;
     margin-bottom: 12px;
   }
-  #sot-tabs::-webkit-scrollbar {
-    display: none;
-  }
+  #sot-tabs::-webkit-scrollbar { display: none; }
   .sot-tab {
     flex: 0 0 20%;
     background: none;
@@ -104,13 +85,8 @@
     text-align: center;
     transition: color 0.15s, border-color 0.15s;
   }
-  .sot-tab:hover {
-    color: #1a9e82;
-  }
-  .sot-tab.active {
-    color: #1a9e82;
-    border-bottom-color: #1a9e82;
-  }
+  .sot-tab:hover { color: #1a9e82; }
+  .sot-tab.active { color: #1a9e82; border-bottom-color: #1a9e82; }
   #sot-loading {
     text-align: center;
     padding: 22px 10px;
@@ -119,18 +95,9 @@
     letter-spacing: 0.3px;
     animation: sot-pulse 1.6s ease-in-out infinite;
   }
-  #sot-list {
-    display: none;
-  }
-  #sot-table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  #sot-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 480px;
-  }
+  #sot-list { display: none; }
+  #sot-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #sot-table { width: 100%; border-collapse: collapse; min-width: 480px; }
   #sot-table th {
     font-size: 10px;
     font-weight: 700;
@@ -148,17 +115,9 @@
     vertical-align: middle;
     line-height: 1.5;
   }
-  #sot-table tr:last-child td {
-    border-bottom: none;
-  }
-  #sot-table tr:hover td {
-    background: #f9fcfb;
-  }
-  .sot-td-date {
-    white-space: nowrap;
-    font-size: 11px;
-    color: #9fb5c2;
-  }
+  #sot-table tr:last-child td { border-bottom: none; }
+  #sot-table tr:hover td { background: #f9fcfb; }
+  .sot-td-date { white-space: nowrap; font-size: 11px; color: #9fb5c2; }
   .sot-src {
     display: inline-block;
     background: #e8f6f3;
@@ -180,10 +139,7 @@
     border-radius: 10px;
     white-space: nowrap;
   }
-  .sot-td-none {
-    font-size: 11px;
-    color: #c8d8e0;
-  }
+  .sot-td-none { font-size: 11px; color: #c8d8e0; }
   .sot-table-title {
     font-size: 12.5px;
     font-weight: 700;
@@ -191,10 +147,7 @@
     text-decoration: none;
     line-height: 1.5;
   }
-  .sot-table-title:hover {
-    color: #1a9e82;
-    text-decoration: underline;
-  }
+  .sot-table-title:hover { color: #1a9e82; text-decoration: underline; }
   #sot-pagination {
     display: flex;
     align-items: center;
@@ -214,18 +167,17 @@
     cursor: pointer;
     transition: opacity 0.2s;
   }
-  .sot-page-btn:hover:not(:disabled) {
-    opacity: 0.82;
-  }
-  .sot-page-btn:disabled {
-    background: #e8f6f3;
+  .sot-page-btn:hover:not(:disabled) { opacity: 0.82; }
+  .sot-page-btn:disabled { background: #e8f6f3; color: #9fb5c2; cursor: not-allowed; }
+  #sot-page-info { font-size: 11.5px; color: #9fb5c2; text-align: center; }
+  #sot-status {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: #f9fafa;
+    border-radius: 4px;
+    font-size: 10.5px;
     color: #9fb5c2;
-    cursor: not-allowed;
-  }
-  #sot-page-info {
-    font-size: 11.5px;
-    color: #9fb5c2;
-    text-align: center;
+    line-height: 1.7;
   }
   #sot-empty {
     display: none;
@@ -287,12 +239,13 @@
         <tbody id="sot-tbody"></tbody>
       </table>
     </div>
+    <div id="sot-status"></div>
     <div id="sot-pagination">
       <button class="sot-page-btn" id="sot-prev-btn">◀ Prev</button>
       <span id="sot-page-info">—</span>
       <button class="sot-page-btn" id="sot-next-btn">Next ▶</button>
     </div>
-    <div id="sot-empty">No news found for this category.</div>
+    <div id="sot-empty"></div>
   </div>
 
   <div id="sot-footer">
@@ -303,11 +256,14 @@
 
 <script>
 (function () {
+  "use strict";
+
   var ITEMS_PER_PAGE = 20;
   var currentPage = 1;
   var filteredItems = [];
   var allItems = [];
   var activeTab = "all";
+  var feedLog = []; /* 각 피드 취득 결과 로그 */
 
   /* ── A) 데이터 소스 ── */
   var FEEDS = [
@@ -318,35 +274,20 @@
   /* ── B) 카테고리 키워드 ── */
   var CAT_KW = {
     all: [],
-    tanker: [
-      "tanker", "vlcc", "suezmax", "aframax",
-      "product tanker", "crude", "chemical tanker", "mr tanker",
-    ],
-    container: [
-      "container", "teu", "boxship", "containership", "feeder", "ultra large",
-    ],
-    lng: [
-      "lng", "lpg", "fsru", "flng", "gas carrier",
-      "liquefied", "ammonia", "methanol",
-    ],
-    bulk: [
-      "bulker", "bulk carrier", "capesize", "panamax",
-      "handysize", "handymax", "ultramax", "kamsarmax",
-    ],
-    car: [
-      "pctc", "car carrier", "roro", "ro-ro",
-      "vehicle carrier", "pcctc", "pure car",
-    ],
+    tanker: ["tanker","vlcc","suezmax","aframax","product tanker","crude","chemical tanker","mr tanker"],
+    container: ["container","teu","boxship","containership","feeder","ultra large"],
+    lng: ["lng","lpg","fsru","flng","gas carrier","liquefied","ammonia","methanol"],
+    bulk: ["bulker","bulk carrier","capesize","panamax","handysize","handymax","ultramax","kamsarmax"],
+    car: ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"],
   };
 
-  /* ── C) XML 파서 헬퍼 (allorigins 폴백용) ── */
+  /* ── C) RSS XML 파서 ── */
   function getElText(el, tag) {
     var nodes = el.getElementsByTagName(tag);
     return nodes.length ? nodes[0].textContent.trim() : "";
   }
 
   function getLinkFromItem(item) {
-    /* RSS 2.0 <link> 는 텍스트 노드, Atom <link href=""> 는 속성 */
     var linkEls = item.getElementsByTagName("link");
     for (var i = 0; i < linkEls.length; i++) {
       var txt = linkEls[i].textContent.trim();
@@ -354,7 +295,6 @@
       var href = linkEls[i].getAttribute("href");
       if (href) return href;
     }
-    /* <guid> 가 URL 인 경우 폴백 */
     var guidEls = item.getElementsByTagName("guid");
     if (guidEls.length) {
       var guid = guidEls[0].textContent.trim();
@@ -367,13 +307,17 @@
     try {
       var parser = new DOMParser();
       var doc = parser.parseFromString(xmlStr, "text/xml");
+      /* 파싱 에러 감지 */
+      if (doc.getElementsByTagName("parsererror").length) throw new Error("XML parse error");
       var items = doc.getElementsByTagName("item");
       var result = [];
       var max = Math.min(items.length, 50);
       for (var i = 0; i < max; i++) {
         var item = items[i];
+        var title = getElText(item, "title");
+        if (!title) continue; /* 빈 아이템 스킵 */
         result.push({
-          title: getElText(item, "title"),
+          title: title,
           link: getLinkFromItem(item),
           pubDate: getElText(item, "pubDate"),
           description: getElText(item, "description"),
@@ -386,66 +330,114 @@
     }
   }
 
-  /* ── D-1) rss2json.com API ── */
+  /* ── D) 4단계 피드 취득 ── */
+
+  /* D-1: 직접 fetch (일부 피드는 CORS 허용) */
+  function fetchDirect(feed) {
+    return fetch(feed.url, { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      })
+      .then(function (txt) {
+        var items = parseRSSXML(txt, feed.name);
+        if (!items.length) throw new Error("no items");
+        return items;
+      });
+  }
+
+  /* D-2: rss2json.com API (JSON 변환) */
   function fetchViaRss2json(feed) {
-    var url =
-      "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
+    var url = "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
       encodeURIComponent(feed.url);
     return fetch(url)
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (d.status !== "ok" || !d.items || !d.items.length) {
-          throw new Error(d.message || "rss2json: " + d.status);
-        }
+        if (d.status !== "ok" || !d.items || !d.items.length)
+          throw new Error(d.message || "status:" + d.status);
         return d.items.map(function (i) {
           return Object.assign({}, i, { _src: feed.name });
         });
       });
   }
 
-  /* ── D-2) allorigins.win CORS 프록시 + XML 직접 파싱 ── */
+  /* D-3: allorigins.win CORS 프록시 */
   function fetchViaAllOrigins(feed) {
-    var url =
-      "https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url);
+    var url = "https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url);
     return fetch(url)
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (!d.contents) throw new Error("allorigins: no contents");
+        if (!d || !d.contents) throw new Error("no contents");
         var items = parseRSSXML(d.contents, feed.name);
-        if (!items.length) throw new Error("allorigins: no items parsed");
+        if (!items.length) throw new Error("no items");
         return items;
       });
   }
 
-  /* ── D) 피드 가져오기 — rss2json 실패 시 allorigins 자동 폴백 ── */
-  function fetchFeed(feed) {
-    return fetchViaRss2json(feed)
-      .catch(function () { return fetchViaAllOrigins(feed); })
-      .catch(function () { return []; });
+  /* D-4: corsproxy.io */
+  function fetchViaCorsproxy(feed) {
+    var url = "https://corsproxy.io/?" + encodeURIComponent(feed.url);
+    return fetch(url)
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      })
+      .then(function (txt) {
+        var items = parseRSSXML(txt, feed.name);
+        if (!items.length) throw new Error("no items");
+        return items;
+      });
   }
 
-  /* ── E) 카테고리 필터 ── */
+  /* D) 폴백 체인: direct → rss2json → allorigins → corsproxy */
+  function fetchFeed(feed) {
+    return fetchDirect(feed)
+      .then(function (items) {
+        feedLog.push(feed.name + ": direct ✓ (" + items.length + ")");
+        return items;
+      })
+      .catch(function () {
+        return fetchViaRss2json(feed)
+          .then(function (items) {
+            feedLog.push(feed.name + ": rss2json ✓ (" + items.length + ")");
+            return items;
+          });
+      })
+      .catch(function () {
+        return fetchViaAllOrigins(feed)
+          .then(function (items) {
+            feedLog.push(feed.name + ": allorigins ✓ (" + items.length + ")");
+            return items;
+          });
+      })
+      .catch(function () {
+        return fetchViaCorsproxy(feed)
+          .then(function (items) {
+            feedLog.push(feed.name + ": corsproxy ✓ (" + items.length + ")");
+            return items;
+          });
+      })
+      .catch(function (e) {
+        feedLog.push(feed.name + ": all failed ✗ (" + (e.message || e) + ")");
+        return [];
+      });
+  }
+
+  /* ── E) 필터 ── */
   function matchesCat(item, cat) {
     if (cat === "all") return true;
-    var txt =
-      ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
     return CAT_KW[cat].some(function (k) { return txt.indexOf(k) !== -1; });
   }
 
   /* ── F) 선종 자동 감지 ── */
   function detectType(item) {
-    var txt =
-      ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
     var order = ["car", "lng", "tanker", "container", "bulk"];
-    var labels = {
-      car: "Car Carrier", lng: "LNG/Gas",
-      tanker: "Tanker", container: "Container", bulk: "Bulk",
-    };
+    var labels = { car: "Car Carrier", lng: "LNG/Gas", tanker: "Tanker", container: "Container", bulk: "Bulk" };
     for (var i = 0; i < order.length; i++) {
-      var cat = order[i];
-      if (CAT_KW[cat].some(function (k) { return txt.indexOf(k) !== -1; })) {
-        return labels[cat];
-      }
+      if (CAT_KW[order[i]].some(function (k) { return txt.indexOf(k) !== -1; }))
+        return labels[order[i]];
     }
     return null;
   }
@@ -454,23 +446,18 @@
   function fmtDate(ds) {
     var d = new Date(ds);
     if (isNaN(d.getTime())) return "—";
-    return d.toLocaleDateString("en-GB", {
-      day: "2-digit", month: "short", year: "numeric",
-    });
+    return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
   }
 
   function escAttr(s) {
     return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;");
   }
 
-  function showEmpty(msg) {
-    document.getElementById("sot-empty").innerHTML = msg;
-    document.getElementById("sot-empty").style.display = "block";
-    document.getElementById("sot-table-wrap").style.display = "none";
-    document.getElementById("sot-pagination").style.display = "none";
+  function escHTML(s) {
+    return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  /* ── H) 현재 페이지 렌더링 ── */
+  /* ── H) 렌더링 ── */
   function renderPage() {
     var tbody = document.getElementById("sot-tbody");
     var pageInfo = document.getElementById("sot-page-info");
@@ -479,9 +466,19 @@
     var tableWrap = document.getElementById("sot-table-wrap");
     var pagination = document.getElementById("sot-pagination");
     var emptyEl = document.getElementById("sot-empty");
+    var statusEl = document.getElementById("sot-status");
+
+    /* 상태 로그 표시 */
+    statusEl.style.display = feedLog.length ? "block" : "none";
+    statusEl.textContent = feedLog.join("  ·  ");
 
     if (!filteredItems.length) {
-      showEmpty("No news found for this category.<br><span style='font-size:11px'>Try the All tab or click Refresh.</span>");
+      tableWrap.style.display = "none";
+      pagination.style.display = "none";
+      emptyEl.style.display = "block";
+      emptyEl.innerHTML = allItems.length === 0
+        ? "⚠️ 데이터를 불러오지 못했습니다.<br><span style='font-size:11px'>RSS API에 일시적 문제가 있습니다. 잠시 후 다시 시도해 주세요.</span>"
+        : "이 카테고리에 해당하는 뉴스가 없습니다.<br><span style='font-size:11px'>All 탭을 선택하거나 Refresh를 눌러 주세요.</span>";
       return;
     }
 
@@ -501,33 +498,28 @@
       return (
         "<tr>" +
         '<td class="sot-td-date">' + fmtDate(i.pubDate) + "</td>" +
-        '<td><span class="sot-src">' + i._src + "</span></td>" +
+        '<td><span class="sot-src">' + escHTML(i._src) + "</span></td>" +
         "<td>" + typeCel + "</td>" +
-        '<td><a class="sot-table-title" href="' +
-        escAttr(i.link) + '" target="_blank" rel="noopener">' +
-        i.title + "</a></td>" +
+        '<td><a class="sot-table-title" href="' + escAttr(i.link) +
+        '" target="_blank" rel="noopener">' + escHTML(i.title) + "</a></td>" +
         "</tr>"
       );
     }).join("");
 
     pagination.style.display = totalPages > 1 ? "flex" : "none";
-    pageInfo.textContent =
-      "Page " + currentPage + " / " + totalPages +
+    pageInfo.textContent = "Page " + currentPage + " / " + totalPages +
       "  ·  " + (start + 1) + "–" + end + " of " + total;
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
   }
 
-  /* ── I) 카테고리 필터 적용 → page 1 ── */
   function applyFilter() {
-    filteredItems = allItems.filter(function (i) {
-      return matchesCat(i, activeTab);
-    });
+    filteredItems = allItems.filter(function (i) { return matchesCat(i, activeTab); });
     currentPage = 1;
     renderPage();
   }
 
-  /* ── J) 새로고침 ── */
+  /* ── I) 새로고침 ── */
   function refresh() {
     var btn = document.getElementById("sot-refresh-btn");
     var loading = document.getElementById("sot-loading");
@@ -538,51 +530,42 @@
     btn.textContent = "⟳";
     loading.style.display = "block";
     list.style.display = "none";
+    feedLog = [];
+    allItems = [];
 
     var cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
 
     Promise.all(FEEDS.map(fetchFeed))
       .then(function (results) {
-        var merged = [];
-        results.forEach(function (arr) {
-          arr.forEach(function (i) { merged.push(i); });
-        });
-
-        /* 두 API 모두 실패한 경우 */
-        if (!merged.length) {
-          list.style.display = "block";
-          showEmpty(
-            "⚠️ 데이터를 불러오지 못했습니다.<br>" +
-            '<span style="font-size:11px">RSS API가 일시적으로 불가능합니다. 잠시 후 다시 시도해 주세요.</span>'
-          );
-          return;
+        var merged = results[0].concat(results[1]);
+        if (merged.length) {
+          var recent = merged.filter(function (i) {
+            return new Date(i.pubDate).getTime() > cutoff;
+          });
+          allItems = (recent.length ? recent : merged).sort(function (a, b) {
+            return new Date(b.pubDate) - new Date(a.pubDate);
+          });
         }
-
-        /* 최근 30일 우선, 없으면 전체 */
-        var recent = merged.filter(function (i) {
-          return new Date(i.pubDate).getTime() > cutoff;
-        });
-        allItems = (recent.length ? recent : merged).sort(function (a, b) {
-          return new Date(b.pubDate) - new Date(a.pubDate);
-        });
-
         applyFilter();
-
-        var now = new Date();
-        upd.textContent =
-          allItems.length + " articles  ·  Updated " +
-          now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+      })
+      .catch(function () {
+        allItems = [];
+        applyFilter();
       })
       .then(function () {
-        /* finally 대체 */
+        /* 항상 실행되는 finally */
         loading.style.display = "none";
         list.style.display = "block";
         btn.disabled = false;
         btn.textContent = "⟳ Refresh";
+        var now = new Date();
+        upd.textContent =
+          (allItems.length ? allItems.length + " articles  ·  " : "") +
+          "Updated " + now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
       });
   }
 
-  /* ── K) 이벤트 바인딩 ── */
+  /* ── J) 이벤트 바인딩 ── */
   document.getElementById("sot-refresh-btn").addEventListener("click", refresh);
 
   document.getElementById("sot-prev-btn").addEventListener("click", function () {
@@ -591,8 +574,7 @@
 
   document.getElementById("sot-next-btn").addEventListener("click", function () {
     if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) {
-      currentPage++;
-      renderPage();
+      currentPage++; renderPage();
     }
   });
 
@@ -607,7 +589,7 @@
     });
   });
 
-  /* ── L) 초기 로드 ── */
+  /* ── K) 초기 로드 ── */
   refresh();
 })();
 </script>
