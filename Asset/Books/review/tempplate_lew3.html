@@ -1,0 +1,467 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article: [BOOK] Industrial Control System Security (2/2)
+     Author : Captain Ethan  |  Published: Mar 1, 2026
+     Source : https://shippauljobs.blogspot.com/
+     Style  : Maritime 4.0 Design System — Blogger-compatible
+════════════════════════════════════════════════════════════ -->
+
+<div style="font-family:'Segoe UI','Apple SD Gothic Neo',Arial,sans-serif;max-width:780px;margin:0 auto;color:#2c3e50;line-height:1.75;box-sizing:border-box;">
+
+  <!-- ══ HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+      <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">📚 Book Review</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">IACS UR E26 / E27</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">ICS Network Architecture</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Maritime OT</span>
+    </div>
+    <h1 style="font-size:22px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
+      [BOOK] Industrial Control System Security <span style="font-size:16px;font-weight:500;color:#b8d4ea;">(2/2)</span>
+    </h1>
+    <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
+      ICS Network Architecture Fundamentals — from an IACS UR E26 and E27 Certification Perspective
+    </p>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">⚓</div>
+        <div>
+          <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Captain Ethan</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+        </div>
+      </div>
+      <div style="color:#9ab5c9;font-size:11px;display:flex;align-items:center;gap:5px;margin-left:auto;">
+        <span>📅</span><span>March 1, 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SERIES LINK ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;margin-bottom:32px;display:flex;align-items:center;gap:12px;">
+    <span style="font-size:16px;flex-shrink:0;">🔗</span>
+    <div style="font-size:13px;color:#354a5e;">
+      이 글은 <strong style="color:#0a2342;">[BOOK] Industrial Control System Security (1/2)</strong>의 연속입니다.
+      1편에서는 ICS/OT의 기본 특성 및 핵심 보안 원칙을 다뤘습니다.
+    </div>
+  </div>
+
+  <!-- ══ CHAPTER 2 HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:16px 22px;margin-bottom:28px;">
+    <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Chapter 2</div>
+    <div style="font-size:16px;font-weight:800;color:#ffffff;line-height:1.4;">ICS Network Architecture Fundamentals</div>
+  </div>
+
+  <!-- ══ SECTION 2.1 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">2.1 ICS Zone &amp; Conduit Concept</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 18px 0;">
+      Throughout the book, <strong style="color:#0a2342;">ICS Zones</strong> are presented as a core architectural foundation of OT security. The zoning model is not merely a network segmentation practice; it defines <strong style="color:#0a2342;">security boundaries and communication trust relationships</strong> that are directly relevant to UR E26 and E27 compliance.
+    </p>
+
+    <!-- Zone stack -->
+    <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:18px;">
+      <div style="background:#e8f0f7;border:1px solid #b8d0e8;border-radius:10px 10px 0 0;padding:14px 18px;display:flex;align-items:flex-start;gap:14px;">
+        <span style="background:#154f7a;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">①</span>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">Enterprise Zone (IT)</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">Corporate network environment including office systems, ERP platforms, and general-purpose Windows infrastructure.</div>
+        </div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;padding:14px 18px;display:flex;align-items:flex-start;gap:14px;">
+        <span style="background:#1a9e82;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">②</span>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">IDMZ — Industrial DMZ</div>
+          <div style="font-size:13px;color:#1a4a40;line-height:1.6;">A buffer zone between IT and OT. Typical examples include WSUS servers, update relays, security servers, and intermediary control systems.</div>
+        </div>
+      </div>
+      <div style="background:#f0f7ff;border:1px solid #c4d9ef;padding:14px 18px;display:flex;align-items:flex-start;gap:14px;">
+        <span style="background:#0a2342;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">③</span>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">Industrial Control Zone (OT)</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">The actual control domain where PLCs, HMIs, and Engineering Workstations (EWS) reside.</div>
+        </div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:0 0 10px 10px;padding:14px 18px;display:flex;align-items:flex-start;gap:14px;">
+        <span style="background:#9ab5c9;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">④</span>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">Cell / Area Zone</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">Local network segments dedicated to individual production units or operational areas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 2.2 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">2.2 The Essential Role of the IDMZ</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 18px 0;">
+      The IDMZ functions as a <strong style="color:#0a2342;">"shock absorber"</strong> between IT and OT. Its primary objective is to prevent attacks, patch flows, log transfers, and remote access requests from <strong style="color:#0a2342;">directly reaching the OT environment</strong>. The book clearly illustrates the role of the IDMZ using a WSUS deployment example.
+    </p>
+
+    <!-- IDMZ Functions -->
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:170px;font-size:11px;font-weight:800;color:#0a2342;letter-spacing:0.5px;padding-top:2px;">Update Relay (WSUS)</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.65;">Direct internet connectivity for OT is prohibited. Patch collection must follow a unidirectional flow: <strong style="color:#0a2342;">IT → IDMZ → OT</strong>.</div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:170px;font-size:11px;font-weight:800;color:#0a2342;letter-spacing:0.5px;padding-top:2px;">Logging Relay (SIEM)</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.65;">If OT devices communicate directly with the IT network, they may become a pathway for lateral movement. Direct connection to a central SIEM is therefore restricted.</div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:170px;font-size:11px;font-weight:800;color:#0a2342;letter-spacing:0.5px;padding-top:2px;">Remote Access Gateway</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.65;">Direct RDP or VPN connections to OT are prohibited. Authentication bypass or credential compromise could expose the entire OT environment.</div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:170px;font-size:11px;font-weight:800;color:#0a2342;letter-spacing:0.5px;padding-top:2px;">Historian Replication</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.65;">OT data may be transferred to enterprise analytics systems, but <strong style="color:#c0392b;">enterprise systems must not be allowed to control OT</strong>.</div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:170px;font-size:11px;font-weight:800;color:#0a2342;letter-spacing:0.5px;padding-top:2px;">Secure File Transfer Zone</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.65;">USB devices are a major vector for OT security incidents. A controlled file transfer zone replaces uncontrolled removable media usage.</div>
+      </div>
+    </div>
+
+    <!-- Modern IDMZ -->
+    <div style="background:#fff8f0;border:1px solid #f5d5a0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:18px;">
+      <div style="font-size:11px;font-weight:800;color:#e67e22;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;">Enhanced IDMZ Under Modern OT Security Standards</div>
+      <p style="font-size:13px;color:#7a4f10;line-height:1.75;margin:0 0 12px 0;">It is important to recognize why <strong>traditional IDMZ design alone is no longer sufficient</strong>.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#fff3e0;border-radius:8px;padding:11px 14px;">
+          <div style="font-size:12px;font-weight:800;color:#e67e22;margin-bottom:4px;">Zero Trust-Based Session Broker</div>
+          <div style="font-size:13px;color:#7a4f10;line-height:1.65;">Traditional VPN solutions often grant broad internal access once authenticated. Zero Trust architectures allow <strong>session-level, least-privilege access</strong>, minimizing OT exposure.</div>
+        </div>
+        <div style="background:#fff3e0;border-radius:8px;padding:11px 14px;">
+          <div style="font-size:12px;font-weight:800;color:#e67e22;margin-bottom:4px;">OT-Specific NAC / IEC 62443-Based Access Control</div>
+          <div style="font-size:13px;color:#7a4f10;line-height:1.65;">Unauthorized laptops or maintenance devices must be <strong>prevented from connecting to OT networks</strong>.</div>
+        </div>
+        <div style="background:#fff3e0;border-radius:8px;padding:11px 14px;">
+          <div style="font-size:12px;font-weight:800;color:#e67e22;margin-bottom:4px;">DPI / ICS-Aware Firewall</div>
+          <div style="font-size:13px;color:#7a4f10;line-height:1.65;">Conventional firewalls filter based on ports and protocols. ICS-aware DPI firewalls analyze <strong>Modbus function codes and EtherNet/IP commands</strong>, enforcing semantic-level control.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDMZ Table -->
+    <div style="background:#eef6f3;border-radius:10px;padding:12px 18px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;">🔹 Meaning of IDMZ from a UR E26/E27 Perspective</div>
+    </div>
+    <div style="overflow-x:auto;margin-bottom:14px;">
+      <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid #d1e0ee;font-size:13px;">
+        <thead>
+          <tr>
+            <th style="background:#0a2342;color:#ffffff;padding:11px 14px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;width:22%;">IDMZ Function</th>
+            <th style="background:#154f7a;color:#b8d4ea;padding:11px 14px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Impact on Test Items</th>
+            <th style="background:#1a9e82;color:#d0fff4;padding:11px 14px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Impact on Documentation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f7fafe;">
+            <td style="padding:11px 14px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Patch Relay</td>
+            <td style="padding:11px 14px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Security Verification</td>
+            <td style="padding:11px 14px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Maintenance Plan</td>
+          </tr>
+          <tr style="background:#ffffff;">
+            <td style="padding:11px 14px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Logging Relay</td>
+            <td style="padding:11px 14px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Auditable Events</td>
+            <td style="padding:11px 14px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Incident Response Information</td>
+          </tr>
+          <tr style="background:#f7fafe;">
+            <td style="padding:11px 14px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Remote Access</td>
+            <td style="padding:11px 14px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Authentication</td>
+            <td style="padding:11px 14px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Security Capability Description</td>
+          </tr>
+          <tr style="background:#ffffff;">
+            <td style="padding:11px 14px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Historian</td>
+            <td style="padding:11px 14px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Information Flow Control</td>
+            <td style="padding:11px 14px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Topology</td>
+          </tr>
+          <tr style="background:#f7fafe;">
+            <td style="padding:11px 14px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">File Transfer</td>
+            <td style="padding:11px 14px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Malicious Code Protection</td>
+            <td style="padding:11px 14px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Configuration Guideline</td>
+          </tr>
+          <tr style="background:#ffffff;">
+            <td style="padding:11px 14px;color:#0a2342;font-weight:700;">DPI Firewall</td>
+            <td style="padding:11px 14px;color:#4a6278;">Communication Integrity</td>
+            <td style="padding:11px 14px;color:#1a4a40;font-weight:600;">Security Architecture</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#eef6f3;border-left:3px solid #1a9e82;padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:#1a4a40;line-height:1.7;">
+      The IDMZ is not simply a network buffer. It is a <strong>structural enforcement layer for UR E26/E27 compliance</strong>.
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 2.3 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#1a9e82,#27ae8f);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">2.3 VLAN / Layer-2 Segmentation Structure</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 18px 0;">
+      A VLAN is not merely a network partitioning mechanism. It is a <strong style="color:#0a2342;">logical barrier that prevents devices within the same physical switch from communicating freely</strong>. In OT environments, full physical separation of switches is often impractical — VLANs therefore serve as a minimum isolation mechanism.
+    </p>
+
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#0a2342;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">①</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Inter-VLAN Routing Must Be Controlled</div>
+      </div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0;">
+        If Layer-3 switches automatically allow routing between VLANs, segmentation becomes ineffective. <strong style="color:#0a2342;">Explicit allow rules must be enforced</strong> through ACLs or firewalls.
+      </p>
+    </div>
+
+    <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#c0392b;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">②</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">VLAN Alone Is Not Security</div>
+      </div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0;">
+        VLANs provide <strong style="color:#c0392b;">no encryption</strong>. Plain-text communication is still possible within the same VLAN. VLAN is a structural isolation foundation, not a standalone security control.
+      </p>
+    </div>
+
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#1a9e82;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">③</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Mandatory Representation in Topology Diagrams</div>
+      </div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0 0 10px 0;">
+        VLAN definitions reflect <strong style="color:#0a2342;">logical zoning, communication paths, patch and logging flows, and enforcement points</strong>.
+      </p>
+      <div style="background:#eef6f3;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#1a4a40;">
+        If VLAN structure is not clearly represented in the topology diagram, the <strong>security boundary may be considered undefined</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 2.4 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#e67e22,#f39c12);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">2.4 Considerations for Firewall and NIDS Deployment in OT Networks</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="background:#f0f7ff;border:1px solid #c4d9ef;border-radius:10px;padding:14px 16px;text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:#154f7a;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">IT Environment</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.6;">Adding security devices = <strong style="color:#0a2342;">Stronger protection</strong></div>
+      </div>
+      <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:10px;padding:14px 16px;text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:#c0392b;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">OT Environment</div>
+        <div style="font-size:13px;color:#5a2d2d;line-height:1.6;">Adding security devices = <strong style="color:#c0392b;">Potential latency risk</strong></div>
+      </div>
+    </div>
+
+    <div style="background:#fff8f0;border:1px solid #f5d5a0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#7a4f10;">
+      If security interferes with process stability, it is <strong>operationally unacceptable</strong>.
+    </div>
+
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#0a2342;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">①</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Prefer Fail-Open and Passive Monitoring Architectures</div>
+      </div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0;">
+        Inline IDS solutions that force all traffic through inspection may introduce delay. <strong style="color:#0a2342;">Passive TAP-based monitoring</strong> is preferred, ensuring no impact on operational traffic during failure.
+      </p>
+    </div>
+
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#154f7a;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">②</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Firewall Rules Must Be Minimal and Explicit</div>
+      </div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0;">
+        The more rules implemented, the greater the risk of misconfiguration. A <strong style="color:#0a2342;">"Deny All → Explicit Allow Only"</strong> policy is generally appropriate.
+      </p>
+    </div>
+
+    <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#1a9e82;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">③</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Understanding the Purpose of ICS DPI</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+        <div style="background:#fff;border:1px solid #b2ddd4;border-radius:8px;padding:10px 14px;">
+          <div style="font-size:10px;font-weight:800;color:#9ab5c9;letter-spacing:0.8px;margin-bottom:4px;">Traditional Firewall</div>
+          <div style="font-size:13px;color:#354a5e;">Filters based on <strong>TCP/UDP ports</strong></div>
+        </div>
+        <div style="background:#fff;border:1px solid #1a9e82;border-radius:8px;padding:10px 14px;">
+          <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.8px;margin-bottom:4px;">ICS DPI Firewall</div>
+          <div style="font-size:13px;color:#1a4a40;">Evaluates the <strong>meaning of commands</strong> (Modbus, EtherNet/IP)</div>
+        </div>
+      </div>
+      <div style="font-size:13px;color:#1a4a40;margin-bottom:8px;">Supports UR E26 requirements including:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Communication Integrity</span>
+        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Information Flow Enforcement</span>
+        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Deterministic Output</span>
+      </div>
+    </div>
+
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:14px 18px;">
+      <div style="font-size:11px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Additional Considerations</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
+          <span style="width:5px;height:5px;min-width:5px;border-radius:50%;background:#154f7a;margin-top:8px;"></span>
+          <span>Stateful inspection may increase latency</span>
+        </div>
+        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
+          <span style="width:5px;height:5px;min-width:5px;border-radius:50%;background:#154f7a;margin-top:8px;"></span>
+          <span>Failover time in redundant firewall configurations must be validated</span>
+        </div>
+        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
+          <span style="width:5px;height:5px;min-width:5px;border-radius:50%;background:#154f7a;margin-top:8px;"></span>
+          <span>OT internal traffic should remain at Layer-2 whenever possible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 2.5 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#c0392b,#e74c3c);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">2.5 Risks of Dual NIC (IT/OT Bridge) Architectures</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      When an Engineering Workstation (EWS) is connected simultaneously to both IT and OT networks via dual NICs, it effectively becomes a <strong style="color:#c0392b;">logical bridge that nullifies network segmentation</strong>.
+    </p>
+
+    <!-- Attack Path -->
+    <div style="background:#fdecea;border:1px solid #f5c6c6;border-radius:12px;padding:16px 20px;margin-bottom:20px;">
+      <div style="font-size:11px;font-weight:800;color:#c0392b;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;">Attack Path — Lateral Movement via Dual NIC</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid #f5c6c6;border-radius:8px;padding:14px;">
+        <span style="background:#e74c3c;color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;">IT Compromise</span>
+        <span style="color:#c0392b;font-size:18px;">→</span>
+        <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;">EWS Access</span>
+        <span style="color:#c0392b;font-size:18px;">→</span>
+        <span style="background:#922b21;color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;">Pivot via OT NIC</span>
+        <span style="color:#c0392b;font-size:18px;">→</span>
+        <span style="background:#0a2342;color:#fff;font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;">PLC Access</span>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#5a2d2d;">
+        This represents a <strong>classic lateral movement pathway</strong> and fundamentally undermines segmentation.
+      </div>
+    </div>
+
+    <!-- Recommended Alternatives -->
+    <div style="font-size:13px;font-weight:800;color:#0a2342;letter-spacing:0.5px;margin-bottom:12px;">Recommended Design Alternatives</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">① Jump Server Architecture</div>
+        <div style="font-size:13px;color:#1a4a40;line-height:1.65;">Design <strong>IT → Gateway → OT</strong> architecture, prohibiting direct connectivity.</div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">② Single NIC + Firewall Enforcement</div>
+        <div style="font-size:13px;color:#1a4a40;line-height:1.65;">EWS is dedicated to OT only; IT access is permitted solely through <strong>controlled gateways</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SUMMARY TABLE ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="background:#eef6f3;border-radius:10px;padding:14px 18px;margin-bottom:16px;">
+      <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px;">🔹 Chapter 2 Summary</div>
+      <div style="font-size:14px;font-weight:700;color:#0a2342;">VLAN, Firewall / DPI, and Dual NIC from a UR E26/E27 Perspective</div>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:18px;">
+      <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid #d1e0ee;font-size:13px;">
+        <thead>
+          <tr>
+            <th style="background:#0a2342;color:#ffffff;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;width:20%;">Element</th>
+            <th style="background:#154f7a;color:#b8d4ea;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Core Question</th>
+            <th style="background:#1a9e82;color:#d0fff4;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Structural Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f7fafe;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">VLAN</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Who can communicate with whom?</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Logical zone definition</td>
+          </tr>
+          <tr style="background:#ffffff;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Firewall / DPI</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">What is allowed to pass?</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Control of communication semantics</td>
+          </tr>
+          <tr style="background:#f7fafe;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;">Dual NIC</td>
+            <td style="padding:12px 16px;color:#4a6278;">Does a boundary truly exist?</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;">Prevention of boundary collapse</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 20px;">
+      <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:10px;">These elements form the foundation for the following UR E26/E27 requirements:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;">
+        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Topology Diagram</span>
+        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Security Capabilities Description</span>
+        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Communication Integrity (Test)</span>
+        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Authorization Enforcement</span>
+        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Information Flow Enforcement</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ICSsecurity</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#OTsecurity</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#IDMZ</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#NetworkSegmentation</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#IACS</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#URE26</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#URE27</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MaritimeCyberSecurity</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div style="border-top:2px solid #e2eaf3;padding-top:28px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+    <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0a2342,#1a9e82);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">⚓</div>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:2px;">Captain Ethan</div>
+      <div style="font-size:11px;color:#6b8599;margin-bottom:10px;">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+      <p style="font-size:12.5px;color:#6b8599;line-height:1.7;margin:0 0 14px 0;">
+        Maritime professional focused on the intersection of vessel operations, classification society regulations, and OT/IT cybersecurity. Writing for engineers, consultants, and operators navigating Maritime 4.0 together.
+      </p>
+      <a href="https://shippauljobs.blogspot.com" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;
+                background:#0a2342;color:#fff;border-radius:9px;text-decoration:none;
+                font-size:12px;font-weight:700;border:2px solid #1a9e82;">
+        🌐 More Articles ↗
+      </a>
+    </div>
+  </div>
+
+</div>

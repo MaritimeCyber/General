@@ -1,0 +1,448 @@
+<!-- ════════════════════════════════════════════════════════════
+     Ship Order Trends Widget — shippauljobs.blogspot.com
+     기능: 글로벌 신조선 발주 뉴스 실시간 표시
+     출처: Splash247 · Hellenic Shipping News (RSS via rss2json)
+     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
+════════════════════════════════════════════════════════════ -->
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap"
+  rel="stylesheet"
+/>
+
+<style>
+  #sot-wrap,
+  #sot-wrap * {
+    box-sizing: border-box;
+    font-family: "Roboto", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  #sot-wrap {
+    border: 1px solid #dde8ee;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+  #sot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    background: #1a9e82;
+    color: #fff;
+  }
+  #sot-header-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  #sot-refresh-btn {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 20px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+  }
+  #sot-refresh-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.34);
+  }
+  #sot-refresh-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  #sot-tabs {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid #e0eff5;
+    background: #f4faf8;
+    padding: 0 6px;
+    scrollbar-width: none;
+  }
+  #sot-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .sot-tab {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #7a9aaa;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 8px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .sot-tab:hover {
+    color: #1a9e82;
+  }
+  .sot-tab.active {
+    color: #1a9e82;
+    border-bottom-color: #1a9e82;
+  }
+  @keyframes sot-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  #sot-loading {
+    text-align: center;
+    padding: 24px 10px;
+    color: #6b8599;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    animation: sot-pulse 1.6s ease-in-out infinite;
+  }
+  #sot-list {
+    display: none;
+    max-height: 440px;
+    overflow-y: auto;
+    padding: 4px 0;
+  }
+  .sot-item {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f5f8;
+  }
+  .sot-item:last-child {
+    border-bottom: none;
+  }
+  .sot-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 4px;
+  }
+  .sot-date {
+    font-size: 11px;
+    color: #9fb5c2;
+  }
+  .sot-src {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 10px;
+    letter-spacing: 0.2px;
+  }
+  .sot-src-sp {
+    background: #e6f0f7;
+    color: #2272b0;
+  }
+  .sot-src-hs {
+    background: #e6f5f1;
+    color: #1a7e62;
+  }
+  .sot-title {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1a3040;
+    text-decoration: none;
+    line-height: 1.5;
+    margin-bottom: 3px;
+  }
+  .sot-title:hover {
+    color: #1a9e82;
+    text-decoration: underline;
+  }
+  .sot-snippet {
+    font-size: 11.5px;
+    color: #6b8599;
+    line-height: 1.6;
+  }
+  .sot-empty {
+    padding: 22px 14px;
+    font-size: 12px;
+    color: #9fb5c2;
+    text-align: center;
+  }
+  #sot-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 14px;
+    background: #f4faf8;
+    border-top: 1px solid #e0eff5;
+    font-size: 10.5px;
+    color: #9fb5c2;
+  }
+</style>
+
+<div id="sot-wrap">
+  <!-- 헤더 -->
+  <div id="sot-header">
+    <span id="sot-header-title">🚢 Ship Order Trends</span>
+    <button id="sot-refresh-btn">⟳ Refresh</button>
+  </div>
+
+  <!-- 카테고리 탭 -->
+  <div id="sot-tabs">
+    <button class="sot-tab active" data-key="all">All</button>
+    <button class="sot-tab" data-key="tanker">Tanker</button>
+    <button class="sot-tab" data-key="container">Container</button>
+    <button class="sot-tab" data-key="lng">LNG / Gas</button>
+    <button class="sot-tab" data-key="bulk">Bulk</button>
+    <button class="sot-tab" data-key="car">Car Carrier</button>
+  </div>
+
+  <!-- 로딩 -->
+  <div id="sot-loading">📡 Fetching latest ship orders…</div>
+
+  <!-- 뉴스 목록 -->
+  <div id="sot-list"></div>
+
+  <!-- 푸터 -->
+  <div id="sot-footer">
+    <span>Splash247 · Hellenic Shipping News</span>
+    <span id="sot-updated">—</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ── A) 데이터 소스 ── */
+  var FEEDS = [
+    {
+      url: "https://splash247.com/feed/",
+      name: "Splash247",
+      cls: "sot-src-sp",
+    },
+    {
+      url: "https://www.hellenicshippingnews.com/feed/",
+      name: "HSN",
+      cls: "sot-src-hs",
+    },
+  ];
+
+  /* ── B) 발주 관련 키워드 (제목/본문 필터) ── */
+  var ORDER_KW = [
+    "order",
+    "newbuilding",
+    "new build",
+    "contract",
+    "shipbuild",
+    "keel lay",
+    "yard",
+  ];
+
+  /* ── C) 카테고리별 키워드 ── */
+  var CAT_KW = {
+    all: [],
+    tanker: [
+      "tanker",
+      "vlcc",
+      "suezmax",
+      "aframax",
+      "product tanker",
+      "crude",
+      "chemical tanker",
+      "mr tanker",
+    ],
+    container: [
+      "container",
+      "teu",
+      "boxship",
+      "containership",
+      "feeder",
+      "ultra large",
+    ],
+    lng: [
+      "lng",
+      "lpg",
+      "fsru",
+      "flng",
+      "gas carrier",
+      "liquefied",
+      "ammonia",
+      "methanol",
+    ],
+    bulk: [
+      "bulker",
+      "bulk carrier",
+      "capesize",
+      "panamax",
+      "handysize",
+      "handymax",
+      "ultramax",
+      "kamsarmax",
+    ],
+    car: [
+      "pctc",
+      "car carrier",
+      "roro",
+      "ro-ro",
+      "vehicle carrier",
+      "pcctc",
+      "pure car",
+    ],
+  };
+
+  var allItems = [];
+  var activeTab = "all";
+
+  /* ── D) RSS → JSON (rss2json.com 무료 API) ── */
+  function fetchFeed(feed) {
+    var api =
+      "https://api.rss2json.com/v1/api.json?count=30&rss_url=" +
+      encodeURIComponent(feed.url);
+    return fetch(api)
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        return (d.items || []).map(function (i) {
+          return Object.assign({}, i, { _src: feed.name, _cls: feed.cls });
+        });
+      })
+      .catch(function () {
+        return []; /* 개별 피드 실패 시 빈 배열 반환 */
+      });
+  }
+
+  /* ── E) 필터 함수 ── */
+  function isOrderNews(item) {
+    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    return ORDER_KW.some(function (k) {
+      return txt.indexOf(k) !== -1;
+    });
+  }
+
+  function matchesCat(item, cat) {
+    if (cat === "all") return true;
+    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    return CAT_KW[cat].some(function (k) {
+      return txt.indexOf(k) !== -1;
+    });
+  }
+
+  /* ── F) 유틸 ── */
+  function fmtDate(ds) {
+    var d = new Date(ds);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+  function stripHTML(h) {
+    var t = document.createElement("div");
+    t.innerHTML = h || "";
+    return ((t.textContent || t.innerText || "").replace(/\s+/g, " ").trim());
+  }
+
+  function escAttr(s) {
+    return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  }
+
+  /* ── G) 렌더링 ── */
+  function render() {
+    var list = document.getElementById("sot-list");
+    var filtered = allItems.filter(function (i) {
+      return matchesCat(i, activeTab);
+    });
+
+    if (!filtered.length) {
+      list.innerHTML =
+        '<div class="sot-empty">No order news found in this category.<br>Try "All" or refresh for latest data.</div>';
+      return;
+    }
+
+    list.innerHTML = filtered
+      .slice(0, 12)
+      .map(function (i) {
+        var snippet = stripHTML(i.description);
+        if (snippet.length > 115) snippet = snippet.slice(0, 115) + "…";
+        return (
+          '<div class="sot-item">' +
+          '<div class="sot-meta">' +
+          '<span class="sot-date">' + fmtDate(i.pubDate) + "</span>" +
+          '<span class="sot-src ' + i._cls + '">' + i._src + "</span>" +
+          "</div>" +
+          '<a class="sot-title" href="' +
+          escAttr(i.link) +
+          '" target="_blank" rel="noopener">' +
+          i.title +
+          "</a>" +
+          '<div class="sot-snippet">' + snippet + "</div>" +
+          "</div>"
+        );
+      })
+      .join("");
+  }
+
+  /* ── H) 새로고침 ── */
+  function refresh() {
+    var btn = document.getElementById("sot-refresh-btn");
+    var loading = document.getElementById("sot-loading");
+    var list = document.getElementById("sot-list");
+    var upd = document.getElementById("sot-updated");
+
+    btn.disabled = true;
+    btn.textContent = "⟳";
+    loading.style.display = "block";
+    list.style.display = "none";
+
+    Promise.all(FEEDS.map(fetchFeed))
+      .then(function (results) {
+        var merged = [];
+        results.forEach(function (arr) {
+          arr.forEach(function (i) { merged.push(i); });
+        });
+        allItems = merged
+          .filter(isOrderNews)
+          .sort(function (a, b) {
+            return new Date(b.pubDate) - new Date(a.pubDate);
+          });
+
+        render();
+
+        var now = new Date();
+        upd.textContent =
+          "Updated " +
+          now.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+      })
+      .catch(function () {
+        list.innerHTML =
+          '<div class="sot-empty">⚠️ Failed to load data. Please try again.</div>';
+        list.style.display = "block";
+      })
+      .then(function () {
+        /* finally 대체 */
+        loading.style.display = "none";
+        list.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "⟳ Refresh";
+      });
+  }
+
+  /* ── I) 이벤트 바인딩 ── */
+  document
+    .getElementById("sot-refresh-btn")
+    .addEventListener("click", refresh);
+
+  document.querySelectorAll("#sot-tabs .sot-tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      document.querySelectorAll("#sot-tabs .sot-tab").forEach(function (t) {
+        t.classList.remove("active");
+      });
+      this.classList.add("active");
+      activeTab = this.dataset.key;
+      render();
+    });
+  });
+
+  /* ── J) 초기 로드 ── */
+  refresh();
+})();
+</script>
