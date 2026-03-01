@@ -1,7 +1,7 @@
 <!-- ════════════════════════════════════════════════════════════
      Ship Order Trends Widget — shippauljobs.blogspot.com
      기능: 글로벌 신조선 발주 뉴스 실시간 표시 (테이블, 페이지네이션)
-     출처: Splash247 · Hellenic Shipping News (RSS via rss2json)
+     출처: Splash247 · Hellenic Shipping News (RSS via rss2json / allorigins)
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
 
@@ -27,7 +27,6 @@
       opacity: 0.35;
     }
   }
-  /* ── 헤더 ── */
   #sot-header {
     display: flex;
     align-items: baseline;
@@ -61,7 +60,6 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
-  /* ── 구분선 ── */
   #sot-divider {
     display: flex;
     align-items: center;
@@ -80,7 +78,6 @@
     background: #1a9e82;
     flex-shrink: 0;
   }
-  /* ── 카테고리 탭 ── */
   #sot-tabs {
     display: flex;
     overflow-x: auto;
@@ -114,7 +111,6 @@
     color: #1a9e82;
     border-bottom-color: #1a9e82;
   }
-  /* ── 로딩 ── */
   #sot-loading {
     text-align: center;
     padding: 22px 10px;
@@ -123,7 +119,6 @@
     letter-spacing: 0.3px;
     animation: sot-pulse 1.6s ease-in-out infinite;
   }
-  /* ── 테이블 영역 ── */
   #sot-list {
     display: none;
   }
@@ -200,7 +195,6 @@
     color: #1a9e82;
     text-decoration: underline;
   }
-  /* ── 페이지네이션 ── */
   #sot-pagination {
     display: flex;
     align-items: center;
@@ -233,15 +227,14 @@
     color: #9fb5c2;
     text-align: center;
   }
-  /* ── 빈 상태 ── */
   #sot-empty {
     display: none;
     padding: 22px 0;
     font-size: 13px;
     color: #9fb5c2;
     text-align: center;
+    line-height: 1.9;
   }
-  /* ── 푸터 ── */
   #sot-footer {
     margin-top: 13px;
     padding: 9px 12px;
@@ -258,20 +251,17 @@
 </style>
 
 <div id="sot-wrap">
-  <!-- 헤더 -->
   <div id="sot-header">
     <span id="sot-header-title">🚢 Ship Order Trends</span>
     <button id="sot-refresh-btn">⟳ Refresh</button>
   </div>
 
-  <!-- 구분선 -->
   <div id="sot-divider">
     <div class="sot-divider-line"></div>
     <div class="sot-divider-dot"></div>
     <div class="sot-divider-line"></div>
   </div>
 
-  <!-- 카테고리 탭 -->
   <div id="sot-tabs">
     <button class="sot-tab active" data-key="all">All</button>
     <button class="sot-tab" data-key="tanker">Tanker</button>
@@ -281,10 +271,8 @@
     <button class="sot-tab" data-key="car">Car Carrier</button>
   </div>
 
-  <!-- 로딩 -->
   <div id="sot-loading">📡 Fetching latest maritime news…</div>
 
-  <!-- 테이블 + 페이지네이션 -->
   <div id="sot-list">
     <div id="sot-table-wrap">
       <table id="sot-table">
@@ -307,7 +295,6 @@
     <div id="sot-empty">No news found for this category.</div>
   </div>
 
-  <!-- 푸터 -->
   <div id="sot-footer">
     <span>Splash247 · Hellenic Shipping News</span>
     <span id="sot-updated">—</span>
@@ -328,7 +315,7 @@
     { url: "https://www.hellenicshippingnews.com/feed/", name: "HSN" },
   ];
 
-  /* ── B) 카테고리별 키워드 ── */
+  /* ── B) 카테고리 키워드 ── */
   var CAT_KW = {
     all: [],
     tanker: [
@@ -352,47 +339,89 @@
     ],
   };
 
-  /* ── C) 선종 자동 감지 ── */
-  function detectType(item) {
-    var txt =
-      ((item.title || "") + " " + (item.description || "")).toLowerCase();
-    var cats = ["car", "lng", "tanker", "container", "bulk"];
-    var labels = {
-      car: "Car Carrier",
-      lng: "LNG/Gas",
-      tanker: "Tanker",
-      container: "Container",
-      bulk: "Bulk",
-    };
-    for (var i = 0; i < cats.length; i++) {
-      var cat = cats[i];
-      var matched = CAT_KW[cat].some(function (k) {
-        return txt.indexOf(k) !== -1;
-      });
-      if (matched) return labels[cat];
-    }
-    return null;
+  /* ── C) XML 파서 헬퍼 (allorigins 폴백용) ── */
+  function getElText(el, tag) {
+    var nodes = el.getElementsByTagName(tag);
+    return nodes.length ? nodes[0].textContent.trim() : "";
   }
 
-  /* ── D) RSS → JSON (rss2json.com 무료 API) ── */
-  function fetchFeed(feed) {
-    var api =
+  function getLinkFromItem(item) {
+    /* RSS 2.0 <link> 는 텍스트 노드, Atom <link href=""> 는 속성 */
+    var linkEls = item.getElementsByTagName("link");
+    for (var i = 0; i < linkEls.length; i++) {
+      var txt = linkEls[i].textContent.trim();
+      if (txt) return txt;
+      var href = linkEls[i].getAttribute("href");
+      if (href) return href;
+    }
+    /* <guid> 가 URL 인 경우 폴백 */
+    var guidEls = item.getElementsByTagName("guid");
+    if (guidEls.length) {
+      var guid = guidEls[0].textContent.trim();
+      if (guid.indexOf("http") === 0) return guid;
+    }
+    return "";
+  }
+
+  function parseRSSXML(xmlStr, srcName) {
+    try {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(xmlStr, "text/xml");
+      var items = doc.getElementsByTagName("item");
+      var result = [];
+      var max = Math.min(items.length, 50);
+      for (var i = 0; i < max; i++) {
+        var item = items[i];
+        result.push({
+          title: getElText(item, "title"),
+          link: getLinkFromItem(item),
+          pubDate: getElText(item, "pubDate"),
+          description: getElText(item, "description"),
+          _src: srcName,
+        });
+      }
+      return result;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  /* ── D-1) rss2json.com API ── */
+  function fetchViaRss2json(feed) {
+    var url =
       "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
       encodeURIComponent(feed.url);
-    return fetch(api)
-      .then(function (r) {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.json();
-      })
+    return fetch(url)
+      .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (!d || !d.items) return [];
+        if (d.status !== "ok" || !d.items || !d.items.length) {
+          throw new Error(d.message || "rss2json: " + d.status);
+        }
         return d.items.map(function (i) {
           return Object.assign({}, i, { _src: feed.name });
         });
-      })
-      .catch(function () {
-        return [];
       });
+  }
+
+  /* ── D-2) allorigins.win CORS 프록시 + XML 직접 파싱 ── */
+  function fetchViaAllOrigins(feed) {
+    var url =
+      "https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url);
+    return fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.contents) throw new Error("allorigins: no contents");
+        var items = parseRSSXML(d.contents, feed.name);
+        if (!items.length) throw new Error("allorigins: no items parsed");
+        return items;
+      });
+  }
+
+  /* ── D) 피드 가져오기 — rss2json 실패 시 allorigins 자동 폴백 ── */
+  function fetchFeed(feed) {
+    return fetchViaRss2json(feed)
+      .catch(function () { return fetchViaAllOrigins(feed); })
+      .catch(function () { return []; });
   }
 
   /* ── E) 카테고리 필터 ── */
@@ -400,19 +429,33 @@
     if (cat === "all") return true;
     var txt =
       ((item.title || "") + " " + (item.description || "")).toLowerCase();
-    return CAT_KW[cat].some(function (k) {
-      return txt.indexOf(k) !== -1;
-    });
+    return CAT_KW[cat].some(function (k) { return txt.indexOf(k) !== -1; });
   }
 
-  /* ── F) 유틸 ── */
+  /* ── F) 선종 자동 감지 ── */
+  function detectType(item) {
+    var txt =
+      ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var order = ["car", "lng", "tanker", "container", "bulk"];
+    var labels = {
+      car: "Car Carrier", lng: "LNG/Gas",
+      tanker: "Tanker", container: "Container", bulk: "Bulk",
+    };
+    for (var i = 0; i < order.length; i++) {
+      var cat = order[i];
+      if (CAT_KW[cat].some(function (k) { return txt.indexOf(k) !== -1; })) {
+        return labels[cat];
+      }
+    }
+    return null;
+  }
+
+  /* ── G) 유틸 ── */
   function fmtDate(ds) {
     var d = new Date(ds);
     if (isNaN(d.getTime())) return "—";
     return d.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
+      day: "2-digit", month: "short", year: "numeric",
     });
   }
 
@@ -420,20 +463,25 @@
     return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;");
   }
 
-  /* ── G) 페이지 렌더링 ── */
+  function showEmpty(msg) {
+    document.getElementById("sot-empty").innerHTML = msg;
+    document.getElementById("sot-empty").style.display = "block";
+    document.getElementById("sot-table-wrap").style.display = "none";
+    document.getElementById("sot-pagination").style.display = "none";
+  }
+
+  /* ── H) 현재 페이지 렌더링 ── */
   function renderPage() {
     var tbody = document.getElementById("sot-tbody");
     var pageInfo = document.getElementById("sot-page-info");
     var prevBtn = document.getElementById("sot-prev-btn");
     var nextBtn = document.getElementById("sot-next-btn");
-    var emptyEl = document.getElementById("sot-empty");
     var tableWrap = document.getElementById("sot-table-wrap");
     var pagination = document.getElementById("sot-pagination");
+    var emptyEl = document.getElementById("sot-empty");
 
     if (!filteredItems.length) {
-      tableWrap.style.display = "none";
-      pagination.style.display = "none";
-      emptyEl.style.display = "block";
+      showEmpty("No news found for this category.<br><span style='font-size:11px'>Try the All tab or click Refresh.</span>");
       return;
     }
 
@@ -444,28 +492,23 @@
     var totalPages = Math.ceil(total / ITEMS_PER_PAGE);
     var start = (currentPage - 1) * ITEMS_PER_PAGE;
     var end = Math.min(start + ITEMS_PER_PAGE, total);
-    var pageItems = filteredItems.slice(start, end);
 
-    tbody.innerHTML = pageItems
-      .map(function (i) {
-        var typeLabel = detectType(i);
-        var typeCel = typeLabel
-          ? '<span class="sot-type-tag">' + typeLabel + "</span>"
-          : '<span class="sot-td-none">—</span>';
-        return (
-          "<tr>" +
-          '<td class="sot-td-date">' + fmtDate(i.pubDate) + "</td>" +
-          '<td><span class="sot-src">' + i._src + "</span></td>" +
-          "<td>" + typeCel + "</td>" +
-          '<td><a class="sot-table-title" href="' +
-          escAttr(i.link) +
-          '" target="_blank" rel="noopener">' +
-          i.title +
-          "</a></td>" +
-          "</tr>"
-        );
-      })
-      .join("");
+    tbody.innerHTML = filteredItems.slice(start, end).map(function (i) {
+      var typeLabel = detectType(i);
+      var typeCel = typeLabel
+        ? '<span class="sot-type-tag">' + typeLabel + "</span>"
+        : '<span class="sot-td-none">—</span>';
+      return (
+        "<tr>" +
+        '<td class="sot-td-date">' + fmtDate(i.pubDate) + "</td>" +
+        '<td><span class="sot-src">' + i._src + "</span></td>" +
+        "<td>" + typeCel + "</td>" +
+        '<td><a class="sot-table-title" href="' +
+        escAttr(i.link) + '" target="_blank" rel="noopener">' +
+        i.title + "</a></td>" +
+        "</tr>"
+      );
+    }).join("");
 
     pagination.style.display = totalPages > 1 ? "flex" : "none";
     pageInfo.textContent =
@@ -475,7 +518,7 @@
     nextBtn.disabled = currentPage === totalPages;
   }
 
-  /* ── H) 카테고리 필터 적용 → 페이지 1부터 렌더 ── */
+  /* ── I) 카테고리 필터 적용 → page 1 ── */
   function applyFilter() {
     filteredItems = allItems.filter(function (i) {
       return matchesCat(i, activeTab);
@@ -484,7 +527,7 @@
     renderPage();
   }
 
-  /* ── I) 새로고침 ── */
+  /* ── J) 새로고침 ── */
   function refresh() {
     var btn = document.getElementById("sot-refresh-btn");
     var loading = document.getElementById("sot-loading");
@@ -496,19 +539,26 @@
     loading.style.display = "block";
     list.style.display = "none";
 
-    /* 최근 30일 기준 */
     var cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
 
     Promise.all(FEEDS.map(fetchFeed))
       .then(function (results) {
         var merged = [];
         results.forEach(function (arr) {
-          arr.forEach(function (i) {
-            merged.push(i);
-          });
+          arr.forEach(function (i) { merged.push(i); });
         });
 
-        /* 30일 내 기사 우선, 없으면 전체 표시 */
+        /* 두 API 모두 실패한 경우 */
+        if (!merged.length) {
+          list.style.display = "block";
+          showEmpty(
+            "⚠️ 데이터를 불러오지 못했습니다.<br>" +
+            '<span style="font-size:11px">RSS API가 일시적으로 불가능합니다. 잠시 후 다시 시도해 주세요.</span>'
+          );
+          return;
+        }
+
+        /* 최근 30일 우선, 없으면 전체 */
         var recent = merged.filter(function (i) {
           return new Date(i.pubDate).getTime() > cutoff;
         });
@@ -520,20 +570,11 @@
 
         var now = new Date();
         upd.textContent =
-          "Updated " +
-          now.toLocaleTimeString("en-GB", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-      })
-      .catch(function () {
-        document.getElementById("sot-empty").textContent =
-          "⚠️ Failed to load data. Please try again.";
-        document.getElementById("sot-empty").style.display = "block";
-        document.getElementById("sot-table-wrap").style.display = "none";
-        document.getElementById("sot-pagination").style.display = "none";
+          allItems.length + " articles  ·  Updated " +
+          now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
       })
       .then(function () {
+        /* finally 대체 */
         loading.style.display = "none";
         list.style.display = "block";
         btn.disabled = false;
@@ -541,21 +582,15 @@
       });
   }
 
-  /* ── J) 이벤트 바인딩 ── */
-  document
-    .getElementById("sot-refresh-btn")
-    .addEventListener("click", refresh);
+  /* ── K) 이벤트 바인딩 ── */
+  document.getElementById("sot-refresh-btn").addEventListener("click", refresh);
 
   document.getElementById("sot-prev-btn").addEventListener("click", function () {
-    if (currentPage > 1) {
-      currentPage--;
-      renderPage();
-    }
+    if (currentPage > 1) { currentPage--; renderPage(); }
   });
 
   document.getElementById("sot-next-btn").addEventListener("click", function () {
-    var totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-    if (currentPage < totalPages) {
+    if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) {
       currentPage++;
       renderPage();
     }
@@ -572,7 +607,7 @@
     });
   });
 
-  /* ── K) 초기 로드 ── */
+  /* ── L) 초기 로드 ── */
   refresh();
 })();
 </script>
