@@ -1,7 +1,7 @@
 <!-- ════════════════════════════════════════════════════════════
      Ship Order Trends Widget — shippauljobs.blogspot.com
      기능: 글로벌 신조선 발주 뉴스 실시간 표시 (테이블, 페이지네이션)
-           데이터 로딩 실패 시 관련 사이트 직접 링크 제공
+           데이터 로딩 실패 시 관련 사이트 직접 링크 제공 (404 자동 제거)
      출처: Google News RSS · gCaptain (폴백: allorigins → 직접 링크)
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
@@ -58,10 +58,14 @@
   #sot-fallback-msg{font-size:12px;color:#9fb5c2;text-align:center;padding:14px 0 12px;line-height:1.8;}
   #sot-link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:7px;}
   .sot-link-card{display:block;background:#f4faf8;border-left:3px solid #1a9e82;border-radius:4px;
-    padding:9px 11px;text-decoration:none;line-height:1.5;transition:background 0.15s;}
+    padding:9px 11px;text-decoration:none;line-height:1.5;transition:background 0.15s,opacity 0.3s;}
   .sot-link-card:hover{background:#e8f6f3;}
   .sot-link-card-name{display:block;font-size:12px;font-weight:700;color:#424242;}
   .sot-link-card-cat{display:block;font-size:10.5px;color:#9fb5c2;margin-top:1px;}
+  /* 링크 체크 중 — 흐릿하게 */
+  .sot-link-checking{opacity:0.55;}
+  /* 404 확인됨 — 페이드아웃 후 숨김 */
+  .sot-link-dead{opacity:0!important;pointer-events:none;}
   #sot-cat-empty{display:none;padding:22px 0;font-size:13px;color:#9fb5c2;text-align:center;line-height:1.9;}
   #sot-footer{margin-top:13px;padding:9px 12px;background:#f4faf8;border-left:3px solid #1a9e82;
     border-radius:4px;font-size:12px;color:#5a7080;line-height:1.7;
@@ -104,30 +108,30 @@
     <div id="sot-empty">
       <div id="sot-fallback-msg">
         📡 실시간 데이터를 불러올 수 없습니다.<br>
-        <span style="font-size:11px">아래 사이트에서 직접 확인해 주세요.</span>
+        <span style="font-size:11px">아래 사이트에서 직접 확인해 주세요. (링크 유효성 자동 확인 중…)</span>
       </div>
       <div id="sot-link-grid">
-        <a class="sot-link-card" href="https://splash247.com/category/sector/newbuilding/" target="_blank" rel="noopener">
+        <a class="sot-link-card sot-link-checking" href="https://splash247.com/category/sector/newbuilding/" target="_blank" rel="noopener">
           <span class="sot-link-card-name">Splash247</span>
           <span class="sot-link-card-cat">Newbuilding →</span>
         </a>
-        <a class="sot-link-card" href="https://www.hellenicshippingnews.com/category/maritime-news/newbuilding-shipping-news/" target="_blank" rel="noopener">
+        <a class="sot-link-card sot-link-checking" href="https://www.hellenicshippingnews.com/category/newbuilding/" target="_blank" rel="noopener">
           <span class="sot-link-card-name">Hellenic Shipping News</span>
           <span class="sot-link-card-cat">Newbuilding →</span>
         </a>
-        <a class="sot-link-card" href="https://gcaptain.com/tag/newbuilding/" target="_blank" rel="noopener">
+        <a class="sot-link-card sot-link-checking" href="https://gcaptain.com/tag/newbuilding/" target="_blank" rel="noopener">
           <span class="sot-link-card-name">gCaptain</span>
           <span class="sot-link-card-cat">Shipbuilding / Orders →</span>
         </a>
-        <a class="sot-link-card" href="https://www.tradewindsnews.com/newbuilding" target="_blank" rel="noopener">
+        <a class="sot-link-card sot-link-checking" href="https://www.tradewindsnews.com/newbuilding" target="_blank" rel="noopener">
           <span class="sot-link-card-name">TradeWinds</span>
           <span class="sot-link-card-cat">Newbuilding →</span>
         </a>
-        <a class="sot-link-card" href="https://maritime-executive.com/" target="_blank" rel="noopener">
+        <a class="sot-link-card sot-link-checking" href="https://maritime-executive.com/" target="_blank" rel="noopener">
           <span class="sot-link-card-name">Maritime Executive</span>
           <span class="sot-link-card-cat">All Maritime News →</span>
         </a>
-        <a class="sot-link-card" href="https://www.offshore-energy.biz/category/vessels/" target="_blank" rel="noopener">
+        <a class="sot-link-card sot-link-checking" href="https://www.offshore-energy.biz/category/vessels/" target="_blank" rel="noopener">
           <span class="sot-link-card-name">Offshore Energy</span>
           <span class="sot-link-card-cat">Vessels / Orders →</span>
         </a>
@@ -167,7 +171,37 @@
     car: ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]
   };
 
-  /* ── A) JSONP (script-tag, no CORS) ── */
+  /* ══════════════════════════════════════════════
+     링크 유효성 체크 — allorigins http_code 이용
+     404/410 확인 시 카드 페이드아웃 후 제거
+  ══════════════════════════════════════════════ */
+  function checkFallbackLinks() {
+    var cards = document.querySelectorAll("#sot-link-grid .sot-link-card");
+    cards.forEach(function (card) {
+      var url = card.getAttribute("href");
+      if (!url) { card.classList.remove("sot-link-checking"); return; }
+
+      fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url), { cache: "no-store" })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          var code = d && d.status && d.status.http_code;
+          card.classList.remove("sot-link-checking");
+          if (code === 404 || code === 410) {
+            /* 유효하지 않은 링크 — 페이드아웃 후 DOM 제거 */
+            card.classList.add("sot-link-dead");
+            setTimeout(function () {
+              if (card.parentNode) card.parentNode.removeChild(card);
+            }, 400);
+          }
+        })
+        .catch(function () {
+          /* 체크 불가 — 링크 유지 (안전하게) */
+          card.classList.remove("sot-link-checking");
+        });
+    });
+  }
+
+  /* ── A) JSONP ── */
   function fetchViaJSONP(feed, onDone) {
     var cbName = "sotCb_" + Date.now() + "_" + Math.floor(Math.random() * 99999);
     var scriptEl = null;
@@ -175,9 +209,7 @@
 
     var timer = setTimeout(function () {
       if (done) return; done = true;
-      cleanup();
-      feedLog.push(feed.name + ": JSONP timeout");
-      onDone([]);
+      cleanup(); feedLog.push(feed.name + ": JSONP timeout"); onDone([]);
     }, 12000);
 
     function cleanup() {
@@ -190,8 +222,7 @@
       if (done) return; done = true;
       cleanup();
       if (!data || data.status !== "ok" || !data.items || !data.items.length) {
-        feedLog.push(feed.name + ": JSONP " + (data ? data.status : "null"));
-        onDone([]); return;
+        feedLog.push(feed.name + ": JSONP " + (data ? data.status : "null")); onDone([]); return;
       }
       feedLog.push(feed.name + ": JSONP OK (" + data.items.length + ")");
       onDone(mapRss2json(data.items, feed.name));
@@ -200,16 +231,14 @@
     scriptEl = document.createElement("script");
     scriptEl.onerror = function () {
       if (done) return; done = true;
-      cleanup();
-      feedLog.push(feed.name + ": JSONP blocked");
-      onDone([]);
+      cleanup(); feedLog.push(feed.name + ": JSONP blocked"); onDone([]);
     };
     scriptEl.src = "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
       encodeURIComponent(feed.url) + "&callback=" + cbName;
     document.head.appendChild(scriptEl);
   }
 
-  /* ── B) fetch → rss2json ── */
+  /* ── B) rss2json fetch ── */
   function fetchViaRss2json(feed, onDone) {
     fetch("https://api.rss2json.com/v1/api.json?count=50&rss_url=" + encodeURIComponent(feed.url), { cache: "no-store" })
       .then(function (r) { return r.json(); })
@@ -221,7 +250,7 @@
       .catch(function () { onDone([]); });
   }
 
-  /* ── C) allorigins proxy (WORKS for Google News!) ── */
+  /* ── C) allorigins ── */
   function fetchViaAllOrigins(feed, onDone) {
     fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url), { cache: "no-store" })
       .then(function (r) { return r.json(); })
@@ -231,10 +260,10 @@
         feedLog.push(feed.name + ": allorigins " + (items.length ? "OK (" + items.length + ")" : "0 items"));
         onDone(items);
       })
-      .catch(function (e) { feedLog.push(feed.name + ": allorigins fail"); onDone([]); });
+      .catch(function () { feedLog.push(feed.name + ": allorigins fail"); onDone([]); });
   }
 
-  /* ── common mappers ── */
+  /* ── mappers ── */
   function mapRss2json(items, srcName) {
     return items.map(function (i) {
       return {
@@ -258,17 +287,13 @@
         var titleEl = node.getElementsByTagName("title")[0];
         var title = titleEl ? titleEl.textContent.trim() : "";
         if (!title) continue;
-        /* Google News link is a text node, not attribute */
         var linkEl = node.getElementsByTagName("link")[0];
         var link = "";
         if (linkEl) {
           link = linkEl.textContent.trim();
           if (!link) link = linkEl.getAttribute("href") || "";
-          /* Google News wraps links inside <link> as CDATA text */
-          if (!link) {
-            var nxt = linkEl.nextSibling;
-            if (nxt && nxt.nodeType === 3) link = nxt.textContent.trim();
-          }
+          if (!link && linkEl.nextSibling && linkEl.nextSibling.nodeType === 3)
+            link = linkEl.nextSibling.textContent.trim();
         }
         if (!link) {
           var guidEl = node.getElementsByTagName("guid")[0];
@@ -341,6 +366,8 @@
 
     if (allItems.length === 0) {
       emptyEl.style.display = "block";
+      /* 폴백 링크 유효성 백그라운드 체크 */
+      checkFallbackLinks();
       return;
     }
 
@@ -404,16 +431,14 @@
       pendingFeeds--;
       if (pendingFeeds > 0) return;
 
-      /* deduplicate by normalized title (first 80 chars) */
       var seen = {};
       var merged = collected.filter(function (i) {
-        var key = (i.title || "").toLowerCase().replace(/\s+/g," ").slice(0, 80);
+        var key = (i.title || "").toLowerCase().replace(/\s+/g, " ").slice(0, 80);
         if (!key || seen[key]) return false;
         seen[key] = true;
         return true;
       });
 
-      /* sort newest first (no date cutoff — Google News already returns recent items) */
       allItems = merged.sort(function (a, b) {
         var ta = a.pubDate ? new Date(a.pubDate).getTime() : 0;
         var tb = b.pubDate ? new Date(b.pubDate).getTime() : 0;
