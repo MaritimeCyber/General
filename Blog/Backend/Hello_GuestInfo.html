@@ -1126,28 +1126,11 @@
       if (d && d.country_calling_code)
         extras.push({ label: "📞 Dial Code", value: d.country_calling_code });
 
-      if (d && d.latitude != null && d.longitude != null) {
-        var lat = parseFloat(d.latitude).toFixed(4);
-        var lon = parseFloat(d.longitude).toFixed(4);
-        var latDir = parseFloat(d.latitude) >= 0 ? "N" : "S";
-        var lonDir = parseFloat(d.longitude) >= 0 ? "E" : "W";
-        var mapsUrl =
-          "https://www.google.com/maps?q=" + d.latitude + "," + d.longitude;
-        extras.push({
-          label: "📍 GPS",
-          value:
-            Math.abs(lat) +
-            "° " +
-            latDir +
-            "<br>" +
-            Math.abs(lon) +
-            "° " +
-            lonDir +
-            '<br><a href="' +
-            mapsUrl +
-            '" target="_blank" rel="noopener" style="color:#1a9e82;font-size:10px;">Maps ↗</a>',
-        });
-      }
+      extras.push({
+        label: "📍 GPS",
+        value:
+          '<span id="hg-gps-val" style="font-style:italic;font-weight:400;color:#b0c4ce;">위치 권한 요청 중…</span>',
+      });
 
       try {
         extras.push({
@@ -1246,6 +1229,58 @@
 
       exHTML += "</div>";
       document.getElementById("hg-extra").innerHTML = exHTML;
+
+      /* 단말기 GPS (Geolocation API) */
+      (function (fallbackD) {
+        function showGPS(lat, lon, isIPBased) {
+          var gEl = document.getElementById("hg-gps-val");
+          if (!gEl) return;
+          var latF = Math.abs(parseFloat(lat)).toFixed(4);
+          var lonF = Math.abs(parseFloat(lon)).toFixed(4);
+          var latDir = parseFloat(lat) >= 0 ? "N" : "S";
+          var lonDir = parseFloat(lon) >= 0 ? "E" : "W";
+          var mapsUrl = "https://www.google.com/maps?q=" + lat + "," + lon;
+          gEl.removeAttribute("style");
+          gEl.innerHTML =
+            latF +
+            "° " +
+            latDir +
+            "<br>" +
+            lonF +
+            "° " +
+            lonDir +
+            '<br><a href="' +
+            mapsUrl +
+            '" target="_blank" rel="noopener"' +
+            ' style="color:#1a9e82;font-size:10px;font-weight:400;">Maps ↗</a>' +
+            (isIPBased
+              ? '<br><span style="color:#b0c4ce;font-weight:400;font-size:10px;">(IP 기반 추정)</span>'
+              : "");
+        }
+        function showMsg(msg) {
+          var gEl = document.getElementById("hg-gps-val");
+          if (gEl)
+            gEl.innerHTML =
+              '<span style="color:#b0c4ce;">' + msg + "</span>";
+        }
+        if (!navigator.geolocation) {
+          if (fallbackD && fallbackD.latitude != null)
+            showGPS(fallbackD.latitude, fallbackD.longitude, true);
+          else showMsg("지원 안 됨");
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(
+          function (pos) {
+            showGPS(pos.coords.latitude, pos.coords.longitude, false);
+          },
+          function () {
+            if (fallbackD && fallbackD.latitude != null)
+              showGPS(fallbackD.latitude, fallbackD.longitude, true);
+            else showMsg("권한 거부됨");
+          },
+          { timeout: 10000, maximumAge: 300000 },
+        );
+      })(d);
 
       /* 표시 */
       document.getElementById("hg-loading").style.display = "none";
