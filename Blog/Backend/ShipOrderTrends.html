@@ -6,74 +6,341 @@
      사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
 ════════════════════════════════════════════════════════════ -->
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap"
+  rel="stylesheet"
+/>
 
 <style>
-  #sot-wrap,#sot-wrap *{box-sizing:border-box;font-family:"Roboto",Arial,sans-serif;margin:0;padding:0;}
-  @keyframes sot-pulse{0%,100%{opacity:1}50%{opacity:0.35}}
-  #sot-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;}
-  #sot-header-title{font-size:17px;font-weight:900;color:#424242;line-height:1.2;}
-  #sot-refresh-btn{display:inline-block;background:#1a9e82;color:#fff;font-size:11.5px;font-weight:700;
-    padding:2px 10px;border-radius:20px;letter-spacing:0.3px;vertical-align:middle;border:none;cursor:pointer;transition:opacity 0.2s;}
-  #sot-refresh-btn:hover:not(:disabled){opacity:0.82;}
-  #sot-refresh-btn:disabled{opacity:0.5;cursor:not-allowed;}
-  #sot-divider{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-  .sot-divider-line{flex:1;height:1px;background:#e0e0e0;}
-  .sot-divider-dot{width:6px;height:6px;border-radius:50%;background:#1a9e82;flex-shrink:0;}
-  #sot-mode-bar{display:flex;gap:6px;margin-bottom:10px;}
-  .sot-mode-btn{background:#f4faf8;border:1px solid #e0e0e0;border-radius:20px;
-    color:#9fb5c2;font-size:11px;font-weight:700;padding:4px 12px;cursor:pointer;
-    transition:all 0.15s;white-space:nowrap;flex:1;text-align:center;}
-  .sot-mode-btn:hover{color:#1a9e82;border-color:#1a9e82;}
-  .sot-mode-btn.active{background:#1a9e82;border-color:#1a9e82;color:#fff;}
-  #sot-tabs{display:flex;overflow-x:auto;border-bottom:1px solid #e0e0e0;background:#f4faf8;
-    padding:0 6px;scrollbar-width:none;margin-bottom:12px;}
-  #sot-tabs::-webkit-scrollbar{display:none;}
-  .sot-tab{flex:0 0 auto;background:none;border:none;border-bottom:2px solid transparent;
-    color:#9fb5c2;font-size:12.5px;font-weight:600;padding:8px 10px;cursor:pointer;
-    white-space:nowrap;text-align:center;transition:color 0.15s,border-color 0.15s;}
-  .sot-tab:hover{color:#1a9e82;}
-  .sot-tab.active{color:#1a9e82;border-bottom-color:#1a9e82;}
-  #sot-loading{text-align:center;padding:22px 10px;color:#6b8599;font-size:12.5px;
-    letter-spacing:0.3px;animation:sot-pulse 1.6s ease-in-out infinite;}
-  #sot-list{display:none;}
-  #sot-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  #sot-table{width:100%;border-collapse:collapse;min-width:480px;}
-  #sot-table th{font-size:10px;font-weight:700;color:#b0c4ce;letter-spacing:1px;text-transform:uppercase;
-    padding:5px 8px;border-bottom:1px solid #9e9e9e;text-align:left;white-space:nowrap;}
-  #sot-table td{padding:9px 8px;border-bottom:1px solid #9e9e9e;vertical-align:middle;line-height:1.5;}
-  #sot-table tr:last-child td{border-bottom:none;}
-  #sot-table tr:hover td{background:#f9fcfb;}
-  .sot-td-date{white-space:nowrap;font-size:11px;color:#9fb5c2;}
-  .sot-src{display:inline-block;background:#e8f6f3;color:#1a9e82;font-size:10px;font-weight:700;
-    padding:1px 6px;border-radius:10px;letter-spacing:0.2px;white-space:nowrap;}
-  .sot-type-tag{display:inline-block;background:#f4faf8;color:#5a7080;font-size:10px;font-weight:700;
-    padding:1px 6px;border-radius:10px;white-space:nowrap;}
-  .sot-td-none{font-size:11px;color:#c8d8e0;}
-  .sot-table-title{font-size:12.5px;font-weight:700;color:#424242;text-decoration:none;line-height:1.5;}
-  .sot-table-title:hover{color:#1a9e82;text-decoration:underline;}
-  #sot-pagination{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
-  .sot-page-btn{display:inline-block;background:#1a9e82;color:#fff;font-size:11px;font-weight:700;
-    padding:2px 10px;border-radius:20px;letter-spacing:0.3px;border:none;cursor:pointer;transition:opacity 0.2s;}
-  .sot-page-btn:hover:not(:disabled){opacity:0.82;}
-  .sot-page-btn:disabled{background:#e8f6f3;color:#9fb5c2;cursor:not-allowed;}
-  #sot-page-info{font-size:11.5px;color:#9fb5c2;text-align:center;}
-  #sot-status{margin-top:10px;padding:8px 10px;background:#f9fafa;border-radius:4px;
-    font-size:10.5px;color:#9fb5c2;line-height:1.7;white-space:pre-wrap;display:none;}
-  #sot-empty{display:none;padding:4px 0 8px;}
-  #sot-fallback-msg{font-size:12px;color:#9fb5c2;text-align:center;padding:14px 0 12px;line-height:1.8;}
-  #sot-link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:7px;}
-  .sot-link-card{display:block;background:#f4faf8;border-left:2px solid #1a9e82;border-radius:4px;
-    padding:9px 11px;text-decoration:none;line-height:1.5;transition:background 0.15s,opacity 0.3s;}
-  .sot-link-card:hover{background:#e8f6f3;}
-  .sot-link-card-name{display:block;font-size:12px;font-weight:700;color:#424242;}
-  .sot-link-card-cat{display:block;font-size:10.5px;color:#9fb5c2;margin-top:1px;}
-  .sot-link-checking{opacity:0.55;}
-  .sot-link-dead{opacity:0!important;pointer-events:none;}
-  #sot-cat-empty{display:none;padding:22px 0;font-size:13px;color:#9fb5c2;text-align:center;line-height:1.9;}
-  #sot-footer{margin-top:13px;padding:9px 12px;background:#f4faf8;border-left:2px solid #1a9e82;
-    border-radius:4px;font-size:12px;color:#5a7080;line-height:1.7;
-    display:flex;justify-content:space-between;align-items:center;}
+  #sot-wrap,
+  #sot-wrap * {
+    box-sizing: border-box;
+    font-family: "Roboto", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  @keyframes sot-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+  #sot-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  #sot-header-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: #424242;
+    line-height: 1.2;
+  }
+  #sot-refresh-btn {
+    display: inline-block;
+    background: #1a9e82;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  #sot-refresh-btn:hover:not(:disabled) {
+    opacity: 0.82;
+  }
+  #sot-refresh-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  #sot-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .sot-divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e0e0e0;
+  }
+  .sot-divider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1a9e82;
+    flex-shrink: 0;
+  }
+  #sot-mode-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .sot-mode-btn {
+    background: #f4faf8;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    color: #9fb5c2;
+    font-size: 16.5px;
+    font-weight: 700;
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex: 1;
+    text-align: center;
+  }
+  .sot-mode-btn:hover {
+    color: #1a9e82;
+    border-color: #1a9e82;
+  }
+  .sot-mode-btn.active {
+    background: #1a9e82;
+    border-color: #1a9e82;
+    color: #fff;
+  }
+  #sot-tabs {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f4faf8;
+    padding: 0 6px;
+    scrollbar-width: none;
+    margin-bottom: 12px;
+  }
+  #sot-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .sot-tab {
+    flex: 0 0 auto;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #9fb5c2;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 8px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: center;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+  }
+  .sot-tab:hover {
+    color: #1a9e82;
+  }
+  .sot-tab.active {
+    color: #1a9e82;
+    border-bottom-color: #1a9e82;
+  }
+  #sot-loading {
+    text-align: center;
+    padding: 22px 10px;
+    color: #6b8599;
+    font-size: 12.5px;
+    letter-spacing: 0.3px;
+    animation: sot-pulse 1.6s ease-in-out infinite;
+  }
+  #sot-list {
+    display: none;
+  }
+  #sot-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #sot-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 480px;
+  }
+  #sot-table th {
+    font-size: 10px;
+    font-weight: 700;
+    color: #b0c4ce;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 8px;
+    border-bottom: 1px solid #9e9e9e;
+    text-align: left;
+    white-space: nowrap;
+  }
+  #sot-table td {
+    padding: 9px 8px;
+    border-bottom: 1px solid #9e9e9e;
+    vertical-align: middle;
+    line-height: 1.5;
+  }
+  #sot-table tr:last-child td {
+    border-bottom: none;
+  }
+  #sot-table tr:hover td {
+    background: #f9fcfb;
+  }
+  .sot-td-date {
+    white-space: nowrap;
+    font-size: 11px;
+    color: #9fb5c2;
+  }
+  .sot-src {
+    display: inline-block;
+    background: #e8f6f3;
+    color: #1a9e82;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 10px;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .sot-type-tag {
+    display: inline-block;
+    background: #f4faf8;
+    color: #5a7080;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .sot-td-none {
+    font-size: 11px;
+    color: #c8d8e0;
+  }
+  .sot-table-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #424242;
+    text-decoration: none;
+    line-height: 1.5;
+  }
+  .sot-table-title:hover {
+    color: #1a9e82;
+    text-decoration: underline;
+  }
+  #sot-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .sot-page-btn {
+    display: inline-block;
+    background: #1a9e82;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .sot-page-btn:hover:not(:disabled) {
+    opacity: 0.82;
+  }
+  .sot-page-btn:disabled {
+    background: #e8f6f3;
+    color: #9fb5c2;
+    cursor: not-allowed;
+  }
+  #sot-page-info {
+    font-size: 11.5px;
+    color: #9fb5c2;
+    text-align: center;
+  }
+  #sot-status {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: #f9fafa;
+    border-radius: 4px;
+    font-size: 10.5px;
+    color: #9fb5c2;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    display: none;
+  }
+  #sot-empty {
+    display: none;
+    padding: 4px 0 8px;
+  }
+  #sot-fallback-msg {
+    font-size: 12px;
+    color: #9fb5c2;
+    text-align: center;
+    padding: 14px 0 12px;
+    line-height: 1.8;
+  }
+  #sot-link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    gap: 7px;
+  }
+  .sot-link-card {
+    display: block;
+    background: #f4faf8;
+    border-left: 2px solid #1a9e82;
+    border-radius: 4px;
+    padding: 9px 11px;
+    text-decoration: none;
+    line-height: 1.5;
+    transition:
+      background 0.15s,
+      opacity 0.3s;
+  }
+  .sot-link-card:hover {
+    background: #e8f6f3;
+  }
+  .sot-link-card-name {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #424242;
+  }
+  .sot-link-card-cat {
+    display: block;
+    font-size: 10.5px;
+    color: #9fb5c2;
+    margin-top: 1px;
+  }
+  .sot-link-checking {
+    opacity: 0.55;
+  }
+  .sot-link-dead {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+  #sot-cat-empty {
+    display: none;
+    padding: 22px 0;
+    font-size: 13px;
+    color: #9fb5c2;
+    text-align: center;
+    line-height: 1.9;
+  }
+  #sot-footer {
+    margin-top: 13px;
+    padding: 9px 12px;
+    background: #f4faf8;
+    border-left: 2px solid #1a9e82;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #5a7080;
+    line-height: 1.7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 </style>
 
 <div id="sot-wrap">
@@ -103,7 +370,14 @@
   <div id="sot-list">
     <div id="sot-table-wrap">
       <table id="sot-table">
-        <thead><tr><th>Date</th><th>Source</th><th>Type</th><th>Title</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Type</th>
+            <th>Title</th>
+          </tr>
+        </thead>
         <tbody id="sot-tbody"></tbody>
       </table>
     </div>
@@ -116,31 +390,63 @@
     <div id="sot-cat-empty"></div>
     <div id="sot-empty">
       <div id="sot-fallback-msg">
-        📡 실시간 데이터를 불러올 수 없습니다.<br>
-        <span style="font-size:11px">아래 사이트에서 직접 확인해 주세요. (링크 유효성 자동 확인 중…)</span>
+        📡 실시간 데이터를 불러올 수 없습니다.<br />
+        <span style="font-size: 11px"
+          >아래 사이트에서 직접 확인해 주세요. (링크 유효성 자동 확인 중…)</span
+        >
       </div>
       <div id="sot-link-grid">
-        <a class="sot-link-card sot-link-checking" href="https://splash247.com/category/sector/newbuilding/" target="_blank" rel="noopener">
+        <a
+          class="sot-link-card sot-link-checking"
+          href="https://splash247.com/category/sector/newbuilding/"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="sot-link-card-name">Splash247</span>
           <span class="sot-link-card-cat">Newbuilding →</span>
         </a>
-        <a class="sot-link-card sot-link-checking" href="https://www.hellenicshippingnews.com/category/newbuilding/" target="_blank" rel="noopener">
+        <a
+          class="sot-link-card sot-link-checking"
+          href="https://www.hellenicshippingnews.com/category/newbuilding/"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="sot-link-card-name">Hellenic Shipping News</span>
           <span class="sot-link-card-cat">Newbuilding →</span>
         </a>
-        <a class="sot-link-card sot-link-checking" href="https://gcaptain.com/tag/newbuilding/" target="_blank" rel="noopener">
+        <a
+          class="sot-link-card sot-link-checking"
+          href="https://gcaptain.com/tag/newbuilding/"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="sot-link-card-name">gCaptain</span>
           <span class="sot-link-card-cat">Shipbuilding / Orders →</span>
         </a>
-        <a class="sot-link-card sot-link-checking" href="https://www.tradewindsnews.com/newbuilding" target="_blank" rel="noopener">
+        <a
+          class="sot-link-card sot-link-checking"
+          href="https://www.tradewindsnews.com/newbuilding"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="sot-link-card-name">TradeWinds</span>
           <span class="sot-link-card-cat">Newbuilding →</span>
         </a>
-        <a class="sot-link-card sot-link-checking" href="https://maritime-executive.com/" target="_blank" rel="noopener">
+        <a
+          class="sot-link-card sot-link-checking"
+          href="https://maritime-executive.com/"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="sot-link-card-name">Maritime Executive</span>
           <span class="sot-link-card-cat">All Maritime News →</span>
         </a>
-        <a class="sot-link-card sot-link-checking" href="https://www.offshore-energy.biz/category/vessels/" target="_blank" rel="noopener">
+        <a
+          class="sot-link-card sot-link-checking"
+          href="https://www.offshore-energy.biz/category/vessels/"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="sot-link-card-name">Offshore Energy</span>
           <span class="sot-link-card-cat">Vessels / Orders →</span>
         </a>
@@ -154,479 +460,719 @@
 </div>
 
 <script>
-(function () {
-  "use strict";
+  (function () {
+    "use strict";
 
-  var ITEMS_PER_PAGE = 10;
-  var currentPage   = 1;
-  var filteredItems = [];
-  var allItems      = [];
-  var activeTab     = "all";
-  var filterMode    = "type"; /* 'type' | 'owner' | 'shipyard' */
-  var feedLog       = [];
-  var pendingFeeds  = 0;
+    var ITEMS_PER_PAGE = 10;
+    var currentPage = 1;
+    var filteredItems = [];
+    var allItems = [];
+    var activeTab = "all";
+    var filterMode = "type"; /* 'type' | 'owner' | 'shipyard' */
+    var feedLog = [];
+    var pendingFeeds = 0;
 
-  var CACHE_KEY = "sot_cache";
-  var CACHE_TTL = 30 * 60 * 1000; /* 30분 */
+    var CACHE_KEY = "sot_cache";
+    var CACHE_TTL = 30 * 60 * 1000; /* 30분 */
 
-  var FEEDS = [
-    { url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en",         name: "Google News"   },
-    { url: "https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en", name: "Google News 2" },
-    { url: "https://gcaptain.com/feed/",                                                                                   name: "gCaptain"      }
-  ];
+    var FEEDS = [
+      {
+        url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en",
+        name: "Google News",
+      },
+      {
+        url: "https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en",
+        name: "Google News 2",
+      },
+      { url: "https://gcaptain.com/feed/", name: "gCaptain" },
+    ];
 
-  /* ── 선종 카테고리 키워드 ─────────────────────────── */
-  var CAT_KW = {
-    all:       [],
-    tanker:    ["tanker","vlcc","suezmax","aframax","product tanker","crude","chemical tanker","mr tanker"],
-    container: ["container","teu","boxship","containership","feeder","ultra large","box ship"],
-    lng:       ["lng","lpg","fsru","flng","gas carrier","liquefied","ammonia","methanol"],
-    bulk:      ["bulker","bulk carrier","capesize","panamax","handysize","handymax","ultramax","kamsarmax"],
-    car:       ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]
-  };
+    /* ── 선종 카테고리 키워드 ─────────────────────────── */
+    var CAT_KW = {
+      all: [],
+      tanker: [
+        "tanker",
+        "vlcc",
+        "suezmax",
+        "aframax",
+        "product tanker",
+        "crude",
+        "chemical tanker",
+        "mr tanker",
+      ],
+      container: [
+        "container",
+        "teu",
+        "boxship",
+        "containership",
+        "feeder",
+        "ultra large",
+        "box ship",
+      ],
+      lng: [
+        "lng",
+        "lpg",
+        "fsru",
+        "flng",
+        "gas carrier",
+        "liquefied",
+        "ammonia",
+        "methanol",
+      ],
+      bulk: [
+        "bulker",
+        "bulk carrier",
+        "capesize",
+        "panamax",
+        "handysize",
+        "handymax",
+        "ultramax",
+        "kamsarmax",
+      ],
+      car: [
+        "pctc",
+        "car carrier",
+        "roro",
+        "ro-ro",
+        "vehicle carrier",
+        "pcctc",
+        "pure car",
+      ],
+    };
 
-  /* ── 선박 소유주 키워드 맵 ─────────────────────────── */
-  var OWNER_KW = {
-    "Maersk":        ["maersk"],
-    "MSC":           ["mediterranean shipping"," msc ","msc's"],
-    "CMA CGM":       ["cma cgm","cma-cgm"],
-    "COSCO":         ["cosco shipping","cosco group"],
-    "Evergreen":     ["evergreen"],
-    "Hapag-Lloyd":   ["hapag-lloyd","hapag lloyd"],
-    "ONE":           ["ocean network express"," one ","one's"],
-    "Yang Ming":     ["yang ming","yangming"],
-    "HMM":           ["hmm ","hyundai merchant marine"],
-    "Zim":           ["zim ","zim's","zim shipping"],
-    "Euronav":       ["euronav"],
-    "Frontline":     ["frontline"],
-    "Teekay":        ["teekay"],
-    "Scorpio":       ["scorpio tankers","scorpio bulkers"],
-    "Star Bulk":     ["star bulk"],
-    "Golden Ocean":  ["golden ocean"],
-    "Pacific Basin": ["pacific basin"],
-    "Oldendorff":    ["oldendorff"],
-    "MOL":           ["mitsui o.s.k","mol tanker","mol carrier"," mol "],
-    "NYK":           ["nippon yusen"," nyk ","nyk's"],
-    "K Line":        ["k line","\"k\" line"],
-    "Stolt-Nielsen": ["stolt-nielsen","stolt nielsen"],
-    "Odfjell":       ["odfjell"],
-    "Shell":         ["shell "],
-    "BP":            [" bp ","bp shipping"],
-    "TotalEnergies": ["totalenergies","total energies"]
-  };
+    /* ── 선박 소유주 키워드 맵 ─────────────────────────── */
+    var OWNER_KW = {
+      Maersk: ["maersk"],
+      MSC: ["mediterranean shipping", " msc ", "msc's"],
+      "CMA CGM": ["cma cgm", "cma-cgm"],
+      COSCO: ["cosco shipping", "cosco group"],
+      Evergreen: ["evergreen"],
+      "Hapag-Lloyd": ["hapag-lloyd", "hapag lloyd"],
+      ONE: ["ocean network express", " one ", "one's"],
+      "Yang Ming": ["yang ming", "yangming"],
+      HMM: ["hmm ", "hyundai merchant marine"],
+      Zim: ["zim ", "zim's", "zim shipping"],
+      Euronav: ["euronav"],
+      Frontline: ["frontline"],
+      Teekay: ["teekay"],
+      Scorpio: ["scorpio tankers", "scorpio bulkers"],
+      "Star Bulk": ["star bulk"],
+      "Golden Ocean": ["golden ocean"],
+      "Pacific Basin": ["pacific basin"],
+      Oldendorff: ["oldendorff"],
+      MOL: ["mitsui o.s.k", "mol tanker", "mol carrier", " mol "],
+      NYK: ["nippon yusen", " nyk ", "nyk's"],
+      "K Line": ["k line", '"k" line'],
+      "Stolt-Nielsen": ["stolt-nielsen", "stolt nielsen"],
+      Odfjell: ["odfjell"],
+      Shell: ["shell "],
+      BP: [" bp ", "bp shipping"],
+      TotalEnergies: ["totalenergies", "total energies"],
+    };
 
-  /* ── 조선사 키워드 맵 ─────────────────────────────── */
-  var YARD_KW = {
-    "HD Hyundai / HHI": ["hyundai heavy","hhic","hd hyundai","hd ksoe"," hhi ","hhi's","hyundai shipyard"],
-    "Samsung Heavy":    ["samsung heavy"," shi ","shi's","samsung shi"],
-    "Hanwha Ocean":     ["hanwha ocean","dsme","daewoo shipbuilding"],
-    "CSSC / Hudong":    ["cssc","hudong","jiangnan","china state shipbuilding"],
-    "Yangzijiang":      ["yangzijiang"," yzj"],
-    "COSCO Shipyard":   ["cosco shipyard","cosco zhoushan","cosco nantong"],
-    "New Times":        ["new times shipbuilding","new times sb"],
-    "Imabari":          ["imabari"],
-    "Mitsui E&S":       ["mitsui engineering","mitsui e&s"," mes "],
-    "JMU":              ["japan marine united"," jmu"],
-    "Oshima":           ["oshima"],
-    "Tsuneishi":        ["tsuneishi"],
-    "Damen":            ["damen"],
-    "Fincantieri":      ["fincantieri"],
-    "Meyer Werft":      ["meyer werft"],
-    "Meyer Turku":      ["meyer turku"]
-  };
+    /* ── 조선사 키워드 맵 ─────────────────────────────── */
+    var YARD_KW = {
+      "HD Hyundai / HHI": [
+        "hyundai heavy",
+        "hhic",
+        "hd hyundai",
+        "hd ksoe",
+        " hhi ",
+        "hhi's",
+        "hyundai shipyard",
+      ],
+      "Samsung Heavy": ["samsung heavy", " shi ", "shi's", "samsung shi"],
+      "Hanwha Ocean": ["hanwha ocean", "dsme", "daewoo shipbuilding"],
+      "CSSC / Hudong": [
+        "cssc",
+        "hudong",
+        "jiangnan",
+        "china state shipbuilding",
+      ],
+      Yangzijiang: ["yangzijiang", " yzj"],
+      "COSCO Shipyard": ["cosco shipyard", "cosco zhoushan", "cosco nantong"],
+      "New Times": ["new times shipbuilding", "new times sb"],
+      Imabari: ["imabari"],
+      "Mitsui E&S": ["mitsui engineering", "mitsui e&s", " mes "],
+      JMU: ["japan marine united", " jmu"],
+      Oshima: ["oshima"],
+      Tsuneishi: ["tsuneishi"],
+      Damen: ["damen"],
+      Fincantieri: ["fincantieri"],
+      "Meyer Werft": ["meyer werft"],
+      "Meyer Turku": ["meyer turku"],
+    };
 
-  /* ── Ship Type 탭 정의 ──────────────────────────────── */
-  var TYPE_TABS = [
-    { key: "all",       label: "All"         },
-    { key: "tanker",    label: "Tanker"      },
-    { key: "container", label: "Container"   },
-    { key: "lng",       label: "LNG / Gas"   },
-    { key: "bulk",      label: "Bulk"        },
-    { key: "car",       label: "Car Carrier" }
-  ];
+    /* ── Ship Type 탭 정의 ──────────────────────────────── */
+    var TYPE_TABS = [
+      { key: "all", label: "All" },
+      { key: "tanker", label: "Tanker" },
+      { key: "container", label: "Container" },
+      { key: "lng", label: "LNG / Gas" },
+      { key: "bulk", label: "Bulk" },
+      { key: "car", label: "Car Carrier" },
+    ];
 
-  /* ══ 캐시 읽기 / 쓰기 ══ */
-  function loadCache() {
-    try {
-      var raw = localStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      var obj = JSON.parse(raw);
-      if (!obj || !obj.items || (Date.now() - obj.ts) > CACHE_TTL) return null;
-      return obj;
-    } catch (e) { return null; }
-  }
-
-  function saveCache(items, log) {
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items: items, feedLog: log }));
-    } catch (e) {}
-  }
-
-  /* ══ 폴백 링크 유효성 체크 ══ */
-  function checkFallbackLinks() {
-    var cards = document.querySelectorAll("#sot-link-grid .sot-link-card");
-    cards.forEach(function (card) {
-      var url = card.getAttribute("href");
-      if (!url) { card.classList.remove("sot-link-checking"); return; }
-      fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url), { cache: "no-store" })
-        .then(function (r) { return r.json(); })
-        .then(function (d) {
-          var code = d && d.status && d.status.http_code;
-          card.classList.remove("sot-link-checking");
-          if (code === 404 || code === 410) {
-            card.classList.add("sot-link-dead");
-            setTimeout(function () { if (card.parentNode) card.parentNode.removeChild(card); }, 400);
-          }
-        })
-        .catch(function () { card.classList.remove("sot-link-checking"); });
-    });
-  }
-
-  /* ══ A) rss2json fetch ══ */
-  function fetchViaRss2json(feed, onDone) {
-    fetch("https://api.rss2json.com/v1/api.json?count=50&rss_url=" + encodeURIComponent(feed.url))
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        if (!d || d.status !== "ok" || !d.items || !d.items.length) {
-          feedLog.push(feed.name + ": rss2json " + (d ? (d.status || "empty") : "null"));
-          onDone([]); return;
-        }
-        feedLog.push(feed.name + ": rss2json OK (" + d.items.length + ")");
-        onDone(mapRss2json(d.items, feed.name));
-      })
-      .catch(function () { feedLog.push(feed.name + ": rss2json fail"); onDone([]); });
-  }
-
-  /* ══ B) allorigins ══ */
-  function fetchViaAllOrigins(feed, onDone) {
-    fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url), { cache: "no-store" })
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        if (!d || !d.contents) {
-          feedLog.push(feed.name + ": allorigins no-content"); onDone([]); return;
-        }
-        var items = parseRSSXML(d.contents, feed.name);
-        feedLog.push(feed.name + ": allorigins " + (items.length ? "OK (" + items.length + ")" : "0 items"));
-        onDone(items);
-      })
-      .catch(function () { feedLog.push(feed.name + ": allorigins fail"); onDone([]); });
-  }
-
-  /* ══ mappers ══ */
-  function mapRss2json(items, srcName) {
-    return items.map(function (i) {
-      return {
-        title: (i.title || "").replace(/<[^>]+>/g, "").trim(),
-        link: i.link || i.guid || "",
-        pubDate: i.pubDate || "",
-        description: (i.description || "").replace(/<[^>]+>/g, "").slice(0, 200),
-        _src: srcName
-      };
-    }).filter(function (i) { return i.title; });
-  }
-
-  function parseRSSXML(xmlStr, srcName) {
-    try {
-      var doc = (new DOMParser()).parseFromString(xmlStr, "text/xml");
-      if (doc.getElementsByTagName("parseerror").length) return [];
-      var nodes  = doc.getElementsByTagName("item");
-      var result = [];
-      for (var i = 0; i < Math.min(nodes.length, 50); i++) {
-        var node    = nodes[i];
-        var titleEl = node.getElementsByTagName("title")[0];
-        var title   = titleEl ? titleEl.textContent.trim() : "";
-        if (!title) continue;
-        var linkEl = node.getElementsByTagName("link")[0];
-        var link   = "";
-        if (linkEl) {
-          link = linkEl.textContent.trim();
-          if (!link) link = linkEl.getAttribute("href") || "";
-          if (!link && linkEl.nextSibling && linkEl.nextSibling.nodeType === 3)
-            link = linkEl.nextSibling.textContent.trim();
-        }
-        if (!link) {
-          var guidEl = node.getElementsByTagName("guid")[0];
-          if (guidEl) link = guidEl.textContent.trim();
-        }
-        var pubEl = node.getElementsByTagName("pubDate")[0];
-        result.push({ title: title, link: link, pubDate: pubEl ? pubEl.textContent.trim() : "", description: "", _src: srcName });
+    /* ══ 캐시 읽기 / 쓰기 ══ */
+    function loadCache() {
+      try {
+        var raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        var obj = JSON.parse(raw);
+        if (!obj || !obj.items || Date.now() - obj.ts > CACHE_TTL) return null;
+        return obj;
+      } catch (e) {
+        return null;
       }
-      return result;
-    } catch (e) { return []; }
-  }
-
-  /* ══ rss2json ∥ allorigins 병렬 race ══ */
-  function fetchFeed(feed, allDone) {
-    var called  = false;
-    var pending = 2;
-    function got(items) {
-      pending--;
-      if (called) return;
-      if (items.length) { called = true; allDone(items); return; }
-      if (pending === 0) { called = true; allDone([]); }
     }
-    fetchViaRss2json(feed, got);
-    fetchViaAllOrigins(feed, got);
-  }
 
-  /* ══ 텍스트 유틸 ══ */
-  function itemText(item) {
-    return ((item.title || "") + " " + (item.description || "")).toLowerCase();
-  }
-
-  /* ══ 카테고리 필터 / 타입 감지 ══ */
-  function matchesCat(item, cat) {
-    if (cat === "all") return true;
-    var txt = itemText(item);
-    return CAT_KW[cat].some(function (k) { return txt.indexOf(k) !== -1; });
-  }
-
-  function matchesKwMap(item, kwMap, key) {
-    if (key === "all") return true;
-    var kws = kwMap[key];
-    if (!kws) return false;
-    var txt = itemText(item);
-    return kws.some(function (k) { return txt.indexOf(k) !== -1; });
-  }
-
-  function detectType(item) {
-    var txt    = itemText(item);
-    var order  = ["car","lng","tanker","container","bulk"];
-    var labels = { car: "Car Carrier", lng: "LNG/Gas", tanker: "Tanker", container: "Container", bulk: "Bulk" };
-    for (var i = 0; i < order.length; i++) {
-      if (CAT_KW[order[i]].some(function (k) { return txt.indexOf(k) !== -1; })) return labels[order[i]];
+    function saveCache(items, log) {
+      try {
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ ts: Date.now(), items: items, feedLog: log }),
+        );
+      } catch (e) {}
     }
-    return null;
-  }
 
-  /* ══ 탭 이벤트 바인딩 ══ */
-  function attachTabEvents() {
-    var tabsEl = document.getElementById("sot-tabs");
-    tabsEl.querySelectorAll(".sot-tab").forEach(function (tab) {
-      tab.addEventListener("click", function () {
-        tabsEl.querySelectorAll(".sot-tab").forEach(function (t) { t.classList.remove("active"); });
-        this.classList.add("active");
-        activeTab = this.dataset.key;
-        applyFilter();
+    /* ══ 폴백 링크 유효성 체크 ══ */
+    function checkFallbackLinks() {
+      var cards = document.querySelectorAll("#sot-link-grid .sot-link-card");
+      cards.forEach(function (card) {
+        var url = card.getAttribute("href");
+        if (!url) {
+          card.classList.remove("sot-link-checking");
+          return;
+        }
+        fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url), {
+          cache: "no-store",
+        })
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function (d) {
+            var code = d && d.status && d.status.http_code;
+            card.classList.remove("sot-link-checking");
+            if (code === 404 || code === 410) {
+              card.classList.add("sot-link-dead");
+              setTimeout(function () {
+                if (card.parentNode) card.parentNode.removeChild(card);
+              }, 400);
+            }
+          })
+          .catch(function () {
+            card.classList.remove("sot-link-checking");
+          });
       });
-    });
-  }
+    }
 
-  /* ══ Ship Type 탭 빌드 ══ */
-  function buildTypeTabs() {
-    var tabsEl = document.getElementById("sot-tabs");
-    tabsEl.innerHTML = TYPE_TABS.map(function (t) {
-      return '<button class="sot-tab' + (t.key === activeTab ? " active" : "") +
-        '" data-key="' + t.key + '">' + t.label + "</button>";
-    }).join("");
-    attachTabEvents();
-  }
+    /* ══ A) rss2json fetch ══ */
+    function fetchViaRss2json(feed, onDone) {
+      fetch(
+        "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
+          encodeURIComponent(feed.url),
+      )
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (d) {
+          if (!d || d.status !== "ok" || !d.items || !d.items.length) {
+            feedLog.push(
+              feed.name + ": rss2json " + (d ? d.status || "empty" : "null"),
+            );
+            onDone([]);
+            return;
+          }
+          feedLog.push(feed.name + ": rss2json OK (" + d.items.length + ")");
+          onDone(mapRss2json(d.items, feed.name));
+        })
+        .catch(function () {
+          feedLog.push(feed.name + ": rss2json fail");
+          onDone([]);
+        });
+    }
 
-  /* ══ Owner / Shipyard 동적 탭 빌드 ══
+    /* ══ B) allorigins ══ */
+    function fetchViaAllOrigins(feed, onDone) {
+      fetch(
+        "https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url),
+        { cache: "no-store" },
+      )
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (d) {
+          if (!d || !d.contents) {
+            feedLog.push(feed.name + ": allorigins no-content");
+            onDone([]);
+            return;
+          }
+          var items = parseRSSXML(d.contents, feed.name);
+          feedLog.push(
+            feed.name +
+              ": allorigins " +
+              (items.length ? "OK (" + items.length + ")" : "0 items"),
+          );
+          onDone(items);
+        })
+        .catch(function () {
+          feedLog.push(feed.name + ": allorigins fail");
+          onDone([]);
+        });
+    }
+
+    /* ══ mappers ══ */
+    function mapRss2json(items, srcName) {
+      return items
+        .map(function (i) {
+          return {
+            title: (i.title || "").replace(/<[^>]+>/g, "").trim(),
+            link: i.link || i.guid || "",
+            pubDate: i.pubDate || "",
+            description: (i.description || "")
+              .replace(/<[^>]+>/g, "")
+              .slice(0, 200),
+            _src: srcName,
+          };
+        })
+        .filter(function (i) {
+          return i.title;
+        });
+    }
+
+    function parseRSSXML(xmlStr, srcName) {
+      try {
+        var doc = new DOMParser().parseFromString(xmlStr, "text/xml");
+        if (doc.getElementsByTagName("parseerror").length) return [];
+        var nodes = doc.getElementsByTagName("item");
+        var result = [];
+        for (var i = 0; i < Math.min(nodes.length, 50); i++) {
+          var node = nodes[i];
+          var titleEl = node.getElementsByTagName("title")[0];
+          var title = titleEl ? titleEl.textContent.trim() : "";
+          if (!title) continue;
+          var linkEl = node.getElementsByTagName("link")[0];
+          var link = "";
+          if (linkEl) {
+            link = linkEl.textContent.trim();
+            if (!link) link = linkEl.getAttribute("href") || "";
+            if (
+              !link &&
+              linkEl.nextSibling &&
+              linkEl.nextSibling.nodeType === 3
+            )
+              link = linkEl.nextSibling.textContent.trim();
+          }
+          if (!link) {
+            var guidEl = node.getElementsByTagName("guid")[0];
+            if (guidEl) link = guidEl.textContent.trim();
+          }
+          var pubEl = node.getElementsByTagName("pubDate")[0];
+          result.push({
+            title: title,
+            link: link,
+            pubDate: pubEl ? pubEl.textContent.trim() : "",
+            description: "",
+            _src: srcName,
+          });
+        }
+        return result;
+      } catch (e) {
+        return [];
+      }
+    }
+
+    /* ══ rss2json ∥ allorigins 병렬 race ══ */
+    function fetchFeed(feed, allDone) {
+      var called = false;
+      var pending = 2;
+      function got(items) {
+        pending--;
+        if (called) return;
+        if (items.length) {
+          called = true;
+          allDone(items);
+          return;
+        }
+        if (pending === 0) {
+          called = true;
+          allDone([]);
+        }
+      }
+      fetchViaRss2json(feed, got);
+      fetchViaAllOrigins(feed, got);
+    }
+
+    /* ══ 텍스트 유틸 ══ */
+    function itemText(item) {
+      return (
+        (item.title || "") +
+        " " +
+        (item.description || "")
+      ).toLowerCase();
+    }
+
+    /* ══ 카테고리 필터 / 타입 감지 ══ */
+    function matchesCat(item, cat) {
+      if (cat === "all") return true;
+      var txt = itemText(item);
+      return CAT_KW[cat].some(function (k) {
+        return txt.indexOf(k) !== -1;
+      });
+    }
+
+    function matchesKwMap(item, kwMap, key) {
+      if (key === "all") return true;
+      var kws = kwMap[key];
+      if (!kws) return false;
+      var txt = itemText(item);
+      return kws.some(function (k) {
+        return txt.indexOf(k) !== -1;
+      });
+    }
+
+    function detectType(item) {
+      var txt = itemText(item);
+      var order = ["car", "lng", "tanker", "container", "bulk"];
+      var labels = {
+        car: "Car Carrier",
+        lng: "LNG/Gas",
+        tanker: "Tanker",
+        container: "Container",
+        bulk: "Bulk",
+      };
+      for (var i = 0; i < order.length; i++) {
+        if (
+          CAT_KW[order[i]].some(function (k) {
+            return txt.indexOf(k) !== -1;
+          })
+        )
+          return labels[order[i]];
+      }
+      return null;
+    }
+
+    /* ══ 탭 이벤트 바인딩 ══ */
+    function attachTabEvents() {
+      var tabsEl = document.getElementById("sot-tabs");
+      tabsEl.querySelectorAll(".sot-tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          tabsEl.querySelectorAll(".sot-tab").forEach(function (t) {
+            t.classList.remove("active");
+          });
+          this.classList.add("active");
+          activeTab = this.dataset.key;
+          applyFilter();
+        });
+      });
+    }
+
+    /* ══ Ship Type 탭 빌드 ══ */
+    function buildTypeTabs() {
+      var tabsEl = document.getElementById("sot-tabs");
+      tabsEl.innerHTML = TYPE_TABS.map(function (t) {
+        return (
+          '<button class="sot-tab' +
+          (t.key === activeTab ? " active" : "") +
+          '" data-key="' +
+          t.key +
+          '">' +
+          t.label +
+          "</button>"
+        );
+      }).join("");
+      attachTabEvents();
+    }
+
+    /* ══ Owner / Shipyard 동적 탭 빌드 ══
      allItems를 스캔해 매칭 건수 상위 9개 탭을 생성 */
-  function buildDynamicTabs(kwMap) {
-    var counts = {};
-    Object.keys(kwMap).forEach(function (name) {
-      var kws = kwMap[name];
-      var n = allItems.filter(function (i) {
-        var txt = itemText(i);
-        return kws.some(function (k) { return txt.indexOf(k) !== -1; });
-      }).length;
-      if (n > 0) counts[name] = n;
-    });
+    function buildDynamicTabs(kwMap) {
+      var counts = {};
+      Object.keys(kwMap).forEach(function (name) {
+        var kws = kwMap[name];
+        var n = allItems.filter(function (i) {
+          var txt = itemText(i);
+          return kws.some(function (k) {
+            return txt.indexOf(k) !== -1;
+          });
+        }).length;
+        if (n > 0) counts[name] = n;
+      });
 
-    var sorted = Object.keys(counts)
-      .sort(function (a, b) { return counts[b] - counts[a]; })
-      .slice(0, 9);
+      var sorted = Object.keys(counts)
+        .sort(function (a, b) {
+          return counts[b] - counts[a];
+        })
+        .slice(0, 9);
 
-    var tabsEl = document.getElementById("sot-tabs");
-    tabsEl.innerHTML =
-      '<button class="sot-tab active" data-key="all">All (' + allItems.length + ")</button>" +
-      (sorted.length
-        ? sorted.map(function (name) {
-            return '<button class="sot-tab" data-key="' + name.replace(/"/g, "&quot;") + '">' +
-              name + ' <span style="font-size:9.5px;opacity:0.65">(' + counts[name] + ")</span></button>";
-          }).join("")
-        : '<span style="padding:8px 10px;font-size:11px;color:#b0c4ce;align-self:center;">관련 데이터 없음</span>');
-    attachTabEvents();
-  }
-
-  /* ══ 모드 전환 ══ */
-  function switchMode(mode) {
-    filterMode = mode;
-    activeTab  = "all";
-    document.querySelectorAll(".sot-mode-btn").forEach(function (b) {
-      b.classList.toggle("active", b.dataset.mode === mode);
-    });
-    if (mode === "type")          buildTypeTabs();
-    else if (mode === "owner")    buildDynamicTabs(OWNER_KW);
-    else                          buildDynamicTabs(YARD_KW);
-    applyFilter();
-  }
-
-  /* ══ 필터 적용 ══ */
-  function applyFilter() {
-    if (filterMode === "type") {
-      filteredItems = allItems.filter(function (i) { return matchesCat(i, activeTab); });
-    } else {
-      var kwMap = filterMode === "owner" ? OWNER_KW : YARD_KW;
-      filteredItems = allItems.filter(function (i) { return matchesKwMap(i, kwMap, activeTab); });
-    }
-    currentPage = 1;
-    renderPage();
-  }
-
-  function fmtDate(ds) {
-    if (!ds) return "\u2014";
-    var d = new Date(ds);
-    if (isNaN(d.getTime())) return "\u2014";
-    return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-  }
-
-  function escAttr(s) { return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
-  function escHTML(s)  { return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-
-  /* ══ 페이지 렌더 ══ */
-  function renderPage() {
-    var tbody      = document.getElementById("sot-tbody");
-    var pageInfo   = document.getElementById("sot-page-info");
-    var prevBtn    = document.getElementById("sot-prev-btn");
-    var nextBtn    = document.getElementById("sot-next-btn");
-    var tableWrap  = document.getElementById("sot-table-wrap");
-    var pagination = document.getElementById("sot-pagination");
-    var emptyEl    = document.getElementById("sot-empty");
-    var catEmpty   = document.getElementById("sot-cat-empty");
-    var statusEl   = document.getElementById("sot-status");
-
-    statusEl.style.display = feedLog.length ? "block" : "none";
-    if (feedLog.length) statusEl.textContent = "\uD83D\uDCCB " + feedLog.join("  \xB7  ");
-
-    tableWrap.style.display  = "none";
-    pagination.style.display = "none";
-    emptyEl.style.display    = "none";
-    catEmpty.style.display   = "none";
-
-    if (allItems.length === 0) {
-      emptyEl.style.display = "block";
-      checkFallbackLinks();
-      return;
+      var tabsEl = document.getElementById("sot-tabs");
+      tabsEl.innerHTML =
+        '<button class="sot-tab active" data-key="all">All (' +
+        allItems.length +
+        ")</button>" +
+        (sorted.length
+          ? sorted
+              .map(function (name) {
+                return (
+                  '<button class="sot-tab" data-key="' +
+                  name.replace(/"/g, "&quot;") +
+                  '">' +
+                  name +
+                  ' <span style="font-size:9.5px;opacity:0.65">(' +
+                  counts[name] +
+                  ")</span></button>"
+                );
+              })
+              .join("")
+          : '<span style="padding:8px 10px;font-size:11px;color:#b0c4ce;align-self:center;">관련 데이터 없음</span>');
+      attachTabEvents();
     }
 
-    if (!filteredItems.length) {
-      catEmpty.style.display = "block";
-      catEmpty.innerHTML = "\uC774 \uCE74\uD14C\uACE0\uB9AC\uC5D0 \uD574\uB2F9\uD558\uB294 \uB274\uC2A4\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.<br><span style='font-size:11px'>All \uD0ED\uC744 \uC120\uD0DD\uD558\uAC70\uB098 Refresh\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694.</span>";
-      return;
+    /* ══ 모드 전환 ══ */
+    function switchMode(mode) {
+      filterMode = mode;
+      activeTab = "all";
+      document.querySelectorAll(".sot-mode-btn").forEach(function (b) {
+        b.classList.toggle("active", b.dataset.mode === mode);
+      });
+      if (mode === "type") buildTypeTabs();
+      else if (mode === "owner") buildDynamicTabs(OWNER_KW);
+      else buildDynamicTabs(YARD_KW);
+      applyFilter();
     }
 
-    tableWrap.style.display = "block";
-    var total      = filteredItems.length;
-    var totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-    var start      = (currentPage - 1) * ITEMS_PER_PAGE;
-    var end        = Math.min(start + ITEMS_PER_PAGE, total);
+    /* ══ 필터 적용 ══ */
+    function applyFilter() {
+      if (filterMode === "type") {
+        filteredItems = allItems.filter(function (i) {
+          return matchesCat(i, activeTab);
+        });
+      } else {
+        var kwMap = filterMode === "owner" ? OWNER_KW : YARD_KW;
+        filteredItems = allItems.filter(function (i) {
+          return matchesKwMap(i, kwMap, activeTab);
+        });
+      }
+      currentPage = 1;
+      renderPage();
+    }
 
-    tbody.innerHTML = filteredItems.slice(start, end).map(function (i) {
-      var typeLabel = detectType(i);
-      var typeCel   = typeLabel
-        ? '<span class="sot-type-tag">' + typeLabel + "</span>"
-        : '<span class="sot-td-none">\u2014</span>';
-      return "<tr>" +
-        '<td class="sot-td-date">' + fmtDate(i.pubDate) + "</td>" +
-        '<td><span class="sot-src">'  + escHTML(i._src)  + "</span></td>" +
-        "<td>" + typeCel + "</td>" +
-        '<td><a class="sot-table-title" href="' + escAttr(i.link) +
-        '" target="_blank" rel="noopener">' + escHTML(i.title) + "</a></td>" +
-        "</tr>";
-    }).join("");
+    function fmtDate(ds) {
+      if (!ds) return "\u2014";
+      var d = new Date(ds);
+      if (isNaN(d.getTime())) return "\u2014";
+      return d.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    }
 
-    pagination.style.display = totalPages > 1 ? "flex" : "none";
-    pageInfo.textContent = "Page " + currentPage + " / " + totalPages +
-      "  \xB7  " + (start + 1) + "\u2013" + end + " of " + total;
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-  }
+    function escAttr(s) {
+      return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+    }
+    function escHTML(s) {
+      return (s || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
 
-  /* ══ refresh(force) ══ */
-  function refresh(force) {
-    var btn     = document.getElementById("sot-refresh-btn");
-    var loading = document.getElementById("sot-loading");
-    var list    = document.getElementById("sot-list");
-    var upd     = document.getElementById("sot-updated");
+    /* ══ 페이지 렌더 ══ */
+    function renderPage() {
+      var tbody = document.getElementById("sot-tbody");
+      var pageInfo = document.getElementById("sot-page-info");
+      var prevBtn = document.getElementById("sot-prev-btn");
+      var nextBtn = document.getElementById("sot-next-btn");
+      var tableWrap = document.getElementById("sot-table-wrap");
+      var pagination = document.getElementById("sot-pagination");
+      var emptyEl = document.getElementById("sot-empty");
+      var catEmpty = document.getElementById("sot-cat-empty");
+      var statusEl = document.getElementById("sot-status");
 
-    if (!force) {
-      var cached = loadCache();
-      if (cached) {
-        allItems  = cached.items || [];
-        feedLog   = [];
-        var ageMin = Math.round((Date.now() - cached.ts) / 60000);
-        loading.style.display = "none";
-        list.style.display    = "block";
-        upd.textContent = (allItems.length ? allItems.length + " articles  \xB7  " : "") +
-          "Cached " + ageMin + "m ago";
-        applyFilter();
+      statusEl.style.display = feedLog.length ? "block" : "none";
+      if (feedLog.length)
+        statusEl.textContent = "\uD83D\uDCCB " + feedLog.join("  \xB7  ");
+
+      tableWrap.style.display = "none";
+      pagination.style.display = "none";
+      emptyEl.style.display = "none";
+      catEmpty.style.display = "none";
+
+      if (allItems.length === 0) {
+        emptyEl.style.display = "block";
+        checkFallbackLinks();
         return;
       }
+
+      if (!filteredItems.length) {
+        catEmpty.style.display = "block";
+        catEmpty.innerHTML =
+          "\uC774 \uCE74\uD14C\uACE0\uB9AC\uC5D0 \uD574\uB2F9\uD558\uB294 \uB274\uC2A4\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.<br><span style='font-size:11px'>All \uD0ED\uC744 \uC120\uD0DD\uD558\uAC70\uB098 Refresh\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694.</span>";
+        return;
+      }
+
+      tableWrap.style.display = "block";
+      var total = filteredItems.length;
+      var totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+      var start = (currentPage - 1) * ITEMS_PER_PAGE;
+      var end = Math.min(start + ITEMS_PER_PAGE, total);
+
+      tbody.innerHTML = filteredItems
+        .slice(start, end)
+        .map(function (i) {
+          var typeLabel = detectType(i);
+          var typeCel = typeLabel
+            ? '<span class="sot-type-tag">' + typeLabel + "</span>"
+            : '<span class="sot-td-none">\u2014</span>';
+          return (
+            "<tr>" +
+            '<td class="sot-td-date">' +
+            fmtDate(i.pubDate) +
+            "</td>" +
+            '<td><span class="sot-src">' +
+            escHTML(i._src) +
+            "</span></td>" +
+            "<td>" +
+            typeCel +
+            "</td>" +
+            '<td><a class="sot-table-title" href="' +
+            escAttr(i.link) +
+            '" target="_blank" rel="noopener">' +
+            escHTML(i.title) +
+            "</a></td>" +
+            "</tr>"
+          );
+        })
+        .join("");
+
+      pagination.style.display = totalPages > 1 ? "flex" : "none";
+      pageInfo.textContent =
+        "Page " +
+        currentPage +
+        " / " +
+        totalPages +
+        "  \xB7  " +
+        (start + 1) +
+        "\u2013" +
+        end +
+        " of " +
+        total;
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
     }
 
-    btn.disabled    = true;
-    btn.textContent = "\u27F3";
-    loading.style.display = "block";
-    list.style.display    = "none";
-    feedLog      = [];
-    allItems     = [];
-    pendingFeeds = FEEDS.length;
-    var collected = [];
+    /* ══ refresh(force) ══ */
+    function refresh(force) {
+      var btn = document.getElementById("sot-refresh-btn");
+      var loading = document.getElementById("sot-loading");
+      var list = document.getElementById("sot-list");
+      var upd = document.getElementById("sot-updated");
 
-    function onFeedDone(items) {
-      if (items && items.length) collected = collected.concat(items);
-      pendingFeeds--;
-      if (pendingFeeds > 0) return;
+      if (!force) {
+        var cached = loadCache();
+        if (cached) {
+          allItems = cached.items || [];
+          feedLog = [];
+          var ageMin = Math.round((Date.now() - cached.ts) / 60000);
+          loading.style.display = "none";
+          list.style.display = "block";
+          upd.textContent =
+            (allItems.length ? allItems.length + " articles  \xB7  " : "") +
+            "Cached " +
+            ageMin +
+            "m ago";
+          applyFilter();
+          return;
+        }
+      }
 
-      var seen   = {};
-      var merged = collected.filter(function (i) {
-        var key = (i.title || "").toLowerCase().replace(/\s+/g, " ").slice(0, 80);
-        if (!key || seen[key]) return false;
-        seen[key] = true;
-        return true;
+      btn.disabled = true;
+      btn.textContent = "\u27F3";
+      loading.style.display = "block";
+      list.style.display = "none";
+      feedLog = [];
+      allItems = [];
+      pendingFeeds = FEEDS.length;
+      var collected = [];
+
+      function onFeedDone(items) {
+        if (items && items.length) collected = collected.concat(items);
+        pendingFeeds--;
+        if (pendingFeeds > 0) return;
+
+        var seen = {};
+        var merged = collected.filter(function (i) {
+          var key = (i.title || "")
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+            .slice(0, 80);
+          if (!key || seen[key]) return false;
+          seen[key] = true;
+          return true;
+        });
+
+        allItems = merged.sort(function (a, b) {
+          var ta = a.pubDate ? new Date(a.pubDate).getTime() : 0;
+          var tb = b.pubDate ? new Date(b.pubDate).getTime() : 0;
+          return tb - ta;
+        });
+
+        if (allItems.length) saveCache(allItems, feedLog);
+
+        loading.style.display = "none";
+        list.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "\u27F3 Refresh";
+
+        var now = new Date();
+        upd.textContent =
+          (allItems.length ? allItems.length + " articles  \xB7  " : "") +
+          "Updated " +
+          now.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+
+        /* 현재 모드에 맞게 탭 재빌드 */
+        if (filterMode !== "type") switchMode(filterMode);
+        else applyFilter();
+      }
+
+      FEEDS.forEach(function (feed) {
+        fetchFeed(feed, onFeedDone);
       });
-
-      allItems = merged.sort(function (a, b) {
-        var ta = a.pubDate ? new Date(a.pubDate).getTime() : 0;
-        var tb = b.pubDate ? new Date(b.pubDate).getTime() : 0;
-        return tb - ta;
-      });
-
-      if (allItems.length) saveCache(allItems, feedLog);
-
-      loading.style.display = "none";
-      list.style.display    = "block";
-      btn.disabled    = false;
-      btn.textContent = "\u27F3 Refresh";
-
-      var now = new Date();
-      upd.textContent = (allItems.length ? allItems.length + " articles  \xB7  " : "") +
-        "Updated " + now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-
-      /* 현재 모드에 맞게 탭 재빌드 */
-      if (filterMode !== "type") switchMode(filterMode);
-      else applyFilter();
     }
 
-    FEEDS.forEach(function (feed) { fetchFeed(feed, onFeedDone); });
-  }
+    /* ══ 이벤트 ══ */
+    document
+      .getElementById("sot-refresh-btn")
+      .addEventListener("click", function () {
+        refresh(true);
+      });
+    document
+      .getElementById("sot-prev-btn")
+      .addEventListener("click", function () {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPage();
+        }
+      });
+    document
+      .getElementById("sot-next-btn")
+      .addEventListener("click", function () {
+        if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) {
+          currentPage++;
+          renderPage();
+        }
+      });
+    document.querySelectorAll(".sot-mode-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        switchMode(this.dataset.mode);
+      });
+    });
 
-  /* ══ 이벤트 ══ */
-  document.getElementById("sot-refresh-btn").addEventListener("click", function () { refresh(true); });
-  document.getElementById("sot-prev-btn").addEventListener("click", function () {
-    if (currentPage > 1) { currentPage--; renderPage(); }
-  });
-  document.getElementById("sot-next-btn").addEventListener("click", function () {
-    if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) { currentPage++; renderPage(); }
-  });
-  document.querySelectorAll(".sot-mode-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () { switchMode(this.dataset.mode); });
-  });
-
-  attachTabEvents(); /* 초기 Ship Type 탭 이벤트 바인딩 */
-  refresh(false);
-})();
+    attachTabEvents(); /* 초기 Ship Type 탭 이벤트 바인딩 */
+    refresh(false);
+  })();
 </script>
