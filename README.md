@@ -38,23 +38,34 @@ General/
 ├── Asset/
 │   ├── Books/              # Book reviews and summaries
 │   │   ├── img/            # Book cover and reference images
-│   │   └── review/         # Individual book review markdown files
+│   │   └── review/         # Individual book review HTML templates
 │   ├── Paper/              # Maritime cyber security research papers
 │   │   ├── img/            # Paper-related figures and thumbnails
-│   │   └── review/         # Individual paper summary markdown files
+│   │   └── review/         # Individual paper summary HTML templates
 │   ├── Compliances/        # Cyber compliance docs & class society guidelines
-│   │   ├── UR-E10-Rev.9-Aug-2023-UL.pdf
-│   │   ├── UR-E22-Rev.3-June-2023-UL.pdf
-│   │   ├── UR-E26-Rev.1-Nov-2023-CR.pdf
-│   │   └── UR-E27-Rev.1-Sep-2023-CLN.pdf
+│   │   └── review/         # Compliance review templates
 │   ├── Project/            # SCARP project deliverables and tools
 │   ├── theCrew.html        # Team introduction page
 │   └── img/
 │       ├── common/         # Shared logos and site assets
-│       └── member/         # Team member profile images
+│       └── member/         # Team member profile images (6 members)
 ├── Blog/
+│   ├── Backend/            # Blog backend widgets (hosted on GitHub, injected via Blogger gadget)
+│   │   ├── Hello_GuestInfo.html               # Hello Guest widget — IP/geo/OSI layer info
+│   │   ├── InjectionCode_Hello.html           # Blogger gadget: fetches & injects Hello Guest
+│   │   ├── ShipOrderTrends.html               # Ship order news widget (RSS aggregator)
+│   │   └── InjectionCode_ShipOrderTrends.html # Blogger gadget: fetches & injects ShipOrderTrends
+│   ├── Top/                # Blog header area widgets
+│   │   ├── Header.html                        # Blog header widget
+│   │   └── InjectionCode_Header.html          # Blogger gadget: fetches & injects Header
 │   ├── SideBar/            # Blog sidebar widgets (GitHub link, intro, icon)
+│   │   ├── Find Us on GitHub.html
+│   │   ├── Maritime Cyber Intelligence.html
+│   │   ├── Who We Are.html
+│   │   ├── shipjobsIcon.html
+│   │   └── InjectionCode_Temp.html            # Generic injection code template
 │   └── contents/           # Article templates
+│       └── tempplate_Who_am_I.html
 └── README.md
 ```
 
@@ -114,6 +125,27 @@ Cyber compliance documents and class society guidelines required in the shipbuil
 `Asset/Project/`
 
 Practical deliverables open to the public, including compliance tools, checklist templates, and risk assessment utilities.
+
+---
+
+### 🖥️ Blog — Blog Widget Assets
+
+`Blog/`
+
+HTML widgets and injection gadgets powering the [Maritime 4.0 blog](https://shippauljobs.blogspot.com/).
+Widgets are hosted as raw files on GitHub and injected into Blogger via paired `InjectionCode_*.html` gadgets.
+
+| Directory     | Description                                                                                     |
+| ------------- | ----------------------------------------------------------------------------------------------- |
+| **Backend/**  | Main widget logic files + Blogger injection gadgets                                             |
+| **Top/**      | Blog header area widget + injection gadget                                                      |
+| **SideBar/**  | Sidebar widgets (GitHub link, team intro, logo icon)                                            |
+| **contents/** | Blog post article templates                                                                     |
+
+**Key widgets:**
+
+- **Hello_GuestInfo** — Greets visitors with localized language, IP geo-info, device/referrer details, and a full OSI 7-layer / PDU stack view (client-side). Supports 19 languages.
+- **ShipOrderTrends** — Aggregates maritime RSS news (Google News + gCaptain) with category filtering (Tanker / Container / LNG / Bulk / Car) and 30-minute localStorage caching.
 
 ---
 
