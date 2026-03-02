@@ -82,7 +82,7 @@
   #sot-mode-bar {
     display: flex;
     gap: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .sot-mode-btn {
     background: #f4faf8;
@@ -103,6 +103,44 @@
     border-color: #1a9e82;
   }
   .sot-mode-btn.active {
+    background: #1a9e82;
+    border-color: #1a9e82;
+    color: #fff;
+  }
+  /* ── 날짜 범위 바 ── */
+  #sot-date-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  #sot-date-label {
+    font-size: 10.5px;
+    color: #9fb5c2;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    margin-right: 2px;
+  }
+  .sot-date-btn {
+    background: #f4faf8;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    color: #9fb5c2;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+  }
+  .sot-date-btn:hover {
+    color: #1a9e82;
+    border-color: #1a9e82;
+  }
+  .sot-date-btn.active {
     background: #1a9e82;
     border-color: #1a9e82;
     color: #fff;
@@ -358,6 +396,14 @@
     <button class="sot-mode-btn" data-mode="owner">🏢 Owner</button>
     <button class="sot-mode-btn" data-mode="shipyard">⚓ Shipyard</button>
   </div>
+  <div id="sot-date-bar">
+    <span id="sot-date-label">📅 Period</span>
+    <button class="sot-date-btn" data-days="7">1W</button>
+    <button class="sot-date-btn active" data-days="30">1M</button>
+    <button class="sot-date-btn" data-days="90">3M</button>
+    <button class="sot-date-btn" data-days="180">6M</button>
+    <button class="sot-date-btn" data-days="0">All</button>
+  </div>
   <div id="sot-tabs">
     <button class="sot-tab active" data-key="all">All</button>
     <button class="sot-tab" data-key="tanker">Tanker</button>
@@ -469,6 +515,7 @@
     var allItems = [];
     var activeTab = "all";
     var filterMode = "type"; /* 'type' | 'owner' | 'shipyard' */
+    var dateRangeDays = 30; /* 기본값: 최근 1개월. 0 = 전체 */
     var feedLog = [];
     var pendingFeeds = 0;
 
@@ -812,6 +859,19 @@
       ).toLowerCase();
     }
 
+    /* ══ 날짜 범위 필터 ══
+       dateRangeDays === 0 이면 전체 반환.
+       pubDate가 없거나 파싱 실패한 항목은 포함 처리. */
+    function filterByDate(items) {
+      if (!dateRangeDays) return items;
+      var cutoff = Date.now() - dateRangeDays * 24 * 60 * 60 * 1000;
+      return items.filter(function (i) {
+        if (!i.pubDate) return true;
+        var t = new Date(i.pubDate).getTime();
+        return isNaN(t) || t >= cutoff;
+      });
+    }
+
     /* ══ 카테고리 필터 / 타입 감지 ══ */
     function matchesCat(item, cat) {
       if (cat === "all") return true;
@@ -941,18 +1001,20 @@
       applyFilter();
     }
 
-    /* ══ 필터 적용 ══ */
+    /* ══ 필터 적용 (카테고리 + 날짜 범위) ══ */
     function applyFilter() {
+      var base;
       if (filterMode === "type") {
-        filteredItems = allItems.filter(function (i) {
+        base = allItems.filter(function (i) {
           return matchesCat(i, activeTab);
         });
       } else {
         var kwMap = filterMode === "owner" ? OWNER_KW : YARD_KW;
-        filteredItems = allItems.filter(function (i) {
+        base = allItems.filter(function (i) {
           return matchesKwMap(i, kwMap, activeTab);
         });
       }
+      filteredItems = filterByDate(base);
       currentPage = 1;
       renderPage();
     }
@@ -1169,6 +1231,16 @@
     document.querySelectorAll(".sot-mode-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
         switchMode(this.dataset.mode);
+      });
+    });
+    document.querySelectorAll(".sot-date-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".sot-date-btn").forEach(function (b) {
+          b.classList.remove("active");
+        });
+        this.classList.add("active");
+        dateRangeDays = parseInt(this.dataset.days, 10);
+        applyFilter();
       });
     });
 
