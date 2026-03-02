@@ -62,9 +62,7 @@
   .sot-link-card:hover{background:#e8f6f3;}
   .sot-link-card-name{display:block;font-size:12px;font-weight:700;color:#424242;}
   .sot-link-card-cat{display:block;font-size:10.5px;color:#9fb5c2;margin-top:1px;}
-  /* 링크 체크 중 — 흐릿하게 */
   .sot-link-checking{opacity:0.55;}
-  /* 404 확인됨 — 페이드아웃 후 숨김 */
   .sot-link-dead{opacity:0!important;pointer-events:none;}
   #sot-cat-empty{display:none;padding:22px 0;font-size:13px;color:#9fb5c2;text-align:center;line-height:1.9;}
   #sot-footer{margin-top:13px;padding:9px 12px;background:#f4faf8;border-left:3px solid #1a9e82;
@@ -149,113 +147,91 @@
   "use strict";
 
   var ITEMS_PER_PAGE = 20;
-  var currentPage = 1;
+  var currentPage   = 1;
   var filteredItems = [];
-  var allItems = [];
-  var activeTab = "all";
-  var feedLog = [];
-  var pendingFeeds = 0;
+  var allItems      = [];
+  var activeTab     = "all";
+  var feedLog       = [];
+  var pendingFeeds  = 0;
+
+  var CACHE_KEY = "sot_cache";
+  var CACHE_TTL = 30 * 60 * 1000; /* 30분 */
 
   var FEEDS = [
-    { url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en", name: "Google News" },
+    { url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en",         name: "Google News"   },
     { url: "https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en", name: "Google News 2" },
-    { url: "https://gcaptain.com/feed/", name: "gCaptain" }
+    { url: "https://gcaptain.com/feed/",                                                                                   name: "gCaptain"      }
   ];
 
   var CAT_KW = {
-    all: [],
-    tanker: ["tanker","vlcc","suezmax","aframax","product tanker","crude","chemical tanker","mr tanker"],
+    all:       [],
+    tanker:    ["tanker","vlcc","suezmax","aframax","product tanker","crude","chemical tanker","mr tanker"],
     container: ["container","teu","boxship","containership","feeder","ultra large","box ship"],
-    lng: ["lng","lpg","fsru","flng","gas carrier","liquefied","ammonia","methanol"],
-    bulk: ["bulker","bulk carrier","capesize","panamax","handysize","handymax","ultramax","kamsarmax"],
-    car: ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]
+    lng:       ["lng","lpg","fsru","flng","gas carrier","liquefied","ammonia","methanol"],
+    bulk:      ["bulker","bulk carrier","capesize","panamax","handysize","handymax","ultramax","kamsarmax"],
+    car:       ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]
   };
 
-  /* ══════════════════════════════════════════════
-     링크 유효성 체크 — allorigins http_code 이용
-     404/410 확인 시 카드 페이드아웃 후 제거
-  ══════════════════════════════════════════════ */
+  /* ══ 캐시 읽기 / 쓰기 ══ */
+  function loadCache() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (!obj || !obj.items || (Date.now() - obj.ts) > CACHE_TTL) return null;
+      return obj; /* { ts, items, feedLog } */
+    } catch (e) { return null; }
+  }
+
+  function saveCache(items, log) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items: items, feedLog: log }));
+    } catch (e) {}
+  }
+
+  /* ══ 폴백 링크 유효성 체크 ══ */
   function checkFallbackLinks() {
     var cards = document.querySelectorAll("#sot-link-grid .sot-link-card");
     cards.forEach(function (card) {
       var url = card.getAttribute("href");
       if (!url) { card.classList.remove("sot-link-checking"); return; }
-
       fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url), { cache: "no-store" })
         .then(function (r) { return r.json(); })
         .then(function (d) {
           var code = d && d.status && d.status.http_code;
           card.classList.remove("sot-link-checking");
           if (code === 404 || code === 410) {
-            /* 유효하지 않은 링크 — 페이드아웃 후 DOM 제거 */
             card.classList.add("sot-link-dead");
-            setTimeout(function () {
-              if (card.parentNode) card.parentNode.removeChild(card);
-            }, 400);
+            setTimeout(function () { if (card.parentNode) card.parentNode.removeChild(card); }, 400);
           }
         })
-        .catch(function () {
-          /* 체크 불가 — 링크 유지 (안전하게) */
-          card.classList.remove("sot-link-checking");
-        });
+        .catch(function () { card.classList.remove("sot-link-checking"); });
     });
   }
 
-  /* ── A) JSONP ── */
-  function fetchViaJSONP(feed, onDone) {
-    var cbName = "sotCb_" + Date.now() + "_" + Math.floor(Math.random() * 99999);
-    var scriptEl = null;
-    var done = false;
-
-    var timer = setTimeout(function () {
-      if (done) return; done = true;
-      cleanup(); feedLog.push(feed.name + ": JSONP timeout"); onDone([]);
-    }, 12000);
-
-    function cleanup() {
-      clearTimeout(timer);
-      window[cbName] = null;
-      if (scriptEl && scriptEl.parentNode) scriptEl.parentNode.removeChild(scriptEl);
-    }
-
-    window[cbName] = function (data) {
-      if (done) return; done = true;
-      cleanup();
-      if (!data || data.status !== "ok" || !data.items || !data.items.length) {
-        feedLog.push(feed.name + ": JSONP " + (data ? data.status : "null")); onDone([]); return;
-      }
-      feedLog.push(feed.name + ": JSONP OK (" + data.items.length + ")");
-      onDone(mapRss2json(data.items, feed.name));
-    };
-
-    scriptEl = document.createElement("script");
-    scriptEl.onerror = function () {
-      if (done) return; done = true;
-      cleanup(); feedLog.push(feed.name + ": JSONP blocked"); onDone([]);
-    };
-    scriptEl.src = "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
-      encodeURIComponent(feed.url) + "&callback=" + cbName;
-    document.head.appendChild(scriptEl);
-  }
-
-  /* ── B) rss2json fetch ── */
+  /* ══ A) rss2json fetch ══ */
   function fetchViaRss2json(feed, onDone) {
-    fetch("https://api.rss2json.com/v1/api.json?count=50&rss_url=" + encodeURIComponent(feed.url), { cache: "no-store" })
+    fetch("https://api.rss2json.com/v1/api.json?count=50&rss_url=" + encodeURIComponent(feed.url))
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (!d || d.status !== "ok" || !d.items || !d.items.length) { onDone([]); return; }
+        if (!d || d.status !== "ok" || !d.items || !d.items.length) {
+          feedLog.push(feed.name + ": rss2json " + (d ? (d.status || "empty") : "null"));
+          onDone([]); return;
+        }
         feedLog.push(feed.name + ": rss2json OK (" + d.items.length + ")");
         onDone(mapRss2json(d.items, feed.name));
       })
-      .catch(function () { onDone([]); });
+      .catch(function () { feedLog.push(feed.name + ": rss2json fail"); onDone([]); });
   }
 
-  /* ── C) allorigins ── */
+  /* ══ B) allorigins ══ */
   function fetchViaAllOrigins(feed, onDone) {
     fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url), { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (!d || !d.contents) { feedLog.push(feed.name + ": allorigins no-content"); onDone([]); return; }
+        if (!d || !d.contents) {
+          feedLog.push(feed.name + ": allorigins no-content"); onDone([]); return;
+        }
         var items = parseRSSXML(d.contents, feed.name);
         feedLog.push(feed.name + ": allorigins " + (items.length ? "OK (" + items.length + ")" : "0 items"));
         onDone(items);
@@ -263,7 +239,7 @@
       .catch(function () { feedLog.push(feed.name + ": allorigins fail"); onDone([]); });
   }
 
-  /* ── mappers ── */
+  /* ══ mappers ══ */
   function mapRss2json(items, srcName) {
     return items.map(function (i) {
       return {
@@ -279,16 +255,16 @@
   function parseRSSXML(xmlStr, srcName) {
     try {
       var doc = (new DOMParser()).parseFromString(xmlStr, "text/xml");
-      if (doc.getElementsByTagName("parsererror").length) return [];
-      var nodes = doc.getElementsByTagName("item");
+      if (doc.getElementsByTagName("parseerror").length) return [];
+      var nodes  = doc.getElementsByTagName("item");
       var result = [];
       for (var i = 0; i < Math.min(nodes.length, 50); i++) {
-        var node = nodes[i];
+        var node    = nodes[i];
         var titleEl = node.getElementsByTagName("title")[0];
-        var title = titleEl ? titleEl.textContent.trim() : "";
+        var title   = titleEl ? titleEl.textContent.trim() : "";
         if (!title) continue;
         var linkEl = node.getElementsByTagName("link")[0];
-        var link = "";
+        var link   = "";
         if (linkEl) {
           link = linkEl.textContent.trim();
           if (!link) link = linkEl.getAttribute("href") || "";
@@ -306,18 +282,24 @@
     } catch (e) { return []; }
   }
 
-  /* ── chain: JSONP → rss2json → allorigins ── */
+  /* ══ rss2json ∥ allorigins 병렬 race ══
+     먼저 결과가 있는 쪽을 사용, 둘 다 실패하면 [] 반환 */
   function fetchFeed(feed, allDone) {
-    fetchViaJSONP(feed, function (items) {
-      if (items.length) { allDone(items); return; }
-      fetchViaRss2json(feed, function (items2) {
-        if (items2.length) { allDone(items2); return; }
-        fetchViaAllOrigins(feed, allDone);
-      });
-    });
+    var called  = false;
+    var pending = 2;
+
+    function got(items) {
+      pending--;
+      if (called) return;
+      if (items.length) { called = true; allDone(items); return; }
+      if (pending === 0) { called = true; allDone([]); }
+    }
+
+    fetchViaRss2json(feed, got);
+    fetchViaAllOrigins(feed, got);
   }
 
-  /* ── filter & detect ── */
+  /* ══ 카테고리 필터 / 타입 감지 ══ */
   function matchesCat(item, cat) {
     if (cat === "all") return true;
     var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
@@ -325,8 +307,8 @@
   }
 
   function detectType(item) {
-    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
-    var order = ["car","lng","tanker","container","bulk"];
+    var txt    = ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var order  = ["car","lng","tanker","container","bulk"];
     var labels = { car: "Car Carrier", lng: "LNG/Gas", tanker: "Tanker", container: "Container", bulk: "Bulk" };
     for (var i = 0; i < order.length; i++) {
       if (CAT_KW[order[i]].some(function (k) { return txt.indexOf(k) !== -1; })) return labels[order[i]];
@@ -342,31 +324,30 @@
   }
 
   function escAttr(s) { return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
-  function escHTML(s) { return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function escHTML(s)  { return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-  /* ── render ── */
+  /* ══ 페이지 렌더 ══ */
   function renderPage() {
-    var tbody = document.getElementById("sot-tbody");
-    var pageInfo = document.getElementById("sot-page-info");
-    var prevBtn = document.getElementById("sot-prev-btn");
-    var nextBtn = document.getElementById("sot-next-btn");
-    var tableWrap = document.getElementById("sot-table-wrap");
+    var tbody      = document.getElementById("sot-tbody");
+    var pageInfo   = document.getElementById("sot-page-info");
+    var prevBtn    = document.getElementById("sot-prev-btn");
+    var nextBtn    = document.getElementById("sot-next-btn");
+    var tableWrap  = document.getElementById("sot-table-wrap");
     var pagination = document.getElementById("sot-pagination");
-    var emptyEl = document.getElementById("sot-empty");
-    var catEmpty = document.getElementById("sot-cat-empty");
-    var statusEl = document.getElementById("sot-status");
+    var emptyEl    = document.getElementById("sot-empty");
+    var catEmpty   = document.getElementById("sot-cat-empty");
+    var statusEl   = document.getElementById("sot-status");
 
     statusEl.style.display = feedLog.length ? "block" : "none";
     if (feedLog.length) statusEl.textContent = "\uD83D\uDCCB " + feedLog.join("  \xB7  ");
 
-    tableWrap.style.display = "none";
+    tableWrap.style.display  = "none";
     pagination.style.display = "none";
-    emptyEl.style.display = "none";
-    catEmpty.style.display = "none";
+    emptyEl.style.display    = "none";
+    catEmpty.style.display   = "none";
 
     if (allItems.length === 0) {
       emptyEl.style.display = "block";
-      /* 폴백 링크 유효성 백그라운드 체크 */
       checkFallbackLinks();
       return;
     }
@@ -378,19 +359,19 @@
     }
 
     tableWrap.style.display = "block";
-    var total = filteredItems.length;
+    var total      = filteredItems.length;
     var totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-    var start = (currentPage - 1) * ITEMS_PER_PAGE;
-    var end = Math.min(start + ITEMS_PER_PAGE, total);
+    var start      = (currentPage - 1) * ITEMS_PER_PAGE;
+    var end        = Math.min(start + ITEMS_PER_PAGE, total);
 
     tbody.innerHTML = filteredItems.slice(start, end).map(function (i) {
       var typeLabel = detectType(i);
-      var typeCel = typeLabel
+      var typeCel   = typeLabel
         ? '<span class="sot-type-tag">' + typeLabel + "</span>"
         : '<span class="sot-td-none">\u2014</span>';
       return "<tr>" +
         '<td class="sot-td-date">' + fmtDate(i.pubDate) + "</td>" +
-        '<td><span class="sot-src">' + escHTML(i._src) + "</span></td>" +
+        '<td><span class="sot-src">'  + escHTML(i._src)  + "</span></td>" +
         "<td>" + typeCel + "</td>" +
         '<td><a class="sot-table-title" href="' + escAttr(i.link) +
         '" target="_blank" rel="noopener">' + escHTML(i.title) + "</a></td>" +
@@ -410,19 +391,38 @@
     renderPage();
   }
 
-  /* ── refresh ── */
-  function refresh() {
-    var btn = document.getElementById("sot-refresh-btn");
+  /* ══ refresh(force) ══
+     force=false : 캐시 우선 (30분 이내면 즉시 렌더)
+     force=true  : 캐시 무시, 라이브 fetch (Refresh 버튼)  */
+  function refresh(force) {
+    var btn     = document.getElementById("sot-refresh-btn");
     var loading = document.getElementById("sot-loading");
-    var list = document.getElementById("sot-list");
-    var upd = document.getElementById("sot-updated");
+    var list    = document.getElementById("sot-list");
+    var upd     = document.getElementById("sot-updated");
 
-    btn.disabled = true;
+    /* 캐시 히트 → 즉시 렌더 */
+    if (!force) {
+      var cached = loadCache();
+      if (cached) {
+        allItems  = cached.items || [];
+        feedLog   = [];  /* 캐시 표시 중엔 fetch 로그 숨김 */
+        var ageMin = Math.round((Date.now() - cached.ts) / 60000);
+        loading.style.display = "none";
+        list.style.display    = "block";
+        upd.textContent = (allItems.length ? allItems.length + " articles  \xB7  " : "") +
+          "Cached " + ageMin + "m ago";
+        applyFilter();
+        return;
+      }
+    }
+
+    /* 라이브 fetch */
+    btn.disabled    = true;
     btn.textContent = "\u27F3";
     loading.style.display = "block";
-    list.style.display = "none";
-    feedLog = [];
-    allItems = [];
+    list.style.display    = "none";
+    feedLog      = [];
+    allItems     = [];
     pendingFeeds = FEEDS.length;
     var collected = [];
 
@@ -431,7 +431,7 @@
       pendingFeeds--;
       if (pendingFeeds > 0) return;
 
-      var seen = {};
+      var seen   = {};
       var merged = collected.filter(function (i) {
         var key = (i.title || "").toLowerCase().replace(/\s+/g, " ").slice(0, 80);
         if (!key || seen[key]) return false;
@@ -445,9 +445,11 @@
         return tb - ta;
       });
 
+      if (allItems.length) saveCache(allItems, feedLog);
+
       loading.style.display = "none";
-      list.style.display = "block";
-      btn.disabled = false;
+      list.style.display    = "block";
+      btn.disabled    = false;
       btn.textContent = "\u27F3 Refresh";
 
       var now = new Date();
@@ -460,8 +462,8 @@
     FEEDS.forEach(function (feed) { fetchFeed(feed, onFeedDone); });
   }
 
-  /* ── events ── */
-  document.getElementById("sot-refresh-btn").addEventListener("click", refresh);
+  /* ══ 이벤트 ══ */
+  document.getElementById("sot-refresh-btn").addEventListener("click", function () { refresh(true); });
   document.getElementById("sot-prev-btn").addEventListener("click", function () {
     if (currentPage > 1) { currentPage--; renderPage(); }
   });
@@ -477,6 +479,6 @@
     });
   });
 
-  refresh();
+  refresh(false); /* 첫 로드 — 캐시 우선 */
 })();
 </script>
