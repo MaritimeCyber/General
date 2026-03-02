@@ -1126,6 +1126,29 @@
       if (d && d.country_calling_code)
         extras.push({ label: "📞 Dial Code", value: d.country_calling_code });
 
+      if (d && d.latitude != null && d.longitude != null) {
+        var lat = parseFloat(d.latitude).toFixed(4);
+        var lon = parseFloat(d.longitude).toFixed(4);
+        var latDir = parseFloat(d.latitude) >= 0 ? "N" : "S";
+        var lonDir = parseFloat(d.longitude) >= 0 ? "E" : "W";
+        var mapsUrl =
+          "https://www.google.com/maps?q=" + d.latitude + "," + d.longitude;
+        extras.push({
+          label: "📍 GPS",
+          value:
+            Math.abs(lat) +
+            "° " +
+            latDir +
+            ",  " +
+            Math.abs(lon) +
+            "° " +
+            lonDir +
+            ' <a href="' +
+            mapsUrl +
+            '" target="_blank" rel="noopener" style="color:#1a9e82;font-size:10px;">Maps ↗</a>',
+        });
+      }
+
       try {
         extras.push({
           label: "🖥 Resolution",
