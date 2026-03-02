@@ -20,11 +20,17 @@
   #sot-divider{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
   .sot-divider-line{flex:1;height:1px;background:#e0e0e0;}
   .sot-divider-dot{width:6px;height:6px;border-radius:50%;background:#1a9e82;flex-shrink:0;}
+  #sot-mode-bar{display:flex;gap:6px;margin-bottom:10px;}
+  .sot-mode-btn{background:#f4faf8;border:1px solid #e0e0e0;border-radius:20px;
+    color:#9fb5c2;font-size:11px;font-weight:700;padding:4px 12px;cursor:pointer;
+    transition:all 0.15s;white-space:nowrap;flex:1;text-align:center;}
+  .sot-mode-btn:hover{color:#1a9e82;border-color:#1a9e82;}
+  .sot-mode-btn.active{background:#1a9e82;border-color:#1a9e82;color:#fff;}
   #sot-tabs{display:flex;overflow-x:auto;border-bottom:1px solid #e0e0e0;background:#f4faf8;
     padding:0 6px;scrollbar-width:none;margin-bottom:12px;}
   #sot-tabs::-webkit-scrollbar{display:none;}
-  .sot-tab{flex:0 0 16.6%;background:none;border:none;border-bottom:2px solid transparent;
-    color:#9fb5c2;font-size:13px;font-weight:600;padding:8px 6px;cursor:pointer;
+  .sot-tab{flex:0 0 auto;background:none;border:none;border-bottom:2px solid transparent;
+    color:#9fb5c2;font-size:12.5px;font-weight:600;padding:8px 10px;cursor:pointer;
     white-space:nowrap;text-align:center;transition:color 0.15s,border-color 0.15s;}
   .sot-tab:hover{color:#1a9e82;}
   .sot-tab.active{color:#1a9e82;border-bottom-color:#1a9e82;}
@@ -79,6 +85,11 @@
     <div class="sot-divider-line"></div>
     <div class="sot-divider-dot"></div>
     <div class="sot-divider-line"></div>
+  </div>
+  <div id="sot-mode-bar">
+    <button class="sot-mode-btn active" data-mode="type">🚢 Ship Type</button>
+    <button class="sot-mode-btn" data-mode="owner">🏢 Owner</button>
+    <button class="sot-mode-btn" data-mode="shipyard">⚓ Shipyard</button>
   </div>
   <div id="sot-tabs">
     <button class="sot-tab active" data-key="all">All</button>
@@ -151,6 +162,7 @@
   var filteredItems = [];
   var allItems      = [];
   var activeTab     = "all";
+  var filterMode    = "type"; /* 'type' | 'owner' | 'shipyard' */
   var feedLog       = [];
   var pendingFeeds  = 0;
 
@@ -163,6 +175,7 @@
     { url: "https://gcaptain.com/feed/",                                                                                   name: "gCaptain"      }
   ];
 
+  /* ── 선종 카테고리 키워드 ─────────────────────────── */
   var CAT_KW = {
     all:       [],
     tanker:    ["tanker","vlcc","suezmax","aframax","product tanker","crude","chemical tanker","mr tanker"],
@@ -172,6 +185,66 @@
     car:       ["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]
   };
 
+  /* ── 선박 소유주 키워드 맵 ─────────────────────────── */
+  var OWNER_KW = {
+    "Maersk":        ["maersk"],
+    "MSC":           ["mediterranean shipping"," msc ","msc's"],
+    "CMA CGM":       ["cma cgm","cma-cgm"],
+    "COSCO":         ["cosco shipping","cosco group"],
+    "Evergreen":     ["evergreen"],
+    "Hapag-Lloyd":   ["hapag-lloyd","hapag lloyd"],
+    "ONE":           ["ocean network express"," one ","one's"],
+    "Yang Ming":     ["yang ming","yangming"],
+    "HMM":           ["hmm ","hyundai merchant marine"],
+    "Zim":           ["zim ","zim's","zim shipping"],
+    "Euronav":       ["euronav"],
+    "Frontline":     ["frontline"],
+    "Teekay":        ["teekay"],
+    "Scorpio":       ["scorpio tankers","scorpio bulkers"],
+    "Star Bulk":     ["star bulk"],
+    "Golden Ocean":  ["golden ocean"],
+    "Pacific Basin": ["pacific basin"],
+    "Oldendorff":    ["oldendorff"],
+    "MOL":           ["mitsui o.s.k","mol tanker","mol carrier"," mol "],
+    "NYK":           ["nippon yusen"," nyk ","nyk's"],
+    "K Line":        ["k line","\"k\" line"],
+    "Stolt-Nielsen": ["stolt-nielsen","stolt nielsen"],
+    "Odfjell":       ["odfjell"],
+    "Shell":         ["shell "],
+    "BP":            [" bp ","bp shipping"],
+    "TotalEnergies": ["totalenergies","total energies"]
+  };
+
+  /* ── 조선사 키워드 맵 ─────────────────────────────── */
+  var YARD_KW = {
+    "HD Hyundai / HHI": ["hyundai heavy","hhic","hd hyundai","hd ksoe"," hhi ","hhi's","hyundai shipyard"],
+    "Samsung Heavy":    ["samsung heavy"," shi ","shi's","samsung shi"],
+    "Hanwha Ocean":     ["hanwha ocean","dsme","daewoo shipbuilding"],
+    "CSSC / Hudong":    ["cssc","hudong","jiangnan","china state shipbuilding"],
+    "Yangzijiang":      ["yangzijiang"," yzj"],
+    "COSCO Shipyard":   ["cosco shipyard","cosco zhoushan","cosco nantong"],
+    "New Times":        ["new times shipbuilding","new times sb"],
+    "Imabari":          ["imabari"],
+    "Mitsui E&S":       ["mitsui engineering","mitsui e&s"," mes "],
+    "JMU":              ["japan marine united"," jmu"],
+    "Oshima":           ["oshima"],
+    "Tsuneishi":        ["tsuneishi"],
+    "Damen":            ["damen"],
+    "Fincantieri":      ["fincantieri"],
+    "Meyer Werft":      ["meyer werft"],
+    "Meyer Turku":      ["meyer turku"]
+  };
+
+  /* ── Ship Type 탭 정의 ──────────────────────────────── */
+  var TYPE_TABS = [
+    { key: "all",       label: "All"         },
+    { key: "tanker",    label: "Tanker"      },
+    { key: "container", label: "Container"   },
+    { key: "lng",       label: "LNG / Gas"   },
+    { key: "bulk",      label: "Bulk"        },
+    { key: "car",       label: "Car Carrier" }
+  ];
+
   /* ══ 캐시 읽기 / 쓰기 ══ */
   function loadCache() {
     try {
@@ -179,7 +252,7 @@
       if (!raw) return null;
       var obj = JSON.parse(raw);
       if (!obj || !obj.items || (Date.now() - obj.ts) > CACHE_TTL) return null;
-      return obj; /* { ts, items, feedLog } */
+      return obj;
     } catch (e) { return null; }
   }
 
@@ -282,38 +355,125 @@
     } catch (e) { return []; }
   }
 
-  /* ══ rss2json ∥ allorigins 병렬 race ══
-     먼저 결과가 있는 쪽을 사용, 둘 다 실패하면 [] 반환 */
+  /* ══ rss2json ∥ allorigins 병렬 race ══ */
   function fetchFeed(feed, allDone) {
     var called  = false;
     var pending = 2;
-
     function got(items) {
       pending--;
       if (called) return;
       if (items.length) { called = true; allDone(items); return; }
       if (pending === 0) { called = true; allDone([]); }
     }
-
     fetchViaRss2json(feed, got);
     fetchViaAllOrigins(feed, got);
+  }
+
+  /* ══ 텍스트 유틸 ══ */
+  function itemText(item) {
+    return ((item.title || "") + " " + (item.description || "")).toLowerCase();
   }
 
   /* ══ 카테고리 필터 / 타입 감지 ══ */
   function matchesCat(item, cat) {
     if (cat === "all") return true;
-    var txt = ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var txt = itemText(item);
     return CAT_KW[cat].some(function (k) { return txt.indexOf(k) !== -1; });
   }
 
+  function matchesKwMap(item, kwMap, key) {
+    if (key === "all") return true;
+    var kws = kwMap[key];
+    if (!kws) return false;
+    var txt = itemText(item);
+    return kws.some(function (k) { return txt.indexOf(k) !== -1; });
+  }
+
   function detectType(item) {
-    var txt    = ((item.title || "") + " " + (item.description || "")).toLowerCase();
+    var txt    = itemText(item);
     var order  = ["car","lng","tanker","container","bulk"];
     var labels = { car: "Car Carrier", lng: "LNG/Gas", tanker: "Tanker", container: "Container", bulk: "Bulk" };
     for (var i = 0; i < order.length; i++) {
       if (CAT_KW[order[i]].some(function (k) { return txt.indexOf(k) !== -1; })) return labels[order[i]];
     }
     return null;
+  }
+
+  /* ══ 탭 이벤트 바인딩 ══ */
+  function attachTabEvents() {
+    var tabsEl = document.getElementById("sot-tabs");
+    tabsEl.querySelectorAll(".sot-tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        tabsEl.querySelectorAll(".sot-tab").forEach(function (t) { t.classList.remove("active"); });
+        this.classList.add("active");
+        activeTab = this.dataset.key;
+        applyFilter();
+      });
+    });
+  }
+
+  /* ══ Ship Type 탭 빌드 ══ */
+  function buildTypeTabs() {
+    var tabsEl = document.getElementById("sot-tabs");
+    tabsEl.innerHTML = TYPE_TABS.map(function (t) {
+      return '<button class="sot-tab' + (t.key === activeTab ? " active" : "") +
+        '" data-key="' + t.key + '">' + t.label + "</button>";
+    }).join("");
+    attachTabEvents();
+  }
+
+  /* ══ Owner / Shipyard 동적 탭 빌드 ══
+     allItems를 스캔해 매칭 건수 상위 9개 탭을 생성 */
+  function buildDynamicTabs(kwMap) {
+    var counts = {};
+    Object.keys(kwMap).forEach(function (name) {
+      var kws = kwMap[name];
+      var n = allItems.filter(function (i) {
+        var txt = itemText(i);
+        return kws.some(function (k) { return txt.indexOf(k) !== -1; });
+      }).length;
+      if (n > 0) counts[name] = n;
+    });
+
+    var sorted = Object.keys(counts)
+      .sort(function (a, b) { return counts[b] - counts[a]; })
+      .slice(0, 9);
+
+    var tabsEl = document.getElementById("sot-tabs");
+    tabsEl.innerHTML =
+      '<button class="sot-tab active" data-key="all">All (' + allItems.length + ")</button>" +
+      (sorted.length
+        ? sorted.map(function (name) {
+            return '<button class="sot-tab" data-key="' + name.replace(/"/g, "&quot;") + '">' +
+              name + ' <span style="font-size:9.5px;opacity:0.65">(' + counts[name] + ")</span></button>";
+          }).join("")
+        : '<span style="padding:8px 10px;font-size:11px;color:#b0c4ce;align-self:center;">관련 데이터 없음</span>');
+    attachTabEvents();
+  }
+
+  /* ══ 모드 전환 ══ */
+  function switchMode(mode) {
+    filterMode = mode;
+    activeTab  = "all";
+    document.querySelectorAll(".sot-mode-btn").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.mode === mode);
+    });
+    if (mode === "type")          buildTypeTabs();
+    else if (mode === "owner")    buildDynamicTabs(OWNER_KW);
+    else                          buildDynamicTabs(YARD_KW);
+    applyFilter();
+  }
+
+  /* ══ 필터 적용 ══ */
+  function applyFilter() {
+    if (filterMode === "type") {
+      filteredItems = allItems.filter(function (i) { return matchesCat(i, activeTab); });
+    } else {
+      var kwMap = filterMode === "owner" ? OWNER_KW : YARD_KW;
+      filteredItems = allItems.filter(function (i) { return matchesKwMap(i, kwMap, activeTab); });
+    }
+    currentPage = 1;
+    renderPage();
   }
 
   function fmtDate(ds) {
@@ -385,27 +545,18 @@
     nextBtn.disabled = currentPage === totalPages;
   }
 
-  function applyFilter() {
-    filteredItems = allItems.filter(function (i) { return matchesCat(i, activeTab); });
-    currentPage = 1;
-    renderPage();
-  }
-
-  /* ══ refresh(force) ══
-     force=false : 캐시 우선 (30분 이내면 즉시 렌더)
-     force=true  : 캐시 무시, 라이브 fetch (Refresh 버튼)  */
+  /* ══ refresh(force) ══ */
   function refresh(force) {
     var btn     = document.getElementById("sot-refresh-btn");
     var loading = document.getElementById("sot-loading");
     var list    = document.getElementById("sot-list");
     var upd     = document.getElementById("sot-updated");
 
-    /* 캐시 히트 → 즉시 렌더 */
     if (!force) {
       var cached = loadCache();
       if (cached) {
         allItems  = cached.items || [];
-        feedLog   = [];  /* 캐시 표시 중엔 fetch 로그 숨김 */
+        feedLog   = [];
         var ageMin = Math.round((Date.now() - cached.ts) / 60000);
         loading.style.display = "none";
         list.style.display    = "block";
@@ -416,7 +567,6 @@
       }
     }
 
-    /* 라이브 fetch */
     btn.disabled    = true;
     btn.textContent = "\u27F3";
     loading.style.display = "block";
@@ -456,7 +606,9 @@
       upd.textContent = (allItems.length ? allItems.length + " articles  \xB7  " : "") +
         "Updated " + now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
-      applyFilter();
+      /* 현재 모드에 맞게 탭 재빌드 */
+      if (filterMode !== "type") switchMode(filterMode);
+      else applyFilter();
     }
 
     FEEDS.forEach(function (feed) { fetchFeed(feed, onFeedDone); });
@@ -470,15 +622,11 @@
   document.getElementById("sot-next-btn").addEventListener("click", function () {
     if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) { currentPage++; renderPage(); }
   });
-  document.querySelectorAll("#sot-tabs .sot-tab").forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      document.querySelectorAll("#sot-tabs .sot-tab").forEach(function (t) { t.classList.remove("active"); });
-      this.classList.add("active");
-      activeTab = this.dataset.key;
-      applyFilter();
-    });
+  document.querySelectorAll(".sot-mode-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () { switchMode(this.dataset.mode); });
   });
 
-  refresh(false); /* 첫 로드 — 캐시 우선 */
+  attachTabEvents(); /* 초기 Ship Type 탭 이벤트 바인딩 */
+  refresh(false);
 })();
 </script>
