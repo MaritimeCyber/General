@@ -1198,25 +1198,27 @@
         "</div>";
       osiLayers.forEach(function (layer) {
         exHTML +=
-          '<div style="display:flex;align-items:center;gap:5px;margin-bottom:3px;">' +
+          '<div style="margin-bottom:5px;">' +
+          '<div style="display:flex;align-items:center;gap:5px;margin-bottom:2px;">' +
           '<span style="background:#1a9e82;color:#fff;font-size:9px;font-weight:700;' +
           'padding:1px 5px;border-radius:3px;flex-shrink:0;min-width:22px;' +
           'text-align:center;">' +
           "L" +
           layer.num +
           "</span>" +
-          '<span style="color:#7a9aaa;font-size:10.5px;flex-shrink:0;min-width:76px;">' +
+          '<span style="color:#7a9aaa;font-size:10.5px;font-weight:600;flex:1;">' +
           layer.name +
           "</span>" +
           '<span style="background:#e8f6f3;color:#1a9e82;font-size:9px;' +
           'font-weight:600;padding:1px 6px;border-radius:3px;' +
-          'flex-shrink:0;min-width:50px;text-align:center;">' +
+          'white-space:nowrap;">' +
           layer.pdu +
           "</span>" +
-          '<span style="color:#424242;font-size:11px;font-weight:600;' +
-          'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' +
+          "</div>" +
+          '<div style="padding-left:28px;color:#424242;font-size:11px;' +
+          'font-weight:600;line-height:1.5;word-break:break-word;">' +
           layer.value +
-          "</span></div>";
+          "</div></div>";
       });
 
       exHTML += "</div>";
