@@ -1278,6 +1278,9 @@
         });
         this.classList.add("active");
         dateRangeDays = parseInt(this.dataset.days, 10);
+        /* Owner / Shipyard 모드이면 탭 카운트도 날짜 기준으로 재계산 */
+        if (filterMode === "owner") buildDynamicTabs(OWNER_KW);
+        else if (filterMode === "shipyard") buildDynamicTabs(YARD_KW);
         applyFilter();
       });
     });
