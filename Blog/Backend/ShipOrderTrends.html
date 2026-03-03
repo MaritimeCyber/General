@@ -973,12 +973,13 @@
     }
 
     /* ══ Owner / Shipyard 동적 탭 빌드 ══
-     allItems를 스캔해 매칭 건수 상위 9개 탭을 생성 */
+     날짜 필터 적용된 항목 기준으로 매칭 건수 집계, 상위 9개 탭 생성 */
     function buildDynamicTabs(kwMap) {
+      var pool = filterByDate(allItems); /* 날짜 범위 적용 후 풀 */
       var counts = {};
       Object.keys(kwMap).forEach(function (name) {
         var kws = kwMap[name];
-        var n = allItems.filter(function (i) {
+        var n = pool.filter(function (i) {
           var txt = itemText(i);
           return kws.some(function (k) {
             return txt.indexOf(k) !== -1;
@@ -993,16 +994,24 @@
         })
         .slice(0, 9);
 
+      /* activeTab이 현재 목록에 없으면 'all'로 리셋 */
+      if (activeTab !== "all" && sorted.indexOf(activeTab) === -1)
+        activeTab = "all";
+
       var tabsEl = document.getElementById("sot-tabs");
       tabsEl.innerHTML =
-        '<button class="sot-tab active" data-key="all">All (' +
-        allItems.length +
+        '<button class="sot-tab' +
+        (activeTab === "all" ? " active" : "") +
+        '" data-key="all">All (' +
+        pool.length +
         ")</button>" +
         (sorted.length
           ? sorted
               .map(function (name) {
                 return (
-                  '<button class="sot-tab" data-key="' +
+                  '<button class="sot-tab' +
+                  (activeTab === name ? " active" : "") +
+                  '" data-key="' +
                   name.replace(/"/g, "&quot;") +
                   '">' +
                   name +
