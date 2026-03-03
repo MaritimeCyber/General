@@ -31,7 +31,7 @@
   #sot-header {
     display: flex;
     align-items: baseline;
-    justify-content: space-between;
+    gap: 8px;
     margin-bottom: 12px;
   }
   #sot-header-title {
@@ -39,6 +39,12 @@
     font-weight: 900;
     color: #424242;
     line-height: 1.2;
+  }
+  #sot-header-note {
+    font-size: 10.5px;
+    color: #b0c4ce;
+    font-weight: 400;
+    letter-spacing: 0.2px;
   }
   #sot-refresh-btn {
     display: inline-block;
@@ -53,6 +59,7 @@
     border: none;
     cursor: pointer;
     transition: opacity 0.2s;
+    flex-shrink: 0;
   }
   #sot-refresh-btn:hover:not(:disabled) {
     opacity: 0.82;
@@ -107,13 +114,12 @@
     border-color: #1a9e82;
     color: #fff;
   }
-  /* ── 날짜 범위 바 ── */
+  /* ── 날짜 범위 + 새로 고침 바 ── */
   #sot-date-bar {
     display: flex;
     align-items: center;
     gap: 5px;
     margin-bottom: 10px;
-    flex-wrap: wrap;
   }
   #sot-date-label {
     font-size: 10.5px;
@@ -144,6 +150,9 @@
     background: #1a9e82;
     border-color: #1a9e82;
     color: #fff;
+  }
+  #sot-date-spacer {
+    flex: 1;
   }
   #sot-tabs {
     display: flex;
@@ -366,6 +375,15 @@
     text-align: center;
     line-height: 1.9;
   }
+  /* ── 정책 안내 배너 (Refresh 후 표시) ── */
+  #sot-limit-bar {
+    display: none;
+    text-align: center;
+    font-size: 11px;
+    color: #b0c4ce;
+    letter-spacing: 0.2px;
+    padding: 5px 0 11px;
+  }
   #sot-footer {
     margin-top: 13px;
     padding: 9px 12px;
@@ -382,20 +400,23 @@
 </style>
 
 <div id="sot-wrap">
+  <!-- Row 1: 타이틀 -->
   <div id="sot-header">
     <span id="sot-header-title">🚢 Ship Order Trends</span>
-    <button id="sot-refresh-btn">⟳ Refresh</button>
+    <span id="sot-header-note">* Latest 50 articles per feed</span>
   </div>
   <div id="sot-divider">
     <div class="sot-divider-line"></div>
     <div class="sot-divider-dot"></div>
     <div class="sot-divider-line"></div>
   </div>
+  <!-- Row 2: Ship Type / Owner / Shipyard -->
   <div id="sot-mode-bar">
     <button class="sot-mode-btn active" data-mode="type">🚢 Ship Type</button>
     <button class="sot-mode-btn" data-mode="owner">🏢 Owner</button>
     <button class="sot-mode-btn" data-mode="shipyard">⚓ Shipyard</button>
   </div>
+  <!-- Row 3: 기간 선택 (왼쪽) + 새로 고침 버튼 (오른쪽) -->
   <div id="sot-date-bar">
     <span id="sot-date-label">📅 Period</span>
     <button class="sot-date-btn" data-days="7">1W</button>
@@ -403,7 +424,10 @@
     <button class="sot-date-btn" data-days="90">3M</button>
     <button class="sot-date-btn" data-days="180">6M</button>
     <button class="sot-date-btn" data-days="0">All</button>
+    <span id="sot-date-spacer"></span>
+    <button id="sot-refresh-btn">⟳ Refresh</button>
   </div>
+  <!-- Row 4: 카테고리 탭 -->
   <div id="sot-tabs">
     <button class="sot-tab active" data-key="all">All</button>
     <button class="sot-tab" data-key="tanker">Tanker</button>
@@ -414,6 +438,10 @@
   </div>
   <div id="sot-loading">📡 Fetching latest maritime news…</div>
   <div id="sot-list">
+    <div id="sot-limit-bar">
+      ⓘ Due to web portal policies, only the latest 50 articles are available
+      per feed.
+    </div>
     <div id="sot-table-wrap">
       <table id="sot-table">
         <thead>
@@ -912,7 +940,7 @@
       return null;
     }
 
-    /* ══ 탭 이벤트 바인딩 ══ */
+    /* ══ 탭 이벤트 바인딩 ��═ */
     function attachTabEvents() {
       var tabsEl = document.getElementById("sot-tabs");
       tabsEl.querySelectorAll(".sot-tab").forEach(function (tab) {
@@ -1186,6 +1214,7 @@
         list.style.display = "block";
         btn.disabled = false;
         btn.textContent = "\u27F3 Refresh";
+        document.getElementById("sot-limit-bar").style.display = "block";
 
         var now = new Date();
         upd.textContent =
