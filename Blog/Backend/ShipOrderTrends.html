@@ -460,7 +460,13 @@
     <button class="sot-tab" data-key="bulk">Bulk</button>
     <button class="sot-tab" data-key="car">Car Carrier</button>
   </div>
-  <div id="sot-loading">📡 Fetching latest maritime news…</div>
+  <div id="sot-loading">
+    <div id="sot-loading-text">📡 Fetching latest maritime news…</div>
+    <div id="sot-progress-wrap">
+      <div id="sot-progress-bar"></div>
+    </div>
+    <div id="sot-progress-label">0 / 3 feeds</div>
+  </div>
   <div id="sot-list">
     <div id="sot-limit-bar">
       ⓘ Due to web portal policies, only the latest 50 articles are available
@@ -570,6 +576,7 @@
     var dateRangeDays = 30; /* 기본값: 최근 1개월. 0 = 전체 */
     var feedLog = [];
     var pendingFeeds = 0;
+    var completedFeeds = 0;
 
     var CACHE_KEY = "sot_cache";
     var CACHE_TTL = 30 * 60 * 1000; /* 30분 */
@@ -1217,11 +1224,25 @@
       feedLog = [];
       allItems = [];
       pendingFeeds = FEEDS.length;
+      completedFeeds = 0;
       var collected = [];
+
+      /* 프로그레스 바 초기화 */
+      var progBar = document.getElementById("sot-progress-bar");
+      var progLabel = document.getElementById("sot-progress-label");
+      progBar.style.width = "0%";
+      progLabel.textContent = "0 / " + FEEDS.length + " feeds";
 
       function onFeedDone(items) {
         if (items && items.length) collected = collected.concat(items);
+        completedFeeds++;
         pendingFeeds--;
+
+        /* 피드 하나 완료될 때마다 프로그레스 바 업데이트 */
+        var pct = Math.round((completedFeeds / FEEDS.length) * 100);
+        progBar.style.width = pct + "%";
+        progLabel.textContent = completedFeeds + " / " + FEEDS.length + " feeds";
+
         if (pendingFeeds > 0) return;
 
         var seen = {};
