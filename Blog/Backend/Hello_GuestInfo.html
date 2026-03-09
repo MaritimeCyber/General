@@ -1230,8 +1230,10 @@
       exHTML += "</div>";
       document.getElementById("hg-extra").innerHTML = exHTML;
 
-      /* 단말기 GPS (Geolocation API) */
+      /* 단말기 GPS (Geolocation API) — 세션 중 1회만 수집 */
       (function (fallbackD) {
+        var GPS_KEY = "hg_gps_cache";
+
         function showGPS(lat, lon, isIPBased) {
           var gEl = document.getElementById("hg-gps-val");
           if (!gEl) return;
@@ -1263,22 +1265,45 @@
             gEl.innerHTML =
               '<span style="color:#b0c4ce;">' + msg + "</span>";
         }
+        function saveGPS(lat, lon, ipBased) {
+          try {
+            sessionStorage.setItem(
+              GPS_KEY,
+              JSON.stringify({ lat: lat, lon: lon, ip: ipBased }),
+            );
+          } catch (e) {}
+        }
+
+        /* 세션 내 이미 수집된 좌표가 있으면 즉시 표시하고 종료 */
+        try {
+          var cached = JSON.parse(
+            sessionStorage.getItem(GPS_KEY) || "null",
+          );
+          if (cached) {
+            showGPS(cached.lat, cached.lon, cached.ip);
+            return;
+          }
+        } catch (e) {}
+
         if (!navigator.geolocation) {
-          if (fallbackD && fallbackD.latitude != null)
+          if (fallbackD && fallbackD.latitude != null) {
+            saveGPS(fallbackD.latitude, fallbackD.longitude, true);
             showGPS(fallbackD.latitude, fallbackD.longitude, true);
-          else showMsg("지원 안 됨");
+          } else showMsg("지원 안 됨");
           return;
         }
         navigator.geolocation.getCurrentPosition(
           function (pos) {
+            saveGPS(pos.coords.latitude, pos.coords.longitude, false);
             showGPS(pos.coords.latitude, pos.coords.longitude, false);
           },
           function () {
-            if (fallbackD && fallbackD.latitude != null)
+            if (fallbackD && fallbackD.latitude != null) {
+              saveGPS(fallbackD.latitude, fallbackD.longitude, true);
               showGPS(fallbackD.latitude, fallbackD.longitude, true);
-            else showMsg("권한 거부됨");
+            } else showMsg("권한 거부됨");
           },
-          { timeout: 10000, maximumAge: 300000 },
+          { timeout: 10000, maximumAge: 0 },
         );
       })(d);
 
