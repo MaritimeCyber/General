@@ -1,6 +1,6 @@
 <!-- ════════════════════════════════════════════════════════════
-     Article: [BOOK] Industrial Control System Security (2/2)
-     Author : Captain Ethan  |  Published: Mar 15, 2026
+     Article: [BOOK] Industrial Control System Security — Ch.5
+     Author : Captain Ethan  |  Published: Apr 4, 2026
      Source : https://shippauljobs.blogspot.com/
      Style  : Maritime 4.0 Design System — Blogger-compatible
 ════════════════════════════════════════════════════════════ -->
@@ -11,15 +11,15 @@
   <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
     <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
       <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">📚 Book Review</span>
-      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">IACS UR E26 / E27</span>
-      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">ICS / OT Security</span>
-      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Maritime OT</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">IACS UR E26</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Logging &amp; SIEM</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">OT Detection</span>
     </div>
     <h1 style="font-size:22px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
-      [BOOK] Industrial Control System Security <span style="font-size:16px;font-weight:500;color:#b8d4ea;">(2/2)</span>
+      [BOOK] Industrial Control System Security <span style="font-size:16px;font-weight:500;color:#b8d4ea;">— Chapter 5</span>
     </h1>
     <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
-      Chapter 3 Deep Dive: Host Security Fundamentals from an IACS UR E26 / E27 Perspective
+      Host Security — Explaining Visibility Required After Preventive Controls
     </p>
     <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
       <div style="display:flex;align-items:center;gap:10px;">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div style="color:#9ab5c9;font-size:11px;display:flex;align-items:center;gap:5px;margin-left:auto;">
-        <span>📅</span><span>March 15, 2026</span>
+        <span>📅</span><span>April 4, 2026</span>
       </div>
     </div>
   </div>
@@ -48,393 +48,491 @@
     </div>
   </div>
 
-  <!-- ══ LEAD PARAGRAPH — WHY CHAPTER 3 HERE ══ -->
+  <!-- ══ LEAD PARAGRAPH ══ -->
   <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 32px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
-    Once the boundaries are defined (Chapter 2 — Network Architecture), the question becomes: <strong style="color:#0a2342;">"How do we protect the assets inside those boundaries?"</strong> Even with perfect network segmentation, internal compromise cannot be prevented if the Host itself is vulnerable. Chapter 3 answers precisely this question, addressing security controls at the Host level and mapping them directly to <strong style="color:#0a2342;">IACS UR E26 and E27 requirements</strong>.
+    Chapters 1 through 4 established a strong foundation in <strong style="color:#0a2342;">preventive controls</strong> — segmentation, hardening, authentication, and threat modeling. Chapter 5 completes this framework by addressing what happens <em>after</em> prevention: <strong style="color:#0a2342;">how do we detect intrusions through Logging, Auditing, and Monitoring?</strong> In OT environments where traditional endpoint visibility is constrained, logs are not merely records — they are the <strong style="color:#0a2342;">primary detection surface</strong>.
   </p>
 
-  <!-- ══ BOOK FLOW DIAGRAM ══ -->
-  <div style="margin-bottom:32px;">
-    <div style="font-size:11px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Book Flow</div>
-    <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;gap:6px;">
-      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:8px;padding:10px 16px;text-align:center;min-width:140px;">
-        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:0.8px;">Chapter 1</div>
-        <div style="font-size:11px;color:#4a6278;margin-top:2px;">Nature of ICS<br>Operational Characteristics</div>
-      </div>
-      <div style="color:#1a9e82;font-size:18px;padding:0 4px;">→</div>
-      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:8px;padding:10px 16px;text-align:center;min-width:140px;">
-        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:0.8px;">Chapter 2</div>
-        <div style="font-size:11px;color:#4a6278;margin-top:2px;">Network Architecture<br>IDMZ · VLAN · Firewall</div>
-      </div>
-      <div style="color:#1a9e82;font-size:18px;padding:0 4px;">→</div>
-      <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:8px;padding:10px 16px;text-align:center;min-width:140px;">
-        <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:0.8px;">Chapter 3</div>
-        <div style="font-size:11px;color:#b8d4ea;margin-top:2px;">Host Security<br>Hardening · Credentials</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ ATTACK SCENARIO NOTE ══ -->
-  <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:12px;padding:18px 22px;margin-bottom:32px;">
-    <div style="font-size:11px;font-weight:800;color:#c0392b;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Attack Scenarios Occurring at the Host Level</div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;">
-      <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;">Browser Exploits</span>
-      <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;">SAM Dump</span>
-      <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;">Privilege Escalation</span>
-      <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;">Misuse of Service Accounts</span>
-    </div>
-    <p style="font-size:13px;color:#5a2d2d;line-height:1.7;margin:12px 0 0 0;">
-      All of these occur at the Host level. Chapter 3 answers: <strong>"How does a Host protect itself once an attacker has penetrated the OT network?"</strong>
-    </p>
-  </div>
-
-  <!-- ══ UR E26/E27 RELEVANCE NOTE ══ -->
-  <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:16px 20px;margin-bottom:36px;">
-    <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">UR E26 / E27 Relevance</div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;">
-      <span style="background:#fff;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;border:1px solid #b2ddd4;">Malicious Code Protection</span>
-      <span style="background:#fff;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;border:1px solid #b2ddd4;">Authorization Enforcement</span>
-      <span style="background:#fff;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;border:1px solid #b2ddd4;">Account / Identifier / Authenticator Management</span>
-      <span style="background:#fff;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;border:1px solid #b2ddd4;">Security Configuration Guideline</span>
-    </div>
-  </div>
-
-  <!-- ══ CHAPTER 3 OVERVIEW ══ -->
+  <!-- ══ CHAPTER 5 HEADER ══ -->
   <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:16px 22px;margin-bottom:28px;">
-    <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Chapter 3 — Overall Structure</div>
-    <div style="font-size:16px;font-weight:800;color:#ffffff;line-height:1.4;">Host Security Fundamentals</div>
+    <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Chapter 5</div>
+    <div style="font-size:16px;font-weight:800;color:#ffffff;line-height:1.4;">Host Security — Visibility Required After Preventive Controls</div>
   </div>
 
-  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:36px;">
-    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
-      <div style="min-width:36px;font-size:11px;font-weight:800;color:#ffffff;background:#0a2342;border-radius:6px;padding:3px 8px;text-align:center;flex-shrink:0;">3.1</div>
-      <div><span style="font-size:13px;font-weight:700;color:#0a2342;">Host Hardening</span> <span style="font-size:12px;color:#6b8599;">— Reducing the baseline attack surface</span></div>
-    </div>
-    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
-      <div style="min-width:36px;font-size:11px;font-weight:800;color:#ffffff;background:#154f7a;border-radius:6px;padding:3px 8px;text-align:center;flex-shrink:0;">3.2</div>
-      <div><span style="font-size:13px;font-weight:700;color:#0a2342;">Allow-list Based Execution Control</span> <span style="font-size:12px;color:#6b8599;">— Code execution control</span></div>
-    </div>
-    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
-      <div style="min-width:36px;font-size:11px;font-weight:800;color:#ffffff;background:#1a9e82;border-radius:6px;padding:3px 8px;text-align:center;flex-shrink:0;">3.3</div>
-      <div><span style="font-size:13px;font-weight:700;color:#0a2342;">Patch Management</span> <span style="font-size:12px;color:#6b8599;">— Vulnerability mitigation strategy</span></div>
-    </div>
-    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
-      <div style="min-width:36px;font-size:11px;font-weight:800;color:#ffffff;background:#e67e22;border-radius:6px;padding:3px 8px;text-align:center;flex-shrink:0;">3.4</div>
-      <div><span style="font-size:13px;font-weight:700;color:#0a2342;">Credential Protection</span> <span style="font-size:12px;color:#6b8599;">— Preventing privilege escalation</span></div>
-    </div>
-  </div>
-
-  <!-- ══ SECTION 3.1 ══ -->
+  <!-- ══ SECTION 1 — Why Ch.5 ══ -->
   <div style="margin-bottom:36px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
       <div style="width:4px;height:26px;background:linear-gradient(180deg,#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">3.1 Host Hardening — Why Does It Come First?</h2>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">1️⃣ Why Does Chapter 5 Appear at This Point?</h2>
     </div>
-    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 20px 0;">
-      The essence of Host Hardening is: <strong style="color:#0a2342;">"Reduce the attack surface."</strong> This is one of the most fundamental principles in security theory. In OT environments where EDR and antivirus agents are often restricted, hardening becomes the <strong style="color:#0a2342;">primary line of defense</strong>.
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      Looking at the flow of the previous chapters, all content has been focused on <strong style="color:#0a2342;">prevention</strong>. However, in cybersecurity there is a well-known principle:
     </p>
 
-    <!-- Attack surface -->
-    <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:10px;padding:14px 18px;margin-bottom:16px;">
-      <div style="font-size:11px;font-weight:800;color:#c0392b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">What Constitutes an Attack Surface?</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;">
-        <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;">Unnecessary services</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;">Open ports</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;">Default accounts</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;">Excessive privileges</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;">Default configuration states</span>
+    <!-- Chapter flow -->
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 20px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:#354a5e;font-weight:600;">
+        <span style="background:#0a2342;color:#fff;padding:4px 12px;border-radius:20px;">Ch.1 OT Characteristics</span>
+        <span style="color:#1a9e82;font-size:16px;">→</span>
+        <span style="background:#154f7a;color:#fff;padding:4px 12px;border-radius:20px;">Ch.2 Network Security</span>
+        <span style="color:#1a9e82;font-size:16px;">→</span>
+        <span style="background:#154f7a;color:#fff;padding:4px 12px;border-radius:20px;">Ch.3 Host Security</span>
+        <span style="color:#1a9e82;font-size:16px;">→</span>
+        <span style="background:#1a9e82;color:#fff;padding:4px 12px;border-radius:20px;">Ch.4 Attack Scenarios</span>
+        <span style="color:#c0392b;font-size:16px;">→</span>
+        <span style="background:#c0392b;color:#fff;padding:4px 12px;border-radius:20px;">Ch.5 Detection ✦</span>
       </div>
-      <p style="font-size:12.5px;color:#5a2d2d;line-height:1.7;margin:10px 0 0 0;">
-        The FileZilla service account example illustrates: <em>"If a service runs with administrator privileges, the entire system becomes exposed to risk."</em>
+    </div>
+
+    <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="font-size:14px;font-weight:800;color:#c0392b;margin-bottom:10px;">"Not all attacks can be prevented."</div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0 0 10px 0;">
+        Therefore, we must be able to answer: <strong style="color:#0a2342;">"When an intrusion occurs, how do we detect it?"</strong>
+        This is exactly the role of <strong style="color:#0a2342;">Logging / Auditing / Monitoring</strong>, the main subject of Chapter 5.
       </p>
-    </div>
-
-    <!-- ① Least Privilege -->
-    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <span style="background:#0a2342;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">①</span>
-        <div style="font-size:14px;font-weight:800;color:#0a2342;">Applying the Principle of Least Privilege</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#154f7a;font-weight:800;flex-shrink:0;">·</span>
-          <span>Services should run under <strong style="color:#0a2342;">restricted accounts</strong> rather than Administrator accounts</span>
-        </div>
-        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#154f7a;font-weight:800;flex-shrink:0;">·</span>
-          <span>Remove unnecessary local administrator privileges</span>
-        </div>
-        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#154f7a;font-weight:800;flex-shrink:0;">·</span>
-          <span>Do not use <strong style="color:#0a2342;">Domain Admin accounts</strong> on the Engineering Workstation (EWS)</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ② Service minimization -->
-    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <span style="background:#154f7a;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">②</span>
-        <div style="font-size:14px;font-weight:800;color:#0a2342;">Service Minimization</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#154f7a;font-weight:800;flex-shrink:0;">·</span>
-          <span>Disable SMB if it is not required</span>
-        </div>
-        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#154f7a;font-weight:800;flex-shrink:0;">·</span>
-          <span>Restrict RDP access</span>
-        </div>
-        <div style="font-size:13px;color:#354a5e;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#154f7a;font-weight:800;flex-shrink:0;">·</span>
-          <span>Remove unnecessary browsers</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ③ Security configuration baseline -->
-    <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <span style="background:#1a9e82;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">③</span>
-        <div style="font-size:14px;font-weight:800;color:#0a2342;">Security Configuration Baseline</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:13px;color:#1a4a40;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#1a9e82;font-weight:800;flex-shrink:0;">→</span>
-          <span>Configuration based on <strong style="color:#0a2342;">CIS Benchmark</strong></span>
-        </div>
-        <div style="font-size:13px;color:#1a4a40;display:flex;gap:8px;align-items:flex-start;">
-          <span style="color:#1a9e82;font-weight:800;flex-shrink:0;">→</span>
-          <span>Use <strong style="color:#0a2342;">OT-specific hardened system images</strong> — aligns with UR E26 Security Configuration Guideline</span>
+      <div style="background:#fdecea;border-radius:8px;padding:10px 14px;">
+        <div style="font-size:12.5px;color:#5a2d2d;display:flex;gap:8px;align-items:flex-start;">
+          <span style="color:#c0392b;font-weight:800;flex-shrink:0;">→</span>
+          <span>In OT environments where EDR and cloud telemetry are unavailable, <strong>logs are often the only available detection surface</strong>.</span>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- ══ DIVIDER ══ -->
   <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
 
-  <!-- ══ SECTION 3.2 ══ -->
+  <!-- ══ SECTION 2 — Overall Flow ══ -->
   <div style="margin-bottom:36px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
       <div style="width:4px;height:26px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;"></div>
-      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">3.2 Allow-list Based Security — Why Is It Essential in OT?</h2>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">2️⃣ Overall Flow of Chapter 5</h2>
     </div>
-    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 20px 0;">
-      The key message from the Symantec CSP example: <strong style="color:#0a2342;">"Only allowed code should be executed."</strong> In OT environments, applications are largely fixed and system changes are rare, making allow-listing far more effective than blacklisting.
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      The structure of Chapter 5 follows a logical sequence that maps directly to <strong style="color:#0a2342;">real-world security operations</strong>.
     </p>
-
-    <!-- IT vs OT -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
-      <div style="flex:1;min-width:200px;background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
-        <div style="font-size:11px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">IT Environment</div>
-        <div style="font-size:13px;color:#354a5e;line-height:1.7;">Users can freely install applications<br>→ <strong style="color:#354a5e;">Blacklist-based</strong> security (AV, EDR)</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:60px;font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.6px;">5.1</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.6;"><strong style="color:#0a2342;">Purpose of Logging</strong> — Why logs are the core data for OT detection</div>
       </div>
-      <div style="flex:1;min-width:200px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:16px 18px;">
-        <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">OT Environment</div>
-        <div style="font-size:13px;color:#b8d4ea;line-height:1.7;">Applications fixed · Changes rare<br>→ <strong style="color:#ffffff;">Allow-list</strong> far more effective</div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:60px;font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.6px;">5.2</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.6;"><strong style="color:#0a2342;">Types of Logs</strong> — System · Network · ICS Device · Historian · Security Solution</div>
       </div>
-    </div>
-
-    <!-- Technologies -->
-    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
-      <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:10px;">Allow-list Technologies</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Hash-based execution control</span>
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Digital signature verification</span>
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Kernel-level code integrity</span>
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Secure Boot with TPM</span>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:60px;font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.6px;">5.3</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.6;"><strong style="color:#0a2342;">SIEM-based Monitoring</strong> — Collection → Normalization → Correlation → Alert</div>
       </div>
-      <div style="font-size:12px;font-weight:800;color:#c0392b;margin-bottom:8px;">Attacks Prevented</div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;">
-        <span style="background:#fdecea;color:#c0392b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Meterpreter execution</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Reverse shell payloads</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Malware droppers</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Script injection</span>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:60px;font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.6px;">5.4</div>
+        <div style="font-size:13px;color:#354a5e;line-height:1.6;"><strong style="color:#0a2342;">Response to Audit Failure</strong> — What happens when the logging system itself fails</div>
       </div>
     </div>
-
-    <div style="background:#eef6f3;border-radius:8px;padding:10px 14px;">
-      <div style="font-size:12.5px;color:#1a4a40;display:flex;gap:8px;align-items:flex-start;">
-        <span style="color:#1a9e82;font-weight:800;flex-shrink:0;">→</span>
-        <span>UR E26 test items: <strong style="color:#0a2342;">Malicious Code Protection</strong> and <strong style="color:#0a2342;">Use Control for Mobile Code</strong>. During testing, verify that unauthorized executables are blocked.</span>
+    <div style="background:#eef6f3;border-radius:8px;padding:14px 18px;">
+      <div style="font-size:12.5px;color:#1a4a40;font-weight:700;text-align:center;letter-spacing:0.3px;">
+        Log Generation &nbsp;→&nbsp; Log Collection &nbsp;→&nbsp; Log Correlation &nbsp;→&nbsp; Incident Detection
       </div>
     </div>
   </div>
 
+  <!-- ══ DIVIDER ══ -->
   <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
 
-  <!-- ══ SECTION 3.3 ══ -->
+  <!-- ══ SECTION 3 — 5.1 Purpose of Logging ══ -->
   <div style="margin-bottom:36px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
       <div style="width:4px;height:26px;background:linear-gradient(180deg,#1a9e82,#27ae8f);border-radius:2px;flex-shrink:0;"></div>
-      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">3.3 Patch Management — Why Must OT Approach It Differently?</h2>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">3️⃣ 5.1 Purpose of Logging in OT Environments</h2>
     </div>
     <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 20px 0;">
-      The WSUS example demonstrates not just a configuration approach but a philosophy. The fundamental dilemma: <strong style="color:#c0392b;">Applying patches</strong> risks system downtime; <strong style="color:#c0392b;">not applying patches</strong> exposes vulnerabilities. OT environments typically adopt <strong style="color:#0a2342;">risk-based patching</strong>.
+      Logs are not just records of events. From a security perspective, they serve <strong style="color:#0a2342;">three critical functions</strong>:
     </p>
 
-    <!-- IT vs OT patch -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
-      <div style="flex:1;min-width:180px;background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:14px 16px;text-align:center;">
-        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">IT Environments</div>
-        <div style="font-size:20px;margin-bottom:4px;">⚡</div>
-        <div style="font-size:13px;font-weight:700;color:#0a2342;">Patch ASAP</div>
-      </div>
-      <div style="flex:1;min-width:180px;background:#fff8f0;border:1px solid #f5d5a0;border-radius:10px;padding:14px 16px;text-align:center;">
-        <div style="font-size:10px;font-weight:800;color:#e67e22;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">OT Environments</div>
-        <div style="font-size:20px;margin-bottom:4px;">🔍</div>
-        <div style="font-size:13px;font-weight:700;color:#0a2342;">Patch After Validation</div>
-      </div>
-    </div>
-
-    <!-- OT Patch Strategy -->
-    <div style="background:#fff8f0;border:1px solid #f5d5a0;border-radius:12px;padding:18px 20px;">
-      <div style="font-size:12px;font-weight:800;color:#e67e22;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:12px;">Typical OT Patch Strategy</div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
-        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;align-items:center;">
-          <span style="color:#e67e22;font-weight:800;flex-shrink:0;">→</span>
-          <span>Confirm <strong>vendor validation</strong></span>
-        </div>
-        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;align-items:center;">
-          <span style="color:#e67e22;font-weight:800;flex-shrink:0;">→</span>
-          <span>Perform <strong>pre-testing in a test bench</strong></span>
-        </div>
-        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;align-items:center;">
-          <span style="color:#e67e22;font-weight:800;flex-shrink:0;">→</span>
-          <span>Apply patches during a <strong>maintenance window</strong></span>
-        </div>
-        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;align-items:center;">
-          <span style="color:#e67e22;font-weight:800;flex-shrink:0;">→</span>
-          <span>Prepare a <strong>rollback plan</strong></span>
-        </div>
-        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;align-items:center;">
-          <span style="color:#e67e22;font-weight:800;flex-shrink:0;">→</span>
-          <span>Maintain <strong>N-1 or N-2 version strategies</strong> · Firmware updates require stricter control</span>
-        </div>
-      </div>
-      <div style="background:#fff3e0;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#7a4f10;">
-        UR E26/E27 alignment: <strong style="color:#0a2342;">Security Functionality Verification · Maintenance &amp; Verification Plan · Secure Development Lifecycle</strong>
-      </div>
-    </div>
-  </div>
-
-  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
-
-  <!-- ══ SECTION 3.4 ══ -->
-  <div style="margin-bottom:36px;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-      <div style="width:4px;height:26px;background:linear-gradient(180deg,#e67e22,#f39c12);border-radius:2px;flex-shrink:0;"></div>
-      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">3.4 Credential Protection — Blocking the Critical Phase of an Attack</h2>
-    </div>
-    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 20px 0;">
-      SAM dump, UAC bypass, and privilege escalation represent critical phases of the attack chain. <strong style="color:#0a2342;">"The success or failure of an attack often depends on privilege escalation."</strong> In OT, administrator privileges on an EWS or HMI can directly translate into the ability to <strong style="color:#c0392b;">modify PLC logic</strong>: Credential compromise = Control over industrial processes.
-    </p>
-
-    <!-- ① Authentication Strength -->
+    <!-- ① Attack detection -->
     <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
         <span style="background:#0a2342;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">①</span>
-        <div style="font-size:14px;font-weight:800;color:#0a2342;">Authentication Strength</div>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Attack Detection</div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;">
-        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Password complexity</span>
-        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Account lockout policy</span>
-        <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">MFA (where possible)</span>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0 0 10px 0;">
+        Events such as login failures, privilege changes, PLC configuration changes, and network scans can be early indicators of an attack. Logs capture these signals before damage occurs.
+      </p>
+      <div style="background:#eef6f3;border-radius:8px;padding:10px 14px;">
+        <div style="font-size:12.5px;color:#1a4a40;display:flex;gap:8px;align-items:flex-start;">
+          <span style="color:#1a9e82;font-weight:800;flex-shrink:0;">→</span>
+          <span>Directly supports <strong style="color:#0a2342;">UR E26 Auditable Events</strong> test item — verifying that security-relevant events generate log entries.</span>
+        </div>
       </div>
     </div>
 
-    <!-- ② Credential Storage Protection -->
+    <!-- ② Incident analysis -->
     <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
         <span style="background:#154f7a;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">②</span>
-        <div style="font-size:14px;font-weight:800;color:#0a2342;">Credential Storage Protection</div>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Incident Analysis (Forensics)</div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;">
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">LSA Protection</span>
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Credential Guard</span>
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">NTLM restrictions</span>
-        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Prevention of hash reuse</span>
-      </div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0;">
+        After an incident, logs provide the timeline of events needed to understand attack vectors, affected systems, and the sequence of actions taken by adversaries.
+      </p>
     </div>
 
-    <!-- ③ Prevention of Privilege Escalation -->
-    <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:12px;padding:18px 20px;">
+    <!-- ③ Accountability -->
+    <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;margin-bottom:20px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <span style="background:#c0392b;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">③</span>
-        <div style="font-size:14px;font-weight:800;color:#0a2342;">Prevention of Privilege Escalation</div>
+        <span style="background:#1a9e82;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">③</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Accountability (Traceability)</div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;">
-        <span style="background:#fdecea;color:#c0392b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Strengthened UAC configuration</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Separation of local administrator accounts</span>
-        <span style="background:#fdecea;color:#c0392b;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Minimal privileges for service accounts</span>
-      </div>
-      <div style="background:#fdecea;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#5a2d2d;">
-        UR E26 alignment: <strong>Human User Identification &amp; Authentication · Account Management · Identifier / Authenticator Management · Authorization Enforcement</strong>
+      <p style="font-size:14px;color:#1a4a40;line-height:1.75;margin:0 0 12px 0;">
+        Logs answer the five fundamental security questions. Every action must be attributable.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;">
+        <span style="background:#fff;border:1px solid #b2ddd4;color:#0a2342;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;">Who</span>
+        <span style="background:#fff;border:1px solid #b2ddd4;color:#0a2342;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;">When</span>
+        <span style="background:#fff;border:1px solid #b2ddd4;color:#0a2342;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;">What</span>
+        <span style="background:#fff;border:1px solid #b2ddd4;color:#0a2342;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;">Where</span>
+        <span style="background:#fff;border:1px solid #b2ddd4;color:#0a2342;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;">Why</span>
       </div>
     </div>
-  </div>
 
-  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
-
-  <!-- ══ SUMMARY TABLE ══ -->
-  <div style="margin-bottom:36px;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-      <div style="width:4px;height:26px;background:linear-gradient(180deg,#e67e22,#f39c12);border-radius:2px;flex-shrink:0;"></div>
-      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">Chapter 3 — Defense-in-Depth Host Layer Architecture</h2>
+    <!-- IT vs OT sub-section -->
+    <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:16px 22px;margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Sub-Section</div>
+      <div style="font-size:14px;font-weight:800;color:#ffffff;">Why Logging is More Important in OT</div>
     </div>
-    <div style="overflow-x:auto;">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+      <div style="background:#f0f7ff;border:1px solid #d1e0ee;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">IT Environments</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:12.5px;color:#354a5e;display:flex;gap:6px;"><span style="color:#1a9e82;">✓</span> EDR available</div>
+          <div style="font-size:12.5px;color:#354a5e;display:flex;gap:6px;"><span style="color:#1a9e82;">✓</span> Endpoint monitoring</div>
+          <div style="font-size:12.5px;color:#354a5e;display:flex;gap:6px;"><span style="color:#1a9e82;">✓</span> Cloud telemetry</div>
+        </div>
+      </div>
+      <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:800;color:#c0392b;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">OT Environments</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:12.5px;color:#5a2d2d;display:flex;gap:6px;"><span style="color:#c0392b;">✗</span> Agent installation restricted</div>
+          <div style="font-size:12.5px;color:#5a2d2d;display:flex;gap:6px;"><span style="color:#c0392b;">✗</span> Limited system resources</div>
+          <div style="font-size:12.5px;color:#5a2d2d;display:flex;gap:6px;"><span style="color:#c0392b;">✗</span> System changes prohibited</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#eef6f3;border-radius:8px;padding:12px 16px;margin-bottom:20px;">
+      <div style="font-size:13px;color:#1a4a40;font-weight:700;">
+        ∴ In OT environments, <strong>logs often provide the only meaningful visibility</strong>.
+      </div>
+    </div>
+
+    <!-- UR E26 Logging sub-section -->
+    <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:16px 22px;margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Sub-Section</div>
+      <div style="font-size:14px;font-weight:800;color:#ffffff;">Relationship Between Logging and UR E26 Testing</div>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:8px;">
       <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid #d1e0ee;font-size:13px;">
         <thead>
           <tr>
-            <th style="background:#0a2342;color:#ffffff;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;width:28%;">Host Security Layer</th>
-            <th style="background:#154f7a;color:#b8d4ea;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">UR E26 Related Test Item</th>
-            <th style="background:#1a9e82;color:#d0fff4;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">UR E27 Documentation Element</th>
+            <th style="background:#0a2342;color:#ffffff;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;width:45%;">UR E26 Test Item</th>
+            <th style="background:#154f7a;color:#b8d4ea;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">What Is Verified</th>
           </tr>
         </thead>
         <tbody>
           <tr style="background:#f7fafe;">
-            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">3.1 Host Hardening</td>
-            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Malicious Code Protection</td>
-            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Security Configuration Guideline</td>
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Auditable Events</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Are logs generated for security-relevant events?</td>
           </tr>
           <tr style="background:#ffffff;">
-            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">3.2 Allow-list Execution</td>
-            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Use Control for Mobile Code</td>
-            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Malicious Code Protection Plan</td>
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Audit Storage Capacity</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Are logs stored with sufficient capacity?</td>
           </tr>
           <tr style="background:#f7fafe;">
-            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">3.3 Patch Management</td>
-            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Security Functionality Verification</td>
-            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Maintenance &amp; Verification Plan</td>
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Timestamp Accuracy</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Are logs timestamped accurately (NTP sync)?</td>
           </tr>
           <tr style="background:#ffffff;">
-            <td style="padding:12px 16px;color:#0a2342;font-weight:700;">3.4 Credential Protection</td>
-            <td style="padding:12px 16px;color:#4a6278;">Human User ID &amp; Authentication</td>
-            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;">Account / Authenticator Management</td>
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;">Response to Audit Processing Failures</td>
+            <td style="padding:12px 16px;color:#4a6278;">Can failures in the logging system be detected and alerted?</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- ══ SUMMARY QUOTE ══ -->
-  <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 32px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
-    When an attacker passes the network boundary (Chapter 2) and reaches a Host, the system <strong style="color:#0a2342;">reduces the attack surface through Hardening</strong>, <strong style="color:#0a2342;">controls execution through Allow-listing</strong>, <strong style="color:#0a2342;">reduces vulnerabilities through Patch Management</strong>, and <strong style="color:#0a2342;">prevents privilege escalation through Credential Protection</strong>. This is the fundamental structure of Host Security Fundamentals.
-  </p>
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 4 — 5.2 Types of Logs ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#e67e22,#f39c12);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">4️⃣ 5.2 Types of Logs in OT Environments</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      Logs in OT environments originate from <strong style="color:#0a2342;">more diverse sources than in IT</strong>. Understanding each source is essential for building a complete audit trail.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:#0a2342;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">①</span>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:4px;">System Logs</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">Windows Event Log · Linux syslog — Login events, service execution, account &amp; policy changes. The most fundamental logs from a security perspective.</div>
+        </div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:#154f7a;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">②</span>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:4px;">Network Logs</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">Firewall · Switch · VPN · ICS Firewall — Connection attempts, blocked traffic, unusual port usage. Maps directly to <strong style="color:#0a2342;">Communication Integrity</strong> monitoring.</div>
+        </div>
+      </div>
+      <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:#c0392b;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">③</span>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#c0392b;margin-bottom:4px;">ICS Device Logs — Most Critical</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">PLC events · HMI alarms · Controller state changes — Setpoint changes, tag value changes, mode changes. These capture <strong style="color:#0a2342;">process-level events</strong> fundamentally different from IT logs.</div>
+        </div>
+      </div>
+      <div style="background:#fff8f0;border:1px solid #f5d5a0;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:#e67e22;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">④</span>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:4px;">Historian Logs</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">Data collection failures · Communication timeouts · Abnormal data patterns. Critical for detecting <strong style="color:#0a2342;">process anomalies</strong> at the IDMZ boundary.</div>
+        </div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:13px 18px;display:flex;gap:14px;align-items:flex-start;">
+        <span style="background:#1a9e82;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">⑤</span>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:4px;">Security Solution Logs</div>
+          <div style="font-size:13px;color:#354a5e;line-height:1.6;">Antivirus · Application control · IDS — Malware detection, blocked processes, suspicious network activity. Supports <strong style="color:#0a2342;">Malicious Code Protection</strong> verification under UR E26.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 5 — 5.3 SIEM ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#1a9e82,#27ae8f);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">5️⃣ 5.3 SIEM-based OT Monitoring</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 20px 0;">
+      In large-scale OT environments, millions of events can occur daily. <strong style="color:#0a2342;">Security Information and Event Management (SIEM)</strong> is required to correlate and surface actionable alerts.
+    </p>
+
+    <!-- SIEM flow -->
+    <div style="background:#0a2342;border-radius:12px;padding:20px 22px;margin-bottom:20px;">
+      <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;">Basic Structure of SIEM</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="background:rgba(26,158,130,0.3);border:1px solid rgba(126,255,216,0.3);color:#7effd8;font-size:11px;font-weight:700;padding:6px 14px;border-radius:8px;">Log Collection</div>
+        </div>
+        <span style="color:#7effd8;font-size:14px;">→</span>
+        <div style="text-align:center;">
+          <div style="background:rgba(26,158,130,0.3);border:1px solid rgba(126,255,216,0.3);color:#7effd8;font-size:11px;font-weight:700;padding:6px 14px;border-radius:8px;">Normalization</div>
+        </div>
+        <span style="color:#7effd8;font-size:14px;">→</span>
+        <div style="text-align:center;">
+          <div style="background:rgba(26,158,130,0.3);border:1px solid rgba(126,255,216,0.3);color:#7effd8;font-size:11px;font-weight:700;padding:6px 14px;border-radius:8px;">Correlation</div>
+        </div>
+        <span style="color:#7effd8;font-size:14px;">→</span>
+        <div style="text-align:center;">
+          <div style="background:rgba(192,57,43,0.5);border:1px solid rgba(255,100,100,0.4);color:#ffb8b8;font-size:11px;font-weight:700;padding:6px 14px;border-radius:8px;">Alert Generation</div>
+        </div>
+        <span style="color:#7effd8;font-size:14px;">→</span>
+        <div style="text-align:center;">
+          <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#ffffff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:8px;">Analyst Investigation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correlation -->
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#154f7a;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">①</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Meaning of Correlation</div>
+      </div>
+      <p style="font-size:14px;color:#354a5e;line-height:1.75;margin:0 0 12px 0;">
+        Correlation means linking different logs together. Individually, each event may appear benign — but combined, they reveal an attack chain:
+      </p>
+      <div style="background:#fff;border:1px solid #d1e0ee;border-radius:8px;padding:12px 16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+        <span style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">VPN Login</span>
+        <span style="color:#c0392b;font-size:16px;font-weight:800;">+</span>
+        <span style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">EWS Login</span>
+        <span style="color:#c0392b;font-size:16px;font-weight:800;">+</span>
+        <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">PLC Config Change</span>
+        <span style="color:#1a9e82;font-size:16px;">→</span>
+        <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;">⚠ ATTACK INDICATOR</span>
+      </div>
+    </div>
+
+    <!-- OT SIEM characteristics -->
+    <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="background:#1a9e82;color:#ffffff;font-size:12px;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">②</span>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;">Characteristics of SIEM in OT Environments</div>
+      </div>
+      <p style="font-size:14px;color:#1a4a40;line-height:1.75;margin:0 0 12px 0;">
+        OT SIEM is more effective than IT SIEM for anomaly detection because OT network behavior is highly predictable:
+      </p>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:13px;color:#1a4a40;display:flex;gap:8px;"><span style="color:#1a9e82;font-weight:800;flex-shrink:0;">→</span>Communication patterns are highly consistent</div>
+        <div style="font-size:13px;color:#1a4a40;display:flex;gap:8px;"><span style="color:#1a9e82;font-weight:800;flex-shrink:0;">→</span>Very little variation in normal traffic</div>
+        <div style="font-size:13px;color:#1a4a40;display:flex;gap:8px;"><span style="color:#1a9e82;font-weight:800;flex-shrink:0;">→</span>Limited number of devices — smaller baseline to model</div>
+      </div>
+      <div style="margin-top:12px;background:#fff;border:1px solid #b2ddd4;border-radius:8px;padding:10px 14px;">
+        <div style="font-size:12.5px;color:#1a4a40;font-weight:700;">Anomaly examples: PLC write command not in baseline · Unusual network path · Unexpected EWS activity outside maintenance window</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 6 — 5.4 Audit Failure ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#c0392b,#e74c3c);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">6️⃣ 5.4 Response to Audit Failure</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      Logging systems can fail. When they do, attacks may go <strong style="color:#c0392b;">completely undetected</strong>. Security standards require explicit mechanisms to detect and respond to these failures.
+    </p>
+
+    <!-- Failure scenarios -->
+    <div style="background:#fef9f9;border:1px solid #f5c6c6;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:800;color:#c0392b;letter-spacing:0.8px;margin-bottom:12px;">Common Audit Failure Scenarios</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:13px;color:#5a2d2d;display:flex;gap:8px;"><span style="color:#c0392b;font-weight:800;flex-shrink:0;">·</span> Insufficient log storage capacity</div>
+        <div style="font-size:13px;color:#5a2d2d;display:flex;gap:8px;"><span style="color:#c0392b;font-weight:800;flex-shrink:0;">·</span> Log server failure</div>
+        <div style="font-size:13px;color:#5a2d2d;display:flex;gap:8px;"><span style="color:#c0392b;font-weight:800;flex-shrink:0;">·</span> Log collection pipeline failure</div>
+      </div>
+      <div style="margin-top:12px;background:#fdecea;border-radius:8px;padding:10px 14px;">
+        <div style="font-size:13px;color:#5a2d2d;font-weight:700;">
+          UR E26 requirement: <strong>If the logging system fails → an alert MUST be generated.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operational response -->
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:800;color:#0a2342;letter-spacing:0.8px;margin-bottom:12px;">Operational Response Requirements</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;">
+        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Administrator Notification</span>
+        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Log Buffering</span>
+        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Alternative Storage</span>
+        <span style="background:#eef6f3;color:#1a4a40;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">System Status Verification</span>
+      </div>
+    </div>
+
+    <!-- PLC traceability warning -->
+    <div style="background:#fff8f0;border:1px solid #f5d5a0;border-radius:12px;padding:18px 20px;">
+      <div style="font-size:12px;font-weight:800;color:#e67e22;letter-spacing:0.8px;margin-bottom:10px;">⚠ If Logs Are Lost During an Incident</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;"><span style="color:#e67e22;font-weight:800;flex-shrink:0;">?</span> When was PLC logic modified?</div>
+        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;"><span style="color:#e67e22;font-weight:800;flex-shrink:0;">?</span> Who made the change?</div>
+        <div style="font-size:13px;color:#7a4f10;display:flex;gap:8px;"><span style="color:#e67e22;font-weight:800;flex-shrink:0;">?</span> Which workstation performed the change?</div>
+      </div>
+      <div style="margin-top:12px;background:#fff3e0;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#7a4f10;">
+        These questions become unanswerable. <strong style="color:#0a2342;">Preventing log loss is not optional in OT environments.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 7+8 — Summary & Linkage ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="width:4px;height:26px;background:linear-gradient(180deg,#1a9e82,#0a2342);border-radius:2px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;">7️⃣ / 8️⃣ Summary &amp; UR E26 Linkage</h2>
+    </div>
+
+    <!-- Preventive vs Detective -->
+    <div style="background:#f0f7ff;border-radius:12px;padding:18px 20px;margin-bottom:20px;border-left:4px solid #1a9e82;">
+      <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:12px;">Security Control Framework — Chapter 5 Completes the Picture</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#fff;border:1px solid #d1e0ee;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Preventive Control (Ch.1–4)</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:#354a5e;">
+            <span>· Segmentation</span><span>· Firewall</span><span>· Hardening</span><span>· Authentication</span>
+          </div>
+        </div>
+        <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Detective Control (Ch.5) ✦</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:#1a4a40;">
+            <span>· Logging</span><span>· Monitoring</span><span>· SIEM / Correlation</span><span>· Audit Failure Response</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key summary -->
+    <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 24px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
+      <strong style="color:#0a2342;">System Activity → Log Generation → Log Aggregation → SIEM Analysis → Security Alert → Incident Response</strong><br><br>
+      In OT environments: Host visibility ↓ · Network visibility ↓ · <strong style="color:#1a9e82;">Log visibility ↑</strong><br>
+      <strong style="color:#0a2342;">Logs are the core data for OT security operations.</strong>
+    </p>
+
+    <!-- Linkage table -->
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid #d1e0ee;font-size:13px;">
+        <thead>
+          <tr>
+            <th style="background:#0a2342;color:#ffffff;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;width:30%;">Chapter 5 Topic</th>
+            <th style="background:#154f7a;color:#b8d4ea;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">UR E26 Test Item</th>
+            <th style="background:#1a9e82;color:#d0fff4;padding:12px 16px;text-align:left;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">UR E27 Document Element</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f7fafe;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Log Generation</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Auditable Events</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Security Event Logging Plan</td>
+          </tr>
+          <tr style="background:#ffffff;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Log Storage &amp; Retention</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Audit Storage Capacity</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Incident Response Support Info</td>
+          </tr>
+          <tr style="background:#f7fafe;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">Timestamp Sync (NTP)</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Timestamp Accuracy</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Time Synchronization Spec</td>
+          </tr>
+          <tr style="background:#ffffff;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;border-bottom:1px solid #e2eaf3;">SIEM / Correlation</td>
+            <td style="padding:12px 16px;color:#4a6278;border-bottom:1px solid #e2eaf3;">Auditable Events</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;border-bottom:1px solid #e2eaf3;">Security Monitoring Architecture</td>
+          </tr>
+          <tr style="background:#f7fafe;">
+            <td style="padding:12px 16px;color:#0a2342;font-weight:700;">Audit Failure Detection</td>
+            <td style="padding:12px 16px;color:#4a6278;">Response to Audit Processing Failures</td>
+            <td style="padding:12px 16px;color:#1a4a40;font-weight:600;">Maintenance &amp; Verification Plan</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <!-- ══ HASHTAGS ══ -->
   <div style="margin-bottom:32px;">
     <div style="display:flex;flex-wrap:wrap;gap:7px;">
       <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ICSsecurity</span>
       <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#OTsecurity</span>
-      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#HostHardening</span>
-      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#CyberResilience</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Logging</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#SIEM</span>
       <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#IACS</span>
       <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#URE26</span>
-      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#URE27</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AuditTrail</span>
       <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MaritimeCyberSecurity</span>
-      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#PatchManagement</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#DetectiveControl</span>
       <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
     </div>
   </div>
@@ -454,6 +552,65 @@
                 font-size:12px;font-weight:700;border:2px solid #1a9e82;">
         🌐 More Articles ↗
       </a>
+    </div>
+  </div>
+
+  <!-- ══ TECHNICAL REVIEWER CARD ══ -->
+  <div style="margin-top:24px;border-top:1px dashed #c8d8e8;padding-top:24px;">
+    <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:16px;">⬡ Technical Reviewer</div>
+    <div style="background:linear-gradient(135deg,#f0f7ff 0%,#e8f4f0 100%);border:1px solid #c8d8e8;border-radius:14px;padding:22px 24px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#0a2342,#1a9e82);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">⚓</div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:15px;font-weight:800;color:#0a2342;margin-bottom:2px;">Lew</div>
+          <div style="font-size:11px;color:#1a9e82;font-weight:700;letter-spacing:0.4px;margin-bottom:4px;">Maritime and Cyber Security Consultant · ISP Consultant</div>
+          <div style="font-size:11px;color:#6b8599;margin-bottom:14px;">Maritime OT/IT Security · IACS Compliance · ISP / Vessel Security Planning</div>
+          <p style="font-size:12.5px;color:#4a6278;line-height:1.75;margin:0 0 16px 0;">
+            An experienced maritime cybersecurity and ISP consultant with deep expertise spanning vessel operations, international port security regulations, and OT network protection. Provides strategic guidance on IACS UR E26/E27 compliance, IEC 62443 implementation, and ISM/ISPS-aligned security planning for shipowners and operators.
+          </p>
+
+          <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Core Competencies</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;">
+            <span style="background:#0a2342;color:#7effd8;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">Maritime Cybersecurity</span>
+            <span style="background:#0a2342;color:#7effd8;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">ISP / ISPS Compliance</span>
+            <span style="background:#0a2342;color:#7effd8;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">OT/IT Risk Assessment</span>
+            <span style="background:#154f7a;color:#b8d4ea;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">IACS UR E26 / E27</span>
+            <span style="background:#154f7a;color:#b8d4ea;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">IEC 62443</span>
+            <span style="background:#154f7a;color:#b8d4ea;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">Incident Response</span>
+            <span style="background:#1a6e5a;color:#a8f5e0;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">ISM / SOLAS</span>
+            <span style="background:#1a6e5a;color:#a8f5e0;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">Vessel Security Planning</span>
+            <span style="background:#1a6e5a;color:#a8f5e0;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;">Port State Control</span>
+          </div>
+
+          <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Technical Depth</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">
+            <div style="background:#fff;border:1px solid #d1e0ee;border-radius:9px;padding:11px 13px;">
+              <div style="font-size:10px;font-weight:800;color:#0a2342;margin-bottom:5px;">🔒 OT Security</div>
+              <div style="font-size:11px;color:#4a6278;line-height:1.6;">SCADA / PLC Hardening<br>IDS / SIEM for OT<br>Anomaly Detection</div>
+            </div>
+            <div style="background:#fff;border:1px solid #d1e0ee;border-radius:9px;padding:11px 13px;">
+              <div style="font-size:10px;font-weight:800;color:#0a2342;margin-bottom:5px;">⚓ ISP / Port Security</div>
+              <div style="font-size:11px;color:#4a6278;line-height:1.6;">ISPS Code · PFSO<br>Ship Security Plan (SSP)<br>Port Facility Assessment</div>
+            </div>
+            <div style="background:#fff;border:1px solid #d1e0ee;border-radius:9px;padding:11px 13px;">
+              <div style="font-size:10px;font-weight:800;color:#0a2342;margin-bottom:5px;">📋 Compliance &amp; Audit</div>
+              <div style="font-size:11px;color:#4a6278;line-height:1.6;">IMO MSC-FAL.1/Circ.3<br>NIST CSF · ISO 27001<br>Classification Surveys</div>
+            </div>
+            <div style="background:#fff;border:1px solid #d1e0ee;border-radius:9px;padding:11px 13px;">
+              <div style="font-size:10px;font-weight:800;color:#0a2342;margin-bottom:5px;">🛳 Vessel Systems</div>
+              <div style="font-size:11px;color:#4a6278;line-height:1.6;">ECDIS / AIS / GMDSS<br>Integrated Bridge System<br>Engine Room Automation</div>
+            </div>
+            <div style="background:#fff;border:1px solid #d1e0ee;border-radius:9px;padding:11px 13px;">
+              <div style="font-size:10px;font-weight:800;color:#0a2342;margin-bottom:5px;">📡 Network &amp; Logging</div>
+              <div style="font-size:11px;color:#4a6278;line-height:1.6;">Firewall / DMZ Design<br>Log Auditing · SIEM<br>Network Segmentation</div>
+            </div>
+            <div style="background:#fff;border:1px solid #d1e0ee;border-radius:9px;padding:11px 13px;">
+              <div style="font-size:10px;font-weight:800;color:#0a2342;margin-bottom:5px;">🌏 Regional Expertise</div>
+              <div style="font-size:11px;color:#4a6278;line-height:1.6;">Asia-Pacific shipping ops<br>PSC inspection readiness<br>Flag state coordination</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
