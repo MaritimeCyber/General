@@ -824,9 +824,37 @@
     let currentCat = "maritime";
     let currentOrg = null;
     const cache = {};
+    const CACHE_KEY = "mci_feed_cache";
+    const CACHE_TTL = 30 * 60 * 1000; // 30분
+
+    const wrap = document.getElementById("mci-wrap");
+    if (!wrap) return;
 
     function $id(id) {
       return document.getElementById(id);
+    }
+
+    function loadPersist(orgId) {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const store = JSON.parse(raw);
+        const entry = store[orgId];
+        if (!entry) return null;
+        if (Date.now() - entry.ts > CACHE_TTL) return null;
+        return entry.items;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function savePersist(orgId, items) {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        const store = raw ? JSON.parse(raw) : {};
+        store[orgId] = { ts: Date.now(), items };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(store));
+      } catch (e) {}
     }
 
     /* ──────────────────────────────────────────────
@@ -998,6 +1026,12 @@
         renderNews(org, cache[org.id]);
         return;
       }
+      const persisted = loadPersist(org.id);
+      if (persisted) {
+        cache[org.id] = persisted;
+        renderNews(org, persisted);
+        return;
+      }
       if (!org.rss) {
         renderNoRss(org);
         return;
@@ -1055,6 +1089,7 @@
         }
 
         cache[org.id] = items;
+        savePersist(org.id, items);
         renderNews(org, items);
         $id("mci-ts").textContent =
           "Updated " + new Date().toLocaleTimeString();
@@ -1091,9 +1126,9 @@
     /* ──────────────────────────────────────────────
      탭 이벤트
   ────────────────────────────────────────────── */
-    document.querySelectorAll(".mci-tab").forEach((tab) => {
+    wrap.querySelectorAll(".mci-tab").forEach((tab) => {
       tab.addEventListener("click", function () {
-        document
+        wrap
           .querySelectorAll(".mci-tab")
           .forEach((t) => t.classList.remove("active"));
         this.classList.add("active");
