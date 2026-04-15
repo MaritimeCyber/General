@@ -22,13 +22,27 @@
   /* 전체 위젯 래퍼 (Blogger widget div) */
   #HTML6 {
     background: #ffffff;
-    border: 1.5px solid #d1e0ee;
+    border: 2px solid #154f7a;
     border-radius: 12px;
-    padding: 16px 18px 14px;
-    box-shadow: 0 2px 10px rgba(10, 35, 66, 0.07);
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(10, 35, 66, 0.12);
+    padding: 0;
   }
   #HTML6 .widget-content {
     padding: 0;
+  }
+  /* Blogger 위젯 타이틀 영역 — 그라디언트 헤더 */
+  #HTML6 h2.title,
+  #HTML6 .title {
+    background: linear-gradient(135deg, #0a2342, #154f7a, #1a9e82) !important;
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px;
+    padding: 10px 18px;
+    margin: 0;
+    line-height: 1.4;
+    border-radius: 0;
   }
   #sot-wrap {
     background: #ffffff;
@@ -44,15 +58,16 @@
   }
   #sot-header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   #sot-header-title {
-    font-size: 17px;
-    font-weight: 900;
-    color: #424242;
+    font-size: 13px;
+    font-weight: 700;
+    color: #154f7a;
     line-height: 1.2;
+    letter-spacing: 0.1px;
   }
   #sot-header-note {
     font-size: 10.5px;
@@ -62,24 +77,24 @@
   }
   #sot-refresh-btn {
     display: inline-block;
-    background: #1a9e82;
+    background: #154f7a;
     color: #fff;
     font-size: 11.5px;
     font-weight: 700;
-    padding: 2px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
     letter-spacing: 0.3px;
     vertical-align: middle;
     border: none;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: background 0.2s, opacity 0.2s;
     flex-shrink: 0;
   }
   #sot-refresh-btn:hover:not(:disabled) {
-    opacity: 0.82;
+    background: #1a9e82;
   }
   #sot-refresh-btn:disabled {
-    opacity: 0.5;
+    opacity: 0.45;
     cursor: not-allowed;
   }
   #sot-divider {
@@ -91,13 +106,13 @@
   .sot-divider-line {
     flex: 1;
     height: 1px;
-    background: #e0e0e0;
+    background: linear-gradient(90deg, #d1e0ee, #c6d8ea);
   }
   .sot-divider-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #1a9e82;
+    background: #154f7a;
     flex-shrink: 0;
   }
   #sot-mode-bar {
@@ -106,26 +121,28 @@
     margin-bottom: 8px;
   }
   .sot-mode-btn {
-    background: #f4faf8;
-    border: 1px solid #e0e0e0;
+    background: #f0f5fb;
+    border: 1.5px solid #d1e0ee;
     border-radius: 20px;
-    color: #9fb5c2;
-    font-size: 16.5px;
+    color: #6b8599;
+    font-size: 11.5px;
     font-weight: 700;
-    padding: 4px 12px;
+    padding: 5px 12px;
     cursor: pointer;
     transition: all 0.15s;
     white-space: nowrap;
     flex: 1;
     text-align: center;
+    letter-spacing: 0.1px;
   }
   .sot-mode-btn:hover {
-    color: #1a9e82;
-    border-color: #1a9e82;
+    color: #154f7a;
+    border-color: #154f7a;
+    background: #e8f0f8;
   }
   .sot-mode-btn.active {
-    background: #1a9e82;
-    border-color: #1a9e82;
+    background: #154f7a;
+    border-color: #154f7a;
     color: #fff;
   }
   /* ── 날짜 범위 + 새로 고침 바 ── */
@@ -137,28 +154,29 @@
   }
   #sot-date-label {
     font-size: 10.5px;
-    color: #9fb5c2;
-    font-weight: 600;
+    color: #154f7a;
+    font-weight: 700;
     letter-spacing: 0.3px;
     flex-shrink: 0;
     margin-right: 2px;
   }
   .sot-date-btn {
-    background: #f4faf8;
-    border: 1px solid #e0e0e0;
+    background: #f0f5fb;
+    border: 1.5px solid #d1e0ee;
     border-radius: 20px;
-    color: #9fb5c2;
+    color: #6b8599;
     font-size: 11px;
     font-weight: 700;
-    padding: 2px 9px;
+    padding: 3px 10px;
     cursor: pointer;
     transition: all 0.15s;
     white-space: nowrap;
     letter-spacing: 0.2px;
   }
   .sot-date-btn:hover {
-    color: #1a9e82;
-    border-color: #1a9e82;
+    color: #154f7a;
+    border-color: #154f7a;
+    background: #e8f0f8;
   }
   .sot-date-btn.active {
     background: #1a9e82;
@@ -170,13 +188,14 @@
   }
   #sot-tabs {
     display: flex;
-    gap: 16px;
+    gap: 0;
     overflow-x: auto;
-    border-bottom: 1px solid #e0e0e0;
-    background: #f4faf8;
-    padding: 0 6px;
+    border-bottom: 2px solid #d1e0ee;
+    background: #f0f5fb;
+    padding: 0 4px;
     scrollbar-width: none;
     margin-bottom: 12px;
+    border-radius: 6px 6px 0 0;
   }
   #sot-tabs::-webkit-scrollbar {
     display: none;
@@ -185,55 +204,59 @@
     flex: 0 0 auto;
     background: none;
     border: none;
-    border-bottom: 2px solid transparent;
-    color: #9fb5c2;
+    border-bottom: 2.5px solid transparent;
+    color: #6b8599;
     font-size: 12.5px;
     font-weight: 600;
-    padding: 8px 10px;
+    padding: 8px 13px;
     cursor: pointer;
     white-space: nowrap;
     text-align: center;
     transition:
       color 0.15s,
       border-color 0.15s;
+    margin-bottom: -2px;
   }
   .sot-tab:hover {
-    color: #1a9e82;
+    color: #154f7a;
   }
   .sot-tab.active {
-    color: #1a9e82;
-    border-bottom-color: #1a9e82;
+    color: #154f7a;
+    border-bottom-color: #154f7a;
+    font-weight: 700;
   }
   #sot-loading {
     text-align: center;
     padding: 22px 10px 18px;
-    color: #6b8599;
+    color: #154f7a;
   }
   #sot-loading-text {
     font-size: 12.5px;
     letter-spacing: 0.3px;
     animation: sot-pulse 1.6s ease-in-out infinite;
     margin-bottom: 14px;
+    color: #154f7a;
+    font-weight: 600;
   }
   #sot-progress-wrap {
     width: 100%;
     max-width: 260px;
     margin: 0 auto;
     height: 4px;
-    background: #e8f6f3;
+    background: #d1e0ee;
     border-radius: 2px;
     overflow: hidden;
   }
   #sot-progress-bar {
     height: 100%;
-    background: #1a9e82;
+    background: linear-gradient(90deg, #154f7a, #1a9e82);
     border-radius: 2px;
     width: 0%;
     transition: width 0.35s ease;
   }
   #sot-progress-label {
     font-size: 10.5px;
-    color: #b0c4ce;
+    color: #9fb5c2;
     margin-top: 7px;
   }
   #sot-list {
@@ -247,21 +270,25 @@
   }
   .sot-card {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 8px;
     border-left: 4px solid #1a9e82;
-    box-shadow: 0 1px 5px rgba(10, 35, 66, 0.07);
-    padding: 12px 16px;
-    transition: box-shadow 0.18s, transform 0.18s;
+    border-top: 1px solid #e8f0f8;
+    border-right: 1px solid #e8f0f8;
+    border-bottom: 1px solid #e8f0f8;
+    box-shadow: 0 1px 4px rgba(10, 35, 66, 0.05);
+    padding: 11px 15px;
+    transition: box-shadow 0.18s, transform 0.18s, border-left-color 0.18s;
   }
   .sot-card:hover {
-    box-shadow: 0 4px 14px rgba(10, 35, 66, 0.13);
+    box-shadow: 0 4px 16px rgba(10, 35, 66, 0.12);
     transform: translateY(-2px);
+    border-left-color: #154f7a;
   }
   .sot-card-meta {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 7px;
+    margin-bottom: 6px;
     flex-wrap: wrap;
   }
   .sot-card-date {
@@ -272,8 +299,8 @@
   }
   .sot-src {
     display: inline-block;
-    background: #e8f6f3;
-    color: #1a9e82;
+    background: #eef4f8;
+    color: #154f7a;
     font-size: 10px;
     font-weight: 700;
     padding: 1px 7px;
@@ -283,8 +310,8 @@
   }
   .sot-type-tag {
     display: inline-block;
-    background: #eef4f8;
-    color: #154f7a;
+    background: #e6f7f3;
+    color: #1a9e82;
     font-size: 10px;
     font-weight: 700;
     padding: 1px 7px;
@@ -311,35 +338,37 @@
   }
   .sot-page-btn {
     display: inline-block;
-    background: #1a9e82;
+    background: #154f7a;
     color: #fff;
     font-size: 11px;
     font-weight: 700;
-    padding: 2px 10px;
+    padding: 4px 13px;
     border-radius: 20px;
     letter-spacing: 0.3px;
     border: none;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: background 0.2s;
   }
   .sot-page-btn:hover:not(:disabled) {
-    opacity: 0.82;
+    background: #1a9e82;
   }
   .sot-page-btn:disabled {
-    background: #e8f6f3;
-    color: #9fb5c2;
+    background: #e8f0f8;
+    color: #b0c4ce;
     cursor: not-allowed;
   }
   #sot-page-info {
     font-size: 11.5px;
-    color: #9fb5c2;
+    color: #6b8599;
     text-align: center;
+    font-weight: 500;
   }
   #sot-status {
     margin-top: 10px;
     padding: 8px 10px;
-    background: #f9fafa;
+    background: #f0f5fb;
     border-radius: 4px;
+    border-left: 2px solid #d1e0ee;
     font-size: 10.5px;
     color: #9fb5c2;
     line-height: 1.7;
@@ -364,9 +393,9 @@
   }
   .sot-link-card {
     display: block;
-    background: #f4faf8;
-    border-left: 2px solid #1a9e82;
-    border-radius: 4px;
+    background: #f0f5fb;
+    border-left: 2px solid #154f7a;
+    border-radius: 6px;
     padding: 9px 11px;
     text-decoration: none;
     line-height: 1.5;
@@ -375,7 +404,7 @@
       opacity 0.3s;
   }
   .sot-link-card:hover {
-    background: #e8f6f3;
+    background: #e4edf6;
   }
   .sot-link-card-name {
     display: block;
@@ -408,30 +437,40 @@
   #sot-limit-bar {
     display: none;
     text-align: center;
-    font-size: 11px;
-    color: #b0c4ce;
+    font-size: 10.5px;
+    color: #9fb5c2;
     letter-spacing: 0.2px;
-    padding: 5px 0 11px;
+    padding: 4px 0 10px;
+    border-bottom: 1px dashed #d1e0ee;
+    margin-bottom: 10px;
   }
   #sot-footer {
-    margin-top: 13px;
-    padding: 9px 12px;
-    background: #f4faf8;
-    border-left: 2px solid #1a9e82;
-    border-radius: 4px;
-    font-size: 12px;
+    margin-top: 14px;
+    padding: 9px 14px;
+    background: #f0f5fb;
+    border-top: 1.5px solid #d1e0ee;
+    border-left: 3px solid #154f7a;
+    border-radius: 0 0 4px 4px;
+    font-size: 11.5px;
     color: #5a7080;
     line-height: 1.7;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    letter-spacing: 0.1px;
   }
 </style>
 
 <div id="sot-wrap">
-  <!-- Row 1: 타이틀 -->
-  <div id="sot-header">
-    <span id="sot-header-title">🚢 Ship Order Trends</span>
+  <!-- ── Maritime 4.0 상단 그라디언트 헤더 배너 ── -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);padding:12px 18px 11px;border-radius:0;">
+    <div style="font-size:15px;font-weight:900;color:#fff;letter-spacing:-0.2px;line-height:1.3;">🚢 Ship Order Trends</div>
+    <div style="font-size:10px;color:rgba(255,255,255,0.65);margin-top:2px;letter-spacing:0.3px;">Global Newbuilding Orders · Live Feed</div>
+  </div>
+  <div style="padding:0 18px 14px;">
+  <!-- Row 1: 서브 헤더 -->
+  <div id="sot-header" style="padding-top:14px;">
+    <span id="sot-header-title">📋 Latest Orders</span>
     <span id="sot-header-note">* Latest 50 articles per feed</span>
   </div>
   <div id="sot-divider">
@@ -552,6 +591,7 @@
       </div>
     </div>
   </div>
+  </div><!-- /padding-wrap -->
   <div id="sot-footer">
     <span>Google News · gCaptain · Splash247 · TradeWinds</span>
     <span id="sot-updated">—</span>

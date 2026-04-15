@@ -1550,6 +1550,20 @@
       async="async"
       src="https://www.gstatic.com/external_hosted/clipboardjs/clipboard.min.js"
     />
+
+    <!-- 라벨 링크에 max-results=9 자동 적용 -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('a[href*="/search/label/"]').forEach(function (a) {
+          var url = a.getAttribute('href');
+          if (url) {
+            if (url.indexOf('max-results') === -1) {
+              a.setAttribute('href', url + '?max-results=9');
+            }
+          }
+        });
+      });
+    </script>
   </head>
 
   <body>
