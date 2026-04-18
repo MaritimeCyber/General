@@ -1,1371 +1,404 @@
-<!-- ════════════════════════════════════════════════════════════
-     Ship Order Trends Widget — shippauljobs.blogspot.com
-     기능: 글로벌 신조선 발주 뉴스 실시간 표시 (테이블, 페이지네이션)
-           데이터 로딩 실패 시 관련 사이트 직접 링크 제공 (404 자동 제거)
-     출처: Google News RSS · gCaptain (폴백: allorigins → 직접 링크)
-     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
-════════════════════════════════════════════════════════════ -->
+<!--════════════════════════════════════════════════════════════
+     Article: Ship Order Trends — Provided by ShipJobs (w/ AI)
+     Author : Captain Ethan  |  ShipJobs
+     Source : https://shippauljobs.blogspot.com/
+     Style  : Maritime 4.0 Design System — Blogger Post
+════════════════════════════════════════════════════════════-->
 
-<link
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap"
-  rel="stylesheet"
-/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet" />
 
-<style>
-  #sot-wrap,
-  #sot-wrap * {
-    box-sizing: border-box;
-    font-family: "Roboto", Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  /* 전체 위젯 래퍼 (Blogger widget div) */
-  #HTML6 {
-    background: #ffffff;
-    border: 2px solid #154f7a;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 18px rgba(10, 35, 66, 0.12);
-    padding: 0;
-  }
-  #HTML6 .widget-content {
-    padding: 0;
-  }
-  /* Blogger 위젯 타이틀 영역 — 그라디언트 헤더 */
-  #HTML6 h2.title,
-  #HTML6 .title {
-    background: linear-gradient(135deg, #0a2342, #154f7a, #1a9e82) !important;
-    color: #ffffff !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.6px;
-    padding: 10px 18px;
-    margin: 0;
-    line-height: 1.4;
-    border-radius: 0;
-  }
-  #sot-wrap {
-    background: #ffffff;
-  }
-  @keyframes sot-pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.35;
-    }
-  }
-  #sot-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-  }
-  #sot-header-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: #154f7a;
-    line-height: 1.2;
-    letter-spacing: 0.1px;
-  }
-  #sot-header-note {
-    font-size: 10.5px;
-    color: #b0c4ce;
-    font-weight: 400;
-    letter-spacing: 0.2px;
-  }
-  #sot-refresh-btn {
-    display: inline-block;
-    background: #154f7a;
-    color: #fff;
-    font-size: 11.5px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 0.3px;
-    vertical-align: middle;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, opacity 0.2s;
-    flex-shrink: 0;
-  }
-  #sot-refresh-btn:hover:not(:disabled) {
-    background: #1a9e82;
-  }
-  #sot-refresh-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-  #sot-divider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .sot-divider-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, #d1e0ee, #c6d8ea);
-  }
-  .sot-divider-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #154f7a;
-    flex-shrink: 0;
-  }
-  #sot-mode-bar {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 8px;
-  }
-  .sot-mode-btn {
-    background: #f0f5fb;
-    border: 1.5px solid #d1e0ee;
-    border-radius: 20px;
-    color: #6b8599;
-    font-size: 11.5px;
-    font-weight: 700;
-    padding: 5px 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-    flex: 1;
-    text-align: center;
-    letter-spacing: 0.1px;
-  }
-  .sot-mode-btn:hover {
-    color: #154f7a;
-    border-color: #154f7a;
-    background: #e8f0f8;
-  }
-  .sot-mode-btn.active {
-    background: #154f7a;
-    border-color: #154f7a;
-    color: #fff;
-  }
-  /* ── 날짜 범위 + 새로 고침 바 ── */
-  #sot-date-bar {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
-  }
-  #sot-date-label {
-    font-size: 10.5px;
-    color: #154f7a;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    flex-shrink: 0;
-    margin-right: 2px;
-  }
-  .sot-date-btn {
-    background: #f0f5fb;
-    border: 1.5px solid #d1e0ee;
-    border-radius: 20px;
-    color: #6b8599;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 10px;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-    letter-spacing: 0.2px;
-  }
-  .sot-date-btn:hover {
-    color: #154f7a;
-    border-color: #154f7a;
-    background: #e8f0f8;
-  }
-  .sot-date-btn.active {
-    background: #1a9e82;
-    border-color: #1a9e82;
-    color: #fff;
-  }
-  #sot-date-spacer {
-    flex: 1;
-  }
-  #sot-tabs {
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    border-bottom: 2px solid #d1e0ee;
-    background: #f0f5fb;
-    padding: 0 4px;
-    scrollbar-width: none;
-    margin-bottom: 12px;
-    border-radius: 6px 6px 0 0;
-  }
-  #sot-tabs::-webkit-scrollbar {
-    display: none;
-  }
-  .sot-tab {
-    flex: 0 0 auto;
-    background: none;
-    border: none;
-    border-bottom: 2.5px solid transparent;
-    color: #6b8599;
-    font-size: 12.5px;
-    font-weight: 600;
-    padding: 8px 13px;
-    cursor: pointer;
-    white-space: nowrap;
-    text-align: center;
-    transition:
-      color 0.15s,
-      border-color 0.15s;
-    margin-bottom: -2px;
-  }
-  .sot-tab:hover {
-    color: #154f7a;
-  }
-  .sot-tab.active {
-    color: #154f7a;
-    border-bottom-color: #154f7a;
-    font-weight: 700;
-  }
-  #sot-loading {
-    text-align: center;
-    padding: 22px 10px 18px;
-    color: #154f7a;
-  }
-  #sot-loading-text {
-    font-size: 12.5px;
-    letter-spacing: 0.3px;
-    animation: sot-pulse 1.6s ease-in-out infinite;
-    margin-bottom: 14px;
-    color: #154f7a;
-    font-weight: 600;
-  }
-  #sot-progress-wrap {
-    width: 100%;
-    max-width: 260px;
-    margin: 0 auto;
-    height: 4px;
-    background: #d1e0ee;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  #sot-progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #154f7a, #1a9e82);
-    border-radius: 2px;
-    width: 0%;
-    transition: width 0.35s ease;
-  }
-  #sot-progress-label {
-    font-size: 10.5px;
-    color: #9fb5c2;
-    margin-top: 7px;
-  }
-  #sot-list {
-    display: none;
-  }
-  /* ── Post Card Grid ── */
-  #sot-table-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .sot-card {
-    background: #fff;
-    border-radius: 8px;
-    border-left: 4px solid #1a9e82;
-    border-top: 1px solid #e8f0f8;
-    border-right: 1px solid #e8f0f8;
-    border-bottom: 1px solid #e8f0f8;
-    box-shadow: 0 1px 4px rgba(10, 35, 66, 0.05);
-    padding: 11px 15px;
-    transition: box-shadow 0.18s, transform 0.18s, border-left-color 0.18s;
-  }
-  .sot-card:hover {
-    box-shadow: 0 4px 16px rgba(10, 35, 66, 0.12);
-    transform: translateY(-2px);
-    border-left-color: #154f7a;
-  }
-  .sot-card-meta {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 6px;
-    flex-wrap: wrap;
-  }
-  .sot-card-date {
-    font-size: 10.5px;
-    color: #9fb5c2;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .sot-src {
-    display: inline-block;
-    background: #eef4f8;
-    color: #154f7a;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 1px 7px;
-    border-radius: 10px;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
-  }
-  .sot-type-tag {
-    display: inline-block;
-    background: #e6f7f3;
-    color: #1a9e82;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 1px 7px;
-    border-radius: 10px;
-    white-space: nowrap;
-  }
-  .sot-card-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: #0a2342;
-    text-decoration: none;
-    line-height: 1.55;
-    display: block;
-  }
-  .sot-card-title:hover {
-    color: #1a9e82;
-    text-decoration: underline;
-  }
-  #sot-pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 12px;
-  }
-  .sot-page-btn {
-    display: inline-block;
-    background: #154f7a;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 13px;
-    border-radius: 20px;
-    letter-spacing: 0.3px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .sot-page-btn:hover:not(:disabled) {
-    background: #1a9e82;
-  }
-  .sot-page-btn:disabled {
-    background: #e8f0f8;
-    color: #b0c4ce;
-    cursor: not-allowed;
-  }
-  #sot-page-info {
-    font-size: 11.5px;
-    color: #6b8599;
-    text-align: center;
-    font-weight: 500;
-  }
-  #sot-status {
-    margin-top: 10px;
-    padding: 8px 10px;
-    background: #f0f5fb;
-    border-radius: 4px;
-    border-left: 2px solid #d1e0ee;
-    font-size: 10.5px;
-    color: #9fb5c2;
-    line-height: 1.7;
-    white-space: pre-wrap;
-    display: none;
-  }
-  #sot-empty {
-    display: none;
-    padding: 4px 0 8px;
-  }
-  #sot-fallback-msg {
-    font-size: 12px;
-    color: #9fb5c2;
-    text-align: center;
-    padding: 14px 0 12px;
-    line-height: 1.8;
-  }
-  #sot-link-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
-    gap: 7px;
-  }
-  .sot-link-card {
-    display: block;
-    background: #f0f5fb;
-    border-left: 2px solid #154f7a;
-    border-radius: 6px;
-    padding: 9px 11px;
-    text-decoration: none;
-    line-height: 1.5;
-    transition:
-      background 0.15s,
-      opacity 0.3s;
-  }
-  .sot-link-card:hover {
-    background: #e4edf6;
-  }
-  .sot-link-card-name {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    color: #424242;
-  }
-  .sot-link-card-cat {
-    display: block;
-    font-size: 10.5px;
-    color: #9fb5c2;
-    margin-top: 1px;
-  }
-  .sot-link-checking {
-    opacity: 0.55;
-  }
-  .sot-link-dead {
-    opacity: 0 !important;
-    pointer-events: none;
-  }
-  #sot-cat-empty {
-    display: none;
-    padding: 22px 0;
-    font-size: 13px;
-    color: #9fb5c2;
-    text-align: center;
-    line-height: 1.9;
-  }
-  /* ── 정책 안내 배너 (Refresh 후 표시) ── */
-  #sot-limit-bar {
-    display: none;
-    text-align: center;
-    font-size: 10.5px;
-    color: #9fb5c2;
-    letter-spacing: 0.2px;
-    padding: 4px 0 10px;
-    border-bottom: 1px dashed #d1e0ee;
-    margin-bottom: 10px;
-  }
-  #sot-footer {
-    margin-top: 14px;
-    padding: 9px 14px;
-    background: #f0f5fb;
-    border-top: 1.5px solid #d1e0ee;
-    border-left: 3px solid #154f7a;
-    border-radius: 0 0 4px 4px;
-    font-size: 11.5px;
-    color: #5a7080;
-    line-height: 1.7;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    letter-spacing: 0.1px;
-  }
-</style>
+<div style="box-sizing:border-box;color:#2c3e50;font-family:'Segoe UI','Apple SD Gothic Neo',Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
 
-<div id="sot-wrap">
-  <!-- ── Maritime 4.0 상단 그라디언트 헤더 배너 ── -->
-  <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);padding:12px 18px 11px;border-radius:0;">
-    <div style="font-size:15px;font-weight:900;color:#fff;letter-spacing:-0.2px;line-height:1.3;">🚢 Ship Order Trends</div>
-    <div style="font-size:10px;color:rgba(255,255,255,0.65);margin-top:2px;letter-spacing:0.3px;">Global Newbuilding Orders · Live Feed</div>
-  </div>
-  <div style="padding:0 18px 14px;">
-  <!-- Row 1: 서브 헤더 -->
-  <div id="sot-header" style="padding-top:14px;">
-    <span id="sot-header-title">📋 Latest Orders</span>
-    <span id="sot-header-note">* Latest 50 articles per feed</span>
-  </div>
-  <div id="sot-divider">
-    <div class="sot-divider-line"></div>
-    <div class="sot-divider-dot"></div>
-    <div class="sot-divider-line"></div>
-  </div>
-  <!-- Row 2: 기간 선택 (왼쪽) + 새로 고침 버튼 (오른쪽) -->
-  <div id="sot-date-bar">
-    <span id="sot-date-label">📅 Period</span>
-    <button class="sot-date-btn" data-days="7">1W</button>
-    <button class="sot-date-btn active" data-days="30">1M</button>
-    <button class="sot-date-btn" data-days="90">3M</button>
-    <button class="sot-date-btn" data-days="180">6M</button>
-    <button class="sot-date-btn" data-days="0">All</button>
-    <span id="sot-date-spacer"></span>
-    <button id="sot-refresh-btn">⟳ Refresh</button>
-  </div>
-  <!-- Row 3: Ship Type / Owner / Shipyard -->
-  <div id="sot-mode-bar">
-    <button class="sot-mode-btn active" data-mode="type">🚢 Ship Type</button>
-    <button class="sot-mode-btn" data-mode="owner">🏢 Owner</button>
-    <button class="sot-mode-btn" data-mode="shipyard">⚓ Shipyard</button>
-  </div>
-  <!-- Row 4: 카테고리 탭 -->
-  <div id="sot-tabs">
-    <button class="sot-tab active" data-key="all">All</button>
-    <button class="sot-tab" data-key="tanker">Tanker</button>
-    <button class="sot-tab" data-key="container">Container</button>
-    <button class="sot-tab" data-key="lng">LNG / Gas</button>
-    <button class="sot-tab" data-key="bulk">Bulk</button>
-    <button class="sot-tab" data-key="car">Car Carrier</button>
-  </div>
-  <div id="sot-loading">
-    <div id="sot-loading-text">📡 Fetching latest maritime news…</div>
-    <div id="sot-progress-wrap">
-      <div id="sot-progress-bar"></div>
+  <!--══ HEADER ══-->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;margin-bottom:28px;padding:36px 32px 28px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;">
+      <span style="background:rgba(26,158,130,0.35);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">🚢 Newbuilding</span>
+      <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Live Feed</span>
+      <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Ship Orders</span>
+      <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">AI Assisted</span>
     </div>
-    <div id="sot-progress-label">0 / 3 feeds</div>
-  </div>
-  <div id="sot-list">
-    <div id="sot-limit-bar">
-      ⓘ Due to web portal policies, only the latest 50 articles are available
-      per feed.
-    </div>
-    <div id="sot-table-wrap">
-      <div id="sot-tbody"></div>
-    </div>
-    <div id="sot-status"></div>
-    <div id="sot-pagination">
-      <button class="sot-page-btn" id="sot-prev-btn">◀ Prev</button>
-      <span id="sot-page-info">—</span>
-      <button class="sot-page-btn" id="sot-next-btn">Next ▶</button>
-    </div>
-    <div id="sot-cat-empty"></div>
-    <div id="sot-empty">
-      <div id="sot-fallback-msg">
-        📡 실시간 데이터를 불러올 수 없습니다.<br />
-        <span style="font-size: 11px"
-          >아래 사이트에서 직접 확인해 주세요. (링크 유효성 자동 확인 중…)</span
-        >
+    <h1 style="color:white;font-size:22px;font-weight:800;letter-spacing:-0.3px;line-height:1.4;margin:0 0 8px;">
+      Ship Order Trends — Provided by ShipJobs (w/ AI)
+    </h1>
+    <p style="color:#b8d4ea;font-size:13px;font-style:italic;margin:0 0 20px;">
+      Global Newbuilding Orders &amp; Maritime Intelligence · Real-time RSS Aggregation
+    </p>
+    <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:16px;">
+      <div style="align-items:center;display:flex;gap:10px;">
+        <img alt="Captain Ethan" src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/member/insung.jpeg" style="border-radius:50%;border:2px solid #1a9e82;flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+        <div>
+          <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Ethan</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI, Data &amp; Cyber Security · <a href="https://www.linkedin.com/in/shipjobs/" style="color:#7effd8;" rel="noopener" target="_blank">LinkedIn</a></div>
+        </div>
       </div>
-      <div id="sot-link-grid">
-        <a
-          class="sot-link-card sot-link-checking"
-          href="https://splash247.com/category/sector/newbuilding/"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="sot-link-card-name">Splash247</span>
-          <span class="sot-link-card-cat">Newbuilding →</span>
-        </a>
-        <a
-          class="sot-link-card sot-link-checking"
-          href="https://www.hellenicshippingnews.com/category/newbuilding/"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="sot-link-card-name">Hellenic Shipping News</span>
-          <span class="sot-link-card-cat">Newbuilding →</span>
-        </a>
-        <a
-          class="sot-link-card sot-link-checking"
-          href="https://gcaptain.com/tag/newbuilding/"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="sot-link-card-name">gCaptain</span>
-          <span class="sot-link-card-cat">Shipbuilding / Orders →</span>
-        </a>
-        <a
-          class="sot-link-card sot-link-checking"
-          href="https://www.tradewindsnews.com/newbuilding"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="sot-link-card-name">TradeWinds</span>
-          <span class="sot-link-card-cat">Newbuilding →</span>
-        </a>
-        <a
-          class="sot-link-card sot-link-checking"
-          href="https://maritime-executive.com/"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="sot-link-card-name">Maritime Executive</span>
-          <span class="sot-link-card-cat">All Maritime News →</span>
-        </a>
-        <a
-          class="sot-link-card sot-link-checking"
-          href="https://www.offshore-energy.biz/category/vessels/"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="sot-link-card-name">Offshore Energy</span>
-          <span class="sot-link-card-cat">Vessels / Orders →</span>
-        </a>
+      <div style="align-items:center;color:#9ab5c9;display:flex;font-size:11px;gap:5px;margin-left:auto;">
+        <span>📅</span><span>Updated Live</span>
       </div>
     </div>
   </div>
-  </div><!-- /padding-wrap -->
-  <div id="sot-footer">
-    <span>Google News · gCaptain · Splash247 · TradeWinds</span>
-    <span id="sot-updated">—</span>
+
+  <!--══ LEAD PARAGRAPH ══-->
+  <p style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:12px;color:#354a5e;font-size:14.5px;line-height:1.85;margin:0 0 24px;padding:18px 20px;">
+    This page provides <strong style="color:#0a2342;">real-time global newbuilding order intelligence</strong> aggregated from leading maritime news sources including Google News, gCaptain, and TradeWinds. Filter by ship type, shipowner, or shipyard — and track the latest vessel orders across all major segments.
+  </p>
+
+  <!--══ WIDGET BODY ══-->
+  <div id="sot-post-wrap" style="background:#fff;border:1.5px solid #d1e0ee;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(10,35,66,0.07);">
+
+    <style>
+      #sot-post-wrap,#sot-post-wrap *{box-sizing:border-box;font-family:'Roboto',Arial,sans-serif;}
+      @keyframes sot-pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+      #sot-wrap{background:#fff;}
+      #sot-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+      #sot-header-title{font-size:14px;font-weight:700;color:#154f7a;line-height:1.2;letter-spacing:0.1px;}
+      #sot-header-note{font-size:11px;color:#b0c4ce;font-weight:400;}
+      #sot-refresh-btn{display:inline-block;background:#154f7a;color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:0.3px;vertical-align:middle;border:none;cursor:pointer;transition:background .2s,opacity .2s;flex-shrink:0;margin-left:auto;}
+      #sot-refresh-btn:hover:not(:disabled){background:#1a9e82;}
+      #sot-refresh-btn:disabled{opacity:.45;cursor:not-allowed;}
+      #sot-divider{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+      .sot-divider-line{flex:1;height:1px;background:linear-gradient(90deg,#d1e0ee,#c6d8ea);}
+      .sot-divider-dot{width:6px;height:6px;border-radius:50%;background:#154f7a;flex-shrink:0;}
+      #sot-mode-bar{display:flex;gap:6px;margin-bottom:8px;}
+      .sot-mode-btn{background:#f0f5fb;border:1.5px solid #d1e0ee;border-radius:20px;color:#6b8599;font-size:12px;font-weight:700;padding:6px 14px;cursor:pointer;transition:all .15s;white-space:nowrap;flex:1;text-align:center;}
+      .sot-mode-btn:hover{color:#154f7a;border-color:#154f7a;background:#e8f0f8;}
+      .sot-mode-btn.active{background:#154f7a;border-color:#154f7a;color:#fff;}
+      #sot-date-bar{display:flex;align-items:center;gap:5px;margin-bottom:10px;}
+      #sot-date-label{font-size:11px;color:#154f7a;font-weight:700;letter-spacing:0.3px;flex-shrink:0;margin-right:2px;}
+      .sot-date-btn{background:#f0f5fb;border:1.5px solid #d1e0ee;border-radius:20px;color:#6b8599;font-size:11.5px;font-weight:700;padding:4px 11px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+      .sot-date-btn:hover{color:#154f7a;border-color:#154f7a;background:#e8f0f8;}
+      .sot-date-btn.active{background:#1a9e82;border-color:#1a9e82;color:#fff;}
+      #sot-date-spacer{flex:1;}
+      #sot-tabs{display:flex;gap:0;overflow-x:auto;border-bottom:2px solid #d1e0ee;background:#f0f5fb;padding:0 4px;scrollbar-width:none;margin-bottom:14px;border-radius:6px 6px 0 0;}
+      #sot-tabs::-webkit-scrollbar{display:none;}
+      .sot-tab{flex:0 0 auto;background:none;border:none;border-bottom:2.5px solid transparent;color:#6b8599;font-size:13px;font-weight:600;padding:9px 14px;cursor:pointer;white-space:nowrap;text-align:center;transition:color .15s,border-color .15s;margin-bottom:-2px;}
+      .sot-tab:hover{color:#154f7a;}
+      .sot-tab.active{color:#154f7a;border-bottom-color:#154f7a;font-weight:700;}
+      #sot-charts{display:none;margin-bottom:14px;}
+      .sot-charts-row{display:flex;gap:10px;flex-wrap:wrap;}
+      .sot-chart-card{background:#f8fbfe;border:1px solid #d1e0ee;border-radius:10px;padding:12px 14px;}
+      .sot-chart-label{color:#154f7a;font-size:10px;font-weight:700;letter-spacing:0.4px;margin-bottom:9px;text-transform:uppercase;}
+      #sot-loading{text-align:center;padding:28px 10px 22px;color:#154f7a;}
+      #sot-loading-text{font-size:13.5px;letter-spacing:0.3px;animation:sot-pulse 1.6s ease-in-out infinite;margin-bottom:16px;color:#154f7a;font-weight:600;}
+      #sot-progress-wrap{width:100%;max-width:280px;margin:0 auto;height:5px;background:#d1e0ee;border-radius:3px;overflow:hidden;}
+      #sot-progress-bar{height:100%;background:linear-gradient(90deg,#154f7a,#1a9e82);border-radius:3px;width:0%;transition:width .35s ease;}
+      #sot-progress-label{font-size:11px;color:#9fb5c2;margin-top:8px;}
+      #sot-list{display:none;}
+      #sot-table-wrap{display:flex;flex-direction:column;gap:9px;}
+      .sot-card{background:#fff;border-radius:9px;border-left:4px solid #1a9e82;border-top:1px solid #e8f0f8;border-right:1px solid #e8f0f8;border-bottom:1px solid #e8f0f8;box-shadow:0 1px 5px rgba(10,35,66,0.05);padding:13px 16px;transition:box-shadow .18s,transform .18s,border-left-color .18s;}
+      .sot-card:hover{box-shadow:0 4px 18px rgba(10,35,66,0.12);transform:translateY(-2px);border-left-color:#154f7a;}
+      .sot-card-meta{display:flex;align-items:center;gap:7px;margin-bottom:7px;flex-wrap:wrap;}
+      .sot-card-date{font-size:11px;color:#9fb5c2;font-weight:500;white-space:nowrap;}
+      .sot-src{display:inline-block;background:#eef4f8;color:#154f7a;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:0.2px;white-space:nowrap;}
+      .sot-type-tag{display:inline-block;background:#e6f7f3;color:#1a9e82;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+      .sot-card-title{font-size:14px;font-weight:700;color:#0a2342;text-decoration:none;line-height:1.55;display:block;}
+      .sot-card-title:hover{color:#1a9e82;text-decoration:underline;}
+      .sot-card-desc{color:#6b8599;font-size:11.5px;line-height:1.55;margin-top:5px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+      #sot-pagination{display:flex;align-items:center;justify-content:space-between;margin-top:14px;}
+      .sot-page-btn{display:inline-block;background:#154f7a;color:#fff;font-size:12px;font-weight:700;padding:6px 16px;border-radius:20px;letter-spacing:0.3px;border:none;cursor:pointer;transition:background .2s;}
+      .sot-page-btn:hover:not(:disabled){background:#1a9e82;}
+      .sot-page-btn:disabled{background:#e8f0f8;color:#b0c4ce;cursor:not-allowed;}
+      #sot-page-info{font-size:12px;color:#6b8599;text-align:center;font-weight:500;}
+      #sot-status{margin-top:10px;padding:8px 12px;background:#f0f5fb;border-radius:4px;border-left:2px solid #d1e0ee;font-size:11px;color:#9fb5c2;line-height:1.7;white-space:pre-wrap;display:none;}
+      #sot-empty{display:none;padding:4px 0 8px;}
+      #sot-fallback-msg{font-size:13px;color:#9fb5c2;text-align:center;padding:16px 0 12px;line-height:1.8;}
+      #sot-link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;}
+      .sot-link-card{display:block;background:#f0f5fb;border-left:2px solid #154f7a;border-radius:7px;padding:10px 12px;text-decoration:none;line-height:1.5;transition:background .15s,opacity .3s;}
+      .sot-link-card:hover{background:#e4edf6;}
+      .sot-link-card-name{display:block;font-size:13px;font-weight:700;color:#424242;}
+      .sot-link-card-cat{display:block;font-size:11px;color:#9fb5c2;margin-top:2px;}
+      .sot-link-checking{opacity:.55;}
+      .sot-link-dead{opacity:0!important;pointer-events:none;}
+      #sot-cat-empty{display:none;padding:24px 0;font-size:13.5px;color:#9fb5c2;text-align:center;line-height:1.9;}
+      #sot-limit-bar{display:none;text-align:center;font-size:11px;color:#9fb5c2;letter-spacing:.2px;padding:4px 0 10px;border-bottom:1px dashed #d1e0ee;margin-bottom:10px;}
+      #sot-footer{padding:10px 16px;background:#f0f5fb;border-top:1.5px solid #d1e0ee;border-left:3px solid #154f7a;font-size:12px;color:#5a7080;line-height:1.7;display:flex;justify-content:space-between;align-items:center;letter-spacing:.1px;}
+    </style>
+
+    <div id="sot-wrap">
+      <!--── 상단 그라디언트 헤더 배너 ──-->
+      <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);padding:14px 20px 12px;">
+        <div style="color:white;font-size:16px;font-weight:900;letter-spacing:-0.2px;line-height:1.3;">🚢 Ship Order Trends</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11px;letter-spacing:0.3px;margin-top:3px;">Global Newbuilding Orders · Live Feed</div>
+      </div>
+      <div style="padding:0 20px 16px;">
+        <!--Row 1: 서브 헤더-->
+        <div id="sot-header" style="padding-top:16px;">
+          <span id="sot-header-title">📋 Latest Orders</span>
+          <span id="sot-header-note">* Latest 50 articles per feed</span>
+          <button id="sot-refresh-btn">⟳ Refresh</button>
+        </div>
+        <div id="sot-divider"><div class="sot-divider-line"></div><div class="sot-divider-dot"></div><div class="sot-divider-line"></div></div>
+        <!--Row 2: 기간 선택-->
+        <div id="sot-date-bar">
+          <span id="sot-date-label">📅 Period</span>
+          <button class="sot-date-btn" data-days="7">1W</button>
+          <button class="sot-date-btn active" data-days="30">1M</button>
+          <button class="sot-date-btn" data-days="90">3M</button>
+          <button class="sot-date-btn" data-days="180">6M</button>
+          <button class="sot-date-btn" data-days="0">All</button>
+          <span id="sot-date-spacer"></span>
+        </div>
+        <!--Row 3: Ship Type / Owner / Shipyard-->
+        <div id="sot-mode-bar">
+          <button class="sot-mode-btn active" data-mode="type">🚢 Ship Type</button>
+          <button class="sot-mode-btn" data-mode="owner">🏢 Owner</button>
+          <button class="sot-mode-btn" data-mode="shipyard">⚓ Shipyard</button>
+        </div>
+        <!--Row 4: 카테고리 탭-->
+        <div id="sot-tabs">
+          <button class="sot-tab active" data-key="all">All</button>
+          <button class="sot-tab" data-key="tanker">Tanker</button>
+          <button class="sot-tab" data-key="container">Container</button>
+          <button class="sot-tab" data-key="lng">LNG / Gas</button>
+          <button class="sot-tab" data-key="bulk">Bulk</button>
+          <button class="sot-tab" data-key="car">Car Carrier</button>
+        </div>
+        <!--Row 5: Trend Analysis Charts-->
+        <div id="sot-charts">
+          <div style="align-items:center;display:flex;gap:8px;margin-bottom:10px;">
+            <span style="color:#154f7a;font-size:11px;font-weight:700;letter-spacing:0.4px;text-transform:uppercase;">📊 Trend Analysis</span>
+            <span id="sot-chart-count" style="color:#9fb5c2;font-size:11px;"></span>
+          </div>
+          <div class="sot-charts-row">
+            <div class="sot-chart-card" style="flex:0 0 auto;width:210px;">
+              <div class="sot-chart-label">Ship Type Mix</div>
+              <div id="sot-chart-donut"></div>
+            </div>
+            <div class="sot-chart-card" style="flex:1 1 200px;min-width:0;">
+              <div class="sot-chart-label">Publication Timeline</div>
+              <div id="sot-chart-timeline" style="overflow:hidden;"></div>
+            </div>
+          </div>
+        </div>
+        <div id="sot-loading">
+          <div id="sot-loading-text">📡 Fetching latest maritime news…</div>
+          <div id="sot-progress-wrap"><div id="sot-progress-bar"></div></div>
+          <div id="sot-progress-label">0 / 3 feeds</div>
+        </div>
+        <div id="sot-list">
+          <div id="sot-limit-bar">ⓘ Due to web portal policies, only the latest 50 articles are available per feed.</div>
+          <div id="sot-table-wrap"><div id="sot-tbody"></div></div>
+          <div id="sot-status"></div>
+          <div id="sot-pagination">
+            <button class="sot-page-btn" id="sot-prev-btn">◀ Prev</button>
+            <span id="sot-page-info">—</span>
+            <button class="sot-page-btn" id="sot-next-btn">Next ▶</button>
+          </div>
+          <div id="sot-cat-empty"></div>
+          <div id="sot-empty">
+            <div id="sot-fallback-msg">📡 실시간 데이터를 불러올 수 없습니다.<br /><span style="font-size:11px;">아래 사이트에서 직접 확인해 주세요.</span></div>
+            <div id="sot-link-grid">
+              <a class="sot-link-card sot-link-checking" href="https://splash247.com/category/sector/newbuilding/" rel="noopener" target="_blank"><span class="sot-link-card-name">Splash247</span><span class="sot-link-card-cat">Newbuilding →</span></a>
+              <a class="sot-link-card sot-link-checking" href="https://www.hellenicshippingnews.com/category/newbuilding/" rel="noopener" target="_blank"><span class="sot-link-card-name">Hellenic Shipping News</span><span class="sot-link-card-cat">Newbuilding →</span></a>
+              <a class="sot-link-card sot-link-checking" href="https://gcaptain.com/tag/newbuilding/" rel="noopener" target="_blank"><span class="sot-link-card-name">gCaptain</span><span class="sot-link-card-cat">Shipbuilding / Orders →</span></a>
+              <a class="sot-link-card sot-link-checking" href="https://www.tradewindsnews.com/newbuilding" rel="noopener" target="_blank"><span class="sot-link-card-name">TradeWinds</span><span class="sot-link-card-cat">Newbuilding →</span></a>
+              <a class="sot-link-card sot-link-checking" href="https://maritime-executive.com/" rel="noopener" target="_blank"><span class="sot-link-card-name">Maritime Executive</span><span class="sot-link-card-cat">All Maritime News →</span></a>
+              <a class="sot-link-card sot-link-checking" href="https://www.offshore-energy.biz/category/vessels/" rel="noopener" target="_blank"><span class="sot-link-card-name">Offshore Energy</span><span class="sot-link-card-cat">Vessels / Orders →</span></a>
+            </div>
+          </div>
+        </div>
+      </div><!--/padding-wrap-->
+      <div id="sot-footer">
+        <span>Google News · gCaptain · Splash247 · TradeWinds</span>
+        <span id="sot-updated">—</span>
+      </div>
+    </div>
+
+  </div><!--/sot-post-wrap-->
+
+  <!--══ HASHTAGS ══-->
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin:24px 0 32px;">
+    <span style="background:#eef6f3;border-radius:20px;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;">#NewbuildingOrders</span>
+    <span style="background:#eef6f3;border-radius:20px;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;">#ShipOrderTrends</span>
+    <span style="background:#eef6f3;border-radius:20px;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;">#MaritimeNews</span>
+    <span style="background:#e8f0f7;border-radius:20px;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;">#Tanker</span>
+    <span style="background:#e8f0f7;border-radius:20px;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;">#Container</span>
+    <span style="background:#e8f0f7;border-radius:20px;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;">#LNG</span>
+    <span style="background:#e8f0f7;border-radius:20px;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;">#BulkCarrier</span>
+    <span style="background:#e8f0f7;border-radius:20px;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;">#Maritime40</span>
   </div>
+
+  <!--══ AUTHOR CARD ══-->
+  <div style="align-items:flex-start;border-top:2px solid #e2eaf3;display:flex;flex-wrap:wrap;gap:18px;padding-top:28px;">
+    <img alt="Captain Ethan" src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/member/insung.jpeg" style="border-radius:50%;border:2px solid #1a9e82;flex-shrink:0;height:52px;object-fit:cover;width:52px;" />
+    <div style="flex:1 1 0%;min-width:220px;">
+      <div style="color:#0a2342;font-size:14px;font-weight:800;margin-bottom:2px;">Captain Ethan</div>
+      <div style="color:#6b8599;font-size:11px;margin-bottom:10px;">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+      <p style="color:#6b8599;font-size:12.5px;line-height:1.7;margin:0 0 14px;">Maritime professional focused on AI-assisted vessel intelligence, classification society regulations, and OT/IT cybersecurity. Building tools that help the industry navigate Maritime 4.0.</p>
+      <a href="https://shippauljobs.blogspot.com" rel="noopener" style="align-items:center;background:#0a2342;border-radius:9px;border:2px solid #1a9e82;color:white;display:inline-flex;font-size:12px;font-weight:700;gap:7px;padding:9px 20px;text-decoration:none;" target="_blank">🌐 More Articles ↗</a>
+    </div>
+  </div>
+
 </div>
 
 <script>
-  (function () {
-    "use strict";
+(function(){
+  "use strict";
+  var ITEMS_PER_PAGE=10,currentPage=1,filteredItems=[],allItems=[],activeTab="all",filterMode="type",dateRangeDays=30,feedLog=[],pendingFeeds=0,completedFeeds=0;
+  var CACHE_KEY="sot_cache",CACHE_TTL=30*60*1000;
+  var FEEDS=[
+    {url:"https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en",name:"Google News"},
+    {url:"https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en",name:"Google News 2"},
+    {url:"https://gcaptain.com/feed/",name:"gCaptain"}
+  ];
+  var CAT_KW={all:[],tanker:["tanker","vlcc","suezmax","aframax","product tanker","crude","chemical tanker","mr tanker"],container:["container","teu","boxship","containership","feeder","ultra large","box ship"],lng:["lng","lpg","fsru","flng","gas carrier","liquefied","ammonia","methanol"],bulk:["bulker","bulk carrier","capesize","panamax","handysize","handymax","ultramax","kamsarmax"],car:["pctc","car carrier","roro","ro-ro","vehicle carrier","pcctc","pure car"]};
+  var OWNER_KW={Maersk:["maersk"],MSC:["mediterranean shipping"," msc ","msc's"],"CMA CGM":["cma cgm","cma-cgm"],COSCO:["cosco shipping","cosco group"],Evergreen:["evergreen"],"Hapag-Lloyd":["hapag-lloyd","hapag lloyd"],ONE:["ocean network express"," one ","one's"],"Yang Ming":["yang ming","yangming"],HMM:["hmm ","hyundai merchant marine"],Zim:["zim ","zim's","zim shipping"],Euronav:["euronav"],Frontline:["frontline"],Teekay:["teekay"],Scorpio:["scorpio tankers","scorpio bulkers"],"Star Bulk":["star bulk"],"Golden Ocean":["golden ocean"],"Pacific Basin":["pacific basin"],Oldendorff:["oldendorff"],MOL:["mitsui o.s.k","mol tanker","mol carrier"," mol "],NYK:["nippon yusen"," nyk ","nyk's"],"K Line":["k line",'"k" line'],"Stolt-Nielsen":["stolt-nielsen","stolt nielsen"],Odfjell:["odfjell"],Shell:["shell "],BP:[" bp ","bp shipping"],TotalEnergies:["totalenergies","total energies"]};
+  var YARD_KW={"HD Hyundai / HHI":["hyundai heavy","hhic","hd hyundai","hd ksoe"," hhi ","hhi's","hyundai shipyard"],"Samsung Heavy":["samsung heavy"," shi ","shi's","samsung shi"],"Hanwha Ocean":["hanwha ocean","dsme","daewoo shipbuilding"],"CSSC / Hudong":["cssc","hudong","jiangnan","china state shipbuilding"],Yangzijiang:["yangzijiang"," yzj"],"COSCO Shipyard":["cosco shipyard","cosco zhoushan","cosco nantong"],"New Times":["new times shipbuilding","new times sb"],Imabari:["imabari"],"Mitsui E&S":["mitsui engineering","mitsui e&s"," mes "],JMU:["japan marine united"," jmu"],Oshima:["oshima"],Tsuneishi:["tsuneishi"],Damen:["damen"],Fincantieri:["fincantieri"],"Meyer Werft":["meyer werft"],"Meyer Turku":["meyer turku"]};
+  var TYPE_TABS=[{key:"all",label:"All"},{key:"tanker",label:"Tanker"},{key:"container",label:"Container"},{key:"lng",label:"LNG / Gas"},{key:"bulk",label:"Bulk"},{key:"car",label:"Car Carrier"}];
+  var MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-    var ITEMS_PER_PAGE = 10;
-    var currentPage = 1;
-    var filteredItems = [];
-    var allItems = [];
-    var activeTab = "all";
-    var filterMode = "type"; /* 'type' | 'owner' | 'shipyard' */
-    var dateRangeDays = 30; /* 기본값: 최근 1개월. 0 = 전체 */
-    var feedLog = [];
-    var pendingFeeds = 0;
-    var completedFeeds = 0;
+  function pad2(n){return n<10?"0"+n:String(n);}
 
-    var CACHE_KEY = "sot_cache";
-    var CACHE_TTL = 30 * 60 * 1000; /* 30분 */
+  function loadCache(){try{var r=localStorage.getItem(CACHE_KEY);if(!r)return null;var o=JSON.parse(r);if(!o||!o.items||Date.now()-o.ts>CACHE_TTL)return null;return o;}catch(e){return null;}}
+  function saveCache(items,log){try{localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),items:items,feedLog:log}));}catch(e){}}
 
-    var FEEDS = [
-      {
-        url: "https://news.google.com/rss/search?q=ship+newbuilding+order+shipbuilding&hl=en-US&gl=US&ceid=US:en",
-        name: "Google News",
-      },
-      {
-        url: "https://news.google.com/rss/search?q=tanker+container+LNG+vessel+order+maritime&hl=en-US&gl=US&ceid=US:en",
-        name: "Google News 2",
-      },
-      { url: "https://gcaptain.com/feed/", name: "gCaptain" },
+  function checkFallbackLinks(){document.querySelectorAll("#sot-link-grid .sot-link-card").forEach(function(card){var url=card.getAttribute("href");if(!url){card.classList.remove("sot-link-checking");return;}fetch("https://api.allorigins.win/get?url="+encodeURIComponent(url),{cache:"no-store"}).then(function(r){return r.json();}).then(function(d){var code=d&&d.status&&d.status.http_code;card.classList.remove("sot-link-checking");if(code===404||code===410){card.classList.add("sot-link-dead");setTimeout(function(){if(card.parentNode)card.parentNode.removeChild(card);},400);}}).catch(function(){card.classList.remove("sot-link-checking");});});}
+
+  function fetchViaRss2json(feed,onDone){fetch("https://api.rss2json.com/v1/api.json?count=50&rss_url="+encodeURIComponent(feed.url)).then(function(r){return r.json();}).then(function(d){if(!d||d.status!=="ok"||!d.items||!d.items.length){feedLog.push(feed.name+": rss2json "+(d?d.status||"empty":"null"));onDone([]);return;}feedLog.push(feed.name+": rss2json OK ("+d.items.length+")");onDone(mapRss2json(d.items,feed.name));}).catch(function(){feedLog.push(feed.name+": rss2json fail");onDone([]);});}
+  function fetchViaAllOrigins(feed,onDone){fetch("https://api.allorigins.win/get?url="+encodeURIComponent(feed.url),{cache:"no-store"}).then(function(r){return r.json();}).then(function(d){if(!d||!d.contents){feedLog.push(feed.name+": allorigins no-content");onDone([]);return;}var items=parseRSSXML(d.contents,feed.name);feedLog.push(feed.name+": allorigins "+(items.length?"OK ("+items.length+")":"0 items"));onDone(items);}).catch(function(){feedLog.push(feed.name+": allorigins fail");onDone([]);});}
+  function fetchFeed(feed,allDone){var called=false,pending=2;function got(items){pending--;if(called)return;if(items.length){called=true;allDone(items);return;}if(pending===0){called=true;allDone([]);}}fetchViaRss2json(feed,got);fetchViaAllOrigins(feed,got);}
+
+  function mapRss2json(items,srcName){return items.map(function(i){return{title:(i.title||"").replace(/<[^>]+>/g,"").trim(),link:i.link||i.guid||"",pubDate:i.pubDate||"",description:(i.description||"").replace(/<[^>]+>/g,"").trim().slice(0,160),_src:srcName};}).filter(function(i){return i.title;});}
+  function parseRSSXML(xmlStr,srcName){try{var doc=new DOMParser().parseFromString(xmlStr,"text/xml");if(doc.getElementsByTagName("parseerror").length)return[];var nodes=doc.getElementsByTagName("item"),result=[];for(var i=0;i<Math.min(nodes.length,50);i++){var node=nodes[i],titleEl=node.getElementsByTagName("title")[0],title=titleEl?titleEl.textContent.trim():"";if(!title)continue;var linkEl=node.getElementsByTagName("link")[0],link="";if(linkEl){link=linkEl.textContent.trim();if(!link)link=linkEl.getAttribute("href")||"";if(!link&&linkEl.nextSibling&&linkEl.nextSibling.nodeType===3)link=linkEl.nextSibling.textContent.trim();}if(!link){var guidEl=node.getElementsByTagName("guid")[0];if(guidEl)link=guidEl.textContent.trim();}var pubEl=node.getElementsByTagName("pubDate")[0];var descEl=node.getElementsByTagName("description")[0];var desc=descEl?(descEl.textContent||"").trim().replace(/<[^>]+>/g,"").trim().slice(0,160):"";result.push({title:title,link:link,pubDate:pubEl?pubEl.textContent.trim():"",description:desc,_src:srcName});}return result;}catch(e){return[];}}
+
+  function itemText(i){return((i.title||"")+" "+(i.description||"")).toLowerCase();}
+  function filterByDate(items){if(!dateRangeDays)return items;var cutoff=Date.now()-dateRangeDays*24*60*60*1000;return items.filter(function(i){if(!i.pubDate)return true;var t=new Date(i.pubDate).getTime();return isNaN(t)||t>=cutoff;});}
+  function matchesCat(item,cat){if(cat==="all")return true;var txt=itemText(item);return CAT_KW[cat].some(function(k){return txt.indexOf(k)!==-1;});}
+  function matchesKwMap(item,kwMap,key){if(key==="all")return true;var kws=kwMap[key];if(!kws)return false;var txt=itemText(item);return kws.some(function(k){return txt.indexOf(k)!==-1;});}
+  function detectType(item){var txt=itemText(item),order=["car","lng","tanker","container","bulk"],labels={car:"Car Carrier",lng:"LNG/Gas",tanker:"Tanker",container:"Container",bulk:"Bulk"};for(var i=0;i<order.length;i++){if(CAT_KW[order[i]].some(function(k){return txt.indexOf(k)!==-1;}))return labels[order[i]];}return null;}
+
+  /*── Chart Rendering ──────────────────────────────────────────*/
+  function bLabel(k){
+    if(k.length===7){return MONTHS[parseInt(k.slice(5),10)-1]+" '"+k.slice(2,4);}
+    var d=new Date(k);if(isNaN(d.getTime()))return k.slice(5);
+    return MONTHS[d.getMonth()]+" "+d.getDate();
+  }
+
+  function renderCharts(items){
+    var el=document.getElementById("sot-charts");
+    var countEl=document.getElementById("sot-chart-count");
+    if(!items||!items.length){el.style.display="none";return;}
+    el.style.display="block";
+    if(countEl)countEl.textContent="— "+items.length+" articles in view";
+
+    /* 1. Ship Type donut */
+    var TYPE_DEF=[
+      {key:"tanker",  label:"Tanker",     color:"#1a9e82"},
+      {key:"container",label:"Container", color:"#154f7a"},
+      {key:"lng",     label:"LNG/Gas",    color:"#f59e0b"},
+      {key:"bulk",    label:"Bulk",       color:"#8b5cf6"},
+      {key:"car",     label:"Car",        color:"#ef4444"},
+      {key:"other",   label:"Other",      color:"#c8d8e4"}
     ];
-
-    /* ── 선종 카테고리 키워드 ─────────────────────────── */
-    var CAT_KW = {
-      all: [],
-      tanker: [
-        "tanker",
-        "vlcc",
-        "suezmax",
-        "aframax",
-        "product tanker",
-        "crude",
-        "chemical tanker",
-        "mr tanker",
-      ],
-      container: [
-        "container",
-        "teu",
-        "boxship",
-        "containership",
-        "feeder",
-        "ultra large",
-        "box ship",
-      ],
-      lng: [
-        "lng",
-        "lpg",
-        "fsru",
-        "flng",
-        "gas carrier",
-        "liquefied",
-        "ammonia",
-        "methanol",
-      ],
-      bulk: [
-        "bulker",
-        "bulk carrier",
-        "capesize",
-        "panamax",
-        "handysize",
-        "handymax",
-        "ultramax",
-        "kamsarmax",
-      ],
-      car: [
-        "pctc",
-        "car carrier",
-        "roro",
-        "ro-ro",
-        "vehicle carrier",
-        "pcctc",
-        "pure car",
-      ],
-    };
-
-    /* ── 선박 소유주 키워드 맵 ─────────────────────────── */
-    var OWNER_KW = {
-      Maersk: ["maersk"],
-      MSC: ["mediterranean shipping", " msc ", "msc's"],
-      "CMA CGM": ["cma cgm", "cma-cgm"],
-      COSCO: ["cosco shipping", "cosco group"],
-      Evergreen: ["evergreen"],
-      "Hapag-Lloyd": ["hapag-lloyd", "hapag lloyd"],
-      ONE: ["ocean network express", " one ", "one's"],
-      "Yang Ming": ["yang ming", "yangming"],
-      HMM: ["hmm ", "hyundai merchant marine"],
-      Zim: ["zim ", "zim's", "zim shipping"],
-      Euronav: ["euronav"],
-      Frontline: ["frontline"],
-      Teekay: ["teekay"],
-      Scorpio: ["scorpio tankers", "scorpio bulkers"],
-      "Star Bulk": ["star bulk"],
-      "Golden Ocean": ["golden ocean"],
-      "Pacific Basin": ["pacific basin"],
-      Oldendorff: ["oldendorff"],
-      MOL: ["mitsui o.s.k", "mol tanker", "mol carrier", " mol "],
-      NYK: ["nippon yusen", " nyk ", "nyk's"],
-      "K Line": ["k line", '"k" line'],
-      "Stolt-Nielsen": ["stolt-nielsen", "stolt nielsen"],
-      Odfjell: ["odfjell"],
-      Shell: ["shell "],
-      BP: [" bp ", "bp shipping"],
-      TotalEnergies: ["totalenergies", "total energies"],
-    };
-
-    /* ── 조선사 키워드 맵 ─────────────────────────────── */
-    var YARD_KW = {
-      "HD Hyundai / HHI": [
-        "hyundai heavy",
-        "hhic",
-        "hd hyundai",
-        "hd ksoe",
-        " hhi ",
-        "hhi's",
-        "hyundai shipyard",
-      ],
-      "Samsung Heavy": ["samsung heavy", " shi ", "shi's", "samsung shi"],
-      "Hanwha Ocean": ["hanwha ocean", "dsme", "daewoo shipbuilding"],
-      "CSSC / Hudong": [
-        "cssc",
-        "hudong",
-        "jiangnan",
-        "china state shipbuilding",
-      ],
-      Yangzijiang: ["yangzijiang", " yzj"],
-      "COSCO Shipyard": ["cosco shipyard", "cosco zhoushan", "cosco nantong"],
-      "New Times": ["new times shipbuilding", "new times sb"],
-      Imabari: ["imabari"],
-      "Mitsui E&S": ["mitsui engineering", "mitsui e&s", " mes "],
-      JMU: ["japan marine united", " jmu"],
-      Oshima: ["oshima"],
-      Tsuneishi: ["tsuneishi"],
-      Damen: ["damen"],
-      Fincantieri: ["fincantieri"],
-      "Meyer Werft": ["meyer werft"],
-      "Meyer Turku": ["meyer turku"],
-    };
-
-    /* ── Ship Type 탭 정의 ──────────────────────────────── */
-    var TYPE_TABS = [
-      { key: "all", label: "All" },
-      { key: "tanker", label: "Tanker" },
-      { key: "container", label: "Container" },
-      { key: "lng", label: "LNG / Gas" },
-      { key: "bulk", label: "Bulk" },
-      { key: "car", label: "Car Carrier" },
-    ];
-
-    /* ══ 캐시 읽기 / 쓰기 ══ */
-    function loadCache() {
-      try {
-        var raw = localStorage.getItem(CACHE_KEY);
-        if (!raw) return null;
-        var obj = JSON.parse(raw);
-        if (!obj || !obj.items || Date.now() - obj.ts > CACHE_TTL) return null;
-        return obj;
-      } catch (e) {
-        return null;
-      }
-    }
-
-    function saveCache(items, log) {
-      try {
-        localStorage.setItem(
-          CACHE_KEY,
-          JSON.stringify({ ts: Date.now(), items: items, feedLog: log }),
-        );
-      } catch (e) {}
-    }
-
-    /* ══ 폴백 링크 유효성 체크 ══ */
-    function checkFallbackLinks() {
-      var cards = document.querySelectorAll("#sot-link-grid .sot-link-card");
-      cards.forEach(function (card) {
-        var url = card.getAttribute("href");
-        if (!url) {
-          card.classList.remove("sot-link-checking");
-          return;
-        }
-        fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url), {
-          cache: "no-store",
-        })
-          .then(function (r) {
-            return r.json();
-          })
-          .then(function (d) {
-            var code = d && d.status && d.status.http_code;
-            card.classList.remove("sot-link-checking");
-            if (code === 404 || code === 410) {
-              card.classList.add("sot-link-dead");
-              setTimeout(function () {
-                if (card.parentNode) card.parentNode.removeChild(card);
-              }, 400);
-            }
-          })
-          .catch(function () {
-            card.classList.remove("sot-link-checking");
-          });
-      });
-    }
-
-    /* ══ A) rss2json fetch ══ */
-    function fetchViaRss2json(feed, onDone) {
-      fetch(
-        "https://api.rss2json.com/v1/api.json?count=50&rss_url=" +
-          encodeURIComponent(feed.url),
-      )
-        .then(function (r) {
-          return r.json();
-        })
-        .then(function (d) {
-          if (!d || d.status !== "ok" || !d.items || !d.items.length) {
-            feedLog.push(
-              feed.name + ": rss2json " + (d ? d.status || "empty" : "null"),
-            );
-            onDone([]);
-            return;
-          }
-          feedLog.push(feed.name + ": rss2json OK (" + d.items.length + ")");
-          onDone(mapRss2json(d.items, feed.name));
-        })
-        .catch(function () {
-          feedLog.push(feed.name + ": rss2json fail");
-          onDone([]);
-        });
-    }
-
-    /* ══ B) allorigins ══ */
-    function fetchViaAllOrigins(feed, onDone) {
-      fetch(
-        "https://api.allorigins.win/get?url=" + encodeURIComponent(feed.url),
-        { cache: "no-store" },
-      )
-        .then(function (r) {
-          return r.json();
-        })
-        .then(function (d) {
-          if (!d || !d.contents) {
-            feedLog.push(feed.name + ": allorigins no-content");
-            onDone([]);
-            return;
-          }
-          var items = parseRSSXML(d.contents, feed.name);
-          feedLog.push(
-            feed.name +
-              ": allorigins " +
-              (items.length ? "OK (" + items.length + ")" : "0 items"),
-          );
-          onDone(items);
-        })
-        .catch(function () {
-          feedLog.push(feed.name + ": allorigins fail");
-          onDone([]);
-        });
-    }
-
-    /* ══ mappers ══ */
-    function mapRss2json(items, srcName) {
-      return items
-        .map(function (i) {
-          return {
-            title: (i.title || "").replace(/<[^>]+>/g, "").trim(),
-            link: i.link || i.guid || "",
-            pubDate: i.pubDate || "",
-            description: (i.description || "")
-              .replace(/<[^>]+>/g, "")
-              .slice(0, 200),
-            _src: srcName,
-          };
-        })
-        .filter(function (i) {
-          return i.title;
-        });
-    }
-
-    function parseRSSXML(xmlStr, srcName) {
-      try {
-        var doc = new DOMParser().parseFromString(xmlStr, "text/xml");
-        if (doc.getElementsByTagName("parseerror").length) return [];
-        var nodes = doc.getElementsByTagName("item");
-        var result = [];
-        for (var i = 0; i < Math.min(nodes.length, 50); i++) {
-          var node = nodes[i];
-          var titleEl = node.getElementsByTagName("title")[0];
-          var title = titleEl ? titleEl.textContent.trim() : "";
-          if (!title) continue;
-          var linkEl = node.getElementsByTagName("link")[0];
-          var link = "";
-          if (linkEl) {
-            link = linkEl.textContent.trim();
-            if (!link) link = linkEl.getAttribute("href") || "";
-            if (
-              !link &&
-              linkEl.nextSibling &&
-              linkEl.nextSibling.nodeType === 3
-            )
-              link = linkEl.nextSibling.textContent.trim();
-          }
-          if (!link) {
-            var guidEl = node.getElementsByTagName("guid")[0];
-            if (guidEl) link = guidEl.textContent.trim();
-          }
-          var pubEl = node.getElementsByTagName("pubDate")[0];
-          result.push({
-            title: title,
-            link: link,
-            pubDate: pubEl ? pubEl.textContent.trim() : "",
-            description: "",
-            _src: srcName,
-          });
-        }
-        return result;
-      } catch (e) {
-        return [];
-      }
-    }
-
-    /* ══ rss2json ∥ allorigins 병렬 race ══ */
-    function fetchFeed(feed, allDone) {
-      var called = false;
-      var pending = 2;
-      function got(items) {
-        pending--;
-        if (called) return;
-        if (items.length) {
-          called = true;
-          allDone(items);
-          return;
-        }
-        if (pending === 0) {
-          called = true;
-          allDone([]);
-        }
-      }
-      fetchViaRss2json(feed, got);
-      fetchViaAllOrigins(feed, got);
-    }
-
-    /* ══ 텍스트 유틸 ══ */
-    function itemText(item) {
-      return (
-        (item.title || "") +
-        " " +
-        (item.description || "")
-      ).toLowerCase();
-    }
-
-    /* ══ 날짜 범위 필터 ══
-       dateRangeDays === 0 이면 전체 반환.
-       pubDate가 없거나 파싱 실패한 항목은 포함 처리. */
-    function filterByDate(items) {
-      if (!dateRangeDays) return items;
-      var cutoff = Date.now() - dateRangeDays * 24 * 60 * 60 * 1000;
-      return items.filter(function (i) {
-        if (!i.pubDate) return true;
-        var t = new Date(i.pubDate).getTime();
-        return isNaN(t) || t >= cutoff;
-      });
-    }
-
-    /* ═��� 카테고리 필터 / 타입 감지 ══ */
-    function matchesCat(item, cat) {
-      if (cat === "all") return true;
-      var txt = itemText(item);
-      return CAT_KW[cat].some(function (k) {
-        return txt.indexOf(k) !== -1;
-      });
-    }
-
-    function matchesKwMap(item, kwMap, key) {
-      if (key === "all") return true;
-      var kws = kwMap[key];
-      if (!kws) return false;
-      var txt = itemText(item);
-      return kws.some(function (k) {
-        return txt.indexOf(k) !== -1;
-      });
-    }
-
-    function detectType(item) {
-      var txt = itemText(item);
-      var order = ["car", "lng", "tanker", "container", "bulk"];
-      var labels = {
-        car: "Car Carrier",
-        lng: "LNG/Gas",
-        tanker: "Tanker",
-        container: "Container",
-        bulk: "Bulk",
-      };
-      for (var i = 0; i < order.length; i++) {
-        if (
-          CAT_KW[order[i]].some(function (k) {
-            return txt.indexOf(k) !== -1;
-          })
-        )
-          return labels[order[i]];
-      }
-      return null;
-    }
-
-    /* ══ 탭 이벤트 바인딩 ��═ */
-    function attachTabEvents() {
-      var tabsEl = document.getElementById("sot-tabs");
-      tabsEl.querySelectorAll(".sot-tab").forEach(function (tab) {
-        tab.addEventListener("click", function () {
-          tabsEl.querySelectorAll(".sot-tab").forEach(function (t) {
-            t.classList.remove("active");
-          });
-          this.classList.add("active");
-          activeTab = this.dataset.key;
-          applyFilter();
-        });
-      });
-    }
-
-    /* ══ Ship Type 탭 빌드 ══ */
-    function buildTypeTabs() {
-      var tabsEl = document.getElementById("sot-tabs");
-      tabsEl.innerHTML = TYPE_TABS.map(function (t) {
-        return (
-          '<button class="sot-tab' +
-          (t.key === activeTab ? " active" : "") +
-          '" data-key="' +
-          t.key +
-          '">' +
-          t.label +
-          "</button>"
-        );
-      }).join("");
-      attachTabEvents();
-    }
-
-    /* ══ Owner / Shipyard 동적 탭 빌드 ══
-     날짜 필터 적용된 항목 기준으로 매칭 건수 집계, 상위 9개 탭 생성 */
-    function buildDynamicTabs(kwMap) {
-      var pool = filterByDate(allItems); /* 날짜 범위 적용 후 풀 */
-      var counts = {};
-      Object.keys(kwMap).forEach(function (name) {
-        var kws = kwMap[name];
-        var n = pool.filter(function (i) {
-          var txt = itemText(i);
-          return kws.some(function (k) {
-            return txt.indexOf(k) !== -1;
-          });
-        }).length;
-        if (n > 0) counts[name] = n;
-      });
-
-      var sorted = Object.keys(counts)
-        .sort(function (a, b) {
-          return counts[b] - counts[a];
-        })
-        .slice(0, 9);
-
-      /* activeTab이 현재 목록에 없으면 'all'로 리셋 */
-      if (activeTab !== "all" && sorted.indexOf(activeTab) === -1)
-        activeTab = "all";
-
-      var tabsEl = document.getElementById("sot-tabs");
-      tabsEl.innerHTML =
-        '<button class="sot-tab' +
-        (activeTab === "all" ? " active" : "") +
-        '" data-key="all">All (' +
-        pool.length +
-        ")</button>" +
-        (sorted.length
-          ? sorted
-              .map(function (name) {
-                return (
-                  '<button class="sot-tab' +
-                  (activeTab === name ? " active" : "") +
-                  '" data-key="' +
-                  name.replace(/"/g, "&quot;") +
-                  '">' +
-                  name +
-                  ' <span style="font-size:9.5px;opacity:0.65">(' +
-                  counts[name] +
-                  ")</span></button>"
-                );
-              })
-              .join("")
-          : '<span style="padding:8px 10px;font-size:11px;color:#b0c4ce;align-self:center;">관련 데이터 없음</span>');
-      attachTabEvents();
-    }
-
-    /* ══ 모드 전환 ══ */
-    function switchMode(mode) {
-      filterMode = mode;
-      activeTab = "all";
-      document.querySelectorAll(".sot-mode-btn").forEach(function (b) {
-        b.classList.toggle("active", b.dataset.mode === mode);
-      });
-      if (mode === "type") buildTypeTabs();
-      else if (mode === "owner") buildDynamicTabs(OWNER_KW);
-      else buildDynamicTabs(YARD_KW);
-      applyFilter();
-    }
-
-    /* ══ 필터 적용 (카테고리 + 날짜 범위) ══ */
-    function applyFilter() {
-      var base;
-      if (filterMode === "type") {
-        base = allItems.filter(function (i) {
-          return matchesCat(i, activeTab);
-        });
-      } else {
-        var kwMap = filterMode === "owner" ? OWNER_KW : YARD_KW;
-        base = allItems.filter(function (i) {
-          return matchesKwMap(i, kwMap, activeTab);
-        });
-      }
-      filteredItems = filterByDate(base);
-      currentPage = 1;
-      renderPage();
-    }
-
-    function fmtDate(ds) {
-      if (!ds) return "\u2014";
-      var d = new Date(ds);
-      if (isNaN(d.getTime())) return "\u2014";
-      return d.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    }
-
-    function escAttr(s) {
-      return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;");
-    }
-    function escHTML(s) {
-      return (s || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-    }
-
-    /* ══ 페이지 렌더 ══ */
-    function renderPage() {
-      var tbody = document.getElementById("sot-tbody");
-      var pageInfo = document.getElementById("sot-page-info");
-      var prevBtn = document.getElementById("sot-prev-btn");
-      var nextBtn = document.getElementById("sot-next-btn");
-      var tableWrap = document.getElementById("sot-table-wrap");
-      var pagination = document.getElementById("sot-pagination");
-      var emptyEl = document.getElementById("sot-empty");
-      var catEmpty = document.getElementById("sot-cat-empty");
-      var statusEl = document.getElementById("sot-status");
-
-      statusEl.style.display = feedLog.length ? "block" : "none";
-      if (feedLog.length)
-        statusEl.textContent = "\uD83D\uDCCB " + feedLog.join("  \xB7  ");
-
-      tableWrap.style.display = "none";
-      pagination.style.display = "none";
-      emptyEl.style.display = "none";
-      catEmpty.style.display = "none";
-
-      if (allItems.length === 0) {
-        emptyEl.style.display = "block";
-        checkFallbackLinks();
-        return;
-      }
-
-      if (!filteredItems.length) {
-        catEmpty.style.display = "block";
-        catEmpty.innerHTML =
-          "\uC774 \uCE74\uD14C\uACE0\uB9AC\uC5D0 \uD574\uB2F9\uD558\uB294 \uB274\uC2A4\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.<br><span style='font-size:11px'>All \uD0ED\uC744 \uC120\uD0DD\uD558\uAC70\uB098 Refresh\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694.</span>";
-        return;
-      }
-
-      tableWrap.style.display = "block";
-      var total = filteredItems.length;
-      var totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-      var start = (currentPage - 1) * ITEMS_PER_PAGE;
-      var end = Math.min(start + ITEMS_PER_PAGE, total);
-
-      tbody.innerHTML = filteredItems
-        .slice(start, end)
-        .map(function (i) {
-          var typeLabel = detectType(i);
-          var typePill = typeLabel
-            ? '<span class="sot-type-tag">' + typeLabel + "</span>"
-            : "";
-          return (
-            '<div class="sot-card">' +
-            '<div class="sot-card-meta">' +
-            '<span class="sot-card-date">' +
-            fmtDate(i.pubDate) +
-            "</span>" +
-            '<span class="sot-src">' +
-            escHTML(i._src) +
-            "</span>" +
-            typePill +
-            "</div>" +
-            '<a class="sot-card-title" href="' +
-            escAttr(i.link) +
-            '" target="_blank" rel="noopener">' +
-            escHTML(i.title) +
-            "</a>" +
-            "</div>"
-          );
-        })
-        .join("");
-
-      pagination.style.display = totalPages > 1 ? "flex" : "none";
-      pageInfo.textContent =
-        "Page " +
-        currentPage +
-        " / " +
-        totalPages +
-        "  \xB7  " +
-        (start + 1) +
-        "\u2013" +
-        end +
-        " of " +
-        total;
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage === totalPages;
-    }
-
-    /* ══ refresh(force) ══ */
-    function refresh(force) {
-      var btn = document.getElementById("sot-refresh-btn");
-      var loading = document.getElementById("sot-loading");
-      var list = document.getElementById("sot-list");
-      var upd = document.getElementById("sot-updated");
-
-      if (!force) {
-        var cached = loadCache();
-        if (cached) {
-          allItems = cached.items || [];
-          feedLog = [];
-          var ageMin = Math.round((Date.now() - cached.ts) / 60000);
-          loading.style.display = "none";
-          list.style.display = "block";
-          upd.textContent =
-            (allItems.length ? allItems.length + " articles  \xB7  " : "") +
-            "Cached " +
-            ageMin +
-            "m ago";
-          applyFilter();
-          return;
-        }
-      }
-
-      btn.disabled = true;
-      btn.textContent = "\u27F3";
-      loading.style.display = "block";
-      list.style.display = "none";
-      feedLog = [];
-      allItems = [];
-      pendingFeeds = FEEDS.length;
-      completedFeeds = 0;
-      var collected = [];
-
-      /* 프로그레스 바 초기화 */
-      var progBar = document.getElementById("sot-progress-bar");
-      var progLabel = document.getElementById("sot-progress-label");
-      progBar.style.width = "0%";
-      progLabel.textContent = "0 / " + FEEDS.length + " feeds";
-
-      function onFeedDone(items) {
-        if (items && items.length) collected = collected.concat(items);
-        completedFeeds++;
-        pendingFeeds--;
-
-        /* 피드 하나 완료될 때마다 프로그레스 바 업데이트 */
-        var pct = Math.round((completedFeeds / FEEDS.length) * 100);
-        progBar.style.width = pct + "%";
-        progLabel.textContent = completedFeeds + " / " + FEEDS.length + " feeds";
-
-        if (pendingFeeds > 0) return;
-
-        var seen = {};
-        var merged = collected.filter(function (i) {
-          var key = (i.title || "")
-            .toLowerCase()
-            .replace(/\s+/g, " ")
-            .slice(0, 80);
-          if (!key || seen[key]) return false;
-          seen[key] = true;
-          return true;
-        });
-
-        allItems = merged.sort(function (a, b) {
-          var ta = a.pubDate ? new Date(a.pubDate).getTime() : 0;
-          var tb = b.pubDate ? new Date(b.pubDate).getTime() : 0;
-          return tb - ta;
-        });
-
-        if (allItems.length) saveCache(allItems, feedLog);
-
-        loading.style.display = "none";
-        list.style.display = "block";
-        btn.disabled = false;
-        btn.textContent = "\u27F3 Refresh";
-        document.getElementById("sot-limit-bar").style.display = "block";
-
-        var now = new Date();
-        upd.textContent =
-          (allItems.length ? allItems.length + " articles  \xB7  " : "") +
-          "Updated " +
-          now.toLocaleTimeString("en-GB", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-
-        /* 현재 모드에 맞게 탭 재빌드 */
-        if (filterMode !== "type") switchMode(filterMode);
-        else applyFilter();
-      }
-
-      FEEDS.forEach(function (feed) {
-        fetchFeed(feed, onFeedDone);
-      });
-    }
-
-    /* ══ 이벤트 ══ */
-    document
-      .getElementById("sot-refresh-btn")
-      .addEventListener("click", function () {
-        refresh(true);
-      });
-    document
-      .getElementById("sot-prev-btn")
-      .addEventListener("click", function () {
-        if (currentPage > 1) {
-          currentPage--;
-          renderPage();
-        }
-      });
-    document
-      .getElementById("sot-next-btn")
-      .addEventListener("click", function () {
-        if (currentPage < Math.ceil(filteredItems.length / ITEMS_PER_PAGE)) {
-          currentPage++;
-          renderPage();
-        }
-      });
-    document.querySelectorAll(".sot-mode-btn").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        switchMode(this.dataset.mode);
-      });
+    var tc={tanker:0,container:0,lng:0,bulk:0,car:0,other:0};
+    items.forEach(function(i){
+      var t=detectType(i);
+      if(t==="Tanker")tc.tanker++;
+      else if(t==="Container")tc.container++;
+      else if(t==="LNG/Gas")tc.lng++;
+      else if(t==="Bulk")tc.bulk++;
+      else if(t==="Car Carrier")tc.car++;
+      else tc.other++;
     });
-    document.querySelectorAll(".sot-date-btn").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        document.querySelectorAll(".sot-date-btn").forEach(function (b) {
-          b.classList.remove("active");
-        });
-        this.classList.add("active");
-        dateRangeDays = parseInt(this.dataset.days, 10);
-        /* Owner / Shipyard 모드이면 탭 카운트도 날짜 기준으로 재계산 */
-        if (filterMode === "owner") buildDynamicTabs(OWNER_KW);
-        else if (filterMode === "shipyard") buildDynamicTabs(YARD_KW);
-        applyFilter();
-      });
+    var R=38,C=2*Math.PI*R,cx=50,cy=50,cum=0,svgSegs="",lgnd="";
+    TYPE_DEF.forEach(function(t){
+      var n=tc[t.key]||0;if(!n)return;
+      var pct=n/items.length,dash=pct*C,offset=-(cum*C);
+      svgSegs+='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="'+t.color
+        +'" stroke-width="16" stroke-dasharray="'+dash.toFixed(2)+' '+C.toFixed(2)
+        +'" stroke-dashoffset="'+offset.toFixed(2)+'"/>';
+      lgnd+='<div style="align-items:center;display:flex;gap:5px;justify-content:space-between;">'
+        +'<div style="align-items:center;display:flex;gap:5px;">'
+        +'<span style="background:'+t.color+';border-radius:2px;flex-shrink:0;height:8px;width:8px;"></span>'
+        +'<span style="color:#354a5e;font-size:10.5px;">'+t.label+'</span></div>'
+        +'<span style="color:#9fb5c2;font-size:10.5px;font-weight:700;">'+n+'</span></div>';
+      cum+=pct;
     });
+    var donutHTML='<div style="align-items:center;display:flex;gap:10px;">'
+      +'<div style="flex-shrink:0;height:100px;position:relative;width:100px;">'
+      +'<svg viewBox="0 0 100 100" style="height:100%;transform:rotate(-90deg);width:100%;">'+svgSegs+'</svg>'
+      +'<div style="left:50%;position:absolute;text-align:center;top:50%;transform:translate(-50%,-50%);">'
+      +'<div style="color:#0a2342;font-size:18px;font-weight:900;line-height:1;">'+items.length+'</div>'
+      +'<div style="color:#9fb5c2;font-size:8px;line-height:1.3;">articles</div></div></div>'
+      +'<div style="display:flex;flex:1;flex-direction:column;gap:5px;">'+lgnd+'</div></div>';
+    document.getElementById("sot-chart-donut").innerHTML=donutHTML;
 
-    attachTabEvents(); /* 초기 Ship Type 탭 이벤트 바인딩 */
-    refresh(false);
-  })();
+    /* 2. Publication Timeline bar chart */
+    var buckets={};
+    items.forEach(function(i){
+      if(!i.pubDate)return;
+      var d=new Date(i.pubDate);if(isNaN(d.getTime()))return;
+      var key;
+      if(!dateRangeDays||dateRangeDays>=90){
+        key=d.getFullYear()+"-"+pad2(d.getMonth()+1);
+      }else if(dateRangeDays>=14){
+        var ws=new Date(d);ws.setDate(d.getDate()-d.getDay());
+        key=ws.getFullYear()+"-"+pad2(ws.getMonth()+1)+"-"+pad2(ws.getDate());
+      }else{
+        key=d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());
+      }
+      buckets[key]=(buckets[key]||0)+1;
+    });
+    var bkeys=Object.keys(buckets).sort();
+    if(bkeys.length>9)bkeys=bkeys.slice(bkeys.length-9);
+    var bmax=1;bkeys.forEach(function(k){if(buckets[k]>bmax)bmax=buckets[k];});
+    var BW=22,BG=5,SVH=58,LBH=20,SVW=bkeys.length*(BW+BG)-BG+16;
+    var bars=bkeys.map(function(k,idx){
+      var h=Math.max(3,Math.round((buckets[k]/bmax)*SVH));
+      var x=8+idx*(BW+BG),y=SVH-h;
+      return '<rect x="'+x+'" y="'+y+'" width="'+BW+'" height="'+h+'" rx="3" fill="#154f7a" opacity="0.78"/>'
+        +'<text x="'+(x+BW/2)+'" y="'+(y-3)+'" text-anchor="middle" font-size="8.5" fill="#354a5e" font-family="Arial,sans-serif">'+buckets[k]+'</text>'
+        +'<text x="'+(x+BW/2)+'" y="'+(SVH+LBH-3)+'" text-anchor="middle" font-size="8" fill="#9fb5c2" font-family="Arial,sans-serif">'+bLabel(k)+'</text>';
+    }).join("");
+    var svgStr='<svg viewBox="0 0 '+SVW+' '+(SVH+LBH)+'" style="height:auto;overflow:visible;width:100%;">'
+      +'<line x1="4" y1="0" x2="4" y2="'+SVH+'" stroke="#d1e0ee" stroke-width="1"/>'
+      +'<line x1="4" y1="'+SVH+'" x2="'+SVW+'" y2="'+SVH+'" stroke="#d1e0ee" stroke-width="1"/>'
+      +bars+'</svg>';
+    document.getElementById("sot-chart-timeline").innerHTML=svgStr;
+  }
+  /*── End Chart Rendering ──────────────────────────────────────*/
+
+  function attachTabEvents(){var tabsEl=document.getElementById("sot-tabs");tabsEl.querySelectorAll(".sot-tab").forEach(function(tab){tab.addEventListener("click",function(){tabsEl.querySelectorAll(".sot-tab").forEach(function(t){t.classList.remove("active");});this.classList.add("active");activeTab=this.dataset.key;applyFilter();});});}
+  function buildTypeTabs(){var tabsEl=document.getElementById("sot-tabs");tabsEl.innerHTML=TYPE_TABS.map(function(t){return'<button class="sot-tab'+(t.key===activeTab?" active":"")+'" data-key="'+t.key+'">'+t.label+"</button>";}).join("");attachTabEvents();}
+  function buildDynamicTabs(kwMap){var pool=filterByDate(allItems),counts={};Object.keys(kwMap).forEach(function(name){var kws=kwMap[name],n=pool.filter(function(i){var txt=itemText(i);return kws.some(function(k){return txt.indexOf(k)!==-1;});}).length;if(n>0)counts[name]=n;});var sorted=Object.keys(counts).sort(function(a,b){return counts[b]-counts[a];}).slice(0,9);if(activeTab!=="all"&&sorted.indexOf(activeTab)===-1)activeTab="all";var tabsEl=document.getElementById("sot-tabs");tabsEl.innerHTML='<button class="sot-tab'+(activeTab==="all"?" active":"")+'" data-key="all">All ('+pool.length+")</button>"+(sorted.length?sorted.map(function(name){return'<button class="sot-tab'+(activeTab===name?" active":"")+'" data-key="'+name.replace(/"/g,"&quot;")+'">'+name+' <span style="font-size:10px;opacity:.65">('+counts[name]+")</span></button>";}).join(""):'<span style="padding:8px 10px;font-size:12px;color:#b0c4ce;align-self:center;">관련 데이터 없음</span>');attachTabEvents();}
+
+  function switchMode(mode){filterMode=mode;activeTab="all";document.querySelectorAll(".sot-mode-btn").forEach(function(b){b.classList.toggle("active",b.dataset.mode===mode);});if(mode==="type")buildTypeTabs();else if(mode==="owner")buildDynamicTabs(OWNER_KW);else buildDynamicTabs(YARD_KW);applyFilter();}
+  function applyFilter(){var base;if(filterMode==="type"){base=allItems.filter(function(i){return matchesCat(i,activeTab);});}else{var kwMap=filterMode==="owner"?OWNER_KW:YARD_KW;base=allItems.filter(function(i){return matchesKwMap(i,kwMap,activeTab);});}filteredItems=filterByDate(base);currentPage=1;renderCharts(filteredItems);renderPage();}
+
+  function fmtDate(ds){if(!ds)return"\u2014";var d=new Date(ds);if(isNaN(d.getTime()))return"\u2014";return d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});}
+  function escAttr(s){return(s||"").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
+  function escHTML(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+  function renderPage(){var tbody=document.getElementById("sot-tbody"),pageInfo=document.getElementById("sot-page-info"),prevBtn=document.getElementById("sot-prev-btn"),nextBtn=document.getElementById("sot-next-btn"),tableWrap=document.getElementById("sot-table-wrap"),pagination=document.getElementById("sot-pagination"),emptyEl=document.getElementById("sot-empty"),catEmpty=document.getElementById("sot-cat-empty"),statusEl=document.getElementById("sot-status");
+    statusEl.style.display=feedLog.length?"block":"none";if(feedLog.length)statusEl.textContent="\uD83D\uDCCB "+feedLog.join("  \xB7  ");
+    tableWrap.style.display="none";pagination.style.display="none";emptyEl.style.display="none";catEmpty.style.display="none";
+    if(allItems.length===0){emptyEl.style.display="block";checkFallbackLinks();return;}
+    if(!filteredItems.length){catEmpty.style.display="block";catEmpty.innerHTML="\uC774 \uCE74\uD14C\uACE0\uB9AC\uC5D0 \uD574\uB2F9\uD558\uB294 \uB274\uC2A4\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.<br><span style='font-size:12px'>All \uD0ED\uC744 \uC120\uD0DD\uD558\uAC70\uB098 Refresh\uB97C \uB20C\uB7EC \uC8FC\uC138\uC694.</span>";return;}
+    tableWrap.style.display="block";var total=filteredItems.length,totalPages=Math.ceil(total/ITEMS_PER_PAGE),start=(currentPage-1)*ITEMS_PER_PAGE,end=Math.min(start+ITEMS_PER_PAGE,total);
+    tbody.innerHTML=filteredItems.slice(start,end).map(function(i){
+      var typeLabel=detectType(i),typePill=typeLabel?'<span class="sot-type-tag">'+typeLabel+"</span>":"";
+      var descHtml=i.description?'<div class="sot-card-desc">'+escHTML(i.description)+"</div>":"";
+      return'<div class="sot-card"><div class="sot-card-meta"><span class="sot-card-date">'+fmtDate(i.pubDate)+'</span><span class="sot-src">'+escHTML(i._src)+"</span>"+typePill+'</div><a class="sot-card-title" href="'+escAttr(i.link)+'" target="_blank" rel="noopener">'+escHTML(i.title)+"</a>"+descHtml+"</div>";
+    }).join("");
+    pagination.style.display=totalPages>1?"flex":"none";pageInfo.textContent="Page "+currentPage+" / "+totalPages+"  \xB7  "+(start+1)+"\u2013"+end+" of "+total;prevBtn.disabled=currentPage===1;nextBtn.disabled=currentPage===totalPages;}
+
+  function refresh(force){var btn=document.getElementById("sot-refresh-btn"),loading=document.getElementById("sot-loading"),list=document.getElementById("sot-list"),upd=document.getElementById("sot-updated");
+    if(!force){var cached=loadCache();if(cached){allItems=cached.items||[];feedLog=[];var ageMin=Math.round((Date.now()-cached.ts)/60000);loading.style.display="none";list.style.display="block";upd.textContent=(allItems.length?allItems.length+" articles  \xB7  ":"")+"Cached "+ageMin+"m ago";applyFilter();return;}}
+    btn.disabled=true;btn.textContent="\u27F3";loading.style.display="block";list.style.display="none";document.getElementById("sot-charts").style.display="none";feedLog=[];allItems=[];pendingFeeds=FEEDS.length;completedFeeds=0;var collected=[];
+    var progBar=document.getElementById("sot-progress-bar"),progLabel=document.getElementById("sot-progress-label");progBar.style.width="0%";progLabel.textContent="0 / "+FEEDS.length+" feeds";
+    function onFeedDone(items){if(items&&items.length)collected=collected.concat(items);completedFeeds++;pendingFeeds--;var pct=Math.round((completedFeeds/FEEDS.length)*100);progBar.style.width=pct+"%";progLabel.textContent=completedFeeds+" / "+FEEDS.length+" feeds";if(pendingFeeds>0)return;
+      var seen={},merged=collected.filter(function(i){var key=(i.title||"").toLowerCase().replace(/\s+/g," ").slice(0,80);if(!key||seen[key])return false;seen[key]=true;return true;});
+      allItems=merged.sort(function(a,b){var ta=a.pubDate?new Date(a.pubDate).getTime():0,tb=b.pubDate?new Date(b.pubDate).getTime():0;return tb-ta;});
+      if(allItems.length)saveCache(allItems,feedLog);loading.style.display="none";list.style.display="block";btn.disabled=false;btn.textContent="\u27F3 Refresh";document.getElementById("sot-limit-bar").style.display="block";
+      var now=new Date();upd.textContent=(allItems.length?allItems.length+" articles  \xB7  ":"")+"Updated "+now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+      if(filterMode!=="type")switchMode(filterMode);else applyFilter();}
+    FEEDS.forEach(function(feed){fetchFeed(feed,onFeedDone);});}
+
+  document.getElementById("sot-refresh-btn").addEventListener("click",function(){refresh(true);});
+  document.getElementById("sot-prev-btn").addEventListener("click",function(){if(currentPage>1){currentPage--;renderPage();}});
+  document.getElementById("sot-next-btn").addEventListener("click",function(){if(currentPage<Math.ceil(filteredItems.length/ITEMS_PER_PAGE)){currentPage++;renderPage();}});
+  document.querySelectorAll(".sot-mode-btn").forEach(function(btn){btn.addEventListener("click",function(){switchMode(this.dataset.mode);});});
+  document.querySelectorAll(".sot-date-btn").forEach(function(btn){btn.addEventListener("click",function(){document.querySelectorAll(".sot-date-btn").forEach(function(b){b.classList.remove("active");});this.classList.add("active");dateRangeDays=parseInt(this.dataset.days,10);if(filterMode==="owner")buildDynamicTabs(OWNER_KW);else if(filterMode==="shipyard")buildDynamicTabs(YARD_KW);applyFilter();});});
+  attachTabEvents();
+  refresh(false);
+})();
 </script>
