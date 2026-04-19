@@ -1376,9 +1376,13 @@
       .stats1-sub{font-size:9.5px;color:#9ab5c9;letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;font-family:'Roboto',Arial,sans-serif;}
       .stats1-pulse{display:inline-block;width:7px;height:7px;background:#1a9e82;border-radius:50%;margin:10px auto 0;box-shadow:0 0 8px rgba(26,158,130,0.5);animation:s1pulse 2s ease-in-out infinite;}
       @keyframes s1pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);}}
+      #page_body .FeaturedPost,.Blog .blog-posts .post-outer-container{padding:15px 40px !important;}
+      .post-title{margin:0 0 4px !important;}
+      .post-body{margin:0.75em 0 1em !important;}
+      .byline{margin-top:4px !important;}
     </style>
 
-    <!-- 라벨 링크에 max-results=9 자동 적용 -->
+    <!-- 라벨 링크 및 페이지네이션 max-results=9 자동 적용 -->
     <script>
       document.addEventListener(&#39;DOMContentLoaded&#39;, function () {
         document.querySelectorAll(&#39;a[href*=&quot;/search/label/&quot;]&#39;).forEach(function (a) {
@@ -1387,6 +1391,12 @@
             if (url.indexOf(&#39;max-results&#39;) === -1) {
               a.setAttribute(&#39;href&#39;, url + &#39;?max-results=9&#39;);
             }
+          }
+        });
+        document.querySelectorAll(&#39;a[href*=&quot;max-results=&quot;]&#39;).forEach(function (a) {
+          var url = a.getAttribute(&#39;href&#39;);
+          if (url) {
+            a.setAttribute(&#39;href&#39;, url.replace(/max-results=\d+/, &#39;max-results=9&#39;));
           }
         });
       });
@@ -1968,6 +1978,7 @@
                       <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
                       <b:widget-setting name='showInlineAds'>false</b:widget-setting>
                       <b:widget-setting name='showReactions'>false</b:widget-setting>
+                      <b:widget-setting name='numPosts'>9</b:widget-setting>
                     </b:widget-settings>
                     <b:includable id='main'>
                       <b:include name='noContentPlaceholder'/>
