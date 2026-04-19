@@ -191,23 +191,6 @@
     }
   }
 
-  /* ── Refresh button click effect ── */
-  #mci-refresh:active {
-    background: #e8f0f7;
-    border-color: #9ab5c9;
-  }
-  #mci-refresh.mci-refresh-spinning svg {
-    animation: mci-refresh-spin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  @keyframes mci-refresh-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
   /* ── Section hierarchy ── */
   .mci-section {
     margin-bottom: 16px;
@@ -242,52 +225,10 @@
 </style>
 
 <div id="mci-wrap">
-  <!-- ① Header bar -->
-  <div
-    style="
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #e2eaf3;
-    "
-  >
-    <button
-      id="mci-refresh"
-      style="
-        background: none;
-        border: 1.5px solid #cbd8e5;
-        border-radius: 8px;
-        padding: 6px;
-        cursor: pointer;
-        color: #4a6278;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-      "
-      title="Refresh current feed"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <polyline points="23 4 23 10 17 10"></polyline>
-        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-      </svg>
-    </button>
-  </div>
+  <!-- ① Steps wrapper -->
+  <div style="border:1.5px solid #d0dff0;border-radius:12px;padding:14px 14px 6px;background:#f8fafc;margin-bottom:12px;">
 
-  <!-- ② Category tabs -->
+  <!-- ① Category tabs -->
   <div class="mci-section">
     <div class="mci-section-head">
       <span class="mci-section-num">
@@ -297,7 +238,7 @@
           height="20"
           viewBox="0 0 52 20"
         >
-          <rect width="52" height="20" rx="10" fill="#0a2342" />
+          <rect width="52" height="20" rx="10" fill="#154f7a" />
           <text
             x="26"
             y="8"
@@ -324,10 +265,10 @@
           </text>
         </svg>
       </span>
-      <span class="mci-section-title" style="color: #0a2342">Category</span>
+      <span class="mci-section-title" style="color: #154f7a">Category</span>
       <span class="mci-section-rule"></span>
     </div>
-    <div class="mci-section-body" style="border-color: #0a2342">
+    <div class="mci-section-body" style="border-color: #154f7a">
       <div id="mci-tabs">
         <button class="mci-tab active" data-cat="maritime">
           &#x2693; Maritime Leadership
@@ -401,7 +342,7 @@
           height="20"
           viewBox="0 0 52 20"
         >
-          <rect width="52" height="20" rx="10" fill="#1a9e82" />
+          <rect width="52" height="20" rx="10" fill="#154f7a" />
           <text
             x="26"
             y="8"
@@ -428,12 +369,12 @@
           </text>
         </svg>
       </span>
-      <span class="mci-section-title" style="color: #1a9e82"
+      <span class="mci-section-title" style="color: #154f7a"
         >Introduction and visit to the site.</span
       >
       <span class="mci-section-rule"></span>
     </div>
-    <div class="mci-section-body" style="border-color: #1a9e82">
+    <div class="mci-section-body" style="border-color: #154f7a">
       <div id="mci-panel">
         <p style="color: #39e07a; font-size: 13px">
           &#x2190; Select the organizations above to get the latest
@@ -442,6 +383,8 @@
       </div>
     </div>
   </div>
+
+  </div><!-- /steps wrapper -->
 
   <!-- Footer -->
   <div
@@ -1211,26 +1154,6 @@
         $id("mci-panel").innerHTML =
           '<p style="color:#39e07a;font-size:13px;">&#x2190; Select the organizations above to get the latest cybersecurity news.</p>';
       });
-    });
-
-    /* ──────────────────────────────────────────────
-     Refresh 버튼
-  ────────────────────────────────────────────── */
-    $id("mci-refresh").addEventListener("click", function () {
-      const btn = this;
-      const svg = btn.querySelector("svg");
-      btn.classList.add("mci-refresh-spinning");
-      svg.addEventListener(
-        "animationend",
-        function () {
-          btn.classList.remove("mci-refresh-spinning");
-        },
-        { once: true },
-      );
-      if (currentOrg) {
-        delete cache[currentOrg.id];
-        loadNews(currentOrg);
-      }
     });
 
     /* ── Init ── */
