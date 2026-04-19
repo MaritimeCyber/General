@@ -13,7 +13,7 @@ This repository is operated with the following goals:
 
 - Research on cyber security compliance technologies for shipbuilding, maritime, and port sectors (IACS UR E26/E27, IMO MSC-FAL.1/Circ.3, etc.)
 - Open-source publication of tools, templates, and guidelines applicable in practice
-- Knowledge sharing through book reviews and curated research papers
+- Knowledge sharing through book reviews, curated research papers, and R&D notes
 - Community-driven development open to researchers, practitioners, and students
 
 ---
@@ -22,12 +22,12 @@ This repository is operated with the following goals:
 
 | Area                           | Description                                                   |
 | ------------------------------ | ------------------------------------------------------------- |
-| **IACS UR E26 / E27**    | Cyber resilience requirements for ship computer-based systems |
-| **IMO Cyber Guidelines** | MSC-FAL.1/Circ.3, maritime cyber risk management              |
-| **OT/IT Security**       | OT/OT security architecture for vessels and shipyards         |
-| **SCARP**                | Ship Cybersecurity and Resilience Program                     |
-| **Smart Shipyard**       | Digital twin and automated system security                    |
-| **Ship Cyber Policy**    | Fleet-wide cyber security policy at the shipowner level       |
+| **IACS UR E26 / E27**          | Cyber resilience requirements for ship computer-based systems |
+| **IMO Cyber Guidelines**       | MSC-FAL.1/Circ.3, maritime cyber risk management              |
+| **OT/IT Security**             | OT/IT security architecture for vessels and shipyards         |
+| **Edge AI / R&D**              | Applied AI research (fatigue detection, anomaly detection)    |
+| **Smart Shipyard**             | Digital twin and automated system security                    |
+| **Ship Cyber Policy**          | Fleet-wide cyber security policy at the shipowner level       |
 
 ---
 
@@ -36,36 +36,38 @@ This repository is operated with the following goals:
 ```
 General/
 ├── Asset/
-│   ├── Books/              # Book reviews and summaries
-│   │   ├── img/            # Book cover and reference images
-│   │   └── review/         # Individual book review HTML templates
-│   ├── Paper/              # Maritime cyber security research papers
-│   │   ├── img/            # Paper-related figures and thumbnails
-│   │   └── review/         # Individual paper summary HTML templates
-│   ├── Compliances/        # Cyber compliance docs & class society guidelines
-│   │   └── review/         # Compliance review templates
-│   ├── Project/            # SCARP project deliverables and tools
-│   ├── theCrew.html        # Team introduction page
 │   └── img/
-│       ├── common/         # Shared logos and site assets
-│       └── member/         # Team member profile images (6 members)
+│       ├── common/         # Shared logos and site assets (shipjobs*.png, favicon, etc.)
+│       └── member/         # Team member profile images
 ├── Blog/
-│   ├── Backend/            # Blog backend widgets (hosted on GitHub, injected via Blogger gadget)
-│   │   ├── Hello_GuestInfo.html               # Hello Guest widget — IP/geo/OSI layer info
-│   │   ├── InjectionCode_Hello.html           # Blogger gadget: fetches & injects Hello Guest
-│   │   ├── ShipOrderTrends.html               # Ship order news widget (RSS aggregator)
-│   │   └── InjectionCode_ShipOrderTrends.html # Blogger gadget: fetches & injects ShipOrderTrends
-│   ├── Top/                # Blog header area widgets
-│   │   ├── Header.html                        # Blog header widget
-│   │   └── InjectionCode_Header.html          # Blogger gadget: fetches & injects Header
-│   ├── SideBar/            # Blog sidebar widgets (GitHub link, intro, icon)
-│   │   ├── Find Us on GitHub.html
-│   │   ├── Maritime Cyber Intelligence.html
-│   │   ├── Who We Are.html
-│   │   ├── shipjobsIcon.html
-│   │   └── InjectionCode_Temp.html            # Generic injection code template
-│   └── contents/           # Article templates
-│       └── tempplate_Who_am_I.html
+│   ├── Backend/            # Live widgets hosted on GitHub, injected into Blogger via gadgets
+│   │   ├── Hello_GuestInfo.html                        # Hello Guest widget — IP/geo/OSI layer info
+│   │   ├── InjectionCode_Hello.html                    # Blogger gadget: fetches & injects Hello Guest
+│   │   ├── ShipOrderTrends.html                        # [Live Feed] Ship order news (RSS aggregator)
+│   │   ├── MaritimeCyberNews.html                      # [Live Feed] Maritime cyber threat intel
+│   │   ├── InjectionCode_MaritimeCyberIntelligence.html# Blogger gadget: injects MaritimeCyberNews
+│   │   └── MaritimeJobsFeed.html                       # [Live Feed] Maritime AI/Data/Cyber jobs feed
+│   ├── Main/               # Blog theme & layout widgets
+│   │   ├── Main.html                                   # Full Blogger theme XML backup (live theme)
+│   │   ├── theme-8002758868633250458.xml               # Theme backup file
+│   │   ├── Top/
+│   │   │   ├── Header.html                             # Blog header widget
+│   │   │   └── InjectionCode_Header.html               # Blogger gadget: injects Header
+│   │   └── SideBar/
+│   │       ├── Find Us on GitHub.html                  # GitHub repository link widget
+│   │       ├── Maritime Cyber ​​Intelligence.html       # Blog intro widget
+│   │       ├── Who We Are.html                         # Team introduction widget
+│   │       ├── shipjobsIcon.html                       # Blog icon/logo widget
+│   │       ├── InjectionCode_Temp.html                 # Generic injection code template
+│   │       └── tempplate_Who_am_I.html                 # Author intro article template
+│   ├── POST/               # Blog article templates by category
+│   │   ├── Books/          # Book review templates (lew series)
+│   │   ├── Compliances/    # Compliance article templates + README
+│   │   ├── Crew/           # Team intro article
+│   │   ├── InsightTrend/   # Insight & trend article templates (Ethan, Yeon, Blue Horizonist)
+│   │   ├── Paper/          # Research paper summary templates + README
+│   │   └── RND/            # R&D article templates (Edge AI, applied research)
+│   └── README.md
 └── README.md
 ```
 
@@ -73,79 +75,67 @@ General/
 
 ## Folder Guide
 
-### 📚 Books — Book Reviews
-
-`Asset/Books/`
-
-Reviews, key summaries, and practical insights on books related to maritime and cyber security.
-Review files are stored in `review/`; cover images and reference visuals in `img/`.
-
-- Cyber security fundamentals and advanced topics
-- OT/ICS security books
-- Books on digital transformation in the maritime and shipbuilding industry
-
----
-
-### 📄 Paper — Research Papers
-
-`Asset/Paper/`
-
-A curated collection of domestic and international research papers and technical reports on cyber security in the maritime, port, and shipbuilding sectors.
-Summary files are stored in `review/`; figures and thumbnails in `img/`.
-
-- Technical reports from IMO, IACS, and classification societies (DNV, LR, BV, ClassNK, etc.)
-- Academic journal and conference papers (IEEE, MDPI, etc.)
-- Korean academic journals and research institute publications
-
----
-
-### 🛡️ Compliances — Compliance & Class Society Guidelines
-
-`Asset/Compliances/`
-
-Cyber compliance documents and class society guidelines required in the shipbuilding, maritime, and port sectors, organized by country and organization.
-
-| Category                      | Key Documents                                           |
-| ----------------------------- | ------------------------------------------------------- |
-| **International (IMO)** | MSC-FAL.1/Circ.3, MSC.428(98)                           |
-| **IACS**                | UR E26, UR E27, Rec. 166                                |
-| **DNV**                 | DNV-RP-0496, DNV CPS                                    |
-| **Lloyd's Register**    | LR Cyber Enabled Ships Rules                            |
-| **ClassNK**             | ClassNK Cyber Security Guidelines                       |
-| **Bureau Veritas**      | BV NR659                                                |
-| **USA**                 | USCG Cyber Strategy, NIST SP 800-82                     |
-| **Europe (EU)**         | NIS2 Directive, ENISA Maritime Guidelines               |
-| **Korea**               | MOF Guidelines, KR Class Society Guidelines             |
-| **Port Security**       | ISPS Code cyber application, Port OT security standards |
-
----
-
-### 🔧 Project — Projects
-
-`Asset/Project/`
-
-Practical deliverables open to the public, including compliance tools, checklist templates, and risk assessment utilities.
-
----
-
 ### 🖥️ Blog — Blog Widget Assets
 
 `Blog/`
 
 HTML widgets and injection gadgets powering the [Maritime 4.0 blog](https://shippauljobs.blogspot.com/).
-Widgets are hosted as raw files on GitHub and injected into Blogger via paired `InjectionCode_*.html` gadgets.
+Backend widgets are hosted as raw files on GitHub and injected into Blogger via paired `InjectionCode_*.html` gadgets.
 
-| Directory     | Description                                                                                     |
-| ------------- | ----------------------------------------------------------------------------------------------- |
-| **Backend/**  | Main widget logic files + Blogger injection gadgets                                             |
-| **Top/**      | Blog header area widget + injection gadget                                                      |
-| **SideBar/**  | Sidebar widgets (GitHub link, team intro, logo icon)                                            |
-| **contents/** | Blog post article templates                                                                     |
+**Key Live Feed services (shippauljobs.com):**
 
-**Key widgets:**
+| Widget | URL | Description |
+| --- | --- | --- |
+| **ShipOrderTrends** | [Ship Order Trends](https://www.shippauljobs.com/2026/04/ship-order-trends-provided-by-shipjobs.html) | Global newbuilding ship order news — RSS aggregator (Google News + gCaptain) |
+| **MaritimeCyberNews** | [Maritime Cyber Threat Intel](https://www.shippauljobs.com/2026/04/live-feed-maritime-cyber-threat-intel.html) | Ransomware / GPS jamming / port attacks / IMO regulation — Live Feed |
+| **MaritimeJobsFeed** | [Maritime Jobs Feed](https://www.shippauljobs.com/2026/04/live-feed-maritime-jobs-feed-ai-data.html) | AI, Data & Cyber career opportunities in maritime — Live Feed |
 
-- **Hello_GuestInfo** — Greets visitors with localized language, IP geo-info, device/referrer details, and a full OSI 7-layer / PDU stack view (client-side). Supports 19 languages.
-- **ShipOrderTrends** — Aggregates maritime RSS news (Google News + gCaptain) with category filtering (Tanker / Container / LNG / Bulk / Car) and 30-minute localStorage caching.
+---
+
+### 📝 Blog/POST — Article Templates
+
+`Blog/POST/`
+
+Article HTML templates organized by type. Each template follows the Maritime 4.0 design system (full inline styles only — no `<style>` block).
+
+| Directory         | Author / Series       | Description                                          |
+| ----------------- | --------------------- | ---------------------------------------------------- |
+| **Books/**        | Lew                   | Book review templates (lew1 ~ lew3)                  |
+| **Compliances/**  | Team                  | Cyber compliance article templates                   |
+| **Crew/**         | Team                  | Team introduction article                            |
+| **InsightTrend/** | Ethan, Yeon, Blue Horizonist | Insight & trend analysis articles             |
+| **Paper/**        | Insung                | Research paper summary templates                     |
+| **RND/**          | Ethan                 | R&D / applied research articles (Edge AI, etc.)      |
+
+**Two article style variants:**
+- 💡 **Insight**: `Blog/POST/InsightTrend/tempplate_Ethan_Insight.html` — analysis & opinion
+- 🔬 **R&D**: `Blog/POST/RND/tempplate_Ethan_RnD.html` — technical research & implementation
+
+---
+
+### 🖼️ Asset/img — Shared Image Assets
+
+`Asset/img/`
+
+| Directory    | Contents                                        |
+| ------------ | ----------------------------------------------- |
+| **common/**  | Blog logos (`shipjobs*.png`), favicon, UI icons |
+| **member/**  | Team member profile images (8 members)          |
+
+---
+
+## Maritime 4.0 Design System
+
+All article templates use **full inline styles only** (no `<style>` block — Blogger strips CSS blocks).
+
+| Element           | Style                                                      |
+| ----------------- | ---------------------------------------------------------- |
+| Header gradient   | `linear-gradient(135deg,#0a2342,#154f7a,#1a9e82)`          |
+| Section bar       | `background:linear-gradient(#0a2342,#154f7a)` 4px wide     |
+| Problem/Risk card | `background:#fff8f0;border-left:4px solid #e67e22`         |
+| Info/Why card     | `background:#f0f7ff;border-left:4px solid #154f7a`         |
+| Conclusion block  | `background:linear-gradient(135deg,#0a2342,#154f7a)`       |
+| Live Feed accent  | Cyber: `#ef4444` · Jobs: `#f59e0b` · Orders: `#1a9e82`    |
 
 ---
 
@@ -166,7 +156,8 @@ Contributions welcome: book reviews, paper summaries, compliance checklists, ris
 ## Related Links
 
 - Blog: [Maritime 4.0 — shippauljobs.blogspot.com](https://shippauljobs.blogspot.com/)
-- Team: [The Crew] (Asset/theCrew.html) , https://shippauljobs.blogspot.com/2025/06/the-crew-behind-shipjobs.html
+- Services: [shippauljobs.com](https://www.shippauljobs.com/)
+- Team: [The Crew](https://shippauljobs.blogspot.com/2025/06/the-crew-behind-shipjobs.html)
 
 ---
 

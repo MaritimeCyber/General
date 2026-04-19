@@ -54,10 +54,8 @@ This folder collects, organizes, and summarizes the key compliance documents, gu
 
 ```
 Compliances/
-├── UR-E10-Rev.9-Aug-2023-UL.pdf    # IACS UR E10 — Equipment (Rev.9, Aug 2023)
-├── UR-E22-Rev.3-June-2023-UL.pdf   # IACS UR E22 — Control Systems (Rev.3, Jun 2023)
-├── UR-E26-Rev.1-Nov-2023-CR.pdf    # IACS UR E26 — Cyber Resilience of Ships (Rev.1, Nov 2023)
-└── UR-E27-Rev.1-Sep-2023-CLN.pdf   # IACS UR E27 — Cyber Resilience of On-board Systems (Rev.1, Sep 2023)
+├── CPMPLIANCE_lew.html     # Compliance article template by Lew
+└── README.md
 ```
 
 As the collection grows, documents will be organized by issuing body:
@@ -84,10 +82,10 @@ Compliances/
 ## File Naming Convention
 
 ```
-[Org]_[Document ID or Short Title]_[Year].md
+[Org]_[Document ID or Short Title]_[Year].html
 ```
 
-Example: `IACS_UR-E26_2022.md`
+Example: `IACS_UR-E26_2022.html`
 
 ## Document Summary Template
 
@@ -100,4 +98,4 @@ Each compliance summary should include:
 - **Related Standards** — Cross-references to other documents in this library
 - **Status** — In force / Upcoming / Superseded
 
-> Back to [Asset](../README.md) | [Repository Root](../../README.md)
+> Back to [POST](../README.md) | [Blog](../../README.md) | [Repository Root](../../../README.md)

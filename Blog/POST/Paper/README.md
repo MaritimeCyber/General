@@ -24,8 +24,8 @@ Academic research and technical reports are foundational to building evidence-ba
 
 ```
 Paper/
-├── img/            # Paper-related figures, thumbnails, and visual references
-└── review/         # Individual paper summary markdown files
+├── review/         # Individual paper summary HTML templates
+└── README.md
 ```
 
 As the collection grows, summary files in `review/` may be reorganized into topic subfolders (e.g., `IMO_IACS/`, `ClassSociety/`, `Academic/`, `Government/`).
@@ -33,10 +33,10 @@ As the collection grows, summary files in `review/` may be reorganized into topi
 ## File Naming Convention
 
 ```
-[Year]_[Author/Org]_[Short Title].md
+[Year]_[Author/Org]_[Short Title].html
 ```
 
-Example: `2023_IACS_UR-E26-Interpretation.md`
+Example: `2023_IACS_UR-E26-Interpretation.html`
 
 ## Summary Template
 
@@ -48,4 +48,4 @@ Each paper summary file should include:
 - **Maritime Relevance** — Applicable regulations, vessel systems, or shipyard contexts
 - **Tags** — e.g., `OT Security`, `IACS UR E26`, `Risk Assessment`, `Port Security`
 
-> Back to [Asset](../README.md) | [Repository Root](../../README.md)
+> Back to [POST](../README.md) | [Blog](../../README.md) | [Repository Root](../../../README.md)
