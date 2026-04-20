@@ -1,11 +1,11 @@
 <!-- ════════════════════════════════════════════════════════════
      Maritime Cyber Intelligence Feed
-     - 30+ 기관의 사이버보안 사이트 연결, 기사 제목 가져오기
-     - allorigins.win CORS 프록시 사용
-     - 카테고리 탭 + 기관 선택 + 뉴스 패널 구조
+     5-category selector → org chips → RSS news panel
+     CORS proxy : allorigins.win  |  Cache : localStorage 30 min
 ════════════════════════════════════════════════════════════ -->
 
 <style>
+  /* ── Reset ── */
   #mci-wrap * {
     box-sizing: border-box;
     margin: 0;
@@ -17,7 +17,48 @@
     max-width: 740px;
   }
 
-  /* ── Tabs ── */
+  /* ── Steps wrapper ── */
+  .mci-steps-wrap {
+    border: 1.5px solid #d0dff0;
+    border-radius: 12px;
+    padding: 14px 14px 6px;
+    background: #f8fafc;
+    margin-bottom: 12px;
+  }
+
+  /* ── Section structure ── */
+  .mci-section {
+    margin-bottom: 16px;
+  }
+  .mci-section-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .mci-section-num {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+  }
+  .mci-section-title {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .mci-section-rule {
+    flex: 1;
+    height: 1px;
+    background: #e2eaf3;
+  }
+  .mci-section-body {
+    border-left: 3px solid;
+    border-radius: 0 0 0 4px;
+    padding: 0 12px;
+  }
+
+  /* ── Tabs — Step 1 ── */
   #mci-tabs {
     display: flex;
     flex-direction: column;
@@ -35,25 +76,20 @@
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.3px;
-    transition:
-      background 0.18s,
-      color 0.18s,
-      border-color 0.18s;
     line-height: 1.5;
     text-align: left;
     width: 100%;
     min-height: 42px;
     display: flex;
     align-items: center;
+    background: #fff;
+    color: #0a2342;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
   }
   .mci-tab.active {
     background: #0a2342;
     color: #fff;
     border-color: #0a2342;
-  }
-  .mci-tab:not(.active) {
-    background: #fff;
-    color: #0a2342;
   }
   .mci-tab:not(.active):hover {
     background: #154f7a;
@@ -61,7 +97,7 @@
     border-color: #154f7a;
   }
 
-  /* ── Org chips ── */
+  /* ── Chips — Step 2 ── */
   #mci-chips {
     display: flex;
     flex-direction: column;
@@ -77,17 +113,13 @@
     padding: 6px 11px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 10px;
-    font-weight: 700;
-    color: #0a2342;
-    transition:
-      background 0.18s,
-      color 0.18s,
-      border-color 0.18s;
     text-align: left;
     width: 100%;
     min-height: 42px;
-    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
   }
   .mci-chip:hover {
     background: #154f7a;
@@ -111,12 +143,13 @@
     font-size: 12px;
     font-weight: 500;
     display: block;
+    line-height: 1.4;
   }
 
-  /* ── News panel ── */
+  /* ── News panel — Step 3 ── */
   #mci-panel {
-    background: #000000;
-    border: 1px solid #d1e0ee;
+    background: #0a1929;
+    border: 1px solid #1d3a5c;
     border-radius: 10px;
     padding: 13px 14px;
     min-height: 105px;
@@ -124,15 +157,42 @@
     margin: 0 auto;
   }
 
-  /* ── News rows ── */
+  /* Panel — header */
+  .mci-panel-header {
+    margin-bottom: 10px;
+  }
+  .mci-panel-name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .mci-panel-org {
+    color: #a8c4d8;
+    font-size: 11px;
+    margin-left: 7px;
+  }
+
+  /* Panel — description block */
+  .mci-panel-desc {
+    color: #4a6278;
+    font-size: 12px;
+    line-height: 1.65;
+    margin-bottom: 12px;
+    background: #eef3fb;
+    border-left: 3px solid #1d89cf;
+    padding: 9px 12px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* Panel — news rows */
   .mci-row {
     display: flex;
     align-items: flex-start;
     gap: 9px;
     padding: 9px 0;
-    border-bottom: 1px solid #e2eaf3;
+    border-bottom: 1px solid #1d3a5c;
   }
-  .mci-row:last-child {
+  .mci-row:last-of-type {
     border-bottom: none;
   }
   .mci-dot {
@@ -142,6 +202,7 @@
     border-radius: 50%;
     background: #1d89cf;
     margin-top: 5px;
+    flex-shrink: 0;
   }
   .mci-link {
     color: #e8f4ff;
@@ -172,6 +233,49 @@
     letter-spacing: 0.5px;
   }
 
+  /* Panel — all-news link */
+  .mci-all-link {
+    margin-top: 10px;
+    text-align: right;
+  }
+  .mci-more-link {
+    color: #1d89cf;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .mci-more-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Panel — empty / error states */
+  .mci-empty {
+    text-align: center;
+    padding: 14px 0;
+  }
+  .mci-empty p {
+    color: #9ab5c9;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .mci-error-msg {
+    color: #9ab5c9;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  /* Panel — loading */
+  .mci-loading-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 22px 0;
+  }
+  .mci-loading-text {
+    color: #a8c4d8;
+    font-size: 13px;
+  }
+
   /* ── Visit button ── */
   .mci-visit-btn {
     display: inline-flex;
@@ -191,7 +295,7 @@
   .mci-spinner {
     width: 18px;
     height: 18px;
-    border: 2.5px solid #d1e0ee;
+    border: 2.5px solid #1d3a5c;
     border-top-color: #1d89cf;
     border-radius: 50%;
     animation: mci-spin 0.7s linear infinite;
@@ -203,258 +307,110 @@
     }
   }
 
-  /* ── Section hierarchy ── */
-  .mci-section {
-    margin-bottom: 16px;
+  /* ── Footer ── */
+  .mci-footer {
+    margin-top: 9px;
+    text-align: right;
+    font-size: 11px;
+    color: #9ab5c9;
   }
-  .mci-section-head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .mci-section-num {
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-  }
-  .mci-section-title {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-  }
-  .mci-section-rule {
-    flex: 1;
-    height: 1px;
-    background: #e2eaf3;
-  }
-  .mci-section-body {
-    border-left: 3px solid;
-    border-radius: 0 0 0 4px;
-    padding-left: 12px;
+  .mci-footer a {
+    color: #9ab5c9;
   }
 </style>
 
 <div id="mci-wrap">
-  <!-- ① Steps wrapper -->
-  <div style="border:1.5px solid #d0dff0;border-radius:12px;padding:14px 14px 6px;background:#f8fafc;margin-bottom:12px;">
 
-  <!-- ① Category tabs -->
-  <div class="mci-section">
-    <div class="mci-section-head">
-      <span class="mci-section-num">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="52"
-          height="20"
-          viewBox="0 0 52 20"
-        >
-          <rect width="52" height="20" rx="10" fill="#154f7a" />
-          <text
-            x="26"
-            y="8"
-            font-family="Inter,sans-serif"
-            font-size="6"
-            font-weight="800"
-            fill="rgba(255,255,255,0.7)"
-            text-anchor="middle"
-            letter-spacing="1"
-          >
-            STEP
-          </text>
-          <text
-            x="26"
-            y="17"
-            font-family="Inter,sans-serif"
-            font-size="9"
-            font-weight="800"
-            fill="white"
-            text-anchor="middle"
-            letter-spacing="0"
-          >
-            1
-          </text>
-        </svg>
-      </span>
-      <span class="mci-section-title" style="color: #154f7a">Category</span>
-      <span class="mci-section-rule"></span>
-    </div>
-    <div class="mci-section-body" style="border-color: #154f7a">
-      <div id="mci-tabs">
-        <button class="mci-tab active" data-cat="maritime">
-          &#x2693; Maritime Leadership
-        </button>
-        <button class="mci-tab" data-cat="class">
-          &#x1F3DB;&#xFE0F; Classification
-        </button>
-        <button class="mci-tab" data-cat="port">
-          &#x1F3D7;&#xFE0F; Port &amp; Coast Guard
-        </button>
-        <button class="mci-tab" data-cat="cyber">
-          &#x1F6E1;&#xFE0F; Cyber Orgs
-        </button>
-        <button class="mci-tab" data-cat="ai">&#x1F916; AI &amp; ML</button>
+  <div class="mci-steps-wrap">
+
+    <!-- STEP 1: Category -->
+    <div class="mci-section">
+      <div class="mci-section-head">
+        <span class="mci-section-num">
+          <svg xmlns="http://www.w3.org/2000/svg" width="52" height="20" viewBox="0 0 52 20">
+            <rect width="52" height="20" rx="10" fill="#154f7a" />
+            <text x="26" y="8" font-family="Inter,sans-serif" font-size="6" font-weight="800" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="1">STEP</text>
+            <text x="26" y="17" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="white" text-anchor="middle">1</text>
+          </svg>
+        </span>
+        <span class="mci-section-title" style="color:#154f7a">Category</span>
+        <span class="mci-section-rule"></span>
+      </div>
+      <div class="mci-section-body" style="border-color:#154f7a">
+        <div id="mci-tabs">
+          <button class="mci-tab active" data-cat="maritime">&#x2693; Maritime Leadership</button>
+          <button class="mci-tab" data-cat="class">&#x1F3DB;&#xFE0F; Classification</button>
+          <button class="mci-tab" data-cat="port">&#x1F3D7;&#xFE0F; Port &amp; Coast Guard</button>
+          <button class="mci-tab" data-cat="cyber">&#x1F6E1;&#xFE0F; Cyber Orgs</button>
+          <button class="mci-tab" data-cat="ai">&#x1F916; AI &amp; ML</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- ③ Org chips (JS rendered) -->
-  <div class="mci-section">
-    <div class="mci-section-head">
-      <span class="mci-section-num">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="52"
-          height="20"
-          viewBox="0 0 52 20"
-        >
-          <rect width="52" height="20" rx="10" fill="#154f7a" />
-          <text
-            x="26"
-            y="8"
-            font-family="Inter,sans-serif"
-            font-size="6"
-            font-weight="800"
-            fill="rgba(255,255,255,0.7)"
-            text-anchor="middle"
-            letter-spacing="1"
-          >
-            STEP
-          </text>
-          <text
-            x="26"
-            y="17"
-            font-family="Inter,sans-serif"
-            font-size="9"
-            font-weight="800"
-            fill="white"
-            text-anchor="middle"
-            letter-spacing="0"
-          >
-            2
-          </text>
-        </svg>
-      </span>
-      <span class="mci-section-title" style="color: #154f7a">Organization</span>
-      <span class="mci-section-rule"></span>
-    </div>
-    <div class="mci-section-body" style="border-color: #154f7a">
-      <div id="mci-chips"></div>
-    </div>
-  </div>
-
-  <!-- ④ Introduction and visit to the site -->
-  <div class="mci-section">
-    <div class="mci-section-head">
-      <span class="mci-section-num">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="52"
-          height="20"
-          viewBox="0 0 52 20"
-        >
-          <rect width="52" height="20" rx="10" fill="#154f7a" />
-          <text
-            x="26"
-            y="8"
-            font-family="Inter,sans-serif"
-            font-size="6"
-            font-weight="800"
-            fill="rgba(255,255,255,0.7)"
-            text-anchor="middle"
-            letter-spacing="1"
-          >
-            STEP
-          </text>
-          <text
-            x="26"
-            y="17"
-            font-family="Inter,sans-serif"
-            font-size="9"
-            font-weight="800"
-            fill="white"
-            text-anchor="middle"
-            letter-spacing="0"
-          >
-            3
-          </text>
-        </svg>
-      </span>
-      <span class="mci-section-title" style="color: #154f7a"
-        >Introduction and visit to the site.</span
-      >
-      <span class="mci-section-rule"></span>
-    </div>
-    <div class="mci-section-body" style="border-color: #154f7a">
-      <div id="mci-panel">
-        <p style="color: #7ec8f4; font-size: 13px">
-          &#x2190; Select the organizations above to get the latest
-          cybersecurity news.
-        </p>
+    <!-- STEP 2: Organization -->
+    <div class="mci-section">
+      <div class="mci-section-head">
+        <span class="mci-section-num">
+          <svg xmlns="http://www.w3.org/2000/svg" width="52" height="20" viewBox="0 0 52 20">
+            <rect width="52" height="20" rx="10" fill="#154f7a" />
+            <text x="26" y="8" font-family="Inter,sans-serif" font-size="6" font-weight="800" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="1">STEP</text>
+            <text x="26" y="17" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="white" text-anchor="middle">2</text>
+          </svg>
+        </span>
+        <span class="mci-section-title" style="color:#154f7a">Organization</span>
+        <span class="mci-section-rule"></span>
+      </div>
+      <div class="mci-section-body" style="border-color:#154f7a">
+        <div id="mci-chips"></div>
       </div>
     </div>
-  </div>
 
-  </div><!-- /steps wrapper -->
+    <!-- STEP 3: Intelligence -->
+    <div class="mci-section">
+      <div class="mci-section-head">
+        <span class="mci-section-num">
+          <svg xmlns="http://www.w3.org/2000/svg" width="52" height="20" viewBox="0 0 52 20">
+            <rect width="52" height="20" rx="10" fill="#154f7a" />
+            <text x="26" y="8" font-family="Inter,sans-serif" font-size="6" font-weight="800" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="1">STEP</text>
+            <text x="26" y="17" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="white" text-anchor="middle">3</text>
+          </svg>
+        </span>
+        <span class="mci-section-title" style="color:#154f7a">Intelligence</span>
+        <span class="mci-section-rule"></span>
+      </div>
+      <div class="mci-section-body" style="border-color:#154f7a">
+        <div id="mci-panel">
+          <p style="color:#7ec8f4;font-size:13px;">&#x2190; Select an organization to get the latest cybersecurity news.</p>
+        </div>
+      </div>
+    </div>
 
-  <!-- Footer -->
-  <div
-    style="margin-top: 9px; text-align: right; font-size: 11px; color: #9ab5c9"
-  >
-    RSS via
-    <a href="https://allorigins.win" target="_blank" style="color: #9ab5c9"
-      >allorigins.win</a
-    >
-    proxy &middot;
+  </div><!-- /.mci-steps-wrap -->
+
+  <div class="mci-footer">
+    RSS via <a href="https://allorigins.win" target="_blank">allorigins.win</a> proxy &middot;
     <span id="mci-ts"></span>
   </div>
-</div>
-<!-- #mci-wrap -->
+
+</div><!-- /#mci-wrap -->
 
 <script>
   (function () {
     "use strict";
 
-    /* ──────────────────────────────────────────────
-     사이버보안 키워드 필터 (maritime 기관용)
-  ────────────────────────────────────────────── */
+    /* ── Cyber keyword filter ── */
     const CW = [
-      "cyber",
-      "security",
-      "hack",
-      "ransomware",
-      "attack",
-      "vulnerab",
-      "breach",
-      "malware",
-      "phishing",
-      "threat",
-      "incident",
-      "digital",
-      "ict",
-      "isps",
-      "data protect",
-      "nis2",
-      "maritime security",
-      "criti",
-      "intrusion",
-      "spoof",
-      "gps",
-      "ais",
-      "vsat",
-      "OT",
-      "IT",
-      "navigation system",
+      "cyber", "security", "hack", "ransomware", "attack", "vulnerab",
+      "breach", "malware", "phishing", "threat", "incident", "digital",
+      "ict", "isps", "data protect", "nis2", "maritime security", "criti",
+      "intrusion", "spoof", "gps", "ais", "vsat", "OT", "IT", "navigation system",
     ];
     function isCyber(t) {
       const s = (t || "").toLowerCase();
       return CW.some((k) => s.includes(k));
     }
 
-    /* ──────────────────────────────────────────────
-     기관 데이터
-  ────────────────────────────────────────────── */
+    /* ── Organisation data ── */
     const DATA = {
       maritime: {
         label: "Global Maritime Leadership",
@@ -574,7 +530,7 @@
           {
             id: "prs",
             name: "PRS",
-            full: "Polski Rejestr Statków",
+            full: "Polski Rejestr Statkow",
             url: "https://prs.pl/en/prs-en/",
             rss: null,
             desc: "Polish classification society. Offers ship cyber risk assessments and cybersecurity certification services based on IACS UR E26/E27.",
@@ -659,7 +615,7 @@
           {
             id: "anssi",
             name: "ANSSI",
-            full: "Agence nationale de la sécurité des systèmes d'information",
+            full: "Agence nationale de la securite des systemes d'information",
             url: "https://cyber.gouv.fr/en",
             rss: "https://www.ssi.gouv.fr/en/feed/",
             desc: "French national information systems security agency. Provides cybersecurity advisories for maritime OT systems and security certification for energy and port infrastructure.",
@@ -691,7 +647,7 @@
           {
             id: "bsi",
             name: "BSI",
-            full: "Bundesamt für Sicherheit in der Informationstechnik",
+            full: "Bundesamt fur Sicherheit in der Informationstechnik",
             url: "https://www.bsi.bund.de/DE/Home/home_node.html",
             rss: "https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed/RSSNewsfeed.xml",
             desc: "German Federal Office for Information Security. Publishes IT-Grundschutz baseline protection and OT security guidelines for maritime and industrial sectors; develops BSI-CS standards.",
@@ -781,7 +737,7 @@
           {
             id: "aitimes",
             name: "AI Times",
-            full: "AI Times — AI 전문 뉴스",
+            full: "AI Times — AI News",
             url: "https://www.aitimes.kr",
             rss: null,
             desc: "Leading Korean AI news media. Covers the latest artificial intelligence industry trends, research breakthroughs, and business developments.",
@@ -846,303 +802,195 @@
       },
     };
 
-    /* ──────────────────────────────────────────────
-     State
-  ────────────────────────────────────────────── */
+    /* ── State ── */
     let currentCat = "maritime";
     let currentOrg = null;
-    const cache = {};
-    const CACHE_KEY = "mci_feed_cache";
-    const CACHE_TTL = 30 * 60 * 1000; // 30분
+    const mem = {};
+    const STORE_KEY = "mci_feed_cache";
+    const STORE_TTL = 30 * 60 * 1000;
 
     const wrap = document.getElementById("mci-wrap");
     if (!wrap) return;
 
-    function $id(id) {
-      return document.getElementById(id);
-    }
+    const $id = (id) => document.getElementById(id);
 
-    function loadPersist(orgId) {
+    /* ── localStorage cache ── */
+    function loadCache(id) {
       try {
-        const raw = localStorage.getItem(CACHE_KEY);
-        if (!raw) return null;
-        const store = JSON.parse(raw);
-        const entry = store[orgId];
-        if (!entry) return null;
-        if (Date.now() - entry.ts > CACHE_TTL) return null;
-        return entry.items;
+        const s = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+        const e = s[id];
+        return e && Date.now() - e.ts < STORE_TTL ? e.items : null;
       } catch (e) {
         return null;
       }
     }
-
-    function savePersist(orgId, items) {
+    function saveCache(id, items) {
       try {
-        const raw = localStorage.getItem(CACHE_KEY);
-        const store = raw ? JSON.parse(raw) : {};
-        store[orgId] = { ts: Date.now(), items };
-        localStorage.setItem(CACHE_KEY, JSON.stringify(store));
+        const s = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+        s[id] = { ts: Date.now(), items };
+        localStorage.setItem(STORE_KEY, JSON.stringify(s));
       } catch (e) {}
     }
 
-    /* ──────────────────────────────────────────────
-     날짜 포매팅
-  ────────────────────────────────────────────── */
+    /* ── Helpers ── */
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
     function fmtDate(str) {
       if (!str) return "";
       const d = new Date(str);
-      if (isNaN(d.getTime())) return str.slice(0, 10);
-      return d.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
+      return isNaN(d)
+        ? str.slice(0, 10)
+        : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
     }
-
-    /* ──────────────────────────────────────────────
-     링크 추출 (RSS 2.0 + Atom 공통)
-  ────────────────────────────────────────────── */
     function extractLink(el, fallback) {
-      const linkEl = el.querySelector("link");
-      if (!linkEl) return fallback;
-      const txt = (linkEl.textContent || "").trim();
-      if (txt && txt.startsWith("http")) return txt;
-      const href = linkEl.getAttribute("href") || "";
+      const lk = el.querySelector("link");
+      if (!lk) return fallback;
+      const txt = (lk.textContent || "").trim();
+      if (txt.startsWith("http")) return txt;
+      const href = lk.getAttribute("href") || "";
       if (href.startsWith("http")) return href;
       const inner = txt.replace(/<!\[CDATA\[(.*?)\]\]>/s, "$1").trim();
       return inner.startsWith("http") ? inner : fallback;
     }
 
-    /* ──────────────────────────────────────────────
-     뉴스 렌더링
-  ────────────────────────────────────────────── */
+    /* ── Shared panel fragments ── */
+    function hdrHTML(org) {
+      return (
+        '<div class="mci-panel-header">' +
+        '<span class="mci-panel-name">' + esc(org.name) + "</span>" +
+        '<span class="mci-panel-org">' + esc(org.full) + "</span>" +
+        "</div>"
+      );
+    }
+    function descHTML(org) {
+      return org.desc ? '<p class="mci-panel-desc">' + org.desc + "</p>" : "";
+    }
+    function visitBtnHTML(org, label) {
+      return (
+        '<a href="' + org.url + '" target="_blank" rel="noopener" class="mci-visit-btn">' +
+        "&#x1F517; " + label + " &#x2197;</a>"
+      );
+    }
+
+    /* ── Panel renderers ── */
+    function renderLoading(org) {
+      $id("mci-panel").innerHTML =
+        '<div class="mci-loading-row">' +
+        '<div class="mci-spinner"></div>' +
+        '<span class="mci-loading-text">' + esc(org.name) + " &#xB85C;&#xB529; &#xC911;&#x2026;</span>" +
+        "</div>";
+    }
+
     function renderNews(org, items) {
-      const panel = $id("mci-panel");
-
-      const header = `
-      <div style="margin-bottom:12px;">
-        <strong style="color:#ffffff;font-size:14px;">${org.name}</strong>
-        <span style="color:#a8c4d8;font-size:11px;margin-left:7px;">${org.full}</span>
-      </div>`;
-
-      const descBlock = org.desc
-        ? `<p style="color:#4a6278;font-size:12px;line-height:1.65;margin-bottom:12px;
-                   background:#eef3fb;border-left:3px solid #1d89cf;
-                   padding:9px 12px;border-radius:0 6px 6px 0;">${org.desc}</p>`
-        : "";
-
       if (!items.length) {
-        panel.innerHTML =
-          header +
-          descBlock +
-          `
-        <div style="text-align:center;padding:14px 0;">
-          <div style="color:#9ab5c9;font-size:12px;margin-bottom:12px;">
-            Can't find any cybersecurity-related news. Visit our full news site.
-          </div>
-          <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
-            &#x1F310; Visit ${org.name} &#x2197;
-          </a>
-        </div>`;
+        $id("mci-panel").innerHTML =
+          hdrHTML(org) + descHTML(org) +
+          '<div class="mci-empty"><p>No cybersecurity-related articles found.</p>' +
+          visitBtnHTML(org, "Visit " + esc(org.name)) + "</div>";
         return;
       }
-
       const rows = items
-        .map((item) => {
+        .map(function (item) {
           const badge =
             isCyber(item.title) || isCyber(item.desc)
               ? '<span class="mci-cyber-badge">CYBER</span>'
               : "";
-          const safeTitle = item.title
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-          return `
-        <div class="mci-row">
-          <div class="mci-dot"></div>
-          <div>
-            <div>
-              <a class="mci-link" href="${item.link}" target="_blank" rel="noopener">
-                ${safeTitle}${badge}
-              </a>
-            </div>
-            <div class="mci-date">${fmtDate(item.date)}</div>
-          </div>
-        </div>`;
+          return (
+            '<div class="mci-row">' +
+            '<div class="mci-dot"></div>' +
+            "<div>" +
+            "<div>" +
+            '<a class="mci-link" href="' + item.link + '" target="_blank" rel="noopener">' +
+            esc(item.title) + badge + "</a>" +
+            "</div>" +
+            '<div class="mci-date">' + fmtDate(item.date) + "</div>" +
+            "</div></div>"
+          );
         })
         .join("");
-
-      const visitBtn = `
-      <div style="margin-top:12px;text-align:right;">
-        <a href="${org.url}" target="_blank" rel="noopener"
-           style="color:#1d89cf;font-size:12px;font-weight:700;text-decoration:none;">
-          All news &#x2197;
-        </a>
-      </div>`;
-      panel.innerHTML = header + descBlock + rows + visitBtn;
+      $id("mci-panel").innerHTML =
+        hdrHTML(org) + descHTML(org) + rows +
+        '<div class="mci-all-link">' +
+        '<a href="' + org.url + '" target="_blank" rel="noopener" class="mci-more-link">All news &#x2197;</a>' +
+        "</div>";
     }
 
-    /* ──────────────────────────────────────────────
-     RSS 없는 기관 패널 (desc 있으면 리소스 카드)
-  ────────────────────────────────────────────── */
     function renderNoRss(org) {
-      if (org.desc) {
-        $id("mci-panel").innerHTML = `
-        <div style="margin-bottom:10px;">
-          <strong style="color:#ffffff;font-size:14px;">${org.name}</strong>
-          <span style="color:#a8c4d8;font-size:11px;margin-left:7px;">${org.full}</span>
-        </div>
-        <p style="color:#4a6278;font-size:13px;line-height:1.65;margin-bottom:12px;
-                  background:#eef3fb;border-left:3px solid #1d89cf;
-                  padding:9px 12px;border-radius:0 6px 6px 0;">
-          ${org.desc}
-        </p>
-        <a href="${org.url}" target="_blank" rel="noopener"
-           style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
-                  background:linear-gradient(135deg,#1a3a5c 0%,#1a6e5a 100%);
-                  color:#fff;border-radius:8px;text-decoration:none;
-                  font-size:12px;font-weight:700;white-space:nowrap;">
-          &#x1F517; Visit to the Resource &#x2197;
-        </a>`;
-        return;
-      }
-      $id("mci-panel").innerHTML = `
-      <div style="margin-bottom:10px;">
-        <strong style="color:#ffffff;">${org.name}</strong>
-        <span style="color:#a8c4d8;font-size:12px;margin-left:8px;">${org.full}</span>
-      </div>
-      <p style="color:#9ab5c9;font-size:12px;margin-bottom:12px;">
-        We do not provide an RSS feed. Please check the official website for the latest news.
-      </p>
-      <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
-        &#x1F310; Visit News &#x2197;
-      </a>`;
+      $id("mci-panel").innerHTML =
+        hdrHTML(org) + descHTML(org) + visitBtnHTML(org, "Visit Resource");
     }
 
-    /* ──────────────────────────────────────────────
-     RSS 로딩 실패 패널
-  ────────────────────────────────────────────── */
     function renderError(org) {
-      const descBlock = org.desc
-        ? `<p style="color:#4a6278;font-size:12px;line-height:1.65;margin-top:10px;
-                   background:#eef3fb;border-left:3px solid #1d89cf;
-                   padding:9px 12px;border-radius:0 6px 6px 0;">${org.desc}</p>`
-        : "";
-      $id("mci-panel").innerHTML = `
-      <div style="margin-bottom:10px;">
-        <strong style="color:#ffffff;">${org.name}</strong>
-        <span style="background:#fdecea;color:#c0392b;font-size:10px;
-              font-weight:800;padding:2px 8px;border-radius:10px;margin-left:8px;">
-          FEED UNAVAILABLE
-        </span>
-      </div>
-      <p style="color:#9ab5c9;font-size:12px;margin-bottom:10px;">
-        Unable to load RSS feed. Check the official website for the latest news.
-      </p>
-      ${descBlock}
-      <a href="${org.url}" target="_blank" rel="noopener" class="mci-visit-btn">
-        &#x1F310; Visit ${org.name} &#x2197;
-      </a>`;
+      $id("mci-panel").innerHTML =
+        hdrHTML(org) +
+        '<p class="mci-error-msg">Unable to load RSS feed.</p>' +
+        descHTML(org) +
+        visitBtnHTML(org, "Visit " + esc(org.name));
     }
 
-    /* ──────────────────────────────────────────────
-     핵심: RSS 피드 가져오기 + 파싱
-  ────────────────────────────────────────────── */
+    /* ── Load news (RSS fetch + parse) ── */
     async function loadNews(org) {
-      const panel = $id("mci-panel");
+      if (mem[org.id]) { renderNews(org, mem[org.id]); return; }
+      const cached = loadCache(org.id);
+      if (cached) { mem[org.id] = cached; renderNews(org, cached); return; }
+      if (!org.rss) { renderNoRss(org); return; }
 
-      if (cache[org.id]) {
-        renderNews(org, cache[org.id]);
-        return;
-      }
-      const persisted = loadPersist(org.id);
-      if (persisted) {
-        cache[org.id] = persisted;
-        renderNews(org, persisted);
-        return;
-      }
-      if (!org.rss) {
-        renderNoRss(org);
-        return;
-      }
-
-      panel.innerHTML = `
-      <div style="display:flex;align-items:center;gap:10px;padding:22px 0;">
-        <div class="mci-spinner"></div>
-        <span style="color:#a8c4d8;font-size:13px;">
-          ${org.name} 피드를 가져오는 중&#x2026;
-        </span>
-      </div>`;
-
+      renderLoading(org);
       try {
-        const proxy =
-          "https://api.allorigins.win/get?url=" + encodeURIComponent(org.rss);
+        const proxy = "https://api.allorigins.win/get?url=" + encodeURIComponent(org.rss);
         const ctrl = new AbortController();
         const tid = setTimeout(() => ctrl.abort(), 12000);
-
         const res = await fetch(proxy, { signal: ctrl.signal });
         clearTimeout(tid);
-        const json = await res.json();
+        const { contents = "" } = await res.json();
 
-        const raw = json.contents || "";
-        const xml = new DOMParser().parseFromString(raw, "text/xml");
-
-        if (xml.querySelector("parsererror"))
-          throw new Error("XML parse error");
+        const xml = new DOMParser().parseFromString(contents, "text/xml");
+        if (xml.querySelector("parsererror")) throw new Error("XML parse error");
 
         let els = [...xml.querySelectorAll("item")];
         if (!els.length) els = [...xml.querySelectorAll("entry")];
-        if (!els.length) throw new Error("No feed items");
+        if (!els.length) throw new Error("No items");
 
-        let items = els.map((el) => {
-          const title =
-            (el.querySelector("title")?.textContent || "").trim() ||
-            "(untitled)";
-          const link = extractLink(el, org.url);
-          const date = (
-            el.querySelector("pubDate, published, updated")?.textContent || ""
-          ).trim();
-          const desc = (
-            el.querySelector("description, summary, content")?.textContent || ""
-          ).trim();
-          return { title, link, date, desc };
-        });
+        let items = els.map((el) => ({
+          title: (el.querySelector("title")?.textContent || "").trim() || "(untitled)",
+          link: extractLink(el, org.url),
+          date: (el.querySelector("pubDate, published, updated")?.textContent || "").trim(),
+          desc: (el.querySelector("description, summary, content")?.textContent || "").trim(),
+        }));
 
         if (org.filterCyber) {
-          const cyber = items.filter(
-            (i) => isCyber(i.title) || isCyber(i.desc),
-          );
-          items = cyber.length ? cyber.slice(0, 7) : items.slice(0, 5);
+          const cy = items.filter((i) => isCyber(i.title) || isCyber(i.desc));
+          items = cy.length ? cy.slice(0, 7) : items.slice(0, 5);
         } else {
           items = items.slice(0, 7);
         }
 
-        cache[org.id] = items;
-        savePersist(org.id, items);
+        mem[org.id] = items;
+        saveCache(org.id, items);
         renderNews(org, items);
-        $id("mci-ts").textContent =
-          "Updated " + new Date().toLocaleTimeString();
+        $id("mci-ts").textContent = "Updated " + new Date().toLocaleTimeString();
       } catch (e) {
         renderError(org);
       }
     }
 
-    /* ──────────────────────────────────────────────
-     Chips 렌더링
-  ────────────────────────────────────────────── */
+    /* ── Render org chips ── */
     function renderChips(cat) {
       const chips = $id("mci-chips");
       chips.innerHTML = "";
-      DATA[cat].orgs.forEach((org) => {
+      DATA[cat].orgs.forEach(function (org) {
         const btn = document.createElement("button");
-        btn.className =
-          "mci-chip" +
-          (currentOrg && currentOrg.id === org.id ? " active" : "");
-        btn.textContent = org.full;
+        btn.className = "mci-chip" + (currentOrg && currentOrg.id === org.id ? " active" : "");
         btn.title = org.url;
+        btn.innerHTML =
+          '<span class="mci-chip-abbr">' + esc(org.name) + "</span>" +
+          '<span class="mci-chip-full">' + esc(org.full) + "</span>";
         btn.addEventListener("click", function () {
-          chips
-            .querySelectorAll(".mci-chip")
-            .forEach((c) => c.classList.remove("active"));
+          chips.querySelectorAll(".mci-chip").forEach((c) => c.classList.remove("active"));
           this.classList.add("active");
           currentOrg = org;
           loadNews(org);
@@ -1151,20 +999,16 @@
       });
     }
 
-    /* ──────────────────────────────────────────────
-     탭 이벤트
-  ────────────────────────────────────────────── */
-    wrap.querySelectorAll(".mci-tab").forEach((tab) => {
+    /* ── Tab events ── */
+    wrap.querySelectorAll(".mci-tab").forEach(function (tab) {
       tab.addEventListener("click", function () {
-        wrap
-          .querySelectorAll(".mci-tab")
-          .forEach((t) => t.classList.remove("active"));
+        wrap.querySelectorAll(".mci-tab").forEach((t) => t.classList.remove("active"));
         this.classList.add("active");
         currentCat = this.dataset.cat;
         currentOrg = null;
         renderChips(currentCat);
         $id("mci-panel").innerHTML =
-          '<p style="color:#7ec8f4;font-size:13px;">&#x2190; Select the organizations above to get the latest cybersecurity news.</p>';
+          '<p style="color:#7ec8f4;font-size:13px;">&#x2190; Select an organization to get the latest cybersecurity news.</p>';
       });
     });
 
