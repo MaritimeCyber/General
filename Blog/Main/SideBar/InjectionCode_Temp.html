@@ -4,14 +4,14 @@
              Change GITHUB_RAW_URL to any raw GitHub file URL.
 ═══════════════════════════════════════════════════════ -->
 
-<div id="Maritime-Cyber-​​Intelligence"></div>
+<div id="Maritime-Cyber-Intelligence"></div>
 
 <script>
 (function () {
   var GITHUB_RAW_URL =
-    'https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/SideBar/Maritime%20Cyber%20%E2%80%8B%E2%80%8BIntelligence.html';
+    'https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Main/SideBar/Maritime%20Cyber%20%E2%80%8B%E2%80%8BIntelligence.html';
 
-  var target = document.getElementById('Maritime-Cyber-​​Intelligence');
+  var target = document.getElementById('Maritime-Cyber-Intelligence');
 
   fetch(GITHUB_RAW_URL)
     .then(function (res) {
@@ -20,6 +20,16 @@
     })
     .then(function (html) {
       target.innerHTML = html;
+      /* Re-execute injected <script> tags (browsers block innerHTML scripts) */
+      target.querySelectorAll('script').forEach(function (orig) {
+        var s = document.createElement('script');
+        if (orig.src) {
+          s.src = orig.src;
+        } else {
+          s.textContent = orig.textContent;
+        }
+        orig.parentNode.replaceChild(s, orig);
+      });
     })
     .catch(function (err) {
       console.warn('[gh-inject] Failed to load:', err);
