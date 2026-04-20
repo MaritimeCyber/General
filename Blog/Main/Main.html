@@ -51,11 +51,25 @@
     <meta content='de00fd059089de3b' name='yandex-verification'/>
 
     <!-- 크롤링 허용 &#8212; 페이지 유형별 분기 -->
-    <b:if cond='data:view.isLabelSearch || data:view.isArchive || data:view.isSearch'>
-      <meta content='noindex, follow' name='robots'/>
-    <b:else/>
-      <meta content='index, follow' name='robots'/>
-    </b:if>
+<b:if cond='data:view.isLabelSearch'>
+  
+  <b:if cond='data:blog.searchLabel == "IACS UR E26/E2732" or 
+              data:blog.searchLabel == "Compliance" or 
+              data:blog.searchLabel == "Insight Maritime" or 
+              data:blog.searchLabel == "MaritimeCyberTrend"'>
+    <meta content='index, follow' name='robots'/>
+  
+  <b:else/>
+    <meta content='noindex, follow' name='robots'/>
+  
+  </b:if>
+
+<b:elseif cond='data:view.isArchive || data:view.isSearch'/>
+  <meta content='noindex, follow' name='robots'/>
+
+<b:else/>
+  <meta content='index, follow' name='robots'/>
+</b:if>
 
     <!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
     <b:if cond='data:view.isSingleItem'>

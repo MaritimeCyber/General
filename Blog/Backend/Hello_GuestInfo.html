@@ -53,6 +53,9 @@
     color: #9fb5c2;
   }
   #hg-confirm {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
     margin-top: 13px;
     padding: 9px 12px;
     background: #eef3f8;
@@ -61,6 +64,20 @@
     font-size: 12px;
     color: #5a7080;
     line-height: 1.7;
+  }
+  @keyframes hg-status-ping {
+    0%   { box-shadow: 0 0 0 0   rgba(39, 174, 96, 0.7); }
+    70%  { box-shadow: 0 0 0 6px rgba(39, 174, 96, 0);   }
+    100% { box-shadow: 0 0 0 0   rgba(39, 174, 96, 0);   }
+  }
+  .hg-status-dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background: #27ae60;
+    animation: hg-status-ping 1.8s ease-out infinite;
   }
 </style>
 
@@ -1312,7 +1329,8 @@
       document.getElementById("hg-main").style.display = "block";
 
       /* 안전 확인 문구 (현지어) */
-      document.getElementById("hg-confirm").innerHTML = s.confirmed;
+      document.getElementById("hg-confirm").innerHTML =
+        '<span class="hg-status-dot"></span><span>' + s.confirmed + "</span>";
     }
 
     /* ═══════════════════════════════════════════════════════
