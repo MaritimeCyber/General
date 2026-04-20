@@ -1429,9 +1429,15 @@
         });
       });
     </script>
+    <script src='https://unpkg.com/three@0.128.0/build/three.min.js'></script>
   </head>
 
   <body>
+    <canvas id='globe-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.95;'></canvas>
+    <style>
+      body{background:transparent!important}
+      .bg-photo,.bg-photo-overlay,.bg-photo-container{background:transparent!important;display:none!important}
+    </style>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe height='0' src='https://www.googletagmanager.com/ns.html?id=GTM-WPNJMQS' style='display: none; visibility: hidden' width='0'/></noscript>
     <!-- End Google Tag Manager (noscript) -->
@@ -2487,14 +2493,14 @@
                     </b:includable>
                     <b:includable id='postPagination'>
                       <div style='text-align:center;margin:1.8em 0 0'>
-                        <button id='apl-toggle' onclick='(function(){var w=document.getElementById("apl-wrap");var b=document.getElementById("apl-toggle");if(w.style.display==="none"){w.style.display="block";b.textContent="▲ Close"}else{w.style.display="none";b.textContent="▼ More Posts"}})()' style='background:#154f7a;color:#fff;border:none;border-radius:7px;padding:9px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;transition:background .2s' onmouseover='this.style.background="#0a2342"' onmouseout='this.style.background="#154f7a"'>&#9660; More Posts</button>
+                        <button id='apl-toggle' onclick='(function(){var w=document.getElementById("apl-wrap");var b=document.getElementById("apl-toggle");if(w.style.display==="none"){w.style.display="block";b.textContent="▲ Close"}else{w.style.display="none";b.textContent="▼ More Posts"}})()' style='background:#154f7a;color:#fff;border:none;border-radius:7px;padding:9px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;transition:background .2s' onmouseover='this.style.background="#0a2342"' onmouseout='this.style.background="#154f7a"'>&#9650; Close</button>
                       </div>
-                      <div id='apl-wrap' style='display:none;margin:1em 0 1em;border-top:2px solid #e0eaf4;padding-top:1.2em'>
-                        <div id='apl-header' style='display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#154f7a;margin-bottom:10px;letter-spacing:0.4px'>
+                      <div id='apl-wrap' style='display:block;margin:1em 0 1em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.82);border-radius:10px;'>
+                        <div id='apl-header' style='display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#c8e4f8;margin-bottom:10px;letter-spacing:0.4px'>
                           <span>&#128203; Post List</span>
-                          <span id='apl-count' style='background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'></span>
+                          <span id='apl-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'></span>
                         </div>
-                        <div id='apl-loading' style='color:#aaa;font-size:12px;padding:8px 0'>Loading&#8230;</div>
+                        <div id='apl-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
                         <div id='apl-content' style='display:none'></div>
                       </div>
                       <script type='text/javascript'>
@@ -2528,12 +2534,12 @@
 
   // ── #8: 공통 스타일 상수 ─────────────────────────────────
   var S_CARD = 'position:relative;display:flex;flex-direction:column;justify-content:space-between;'
-             + 'background:#f8fafc;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.07);'
-             + 'overflow:hidden;border-top:3px solid #154f7a;transition:box-shadow .2s,background .2s';
+             + 'background:#ffffff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.1);'
+             + 'overflow:hidden;border-top:3px solid #1d89cf;transition:box-shadow .2s,background .2s';
   var S_BTN  = 'font-size:12px;font-weight:700;border:none;border-radius:5px;padding:5px 11px;cursor:pointer;transition:background .15s;';
-  var S_ON   = S_BTN + 'background:#e0eaf4;color:#154f7a;';
-  var S_ACT  = S_BTN + 'background:#154f7a;color:#fff;';
-  var S_OFF  = S_BTN + 'background:#f0f0f0;color:#bbb;cursor:default;';
+  var S_ON   = S_BTN + 'background:rgba(20,55,100,0.75);color:#7ec8f4;';
+  var S_ACT  = S_BTN + 'background:#1d89cf;color:#fff;';
+  var S_OFF  = S_BTN + 'background:rgba(15,30,55,0.4);color:#334466;cursor:default;';
 
   // ── #4: XSS 이스케이프 ──────────────────────────────────
   function esc(s){
@@ -2624,7 +2630,7 @@
         + '</div>'
         + '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px 12px;border-top:1px solid #e0eaf4">'
         + '<a href="' + esc(p.url) + '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;letter-spacing:0.2px">&#128172; Post a Comment</a>'
-        + '<a href="' + esc(p.url) + '" style="font-size:11px;color:#fff;background:#154f7a;padding:4px 12px;border-radius:5px;text-decoration:none;font-weight:700;letter-spacing:0.4px">READ MORE</a>'
+        + '<a href="' + esc(p.url) + '" style="font-size:11px;color:#fff;background:#1d89cf;padding:4px 12px;border-radius:5px;text-decoration:none;font-weight:700;letter-spacing:0.4px">READ MORE</a>'
         + '</div>'
         + '</div>';
     }).join('');
@@ -2669,11 +2675,11 @@
   });
   contEl.addEventListener('mouseover', function(ev){
     var c = ev.target.closest && ev.target.closest('[data-card]');
-    if(c){ c.style.background='#eef5fb'; c.style.boxShadow='0 3px 10px rgba(21,79,122,.15)'; }
+    if(c){ c.style.background='#eef5fb'; c.style.boxShadow='0 3px 10px rgba(29,137,207,.15)'; }
   });
   contEl.addEventListener('mouseout', function(ev){
     var c = ev.target.closest && ev.target.closest('[data-card]');
-    if(c){ c.style.background='#f8fafc'; c.style.boxShadow='0 1px 4px rgba(0,0,0,.07)'; }
+    if(c){ c.style.background='#ffffff'; c.style.boxShadow='0 1px 4px rgba(0,0,0,.1)'; }
   });
 
   // ── #3: 캐시 히트 시 즉시 렌더, 미스 시 fetch ───────────
@@ -3557,5 +3563,159 @@
 //]]></script>
 
     <b:template-script async='true' name='strm' version='1.0.0'/>
+
+    <!-- ═══ Globe Background ═══ -->
+    <script>//<![CDATA[
+(function () {
+  "use strict";
+  if (typeof THREE === "undefined") return;
+
+  /* ── Visitor location (from Hello widget cache) ── */
+  var lat = 35, lng = 139;
+  try {
+    var c = JSON.parse(
+      localStorage.getItem("hg_ip_cache") ||
+      localStorage.getItem("hg_ip_session") ||
+      "null"
+    );
+    if (c && c.latitude != null) {
+      lat = parseFloat(c.latitude);
+      lng  = parseFloat(c.longitude);
+    }
+  } catch (e) {}
+
+  /* ── Renderer ── */
+  var canvas = document.getElementById("globe-canvas");
+  var W = window.innerWidth, H = window.innerHeight;
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000005, 1);
+
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x000005);
+  var camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100);
+  camera.position.z = 2.3;
+
+  /* ── Lighting ── */
+  scene.add(new THREE.AmbientLight(0x040810, 1.2));
+  var sun = new THREE.DirectionalLight(0x6699cc, 1.8);
+  sun.position.set(5, 3, 4);
+  scene.add(sun);
+
+  /* ── Stars (3-layer depth) ── */
+  function addStars(count, spread, size, color) {
+    var buf = new Float32Array(count * 3);
+    for (var i = 0; i < buf.length; i++) buf[i] = (Math.random() - 0.5) * spread;
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(buf, 3));
+    scene.add(new THREE.Points(geo, new THREE.PointsMaterial({ color: color, size: size, sizeAttenuation: true })));
+  }
+  addStars(2400, 80, 0.10, 0xffffff);   /* bright near stars */
+  addStars(1800, 200, 0.07, 0xaaccff);  /* mid-field cool blue */
+  addStars(1200, 400, 0.05, 0xffeedd);  /* distant warm stars */
+
+  /* ── Earth sphere ── */
+  var earthMat = new THREE.MeshPhongMaterial({ color: 0x04080f, emissive: 0x010305, shininess: 5 });
+  var earth = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 64), earthMat);
+  scene.add(earth);
+
+  new THREE.TextureLoader().load(
+    "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/planets/earth_atmos_2048.jpg",
+    function (tex) { earthMat.map = tex; earthMat.needsUpdate = true; }
+  );
+
+  /* ── Atmosphere glow ── */
+  scene.add(new THREE.Mesh(
+    new THREE.SphereGeometry(1.025, 48, 48),
+    new THREE.MeshPhongMaterial({ color: 0x3399cc, transparent: true, opacity: 0.06, side: THREE.BackSide })
+  ));
+
+  /* ── lat/lng → 3-D point ── */
+  function toVec3(la, ln, r) {
+    var phi   = (90 - la) * Math.PI / 180;
+    var theta = (ln + 180) * Math.PI / 180;
+    return new THREE.Vector3(
+      -r * Math.sin(phi) * Math.cos(theta),
+       r * Math.cos(phi),
+       r * Math.sin(phi) * Math.sin(theta)
+    );
+  }
+
+  /* ── AIS ship positions (100 ships, major shipping lanes) ── */
+  var SHIPS = [
+    [52,-15],[50,-20],[48,-25],[45,-30],[43,-35],[42,-40],[40,-45],[40,-50],[38,-55],[36,-60],
+    [51,1],[51,3],[52,4],[53,5],[54,7],[55,8],[56,10],[57,11],[51,-1],[50,-3],
+    [36,-5],[37,5],[38,10],[36,15],[35,20],[34,25],[36,28],[37,30],[38,14],[35,12],
+    [30,32],[28,33],[26,34],[24,36],[22,38],[18,40],[15,42],[12,44],[11,45],[13,48],
+    [25,56],[26,54],[24,58],[20,62],[16,60],[10,65],[8,72],[15,60],[12,50],[23,58],
+    [7,80],[9,78],[12,74],[18,73],[22,70],[20,85],[8,76],[6,80],[15,73],[13,80],
+    [3,103],[2,105],[4,108],[6,110],[10,112],[15,115],[18,113],[20,110],[22,113],[12,108],
+    [25,121],[28,122],[31,122],[34,123],[35,126],[37,127],[34,130],[33,132],[32,130],[27,121],
+    [38,145],[40,155],[42,165],[44,175],[45,-170],[45,-160],[43,-150],[40,-140],[36,-130],[32,-120],
+    [30,-115],[33,-118],[37,-122],[47,-124],[49,-125],[25,-110],[20,-105],[15,-92],[10,-83],[8,-77]
+  ];
+  var sPos = new Float32Array(SHIPS.length * 3);
+  for (var i = 0; i < SHIPS.length; i++) {
+    var v = toVec3(SHIPS[i][0], SHIPS[i][1], 1.006);
+    sPos[i*3] = v.x; sPos[i*3+1] = v.y; sPos[i*3+2] = v.z;
+  }
+  var shipGeo = new THREE.BufferGeometry();
+  shipGeo.setAttribute("position", new THREE.BufferAttribute(sPos, 3));
+  earth.add(new THREE.Points(shipGeo, new THREE.PointsMaterial({ color: 0x7ec8f4, size: 0.016, sizeAttenuation: true })));
+
+  /* ── Visitor marker (gold pulsing sphere) ── */
+  var vPos = toVec3(lat, lng, 1.018);
+  var markerMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(0.014, 8, 8),
+    new THREE.MeshBasicMaterial({ color: 0xffd700 })
+  );
+  markerMesh.position.copy(vPos);
+  earth.add(markerMesh);
+
+  /* ── Visitor glow ring ── */
+  var ringMesh = new THREE.Mesh(
+    new THREE.RingGeometry(0.022, 0.028, 20),
+    new THREE.MeshBasicMaterial({ color: 0xffd700, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
+  );
+  ringMesh.position.copy(vPos);
+  ringMesh.lookAt(new THREE.Vector3(0, 0, 0));
+  earth.add(ringMesh);
+
+  /* ── Rotation target: visitor location faces camera ── */
+  var tY = -(lng * Math.PI / 180);
+  var tX =  (lat * Math.PI / 180);
+  var t0 = Date.now();
+  var ANIM = 2500;
+  var done = false;
+
+  /* ── Resize ── */
+  window.addEventListener("resize", function () {
+    W = window.innerWidth; H = window.innerHeight;
+    camera.aspect = W / H;
+    camera.updateProjectionMatrix();
+    renderer.setSize(W, H);
+  });
+
+  /* ── Render loop ── */
+  (function loop() {
+    requestAnimationFrame(loop);
+    var el = Date.now() - t0;
+    if (!done) {
+      var t = Math.min(el / ANIM, 1);
+      var e = 1 - Math.pow(1 - t, 3); // cubic ease-out
+      earth.rotation.y = tY * e;
+      earth.rotation.x = tX * e;
+      if (t >= 1) done = true;
+    } else {
+      earth.rotation.y += 0.0007;
+    }
+    var pulse = 0.75 + 0.25 * Math.sin(Date.now() * 0.003);
+    markerMesh.scale.setScalar(pulse);
+    ringMesh.material.opacity = 0.3 + 0.25 * Math.sin(Date.now() * 0.002);
+    renderer.render(scene, camera);
+  })();
+})();
+//]]></script>
   </body>
 </html>
