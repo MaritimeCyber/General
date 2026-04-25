@@ -1499,8 +1499,9 @@
       #hg-right #hg-wrap{width:100%!important;max-width:100%!important;height:auto!important;max-height:none!important;margin:0!important;border:none!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;}
       #hg-right #hg-main{height:auto!important;max-height:none!important;overflow:visible!important;}
       #hg-right #hg-greeting,#hg-right #hg-lang{color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.5)!important;}
-      #hg-right #hg-body,#hg-right #hg-extra{color:#c8e4f8!important;font-size:11.5px!important;}
-      #hg-right #hg-confirm{color:#1affda!important;font-size:12.5px!important;font-weight:700!important;text-shadow:0 0 10px rgba(26,255,218,0.7),0 0 22px rgba(26,255,218,0.35)!important;letter-spacing:0.02em!important;}
+      #hg-right #hg-body{color:#c8e4f8!important;font-size:11.5px!important;}
+      #hg-right #hg-extra{color:#c8e4f8!important;font-size:11px!important;background:rgba(4,12,28,0.55)!important;border:1px solid rgba(26,158,130,0.28)!important;border-radius:6px!important;padding:8px!important;margin-top:8px!important;}
+      #hg-right #hg-confirm{color:#1affda!important;font-size:11.5px!important;font-weight:600!important;text-shadow:0 0 8px rgba(26,255,218,0.5)!important;background:rgba(4,12,28,0.55)!important;border:1px solid rgba(26,158,130,0.28)!important;border-radius:6px!important;padding:8px!important;margin-top:6px!important;}
       #hg-right a{color:#1affda!important;}
       /* ── Hide sidebar Hello widget ── */
       #HTML4{display:none!important;}
@@ -3756,29 +3757,18 @@
   /* ── Ship sprite texture (canvas-drawn silhouette) ── */
   function makeShipTex() {
     var c = document.createElement('canvas');
-    c.width = 48; c.height = 48;
+    c.width = 32; c.height = 32;
     var x = c.getContext('2d');
-    x.clearRect(0, 0, 48, 48);
-    /* glow */
-    x.shadowColor = '#1affda'; x.shadowBlur = 8;
-    /* hull (bow pointing up) */
-    x.fillStyle = '#7ec8f4';
+    x.clearRect(0, 0, 32, 32);
+    x.shadowColor = '#1affda'; x.shadowBlur = 6;
+    x.fillStyle = '#1affda';
     x.beginPath();
-    x.moveTo(24, 3);           /* bow */
-    x.lineTo(32, 16);          /* starboard bow */
-    x.lineTo(30, 36);          /* starboard stern */
-    x.lineTo(18, 36);          /* port stern */
-    x.lineTo(16, 16);          /* port bow */
+    x.moveTo(16, 2);   /* 선수 (위) */
+    x.lineTo(28, 28);  /* 우현 선미 */
+    x.lineTo(16, 22);  /* 중앙 선미 (오목) */
+    x.lineTo(4, 28);   /* 좌현 선미 */
     x.closePath();
     x.fill();
-    /* superstructure */
-    x.shadowBlur = 4;
-    x.fillStyle = '#c8f0ff';
-    x.fillRect(20, 16, 8, 10);
-    /* bridge windows */
-    x.fillStyle = '#0a2342';
-    x.fillRect(21, 18, 2, 2);
-    x.fillRect(25, 18, 2, 2);
     return new THREE.CanvasTexture(c);
   }
 
@@ -3794,7 +3784,7 @@
   aisGeo.setAttribute('position', _aisAttr);
   aisGeo.setDrawRange(0, 0);
   var aisMat = new THREE.PointsMaterial({
-    size: 0.038, sizeAttenuation: true,
+    size: 0.055, sizeAttenuation: true,
     map: makeShipTex(), transparent: true, alphaTest: 0.05,
     depthWrite: false, color: 0xffffff
   });
