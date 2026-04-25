@@ -16,12 +16,14 @@
     /* ── 날씨 위젯과 동일한 스타일 오버라이드 (우측 패널 전용) ── */
     var styleEl = document.createElement("style");
     styleEl.textContent = [
-      /* 컨테이너 — 배경·테두리 제거, 투명하게 (부모 #hg-right 가 담당) */
+      /* 컨테이너 — 배경·테두리 제거, 투명하게, 높이 자동 (부모 #hg-right 가 담당) */
       "#hg-right #hg-wrap{background:transparent!important;border:none!important;",
         "box-shadow:none!important;border-radius:0!important;width:100%!important;",
-        "max-width:100%!important;margin:0!important;padding:10px 14px!important;",
+        "max-width:100%!important;height:auto!important;max-height:none!important;",
+        "margin:0!important;padding:10px 14px!important;overflow:visible!important;",
         "font-family:monospace!important;font-size:12px!important;",
         "color:#c8e4f8!important;line-height:1.7!important;}",
+      "#hg-right #hg-main{height:auto!important;max-height:none!important;overflow:visible!important;}",
 
       /* 인사말 */
       "#hg-right #hg-greeting{font-size:15px!important;font-weight:700!important;",
