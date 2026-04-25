@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='strm.xml' b:templateVersion='1.0.1' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
-    <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+    <!-- canonical은 all-head-content(line ~184)가 자동 주입 — 중복 제거 -->
     <!-- Google Tag Manager -->
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({&#39;gtm.start&#39;:
@@ -53,10 +53,7 @@
     <!-- 크롤링 허용 &#8212; 페이지 유형별 분기 -->
 <b:if cond='data:view.isLabelSearch'>
   
-  <b:if cond='data:blog.searchLabel == "IACS UR E26/E2732" or 
-              data:blog.searchLabel == "Compliance" or 
-              data:blog.searchLabel == "Insight Maritime" or 
-              data:blog.searchLabel == "MaritimeCyberTrend"'>
+  <b:if cond='data:blog.searchLabel == &quot;IACS UR E26/E2732&quot; or                data:blog.searchLabel == &quot;Compliance&quot; or                data:blog.searchLabel == &quot;Insight Maritime&quot; or                data:blog.searchLabel == &quot;MaritimeCyberTrend&quot;'>
     <meta content='index, follow' name='robots'/>
   
   <b:else/>
@@ -1177,6 +1174,23 @@
             </a>
           </div>
         </b:includable>
+        <b:includable id='postNavBar'>
+          <b:if cond='data:view.isSingleItem and data:widget.type == &quot;Blog&quot;'>
+            <nav class='spj-post-nav'>
+              <b:if cond='data:olderPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:olderPageUrl'>
+                  <span>&#8592;</span><span class='spj-pnav-label'>이전 포스트</span>
+                </a>
+              </b:if>
+              <a class='spj-pnav-home' expr:href='data:blog.homepageUrl' title='목록으로'>&#8962;</a>
+              <b:if cond='data:newerPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:newerPageUrl'>
+                  <span class='spj-pnav-label'>다음 포스트</span><span>&#8594;</span>
+                </a>
+              </b:if>
+            </nav>
+          </b:if>
+        </b:includable>
         <b:includable id='postFooter' var='post'>
           <div class='post-bottom'>
             <div class='post-footer float-container'>
@@ -1185,6 +1199,7 @@
             </div>
             <b:if cond='data:view.isSingleItem'>
               <b:include data='{ shareButtonClass: &quot;post-share-buttons-bottom invisible&quot;, overridden: true }' name='maybeAddShareButtons'/>
+              <b:include data='post' name='postNavBar'/>
               <b:else/>
               <b:include data='post' name='postFooterJumpLink'/>
             </b:if>
@@ -1429,14 +1444,86 @@
         });
       });
     </script>
-    <script src='https://unpkg.com/three@0.128.0/build/three.min.js'></script>
+    <script src='https://unpkg.com/three@0.128.0/build/three.min.js'/>
   </head>
 
   <body>
-    <canvas id='globe-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.95;'></canvas>
+    <canvas id='globe-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.95;'/>
+    <canvas id='label-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;'/>
+    <div id='ais-status' style='position:fixed;bottom:8px;right:10px;z-index:9999;font-size:11px;font-family:monospace;color:#1affda;background:rgba(5,15,30,0.75);padding:3px 8px;border-radius:4px;border:1px solid rgba(26,255,218,0.25);pointer-events:none;'>AIS: connecting…</div>
+    <div id='right-panel'>
+      <div id='mw-widget'>Loading weather…</div>
+      <div id='hg-right'></div>
+    </div>
     <style>
       body{background:transparent!important}
       .bg-photo,.bg-photo-overlay,.bg-photo-container{background:transparent!important;display:none!important}
+
+      /* &#9472;&#9472; Top nav / search readability on dark space bg &#9472;&#9472; */
+      .centered-top-container{
+        background:rgba(4,10,24,0.38)!important;
+        backdrop-filter:blur(6px);
+        -webkit-backdrop-filter:blur(6px);
+      }
+      .centered-top-container .svg-icon-24,
+      .centered-top-placeholder .svg-icon-24{fill:#c8e4f8!important}
+      .centered-top-container .search-input input,
+      .centered-top-container .search-input input::placeholder{color:#c8e4f8!important;opacity:1}
+      .centered-top-container .search-input{border-bottom-color:rgba(100,180,240,0.4)!important}
+      .centered-top-container .tabs li a{color:#c8e4f8!important}
+      .centered-top-container .tabs .selected a{color:#7ec8f4!important}
+      .centered-top-container .tabs .selected{border-bottom-color:#7ec8f4!important}
+      .centered-top-container .blog-name a,
+      .centered-top-container .title{color:#ffffff!important}
+
+
+      /* &#9472;&#9472; Blog title + description readability &#9472;&#9472; */
+      .Header h1,.Header h1 a,.Header h1 a:hover,.Header h1 a:visited,
+      .sticky .Header h1,.sticky .Header h1 a,.sticky .Header h1 a:visited{color:#eef6ff!important}
+      .Header p,#spj-desc-p{color:#c8e4f8!important;opacity:0.95!important}
+
+      /* &#9472;&#9472; Post prev/next navigation bar &#9472;&#9472; */
+      .spj-post-nav{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px;margin:36px 0 8px;padding-top:20px;border-top:1px solid rgba(26,158,130,0.35);}
+      .spj-pnav-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:linear-gradient(135deg,#0a2342,#0d3a5c);border:1px solid #1a9e82;border-radius:8px;color:#1affda!important;font-size:13px;font-weight:700;text-decoration:none!important;letter-spacing:0.04em;transition:background .2s,box-shadow .2s,color .2s;text-shadow:0 0 8px rgba(26,255,218,0.8),0 0 18px rgba(26,255,218,0.5);box-shadow:0 0 8px rgba(26,158,130,0.4),inset 0 0 6px rgba(26,158,130,0.1);}
+      .spj-pnav-btn:hover{background:linear-gradient(135deg,#0d3a5c,#0f4d3a)!important;border-color:#1affda!important;color:#fff!important;text-shadow:0 0 10px #1affda,0 0 24px #1affda,0 0 40px rgba(26,255,218,0.6)!important;box-shadow:0 0 16px rgba(26,255,218,0.6),0 0 30px rgba(26,158,130,0.3)!important;}
+      .spj-pnav-home{color:#1a9e82!important;font-size:20px;text-decoration:none!important;padding:6px 12px;transition:color .2s,text-shadow .2s;flex-shrink:0;text-shadow:0 0 8px rgba(26,158,130,0.7);}
+      .spj-pnav-home:hover{color:#1affda!important;text-shadow:0 0 12px #1affda,0 0 24px rgba(26,255,218,0.6)!important;}
+      .spj-pnav-label{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+      /* ── Right fixed panel (scrollable) ── */
+      #right-panel{position:fixed;top:58px;right:12px;z-index:10;display:flex;flex-direction:column;gap:8px;width:252px;max-height:calc(100vh - 70px);overflow-y:auto;overflow-x:hidden;pointer-events:auto;scrollbar-width:thin;scrollbar-color:rgba(26,158,130,0.4) transparent;}
+      #right-panel::-webkit-scrollbar{width:4px;}
+      #right-panel::-webkit-scrollbar-track{background:transparent;}
+      #right-panel::-webkit-scrollbar-thumb{background:rgba(26,158,130,0.4);border-radius:2px;}
+      /* ── 공통 패널 카드 스타일 ── */
+      #mw-widget,#hg-right{width:100%;background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:10px;backdrop-filter:blur(8px);box-shadow:0 0 20px rgba(26,255,218,0.1);}
+      #mw-widget{padding:10px 14px;font-family:monospace;font-size:12px;color:#c8e4f8;line-height:1.7;}
+      /* ── Hello Guest (right panel) ── */
+      #hg-right{overflow:hidden;}
+      #hg-right #hg-wrap{width:100%!important;max-width:100%!important;margin:0!important;border:none!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;}
+      #hg-right #hg-greeting,#hg-right #hg-lang{color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.5)!important;}
+      #hg-right #hg-body,#hg-right #hg-extra,#hg-right #hg-confirm{color:#c8e4f8!important;font-size:11.5px!important;}
+      #hg-right a{color:#1affda!important;}
+      /* ── Hide sidebar Hello widget ── */
+      #HTML4{display:none!important;}
+      /* ── Weather widget 내부 ── */
+      #mw-widget .mw-hdr{font-size:12.5px;font-weight:700;color:#1affda;text-shadow:0 0 8px rgba(26,255,218,0.6);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+      #mw-widget .mw-city{font-size:10.5px;color:rgba(200,228,248,0.65);font-weight:400;}
+      #mw-widget .mw-row{display:flex;justify-content:space-between;gap:10px;margin:1px 0;}
+      #mw-widget .mw-row span{white-space:nowrap;}
+      #mw-widget .mw-sea{color:#1a9e82;font-weight:700;}
+      #mw-widget .mw-hr{border:none;border-top:1px solid rgba(26,158,130,0.3);margin:5px 0;}
+      #mw-widget .mw-nomarine{color:rgba(200,228,248,0.45);font-size:11px;}
+      #mw-widget b{color:#1affda;}
+      /* ── Topical Posts — 사이드바 통일 스타일 ── */
+      #Label4{background:none!important;border:none!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
+      #Label4 .title{font-size:11px!important;font-weight:800!important;letter-spacing:0.1em!important;text-transform:uppercase!important;color:#154f7a!important;padding:0 0 7px 0!important;margin:0 0 4px!important;border-bottom:1px solid #d0dde8!important;display:block!important;}
+      #Label4 .widget-content{padding:2px 0;}
+      .spj-lbl-list{list-style:none!important;margin:0!important;padding:0!important;}
+      .spj-lbl-item a{display:flex;align-items:center;justify-content:space-between;padding:5px 4px;color:#2c4a6b!important;text-decoration:none!important;font-size:13px;font-weight:500;border-left:2px solid transparent;transition:background .15s,border-color .15s,color .15s;}
+      .spj-lbl-item a:hover{background:rgba(21,79,122,0.07);border-left-color:#1d89cf;color:#154f7a!important;}
+      .spj-lbl-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+      .spj-lbl-count{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.25);border-radius:10px;color:#1d89cf;font-size:10px;font-weight:700;padding:1px 6px;margin-left:6px;flex-shrink:0;}
+      .spj-lbl-item a:hover .spj-lbl-count{background:rgba(21,79,122,0.18);border-color:#1d89cf;color:#154f7a;}
     </style>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe height='0' src='https://www.googletagmanager.com/ns.html?id=GTM-WPNJMQS' style='display: none; visibility: hidden' width='0'/></noscript>
@@ -1515,7 +1602,7 @@
 
                 <div class='blog-name container'>
                   <b:section class='container' id='header' name='Header' showaddelement='false'>
-                    <b:widget id='Header1' locked='true' title='ShipPauljobs Blog for Maritime 4.0 (Header)' type='Header' version='2' visible='true'>
+                    <b:widget id='Header1' locked='true' title='ShipPaulJobs Blog for Maritime 4.0 (Header)' type='Header' version='2' visible='true'>
                       <b:widget-settings>
                         <b:widget-setting name='displayUrl'/>
                         <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -1577,7 +1664,7 @@
                     <b:section class='clearboth' id='page_list_top' name='Page List (Top)' showaddelement='false'>
                       <b:widget cond='!data:view.isSingleItem' id='PageList1' locked='true' title='' type='PageList' version='2' visible='true'>
                         <b:widget-settings>
-                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/Crew?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/R_DT?max-results=9","position":4,"title":"AI Cyber Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=9","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime Compliance"},"link6":{"href":"https://www.shippauljobs.com/search/label/Life_story?max-results=9","position":6,"title":"Life"}}]]></b:widget-setting>
+                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=3","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=3","position":4,"title":"AI Cyber Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=3","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=3","position":2,"title":"Maritime Compliance"},"link6":{"href":"https://www.shippauljobs.com/search/label/Life_story?max-results=3","position":6,"title":"Life"}}]]></b:widget-setting>
                           <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
@@ -1701,7 +1788,7 @@
                         <data:view.search.resultsMessageHtml/>
                       </b:if>
                     </div>
-                    <span id='label-total-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:3px 11px;border-radius:10px;letter-spacing:0.3px;white-space:nowrap'></span>
+                    <span id='label-total-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:3px 11px;border-radius:10px;letter-spacing:0.3px;white-space:nowrap'/>
                   </div>
                   <script type='text/javascript'>
 //<![CDATA[
@@ -2023,7 +2110,6 @@
                       <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
                       <b:widget-setting name='showInlineAds'>false</b:widget-setting>
                       <b:widget-setting name='showReactions'>false</b:widget-setting>
-                      <b:widget-setting name='numPosts'>7</b:widget-setting>
                     </b:widget-settings>
                     <b:includable id='main'>
                       <b:include name='noContentPlaceholder'/>
@@ -2314,6 +2400,7 @@
                         <b:include data='post' name='super.inlineAd'/>
                       </div>
                     </b:includable>
+                    <b:includable id='lastPageLink'/>
                     <b:includable id='linkShare'>
                       <b:with value='&quot;window.prompt(\&quot;Copy to clipboard: Ctrl+C, Enter\&quot;, \&quot;&quot; + data:originalUrl + &quot;\&quot;); return false;&quot;' var='onclick'>
                         <b:include name='platformShare'/>
@@ -2418,6 +2505,19 @@
                         </div>
                         <b:if cond='data:view.isSingleItem'>
                           <b:include data='{ shareButtonClass: &quot;post-share-buttons-bottom invisible&quot;, overridden: true }' name='maybeAddShareButtons'/>
+                          <nav class='spj-post-nav'>
+                            <b:if cond='data:olderPageUrl'>
+                              <a class='spj-pnav-btn' expr:href='data:olderPageUrl'>
+                                <span>&#8592;</span><span class='spj-pnav-label'>Prev Post</span>
+                              </a>
+                            </b:if>
+                            <a class='spj-pnav-home' expr:href='data:blog.homepageUrl' title='Home'>&#8962;</a>
+                            <b:if cond='data:newerPageUrl'>
+                              <a class='spj-pnav-btn' expr:href='data:newerPageUrl'>
+                                <span class='spj-pnav-label'>Next Post</span><span>&#8594;</span>
+                              </a>
+                            </b:if>
+                          </nav>
                           <b:else/>
                           <b:include data='post' name='postFooterJumpLink'/>
                         </b:if>
@@ -2453,13 +2553,9 @@
                       <b:comment>Overridden, and migrated to postFooter. Called as
                         postFooterJumpLink.</b:comment>
                     </b:includable>
-                    <b:includable id='postLabels'>
-                      <b:comment>We don&#39;t display labels on the home
-                        page.</b:comment>
-                      <b:if cond='data:view.isSingleItem and data:widget.type == &quot;Blog&quot;'>
-                        <b:include name='super.postLabels'/>
-                      </b:if>
-                    </b:includable>
+                     <b:includable id='postLabels'>
+                       <b:comment>Labels hidden.</b:comment>
+                     </b:includable>
                     <b:includable id='postLocation'>
                       <span class='byline post-location'>
                         <data:byline.label/>
@@ -2493,15 +2589,15 @@
                     </b:includable>
                     <b:includable id='postPagination'>
                       <div style='text-align:center;margin:1.8em 0 0'>
-                        <button id='apl-toggle' onclick='(function(){var w=document.getElementById("apl-wrap");var b=document.getElementById("apl-toggle");if(w.style.display==="none"){w.style.display="block";b.textContent="▲ Close"}else{w.style.display="none";b.textContent="▼ More Posts"}})()' style='background:#154f7a;color:#fff;border:none;border-radius:7px;padding:9px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;transition:background .2s' onmouseover='this.style.background="#0a2342"' onmouseout='this.style.background="#154f7a"'>&#9650; Close</button>
+                        <button id='apl-toggle' onclick='(function(){var w=document.getElementById(&quot;apl-wrap&quot;);var b=document.getElementById(&quot;apl-toggle&quot;);if(w.style.display===&quot;none&quot;){w.style.display=&quot;block&quot;;b.textContent=&quot;▲ Close&quot;}else{w.style.display=&quot;none&quot;;b.textContent=&quot;▼ More Posts&quot;}})()' onmouseout='this.style.background=&quot;#154f7a&quot;' onmouseover='this.style.background=&quot;#0a2342&quot;' style='background:#154f7a;color:#fff;border:none;border-radius:7px;padding:9px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;transition:background .2s'>&#9650; Close</button>
                       </div>
-                      <div id='apl-wrap' style='display:block;margin:1em 0 1em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.82);border-radius:10px;'>
+                      <div id='apl-wrap' style='display:block;margin:1em 0 1em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.38);border-radius:10px;backdrop-filter:blur(6px);'>
                         <div id='apl-header' style='display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#c8e4f8;margin-bottom:10px;letter-spacing:0.4px'>
-                          <span>&#128203; Post List</span>
-                          <span id='apl-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'></span>
+                          <span>📋 Post List</span>
+                          <span id='apl-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'/>
                         </div>
                         <div id='apl-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
-                        <div id='apl-content' style='display:none'></div>
+                        <div id='apl-content' style='display:none'/>
                       </div>
                       <script type='text/javascript'>
 //<![CDATA[
@@ -2690,7 +2786,6 @@
 //]]>
                       </script>
                     </b:includable>
-                    <b:includable id='lastPageLink'></b:includable>
                     <b:includable id='postReactions'>
                       <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
                     </b:includable>
@@ -3469,12 +3564,21 @@
             </div>
           </b:includable>
           <b:includable id='list'>
-            <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.labels,                               itemSet: &quot;labels&quot;,                               itemsMarkup: &quot;super.list&quot;                             }' name='extendableItems'/>
+            <ul class='spj-lbl-list'>
+              <b:loop values='data:this.labels' var='label'>
+                <li class='spj-lbl-item'>
+                  <a expr:href='data:label.url'>
+                    <span class='spj-lbl-name'><data:label.name/></span>
+                    <span class='spj-lbl-count'><data:label.count/></span>
+                  </a>
+                </li>
+              </b:loop>
+            </ul>
           </b:includable>
         </b:widget>
         <b:widget id='HTML4' locked='false' title='Secure Connectivity Information' type='HTML' version='2' visible='true'>
           <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<div id="Hello_GuestInfo.html"></div><script>(function(){var GITHUB_RAW_URL="https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/Hello_GuestInfo.html";var target=document.getElementById("Hello_GuestInfo.html");fetch(GITHUB_RAW_URL).then(function(res){if(!res.ok)throw new Error("HTTP "+res.status);return res.text()}).then(function(html){target.innerHTML=html;var scripts=target.querySelectorAll("script");scripts.forEach(function(oldScript){var newScript=document.createElement("script");Array.prototype.forEach.call(oldScript.attributes,function(attr){newScript.setAttribute(attr.name,attr.value)});newScript.textContent=oldScript.textContent;oldScript.parentNode.replaceChild(newScript,oldScript)})}).catch(function(err){console.warn("[gh-inject] Failed to load:",err)})})();</script>]]></b:widget-setting>
+            <b:widget-setting name='content'><![CDATA[<div id="Hello_GuestInfo.html"></div><script>(function(){var GITHUB_RAW_URL="https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/Hello_GuestInfo.html";var target=document.getElementById("Hello_GuestInfo.html");var s=document.createElement("style");s.textContent="#hg-right #hg-wrap{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;width:100%!important;max-width:100%!important;margin:0!important;padding:10px 14px!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;line-height:1.7!important;}#hg-right #hg-greeting{font-size:15px!important;font-weight:700!important;color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.55)!important;}#hg-right #hg-flag{font-size:22px!important;}#hg-right #hg-lang{font-size:10.5px!important;color:rgba(200,228,248,0.62)!important;margin-bottom:8px!important;}#hg-right #hg-body{font-size:11.5px!important;color:#c8e4f8!important;line-height:1.65!important;}#hg-right #hg-extra{font-size:11px!important;color:rgba(200,228,248,0.78)!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:8px!important;padding-top:8px!important;}#hg-right #hg-confirm{font-size:11px!important;color:#1a9e82!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:6px!important;padding-top:6px!important;}#hg-right a{color:#1affda!important;text-decoration:none!important;}#hg-right #hg-loading{color:rgba(200,228,248,0.45)!important;}#hg-right .hg-pill,#hg-right .hg-badge{background:rgba(26,158,130,0.18)!important;border:1px solid rgba(26,158,130,0.4)!important;color:#1affda!important;border-radius:4px!important;}";document.head.appendChild(s);fetch(GITHUB_RAW_URL).then(function(res){if(!res.ok)throw new Error("HTTP "+res.status);return res.text()}).then(function(html){target.innerHTML=html;var scripts=target.querySelectorAll("script");scripts.forEach(function(oldScript){var newScript=document.createElement("script");Array.prototype.forEach.call(oldScript.attributes,function(attr){newScript.setAttribute(attr.name,attr.value)});newScript.textContent=oldScript.textContent;oldScript.parentNode.replaceChild(newScript,oldScript)})}).catch(function(err){console.warn("[gh-inject] Failed to load:",err)})})();</script>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
             <b:include name='widget-title'/>
@@ -3564,7 +3668,7 @@
 
     <b:template-script async='true' name='strm' version='1.0.0'/>
 
-    <!-- ═══ Globe Background ═══ -->
+    <!-- &#9552;&#9552;&#9552; Globe Background &#9552;&#9552;&#9552; -->
     <script>//<![CDATA[
 (function () {
   "use strict";
@@ -3592,14 +3696,22 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setClearColor(0x000005, 1);
 
+  /* ── Label canvas (2-D overlay, DOM order above globe-canvas at same z-index) ── */
+  var labelCanvas = document.getElementById('label-canvas');
+  var lctx = labelCanvas.getContext('2d');
+  var DPR = Math.min(window.devicePixelRatio, 2);
+  labelCanvas.width  = W * DPR;
+  labelCanvas.height = H * DPR;
+  lctx.scale(DPR, DPR);
+
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000005);
   var camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 100);
   camera.position.z = 2.3;
 
   /* ── Lighting ── */
-  scene.add(new THREE.AmbientLight(0x040810, 1.2));
-  var sun = new THREE.DirectionalLight(0x6699cc, 1.8);
+  scene.add(new THREE.AmbientLight(0x112233, 1.5));
+  var sun = new THREE.DirectionalLight(0xaaccee, 2.8);
   sun.position.set(5, 3, 4);
   scene.add(sun);
 
@@ -3616,7 +3728,7 @@
   addStars(1200, 400, 0.05, 0xffeedd);  /* distant warm stars */
 
   /* ── Earth sphere ── */
-  var earthMat = new THREE.MeshPhongMaterial({ color: 0x04080f, emissive: 0x010305, shininess: 5 });
+  var earthMat = new THREE.MeshPhongMaterial({ color: 0x4477aa, emissive: 0x061828, shininess: 14 });
   var earth = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 64), earthMat);
   scene.add(earth);
 
@@ -3642,27 +3754,108 @@
     );
   }
 
-  /* ── AIS ship positions (100 ships, major shipping lanes) ── */
-  var SHIPS = [
-    [52,-15],[50,-20],[48,-25],[45,-30],[43,-35],[42,-40],[40,-45],[40,-50],[38,-55],[36,-60],
-    [51,1],[51,3],[52,4],[53,5],[54,7],[55,8],[56,10],[57,11],[51,-1],[50,-3],
-    [36,-5],[37,5],[38,10],[36,15],[35,20],[34,25],[36,28],[37,30],[38,14],[35,12],
-    [30,32],[28,33],[26,34],[24,36],[22,38],[18,40],[15,42],[12,44],[11,45],[13,48],
-    [25,56],[26,54],[24,58],[20,62],[16,60],[10,65],[8,72],[15,60],[12,50],[23,58],
-    [7,80],[9,78],[12,74],[18,73],[22,70],[20,85],[8,76],[6,80],[15,73],[13,80],
-    [3,103],[2,105],[4,108],[6,110],[10,112],[15,115],[18,113],[20,110],[22,113],[12,108],
-    [25,121],[28,122],[31,122],[34,123],[35,126],[37,127],[34,130],[33,132],[32,130],[27,121],
-    [38,145],[40,155],[42,165],[44,175],[45,-170],[45,-160],[43,-150],[40,-140],[36,-130],[32,-120],
-    [30,-115],[33,-118],[37,-122],[47,-124],[49,-125],[25,-110],[20,-105],[15,-92],[10,-83],[8,-77]
-  ];
-  var sPos = new Float32Array(SHIPS.length * 3);
-  for (var i = 0; i < SHIPS.length; i++) {
-    var v = toVec3(SHIPS[i][0], SHIPS[i][1], 1.006);
-    sPos[i*3] = v.x; sPos[i*3+1] = v.y; sPos[i*3+2] = v.z;
+  /* ── Ship sprite texture (canvas-drawn silhouette) ── */
+  function makeShipTex() {
+    var c = document.createElement('canvas');
+    c.width = 48; c.height = 48;
+    var x = c.getContext('2d');
+    x.clearRect(0, 0, 48, 48);
+    /* glow */
+    x.shadowColor = '#1affda'; x.shadowBlur = 8;
+    /* hull (bow pointing up) */
+    x.fillStyle = '#7ec8f4';
+    x.beginPath();
+    x.moveTo(24, 3);           /* bow */
+    x.lineTo(32, 16);          /* starboard bow */
+    x.lineTo(30, 36);          /* starboard stern */
+    x.lineTo(18, 36);          /* port stern */
+    x.lineTo(16, 16);          /* port bow */
+    x.closePath();
+    x.fill();
+    /* superstructure */
+    x.shadowBlur = 4;
+    x.fillStyle = '#c8f0ff';
+    x.fillRect(20, 16, 8, 10);
+    /* bridge windows */
+    x.fillStyle = '#0a2342';
+    x.fillRect(21, 18, 2, 2);
+    x.fillRect(25, 18, 2, 2);
+    return new THREE.CanvasTexture(c);
   }
-  var shipGeo = new THREE.BufferGeometry();
-  shipGeo.setAttribute("position", new THREE.BufferAttribute(sPos, 3));
-  earth.add(new THREE.Points(shipGeo, new THREE.PointsMaterial({ color: 0x7ec8f4, size: 0.016, sizeAttenuation: true })));
+
+  /* ── Real-time AIS via aisstream.io ── */
+  var AIS_KEY = 'ad07609b1b822ee98bff2af590a8178361250898';
+  var MAX_SHIPS = 800;
+  var aisMap = {};
+  var aisCount = 0;
+  var aisBuf = new Float32Array(MAX_SHIPS * 3);
+  var aisGeo = new THREE.BufferGeometry();
+  var _aisAttr = new THREE.BufferAttribute(aisBuf, 3);
+  _aisAttr.usage = THREE.DynamicDrawUsage;
+  aisGeo.setAttribute('position', _aisAttr);
+  aisGeo.setDrawRange(0, 0);
+  var aisMat = new THREE.PointsMaterial({
+    size: 0.038, sizeAttenuation: true,
+    map: makeShipTex(), transparent: true, alphaTest: 0.05,
+    depthWrite: false, color: 0xffffff
+  });
+  earth.add(new THREE.Points(aisGeo, aisMat));
+
+  var _aisEl = document.getElementById('ais-status');
+  function _aisStatus(t) { if (_aisEl) _aisEl.textContent = t; }
+
+  function connectAIS() {
+    var ws;
+    _aisStatus('AIS: connecting…');
+    try { ws = new WebSocket('wss://stream.aisstream.io/v0/stream'); }
+    catch(e) { _aisStatus('AIS: WS error – ' + e.message); return; }
+
+    ws.onopen = function() {
+      _aisStatus('AIS: connected, waiting…');
+      console.log('[AIS] WebSocket open');
+      ws.send(JSON.stringify({
+        APIKey: AIS_KEY,
+        BoundingBoxes: [[[-90, -180], [90, 180]]],
+        FilterMessageTypes: ['PositionReport']
+      }));
+    };
+
+    ws.onmessage = function(evt) {
+      var d; try { d = JSON.parse(evt.data); } catch(e) { return; }
+      /* 첫 메시지 원문 출력 (디버그) */
+      if (aisCount === 0) console.log('[AIS] first msg:', JSON.stringify(d).slice(0, 300));
+      if (!d.Message || !d.Message.PositionReport) return;
+      var pr = d.Message.PositionReport;
+      var la = pr.Latitude, ln = pr.Longitude;
+      var mm = pr.UserID || pr.Mmsi || (d.MetaData && (d.MetaData.MMSI || d.MetaData.mmsi));
+      /* la/ln 이 null/undefined/NaN 체크 (0 은 유효한 좌표) */
+      if (!mm || la == null || ln == null || isNaN(la) || isNaN(ln)
+          || la < -90 || la > 90 || ln < -180 || ln > 180) return;
+      var idx = aisMap[mm];
+      if (idx === undefined) {
+        if (aisCount >= MAX_SHIPS) return;
+        idx = aisCount++;
+        aisMap[mm] = idx;
+      }
+      var vv = toVec3(la, ln, 1.006);
+      aisBuf[idx*3] = vv.x; aisBuf[idx*3+1] = vv.y; aisBuf[idx*3+2] = vv.z;
+      aisGeo.attributes.position.needsUpdate = true;
+      aisGeo.setDrawRange(0, aisCount);
+      _aisStatus('AIS: ' + aisCount + ' ships');
+    };
+
+    ws.onclose = function(e) {
+      _aisStatus('AIS: closed (code ' + e.code + '), retry…');
+      console.log('[AIS] closed', e.code, e.reason);
+      setTimeout(connectAIS, 6000);
+    };
+    ws.onerror = function(e) {
+      _aisStatus('AIS: error');
+      console.log('[AIS] error', e);
+      ws.close();
+    };
+  }
+  connectAIS();
 
   /* ── Visitor marker (gold pulsing sphere) ── */
   var vPos = toVec3(lat, lng, 1.018);
@@ -3682,12 +3875,107 @@
   ringMesh.lookAt(new THREE.Vector3(0, 0, 0));
   earth.add(ringMesh);
 
-  /* ── Rotation target: visitor location faces camera ── */
+  /* ── Major Shipping Lanes ── */
+  function gcPoints(wps, seg) {
+    var pts = [];
+    for (var i = 0; i < wps.length - 1; i++) {
+      var a = toVec3(wps[i][0],   wps[i][1],   1.003).normalize();
+      var b = toVec3(wps[i+1][0], wps[i+1][1], 1.003).normalize();
+      for (var j = 0; j <= seg; j++) {
+        pts.push(new THREE.Vector3().copy(a).lerp(b, j / seg).normalize().multiplyScalar(1.003));
+      }
+    }
+    return pts;
+  }
+  function addLane(wps, col, opa) {
+    var g = new THREE.BufferGeometry().setFromPoints(gcPoints(wps, 24));
+    var m = new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: opa });
+    earth.add(new THREE.Line(g, m));
+  }
+
+  /* Asia–Europe (Suez) : Shanghai → Singapore → Colombo → Suez → Med → Rotterdam */
+  addLane([[31,121],[22,114],[1,104],[5,80],[13,51],[30,32],[32,33],[37,28],[38,15],[37,5],[36,-5],[51,-3],[52,5]], 0x1affda, 0.55);
+  /* Trans-Pacific : Shanghai → Tokyo → N.Pacific → Los Angeles */
+  addLane([[31,121],[35,139],[42,155],[50,170],[52,-175],[48,-155],[40,-140],[34,-118]], 0x1affda, 0.55);
+  /* Trans-Atlantic : Rotterdam → New York */
+  addLane([[52,5],[50,-5],[46,-20],[43,-35],[40,-52],[38,-58],[41,-74]], 0x1affda, 0.55);
+  /* Cape of Good Hope : Rotterdam → Cape Town → Singapore */
+  addLane([[52,5],[36,-8],[20,-20],[0,-10],[-15,5],[-34,18],[-26,32],[-15,42],[0,45],[5,52],[1,104]], 0x7ec8f4, 0.38);
+  /* Asia–Australia : Singapore → Sydney */
+  addLane([[1,104],[-5,112],[-12,130],[-12,136],[-20,148],[-34,151]], 0x1affda, 0.45);
+  /* Trans-Pacific South : Panama → Shanghai */
+  addLane([[9,-80],[12,-105],[18,-135],[22,-155],[26,-175],[30,158],[31,130],[31,121]], 0x7ec8f4, 0.38);
+  /* Indian Ocean : Mumbai → Durban */
+  addLane([[19,73],[12,55],[0,48],[-10,42],[-20,38],[-30,32],[-34,18]], 0x7ec8f4, 0.38);
+  /* Asia–East Africa : Singapore → Mombasa */
+  addLane([[1,104],[0,80],[0,68],[-2,52],[0,43],[4,43]], 0x7ec8f4, 0.35);
+
+  /* ── Initial position: visitor location centered immediately ── */
   var tY = -(lng * Math.PI / 180);
   var tX =  (lat * Math.PI / 180);
+  earth.rotation.y = tY;
+  earth.rotation.x = tX;
   var t0 = Date.now();
   var ANIM = 2500;
-  var done = false;
+  var done = true;
+
+  /* ── Satellites ── */
+  var _PI = Math.PI;
+
+  function satPos(r, incl, raan, ang) {
+    var cx = r * Math.cos(ang), cz = r * Math.sin(ang);
+    var y0 = cz * Math.sin(incl), z0 = cz * Math.cos(incl);
+    return new THREE.Vector3(
+      cx * Math.cos(raan) + z0 * Math.sin(raan),
+      y0,
+      -cx * Math.sin(raan) + z0 * Math.cos(raan)
+    );
+  }
+
+  function orbitRing(r, incl, raan, col, opa) {
+    var pts = [];
+    for (var i = 0; i <= 128; i++) pts.push(satPos(r, incl, raan, (i / 128) * _PI * 2));
+    var g = new THREE.BufferGeometry().setFromPoints(pts);
+    scene.add(new THREE.Line(g, new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: opa })));
+  }
+
+  var satList = [];
+  function addSat(r, incl, raan, initAng, spd, col, sz, lbl, lclr) {
+    var m = new THREE.Mesh(new THREE.SphereGeometry(sz, 4, 4), new THREE.MeshBasicMaterial({ color: col }));
+    m.position.copy(satPos(r, incl, raan, initAng));
+    scene.add(m);
+    satList.push({ m: m, r: r, incl: incl, raan: raan, ang: initAng, spd: spd, lbl: lbl || null, lclr: lclr || '#ffffff' });
+  }
+
+  /* Starlink — 550 km LEO, incl 53°, 6 planes × 4 sats */
+  var slR = 1.086, slI = 53 * _PI / 180, slS = 0.0006, slN = 0;
+  for (var p = 0; p < 6; p++) {
+    var ra = (p / 6) * _PI * 2;
+    orbitRing(slR, slI, ra, 0x1a4466, 0.18);
+    for (var s = 0; s < 4; s++) { slN++; addSat(slR, slI, ra, (s / 4) * _PI * 2, slS, 0x88ddff, 0.007, 'SL-' + (slN < 10 ? '0' + slN : '' + slN), '#7ec8f4'); }
+  }
+
+  /* GPS/GNSS — MEO scaled to 1.50, incl 55°, 3 planes × 4 sats */
+  var gpR = 1.50, gpI = 55 * _PI / 180, gpS = 0.00014, gpN = 0;
+  for (var p = 0; p < 3; p++) {
+    var ra = (p / 3) * _PI * 2;
+    orbitRing(gpR, gpI, ra, 0x1a4422, 0.14);
+    for (var s = 0; s < 4; s++) { gpN++; addSat(gpR, gpI, ra, (s / 4) * _PI * 2, gpS, 0x44ff88, 0.009, 'GPS-' + (gpN < 10 ? '0' + gpN : '' + gpN), '#44ff88'); }
+  }
+
+  /* GEO — 35 786 km scaled to 1.88, near-equatorial, 5 sats */
+  var geR = 1.88, geI = 2 * _PI / 180, geS = 0.00002;
+  var GEO_NAMES = ['Inmarsat-4F3', 'Intelsat-19', 'SES-9', 'Eutelsat-5WB', 'Inmarsat-3F2'];
+  orbitRing(geR, geI, 0, 0x442200, 0.14);
+  for (var s = 0; s < 5; s++) addSat(geR, geI, 0, (s / 5) * _PI * 2, geS, 0xffaa44, 0.010, GEO_NAMES[s], '#ffaa44');
+
+  /* ISS — 400 km, incl 51.6° */
+  var isR = 1.063, isI = 51.6 * _PI / 180;
+  orbitRing(isR, isI, _PI / 4, 0x553300, 0.20);
+  addSat(isR, isI, _PI / 4, 0, 0.001, 0xffee44, 0.014, 'ISS', '#ffee44');
+
+  /* reusable vector for "You are Here" projection (avoids per-frame allocation) */
+  var _vWorld = new THREE.Vector3();
 
   /* ── Resize ── */
   window.addEventListener("resize", function () {
@@ -3695,7 +3983,48 @@
     camera.aspect = W / H;
     camera.updateProjectionMatrix();
     renderer.setSize(W, H);
+    DPR = Math.min(window.devicePixelRatio, 2);
+    labelCanvas.width  = W * DPR;
+    labelCanvas.height = H * DPR;
+    lctx.scale(DPR, DPR);
   });
+
+  /* ── Interactive drag rotation ── */
+  var _drag = { on: false, x: 0, y: 0, moved: false };
+
+  function _ds(cx, cy) { _drag.on = true; _drag.x = cx; _drag.y = cy; _drag.moved = false; }
+  function _dm(cx, cy) {
+    if (!_drag.on) return;
+    var dx = cx - _drag.x, dy = cy - _drag.y;
+    if (!_drag.moved && Math.abs(dx) + Math.abs(dy) < 4) return;
+    _drag.moved = true;
+    earth.rotation.y += dx * 0.004;
+    earth.rotation.x = Math.max(-1.4, Math.min(1.4, earth.rotation.x + dy * 0.004));
+    _drag.x = cx; _drag.y = cy;
+    document.body.style.cursor = 'grabbing';
+  }
+  function _de() {
+    if (_drag.moved) document.body.style.cursor = '';
+    _drag.on = false; _drag.moved = false;
+  }
+
+  window.addEventListener('mousedown', function(e) { _ds(e.clientX, e.clientY); });
+  window.addEventListener('mousemove', function(e) { _dm(e.clientX, e.clientY); });
+  window.addEventListener('mouseup', _de);
+  window.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) _ds(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  window.addEventListener('touchmove', function(e) {
+    if (e.touches.length === 1) _dm(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  window.addEventListener('touchend', _de);
+
+  /* ── Zoom (left-button held + wheel) ── */
+  window.addEventListener('wheel', function(e) {
+    if (!_drag.on) return;
+    camera.position.z = Math.max(1.3, Math.min(4.5, camera.position.z + e.deltaY * 0.003));
+    e.preventDefault();
+  }, { passive: false });
 
   /* ── Render loop ── */
   (function loop() {
@@ -3708,14 +4037,196 @@
       earth.rotation.x = tX * e;
       if (t >= 1) done = true;
     } else {
-      earth.rotation.y += 0.0007;
+      if (!_drag.on) earth.rotation.y += 0.00007;
+    }
+    /* ── Update satellites + draw labels ── */
+    lctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < satList.length; i++) {
+      var sv = satList[i];
+      sv.ang += sv.spd;
+      sv.m.position.copy(satPos(sv.r, sv.incl, sv.raan, sv.ang));
+
+      if (!sv.lbl) continue;
+      /* front > 0 = near side of earth (camera.position is on +Z axis) */
+      var front = sv.m.position.z / sv.r;
+      if (front < 0.06) continue;
+      var alpha = Math.min(1, (front - 0.06) / 0.20) * 0.90;
+
+      var proj = sv.m.position.clone().project(camera);
+      var sx = (proj.x * 0.5 + 0.5) * W;
+      var sy = (-proj.y * 0.5 + 0.5) * H;
+
+      var isISS = sv.lbl === 'ISS';
+      lctx.font = (isISS ? 'bold 10px' : '8px') + ' Inter,sans-serif';
+      var tw  = lctx.measureText(sv.lbl).width;
+      var bx  = sx + 7, by = sy - 15;
+      var bw  = tw + 6, bh = (isISS ? 13 : 11);
+
+      lctx.globalAlpha = alpha;
+      lctx.fillStyle = 'rgba(2,8,22,0.72)';
+      lctx.fillRect(bx - 2, by, bw, bh);
+      lctx.fillStyle = sv.lclr;
+      lctx.fillText(sv.lbl, bx, by + bh - 2);
+      lctx.globalAlpha = 1;
     }
     var pulse = 0.75 + 0.25 * Math.sin(Date.now() * 0.003);
     markerMesh.scale.setScalar(pulse);
     ringMesh.material.opacity = 0.3 + 0.25 * Math.sin(Date.now() * 0.002);
+
+    /* ── "You are Here" label on visitor marker ── */
+    markerMesh.getWorldPosition(_vWorld);
+    var vFront = _vWorld.z / _vWorld.length();
+    if (vFront > 0.05) {
+      var vAlpha = Math.min(1, (vFront - 0.05) / 0.15) * 0.92;
+      _vWorld.project(camera);
+      var vx = (_vWorld.x * 0.5 + 0.5) * W;
+      var vy = (-_vWorld.y * 0.5 + 0.5) * H;
+      var vlbl = 'You are Here';
+      lctx.font = 'bold 10px Inter,sans-serif';
+      var vtw = lctx.measureText(vlbl).width;
+      var vbx = vx + 12, vby = vy - 20;
+      var vbw = vtw + 10, vbh = 14;
+      lctx.globalAlpha = vAlpha;
+      lctx.fillStyle = 'rgba(2,8,22,0.82)';
+      lctx.fillRect(vbx - 2, vby, vbw, vbh);
+      lctx.strokeStyle = 'rgba(255,215,0,0.75)';
+      lctx.lineWidth = 1;
+      lctx.beginPath();
+      lctx.moveTo(vx, vy);
+      lctx.lineTo(vbx, vby + vbh * 0.5);
+      lctx.stroke();
+      lctx.fillStyle = '#ffd700';
+      lctx.fillText(vlbl, vbx + 2, vby + vbh - 2);
+      lctx.globalAlpha = 1;
+    }
+
     renderer.render(scene, camera);
   })();
 })();
 //]]></script>
+
+  <script>//<![CDATA[
+  /* ── Move Hello Guest widget to right panel ── */
+  (function(){
+    var target = document.getElementById('hg-right');
+    if (!target) return;
+    function move() {
+      var wrap = document.getElementById('hg-wrap');
+      if (wrap && !target.contains(wrap)) {
+        target.appendChild(wrap);
+        return true;
+      }
+      return false;
+    }
+    if (!move()) {
+      var obs = new MutationObserver(function() {
+        if (move()) obs.disconnect();
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+    }
+  })();
+
+  /* ── Maritime Weather Widget ── */
+  (function(){
+    var el = document.getElementById('mw-widget');
+    if (!el) return;
+
+    /* 위치: Hello Widget 캐시 우선, 없으면 기본(서울) */
+    var lat = 37.5, lng = 127.0, city = '';
+    try {
+      var c = JSON.parse(localStorage.getItem('hg_ip_cache') || 'null');
+      if (c && c.latitude != null) {
+        lat  = parseFloat(c.latitude);
+        lng  = parseFloat(c.longitude);
+        city = [c.city, c.country_code].filter(Boolean).join(', ');
+      }
+    } catch(e) {}
+
+    /* Beaufort 변환 (km/h) */
+    function bft(k) {
+      var b=[1,6,12,20,29,39,50,62,75,89,103,118];
+      for(var i=0;i<b.length;i++) if(k<b[i]) return i;
+      return 12;
+    }
+    /* 풍향 16방위 */
+    function cmp(d) {
+      var dirs=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+      return dirs[Math.round(d/22.5)%16];
+    }
+    /* WMO 날씨 아이콘 */
+    function wicon(code) {
+      if(code===0)       return '☀️';
+      if(code<=2)        return '⛅';
+      if(code===3)       return '☁️';
+      if(code<=48)       return '🌫️';
+      if(code<=67)       return '🌧️';
+      if(code<=77)       return '🌨️';
+      if(code<=82)       return '🌦️';
+      if(code<=86)       return '🌨️';
+      return '⛈️';
+    }
+    /* 더글라스 해상 상태 */
+    function seaState(h) {
+      if(h==null)  return '—';
+      if(h<0.1)    return 'Glassy (0)';
+      if(h<0.5)    return 'Rippled (1)';
+      if(h<1.25)   return 'Slight (3)';
+      if(h<2.5)    return 'Moderate (4)';
+      if(h<4.0)    return 'Rough (5)';
+      if(h<6.0)    return 'Very Rough (6)';
+      if(h<9.0)    return 'High (7)';
+      return 'Very High (8)';
+    }
+
+    var wURL = 'https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lng
+      +'&current=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m,'
+      +'surface_pressure,visibility,precipitation&wind_speed_unit=kmh&timezone=auto';
+    var mURL = 'https://marine-api.open-meteo.com/v1/marine?latitude='+lat+'&longitude='+lng
+      +'&current=wave_height,wave_direction,wave_period,swell_wave_height,swell_wave_direction,swell_wave_period';
+
+    Promise.all([
+      fetch(wURL).then(function(r){return r.json();}),
+      fetch(mURL).then(function(r){return r.json();}).catch(function(){return null;})
+    ]).then(function(res){
+      var w  = res[0].current;
+      var m  = res[1] && res[1].current;
+
+      var temp = Math.round(w.temperature_2m);
+      var wind = Math.round(w.wind_speed_10m);
+      var wdir = w.wind_direction_10m;
+      var pres = Math.round(w.surface_pressure);
+      var vis  = w.visibility != null ? (w.visibility/1000).toFixed(1) : '—';
+      var bf   = bft(wind);
+      var ic   = wicon(w.weather_code);
+
+      var waveH  = m && m.wave_height    != null ? (+m.wave_height).toFixed(1)    : null;
+      var waveP  = m && m.wave_period    != null ? (+m.wave_period).toFixed(0)    : null;
+      var waveD  = m && m.wave_direction != null ? cmp(m.wave_direction)           : null;
+      var swH    = m && m.swell_wave_height   != null ? (+m.swell_wave_height).toFixed(1)   : null;
+      var swD    = m && m.swell_wave_direction!= null ? cmp(m.swell_wave_direction)          : null;
+      var swP    = m && m.swell_wave_period   != null ? (+m.swell_wave_period).toFixed(0)   : null;
+
+      var h = '<div class="mw-hdr">'+ ic +' Maritime Wx'
+            + (city?'<span class="mw-city">📍'+city+'</span>':'')+'</div>'
+            + '<div class="mw-row"><span>🌡 '+ temp +'°C</span><span>📊 '+ pres +' hPa</span></div>'
+            + '<div class="mw-row"><span>💨 Bft <b>'+ bf +'</b> '+ cmp(wdir) +' '+ wind +'km/h</span>'
+            +   '<span>👁 '+ vis +'km</span></div>'
+            + '<hr class="mw-hr"/>';
+
+      if (waveH) {
+        h += '<div class="mw-row"><span>🌊 Wave '+ waveH +'m '+(waveD||'')+'/'+(waveP||'—')+'s</span>'
+           + '<span class="mw-sea">'+ seaState(parseFloat(waveH)) +'</span></div>';
+        if (swH) {
+          h += '<div class="mw-row"><span>↗ Swell '+ swH +'m '+(swD||'')+'/'+(swP||'—')+'s</span></div>';
+        }
+      } else {
+        h += '<div class="mw-nomarine">⚓ Inland — no marine data</div>';
+      }
+      el.innerHTML = h;
+    }).catch(function(){
+      el.innerHTML = '<span style="color:rgba(200,228,248,0.5)">Weather unavailable</span>';
+    });
+  })();
+  //]]></script>
   </body>
 </html>
