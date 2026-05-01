@@ -170,18 +170,23 @@
       </script>
     </b:if>
 
-    <!-- 다국어 블로그 대응 -->
-    <link href='https://www.shippauljobs.com/' hreflang='ko' rel='alternate'/>
-    <link href='https://www.shippauljobs.com/en/' hreflang='en' rel='alternate'/>
+<!-- 다국어 블로그 대응 -->
+<link expr:href='data:blog.canonicalUrl' hreflang='ko' rel='alternate'/>
+<link expr:href='data:blog.canonicalUrl + "en/"' hreflang='en' rel='alternate'/>
 
-    <!-- Google Fonts: Inter -->
-    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap' rel='stylesheet'/>
+<!-- Google Fonts -->
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap' rel='stylesheet'/>
 
-    <!-- 페이지 제목 -->
-    <title><data:view.title.escaped/></title>
+<!-- 페이지 제목 -->
+<title><data:view.title.escaped/></title>
 
-    <!-- 기존 Blogger head 포함 -->
-    <b:include data='blog' name='all-head-content'/>
+<!-- Blogger 기본 head -->
+<b:include data='blog' name='all-head-content'/>
+
+<!-- ✅ 핵심: 동적 canonical -->
+<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+
+
 
     <b:skin version='1.0.1'><![CDATA[/*! normalize.css v8.0.0 | MIT License |
       github.com/necolas/normalize.css
@@ -1450,7 +1455,6 @@
   <body>
     <canvas id='globe-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.95;'/>
     <canvas id='label-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;'/>
-    <div id='ais-status' style='position:fixed;bottom:8px;right:10px;z-index:9999;font-size:11px;font-family:monospace;color:#1affda;background:rgba(5,15,30,0.75);padding:3px 8px;border-radius:4px;border:1px solid rgba(26,255,218,0.25);pointer-events:none;'>AIS: connecting…</div>
     <div id='right-panel'>
       <div id='mw-widget'>Loading weather…</div>
       <div id='hg-right'></div>
@@ -1490,10 +1494,10 @@
       .spj-pnav-home:hover{color:#1affda!important;text-shadow:0 0 12px #1affda,0 0 24px rgba(26,255,218,0.6)!important;}
       .spj-pnav-label{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
       /* ── Right panel — scrolls with page (position:absolute) ── */
-      #right-panel{position:absolute;top:58px;right:12px;z-index:50;display:flex;flex-direction:column;gap:8px;width:252px;pointer-events:auto;}
+      #right-panel{position:absolute;top:170px;right:12px;z-index:60;display:flex;flex-direction:column;gap:8px;width:252px;pointer-events:auto;}
       /* ── 공통 패널 카드 스타일 ── */
       #mw-widget,#hg-right{width:100%;background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:10px;backdrop-filter:blur(8px);box-shadow:0 0 20px rgba(26,255,218,0.1);}
-      #mw-widget{padding:10px 14px;font-family:monospace;font-size:12px;color:#c8e4f8;line-height:1.7;}
+      #mw-widget{box-sizing:border-box;padding:10px 14px;font-family:monospace;font-size:12px;color:#c8e4f8;line-height:1.7;overflow:hidden;}
       /* ── Hello Guest (right panel) ── */
       #hg-right{overflow:visible;}
       #hg-right #hg-wrap{width:100%!important;max-width:100%!important;height:auto!important;max-height:none!important;margin:0!important;border:none!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;}
@@ -1527,6 +1531,8 @@
       .spj-lbl-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
       .spj-lbl-count{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.25);border-radius:10px;color:#1d89cf;font-size:10px;font-weight:700;padding:1px 6px;margin-left:6px;flex-shrink:0;}
       .spj-lbl-item a:hover .spj-lbl-count{background:rgba(21,79,122,0.18);border-color:#1d89cf;color:#154f7a;}
+      /* ── 모바일에서 우측 위젯 패널 숨김 ── */
+      @media (max-width:1024px){#right-panel{display:none!important;}}
     </style>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe height='0' src='https://www.googletagmanager.com/ns.html?id=GTM-WPNJMQS' style='display: none; visibility: hidden' width='0'/></noscript>
@@ -3757,97 +3763,6 @@
     );
   }
 
-  /* ── Ship sprite texture (canvas-drawn silhouette) ── */
-  function makeShipTex() {
-    var c = document.createElement('canvas');
-    c.width = 32; c.height = 32;
-    var x = c.getContext('2d');
-    x.clearRect(0, 0, 32, 32);
-    x.shadowColor = '#1affda'; x.shadowBlur = 6;
-    x.fillStyle = '#1affda';
-    x.beginPath();
-    x.moveTo(16, 2);   /* 선수 (위) */
-    x.lineTo(28, 28);  /* 우현 선미 */
-    x.lineTo(16, 22);  /* 중앙 선미 (오목) */
-    x.lineTo(4, 28);   /* 좌현 선미 */
-    x.closePath();
-    x.fill();
-    return new THREE.CanvasTexture(c);
-  }
-
-  /* ── Real-time AIS via aisstream.io ── */
-  var AIS_KEY = 'ad07609b1b822ee98bff2af590a8178361250898';
-  var MAX_SHIPS = 800;
-  var aisMap = {};
-  var aisCount = 0;
-  var aisBuf = new Float32Array(MAX_SHIPS * 3);
-  var aisGeo = new THREE.BufferGeometry();
-  var _aisAttr = new THREE.BufferAttribute(aisBuf, 3);
-  _aisAttr.usage = THREE.DynamicDrawUsage;
-  aisGeo.setAttribute('position', _aisAttr);
-  aisGeo.setDrawRange(0, 0);
-  var aisMat = new THREE.PointsMaterial({
-    size: 0.055, sizeAttenuation: true,
-    map: makeShipTex(), transparent: true, alphaTest: 0.05,
-    depthWrite: false, color: 0xffffff
-  });
-  earth.add(new THREE.Points(aisGeo, aisMat));
-
-  var _aisEl = document.getElementById('ais-status');
-  function _aisStatus(t) { if (_aisEl) _aisEl.textContent = t; }
-
-  function connectAIS() {
-    var ws;
-    _aisStatus('AIS: connecting…');
-    try { ws = new WebSocket('wss://stream.aisstream.io/v0/stream'); }
-    catch(e) { _aisStatus('AIS: WS error – ' + e.message); return; }
-
-    ws.onopen = function() {
-      _aisStatus('AIS: connected, waiting…');
-      console.log('[AIS] WebSocket open');
-      ws.send(JSON.stringify({
-        APIKey: AIS_KEY,
-        BoundingBoxes: [[[-90, -180], [90, 180]]],
-        FilterMessageTypes: ['PositionReport']
-      }));
-    };
-
-    ws.onmessage = function(evt) {
-      var d; try { d = JSON.parse(evt.data); } catch(e) { return; }
-      /* 첫 메시지 원문 출력 (디버그) */
-      if (aisCount === 0) console.log('[AIS] first msg:', JSON.stringify(d).slice(0, 300));
-      if (!d.Message || !d.Message.PositionReport) return;
-      var pr = d.Message.PositionReport;
-      var la = pr.Latitude, ln = pr.Longitude;
-      var mm = pr.UserID || pr.Mmsi || (d.MetaData && (d.MetaData.MMSI || d.MetaData.mmsi));
-      /* la/ln 이 null/undefined/NaN 체크 (0 은 유효한 좌표) */
-      if (!mm || la == null || ln == null || isNaN(la) || isNaN(ln)
-          || la < -90 || la > 90 || ln < -180 || ln > 180) return;
-      var idx = aisMap[mm];
-      if (idx === undefined) {
-        if (aisCount >= MAX_SHIPS) return;
-        idx = aisCount++;
-        aisMap[mm] = idx;
-      }
-      var vv = toVec3(la, ln, 1.006);
-      aisBuf[idx*3] = vv.x; aisBuf[idx*3+1] = vv.y; aisBuf[idx*3+2] = vv.z;
-      aisGeo.attributes.position.needsUpdate = true;
-      aisGeo.setDrawRange(0, aisCount);
-      _aisStatus('AIS: ' + aisCount + ' ships');
-    };
-
-    ws.onclose = function(e) {
-      _aisStatus('AIS: closed (code ' + e.code + '), retry…');
-      console.log('[AIS] closed', e.code, e.reason);
-      setTimeout(connectAIS, 6000);
-    };
-    ws.onerror = function(e) {
-      _aisStatus('AIS: error');
-      console.log('[AIS] error', e);
-      ws.close();
-    };
-  }
-  connectAIS();
 
   /* ── Visitor marker (gold pulsing sphere) ── */
   var vPos = toVec3(lat, lng, 1.018);
@@ -4116,6 +4031,25 @@
       });
       obs.observe(document.body, { childList: true, subtree: true });
     }
+  })();
+
+  /* ── Right panel top — 실제 헤더 높이 기준으로 동적 배치 ── */
+  (function(){
+    var rp = document.getElementById('right-panel');
+    if (!rp) return;
+    function setPanelTop() {
+      var hdr = document.querySelector('.centered-top-container');
+      if (!hdr) return;
+      var h = hdr.getBoundingClientRect().height;
+      if (h > 10) rp.style.top = (h + 12) + 'px';
+    }
+    /* 헤더가 렌더된 후 측정 */
+    if (document.readyState === 'complete') {
+      setTimeout(setPanelTop, 200);
+    } else {
+      window.addEventListener('load', function(){ setTimeout(setPanelTop, 200); });
+    }
+    window.addEventListener('resize', setPanelTop);
   })();
 
   /* ── Maritime Weather Widget ── */
