@@ -1,0 +1,784 @@
+<!-- ════════════════════════════════════════════════════════════
+     Smart Vessel Tracking with AIS
+     Search: Location · Country · Port · Vessel Name
+     Map: VesselFinder embed  |  Geocoding: Nominatim (OSM)
+════════════════════════════════════════════════════════════ -->
+
+<style>
+  #vt-wrap * { box-sizing: border-box; }
+  #vt-wrap {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: #2c3e50;
+    max-width: 900px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .vt-hdr {
+    background: linear-gradient(135deg, #0a2342 0%, #154f7a 60%, #1a9e82 100%);
+    border-radius: 14px;
+    padding: 20px 26px;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  .vt-hdr-eye {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 5px;
+  }
+  .vt-hdr h1 { font-size: 20px; font-weight: 800; margin: 0 0 5px; line-height: 1.3; }
+  .vt-hdr p  { font-size: 12.5px; color: rgba(255,255,255,0.72); margin: 0; }
+
+  /* ── Search panel ── */
+  .vt-search {
+    background: #f4f7fb;
+    border: 1.5px solid #d0dff0;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  /* Tab row */
+  .vt-tab-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .vt-tab {
+    border: 1.5px solid #c0d0e5;
+    background: #fff;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #154f7a;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .vt-tab.active { background: #0a2342; color: #fff; border-color: #0a2342; }
+  .vt-tab:hover:not(.active) { background: #154f7a; color: #fff; border-color: #154f7a; }
+
+  /* Search fields */
+  .vt-pane { display: none; }
+  .vt-pane.active { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+  .vt-field { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 160px; }
+  .vt-field-lbl {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: #154f7a;
+  }
+  .vt-input, .vt-select {
+    border: 1.5px solid #c0d0e5;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #0a2342;
+    background: #fff;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.18s;
+  }
+  .vt-input:focus, .vt-select:focus { border-color: #154f7a; }
+  .vt-search-btn {
+    background: linear-gradient(135deg, #0a2342, #154f7a);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    height: 38px;
+    white-space: nowrap;
+    transition: opacity 0.18s;
+    flex-shrink: 0;
+  }
+  .vt-search-btn:hover { opacity: 0.85; }
+  .vt-search-btn:disabled { opacity: 0.5; cursor: wait; }
+
+  /* ── Map section ── */
+  .vt-map-wrap { margin-bottom: 14px; border-radius: 12px; overflow: hidden; border: 1.5px solid #d0dff0; }
+  .vt-map-hdr {
+    background: #0a1929;
+    padding: 8px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #1affda;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .vt-map-meta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .vt-map-badge {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .vt-ext-btns { display: flex; gap: 6px; }
+  .vt-ext-btn {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(26,255,218,0.7);
+    text-decoration: none;
+    border: 1px solid rgba(26,255,218,0.3);
+    border-radius: 4px;
+    padding: 2px 7px;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .vt-ext-btn:hover { color: #1affda; border-color: #1affda; }
+  #vt-map-iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    display: block;
+    background: #0a1929;
+  }
+
+  /* ── Vessel table ── */
+  .vt-tbl-wrap {
+    background: #fff;
+    border: 1.5px solid #d0dff0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .vt-tbl-hdr {
+    background: #0a1929;
+    padding: 8px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #1affda;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .vt-tbl-note {
+    font-size: 10px;
+    color: rgba(122,179,212,0.7);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .vt-tbl-scroll { overflow-x: auto; }
+  #vt-vessel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    min-width: 620px;
+  }
+  #vt-vessel-table thead tr {
+    background: #f0f5fb;
+    border-bottom: 2px solid #d0dff0;
+  }
+  #vt-vessel-table thead th {
+    padding: 9px 12px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #154f7a;
+    white-space: nowrap;
+  }
+  #vt-vessel-table tbody tr {
+    border-bottom: 1px solid #e8f0f8;
+    transition: background 0.15s;
+  }
+  #vt-vessel-table tbody tr:hover { background: #f4f8ff; }
+  #vt-vessel-table tbody tr:last-child { border-bottom: none; }
+  #vt-vessel-table td {
+    padding: 9px 12px;
+    vertical-align: middle;
+    color: #2c3e50;
+    white-space: nowrap;
+  }
+  .vt-vessel-name { font-weight: 700; color: #0a2342; }
+  .vt-type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .vt-type-container { background: #e8f4ff; color: #154f7a; }
+  .vt-type-tanker    { background: #fff3e0; color: #e65100; }
+  .vt-type-bulk      { background: #e8f5e9; color: #2e7d32; }
+  .vt-type-cargo     { background: #f3e5f5; color: #6a1b9a; }
+  .vt-type-roro      { background: #fce4ec; color: #880e4f; }
+  .vt-type-lng       { background: #e0f2f1; color: #00695c; }
+  .vt-ais-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: #f0f5fb;
+    border: 1px solid #c0d0e5;
+    border-radius: 6px;
+    padding: 3px 9px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #154f7a;
+    text-decoration: none;
+    transition: all 0.18s;
+  }
+  .vt-ais-link:hover { background: #0a2342; border-color: #0a2342; color: #fff; }
+  #vt-tbl-empty {
+    text-align: center;
+    padding: 32px 20px;
+    color: #7ab3d4;
+    font-size: 13px;
+  }
+
+  /* Footer */
+  .vt-foot { font-size: 11px; color: #9ab5c9; text-align: right; }
+  .vt-foot a { color: #9ab5c9; }
+
+  /* Mobile */
+  @media (max-width: 620px) {
+    .vt-pane.active { flex-direction: column; }
+    #vt-map-iframe { height: 360px; }
+    .vt-map-meta { gap: 6px; }
+  }
+</style>
+
+<div id="vt-wrap">
+
+  <!-- Header -->
+  <div class="vt-hdr">
+    <div class="vt-hdr-eye">AIS Live Intelligence</div>
+    <h1>🛰️ Smart Vessel Tracking with AIS</h1>
+    <p>위치 · 국가 · 항만 · 선박명으로 검색하여 실시간 AIS 선박 정보를 지도와 테이블로 확인하세요.</p>
+  </div>
+
+  <!-- Search panel -->
+  <div class="vt-search">
+    <div class="vt-tab-row">
+      <button class="vt-tab active" onclick="vtTab(this,'loc')">📍 위치 / 좌표</button>
+      <button class="vt-tab" onclick="vtTab(this,'country')">🏳️ 국가</button>
+      <button class="vt-tab" onclick="vtTab(this,'port')">⚓ 항만</button>
+      <button class="vt-tab" onclick="vtTab(this,'vessel')">🚢 선박명</button>
+    </div>
+
+    <!-- Location search -->
+    <div class="vt-pane active" id="vt-pane-loc">
+      <div class="vt-field">
+        <div class="vt-field-lbl">지명 또는 위경도 (예: Singapore Port / 1.26, 103.8)</div>
+        <input type="text" id="vt-loc-input" class="vt-input"
+          placeholder="도시, 항구, 해역명 또는 위도,경도" value="Singapore">
+      </div>
+      <div class="vt-field" style="max-width:110px;">
+        <div class="vt-field-lbl">Zoom</div>
+        <select id="vt-loc-zoom" class="vt-select">
+          <option value="7">7 — 해역</option>
+          <option value="9">9 — 지역</option>
+          <option value="10" selected>10 — 구역</option>
+          <option value="11">11 — 항만</option>
+          <option value="12">12 — 클로즈업</option>
+        </select>
+      </div>
+      <button class="vt-search-btn" id="vt-loc-btn" onclick="vtSearchLoc()">🔍 검색</button>
+    </div>
+
+    <!-- Country search -->
+    <div class="vt-pane" id="vt-pane-country">
+      <div class="vt-field">
+        <div class="vt-field-lbl">국가 선택</div>
+        <select id="vt-country-sel" class="vt-select">
+          <option value="">── 국가 선택 ──</option>
+          <option value="KR">🇰🇷 대한민국</option>
+          <option value="JP">🇯🇵 일본</option>
+          <option value="CN">🇨🇳 중국</option>
+          <option value="SG">🇸🇬 싱가포르</option>
+          <option value="MY">🇲🇾 말레이시아</option>
+          <option value="ID">🇮🇩 인도네시아</option>
+          <option value="US">🇺🇸 미국</option>
+          <option value="NL">🇳🇱 네덜란드</option>
+          <option value="DE">🇩🇪 독일</option>
+          <option value="BE">🇧🇪 벨기에</option>
+          <option value="GB">🇬🇧 영국</option>
+          <option value="FR">🇫🇷 프랑스</option>
+          <option value="GR">🇬🇷 그리스</option>
+          <option value="TR">🇹🇷 터키</option>
+          <option value="AE">🇦🇪 UAE</option>
+          <option value="EG">🇪🇬 이집트 (수에즈)</option>
+          <option value="PA">🇵🇦 파나마</option>
+          <option value="AU">🇦🇺 호주</option>
+          <option value="NO">🇳🇴 노르웨이</option>
+          <option value="DK">🇩🇰 덴마크</option>
+        </select>
+      </div>
+      <button class="vt-search-btn" onclick="vtSearchCountry()">🔍 검색</button>
+    </div>
+
+    <!-- Port search -->
+    <div class="vt-pane" id="vt-pane-port">
+      <div class="vt-field">
+        <div class="vt-field-lbl">항만 선택</div>
+        <select id="vt-port-sel" class="vt-select">
+          <option value="">── 항만 선택 ──</option>
+          <optgroup label="동아시아">
+            <option value="busan">🇰🇷 부산항 (Busan)</option>
+            <option value="incheon">🇰🇷 인천항 (Incheon)</option>
+            <option value="ulsan">🇰🇷 울산항 (Ulsan)</option>
+            <option value="shanghai">🇨🇳 상하이 (Shanghai)</option>
+            <option value="shenzhen">🇨🇳 선전 (Shenzhen)</option>
+            <option value="ningbo">🇨🇳 닝보 (Ningbo)</option>
+            <option value="tianjin">🇨🇳 톈진 (Tianjin)</option>
+            <option value="qingdao">🇨🇳 칭다오 (Qingdao)</option>
+            <option value="tokyo">🇯🇵 도쿄 (Tokyo)</option>
+            <option value="yokohama">🇯🇵 요코하마 (Yokohama)</option>
+            <option value="nagoya">🇯🇵 나고야 (Nagoya)</option>
+            <option value="osaka">🇯🇵 오사카 (Osaka)</option>
+          </optgroup>
+          <optgroup label="동남아시아">
+            <option value="singapore">🇸🇬 싱가포르 (Singapore)</option>
+            <option value="portklang">🇲🇾 포트클랑 (Port Klang)</option>
+            <option value="tanjungpelepas">🇲🇾 탄중펠레파스</option>
+            <option value="jakarta">🇮🇩 자카르타 (Jakarta)</option>
+          </optgroup>
+          <optgroup label="유럽">
+            <option value="rotterdam">🇳🇱 로테르담 (Rotterdam)</option>
+            <option value="antwerp">🇧🇪 앤트워프 (Antwerp)</option>
+            <option value="hamburg">🇩🇪 함부르크 (Hamburg)</option>
+            <option value="felixstowe">🇬🇧 펠릭스토 (Felixstowe)</option>
+            <option value="bremerhaven">🇩🇪 브레머하펜</option>
+            <option value="barcelona">🇪🇸 바르셀로나</option>
+            <option value="piraeus">🇬🇷 피레우스 (Piraeus)</option>
+          </optgroup>
+          <optgroup label="중동 / 아프리카">
+            <option value="jebel_ali">🇦🇪 제벨알리 (Jebel Ali)</option>
+            <option value="colombo">🇱🇰 콜롬보 (Colombo)</option>
+          </optgroup>
+          <optgroup label="아메리카">
+            <option value="losangeles">🇺🇸 로스앤젤레스</option>
+            <option value="longbeach">🇺🇸 롱비치 (Long Beach)</option>
+            <option value="newyork">🇺🇸 뉴욕/뉴저지</option>
+            <option value="savannah">🇺🇸 사바나 (Savannah)</option>
+            <option value="colon">🇵🇦 콜론 / 파나마 운하</option>
+          </optgroup>
+          <optgroup label="주요 해협">
+            <option value="malacca">🛳️ 말라카 해협</option>
+            <option value="english_channel">🌊 영국 해협</option>
+            <option value="suez">🔵 수에즈 운하</option>
+            <option value="hormuz">⛽ 호르무즈 해협</option>
+            <option value="bab_el_mandeb">🟡 바브엘만데브 해협</option>
+          </optgroup>
+        </select>
+      </div>
+      <button class="vt-search-btn" onclick="vtSearchPort()">🔍 검색</button>
+    </div>
+
+    <!-- Vessel name search -->
+    <div class="vt-pane" id="vt-pane-vessel">
+      <div class="vt-field">
+        <div class="vt-field-lbl">선박명 또는 MMSI</div>
+        <input type="text" id="vt-vessel-input" class="vt-input"
+          placeholder="예: EVER GIVEN, MSC GÜLSÜN, 353136000">
+      </div>
+      <button class="vt-search-btn" onclick="vtSearchVessel()">🔍 검색</button>
+    </div>
+  </div><!-- /.vt-search -->
+
+  <!-- Map -->
+  <div class="vt-map-wrap">
+    <div class="vt-map-hdr">
+      <span>📡 AIS Live Map</span>
+      <div class="vt-map-meta">
+        <span class="vt-map-badge" id="vt-coord-lbl">1.2600°N, 103.8000°E</span>
+        <div class="vt-ext-btns">
+          <a id="vt-vf-a"  href="https://www.vesselfinder.com/?lat=1.26&lng=103.8&zoom=11" target="_blank" rel="noopener" class="vt-ext-btn">↗ VesselFinder</a>
+          <a id="vt-mt-a"  href="https://www.marinetraffic.com/en/ais/home/centerx:103.8/centery:1.26/zoom:11" target="_blank" rel="noopener" class="vt-ext-btn">↗ MarineTraffic</a>
+          <a id="vt-msf-a" href="https://www.myshiptracking.com/?mmsi=&type=0&lat=1.26&lng=103.8&zoom=11" target="_blank" rel="noopener" class="vt-ext-btn">↗ MyShipTracking</a>
+        </div>
+      </div>
+    </div>
+    <iframe id="vt-map-iframe"
+      src="https://www.vesselfinder.com/aismap?zoom=11&lat=1.26&lon=103.8&names=true"
+      title="AIS Vessel Tracking Map"
+      loading="lazy"
+      allowfullscreen></iframe>
+  </div>
+
+  <!-- Vessel table -->
+  <div class="vt-tbl-wrap">
+    <div class="vt-tbl-hdr">
+      🚢 선박 정보 테이블
+      <span class="vt-tbl-note" id="vt-tbl-note">항만 또는 위치를 검색하면 대표 선박 목록이 표시됩니다</span>
+    </div>
+    <div class="vt-tbl-scroll">
+      <table id="vt-vessel-table">
+        <thead>
+          <tr>
+            <th>선박명</th>
+            <th>유형</th>
+            <th>국기</th>
+            <th>MMSI</th>
+            <th>총톤수 (GT)</th>
+            <th>목적지</th>
+            <th>AIS</th>
+          </tr>
+        </thead>
+        <tbody id="vt-vessel-tbody">
+          <tr><td colspan="7" id="vt-tbl-empty">⬆ 위에서 항만 또는 위치를 검색하세요</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="vt-foot">
+    AIS 데이터: <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">VesselFinder</a> &middot;
+    지오코딩: <a href="https://nominatim.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap Nominatim</a>
+  </div>
+
+</div><!-- /#vt-wrap -->
+
+<script>
+(function () {
+  'use strict';
+
+  /* ══════════════════════════════════════════════════════
+     DATA: Port database
+  ══════════════════════════════════════════════════════ */
+  var PORTS = {
+    busan:           { lat: 35.10, lon: 129.04, zoom: 11, label: '부산항', name: 'Busan, South Korea' },
+    incheon:         { lat: 37.45, lon: 126.60, zoom: 11, label: '인천항', name: 'Incheon, South Korea' },
+    ulsan:           { lat: 35.52, lon: 129.38, zoom: 11, label: '울산항', name: 'Ulsan, South Korea' },
+    shanghai:        { lat: 31.20, lon: 121.70, zoom: 11, label: '상하이항', name: 'Shanghai, China' },
+    shenzhen:        { lat: 22.53, lon: 113.91, zoom: 11, label: '선전항', name: 'Shenzhen, China' },
+    ningbo:          { lat: 29.87, lon: 121.55, zoom: 11, label: '닝보항', name: 'Ningbo, China' },
+    tianjin:         { lat: 38.98, lon: 117.72, zoom: 11, label: '톈진항', name: 'Tianjin, China' },
+    qingdao:         { lat: 36.07, lon: 120.35, zoom: 11, label: '칭다오항', name: 'Qingdao, China' },
+    tokyo:           { lat: 35.63, lon: 139.77, zoom: 11, label: '도쿄항', name: 'Tokyo, Japan' },
+    yokohama:        { lat: 35.45, lon: 139.65, zoom: 11, label: '요코하마항', name: 'Yokohama, Japan' },
+    nagoya:          { lat: 35.05, lon: 136.88, zoom: 11, label: '나고야항', name: 'Nagoya, Japan' },
+    osaka:           { lat: 34.65, lon: 135.43, zoom: 11, label: '오사카항', name: 'Osaka, Japan' },
+    singapore:       { lat:  1.26, lon: 103.80, zoom: 11, label: '싱가포르항', name: 'Singapore' },
+    portklang:       { lat:  3.00, lon: 101.38, zoom: 11, label: '포트클랑', name: 'Port Klang, Malaysia' },
+    tanjungpelepas:  { lat:  1.36, lon: 103.55, zoom: 11, label: '탄중펠레파스', name: 'Tanjung Pelepas, Malaysia' },
+    jakarta:         { lat: -6.11, lon: 106.88, zoom: 11, label: '자카르타항', name: 'Jakarta, Indonesia' },
+    rotterdam:       { lat: 51.90, lon:   4.15, zoom: 11, label: '로테르담항', name: 'Rotterdam, Netherlands' },
+    antwerp:         { lat: 51.25, lon:   4.40, zoom: 11, label: '앤트워프항', name: 'Antwerp, Belgium' },
+    hamburg:         { lat: 53.55, lon:   9.95, zoom: 11, label: '함부르크항', name: 'Hamburg, Germany' },
+    felixstowe:      { lat: 51.96, lon:   1.33, zoom: 11, label: '펠릭스토항', name: 'Felixstowe, UK' },
+    bremerhaven:     { lat: 53.55, lon:   8.57, zoom: 11, label: '브레머하펜항', name: 'Bremerhaven, Germany' },
+    barcelona:       { lat: 41.35, lon:   2.17, zoom: 11, label: '바르셀로나항', name: 'Barcelona, Spain' },
+    piraeus:         { lat: 37.94, lon:  23.63, zoom: 11, label: '피레우스항', name: 'Piraeus, Greece' },
+    jebel_ali:       { lat: 24.98, lon:  55.05, zoom: 11, label: '제벨알리항', name: 'Jebel Ali, UAE' },
+    colombo:         { lat:  6.95, lon:  79.85, zoom: 11, label: '콜롬보항', name: 'Colombo, Sri Lanka' },
+    losangeles:      { lat: 33.73, lon:-118.26, zoom: 11, label: '로스앤젤레스항', name: 'Los Angeles, USA' },
+    longbeach:       { lat: 33.75, lon:-118.21, zoom: 11, label: '롱비치항', name: 'Long Beach, USA' },
+    newyork:         { lat: 40.65, lon: -74.05, zoom: 11, label: '뉴욕/뉴저지항', name: 'New York / New Jersey, USA' },
+    savannah:        { lat: 31.98, lon: -81.10, zoom: 11, label: '사바나항', name: 'Savannah, USA' },
+    colon:           { lat:  9.06, lon: -79.70, zoom: 10, label: '콜론/파나마운하', name: 'Colon / Panama Canal' },
+    malacca:         { lat:  3.50, lon: 100.50, zoom:  8, label: '말라카 해협', name: 'Strait of Malacca' },
+    english_channel: { lat: 50.90, lon:   1.50, zoom:  9, label: '영국 해협', name: 'English Channel' },
+    suez:            { lat: 30.50, lon:  32.30, zoom: 10, label: '수에즈 운하', name: 'Suez Canal, Egypt' },
+    hormuz:          { lat: 26.57, lon:  56.27, zoom:  9, label: '호르무즈 해협', name: 'Strait of Hormuz' },
+    bab_el_mandeb:   { lat: 12.60, lon:  43.45, zoom:  9, label: '바브엘만데브 해협', name: 'Bab-el-Mandeb Strait' }
+  };
+
+  /* Country centers */
+  var COUNTRIES = {
+    KR: { lat: 35.10, lon: 129.00, zoom:  7, name: '대한민국' },
+    JP: { lat: 35.50, lon: 136.00, zoom:  6, name: '일본' },
+    CN: { lat: 30.00, lon: 122.00, zoom:  6, name: '중국' },
+    SG: { lat:  1.26, lon: 103.80, zoom: 10, name: '싱가포르' },
+    MY: { lat:  3.00, lon: 101.40, zoom:  7, name: '말레이시아' },
+    ID: { lat: -6.10, lon: 106.80, zoom:  6, name: '인도네시아' },
+    US: { lat: 33.73, lon:-118.26, zoom:  8, name: '미국' },
+    NL: { lat: 51.90, lon:   4.15, zoom:  9, name: '네덜란드' },
+    DE: { lat: 53.55, lon:   9.95, zoom:  8, name: '독일' },
+    BE: { lat: 51.25, lon:   4.40, zoom:  9, name: '벨기에' },
+    GB: { lat: 51.96, lon:   1.33, zoom:  8, name: '영국' },
+    FR: { lat: 43.35, lon:   5.33, zoom:  8, name: '프랑스' },
+    GR: { lat: 37.94, lon:  23.63, zoom:  8, name: '그리스' },
+    TR: { lat: 41.01, lon:  28.96, zoom:  8, name: '터키' },
+    AE: { lat: 24.98, lon:  55.05, zoom:  9, name: 'UAE' },
+    EG: { lat: 30.50, lon:  32.30, zoom:  9, name: '이집트 (수에즈)' },
+    PA: { lat:  9.06, lon: -79.70, zoom:  9, name: '파나마' },
+    AU: { lat:-33.85, lon: 151.20, zoom:  7, name: '호주' },
+    NO: { lat: 58.97, lon:   5.73, zoom:  8, name: '노르웨이' },
+    DK: { lat: 55.68, lon:  12.60, zoom:  8, name: '덴마크' }
+  };
+
+  /* Representative vessels per port (curated) */
+  var PORT_VESSELS = {
+    busan: [
+      { name: 'HMM ALGECIRAS',    type: 'Container', flag: '🇰🇷', mmsi: '440466000', gt: '235,981', dest: 'BUSAN' },
+      { name: 'HYUNDAI UNITY',    type: 'Container', flag: '🇰🇷', mmsi: '440489000', gt: '141,000', dest: 'BUSAN' },
+      { name: 'SM BUSAN',         type: 'Container', flag: '🇰🇷', mmsi: '440148000', gt:  '94,500', dest: 'BUSAN' },
+      { name: 'DAEWOO PIONEER',   type: 'Bulk',      flag: '🇰🇷', mmsi: '440632000', gt:  '82,300', dest: 'BUSAN' },
+      { name: 'SK SPIRIT',        type: 'Tanker',    flag: '🇰🇷', mmsi: '440777000', gt: '163,000', dest: 'BUSAN' }
+    ],
+    singapore: [
+      { name: 'MSC GÜLSÜN',       type: 'Container', flag: '🇵🇦', mmsi: '372773000', gt: '232,000', dest: 'SINGAPORE' },
+      { name: 'EVER GIVEN',       type: 'Container', flag: '🇵🇦', mmsi: '353136000', gt: '219,079', dest: 'SINGAPORE' },
+      { name: 'CSCL GLOBE',       type: 'Container', flag: '🇨🇳', mmsi: '477373100', gt: '184,653', dest: 'SINGAPORE' },
+      { name: 'BW SINGAPORE',     type: 'Tanker',    flag: '🇸🇬', mmsi: '564234000', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'PACIFIC SINGAPORE',type: 'LNG',       flag: '🇸🇬', mmsi: '565234000', gt:  '93,000', dest: 'SINGAPORE' }
+    ],
+    shanghai: [
+      { name: 'COSCO SHIPPING UNIVERSE', type: 'Container', flag: '🇨🇳', mmsi: '477377900', gt: '210,000', dest: 'SHANGHAI' },
+      { name: 'CSCL PACIFIC OCEAN',      type: 'Container', flag: '🇨🇳', mmsi: '477373400', gt: '184,654', dest: 'SHANGHAI' },
+      { name: 'CHANG YUAN XIN',          type: 'Container', flag: '🇨🇳', mmsi: '413703040', gt: '187,541', dest: 'SHANGHAI' },
+      { name: 'NEW GOLDEN BRIDGE VII',   type: 'RoRo',      flag: '🇨🇳', mmsi: '413512190', gt:  '62,000', dest: 'SHANGHAI' },
+      { name: 'GREAT WALL',              type: 'Bulk',      flag: '🇨🇳', mmsi: '413288040', gt: '180,000', dest: 'SHANGHAI' }
+    ],
+    rotterdam: [
+      { name: 'MSC OSCAR',        type: 'Container', flag: '🇵🇦', mmsi: '255803650', gt: '197,362', dest: 'ROTTERDAM' },
+      { name: 'COSCO SHIPPING TAURUS', type: 'Container', flag: '🇨🇳', mmsi: '477377600', gt: '199,000', dest: 'ROTTERDAM' },
+      { name: 'NORDIC RUTH',      type: 'Tanker',    flag: '🇩🇰', mmsi: '219640000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'FEDERAL VIBEKE',   type: 'Bulk',      flag: '🇧🇸', mmsi: '311001200', gt:  '35,000', dest: 'ROTTERDAM' },
+      { name: 'GATE CELSIUS',     type: 'LNG',       flag: '🇳🇱', mmsi: '246283000', gt: '100,000', dest: 'ROTTERDAM' }
+    ],
+    antwerp: [
+      { name: 'MSC MAYA',         type: 'Container', flag: '🇵🇦', mmsi: '255806210', gt: '194,849', dest: 'ANTWERP' },
+      { name: 'EVER GREET',       type: 'Container', flag: '🇵🇦', mmsi: '353083000', gt: '210,000', dest: 'ANTWERP' },
+      { name: 'TORM LOTTE',       type: 'Tanker',    flag: '🇩🇰', mmsi: '219187000', gt:  '30,000', dest: 'ANTWERP' },
+      { name: 'AMSTELDIEP',       type: 'Cargo',     flag: '🇳🇱', mmsi: '244820000', gt:   '3,500', dest: 'ANTWERP' },
+      { name: 'HÖEGH XIAMEN',     type: 'RoRo',      flag: '🇧🇸', mmsi: '311016300', gt:  '71,000', dest: 'ANTWERP' }
+    ],
+    hamburg: [
+      { name: 'HAPAG EXPRESS',    type: 'Container', flag: '🇩🇪', mmsi: '218123000', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'CONTI CORTESIA',   type: 'Container', flag: '🇩🇪', mmsi: '218454000', gt:  '94,193', dest: 'HAMBURG' },
+      { name: 'NORDIC GRACE',     type: 'Tanker',    flag: '🇩🇰', mmsi: '219552000', gt: '161,000', dest: 'HAMBURG' },
+      { name: 'VEGA DEIMOS',      type: 'Bulk',      flag: '🇩🇪', mmsi: '218766000', gt:  '37,000', dest: 'HAMBURG' },
+      { name: 'HALLERTAU',        type: 'Cargo',     flag: '🇩🇪', mmsi: '218600000', gt:   '6,200', dest: 'HAMBURG' }
+    ],
+    english_channel: [
+      { name: 'MAERSK MCKINNEY',  type: 'Container', flag: '🇩🇰', mmsi: '220436000', gt: '194,849', dest: 'ROTTERDAM' },
+      { name: 'MSC BEATRICE',     type: 'Container', flag: '🇵🇦', mmsi: '372491000', gt: '153,093', dest: 'FELIXSTOWE' },
+      { name: 'FRONT INTEGRITY',  type: 'Tanker',    flag: '🇧🇸', mmsi: '311029400', gt: '163,000', dest: 'ROTTERDAM' },
+      { name: 'MAPLE',            type: 'Bulk',      flag: '🇧🇸', mmsi: '311086000', gt:  '93,000', dest: 'ANTWERP' },
+      { name: 'GDF SUEZ GLOBAL',  type: 'LNG',       flag: '🇧🇪', mmsi: '205548000', gt: '100,000', dest: 'LE HAVRE' }
+    ],
+    suez: [
+      { name: 'EVER ACE',         type: 'Container', flag: '🇵🇦', mmsi: '356622000', gt: '235,981', dest: 'SUEZ' },
+      { name: 'MSC ISTANBUL',     type: 'Container', flag: '🇵🇦', mmsi: '372771000', gt: '199,000', dest: 'SUEZ' },
+      { name: 'AFRA PRIDE',       type: 'Tanker',    flag: '🇬🇷', mmsi: '241420000', gt: '105,000', dest: 'SUEZ' },
+      { name: 'GENCO AUGUSTUS',   type: 'Bulk',      flag: '🇺🇸', mmsi: '369150000', gt:  '58,000', dest: 'SUEZ' },
+      { name: 'ARCTIC AURORA',    type: 'LNG',       flag: '🇧🇲', mmsi: '310628000', gt:  '93,000', dest: 'SUEZ' }
+    ],
+    malacca: [
+      { name: 'OOCL HONG KONG',   type: 'Container', flag: '🇭🇰', mmsi: '477347900', gt: '199,642', dest: 'SINGAPORE' },
+      { name: 'NORDIC LUNA',      type: 'Tanker',    flag: '🇳🇴', mmsi: '259044000', gt: '160,000', dest: 'SINGAPORE' },
+      { name: 'STELLAR DIAMOND',  type: 'Bulk',      flag: '🇧🇸', mmsi: '311045500', gt: '180,000', dest: 'CHINA' },
+      { name: 'SERI AYU',         type: 'LNG',       flag: '🇲🇾', mmsi: '533130270', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'PRIDE',            type: 'Cargo',     flag: '🇲🇾', mmsi: '533130000', gt:  '28,000', dest: 'PENANG' }
+    ],
+    jebel_ali: [
+      { name: 'MSC MARIA ELENA',  type: 'Container', flag: '🇵🇦', mmsi: '372773000', gt: '141,000', dest: 'JEBEL ALI' },
+      { name: 'GULF SHEBA',       type: 'Tanker',    flag: '🇦🇪', mmsi: '470182000', gt: '158,000', dest: 'JEBEL ALI' },
+      { name: 'EMIRATES LOYALTY', type: 'RoRo',      flag: '🇦🇪', mmsi: '470187000', gt:  '71,000', dest: 'JEBEL ALI' },
+      { name: 'AL HILLI',         type: 'LNG',       flag: '🇧🇸', mmsi: '311000300', gt:  '93,000', dest: 'JEBEL ALI' },
+      { name: 'DESERT ROSE',      type: 'Bulk',      flag: '🇦🇪', mmsi: '470190000', gt:  '93,000', dest: 'JEBEL ALI' }
+    ],
+    colon: [
+      { name: 'EVER ARM',         type: 'Container', flag: '🇵🇦', mmsi: '352984000', gt: '235,981', dest: 'COLON' },
+      { name: 'COSCO PANAMA',     type: 'Container', flag: '🇵🇦', mmsi: '352882000', gt: '141,000', dest: 'COLON' },
+      { name: 'NORSE MAXIM',      type: 'Tanker',    flag: '🇵🇦', mmsi: '352780000', gt: '163,000', dest: 'COLON' },
+      { name: 'ATLANTIC DAWN',    type: 'Bulk',      flag: '🇵🇦', mmsi: '352650000', gt:  '93,000', dest: 'COLON' },
+      { name: 'PACIFIC EMERALD',  type: 'LNG',       flag: '🇵🇦', mmsi: '352540000', gt:  '93,000', dest: 'COLON' }
+    ]
+  };
+
+  /* ══════════════════════════════════════════════════════
+     STATE
+  ══════════════════════════════════════════════════════ */
+  var curLat = 1.26, curLon = 103.8, curZoom = 11;
+
+  /* ══════════════════════════════════════════════════════
+     MAP UPDATE
+  ══════════════════════════════════════════════════════ */
+  function fmtCoord(v, pos, neg) {
+    return Math.abs(v).toFixed(4) + '°' + (v >= 0 ? pos : neg);
+  }
+
+  function applyMap(lat, lon, zoom, label) {
+    curLat = lat; curLon = lon; curZoom = zoom;
+    var ls = lat.toFixed(4), lo = lon.toFixed(4);
+    document.getElementById('vt-coord-lbl').textContent =
+      (label ? label + '  ' : '') + fmtCoord(lat,'N','S') + ', ' + fmtCoord(lon,'E','W');
+    document.getElementById('vt-map-iframe').src =
+      'https://www.vesselfinder.com/aismap?zoom=' + zoom + '&lat=' + ls + '&lon=' + lo + '&names=true';
+    document.getElementById('vt-vf-a').href =
+      'https://www.vesselfinder.com/?lat=' + ls + '&lng=' + lo + '&zoom=' + zoom;
+    document.getElementById('vt-mt-a').href =
+      'https://www.marinetraffic.com/en/ais/home/centerx:' + lo + '/centery:' + ls + '/zoom:' + zoom;
+    document.getElementById('vt-msf-a').href =
+      'https://www.myshiptracking.com/?mmsi=&type=0&lat=' + ls + '&lng=' + lo + '&zoom=' + zoom;
+  }
+
+  /* ══════════════════════════════════════════════════════
+     VESSEL TABLE
+  ══════════════════════════════════════════════════════ */
+  var TYPE_CLASS = {
+    'Container': 'vt-type-container',
+    'Tanker':    'vt-type-tanker',
+    'Bulk':      'vt-type-bulk',
+    'Cargo':     'vt-type-cargo',
+    'RoRo':      'vt-type-roro',
+    'LNG':       'vt-type-lng'
+  };
+
+  function renderTable(vessels, note) {
+    var tbody = document.getElementById('vt-vessel-tbody');
+    document.getElementById('vt-tbl-note').textContent = note || '';
+    if (!vessels || !vessels.length) {
+      tbody.innerHTML = '<tr><td colspan="7" id="vt-tbl-empty">해당 위치의 대표 선박 정보가 없습니다. 위 지도에서 직접 선박을 클릭해 확인하세요.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = vessels.map(function (v) {
+      var cls = TYPE_CLASS[v.type] || '';
+      var aisHref = v.mmsi
+        ? 'https://www.vesselfinder.com/aismap?mmsi=' + v.mmsi
+        : 'https://www.vesselfinder.com/vessels?name=' + encodeURIComponent(v.name);
+      return '<tr>' +
+        '<td class="vt-vessel-name">' + v.name + '</td>' +
+        '<td><span class="vt-type-badge ' + cls + '">' + v.type + '</span></td>' +
+        '<td style="font-size:16px;">' + v.flag + '</td>' +
+        '<td style="color:#154f7a;font-weight:600;font-family:monospace;">' + (v.mmsi || '—') + '</td>' +
+        '<td>' + v.gt + ' GT</td>' +
+        '<td>' + v.dest + '</td>' +
+        '<td><a class="vt-ais-link" href="' + aisHref + '" target="_blank" rel="noopener">↗ AIS</a></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  /* ══════════════════════════════════════════════════════
+     SEARCH: Tab switch
+  ══════════════════════════════════════════════════════ */
+  window.vtTab = function (btn, pane) {
+    document.querySelectorAll('.vt-tab').forEach(function (b) { b.classList.remove('active'); });
+    document.querySelectorAll('.vt-pane').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('vt-pane-' + pane).classList.add('active');
+  };
+
+  /* ══════════════════════════════════════════════════════
+     SEARCH: Location (geocode via Nominatim)
+  ══════════════════════════════════════════════════════ */
+  window.vtSearchLoc = function () {
+    var q = (document.getElementById('vt-loc-input').value || '').trim();
+    var zoom = parseInt(document.getElementById('vt-loc-zoom').value) || 10;
+    if (!q) return;
+
+    // Try parse as "lat, lon"
+    var m = q.match(/^([+-]?\d+(?:\.\d+)?)\s*,\s*([+-]?\d+(?:\.\d+)?)$/);
+    if (m) {
+      var lat = parseFloat(m[1]), lon = parseFloat(m[2]);
+      applyMap(lat, lon, zoom, q);
+      renderTable(null, '좌표 검색 — 지도에서 선박을 직접 클릭해 정보를 확인하세요');
+      return;
+    }
+
+    // Nominatim geocoding
+    var btn = document.getElementById('vt-loc-btn');
+    btn.disabled = true;
+    btn.textContent = '검색 중…';
+    fetch('https://nominatim.openstreetmap.org/search?q=' +
+      encodeURIComponent(q) + '&format=json&limit=1&accept-language=en',
+      { headers: { 'Accept': 'application/json' } })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.length > 0) {
+          var lat = parseFloat(data[0].lat);
+          var lon = parseFloat(data[0].lon);
+          applyMap(lat, lon, zoom, data[0].display_name.split(',')[0]);
+          renderTable(null, '"' + q + '" 검색 결과 — 지도에서 선박을 직접 클릭해 정보를 확인하세요');
+        } else {
+          alert('위치를 찾을 수 없습니다. 다른 검색어를 입력해 주세요.');
+        }
+      })
+      .catch(function () { alert('검색 중 오류가 발생했습니다.'); })
+      .finally(function () { btn.disabled = false; btn.textContent = '🔍 검색'; });
+  };
+
+  /* ══════════════════════════════════════════════════════
+     SEARCH: Country
+  ══════════════════════════════════════════════════════ */
+  window.vtSearchCountry = function () {
+    var code = document.getElementById('vt-country-sel').value;
+    if (!code || !COUNTRIES[code]) return;
+    var c = COUNTRIES[code];
+    applyMap(c.lat, c.lon, c.zoom, c.name);
+    renderTable(null, c.name + ' 해역 — 지도에서 선박을 직접 클릭해 정보를 확인하세요');
+  };
+
+  /* ══════════════════════════════════════════════════════
+     SEARCH: Port
+  ══════════════════════════════════════════════════════ */
+  window.vtSearchPort = function () {
+    var key = document.getElementById('vt-port-sel').value;
+    if (!key || !PORTS[key]) return;
+    var p = PORTS[key];
+    applyMap(p.lat, p.lon, p.zoom, p.label);
+    var vessels = PORT_VESSELS[key] || null;
+    renderTable(
+      vessels,
+      vessels
+        ? p.label + ' 대표 선박 ' + vessels.length + '척 · 실시간 위치는 지도 또는 AIS 링크 참조'
+        : p.label + ' — 지도에서 선박을 직접 클릭해 정보를 확인하세요'
+    );
+  };
+
+  /* ══════════════════════════════════════════════════════
+     SEARCH: Vessel name
+  ══════════════════════════════════════════════════════ */
+  window.vtSearchVessel = function () {
+    var q = (document.getElementById('vt-vessel-input').value || '').trim();
+    if (!q) return;
+    // Check if MMSI (numeric, 9 digits)
+    var isMMSI = /^\d{9}$/.test(q);
+    var mapUrl, searchUrl;
+    if (isMMSI) {
+      mapUrl = 'https://www.vesselfinder.com/aismap?mmsi=' + q;
+      searchUrl = 'https://www.vesselfinder.com/vessels?mmsi=' + q;
+      document.getElementById('vt-map-iframe').src = mapUrl;
+      document.getElementById('vt-coord-lbl').textContent = 'MMSI: ' + q;
+      renderTable(null, 'MMSI ' + q + ' — 아래 AIS 링크 또는 지도에서 선박 위치를 확인하세요');
+    } else {
+      searchUrl = 'https://www.vesselfinder.com/vessels?name=' + encodeURIComponent(q);
+      document.getElementById('vt-coord-lbl').textContent = '선박명: ' + q;
+      renderTable([{
+        name: q,
+        type: 'Container',
+        flag: '🔍',
+        mmsi: '',
+        gt: '—',
+        dest: '검색 중...',
+      }], '"' + q + '" 검색 — AIS 링크를 클릭해 실시간 위치를 확인하세요');
+    }
+    window.open(searchUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  /* ══════════════════════════════════════════════════════
+     INIT: Singapore default
+  ══════════════════════════════════════════════════════ */
+  applyMap(1.26, 103.8, 11, '싱가포르항');
+  renderTable(PORT_VESSELS['singapore'], '싱가포르항 대표 선박 · 실시간 위치는 지도 또는 AIS 링크 참조');
+
+  /* Enter key support */
+  document.getElementById('vt-loc-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') vtSearchLoc();
+  });
+  document.getElementById('vt-vessel-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') vtSearchVessel();
+  });
+})();
+</script>

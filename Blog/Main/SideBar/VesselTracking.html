@@ -1,0 +1,318 @@
+<!-- ════════════════════════════════════════════════════════════
+     Smart Vessel Tracking with AIS
+     Controls + Presets + VesselFinder AIS embed
+════════════════════════════════════════════════════════════ -->
+
+<style>
+  #vt-wrap * { box-sizing: border-box; }
+  #vt-wrap {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: #2c3e50;
+    max-width: 780px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .vt-hdr {
+    background: linear-gradient(135deg, #0a2342 0%, #154f7a 60%, #1a9e82 100%);
+    border-radius: 14px;
+    padding: 22px 26px 18px;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  .vt-hdr-eye {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 6px;
+  }
+  .vt-hdr h1 {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    line-height: 1.3;
+  }
+  .vt-hdr p {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.72);
+    margin: 0;
+  }
+
+  /* ── Controls ── */
+  .vt-ctrl-bar {
+    background: #f4f7fb;
+    border: 1.5px solid #d0dff0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .vt-field { display: flex; flex-direction: column; gap: 3px; }
+  .vt-field-lbl {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #154f7a;
+  }
+  .vt-num-in {
+    border: 1.5px solid #c0d0e5;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0a2342;
+    background: #fff;
+    width: 120px;
+    outline: none;
+    transition: border-color 0.18s;
+  }
+  .vt-num-in:focus { border-color: #154f7a; }
+  .vt-zoom-sel {
+    border: 1.5px solid #c0d0e5;
+    border-radius: 8px;
+    padding: 7px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0a2342;
+    background: #fff;
+    width: 110px;
+    outline: none;
+    cursor: pointer;
+  }
+  .vt-track-btn {
+    background: linear-gradient(135deg, #0a2342, #154f7a);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    height: 36px;
+    transition: opacity 0.18s;
+    white-space: nowrap;
+  }
+  .vt-track-btn:hover { opacity: 0.85; }
+
+  /* ── Preset buttons ── */
+  .vt-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .vt-preset-btn {
+    border: 1.5px solid #c0d0e5;
+    background: #fff;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #154f7a;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+    white-space: nowrap;
+  }
+  .vt-preset-btn:hover, .vt-preset-btn.active {
+    background: #0a2342;
+    color: #fff;
+    border-color: #0a2342;
+  }
+
+  /* ── AIS Map ── */
+  .vt-map-wrap { display: flex; flex-direction: column; margin-bottom: 10px; }
+  .vt-map-panel-hdr {
+    background: #0a1929;
+    border-radius: 10px 10px 0 0;
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #1affda;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+  .vt-map-coord-lbl {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    flex-shrink: 0;
+  }
+  #vt-ais-iframe {
+    width: 100%;
+    height: 420px;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    display: block;
+    background: #0a1929;
+  }
+
+  /* ── External links ── */
+  .vt-ext-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .vt-ext-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f4f7fb;
+    border: 1.5px solid #c0d0e5;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #154f7a;
+    text-decoration: none;
+    transition: all 0.18s;
+  }
+  .vt-ext-btn:hover { background: #0a2342; border-color: #0a2342; color: #fff; }
+
+  /* ── Footer ── */
+  .vt-foot { margin-top: 8px; font-size: 11px; color: #9ab5c9; text-align: right; }
+  .vt-foot a { color: #9ab5c9; }
+
+  /* Mobile */
+  @media (max-width: 680px) {
+    .vt-ctrl-bar { flex-direction: column; }
+    .vt-num-in, .vt-zoom-sel { width: 100%; }
+  }
+</style>
+
+<div id="vt-wrap">
+
+  <!-- Header -->
+  <div class="vt-hdr">
+    <div class="vt-hdr-eye">AIS Live Service</div>
+    <h1>🛰️ Smart Vessel Tracking with AIS</h1>
+    <p>Enter GPS coordinates or choose a shipping area to explore real-time vessel positions worldwide.</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="vt-ctrl-bar">
+    <div class="vt-field">
+      <div class="vt-field-lbl">Latitude</div>
+      <input type="number" id="vt-lat" class="vt-num-in"
+        placeholder="0.0000" step="0.0001" min="-90" max="90" value="1.26">
+    </div>
+    <div class="vt-field">
+      <div class="vt-field-lbl">Longitude</div>
+      <input type="number" id="vt-lon" class="vt-num-in"
+        placeholder="0.0000" step="0.0001" min="-180" max="180" value="103.8">
+    </div>
+    <div class="vt-field">
+      <div class="vt-field-lbl">Zoom Level</div>
+      <select id="vt-zoom" class="vt-zoom-sel">
+        <option value="7">7 — Ocean</option>
+        <option value="8">8 — Wide</option>
+        <option value="9">9 — Region</option>
+        <option value="10" selected>10 — Area</option>
+        <option value="11">11 — Port</option>
+        <option value="12">12 — Close-up</option>
+      </select>
+    </div>
+    <button class="vt-track-btn" onclick="vtTrack()">🔍 Track</button>
+  </div>
+
+  <!-- Preset shipping areas -->
+  <div class="vt-presets">
+    <button class="vt-preset-btn active" onclick="vtPreset(this,1.26,103.8,10)">🇸🇬 Singapore</button>
+    <button class="vt-preset-btn" onclick="vtPreset(this,50.9,1.5,9)">🌊 English Channel</button>
+    <button class="vt-preset-btn" onclick="vtPreset(this,3.5,100.5,8)">🛳️ Malacca Strait</button>
+    <button class="vt-preset-btn" onclick="vtPreset(this,51.9,4.15,11)">🇳🇱 Rotterdam</button>
+    <button class="vt-preset-btn" onclick="vtPreset(this,31.2,121.7,10)">🇨🇳 Shanghai</button>
+    <button class="vt-preset-btn" onclick="vtPreset(this,30.5,32.3,10)">🔵 Suez Canal</button>
+    <button class="vt-preset-btn" onclick="vtPreset(this,9.06,-79.7,11)">🌎 Panama Canal</button>
+    <button class="vt-preset-btn" onclick="vtPreset(this,35.1,129.0,11)">🇰🇷 Busan</button>
+  </div>
+
+  <!-- AIS Map -->
+  <div class="vt-map-wrap">
+    <div class="vt-map-panel-hdr">
+      📡 AIS Live Map
+      <span class="vt-map-coord-lbl" id="vt-coord-lbl">1.2600°N, 103.8000°E</span>
+    </div>
+    <iframe id="vt-ais-iframe"
+      src="https://www.vesselfinder.com/aismap?zoom=10&lat=1.26&lon=103.8&names=true"
+      title="AIS Vessel Tracking Map"
+      loading="lazy"
+      allowfullscreen></iframe>
+  </div>
+
+  <!-- External links -->
+  <div class="vt-ext-links">
+    <a id="vt-vf-a" class="vt-ext-btn" href="https://www.vesselfinder.com/?lat=1.26&lng=103.8&zoom=10" target="_blank" rel="noopener">↗ VesselFinder</a>
+    <a id="vt-mt-a" class="vt-ext-btn" href="https://www.marinetraffic.com/en/ais/home/centerx:103.8/centery:1.26/zoom:10" target="_blank" rel="noopener">↗ MarineTraffic</a>
+    <a id="vt-sf-a" class="vt-ext-btn" href="https://www.shipfinder.com/?zoom=10&lat=1.26&lng=103.8" target="_blank" rel="noopener">↗ ShipFinder</a>
+    <a id="vt-mst-a" class="vt-ext-btn" href="https://www.myshiptracking.com/?mmsi=&type=0&lat=1.26&lng=103.8&zoom=10" target="_blank" rel="noopener">↗ MyShipTracking</a>
+  </div>
+
+  <!-- Footer -->
+  <div class="vt-foot">
+    AIS data: <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">VesselFinder</a>
+  </div>
+
+</div><!-- /#vt-wrap -->
+
+<script>
+(function () {
+  'use strict';
+
+  var curLat = 1.26, curLon = 103.8, curZoom = 10;
+
+  function fmtCoord(v, pos, neg) {
+    return Math.abs(v).toFixed(4) + '°' + (v >= 0 ? pos : neg);
+  }
+
+  function applyLocation() {
+    var ls = curLat.toFixed(4), lo = curLon.toFixed(4), z = curZoom;
+    document.getElementById('vt-coord-lbl').textContent =
+      fmtCoord(curLat, 'N', 'S') + ', ' + fmtCoord(curLon, 'E', 'W');
+    document.getElementById('vt-ais-iframe').src =
+      'https://www.vesselfinder.com/aismap?zoom=' + z + '&lat=' + ls + '&lon=' + lo + '&names=true';
+    document.getElementById('vt-vf-a').href =
+      'https://www.vesselfinder.com/?lat=' + ls + '&lng=' + lo + '&zoom=' + z;
+    document.getElementById('vt-mt-a').href =
+      'https://www.marinetraffic.com/en/ais/home/centerx:' + lo + '/centery:' + ls + '/zoom:' + z;
+    document.getElementById('vt-sf-a').href =
+      'https://www.shipfinder.com/?zoom=' + z + '&lat=' + ls + '&lng=' + lo;
+    document.getElementById('vt-mst-a').href =
+      'https://www.myshiptracking.com/?mmsi=&type=0&lat=' + ls + '&lng=' + lo + '&zoom=' + z;
+  }
+
+  function clearPresets() {
+    document.querySelectorAll('.vt-preset-btn').forEach(function (b) { b.classList.remove('active'); });
+  }
+
+  window.vtPreset = function (btn, lat, lon, zoom) {
+    clearPresets();
+    btn.classList.add('active');
+    curLat = lat; curLon = lon; curZoom = zoom;
+    applyLocation();
+  };
+
+  window.vtTrack = function () {
+    clearPresets();
+    curLat  = Math.max(-90,  Math.min(90,  parseFloat(document.getElementById('vt-lat').value)  || 0));
+    curLon  = Math.max(-180, Math.min(180, parseFloat(document.getElementById('vt-lon').value) || 0));
+    curZoom = parseInt(document.getElementById('vt-zoom').value) || 10;
+    document.getElementById('vt-lat').value = curLat;
+    document.getElementById('vt-lon').value = curLon;
+    applyLocation();
+  };
+
+})();
+</script>

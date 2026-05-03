@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='strm.xml' b:templateVersion='1.0.1' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
-    <!-- canonical은 all-head-content(line ~184)가 자동 주입 — 중복 제거 -->
+    <!-- canonical은 all-head-content(line ~184)가 자동 주입 &#8212; 중복 제거 -->
     <!-- Google Tag Manager -->
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({&#39;gtm.start&#39;:
@@ -78,6 +78,7 @@
     <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
     <meta content='ShipPaulJobs' property='og:site_name'/>
     <meta content='ko_KR' property='og:locale'/>
+    <meta content='en_US' property='og:locale:alternate'/>
     <b:if cond='data:view.isSingleItem'>
       <meta content='article' property='og:type'/>
       <meta expr:content='data:post.title' property='og:title'/>
@@ -85,6 +86,10 @@
       <meta expr:content='data:post.url' property='og:url'/>
       <b:if cond='data:post.firstImageUrl'>
         <meta expr:content='data:post.firstImageUrl' property='og:image'/>
+        <meta content='1200' property='og:image:width'/>
+        <meta content='630' property='og:image:height'/>
+      <b:else/>
+        <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
         <meta content='1200' property='og:image:width'/>
         <meta content='630' property='og:image:height'/>
       </b:if>
@@ -96,6 +101,9 @@
       <meta content='Maritime 4.0 — AI, Data &amp; Cybersecurity' property='og:title'/>
       <meta content='Maritime 4.0 blog: AI, cybersecurity, data &amp; digital transformation in shipping.' property='og:description'/>
       <meta expr:content='data:blog.homepageUrl' property='og:url'/>
+      <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
+      <meta content='1200' property='og:image:width'/>
+      <meta content='630' property='og:image:height'/>
     </b:if>
 
     <!-- &#9552;&#9552; SEO: Twitter Card &#9552;&#9552; -->
@@ -105,10 +113,13 @@
       <meta expr:content='data:post.snippet' name='twitter:description'/>
       <b:if cond='data:post.firstImageUrl'>
         <meta expr:content='data:post.firstImageUrl' name='twitter:image'/>
+      <b:else/>
+        <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
       </b:if>
       <b:else/>
       <meta expr:content='data:blog.title' name='twitter:title'/>
       <meta content='Maritime 4.0 study blog — AI, cybersecurity, data, and digital transformation in the maritime industry.' name='twitter:description'/>
+      <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
     </b:if>
 
     <!-- &#9552;&#9552; SEO: JSON-LD 구조화 데이터 &#9552;&#9552; -->
@@ -125,7 +136,16 @@
           &quot;author&quot;: {
             &quot;@type&quot;: &quot;Person&quot;,
             &quot;name&quot;: &quot;Captain Ethan&quot;,
-            &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;
+            &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;,
+            &quot;jobTitle&quot;: &quot;Maritime Cybersecurity Analyst&quot;,
+            &quot;worksFor&quot;: {
+              &quot;@type&quot;: &quot;Organization&quot;,
+              &quot;name&quot;: &quot;ShipPaulJobs&quot;,
+              &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;
+            },
+            &quot;sameAs&quot;: [
+              &quot;https://github.com/MaritimeCyber&quot;
+            ]
           },
           &quot;publisher&quot;: {
             &quot;@type&quot;: &quot;Organization&quot;,
@@ -133,8 +153,14 @@
             &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;,
             &quot;logo&quot;: {
               &quot;@type&quot;: &quot;ImageObject&quot;,
-              &quot;url&quot;: &quot;https://www.shippauljobs.com/favicon.ico&quot;
-            }
+              &quot;url&quot;: &quot;https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png&quot;,
+              &quot;width&quot;: 1200,
+              &quot;height&quot;: 630
+            },
+            &quot;sameAs&quot;: [
+              &quot;https://github.com/MaritimeCyber&quot;,
+              &quot;https://shippauljobs.blogspot.com&quot;
+            ]
           },
           &quot;keywords&quot;: &quot;maritime cybersecurity, IACS UR E26, ship cyber risk management, smart ship security, maritime cybersecurity framework, Maritime 4.0&quot;,
           &quot;mainEntityOfPage&quot;: {
@@ -159,7 +185,17 @@
           &quot;publisher&quot;: {
             &quot;@type&quot;: &quot;Organization&quot;,
             &quot;name&quot;: &quot;ShipPaulJobs&quot;,
-            &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;
+            &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;,
+            &quot;logo&quot;: {
+              &quot;@type&quot;: &quot;ImageObject&quot;,
+              &quot;url&quot;: &quot;https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png&quot;,
+              &quot;width&quot;: 1200,
+              &quot;height&quot;: 630
+            },
+            &quot;sameAs&quot;: [
+              &quot;https://github.com/MaritimeCyber&quot;,
+              &quot;https://shippauljobs.blogspot.com&quot;
+            ]
           },
           &quot;potentialAction&quot;: {
             &quot;@type&quot;: &quot;SearchAction&quot;,
@@ -172,7 +208,16 @@
 
 <!-- 다국어 블로그 대응 -->
 <link expr:href='data:blog.canonicalUrl' hreflang='ko' rel='alternate'/>
-<link expr:href='data:blog.canonicalUrl + "en/"' hreflang='en' rel='alternate'/>
+<link expr:href='data:blog.canonicalUrl' hreflang='x-default' rel='alternate'/>
+
+<!-- Preconnect: AdSense + Google Fonts (광고 로드 지연 최소화) -->
+<link rel='preconnect' href='https://pagead2.googlesyndication.com' crossorigin='anonymous'/>
+<link rel='preconnect' href='https://googleads.g.doubleclick.net' crossorigin='anonymous'/>
+<link rel='preconnect' href='https://adservice.google.com' crossorigin='anonymous'/>
+<link rel='preconnect' href='https://fonts.googleapis.com'/>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin='anonymous'/>
+<link rel='dns-prefetch' href='https://pagead2.googlesyndication.com'/>
+<link rel='dns-prefetch' href='https://googleads.g.doubleclick.net'/>
 
 <!-- Google Fonts -->
 <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap' rel='stylesheet'/>
@@ -183,7 +228,7 @@
 <!-- Blogger 기본 head -->
 <b:include data='blog' name='all-head-content'/>
 
-<!-- ✅ 핵심: 동적 canonical -->
+<!-- &#9989; 핵심: 동적 canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
 
@@ -279,16 +324,13 @@
       description="Post title font" type="font" default="$(robotoBold22)"
       value="bold 22px Inter, sans-serif"/> <Variable
       name="posts.stream.title.font" description="Post title stream font"
-      type="font" default="$(robotoBold30)" value="bold 30px Roboto,
-      sans-serif"/> <Variable name="posts.text.font" description="Post text
-      font" type="font" default="$(body.text.font)" value="15px Roboto,
-      sans-serif"/> <Variable name="posts.text.color" description="Post text
+      type="font" default="$(robotoBold30)" value="bold 30px Inter, sans-serif"/> <Variable name="posts.text.font" description="Post text
+      font" type="font" default="$(body.text.font)" value="15px Inter, sans-serif"/> <Variable name="posts.text.color" description="Post text
       color" type="color" default="$(body.text.color)" value="#757575"/>
       <Variable name="posts.byline.color" description="Post byline color"
       type="color" default="rgba(0, 0, 0, 0.54)" value="rgba(0, 0, 0, 0.54)"/>
       <Variable name="blockquote.font" description="Blockquote font" type="font"
-      default="$(robotoLightItalic15)" value="italic 300 15px Roboto,
-      sans-serif"/> <Variable name="blockquote.color" description="Blockquote
+      default="$(robotoLightItalic15)" value="italic 300 15px Inter, sans-serif"/> <Variable name="blockquote.color" description="Blockquote
       color" type="color" default="#444" value="#444444"/> <Variable
       name="posts.icons.color" description="Post icons color" type="color"
       default="#707070" value="#707070"/> <Variable name="posts.boxshadow.color"
@@ -297,7 +339,7 @@
       <Variable name="search.input.color" description="Input color" type="color"
       default="$(blog.title.color)" value="#424242"/> <Variable
       name="search.input.font" description="Input font" type="font"
-      default="$(robotoNormal16)" value="16px Roboto, sans-serif"/> <Variable
+      default="$(robotoNormal16)" value="16px Inter, sans-serif"/> <Variable
       name="search.placeholder.color" description="Placeholder text color"
       type="color" default="$(blog.title.color)" value="#424242"/> </Group>
       <Group description="Sharing"> <Variable name="sharing.background.color"
@@ -738,8 +780,8 @@
       .centered-bottom .share-buttons .svg-icon-24,.share-buttons .svg-icon-24{
       fill:$(sharing.icons.color) } body{
       background-color:$(body.background.color); color:$(body.text.color);
-      font:$(body.text.font); font-family:'Inter',Roboto,sans-serif; margin:0; min-height:100vh }
-      *, button, input, textarea, select { font-family:'Inter',Roboto,sans-serif } img{ max-width:100% }
+      font:$(body.text.font); font-family:'Inter',sans-serif; margin:0; min-height:100vh }
+      *, button, input, textarea, select { font-family:'Inter',sans-serif } img{ max-width:100% }
       h3{ color:$(body.text.color); font-size:16px } a{ text-decoration:none;
       color:$(body.link.color) } a:visited{ color:$(body.link.visited.color) }
       a:hover{ color:$(body.link.hover.color) } blockquote{
@@ -1456,8 +1498,81 @@
     <canvas id='globe-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.95;'/>
     <canvas id='label-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;'/>
     <div id='right-panel'>
-      <div id='mw-widget'>Loading weather…</div>
-      <div id='hg-right'></div>
+      <div id='rp-panel-hdr'>
+        <span id='rp-panel-label'>&#9875; Maritime Hub</span>
+        <button id='rp-master-btn' onclick='rpMasterToggle()'>&#9776;</button>
+      </div>
+      <div id='rp-panel-body'>
+        <div class='rp-card' id='rp-card-weather'>
+          <div class='rp-head'>
+            <span class='rp-title'>🌤 Maritime Weather</span>
+            <button class='rp-btn' onclick='rpToggle(&quot;rp-card-weather&quot;,this)'>&#8212;</button>
+          </div>
+          <div class='rp-body'>
+            <div id='mw-widget'>Loading weather&#8230;</div>
+          </div>
+        </div>
+        <div class='rp-sep'></div>
+        <div class='rp-card' id='rp-card-hello'>
+          <div class='rp-head'>
+            <span class='rp-title'>📡 Visitor Intel</span>
+            <button class='rp-btn' onclick='rpToggle(&quot;rp-card-hello&quot;,this)'>&#8212;</button>
+          </div>
+          <div class='rp-body'>
+            <div id='hg-right'/>
+          </div>
+        </div>
+        <div class='rp-sep'></div>
+        <div class='rp-card' id='rp-card-insights'>
+          <div class='rp-head'>
+            <span class='rp-title'>🔥 Featured Insights</span>
+            <button class='rp-btn' onclick='rpToggle(&quot;rp-card-insights&quot;,this)'>&#8212;</button>
+          </div>
+          <div class='rp-body' style='padding:4px 0 6px;'>
+            <a class='rp-svc-link' href='/p/crsi-iacs-ur-e26e27-system.html' style='align-items:center;border-bottom:1px solid rgba(26,158,130,0.15);color:#b3d4ff;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(29,137,207,0.28);border-radius:4px;color:#b3d4ff;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>E26/E27</span>
+              Classify System Types in IACS UR E26/E27
+            </a>
+            <a class='rp-svc-link' href='/p/crsi-iacs-ur-e26e27-system_2.html' style='align-items:center;border-bottom:1px solid rgba(26,158,130,0.15);color:#b3d4ff;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(100,160,255,0.28);border-radius:4px;color:#b3d4ff;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>E26/E27</span>
+              New Operating Model for Shipbuilding
+            </a>
+            <a class='rp-svc-link' href='/p/crsi-iacs-ur-e26e27-system_73.html' style='align-items:center;border-bottom:1px solid rgba(26,158,130,0.15);color:#ffe082;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(255,193,7,0.28);border-radius:4px;color:#ffe082;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>TA/SoC</span>
+              Maritime Cybersecurity Compliance Guide
+            </a>
+            <a class='rp-svc-link' href='/p/crsi-iacs-ur-e26-cybersecurity.html' style='align-items:center;color:#d4b3ff;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(160,100,255,0.28);border-radius:4px;color:#d4b3ff;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>Deliverables</span>
+              UR E26/E27 Cybersecurity Deliverables
+            </a>
+          </div>
+        </div>
+        <div class='rp-sep'></div>
+        <div class='rp-card' id='rp-card-services'>
+          <div class='rp-head'>
+            <span class='rp-title'>🛠️ LIVE FEED Service</span>
+            <button class='rp-btn' onclick='rpToggle(&quot;rp-card-services&quot;,this)'>&#8212;</button>
+          </div>
+          <div class='rp-body' style='padding:4px 0 6px;'>
+            <a class='rp-svc-link' href='https://www.shippauljobs.com/p/global-newbuilding-orders.html' style='align-items:center;border-bottom:1px solid rgba(26,158,130,0.15);color:#b3d4ff;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(29,137,207,0.28);border-radius:4px;color:#b3d4ff;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>Feed</span>
+              🚢 Ship Order Trend
+            </a>
+            <a class='rp-svc-link' href='https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html' style='align-items:center;border-bottom:1px solid rgba(26,158,130,0.15);color:#fca5a5;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(239,68,68,0.28);border-radius:4px;color:#fca5a5;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>Feed</span>
+              🛡️ Maritime Threat Intel
+            </a>
+            <a class='rp-svc-link' href='https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html' style='align-items:center;border-bottom:1px solid rgba(26,158,130,0.15);color:#fde68a;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(245,158,11,0.28);border-radius:4px;color:#fde68a;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>Feed</span>
+              💼 Maritime Job Feed
+            </a>
+            <a class='rp-svc-link' href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' style='align-items:center;color:#a7f3d0;display:flex;font-size:12px;font-weight:600;gap:8px;padding:9px 12px;text-decoration:none;transition:background 0.15s;'>
+              <span style='background:rgba(26,158,130,0.28);border-radius:4px;color:#a7f3d0;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 6px;text-transform:uppercase;'>AIS</span>
+              📡 Vessel Tracking with AIS
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
     <style>
       body{background:transparent!important}
@@ -1488,17 +1603,32 @@
 
       /* &#9472;&#9472; Post prev/next navigation bar &#9472;&#9472; */
       .spj-post-nav{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px;margin:36px 0 8px;padding-top:20px;border-top:1px solid rgba(26,158,130,0.35);}
-      .spj-pnav-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:linear-gradient(135deg,#0a2342,#0d3a5c);border:1px solid #1a9e82;border-radius:8px;color:#1affda!important;font-size:13px;font-weight:700;text-decoration:none!important;letter-spacing:0.04em;transition:background .2s,box-shadow .2s,color .2s;text-shadow:0 0 8px rgba(26,255,218,0.8),0 0 18px rgba(26,255,218,0.5);box-shadow:0 0 8px rgba(26,158,130,0.4),inset 0 0 6px rgba(26,158,130,0.1);}
-      .spj-pnav-btn:hover{background:linear-gradient(135deg,#0d3a5c,#0f4d3a)!important;border-color:#1affda!important;color:#fff!important;text-shadow:0 0 10px #1affda,0 0 24px #1affda,0 0 40px rgba(26,255,218,0.6)!important;box-shadow:0 0 16px rgba(26,255,218,0.6),0 0 30px rgba(26,158,130,0.3)!important;}
+      .spj-pnav-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:linear-gradient(135deg,#0a2342,#0d3a5c);border:1px solid #1a9e82;border-radius:8px;color:#1affda!important;font-size:13px;font-weight:700;text-decoration:none!important;letter-spacing:0.04em;transition:background .2s,box-shadow .2s,color .2s;text-shadow:0 0 6px rgba(26,255,218,0.4);box-shadow:0 0 8px rgba(26,158,130,0.4),inset 0 0 6px rgba(26,158,130,0.1);}
+      .spj-pnav-btn:hover{background:linear-gradient(135deg,#0d3a5c,#0f4d3a)!important;border-color:#1affda!important;color:#fff!important;text-shadow:0 0 8px rgba(26,255,218,0.6)!important;box-shadow:0 0 16px rgba(26,255,218,0.6),0 0 30px rgba(26,158,130,0.3)!important;}
       .spj-pnav-home{color:#1a9e82!important;font-size:20px;text-decoration:none!important;padding:6px 12px;transition:color .2s,text-shadow .2s;flex-shrink:0;text-shadow:0 0 8px rgba(26,158,130,0.7);}
-      .spj-pnav-home:hover{color:#1affda!important;text-shadow:0 0 12px #1affda,0 0 24px rgba(26,255,218,0.6)!important;}
+      .spj-pnav-home:hover{color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.5)!important;}
       .spj-pnav-label{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-      /* ── Right panel — scrolls with page (position:absolute) ── */
-      #right-panel{position:absolute;top:170px;right:12px;z-index:60;display:flex;flex-direction:column;gap:8px;width:252px;pointer-events:auto;}
-      /* ── 공통 패널 카드 스타일 ── */
-      #mw-widget,#hg-right{width:100%;background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:10px;backdrop-filter:blur(8px);box-shadow:0 0 20px rgba(26,255,218,0.1);}
-      #mw-widget{box-sizing:border-box;padding:10px 14px;font-family:monospace;font-size:12px;color:#c8e4f8;line-height:1.7;overflow:hidden;}
-      /* ── Hello Guest (right panel) ── */
+      /* &#9472;&#9472; Right panel &#8212; scrolls with page (position:absolute) &#9472;&#9472; */
+      #right-panel{position:absolute;top:360px;right:12px;z-index:60;display:flex;flex-direction:column;width:252px;pointer-events:auto;}
+      /* &#9472;&#9472; Master toggle header &#9472;&#9472; */
+      #rp-panel-hdr{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:4px;}
+      #rp-panel-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:rgba(26,255,218,0.6);letter-spacing:0.1em;text-transform:uppercase;}
+      #rp-master-btn{background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:6px;color:#1affda;font-size:15px;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;backdrop-filter:blur(8px);transition:background 0.15s;flex-shrink:0;}
+      #rp-master-btn:hover{background:rgba(26,158,130,0.25);}
+      /* &#9472;&#9472; Panel body (collapsible wrapper) &#9472;&#9472; */
+      #rp-panel-body{background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:10px;backdrop-filter:blur(8px);box-shadow:0 0 20px rgba(26,255,218,0.1);overflow:hidden;}
+      #right-panel.rp-collapsed #rp-panel-body{display:none;}
+      /* &#9472;&#9472; Section divider &#9472;&#9472; */
+      .rp-sep{height:1px;background:rgba(26,158,130,0.35);margin:0;}
+      /* &#9472;&#9472; 공통 패널 카드 스타일 &#9472;&#9472; */
+      .rp-card{width:100%;background:transparent;overflow:hidden;}
+      .rp-head{display:flex;justify-content:space-between;align-items:center;padding:5px 10px 5px 12px;background:rgba(10,35,66,0.65);border-bottom:1px solid rgba(26,158,130,0.35);}
+      .rp-title{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#1affda;letter-spacing:0.04em;}
+      .rp-btn{background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.4);border-radius:3px;color:#1affda;font-family:monospace;font-size:14px;font-weight:700;width:22px;height:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;transition:background 0.15s;}
+      .rp-btn:hover{background:rgba(26,158,130,0.32);}
+      .rp-card.minimized .rp-body{display:none;}
+      #mw-widget{box-sizing:border-box;padding:10px 14px;font-family:'Inter',sans-serif;font-size:13px;color:#c8e4f8;line-height:1.7;overflow:hidden;}
+      /* &#9472;&#9472; Hello Guest (right panel) &#9472;&#9472; */
       #hg-right{overflow:visible;}
       #hg-right #hg-wrap{width:100%!important;max-width:100%!important;height:auto!important;max-height:none!important;margin:0!important;border:none!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;}
       #hg-right #hg-main{height:auto!important;max-height:none!important;overflow:visible!important;}
@@ -1510,18 +1640,18 @@
       #hg-right #hg-confirm *{background:transparent!important;color:#00e676!important;}
       #hg-right .hg-status-dot{background:#00e676!important;box-shadow:0 0 8px rgba(0,230,76,0.8)!important;}
       #hg-right a{color:#1affda!important;}
-      /* ── Hide sidebar Hello widget ── */
+      /* &#9472;&#9472; Hide sidebar Hello widget &#9472;&#9472; */
       #HTML4{display:none!important;}
-      /* ── Weather widget 내부 ── */
-      #mw-widget .mw-hdr{font-size:12.5px;font-weight:700;color:#1affda;text-shadow:0 0 8px rgba(26,255,218,0.6);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
-      #mw-widget .mw-city{font-size:10.5px;color:rgba(200,228,248,0.65);font-weight:400;}
+      /* &#9472;&#9472; Weather widget 내부 &#9472;&#9472; */
+      #mw-widget .mw-hdr{font-size:14px;font-weight:700;color:#1affda;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+      #mw-widget .mw-city{font-size:12px;color:rgba(200,228,248,0.65);font-weight:400;}
       #mw-widget .mw-row{display:flex;justify-content:space-between;gap:10px;margin:1px 0;}
       #mw-widget .mw-row span{white-space:nowrap;}
       #mw-widget .mw-sea{color:#1a9e82;font-weight:700;}
       #mw-widget .mw-hr{border:none;border-top:1px solid rgba(26,158,130,0.3);margin:5px 0;}
-      #mw-widget .mw-nomarine{color:rgba(200,228,248,0.45);font-size:11px;}
+      #mw-widget .mw-nomarine{color:rgba(200,228,248,0.45);font-size:12px;}
       #mw-widget b{color:#1affda;}
-      /* ── Topical Posts — 사이드바 통일 스타일 ── */
+      /* &#9472;&#9472; Topical Posts &#8212; 사이드바 통일 스타일 &#9472;&#9472; */
       #Label4{background:none!important;border:none!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
       #Label4 .title{font-size:11px!important;font-weight:800!important;letter-spacing:0.1em!important;text-transform:uppercase!important;color:#154f7a!important;padding:0 0 7px 0!important;margin:0 0 4px!important;border-bottom:1px solid #d0dde8!important;display:block!important;}
       #Label4 .widget-content{padding:2px 0;}
@@ -1531,8 +1661,29 @@
       .spj-lbl-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
       .spj-lbl-count{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.25);border-radius:10px;color:#1d89cf;font-size:10px;font-weight:700;padding:1px 6px;margin-left:6px;flex-shrink:0;}
       .spj-lbl-item a:hover .spj-lbl-count{background:rgba(21,79,122,0.18);border-color:#1d89cf;color:#154f7a;}
-      /* ── 모바일에서 우측 위젯 패널 숨김 ── */
-      @media (max-width:1024px){#right-panel{display:none!important;}}
+      /* &#9472;&#9472; Sidebar collapsible header &#9472;&#9472; */
+      .sb-head{display:flex;justify-content:space-between;align-items:center;padding:6px 0 8px;margin-bottom:8px;border-bottom:2px solid #154f7a;}
+      .sb-head-title{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#154f7a;}
+      .sb-btn{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.35);border-radius:3px;color:#154f7a;font-family:monospace;font-size:14px;font-weight:700;width:20px;height:20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;transition:background 0.15s;}
+      .sb-btn:hover{background:rgba(21,79,122,0.2);}
+      .sb-collapsible.minimized .sb-body{display:none;}
+      /* &#9472;&#9472; 모바일: 패널 바디 숨김, 토글 버튼만 고정 표시 &#9472;&#9472; */
+      @media (max-width:1024px){
+        #right-panel{position:fixed;top:70px;right:12px;}
+        #rp-panel-label{display:none;}
+        #rp-panel-body{display:none;}
+        #right-panel.rp-mobile-open #rp-panel-body{display:block;max-height:80vh;overflow-y:auto;}
+      }
+      .rp-svc-link:hover{background:rgba(26,158,130,0.12)!important;}
+      /* ── Main content collapsible (dark style) ── */
+      .mc-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:4px;color:#fff;font-family:monospace;font-size:13px;font-weight:700;width:22px;height:22px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0;align-self:flex-start;margin-top:2px;transition:background 0.15s;}
+      .mc-btn:hover{background:rgba(255,255,255,0.26);}
+      .mc-collapsible.minimized section>ul{display:none;}
+      /* ── 데스크톱: 중앙 콘텐츠 좌측 정렬 (우측 패널과 거리 확보) ── */
+      @media (min-width:1025px){.page_body .centered{margin-left:110px!important;}}
+      /* &#9472;&#9472; Attribution 위젯 &#8212; 전체 폭 가운데 정렬 &#9472;&#9472; */
+      .widget.Attribution{display:block!important;width:100%!important;text-align:center!important;}
+      .widget.Attribution .widget-content{display:block;width:100%;text-align:center;}
     </style>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe height='0' src='https://www.googletagmanager.com/ns.html?id=GTM-WPNJMQS' style='display: none; visibility: hidden' width='0'/></noscript>
@@ -1673,7 +1824,7 @@
                     <b:section class='clearboth' id='page_list_top' name='Page List (Top)' showaddelement='false'>
                       <b:widget cond='!data:view.isSingleItem' id='PageList1' locked='true' title='' type='PageList' version='2' visible='true'>
                         <b:widget-settings>
-                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=3","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=3","position":4,"title":"AI Cyber Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=3","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=3","position":2,"title":"Maritime Compliance"},"link6":{"href":"https://www.shippauljobs.com/search/label/Life_story?max-results=3","position":6,"title":"Life"}}]]></b:widget-setting>
+                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":4,"title":"AI Cyber Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=9","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime Compliance"},"link6":{"href":"https://www.shippauljobs.com/search/label/Life_story?max-results=9","position":6,"title":"Life"}}]]></b:widget-setting>
                           <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
@@ -1989,6 +2140,23 @@
                         <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
                       </span>
                     </b:includable>
+                    <b:includable id='postNavBar'>
+          <b:if cond='data:view.isSingleItem and data:widget.type == &quot;Blog&quot;'>
+            <nav class='spj-post-nav'>
+              <b:if cond='data:olderPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:olderPageUrl'>
+                  <span>&#8592;</span><span class='spj-pnav-label'>이전 포스트</span>
+                </a>
+              </b:if>
+              <a class='spj-pnav-home' expr:href='data:blog.homepageUrl' title='목록으로'>&#8962;</a>
+              <b:if cond='data:newerPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:newerPageUrl'>
+                  <span class='spj-pnav-label'>다음 포스트</span><span>&#8594;</span>
+                </a>
+              </b:if>
+            </nav>
+          </b:if>
+        </b:includable>
                     <b:includable id='postReactions'>
                       <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
                     </b:includable>
@@ -2084,10 +2252,9 @@
                   </b:widget>
                   <b:widget cond='data:view.isHomepage' id='HTML7' locked='false' title='Featured Insights' type='HTML' version='2' visible='true'>
                     <b:widget-settings>
-                      <b:widget-setting name='content'><![CDATA[<section aria-label="Featured Insights" itemscope itemtype="https://schema.org/ItemList" style="background:linear-gradient(135deg,#051628 0%,#0a2342 55%,#154f7a 100%);border-radius:14px;margin:0 0 20px;overflow:hidden;"><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Featured Insights — ShipPaulJobs","description":"ShipPaulJobs focuses on system-level thinking across maritime technology, cybersecurity, and compliance frameworks.","itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.shippauljobs.com/2026/04/efficient-way-to-classify-system-types.html","name":"Efficient Way to Classify System Types in IACS UR E26/E27"},{"@type":"ListItem","position":2,"url":"https://www.shippauljobs.com/2025/11/the-cybersecurity-reality-facing-global.html","name":"Why IACS UR E26/E27 Demand a New Operating Model for Shipbuilding"},{"@type":"ListItem","position":3,"url":"https://www.shippauljobs.com/2026/03/iacs-ur-e27-tasoc-supplier.html","name":"TA/SoC: Maritime Cybersecurity Compliance Guide"},{"@type":"ListItem","position":4,"url":"https://www.shippauljobs.com/2024/09/iacs-ur-classnk-guidelines-based.html","name":"IACS UR E26/E27 Cybersecurity Deliverables: Roles and Responsibilities"}]}</script><div style="padding:20px 22px 8px;"><h2 style="color:white;font-size:15px;font-weight:800;letter-spacing:0.2px;margin:0 0 6px;">🔥 Featured Insights</h2><p style="color:rgba(184,212,234,0.85);font-size:12.5px;line-height:1.65;margin:0 0 4px;">ShipPaulJobs focuses on system-level thinking across maritime technology, cybersecurity, and compliance frameworks.</p></div><ul style="list-style:none;margin:0;padding:0 0 6px;"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/2026/04/efficient-way-to-classify-system-types.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Efficient Way to Classify System Types in IACS UR E26/E27"><span style="background:rgba(29,137,207,0.28);border-radius:6px;color:#b3d4ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">E26/E27</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">Efficient Way to Classify System Types in IACS UR E26/E27</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/2025/11/the-cybersecurity-reality-facing-global.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Why IACS UR E26/E27 Demand a New Operating Model for Shipbuilding — Smart Ships, Structural Risk"><span style="background:rgba(100,160,255,0.28);border-radius:6px;color:#b3d4ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">E26/E27</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">Why IACS UR E26/E27 Demand a New Operating Model</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/2026/03/iacs-ur-e27-tasoc-supplier.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="TA/SoC: Maritime Cybersecurity Compliance Guide — A Balanced Analysis of the Structural Rationale for Type Approval over SoC"><span style="background:rgba(255,193,7,0.28);border-radius:6px;color:#ffe082;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">TA/SoC</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">TA/SoC: Maritime Cybersecurity Compliance Guide</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/2024/09/iacs-ur-classnk-guidelines-based.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="IACS UR E26/E27 Cybersecurity Deliverables: Roles and Responsibilities of Owners, Shipyards, and Suppliers"><span style="background:rgba(160,100,255,0.28);border-radius:6px;color:#d4b3ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Deliverables</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">IACS UR E26/E27 Cybersecurity Deliverables</span></a></li></ul></section>]]></b:widget-setting>
+                      <b:widget-setting name='content'><![CDATA[<section aria-label="Featured Insights" itemscope itemtype="https://schema.org/ItemList" style="background:linear-gradient(135deg,#051628 0%,#0a2342 55%,#154f7a 100%);border-radius:14px;margin:0 0 20px;overflow:hidden;"><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Featured Insights — ShipPaulJobs","description":"ShipPaulJobs focuses on system-level thinking across maritime technology, cybersecurity, and compliance frameworks.","itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.shippauljobs.com/p/crsi-iacs-ur-e26e27-system.html","name":"Efficient Way to Classify System Types in IACS UR E26/E27"},{"@type":"ListItem","position":2,"url":"https://www.shippauljobs.com/p/crsi-iacs-ur-e26e27-system_2.html","name":"Why IACS UR E26/E27 Demand a New Operating Model for Shipbuilding"},{"@type":"ListItem","position":3,"url":"https://www.shippauljobs.com/p/crsi-iacs-ur-e26e27-system_73.html","name":"TA/SoC: Maritime Cybersecurity Compliance Guide"},{"@type":"ListItem","position":4,"url":"https://www.shippauljobs.com/p/crsi-iacs-ur-e26-cybersecurity.html","name":"IACS UR E26/E27 Cybersecurity Deliverables: Roles and Responsibilities"}]}</script><div style="padding:20px 22px 8px;"><h2 style="color:white;font-size:15px;font-weight:800;letter-spacing:0.2px;margin:0 0 6px;">🔥 Featured Insights</h2><p style="color:rgba(184,212,234,0.85);font-size:12.5px;line-height:1.65;margin:0 0 4px;">ShipPaulJobs focuses on system-level thinking across maritime technology, cybersecurity, and compliance frameworks.</p></div><ul style="list-style:none;margin:0;padding:0 0 6px;"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/p/crsi-iacs-ur-e26e27-system.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Efficient Way to Classify System Types in IACS UR E26/E27"><span style="background:rgba(29,137,207,0.28);border-radius:6px;color:#b3d4ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">E26/E27</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">Efficient Way to Classify System Types in IACS UR E26/E27</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/p/crsi-iacs-ur-e26e27-system_2.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Why IACS UR E26/E27 Demand a New Operating Model for Shipbuilding — Smart Ships, Structural Risk"><span style="background:rgba(100,160,255,0.28);border-radius:6px;color:#b3d4ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">E26/E27</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">Why IACS UR E26/E27 Demand a New Operating Model</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/p/crsi-iacs-ur-e26e27-system_73.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="TA/SoC: Maritime Cybersecurity Compliance Guide — A Balanced Analysis of the Structural Rationale for Type Approval over SoC"><span style="background:rgba(255,193,7,0.28);border-radius:6px;color:#ffe082;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">TA/SoC</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">TA/SoC: Maritime Cybersecurity Compliance Guide</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/p/crsi-iacs-ur-e26-cybersecurity.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="IACS UR E26/E27 Cybersecurity Deliverables: Roles and Responsibilities of Owners, Shipyards, and Suppliers"><span style="background:rgba(160,100,255,0.28);border-radius:6px;color:#d4b3ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Deliverables</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">IACS UR E26/E27 Cybersecurity Deliverables</span></a></li></ul></section>]]></b:widget-setting>
                     </b:widget-settings>
                     <b:includable id='main'>
-                      <b:include name='widget-title'/>
                       <div class='widget-content'>
                         <data:content/>
                       </div>
@@ -2562,7 +2729,7 @@
                       <b:comment>Overridden, and migrated to postFooter. Called as
                         postFooterJumpLink.</b:comment>
                     </b:includable>
-                     <b:includable id='postLabels'>
+                    <b:includable id='postLabels'>
                        <b:comment>Labels hidden.</b:comment>
                      </b:includable>
                     <b:includable id='postLocation'>
@@ -2596,6 +2763,23 @@
                       &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/h60/&quot;,
                       &quot;width&quot;: 206, &quot;height&quot;: 60 } },
                     </b:includable>
+                    <b:includable id='postNavBar'>
+          <b:if cond='data:view.isSingleItem and data:widget.type == &quot;Blog&quot;'>
+            <nav class='spj-post-nav'>
+              <b:if cond='data:olderPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:olderPageUrl'>
+                  <span>&#8592;</span><span class='spj-pnav-label'>이전 포스트</span>
+                </a>
+              </b:if>
+              <a class='spj-pnav-home' expr:href='data:blog.homepageUrl' title='목록으로'>&#8962;</a>
+              <b:if cond='data:newerPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:newerPageUrl'>
+                  <span class='spj-pnav-label'>다음 포스트</span><span>&#8594;</span>
+                </a>
+              </b:if>
+            </nav>
+          </b:if>
+        </b:includable>
                     <b:includable id='postPagination'>
                       <div style='text-align:center;margin:1.8em 0 0'>
                         <button id='apl-toggle' onclick='(function(){var w=document.getElementById(&quot;apl-wrap&quot;);var b=document.getElementById(&quot;apl-toggle&quot;);if(w.style.display===&quot;none&quot;){w.style.display=&quot;block&quot;;b.textContent=&quot;▲ Close&quot;}else{w.style.display=&quot;none&quot;;b.textContent=&quot;▼ More Posts&quot;}})()' onmouseout='this.style.background=&quot;#154f7a&quot;' onmouseover='this.style.background=&quot;#0a2342&quot;' style='background:#154f7a;color:#fff;border:none;border-radius:7px;padding:9px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.3px;transition:background .2s'>&#9650; Close</button>
@@ -2973,10 +3157,9 @@
                   </b:widget>
                   <b:widget cond='data:view.isHomepage' id='HTML8' locked='false' title='' type='HTML' version='2' visible='true'>
                     <b:widget-settings>
-                      <b:widget-setting name='content'><![CDATA[<section aria-label="ShipPaulJobs Services" itemscope itemtype="https://schema.org/ItemList" style="background:linear-gradient(135deg,#051628 0%,#0a2342 55%,#154f7a 100%);border-radius:14px;margin:0 0 20px;overflow:hidden;"><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"ShipPaulJobs Services","description":"ShipPaulJobs is an AI-assisted maritime intelligence platform providing real-time global newbuilding ship order trends and cybersecurity threat feeds — covering ransomware, GPS jamming, AIS spoofing, port attacks, and IMO/IACS compliance for maritime professionals.","itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.shippauljobs.com/2026/04/ship-order-trends-provided-by-shipjobs.html","name":"Ship Order Trends — Provided by ShipJobs"},{"@type":"ListItem","position":2,"url":"https://www.shippauljobs.com/2026/04/live-feed-maritime-cyber-threat-intel.html","name":"[Live Feed] Maritime Cyber Threat Intel — Ransomware / GPS Jamming & Spoofing / Port Attack and Regulation"},{"@type":"ListItem","position":3,"url":"https://www.shippauljobs.com/2026/04/live-feed-maritime-jobs-feed-ai-data.html","name":"[Live Feed] Maritime Jobs Feed — AI, Data & Cyber Careers · Global Maritime Talent Market"}]}</script><div style="padding:18px 20px 8px;"><h2 style="color:white;font-size:15px;font-weight:800;letter-spacing:0.2px;margin:0 0 4px;">🛠️ ShipPaulJobs Services</h2><p style="color:rgba(184,212,234,0.85);font-size:12.5px;line-height:1.65;margin:0 0 4px;">AI-assisted real-time feeds for global newbuilding ship orders, maritime cybersecurity threats, and AI/Data/Cyber career opportunities in the maritime industry worldwide.</p></div><ul style="list-style:none;margin:0;padding:0 0 6px;"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/2026/04/ship-order-trends-provided-by-shipjobs.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Ship Order Trends — AI-assisted newbuilding &amp; order intelligence provided by ShipJobs"><span style="background:rgba(29,137,207,0.28);border-radius:6px;color:#b3d4ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Live Feed</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">🚢 Ship Order Trends : Global Newbuilding Orders · Live Feed </span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="https://www.shippauljobs.com/2026/04/live-feed-maritime-cyber-threat-intel.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Maritime Cyber Threat Intel — Ransomware / GPS Jamming &amp; Spoofing / Port Attack and Regulation"><span style="background:rgba(239,68,68,0.28);border-radius:6px;color:#fca5a5;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Live Feed</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">🛡️ Maritime Cyber Threat Intel : Ransomware / GPS Jamming &amp; Spoofing / Port Attack &amp; Regulation</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="https://www.shippauljobs.com/2026/04/live-feed-maritime-jobs-feed-ai-data.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Maritime Jobs Feed — AI, Data &amp; Cyber Careers in the global maritime industry"><span style="background:rgba(245,158,11,0.28);border-radius:6px;color:#fde68a;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Live Feed</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">💼 Maritime Jobs Feed : AI, Data &amp; Cyber Careers · Global Maritime Talent</span></a></li></ul></section>]]></b:widget-setting>
+                      <b:widget-setting name='content'><![CDATA[<section aria-label="LIVE FEED Services" itemscope itemtype="https://schema.org/ItemList" style="background:linear-gradient(135deg,#051628 0%,#0a2342 55%,#154f7a 100%);border-radius:14px;margin:0 0 20px;overflow:hidden;"><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"LIVE FEED Service","description":"ShipPaulJobs is an AI-assisted maritime intelligence platform providing real-time global newbuilding ship order trends and cybersecurity threat feeds — covering ransomware, GPS jamming, AIS spoofing, port attacks, and IMO/IACS compliance for maritime professionals.","itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.shippauljobs.com/p/global-newbuilding-orders.html","name":"Ship Order Trends — Provided by ShipJobs"},{"@type":"ListItem","position":2,"url":"https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html","name":"[Live Feed] Maritime Cyber Threat Intel — Ransomware / GPS Jamming & Spoofing / Port Attack and Regulation"},{"@type":"ListItem","position":3,"url":"https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html","name":"[Live Feed] Maritime Jobs Feed — AI, Data & Cyber Careers · Global Maritime Talent Market"},{"@type":"ListItem","position":4,"url":"https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html","name":"Smart Vessel Tracking with AIS — Real-time AIS vessel positions worldwide"}]}</script><div style="padding:18px 20px 8px;"><h2 style="color:white;font-size:15px;font-weight:800;letter-spacing:0.2px;margin:0 0 4px;">🛠️ LIVE FEED Service</h2><p style="color:rgba(184,212,234,0.85);font-size:12.5px;line-height:1.65;margin:0 0 4px;">AI-assisted real-time feeds for global newbuilding ship orders, maritime cybersecurity threats, and AI/Data/Cyber career opportunities in the maritime industry worldwide.</p></div><ul style="list-style:none;margin:0;padding:0 0 6px;"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="/p/global-newbuilding-orders.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Ship Order Trends — AI-assisted newbuilding &amp; order intelligence provided by ShipJobs"><span style="background:rgba(29,137,207,0.28);border-radius:6px;color:#b3d4ff;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Live Feed</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">🚢 Ship Order Trends : Global Newbuilding Orders · Live Feed </span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Maritime Cyber Threat Intel — Ransomware / GPS Jamming &amp; Spoofing / Port Attack and Regulation"><span style="background:rgba(239,68,68,0.28);border-radius:6px;color:#fca5a5;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Live Feed</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">🛡️ Maritime Cyber Threat Intel : Ransomware / GPS Jamming &amp; Spoofing / Port Attack &amp; Regulation</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Maritime Jobs Feed — AI, Data &amp; Cyber Careers in the global maritime industry"><span style="background:rgba(245,158,11,0.28);border-radius:6px;color:#fde68a;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">Live Feed</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">💼 Maritime Jobs Feed : AI, Data &amp; Cyber Careers · Global Maritime Talent</span></a></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="border-top:1px solid rgba(255,255,255,0.08);"><a href="https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html" itemprop="url" style="align-items:center;color:white;display:flex;gap:10px;padding:11px 22px;text-decoration:none;" title="Smart Vessel Tracking with AIS — Real-time global vessel positions by location, port, or vessel name"><span style="background:rgba(26,158,130,0.28);border-radius:6px;color:#a7f3d0;flex-shrink:0;font-size:9px;font-weight:800;padding:3px 9px;text-transform:uppercase;white-space:nowrap;">LIVE FEED</span><span itemprop="name" style="font-size:13.5px;font-weight:600;line-height:1.4;">📡 Vessel Tracking with AIS : Real-time Global Vessel Positions</span></a></li></ul></section>]]></b:widget-setting>
                     </b:widget-settings>
                     <b:includable id='main'>
-                      <b:include name='widget-title'/>
                       <div class='widget-content'><data:content/></div>
                     </b:includable>
                   </b:widget>
@@ -3160,6 +3343,23 @@
                         <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
                       </span>
                     </b:includable>
+                    <b:includable id='postNavBar'>
+          <b:if cond='data:view.isSingleItem and data:widget.type == &quot;Blog&quot;'>
+            <nav class='spj-post-nav'>
+              <b:if cond='data:olderPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:olderPageUrl'>
+                  <span>&#8592;</span><span class='spj-pnav-label'>이전 포스트</span>
+                </a>
+              </b:if>
+              <a class='spj-pnav-home' expr:href='data:blog.homepageUrl' title='목록으로'>&#8962;</a>
+              <b:if cond='data:newerPageUrl'>
+                <a class='spj-pnav-btn' expr:href='data:newerPageUrl'>
+                  <span class='spj-pnav-label'>다음 포스트</span><span>&#8594;</span>
+                </a>
+              </b:if>
+            </nav>
+          </b:if>
+        </b:includable>
                     <b:includable id='postReactions'>
                       <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
                     </b:includable>
@@ -3265,7 +3465,7 @@
             <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
               <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
                 <b:widget-settings>
-                  <b:widget-setting name='copyright'>ShipPaulJobs Team.</b:widget-setting>
+                  <b:widget-setting name='copyright'></b:widget-setting>
                 </b:widget-settings>
                 <b:includable id='main' var='this'>
   <div class='widget-content'>
@@ -3303,6 +3503,15 @@
                 </b:includable>
               </b:widget>
             </b:section>
+            <div style='text-align:center;padding:10px 0 16px;font-family:sans-serif;font-size:13px;'>
+              <a href='https://www.shippauljobs.com/p/about-this-platform.html' style='color:#ffffff;font-weight:700;text-decoration:none;margin:0 10px;'>About</a>
+              <span style='color:rgba(255,255,255,0.35);'>|</span>
+              <a href='https://www.shippauljobs.com/p/contact-shippauljobs.html' style='color:#ffffff;font-weight:700;text-decoration:none;margin:0 10px;'>Contact</a>
+              <span style='color:rgba(255,255,255,0.35);'>|</span>
+              <a href='https://www.shippauljobs.com/p/privacypolicy.html' style='color:#ffffff;font-weight:700;text-decoration:none;margin:0 10px;'>Privacy Policy</a>
+              <span style='color:rgba(255,255,255,0.35);'>|</span>
+              <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='color:#ffffff;font-weight:700;text-decoration:none;margin:0 10px;'>Terms and Conditions</a>
+            </div>
           </div>
         </div>
       </b:with>
@@ -3544,11 +3753,11 @@
             </div>
           </b:includable>
         </b:widget>
-        <b:widget id='Label4' locked='false' title='Topical posts' type='Label' version='2' visible='true'>
+        <b:widget id='Label4' locked='false' title='Popular labels' type='Label' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'>AI(artificial intelligence),Compliances,Crew,Cyber Security,Dept.Courses,IACS UR E26/E27,Leadership,Life_story,MaritimeCyberTrend,Pentesting,R_DT,books,curriculum,paper</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AI(artificial intelligence),Compliances,Crew,Cyber Security,Dept.Courses,IACS UR E26/E27,Leadership,Life_story,MaritimeCyberTrend,Pentesting,books,curriculum,paper</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -3596,7 +3805,7 @@
             </div>
           </b:includable>
         </b:widget>
-        <b:widget id='HTML10' locked='false' title='Maritime  ​​Leadership' type='HTML' version='2' visible='true'>
+        <b:widget id='HTML10' locked='false' title='' type='HTML' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
      Maritime Cyber Intelligence 위젯 인젝션 — www.shippauljobs.com
@@ -4013,6 +4222,166 @@
 //]]></script>
 
   <script>//<![CDATA[
+  /* ── Right panel master toggle (hamburger) ── */
+  function rpMasterToggle() {
+    var rp = document.getElementById('right-panel');
+    var btn = document.getElementById('rp-master-btn');
+    var isMobile = window.innerWidth <= 1024;
+    if (isMobile) {
+      var open = rp.classList.toggle('rp-mobile-open');
+      btn.textContent = open ? '×' : '☰';
+      try { localStorage.setItem('rp_mobile_open', open ? '1' : '0'); } catch(e) {}
+    } else {
+      var collapsed = rp.classList.toggle('rp-collapsed');
+      btn.textContent = collapsed ? '☰' : '×';
+      try { localStorage.setItem('rp_collapsed', collapsed ? '1' : '0'); } catch(e) {}
+    }
+  }
+  (function() {
+    function initPanel() {
+      var rp = document.getElementById('right-panel');
+      var btn = document.getElementById('rp-master-btn');
+      if (!rp || !btn) return;
+      var isMobile = window.innerWidth <= 1024;
+      if (isMobile) {
+        try {
+          if (localStorage.getItem('rp_mobile_open') === '1') {
+            rp.classList.add('rp-mobile-open');
+            btn.textContent = '×';
+          } else {
+            btn.textContent = '☰';
+          }
+        } catch(e) { btn.textContent = '☰'; }
+      } else {
+        try {
+          if (localStorage.getItem('rp_collapsed') === '1') {
+            rp.classList.add('rp-collapsed');
+            btn.textContent = '☰';
+          } else {
+            btn.textContent = '×';
+          }
+        } catch(e) { btn.textContent = '×'; }
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPanel);
+    } else {
+      initPanel();
+    }
+  })();
+
+  /* ── Right panel widget 최소화 / 원래대로 ── */
+  function rpToggle(cardId, btn) {
+    var card = document.getElementById(cardId);
+    var minimized = card.classList.toggle('minimized');
+    btn.textContent = minimized ? '+' : '—';
+    try { localStorage.setItem('rp_min_' + cardId, minimized ? '1' : '0'); } catch(e) {}
+  }
+  (function() {
+    ['rp-card-weather', 'rp-card-hello', 'rp-card-insights', 'rp-card-services'].forEach(function(id) {
+      try {
+        if (localStorage.getItem('rp_min_' + id) === '1') {
+          var card = document.getElementById(id);
+          if (card) {
+            card.classList.add('minimized');
+            var btn = card.querySelector('.rp-btn');
+            if (btn) btn.textContent = '+';
+          }
+        }
+      } catch(e) {}
+    });
+  })();
+
+  /* ── Sidebar widget 최소화 / 원래대로 ── */
+  function sbToggle(widgetId, btn) {
+    var widget = document.getElementById(widgetId);
+    var minimized = widget.classList.toggle('minimized');
+    btn.textContent = minimized ? '+' : '—';
+    try { localStorage.setItem('sb_min_' + widgetId, minimized ? '1' : '0'); } catch(e) {}
+  }
+  (function() {
+    var configs = [
+      { id: 'Label4', icon: '📌', title: 'TOPICAL POSTS' },
+      { id: 'HTML10', icon: '🧭', title: 'MARITIME INTELLIGENCE' }
+    ];
+    function initCard(cfg) {
+      var widget = document.getElementById(cfg.id);
+      if (!widget) return;
+      /* 기존 자식 전체를 .sb-body 로 이동 */
+      var body = document.createElement('div');
+      body.className = 'sb-body';
+      while (widget.firstChild) body.appendChild(widget.firstChild);
+      /* 헤더 생성 */
+      var head = document.createElement('div');
+      head.className = 'sb-head';
+      head.innerHTML = '<span class="sb-head-title">' + cfg.icon + ' ' + cfg.title + '</span>'
+        + '<button class="sb-btn" onclick="sbToggle(\'' + cfg.id + '\',this)">—</button>';
+      widget.appendChild(head);
+      widget.appendChild(body);
+      widget.classList.add('sb-collapsible');
+      /* 저장된 최소화 상태 복원 */
+      try {
+        if (localStorage.getItem('sb_min_' + cfg.id) === '1') {
+          widget.classList.add('minimized');
+          head.querySelector('.sb-btn').textContent = '+';
+        }
+      } catch(e) {}
+    }
+    function runInit() { configs.forEach(initCard); }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runInit);
+    } else {
+      runInit();
+    }
+  })();
+
+  /* ── Main content widget 최소화 / 원래대로 ── */
+  function mcToggle(widgetId, btn) {
+    var widget = document.getElementById(widgetId);
+    var minimized = widget.classList.toggle('minimized');
+    btn.textContent = minimized ? '+' : '—';
+    try { localStorage.setItem('mc_min_' + widgetId, minimized ? '1' : '0'); } catch(e) {}
+  }
+  (function() {
+    var configs = [
+      { id: 'HTML7', icon: '🔥', title: 'Featured Insights' },
+      { id: 'HTML8', icon: '🛠️', title: 'LIVE FEED Service' }
+    ];
+    function initMcCard(cfg) {
+      var widget = document.getElementById(cfg.id);
+      if (!widget) return;
+      /* 기존 section 내부 header div 에 버튼 삽입 */
+      var section = widget.querySelector('section');
+      if (!section) return;
+      var hdrDiv = section.querySelector('div');
+      if (!hdrDiv) return;
+      hdrDiv.style.cssText += ';display:flex;justify-content:space-between;align-items:flex-start;';
+      var btn = document.createElement('button');
+      btn.className = 'mc-btn';
+      btn.textContent = '—';
+      var wid = cfg.id;
+      btn.onclick = function() { mcToggle(wid, this); };
+      hdrDiv.appendChild(btn);
+      widget.classList.add('mc-collapsible');
+      try {
+        var saved = localStorage.getItem('mc_min_' + cfg.id);
+        if (saved !== '0') {
+          widget.classList.add('minimized');
+          btn.textContent = '+';
+        }
+      } catch(e) {
+        widget.classList.add('minimized');
+        btn.textContent = '+';
+      }
+    }
+    function runInit() { configs.forEach(initMcCard); }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runInit);
+    } else {
+      runInit();
+    }
+  })();
+
   /* ── Move Hello Guest widget to right panel ── */
   (function(){
     var target = document.getElementById('hg-right');
@@ -4154,5 +4523,6 @@
     });
   })();
   //]]></script>
+
   </body>
 </html>
