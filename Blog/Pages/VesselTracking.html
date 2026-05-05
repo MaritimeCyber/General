@@ -243,6 +243,22 @@
     font-size: 13px;
   }
 
+  /* ── Pagination ── */
+  .vt-pager {
+    display: flex; align-items: center; gap: 4px;
+    justify-content: center; flex-wrap: wrap;
+    padding: 8px 14px 12px;
+  }
+  .vt-pager-btn {
+    background: #f0f5fb; border: 1.5px solid #c0d0e5; border-radius: 6px;
+    color: #154f7a; cursor: pointer; font-size: 12px; font-weight: 700;
+    min-width: 32px; padding: 4px 9px; transition: all 0.15s;
+  }
+  .vt-pager-btn:hover:not(:disabled):not(.active) { background: #154f7a; color: #fff; border-color: #154f7a; }
+  .vt-pager-btn.active { background: #0a2342; color: #fff; border-color: #0a2342; cursor: default; }
+  .vt-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .vt-pager-info { color: #9ab5c9; font-size: 11px; padding: 0 6px; }
+
   /* Footer */
   .vt-foot { font-size: 11px; color: #9ab5c9; text-align: right; }
   .vt-foot a { color: #9ab5c9; }
@@ -261,135 +277,135 @@
   <div class="vt-hdr">
     <div class="vt-hdr-eye">AIS Live Intelligence</div>
     <h1>🛰️ Smart Vessel Tracking with AIS</h1>
-    <p>위치 · 국가 · 항만 · 선박명으로 검색하여 실시간 AIS 선박 정보를 지도와 테이블로 확인하세요.</p>
+    <p>Search by location, country, port, or vessel name to view real-time AIS data on the map and table.</p>
   </div>
 
   <!-- Search panel -->
   <div class="vt-search">
     <div class="vt-tab-row">
-      <button class="vt-tab active" onclick="vtTab(this,'loc')">📍 위치 / 좌표</button>
-      <button class="vt-tab" onclick="vtTab(this,'country')">🏳️ 국가</button>
-      <button class="vt-tab" onclick="vtTab(this,'port')">⚓ 항만</button>
-      <button class="vt-tab" onclick="vtTab(this,'vessel')">🚢 선박명</button>
+      <button class="vt-tab active" onclick="vtTab(this,'loc')">📍 Location / Coords</button>
+      <button class="vt-tab" onclick="vtTab(this,'country')">🏳️ Country</button>
+      <button class="vt-tab" onclick="vtTab(this,'port')">⚓ Port</button>
+      <button class="vt-tab" onclick="vtTab(this,'vessel')">🚢 Vessel Name</button>
     </div>
 
     <!-- Location search -->
     <div class="vt-pane active" id="vt-pane-loc">
       <div class="vt-field">
-        <div class="vt-field-lbl">지명 또는 위경도 (예: Singapore Port / 1.26, 103.8)</div>
+        <div class="vt-field-lbl">Place name or coordinates (e.g. Singapore Port / 1.26, 103.8)</div>
         <input type="text" id="vt-loc-input" class="vt-input"
-          placeholder="도시, 항구, 해역명 또는 위도,경도" value="Singapore">
+          placeholder="City, port, sea area or lat,lon" value="Singapore">
       </div>
       <div class="vt-field" style="max-width:110px;">
         <div class="vt-field-lbl">Zoom</div>
         <select id="vt-loc-zoom" class="vt-select">
-          <option value="7">7 — 해역</option>
-          <option value="9">9 — 지역</option>
-          <option value="10" selected>10 — 구역</option>
-          <option value="11">11 — 항만</option>
-          <option value="12">12 — 클로즈업</option>
+          <option value="7">7 — Sea Area</option>
+          <option value="9">9 — Region</option>
+          <option value="10" selected>10 — Zone</option>
+          <option value="11">11 — Port</option>
+          <option value="12">12 — Close-up</option>
         </select>
       </div>
-      <button class="vt-search-btn" id="vt-loc-btn" onclick="vtSearchLoc()">🔍 검색</button>
+      <button class="vt-search-btn" id="vt-loc-btn" onclick="vtSearchLoc()">🔍 Search</button>
     </div>
 
     <!-- Country search -->
     <div class="vt-pane" id="vt-pane-country">
       <div class="vt-field">
-        <div class="vt-field-lbl">국가 선택</div>
+        <div class="vt-field-lbl">Select Country</div>
         <select id="vt-country-sel" class="vt-select">
-          <option value="">── 국가 선택 ──</option>
-          <option value="KR">🇰🇷 대한민국</option>
-          <option value="JP">🇯🇵 일본</option>
-          <option value="CN">🇨🇳 중국</option>
-          <option value="SG">🇸🇬 싱가포르</option>
-          <option value="MY">🇲🇾 말레이시아</option>
-          <option value="ID">🇮🇩 인도네시아</option>
-          <option value="US">🇺🇸 미국</option>
-          <option value="NL">🇳🇱 네덜란드</option>
-          <option value="DE">🇩🇪 독일</option>
-          <option value="BE">🇧🇪 벨기에</option>
-          <option value="GB">🇬🇧 영국</option>
-          <option value="FR">🇫🇷 프랑스</option>
-          <option value="GR">🇬🇷 그리스</option>
-          <option value="TR">🇹🇷 터키</option>
+          <option value="">── Select Country ──</option>
+          <option value="KR">🇰🇷 South Korea</option>
+          <option value="JP">🇯🇵 Japan</option>
+          <option value="CN">🇨🇳 China</option>
+          <option value="SG">🇸🇬 Singapore</option>
+          <option value="MY">🇲🇾 Malaysia</option>
+          <option value="ID">🇮🇩 Indonesia</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="NL">🇳🇱 Netherlands</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="BE">🇧🇪 Belgium</option>
+          <option value="GB">🇬🇧 United Kingdom</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="GR">🇬🇷 Greece</option>
+          <option value="TR">🇹🇷 Türkiye</option>
           <option value="AE">🇦🇪 UAE</option>
-          <option value="EG">🇪🇬 이집트 (수에즈)</option>
-          <option value="PA">🇵🇦 파나마</option>
-          <option value="AU">🇦🇺 호주</option>
-          <option value="NO">🇳🇴 노르웨이</option>
-          <option value="DK">🇩🇰 덴마크</option>
+          <option value="EG">🇪🇬 Egypt (Suez)</option>
+          <option value="PA">🇵🇦 Panama</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="NO">🇳🇴 Norway</option>
+          <option value="DK">🇩🇰 Denmark</option>
         </select>
       </div>
-      <button class="vt-search-btn" onclick="vtSearchCountry()">🔍 검색</button>
+      <button class="vt-search-btn" onclick="vtSearchCountry()">🔍 Search</button>
     </div>
 
     <!-- Port search -->
     <div class="vt-pane" id="vt-pane-port">
       <div class="vt-field">
-        <div class="vt-field-lbl">항만 선택</div>
+        <div class="vt-field-lbl">Select Port</div>
         <select id="vt-port-sel" class="vt-select">
-          <option value="">── 항만 선택 ──</option>
-          <optgroup label="동아시아">
-            <option value="busan">🇰🇷 부산항 (Busan)</option>
-            <option value="incheon">🇰🇷 인천항 (Incheon)</option>
-            <option value="ulsan">🇰🇷 울산항 (Ulsan)</option>
-            <option value="shanghai">🇨🇳 상하이 (Shanghai)</option>
-            <option value="shenzhen">🇨🇳 선전 (Shenzhen)</option>
-            <option value="ningbo">🇨🇳 닝보 (Ningbo)</option>
-            <option value="tianjin">🇨🇳 톈진 (Tianjin)</option>
-            <option value="qingdao">🇨🇳 칭다오 (Qingdao)</option>
-            <option value="tokyo">🇯🇵 도쿄 (Tokyo)</option>
-            <option value="yokohama">🇯🇵 요코하마 (Yokohama)</option>
-            <option value="nagoya">🇯🇵 나고야 (Nagoya)</option>
-            <option value="osaka">🇯🇵 오사카 (Osaka)</option>
+          <option value="">── Select Port ──</option>
+          <optgroup label="East Asia">
+            <option value="busan">🇰🇷 Busan</option>
+            <option value="incheon">🇰🇷 Incheon</option>
+            <option value="ulsan">🇰🇷 Ulsan</option>
+            <option value="shanghai">🇨🇳 Shanghai</option>
+            <option value="shenzhen">🇨🇳 Shenzhen</option>
+            <option value="ningbo">🇨🇳 Ningbo</option>
+            <option value="tianjin">🇨🇳 Tianjin</option>
+            <option value="qingdao">🇨🇳 Qingdao</option>
+            <option value="tokyo">🇯🇵 Tokyo</option>
+            <option value="yokohama">🇯🇵 Yokohama</option>
+            <option value="nagoya">🇯🇵 Nagoya</option>
+            <option value="osaka">🇯🇵 Osaka</option>
           </optgroup>
-          <optgroup label="동남아시아">
-            <option value="singapore">🇸🇬 싱가포르 (Singapore)</option>
-            <option value="portklang">🇲🇾 포트클랑 (Port Klang)</option>
-            <option value="tanjungpelepas">🇲🇾 탄중펠레파스</option>
-            <option value="jakarta">🇮🇩 자카르타 (Jakarta)</option>
+          <optgroup label="Southeast Asia">
+            <option value="singapore">🇸🇬 Singapore (Singapore)</option>
+            <option value="portklang">🇲🇾 Port Klang</option>
+            <option value="tanjungpelepas">🇲🇾 Tanjung Pelepas</option>
+            <option value="jakarta">🇮🇩 Jakarta</option>
           </optgroup>
-          <optgroup label="유럽">
-            <option value="rotterdam">🇳🇱 로테르담 (Rotterdam)</option>
-            <option value="antwerp">🇧🇪 앤트워프 (Antwerp)</option>
-            <option value="hamburg">🇩🇪 함부르크 (Hamburg)</option>
-            <option value="felixstowe">🇬🇧 펠릭스토 (Felixstowe)</option>
-            <option value="bremerhaven">🇩🇪 브레머하펜</option>
-            <option value="barcelona">🇪🇸 바르셀로나</option>
-            <option value="piraeus">🇬🇷 피레우스 (Piraeus)</option>
+          <optgroup label="Europe">
+            <option value="rotterdam">🇳🇱 Rotterdam</option>
+            <option value="antwerp">🇧🇪 Antwerp</option>
+            <option value="hamburg">🇩🇪 Hamburg</option>
+            <option value="felixstowe">🇬🇧 Felixstowe</option>
+            <option value="bremerhaven">🇩🇪 Bremerhaven</option>
+            <option value="barcelona">🇪🇸 Barcelona</option>
+            <option value="piraeus">🇬🇷 Piraeus</option>
           </optgroup>
-          <optgroup label="중동 / 아프리카">
-            <option value="jebel_ali">🇦🇪 제벨알리 (Jebel Ali)</option>
-            <option value="colombo">🇱🇰 콜롬보 (Colombo)</option>
+          <optgroup label="Middle East / Africa">
+            <option value="jebel_ali">🇦🇪 Jebel Ali</option>
+            <option value="colombo">🇱🇰 Colombo</option>
           </optgroup>
-          <optgroup label="아메리카">
-            <option value="losangeles">🇺🇸 로스앤젤레스</option>
-            <option value="longbeach">🇺🇸 롱비치 (Long Beach)</option>
-            <option value="newyork">🇺🇸 뉴욕/뉴저지</option>
-            <option value="savannah">🇺🇸 사바나 (Savannah)</option>
-            <option value="colon">🇵🇦 콜론 / 파나마 운하</option>
+          <optgroup label="Americas">
+            <option value="losangeles">🇺🇸 Los Angeles</option>
+            <option value="longbeach">🇺🇸 Long Beach</option>
+            <option value="newyork">🇺🇸 New York / New Jersey</option>
+            <option value="savannah">🇺🇸 Savannah</option>
+            <option value="colon">🇵🇦 Colon / Panama Canal</option>
           </optgroup>
-          <optgroup label="주요 해협">
-            <option value="malacca">🛳️ 말라카 해협</option>
-            <option value="english_channel">🌊 영국 해협</option>
-            <option value="suez">🔵 수에즈 운하</option>
-            <option value="hormuz">⛽ 호르무즈 해협</option>
-            <option value="bab_el_mandeb">🟡 바브엘만데브 해협</option>
+          <optgroup label="Key Straits &amp; Canals">
+            <option value="malacca">🛳️ Strait of Malacca</option>
+            <option value="english_channel">🌊 English Channel</option>
+            <option value="suez">🔵 Suez Canal</option>
+            <option value="hormuz">⛽ Strait of Hormuz</option>
+            <option value="bab_el_mandeb">🟡 Bab-el-Mandeb Strait</option>
           </optgroup>
         </select>
       </div>
-      <button class="vt-search-btn" onclick="vtSearchPort()">🔍 검색</button>
+      <button class="vt-search-btn" onclick="vtSearchPort()">🔍 Search</button>
     </div>
 
     <!-- Vessel name search -->
     <div class="vt-pane" id="vt-pane-vessel">
       <div class="vt-field">
-        <div class="vt-field-lbl">선박명 또는 MMSI</div>
+        <div class="vt-field-lbl">Vessel Name or MMSI</div>
         <input type="text" id="vt-vessel-input" class="vt-input"
-          placeholder="예: EVER GIVEN, MSC GÜLSÜN, 353136000">
+          placeholder="e.g. EVER GIVEN, MSC GÜLSÜN, 353136000">
       </div>
-      <button class="vt-search-btn" onclick="vtSearchVessel()">🔍 검색</button>
+      <button class="vt-search-btn" onclick="vtSearchVessel()">🔍 Search</button>
     </div>
   </div><!-- /.vt-search -->
 
@@ -416,33 +432,34 @@
   <!-- Vessel table -->
   <div class="vt-tbl-wrap">
     <div class="vt-tbl-hdr">
-      🚢 선박 정보 테이블
-      <span class="vt-tbl-note" id="vt-tbl-note">항만 또는 위치를 검색하면 대표 선박 목록이 표시됩니다</span>
+      🚢 Vessel Information
+      <span class="vt-tbl-note" id="vt-tbl-note">Search a port or location to view representative vessels</span>
     </div>
     <div class="vt-tbl-scroll">
       <table id="vt-vessel-table">
         <thead>
           <tr>
-            <th>선박명</th>
-            <th>유형</th>
-            <th>국기</th>
+            <th>Vessel Name</th>
+            <th>Type</th>
+            <th>Flag</th>
             <th>MMSI</th>
-            <th>총톤수 (GT)</th>
-            <th>목적지</th>
+            <th>Gross Tonnage</th>
+            <th>Destination</th>
             <th>AIS</th>
           </tr>
         </thead>
         <tbody id="vt-vessel-tbody">
-          <tr><td colspan="7" id="vt-tbl-empty">⬆ 위에서 항만 또는 위치를 검색하세요</td></tr>
+          <tr><td colspan="7" id="vt-tbl-empty">⬆ Search a port or location above to get started</td></tr>
         </tbody>
       </table>
     </div>
+    <div id="vt-pager" class="vt-pager"></div>
   </div>
 
   <!-- Footer -->
   <div class="vt-foot">
-    AIS 데이터: <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">VesselFinder</a> &middot;
-    지오코딩: <a href="https://nominatim.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap Nominatim</a>
+    AIS Data: <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">VesselFinder</a> &middot;
+    Geocoding: <a href="https://nominatim.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap Nominatim</a>
   </div>
 
 </div><!-- /#vt-wrap -->
@@ -455,65 +472,65 @@
      DATA: Port database
   ══════════════════════════════════════════════════════ */
   var PORTS = {
-    busan:           { lat: 35.10, lon: 129.04, zoom: 11, label: '부산항', name: 'Busan, South Korea' },
-    incheon:         { lat: 37.45, lon: 126.60, zoom: 11, label: '인천항', name: 'Incheon, South Korea' },
-    ulsan:           { lat: 35.52, lon: 129.38, zoom: 11, label: '울산항', name: 'Ulsan, South Korea' },
-    shanghai:        { lat: 31.20, lon: 121.70, zoom: 11, label: '상하이항', name: 'Shanghai, China' },
-    shenzhen:        { lat: 22.53, lon: 113.91, zoom: 11, label: '선전항', name: 'Shenzhen, China' },
-    ningbo:          { lat: 29.87, lon: 121.55, zoom: 11, label: '닝보항', name: 'Ningbo, China' },
-    tianjin:         { lat: 38.98, lon: 117.72, zoom: 11, label: '톈진항', name: 'Tianjin, China' },
-    qingdao:         { lat: 36.07, lon: 120.35, zoom: 11, label: '칭다오항', name: 'Qingdao, China' },
-    tokyo:           { lat: 35.63, lon: 139.77, zoom: 11, label: '도쿄항', name: 'Tokyo, Japan' },
-    yokohama:        { lat: 35.45, lon: 139.65, zoom: 11, label: '요코하마항', name: 'Yokohama, Japan' },
-    nagoya:          { lat: 35.05, lon: 136.88, zoom: 11, label: '나고야항', name: 'Nagoya, Japan' },
-    osaka:           { lat: 34.65, lon: 135.43, zoom: 11, label: '오사카항', name: 'Osaka, Japan' },
-    singapore:       { lat:  1.26, lon: 103.80, zoom: 11, label: '싱가포르항', name: 'Singapore' },
-    portklang:       { lat:  3.00, lon: 101.38, zoom: 11, label: '포트클랑', name: 'Port Klang, Malaysia' },
-    tanjungpelepas:  { lat:  1.36, lon: 103.55, zoom: 11, label: '탄중펠레파스', name: 'Tanjung Pelepas, Malaysia' },
-    jakarta:         { lat: -6.11, lon: 106.88, zoom: 11, label: '자카르타항', name: 'Jakarta, Indonesia' },
-    rotterdam:       { lat: 51.90, lon:   4.15, zoom: 11, label: '로테르담항', name: 'Rotterdam, Netherlands' },
-    antwerp:         { lat: 51.25, lon:   4.40, zoom: 11, label: '앤트워프항', name: 'Antwerp, Belgium' },
-    hamburg:         { lat: 53.55, lon:   9.95, zoom: 11, label: '함부르크항', name: 'Hamburg, Germany' },
-    felixstowe:      { lat: 51.96, lon:   1.33, zoom: 11, label: '펠릭스토항', name: 'Felixstowe, UK' },
-    bremerhaven:     { lat: 53.55, lon:   8.57, zoom: 11, label: '브레머하펜항', name: 'Bremerhaven, Germany' },
-    barcelona:       { lat: 41.35, lon:   2.17, zoom: 11, label: '바르셀로나항', name: 'Barcelona, Spain' },
-    piraeus:         { lat: 37.94, lon:  23.63, zoom: 11, label: '피레우스항', name: 'Piraeus, Greece' },
-    jebel_ali:       { lat: 24.98, lon:  55.05, zoom: 11, label: '제벨알리항', name: 'Jebel Ali, UAE' },
-    colombo:         { lat:  6.95, lon:  79.85, zoom: 11, label: '콜롬보항', name: 'Colombo, Sri Lanka' },
-    losangeles:      { lat: 33.73, lon:-118.26, zoom: 11, label: '로스앤젤레스항', name: 'Los Angeles, USA' },
-    longbeach:       { lat: 33.75, lon:-118.21, zoom: 11, label: '롱비치항', name: 'Long Beach, USA' },
-    newyork:         { lat: 40.65, lon: -74.05, zoom: 11, label: '뉴욕/뉴저지항', name: 'New York / New Jersey, USA' },
-    savannah:        { lat: 31.98, lon: -81.10, zoom: 11, label: '사바나항', name: 'Savannah, USA' },
-    colon:           { lat:  9.06, lon: -79.70, zoom: 10, label: '콜론/파나마운하', name: 'Colon / Panama Canal' },
-    malacca:         { lat:  3.50, lon: 100.50, zoom:  8, label: '말라카 해협', name: 'Strait of Malacca' },
-    english_channel: { lat: 50.90, lon:   1.50, zoom:  9, label: '영국 해협', name: 'English Channel' },
-    suez:            { lat: 30.50, lon:  32.30, zoom: 10, label: '수에즈 운하', name: 'Suez Canal, Egypt' },
-    hormuz:          { lat: 26.57, lon:  56.27, zoom:  9, label: '호르무즈 해협', name: 'Strait of Hormuz' },
-    bab_el_mandeb:   { lat: 12.60, lon:  43.45, zoom:  9, label: '바브엘만데브 해협', name: 'Bab-el-Mandeb Strait' }
+    busan:           { lat: 35.10, lon: 129.04, zoom: 11, label: 'Busan Port', name: 'Busan, South Korea' },
+    incheon:         { lat: 37.45, lon: 126.60, zoom: 11, label: 'Incheon Port', name: 'Incheon, South Korea' },
+    ulsan:           { lat: 35.52, lon: 129.38, zoom: 11, label: 'Ulsan Port', name: 'Ulsan, South Korea' },
+    shanghai:        { lat: 31.20, lon: 121.70, zoom: 11, label: 'Shanghai Port', name: 'Shanghai, China' },
+    shenzhen:        { lat: 22.53, lon: 113.91, zoom: 11, label: 'Shenzhen Port', name: 'Shenzhen, China' },
+    ningbo:          { lat: 29.87, lon: 121.55, zoom: 11, label: 'Ningbo Port', name: 'Ningbo, China' },
+    tianjin:         { lat: 38.98, lon: 117.72, zoom: 11, label: 'Tianjin Port', name: 'Tianjin, China' },
+    qingdao:         { lat: 36.07, lon: 120.35, zoom: 11, label: 'Qingdao Port', name: 'Qingdao, China' },
+    tokyo:           { lat: 35.63, lon: 139.77, zoom: 11, label: 'Tokyo Port', name: 'Tokyo, Japan' },
+    yokohama:        { lat: 35.45, lon: 139.65, zoom: 11, label: 'Yokohama Port', name: 'Yokohama, Japan' },
+    nagoya:          { lat: 35.05, lon: 136.88, zoom: 11, label: 'Nagoya Port', name: 'Nagoya, Japan' },
+    osaka:           { lat: 34.65, lon: 135.43, zoom: 11, label: 'Osaka Port', name: 'Osaka, Japan' },
+    singapore:       { lat:  1.26, lon: 103.80, zoom: 11, label: 'Singapore Port', name: 'Singapore' },
+    portklang:       { lat:  3.00, lon: 101.38, zoom: 11, label: 'Port Klang', name: 'Port Klang, Malaysia' },
+    tanjungpelepas:  { lat:  1.36, lon: 103.55, zoom: 11, label: 'Tanjung Pelepas', name: 'Tanjung Pelepas, Malaysia' },
+    jakarta:         { lat: -6.11, lon: 106.88, zoom: 11, label: 'Jakarta Port', name: 'Jakarta, Indonesia' },
+    rotterdam:       { lat: 51.90, lon:   4.15, zoom: 11, label: 'Rotterdam Port', name: 'Rotterdam, Netherlands' },
+    antwerp:         { lat: 51.25, lon:   4.40, zoom: 11, label: 'Antwerp Port', name: 'Antwerp, Belgium' },
+    hamburg:         { lat: 53.55, lon:   9.95, zoom: 11, label: 'Hamburg Port', name: 'Hamburg, Germany' },
+    felixstowe:      { lat: 51.96, lon:   1.33, zoom: 11, label: 'Felixstowe Port', name: 'Felixstowe, UK' },
+    bremerhaven:     { lat: 53.55, lon:   8.57, zoom: 11, label: 'Bremerhaven Port', name: 'Bremerhaven, Germany' },
+    barcelona:       { lat: 41.35, lon:   2.17, zoom: 11, label: 'Barcelona Port', name: 'Barcelona, Spain' },
+    piraeus:         { lat: 37.94, lon:  23.63, zoom: 11, label: 'Piraeus Port', name: 'Piraeus, Greece' },
+    jebel_ali:       { lat: 24.98, lon:  55.05, zoom: 11, label: 'Jebel Ali Port', name: 'Jebel Ali, UAE' },
+    colombo:         { lat:  6.95, lon:  79.85, zoom: 11, label: 'Colombo Port', name: 'Colombo, Sri Lanka' },
+    losangeles:      { lat: 33.73, lon:-118.26, zoom: 11, label: 'Los Angeles Port', name: 'Los Angeles, USA' },
+    longbeach:       { lat: 33.75, lon:-118.21, zoom: 11, label: 'Long Beach Port', name: 'Long Beach, USA' },
+    newyork:         { lat: 40.65, lon: -74.05, zoom: 11, label: 'New York/New Jersey', name: 'New York / New Jersey, USA' },
+    savannah:        { lat: 31.98, lon: -81.10, zoom: 11, label: 'Savannah Port', name: 'Savannah, USA' },
+    colon:           { lat:  9.06, lon: -79.70, zoom: 10, label: 'Colon / Panama Canal', name: 'Colon / Panama Canal' },
+    malacca:         { lat:  3.50, lon: 100.50, zoom:  8, label: 'Strait of Malacca', name: 'Strait of Malacca' },
+    english_channel: { lat: 50.90, lon:   1.50, zoom:  9, label: 'English Channel', name: 'English Channel' },
+    suez:            { lat: 30.50, lon:  32.30, zoom: 10, label: 'Suez Canal', name: 'Suez Canal, Egypt' },
+    hormuz:          { lat: 26.57, lon:  56.27, zoom:  9, label: 'Strait of Hormuz', name: 'Strait of Hormuz' },
+    bab_el_mandeb:   { lat: 12.60, lon:  43.45, zoom:  9, label: 'Bab-el-Mandeb Strait', name: 'Bab-el-Mandeb Strait' }
   };
 
   /* Country centers */
   var COUNTRIES = {
-    KR: { lat: 35.10, lon: 129.00, zoom:  7, name: '대한민국' },
-    JP: { lat: 35.50, lon: 136.00, zoom:  6, name: '일본' },
-    CN: { lat: 30.00, lon: 122.00, zoom:  6, name: '중국' },
-    SG: { lat:  1.26, lon: 103.80, zoom: 10, name: '싱가포르' },
-    MY: { lat:  3.00, lon: 101.40, zoom:  7, name: '말레이시아' },
-    ID: { lat: -6.10, lon: 106.80, zoom:  6, name: '인도네시아' },
-    US: { lat: 33.73, lon:-118.26, zoom:  8, name: '미국' },
-    NL: { lat: 51.90, lon:   4.15, zoom:  9, name: '네덜란드' },
-    DE: { lat: 53.55, lon:   9.95, zoom:  8, name: '독일' },
-    BE: { lat: 51.25, lon:   4.40, zoom:  9, name: '벨기에' },
-    GB: { lat: 51.96, lon:   1.33, zoom:  8, name: '영국' },
-    FR: { lat: 43.35, lon:   5.33, zoom:  8, name: '프랑스' },
-    GR: { lat: 37.94, lon:  23.63, zoom:  8, name: '그리스' },
-    TR: { lat: 41.01, lon:  28.96, zoom:  8, name: '터키' },
+    KR: { lat: 35.10, lon: 129.00, zoom:  7, name: 'South Korea' },
+    JP: { lat: 35.50, lon: 136.00, zoom:  6, name: 'Japan' },
+    CN: { lat: 30.00, lon: 122.00, zoom:  6, name: 'China' },
+    SG: { lat:  1.26, lon: 103.80, zoom: 10, name: 'Singapore' },
+    MY: { lat:  3.00, lon: 101.40, zoom:  7, name: 'Malaysia' },
+    ID: { lat: -6.10, lon: 106.80, zoom:  6, name: 'Indonesia' },
+    US: { lat: 33.73, lon:-118.26, zoom:  8, name: 'United States' },
+    NL: { lat: 51.90, lon:   4.15, zoom:  9, name: 'Netherlands' },
+    DE: { lat: 53.55, lon:   9.95, zoom:  8, name: 'Germany' },
+    BE: { lat: 51.25, lon:   4.40, zoom:  9, name: 'Belgium' },
+    GB: { lat: 51.96, lon:   1.33, zoom:  8, name: 'United Kingdom' },
+    FR: { lat: 43.35, lon:   5.33, zoom:  8, name: 'France' },
+    GR: { lat: 37.94, lon:  23.63, zoom:  8, name: 'Greece' },
+    TR: { lat: 41.01, lon:  28.96, zoom:  8, name: 'Türkiye' },
     AE: { lat: 24.98, lon:  55.05, zoom:  9, name: 'UAE' },
-    EG: { lat: 30.50, lon:  32.30, zoom:  9, name: '이집트 (수에즈)' },
-    PA: { lat:  9.06, lon: -79.70, zoom:  9, name: '파나마' },
-    AU: { lat:-33.85, lon: 151.20, zoom:  7, name: '호주' },
-    NO: { lat: 58.97, lon:   5.73, zoom:  8, name: '노르웨이' },
-    DK: { lat: 55.68, lon:  12.60, zoom:  8, name: '덴마크' }
+    EG: { lat: 30.50, lon:  32.30, zoom:  9, name: 'Egypt (Suez)' },
+    PA: { lat:  9.06, lon: -79.70, zoom:  9, name: 'Panama' },
+    AU: { lat:-33.85, lon: 151.20, zoom:  7, name: 'Australia' },
+    NO: { lat: 58.97, lon:   5.73, zoom:  8, name: 'Norway' },
+    DK: { lat: 55.68, lon:  12.60, zoom:  8, name: 'Denmark' }
   };
 
   /* Representative vessels per port (curated) */
@@ -636,28 +653,57 @@
     'LNG':       'vt-type-lng'
   };
 
+  var VT_PAGE_SIZE = 5, vtAllVessels = [], vtPage = 1;
+
+  function vtRowHtml(v) {
+    var cls = TYPE_CLASS[v.type] || '';
+    var aisHref = v.mmsi
+      ? 'https://www.vesselfinder.com/aismap?mmsi=' + v.mmsi
+      : 'https://www.vesselfinder.com/vessels?name=' + encodeURIComponent(v.name);
+    return '<tr>' +
+      '<td class="vt-vessel-name">' + v.name + '</td>' +
+      '<td><span class="vt-type-badge ' + cls + '">' + v.type + '</span></td>' +
+      '<td style="font-size:16px;">' + v.flag + '</td>' +
+      '<td style="color:#154f7a;font-weight:600;font-family:monospace;">' + (v.mmsi || '—') + '</td>' +
+      '<td>' + v.gt + ' GT</td>' +
+      '<td>' + v.dest + '</td>' +
+      '<td><a class="vt-ais-link" href="' + aisHref + '" target="_blank" rel="noopener">↗ AIS</a></td>' +
+      '</tr>';
+  }
+
+  function vtRenderPager() {
+    var pager = document.getElementById('vt-pager');
+    if (!pager) return;
+    var pages = Math.ceil(vtAllVessels.length / VT_PAGE_SIZE);
+    if (pages <= 1) { pager.innerHTML = ''; return; }
+    var h = '<button class="vt-pager-btn" onclick="vtGoPage(' + (vtPage-1) + ')"' + (vtPage===1?' disabled':'') + '>‹ Prev</button>';
+    for (var i = 1; i <= pages; i++)
+      h += '<button class="vt-pager-btn' + (i===vtPage?' active':'') + '" onclick="vtGoPage('+i+')">' + i + '</button>';
+    h += '<button class="vt-pager-btn" onclick="vtGoPage(' + (vtPage+1) + ')"' + (vtPage===pages?' disabled':'') + '>Next ›</button>';
+    h += '<span class="vt-pager-info">Page ' + vtPage + ' of ' + pages + '</span>';
+    pager.innerHTML = h;
+  }
+
+  window.vtGoPage = function (p) {
+    var pages = Math.ceil(vtAllVessels.length / VT_PAGE_SIZE);
+    if (p < 1 || p > pages) return;
+    vtPage = p;
+    document.getElementById('vt-vessel-tbody').innerHTML = vtAllVessels.slice((p-1)*VT_PAGE_SIZE, p*VT_PAGE_SIZE).map(vtRowHtml).join('');
+    vtRenderPager();
+  };
+
   function renderTable(vessels, note) {
-    var tbody = document.getElementById('vt-vessel-tbody');
     document.getElementById('vt-tbl-note').textContent = note || '';
+    var pager = document.getElementById('vt-pager');
     if (!vessels || !vessels.length) {
-      tbody.innerHTML = '<tr><td colspan="7" id="vt-tbl-empty">해당 위치의 대표 선박 정보가 없습니다. 위 지도에서 직접 선박을 클릭해 확인하세요.</td></tr>';
+      vtAllVessels = []; vtPage = 1;
+      document.getElementById('vt-vessel-tbody').innerHTML = '<tr><td colspan="7" id="vt-tbl-empty">No representative vessel data available. Click a vessel on the map above to view details.</td></tr>';
+      if (pager) pager.innerHTML = '';
       return;
     }
-    tbody.innerHTML = vessels.map(function (v) {
-      var cls = TYPE_CLASS[v.type] || '';
-      var aisHref = v.mmsi
-        ? 'https://www.vesselfinder.com/aismap?mmsi=' + v.mmsi
-        : 'https://www.vesselfinder.com/vessels?name=' + encodeURIComponent(v.name);
-      return '<tr>' +
-        '<td class="vt-vessel-name">' + v.name + '</td>' +
-        '<td><span class="vt-type-badge ' + cls + '">' + v.type + '</span></td>' +
-        '<td style="font-size:16px;">' + v.flag + '</td>' +
-        '<td style="color:#154f7a;font-weight:600;font-family:monospace;">' + (v.mmsi || '—') + '</td>' +
-        '<td>' + v.gt + ' GT</td>' +
-        '<td>' + v.dest + '</td>' +
-        '<td><a class="vt-ais-link" href="' + aisHref + '" target="_blank" rel="noopener">↗ AIS</a></td>' +
-        '</tr>';
-    }).join('');
+    vtAllVessels = vessels; vtPage = 1;
+    document.getElementById('vt-vessel-tbody').innerHTML = vessels.slice(0, VT_PAGE_SIZE).map(vtRowHtml).join('');
+    vtRenderPager();
   }
 
   /* ══════════════════════════════════════════════════════
@@ -683,14 +729,14 @@
     if (m) {
       var lat = parseFloat(m[1]), lon = parseFloat(m[2]);
       applyMap(lat, lon, zoom, q);
-      renderTable(null, '좌표 검색 — 지도에서 선박을 직접 클릭해 정보를 확인하세요');
+      renderTable(null, 'Coordinates search — click a vessel on the map for details');
       return;
     }
 
     // Nominatim geocoding
     var btn = document.getElementById('vt-loc-btn');
     btn.disabled = true;
-    btn.textContent = '검색 중…';
+    btn.textContent = 'Searching…';
     fetch('https://nominatim.openstreetmap.org/search?q=' +
       encodeURIComponent(q) + '&format=json&limit=1&accept-language=en',
       { headers: { 'Accept': 'application/json' } })
@@ -700,13 +746,13 @@
           var lat = parseFloat(data[0].lat);
           var lon = parseFloat(data[0].lon);
           applyMap(lat, lon, zoom, data[0].display_name.split(',')[0]);
-          renderTable(null, '"' + q + '" 검색 결과 — 지도에서 선박을 직접 클릭해 정보를 확인하세요');
+          renderTable(null, '"' + q + '" results — click a vessel on the map for details');
         } else {
-          alert('위치를 찾을 수 없습니다. 다른 검색어를 입력해 주세요.');
+          alert('Location not found. Please try a different search term.');
         }
       })
-      .catch(function () { alert('검색 중 오류가 발생했습니다.'); })
-      .finally(function () { btn.disabled = false; btn.textContent = '🔍 검색'; });
+      .catch(function () { alert('An error occurred while searching.'); })
+      .finally(function () { btn.disabled = false; btn.textContent = '🔍 Search'; });
   };
 
   /* ══════════════════════════════════════════════════════
@@ -717,7 +763,7 @@
     if (!code || !COUNTRIES[code]) return;
     var c = COUNTRIES[code];
     applyMap(c.lat, c.lon, c.zoom, c.name);
-    renderTable(null, c.name + ' 해역 — 지도에서 선박을 직접 클릭해 정보를 확인하세요');
+    renderTable(null, c.name + ' waters — click a vessel on the map for details');
   };
 
   /* ══════════════════════════════════════════════════════
@@ -732,8 +778,8 @@
     renderTable(
       vessels,
       vessels
-        ? p.label + ' 대표 선박 ' + vessels.length + '척 · 실시간 위치는 지도 또는 AIS 링크 참조'
-        : p.label + ' — 지도에서 선박을 직접 클릭해 정보를 확인하세요'
+        ? p.name + ' — ' + vessels.length + ' representative vessels · Check AIS link or map for live positions'
+        : p.name + ' — click a vessel on the map for details'
     );
   };
 
@@ -751,18 +797,18 @@
       searchUrl = 'https://www.vesselfinder.com/vessels?mmsi=' + q;
       document.getElementById('vt-map-iframe').src = mapUrl;
       document.getElementById('vt-coord-lbl').textContent = 'MMSI: ' + q;
-      renderTable(null, 'MMSI ' + q + ' — 아래 AIS 링크 또는 지도에서 선박 위치를 확인하세요');
+      renderTable(null, 'MMSI ' + q + ' — check the AIS link or map for vessel position');
     } else {
       searchUrl = 'https://www.vesselfinder.com/vessels?name=' + encodeURIComponent(q);
-      document.getElementById('vt-coord-lbl').textContent = '선박명: ' + q;
+      document.getElementById('vt-coord-lbl').textContent = 'Vessel: ' + q;
       renderTable([{
         name: q,
         type: 'Container',
         flag: '🔍',
         mmsi: '',
         gt: '—',
-        dest: '검색 중...',
-      }], '"' + q + '" 검색 — AIS 링크를 클릭해 실시간 위치를 확인하세요');
+        dest: 'Searching...',
+      }], '"' + q + '"' + ' — click the AIS link for live position');
     }
     window.open(searchUrl, '_blank', 'noopener,noreferrer');
   };
@@ -770,8 +816,8 @@
   /* ══════════════════════════════════════════════════════
      INIT: Singapore default
   ══════════════════════════════════════════════════════ */
-  applyMap(1.26, 103.8, 11, '싱가포르항');
-  renderTable(PORT_VESSELS['singapore'], '싱가포르항 대표 선박 · 실시간 위치는 지도 또는 AIS 링크 참조');
+  applyMap(1.26, 103.8, 11, 'Singapore Port');
+  renderTable(PORT_VESSELS['singapore'], 'Singapore Port — representative vessels · Check AIS link or map for live positions');
 
   /* Enter key support */
   document.getElementById('vt-loc-input').addEventListener('keydown', function (e) {
@@ -782,3 +828,87 @@
   });
 })();
 </script>
+
+<!-- ════ Explore More ════ -->
+<style>
+  #pg-nav{font-family:'Segoe UI',Arial,sans-serif;margin-top:28px;}
+  #pg-nav *{box-sizing:border-box;}
+  .pn-wrap{border-top:2px solid #d0dde8;padding-top:18px;}
+  .pn-eyebrow{color:#9ab5c9;font-size:10px;font-weight:700;letter-spacing:0.9px;margin-bottom:10px;text-transform:uppercase;}
+  .pn-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+  .pn-group{background:linear-gradient(135deg,#051628 0%,#0a2342 55%,#154f7a 100%);border-radius:12px;overflow:hidden;}
+  .pn-gtitle{color:#1affda;font-size:9px;font-weight:800;letter-spacing:1px;padding:10px 16px 6px;text-transform:uppercase;}
+  .pn-list{list-style:none;margin:0;padding:0 0 4px;}
+  .pn-item{border-top:1px solid rgba(255,255,255,0.08);}
+  .pn-link{align-items:center;color:#fff;display:flex;gap:8px;padding:9px 16px;text-decoration:none;transition:background .15s;}
+  .pn-link:hover{background:rgba(255,255,255,0.07);}
+  .pn-bdg{border-radius:5px;flex-shrink:0;font-size:8px;font-weight:800;padding:2px 7px;text-transform:uppercase;white-space:nowrap;}
+  .pn-b-teal{background:rgba(26,158,130,.28);color:#7effd8;}
+  .pn-b-red {background:rgba(239,68,68,.28); color:#fca5a5;}
+  .pn-b-amb {background:rgba(245,158,11,.28);color:#fde68a;}
+  .pn-b-blu {background:rgba(29,137,207,.28);color:#b3d4ff;}
+  .pn-b-yel {background:rgba(255,193,7,.28); color:#ffe082;}
+  .pn-b-ind {background:rgba(100,160,255,.28);color:#c7d8ff;}
+  .pn-b-vio {background:rgba(160,100,255,.28);color:#d4b3ff;}
+  .pn-nm{font-size:12.5px;font-weight:600;line-height:1.35;}
+</style>
+
+<div id="pg-nav">
+  <div class="pn-wrap">
+    <div class="pn-eyebrow">↓ Explore More</div>
+    <div class="pn-grid">
+
+      <!-- LIVE FEED -->
+      <div class="pn-group">
+        <div class="pn-gtitle">🛠️ LIVE FEED Services</div>
+        <ul class="pn-list">
+          <li class="pn-item"><a href="/p/global-newbuilding-orders.html" class="pn-link">
+            <span class="pn-bdg pn-b-teal">Live Feed</span>
+            <span class="pn-nm">🚢 Ship Order Trends</span>
+          </a></li>
+          <li class="pn-item"><a href="/p/maritime-cyber-threat-intel-ransomware.html" class="pn-link">
+            <span class="pn-bdg pn-b-red">Live Feed</span>
+            <span class="pn-nm">🛡️ Maritime Cyber Threat Intel</span>
+          </a></li>
+          <li class="pn-item"><a href="/p/live-feed-maritime-jobs-feed-ai-data.html" class="pn-link">
+            <span class="pn-bdg pn-b-amb">Live Feed</span>
+            <span class="pn-nm">💼 Maritime Jobs Feed</span>
+          </a></li>
+          <li class="pn-item"><a href="/p/smart-vessel-tracking-with-ais.html" class="pn-link">
+            <span class="pn-bdg pn-b-blu">AIS</span>
+            <span class="pn-nm">📡 Vessel Tracking with AIS</span>
+          </a></li>
+        </ul>
+      </div>
+
+      <!-- Compliance + Featured Insights -->
+      <div class="pn-group">
+        <div class="pn-gtitle">🔐 Compliance &amp; Featured Insights</div>
+        <ul class="pn-list">
+          <li class="pn-item"><a href="/p/class-society-cyber-guidelines-iacs-ur.html" class="pn-link">
+            <span class="pn-bdg pn-b-yel">Download</span>
+            <span class="pn-nm">📥 Class Society Cyber Guidelines</span>
+          </a></li>
+          <li class="pn-item"><a href="/p/crsi-iacs-ur-e26e27-system.html" class="pn-link">
+            <span class="pn-bdg pn-b-ind">E26/E27</span>
+            <span class="pn-nm">Classify System Types in IACS UR E26/E27</span>
+          </a></li>
+          <li class="pn-item"><a href="/p/crsi-iacs-ur-e26e27-system_2.html" class="pn-link">
+            <span class="pn-bdg pn-b-ind">E26/E27</span>
+            <span class="pn-nm">New Operating Model for Shipbuilding</span>
+          </a></li>
+          <li class="pn-item"><a href="/p/crsi-iacs-ur-e26e27-system_73.html" class="pn-link">
+            <span class="pn-bdg pn-b-vio">TA/SoC</span>
+            <span class="pn-nm">TA/SoC: Maritime Cybersecurity Compliance</span>
+          </a></li>
+          <li class="pn-item"><a href="/p/crsi-iacs-ur-e26-cybersecurity.html" class="pn-link">
+            <span class="pn-bdg pn-b-vio">Deliverables</span>
+            <span class="pn-nm">IACS UR E26/E27 Cybersecurity Deliverables</span>
+          </a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+

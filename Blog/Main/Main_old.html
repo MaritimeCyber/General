@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!doctype html>
+<!DOCTYPE html>
 <html
   b:css="false"
   b:defaultwidgetversion="2"
@@ -399,15 +399,15 @@
       description="Post title font" type="font" default="$(robotoBold22)"
       value="bold 22px Inter, sans-serif"/> <Variable
       name="posts.stream.title.font" description="Post title stream font"
-      type="font" default="$(robotoBold30)" value="bold 30px Roboto,
+      type="font" default="$(robotoBold30)" value="bold 30px Inter,
       sans-serif"/> <Variable name="posts.text.font" description="Post text
-      font" type="font" default="$(body.text.font)" value="15px Roboto,
+      font" type="font" default="$(body.text.font)" value="15px Inter,
       sans-serif"/> <Variable name="posts.text.color" description="Post text
       color" type="color" default="$(body.text.color)" value="#757575"/>
       <Variable name="posts.byline.color" description="Post byline color"
       type="color" default="rgba(0, 0, 0, 0.54)" value="rgba(0, 0, 0, 0.54)"/>
       <Variable name="blockquote.font" description="Blockquote font" type="font"
-      default="$(robotoLightItalic15)" value="italic 300 15px Roboto,
+      default="$(robotoLightItalic15)" value="italic 300 15px Inter,
       sans-serif"/> <Variable name="blockquote.color" description="Blockquote
       color" type="color" default="#444" value="#444444"/> <Variable
       name="posts.icons.color" description="Post icons color" type="color"
@@ -417,7 +417,7 @@
       <Variable name="search.input.color" description="Input color" type="color"
       default="$(blog.title.color)" value="#424242"/> <Variable
       name="search.input.font" description="Input font" type="font"
-      default="$(robotoNormal16)" value="16px Roboto, sans-serif"/> <Variable
+      default="$(robotoNormal16)" value="16px Inter, sans-serif"/> <Variable
       name="search.placeholder.color" description="Placeholder text color"
       type="color" default="$(blog.title.color)" value="#424242"/> </Group>
       <Group description="Sharing"> <Variable name="sharing.background.color"
@@ -858,9 +858,9 @@
       .centered-bottom .share-buttons .svg-icon-24,.share-buttons .svg-icon-24{
       fill:$(sharing.icons.color) } body{
       background-color:$(body.background.color); color:$(body.text.color);
-      font:$(body.text.font); font-family:'Inter',Roboto,sans-serif; margin:0;
+      font:$(body.text.font); font-family:'Inter',sans-serif; margin:0;
       min-height:100vh } *, button, input, textarea, select {
-      font-family:'Inter',Roboto,sans-serif } img{ max-width:100% } h3{
+      font-family:'Inter',sans-serif } img{ max-width:100% } h3{
       color:$(body.text.color); font-size:16px } a{ text-decoration:none;
       color:$(body.link.color) } a:visited{ color:$(body.link.visited.color) }
       a:hover{ color:$(body.link.hover.color) } blockquote{
@@ -1809,292 +1809,301 @@
       "
     />
     <div id="right-panel">
-      <div class="rp-card" id="rp-card-weather">
-        <div class="rp-head">
-          <span class="rp-title">🌤 Maritime Weather</span>
-          <button class="rp-btn" onclick="rpToggle('rp-card-weather', this)">
-            &#8212;
-          </button>
-        </div>
-        <div class="rp-body">
-          <div id="mw-widget">Loading weather&#8230;</div>
-        </div>
+      <div id="rp-panel-hdr">
+        <span id="rp-panel-label">&#9875; Maritime Hub</span>
+        <button id="rp-master-btn" onclick="rpMasterToggle()">&#9776;</button>
       </div>
-      <div class="rp-card" id="rp-card-hello">
-        <div class="rp-head">
-          <span class="rp-title">📡 Visitor Intel</span>
-          <button class="rp-btn" onclick="rpToggle('rp-card-hello', this)">
-            &#8212;
-          </button>
+      <div id="rp-panel-body">
+        <div class="rp-card" id="rp-card-weather">
+          <div class="rp-head">
+            <span class="rp-title">🌤 Maritime Weather</span>
+            <button class="rp-btn" onclick="rpToggle('rp-card-weather', this)">
+              &#8212;
+            </button>
+          </div>
+          <div class="rp-body">
+            <div id="mw-widget">Loading weather&#8230;</div>
+          </div>
         </div>
-        <div class="rp-body">
-          <div id="hg-right" />
+        <div class="rp-sep" />
+        <div class="rp-card" id="rp-card-hello">
+          <div class="rp-head">
+            <span class="rp-title">📡 Visitor Intel</span>
+            <button class="rp-btn" onclick="rpToggle('rp-card-hello', this)">
+              &#8212;
+            </button>
+          </div>
+          <div class="rp-body">
+            <div id="hg-right" />
+          </div>
         </div>
-      </div>
-      <div class="rp-card" id="rp-card-insights">
-        <div class="rp-head">
-          <span class="rp-title">🔥 Featured Insights</span>
-          <button class="rp-btn" onclick="rpToggle('rp-card-insights', this)">
-            &#8212;
-          </button>
-        </div>
-        <div class="rp-body" style="padding: 4px 0 6px">
-          <a
-            class="rp-svc-link"
-            href="/p/crsi-iacs-ur-e26e27-system.html"
-            style="
-              align-items: center;
-              border-bottom: 1px solid rgba(26, 158, 130, 0.15);
-              color: #b3d4ff;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+        <div class="rp-sep" />
+        <div class="rp-card" id="rp-card-insights">
+          <div class="rp-head">
+            <span class="rp-title">🔥 Featured Insights</span>
+            <button class="rp-btn" onclick="rpToggle('rp-card-insights', this)">
+              &#8212;
+            </button>
+          </div>
+          <div class="rp-body" style="padding: 4px 0 6px">
+            <a
+              class="rp-svc-link"
+              href="/p/crsi-iacs-ur-e26e27-system.html"
               style="
-                background: rgba(29, 137, 207, 0.28);
-                border-radius: 4px;
+                align-items: center;
+                border-bottom: 1px solid rgba(26, 158, 130, 0.15);
                 color: #b3d4ff;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >E26/E27</span
             >
-            Classify System Types in IACS UR E26/E27
-          </a>
-          <a
-            class="rp-svc-link"
-            href="/p/crsi-iacs-ur-e26e27-system_2.html"
-            style="
-              align-items: center;
-              border-bottom: 1px solid rgba(26, 158, 130, 0.15);
-              color: #b3d4ff;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+              <span
+                style="
+                  background: rgba(29, 137, 207, 0.28);
+                  border-radius: 4px;
+                  color: #b3d4ff;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >E26/E27</span
+              >
+              Classify System Types in IACS UR E26/E27
+            </a>
+            <a
+              class="rp-svc-link"
+              href="/p/crsi-iacs-ur-e26e27-system_2.html"
               style="
-                background: rgba(100, 160, 255, 0.28);
-                border-radius: 4px;
+                align-items: center;
+                border-bottom: 1px solid rgba(26, 158, 130, 0.15);
                 color: #b3d4ff;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >E26/E27</span
             >
-            New Operating Model for Shipbuilding
-          </a>
-          <a
-            class="rp-svc-link"
-            href="/p/crsi-iacs-ur-e26e27-system_73.html"
-            style="
-              align-items: center;
-              border-bottom: 1px solid rgba(26, 158, 130, 0.15);
-              color: #ffe082;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+              <span
+                style="
+                  background: rgba(100, 160, 255, 0.28);
+                  border-radius: 4px;
+                  color: #b3d4ff;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >E26/E27</span
+              >
+              New Operating Model for Shipbuilding
+            </a>
+            <a
+              class="rp-svc-link"
+              href="/p/crsi-iacs-ur-e26e27-system_73.html"
               style="
-                background: rgba(255, 193, 7, 0.28);
-                border-radius: 4px;
+                align-items: center;
+                border-bottom: 1px solid rgba(26, 158, 130, 0.15);
                 color: #ffe082;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >TA/SoC</span
             >
-            Maritime Cybersecurity Compliance Guide
-          </a>
-          <a
-            class="rp-svc-link"
-            href="/p/crsi-iacs-ur-e26-cybersecurity.html"
-            style="
-              align-items: center;
-              color: #d4b3ff;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+              <span
+                style="
+                  background: rgba(255, 193, 7, 0.28);
+                  border-radius: 4px;
+                  color: #ffe082;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >TA/SoC</span
+              >
+              Maritime Cybersecurity Compliance Guide
+            </a>
+            <a
+              class="rp-svc-link"
+              href="/p/crsi-iacs-ur-e26-cybersecurity.html"
               style="
-                background: rgba(160, 100, 255, 0.28);
-                border-radius: 4px;
+                align-items: center;
                 color: #d4b3ff;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >Deliverables</span
             >
-            UR E26/E27 Cybersecurity Deliverables
-          </a>
+              <span
+                style="
+                  background: rgba(160, 100, 255, 0.28);
+                  border-radius: 4px;
+                  color: #d4b3ff;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >Deliverables</span
+              >
+              UR E26/E27 Cybersecurity Deliverables
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="rp-card" id="rp-card-services">
-        <div class="rp-head">
-          <span class="rp-title">🛠&#65039; LIVE FEED Service</span>
-          <button class="rp-btn" onclick="rpToggle('rp-card-services', this)">
-            &#8212;
-          </button>
-        </div>
-        <div class="rp-body" style="padding: 4px 0 6px">
-          <a
-            class="rp-svc-link"
-            href="https://www.shippauljobs.com/p/global-newbuilding-orders.html"
-            style="
-              align-items: center;
-              border-bottom: 1px solid rgba(26, 158, 130, 0.15);
-              color: #b3d4ff;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+        <div class="rp-sep" />
+        <div class="rp-card" id="rp-card-services">
+          <div class="rp-head">
+            <span class="rp-title">🛠&#65039; LIVE FEED Service</span>
+            <button class="rp-btn" onclick="rpToggle('rp-card-services', this)">
+              &#8212;
+            </button>
+          </div>
+          <div class="rp-body" style="padding: 4px 0 6px">
+            <a
+              class="rp-svc-link"
+              href="https://www.shippauljobs.com/p/global-newbuilding-orders.html"
               style="
-                background: rgba(29, 137, 207, 0.28);
-                border-radius: 4px;
+                align-items: center;
+                border-bottom: 1px solid rgba(26, 158, 130, 0.15);
                 color: #b3d4ff;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >Feed</span
             >
-            🚢 Ship Order Trend
-          </a>
-          <a
-            class="rp-svc-link"
-            href="https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html"
-            style="
-              align-items: center;
-              border-bottom: 1px solid rgba(26, 158, 130, 0.15);
-              color: #fca5a5;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+              <span
+                style="
+                  background: rgba(29, 137, 207, 0.28);
+                  border-radius: 4px;
+                  color: #b3d4ff;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >Feed</span
+              >
+              🚢 Ship Order Trend
+            </a>
+            <a
+              class="rp-svc-link"
+              href="https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html"
               style="
-                background: rgba(239, 68, 68, 0.28);
-                border-radius: 4px;
+                align-items: center;
+                border-bottom: 1px solid rgba(26, 158, 130, 0.15);
                 color: #fca5a5;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >Feed</span
             >
-            🛡&#65039; Maritime Threat Intel
-          </a>
-          <a
-            class="rp-svc-link"
-            href="https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html"
-            style="
-              align-items: center;
-              border-bottom: 1px solid rgba(26, 158, 130, 0.15);
-              color: #fde68a;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+              <span
+                style="
+                  background: rgba(239, 68, 68, 0.28);
+                  border-radius: 4px;
+                  color: #fca5a5;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >Feed</span
+              >
+              🛡&#65039; Maritime Threat Intel
+            </a>
+            <a
+              class="rp-svc-link"
+              href="https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html"
               style="
-                background: rgba(245, 158, 11, 0.28);
-                border-radius: 4px;
+                align-items: center;
+                border-bottom: 1px solid rgba(26, 158, 130, 0.15);
                 color: #fde68a;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >Feed</span
             >
-            💼 Maritime Job Feed
-          </a>
-          <a
-            class="rp-svc-link"
-            href="https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html"
-            style="
-              align-items: center;
-              color: #a7f3d0;
-              display: flex;
-              font-size: 12px;
-              font-weight: 600;
-              gap: 8px;
-              padding: 9px 12px;
-              text-decoration: none;
-              transition: background 0.15s;
-            "
-          >
-            <span
+              <span
+                style="
+                  background: rgba(245, 158, 11, 0.28);
+                  border-radius: 4px;
+                  color: #fde68a;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >Feed</span
+              >
+              💼 Maritime Job Feed
+            </a>
+            <a
+              class="rp-svc-link"
+              href="https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html"
               style="
-                background: rgba(26, 158, 130, 0.28);
-                border-radius: 4px;
+                align-items: center;
                 color: #a7f3d0;
-                flex-shrink: 0;
-                font-size: 8px;
-                font-weight: 800;
-                padding: 2px 6px;
-                text-transform: uppercase;
+                display: flex;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 8px;
+                padding: 9px 12px;
+                text-decoration: none;
+                transition: background 0.15s;
               "
-              >AIS</span
             >
-            📡 Vessel Tracking with AIS
-          </a>
+              <span
+                style="
+                  background: rgba(26, 158, 130, 0.28);
+                  border-radius: 4px;
+                  color: #a7f3d0;
+                  flex-shrink: 0;
+                  font-size: 8px;
+                  font-weight: 800;
+                  padding: 2px 6px;
+                  text-transform: uppercase;
+                "
+                >AIS</span
+              >
+              📡 Vessel Tracking with AIS
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -2127,21 +2136,31 @@
 
       /* &#9472;&#9472; Post prev/next navigation bar &#9472;&#9472; */
       .spj-post-nav{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px;margin:36px 0 8px;padding-top:20px;border-top:1px solid rgba(26,158,130,0.35);}
-      .spj-pnav-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:linear-gradient(135deg,#0a2342,#0d3a5c);border:1px solid #1a9e82;border-radius:8px;color:#1affda!important;font-size:13px;font-weight:700;text-decoration:none!important;letter-spacing:0.04em;transition:background .2s,box-shadow .2s,color .2s;text-shadow:0 0 8px rgba(26,255,218,0.8),0 0 18px rgba(26,255,218,0.5);box-shadow:0 0 8px rgba(26,158,130,0.4),inset 0 0 6px rgba(26,158,130,0.1);}
-      .spj-pnav-btn:hover{background:linear-gradient(135deg,#0d3a5c,#0f4d3a)!important;border-color:#1affda!important;color:#fff!important;text-shadow:0 0 10px #1affda,0 0 24px #1affda,0 0 40px rgba(26,255,218,0.6)!important;box-shadow:0 0 16px rgba(26,255,218,0.6),0 0 30px rgba(26,158,130,0.3)!important;}
+      .spj-pnav-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:linear-gradient(135deg,#0a2342,#0d3a5c);border:1px solid #1a9e82;border-radius:8px;color:#1affda!important;font-size:13px;font-weight:700;text-decoration:none!important;letter-spacing:0.04em;transition:background .2s,box-shadow .2s,color .2s;text-shadow:0 0 6px rgba(26,255,218,0.4);box-shadow:0 0 8px rgba(26,158,130,0.4),inset 0 0 6px rgba(26,158,130,0.1);}
+      .spj-pnav-btn:hover{background:linear-gradient(135deg,#0d3a5c,#0f4d3a)!important;border-color:#1affda!important;color:#fff!important;text-shadow:0 0 8px rgba(26,255,218,0.6)!important;box-shadow:0 0 16px rgba(26,255,218,0.6),0 0 30px rgba(26,158,130,0.3)!important;}
       .spj-pnav-home{color:#1a9e82!important;font-size:20px;text-decoration:none!important;padding:6px 12px;transition:color .2s,text-shadow .2s;flex-shrink:0;text-shadow:0 0 8px rgba(26,158,130,0.7);}
-      .spj-pnav-home:hover{color:#1affda!important;text-shadow:0 0 12px #1affda,0 0 24px rgba(26,255,218,0.6)!important;}
+      .spj-pnav-home:hover{color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.5)!important;}
       .spj-pnav-label{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
       /* &#9472;&#9472; Right panel &#8212; scrolls with page (position:absolute) &#9472;&#9472; */
-      #right-panel{position:absolute;top:360px;right:12px;z-index:60;display:flex;flex-direction:column;gap:8px;width:252px;pointer-events:auto;}
+      #right-panel{position:absolute;top:360px;right:12px;z-index:60;display:flex;flex-direction:column;width:252px;pointer-events:auto;}
+      /* &#9472;&#9472; Master toggle header &#9472;&#9472; */
+      #rp-panel-hdr{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:4px;}
+      #rp-panel-label{font-family:&#39;Inter&#39;,sans-serif;font-size:10px;font-weight:700;color:rgba(26,255,218,0.6);letter-spacing:0.1em;text-transform:uppercase;}
+      #rp-master-btn{background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:6px;color:#1affda;font-size:15px;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;backdrop-filter:blur(8px);transition:background 0.15s;flex-shrink:0;}
+      #rp-master-btn:hover{background:rgba(26,158,130,0.25);}
+      /* &#9472;&#9472; Panel body (collapsible wrapper) &#9472;&#9472; */
+      #rp-panel-body{background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:10px;backdrop-filter:blur(8px);box-shadow:0 0 20px rgba(26,255,218,0.1);overflow:hidden;}
+      #right-panel.rp-collapsed #rp-panel-body{display:none;}
+      /* &#9472;&#9472; Section divider &#9472;&#9472; */
+      .rp-sep{height:1px;background:rgba(26,158,130,0.35);margin:0;}
       /* &#9472;&#9472; 공통 패널 카드 스타일 &#9472;&#9472; */
-      .rp-card{width:100%;background:rgba(4,12,28,0.84);border:1px solid rgba(26,158,130,0.45);border-radius:10px;backdrop-filter:blur(8px);box-shadow:0 0 20px rgba(26,255,218,0.1);overflow:hidden;}
+      .rp-card{width:100%;background:transparent;overflow:hidden;}
       .rp-head{display:flex;justify-content:space-between;align-items:center;padding:5px 10px 5px 12px;background:rgba(10,35,66,0.65);border-bottom:1px solid rgba(26,158,130,0.35);}
-      .rp-title{font-family:monospace;font-size:11px;font-weight:700;color:#1affda;letter-spacing:0.04em;}
+      .rp-title{font-family:&#39;Inter&#39;,sans-serif;font-size:13px;font-weight:700;color:#1affda;letter-spacing:0.04em;}
       .rp-btn{background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.4);border-radius:3px;color:#1affda;font-family:monospace;font-size:14px;font-weight:700;width:22px;height:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;transition:background 0.15s;}
       .rp-btn:hover{background:rgba(26,158,130,0.32);}
       .rp-card.minimized .rp-body{display:none;}
-      #mw-widget{box-sizing:border-box;padding:10px 14px;font-family:monospace;font-size:12px;color:#c8e4f8;line-height:1.7;overflow:hidden;}
+      #mw-widget{box-sizing:border-box;padding:10px 14px;font-family:&#39;Inter&#39;,sans-serif;font-size:13px;color:#c8e4f8;line-height:1.7;overflow:hidden;}
       /* &#9472;&#9472; Hello Guest (right panel) &#9472;&#9472; */
       #hg-right{overflow:visible;}
       #hg-right #hg-wrap{width:100%!important;max-width:100%!important;height:auto!important;max-height:none!important;margin:0!important;border:none!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;}
@@ -2157,13 +2176,13 @@
       /* &#9472;&#9472; Hide sidebar Hello widget &#9472;&#9472; */
       #HTML4{display:none!important;}
       /* &#9472;&#9472; Weather widget 내부 &#9472;&#9472; */
-      #mw-widget .mw-hdr{font-size:12.5px;font-weight:700;color:#1affda;text-shadow:0 0 8px rgba(26,255,218,0.6);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
-      #mw-widget .mw-city{font-size:10.5px;color:rgba(200,228,248,0.65);font-weight:400;}
+      #mw-widget .mw-hdr{font-size:14px;font-weight:700;color:#1affda;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+      #mw-widget .mw-city{font-size:12px;color:rgba(200,228,248,0.65);font-weight:400;}
       #mw-widget .mw-row{display:flex;justify-content:space-between;gap:10px;margin:1px 0;}
       #mw-widget .mw-row span{white-space:nowrap;}
       #mw-widget .mw-sea{color:#1a9e82;font-weight:700;}
       #mw-widget .mw-hr{border:none;border-top:1px solid rgba(26,158,130,0.3);margin:5px 0;}
-      #mw-widget .mw-nomarine{color:rgba(200,228,248,0.45);font-size:11px;}
+      #mw-widget .mw-nomarine{color:rgba(200,228,248,0.45);font-size:12px;}
       #mw-widget b{color:#1affda;}
       /* &#9472;&#9472; Topical Posts &#8212; 사이드바 통일 스타일 &#9472;&#9472; */
       #Label4{background:none!important;border:none!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
@@ -2181,8 +2200,13 @@
       .sb-btn{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.35);border-radius:3px;color:#154f7a;font-family:monospace;font-size:14px;font-weight:700;width:20px;height:20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;transition:background 0.15s;}
       .sb-btn:hover{background:rgba(21,79,122,0.2);}
       .sb-collapsible.minimized .sb-body{display:none;}
-      /* &#9472;&#9472; 모바일에서 우측 위젯 패널 숨김 &#9472;&#9472; */
-      @media (max-width:1024px){#right-panel{display:none!important;}}
+      /* &#9472;&#9472; 모바일: 패널 바디 숨김, 토글 버튼만 고정 표시 &#9472;&#9472; */
+      @media (max-width:1024px){
+        #right-panel{position:fixed;top:0;right:0;}
+        #rp-panel-label{display:none;}
+        #rp-panel-body{display:none;}
+        #right-panel.rp-mobile-open #rp-panel-body{display:block;max-height:80vh;overflow-y:auto;}
+      }
       .rp-svc-link:hover{background:rgba(26,158,130,0.12)!important;}
       /* &#9472;&#9472; Main content collapsible (dark style) &#9472;&#9472; */
       .mc-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:4px;color:#fff;font-family:monospace;font-size:13px;font-weight:700;width:22px;height:22px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0;align-self:flex-start;margin-top:2px;transition:background 0.15s;}
@@ -2474,10 +2498,10 @@
                       >
                         <b:widget-settings>
                           <b:widget-setting name="pageListJson"
-                            ><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=3","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=3","position":4,"title":"AI
+                            ><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":4,"title":"AI
                             Cyber
-                            Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=3","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=3","position":2,"title":"Maritime
-                            Compliance"},"link6":{"href":"https://www.shippauljobs.com/search/label/Life_story?max-results=3","position":6,"title":"Life"}}]]></b:widget-setting
+                            Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=9","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime
+                            Compliance"},"link6":{"href":"https://www.shippauljobs.com/search/label/Life_story?max-results=9","position":6,"title":"Life"}}]]></b:widget-setting
                           >
                           <b:widget-setting name="homeTitle"
                             >Home</b:widget-setting
@@ -2747,7 +2771,7 @@
                         >true</b:widget-setting
                       >
                       <b:widget-setting name="postId"
-                        >6140389425780492839</b:widget-setting
+                        >2189944521342780760</b:widget-setting
                       >
                       <b:widget-setting name="showFirstImage"
                         >true</b:widget-setting
@@ -5992,7 +6016,7 @@
         <b:widget
           id="HTML3"
           locked="false"
-          title="Find Us on GitHub"
+          title="Find Us for Collaboration"
           type="HTML"
           version="2"
           visible="true"
@@ -6015,18 +6039,39 @@
           </b:includable>
         </b:widget>
         <b:widget
-          id="HTML2"
+          id="HTML12"
           locked="false"
-          title="Purchase products at Coupang!"
+          title="📥 Download"
           type="HTML"
           version="2"
           visible="true"
         >
           <b:widget-settings>
             <b:widget-setting name="content"
-              ><![CDATA[<script
-              src="https://ads-partners.coupang.com/g.js"></script><script>new
-              PartnersCoupang.G({"id":476010,"template":"carousel","trackingCode":"AF0526816","width":"100%","height":"300"});</script>]]></b:widget-setting
+              ><![CDATA[<div style="border-radius:12px;font-family:'Segoe
+              UI',Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);"><div
+              style="padding:14px 16px 12px;"><div
+              style="color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.2px;margin-bottom:6px;text-transform:uppercase;">🔐
+              IACS UR E26 / E27</div><div
+              style="color:white;font-size:14px;font-weight:800;line-height:1.35;margin-bottom:8px;">Class
+              Society<br/>Cyber Guidelines</div><p
+              style="color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0
+              0 12px;">E26/E27 interpretations, society profiles &amp; official
+              document downloads for 9 IACS class societies</p><a
+              href="https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html"
+              rel="noopener"
+              style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px
+              solid
+              #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:12px;font-weight:700;gap:8px;justify-content:center;padding:9px
+              14px;text-decoration:none;" target="_blank">📥 Guidelines &amp;
+              Downloads →</a></div><div
+              style="background:rgba(255,255,255,0.06);border-top:1px solid
+              rgba(255,255,255,0.1);display:flex;flex-wrap:wrap;gap:6px;padding:8px
+              16px;"><span
+              style="color:rgba(200,228,248,0.6);font-size:9.5px;">ABS · BV ·
+              CCS · CRS · DNV</span><span
+              style="color:rgba(200,228,248,0.6);font-size:9.5px;">KR · LR · NK
+              · RINA</span></div></div>]]></b:widget-setting
             >
           </b:widget-settings>
           <b:includable id="main">
@@ -6693,6 +6738,62 @@
 
     <script>
       //<![CDATA[
+      /* ── Right panel master toggle (hamburger) ── */
+      function rpMasterToggle() {
+        var rp = document.getElementById("right-panel");
+        var btn = document.getElementById("rp-master-btn");
+        var isMobile = window.innerWidth <= 1024;
+        if (isMobile) {
+          var open = rp.classList.toggle("rp-mobile-open");
+          btn.textContent = open ? "×" : "☰";
+          try {
+            localStorage.setItem("rp_mobile_open", open ? "1" : "0");
+          } catch (e) {}
+        } else {
+          var collapsed = rp.classList.toggle("rp-collapsed");
+          btn.textContent = collapsed ? "☰" : "×";
+          try {
+            localStorage.setItem("rp_collapsed", collapsed ? "1" : "0");
+          } catch (e) {}
+        }
+      }
+      (function () {
+        function initPanel() {
+          var rp = document.getElementById("right-panel");
+          var btn = document.getElementById("rp-master-btn");
+          if (!rp || !btn) return;
+          var isMobile = window.innerWidth <= 1024;
+          if (isMobile) {
+            try {
+              if (localStorage.getItem("rp_mobile_open") === "1") {
+                rp.classList.add("rp-mobile-open");
+                btn.textContent = "×";
+              } else {
+                btn.textContent = "☰";
+              }
+            } catch (e) {
+              btn.textContent = "☰";
+            }
+          } else {
+            try {
+              if (localStorage.getItem("rp_collapsed") === "1") {
+                rp.classList.add("rp-collapsed");
+                btn.textContent = "☰";
+              } else {
+                btn.textContent = "×";
+              }
+            } catch (e) {
+              btn.textContent = "×";
+            }
+          }
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initPanel);
+        } else {
+          initPanel();
+        }
+      })();
+
       /* ── Right panel widget 최소화 / 원래대로 ── */
       function rpToggle(cardId, btn) {
         var card = document.getElementById(cardId);
@@ -6850,17 +6951,17 @@
         }
       })();
 
-      /* ── Right panel top — 실제 헤더 높이 기준으로 동적 배치 ── */
+      /* ── Right panel top — 데스크톱: 실제 헤더 높이 기준 배치 ── */
       (function () {
         var rp = document.getElementById("right-panel");
         if (!rp) return;
         function setPanelTop() {
+          if (window.innerWidth <= 1024) return; /* 모바일은 별도 처리 */
           var hdr = document.querySelector(".centered-top-container");
           if (!hdr) return;
           var h = hdr.getBoundingClientRect().height;
           if (h > 10) rp.style.top = h + 12 + "px";
         }
-        /* 헤더가 렌더된 후 측정 */
         if (document.readyState === "complete") {
           setTimeout(setPanelTop, 200);
         } else {
