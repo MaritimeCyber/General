@@ -37,73 +37,97 @@
     <button id="cb-send" aria-label="Send">&#8594;</button>
   </div>
 
+  <!-- CTA — full page link -->
+  <div id="cb-cta-row">
+    <a id="cb-cta"
+       href="https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html"
+       target="_blank" rel="noopener noreferrer">
+      &#127760; ShipPaul Intelligence &mdash; Full Version &nbsp;&#8594;
+    </a>
+  </div>
+
 </div>
 
 <script>
 (function () {
 
   /* ── 1. Inject styles ─────────────────────────────────────── */
+  /* Inter 폰트 로드 */
+  var fontLink = document.createElement('link');
+  fontLink.rel = 'stylesheet';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+  document.head.appendChild(fontLink);
+
   var s = document.createElement('style');
   s.textContent = [
-    '#cb-bot{font-family:"Segoe UI",Arial,sans-serif;}',
+    /* Base — GPT dark flat */
+    '#cb-bot{background:#212121;border-radius:12px;font-family:"Inter","Segoe UI",system-ui,sans-serif;overflow:hidden;}',
     '#cb-bot *{box-sizing:border-box;margin:0;padding:0;}',
 
     /* Header */
-    '#cb-hdr{align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);',
-      'display:flex;gap:9px;padding:11px 14px 9px;}',
+    '#cb-hdr{align-items:center;border-bottom:1px solid rgba(255,255,255,0.07);',
+      'display:flex;gap:9px;padding:12px 16px 10px;}',
     '#cb-hdr-icon{font-size:18px;flex-shrink:0;line-height:1;}',
     '#cb-hdr-text{flex:1;}',
-    '#cb-hdr-title{color:#fff;font-size:11px;font-weight:800;letter-spacing:0.05em;}',
-    '#cb-hdr-sub{color:rgba(184,212,234,0.6);font-size:9px;font-weight:600;margin-top:1px;}',
-    '#cb-status-dot{background:#1a9e82;border-radius:50%;flex-shrink:0;height:7px;',
-      'width:7px;box-shadow:0 0 6px rgba(26,158,130,0.7);}',
+    '#cb-hdr-title{color:#ececec;font-size:11.5px;font-weight:700;letter-spacing:0.01em;}',
+    '#cb-hdr-sub{color:#8e8ea0;font-size:9px;font-weight:500;margin-top:2px;}',
+    '#cb-status-dot{background:#10a37f;border-radius:50%;box-shadow:0 0 5px rgba(16,163,127,0.6);',
+      'flex-shrink:0;height:7px;width:7px;}',
 
     /* Chat area */
-    '#cb-chat{display:flex;flex-direction:column;gap:7px;height:210px;',
-      'overflow-y:auto;padding:10px 12px;',
-      'scrollbar-color:rgba(26,158,130,0.35) transparent;scrollbar-width:thin;}',
+    '#cb-chat{display:flex;flex-direction:column;gap:6px;height:210px;',
+      'overflow-y:auto;padding:12px 14px;',
+      'scrollbar-color:rgba(255,255,255,0.1) transparent;scrollbar-width:thin;}',
     '#cb-chat::-webkit-scrollbar{width:4px;}',
-    '#cb-chat::-webkit-scrollbar-thumb{background:rgba(26,158,130,0.35);border-radius:2px;}',
+    '#cb-chat::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:2px;}',
 
-    /* Messages */
-    '.cb-msg{border-radius:8px;font-size:11px;line-height:1.6;max-width:94%;padding:7px 10px;}',
-    '.cb-bot{align-self:flex-start;background:rgba(26,158,130,0.12);',
-      'border-left:2px solid #1a9e82;color:rgba(200,228,248,0.92);}',
-    '.cb-user{align-self:flex-end;background:rgba(255,255,255,0.09);',
-      'border-right:2px solid rgba(200,228,248,0.25);color:#fff;}',
+    /* Messages — GPT flat style */
+    '.cb-msg{border-radius:10px;font-size:11.5px;line-height:1.7;max-width:94%;padding:7px 11px;}',
+    '.cb-bot{align-self:flex-start;background:transparent;border-left:2px solid #10a37f;',
+      'color:#ececec;padding-left:10px;}',
+    '.cb-user{align-self:flex-end;background:#2f2f2f;color:#ececec;}',
 
-    /* Clause block inside bot msg */
-    '.cb-clause{background:rgba(0,0,0,0.22);border-radius:5px;margin:5px 0 0;padding:5px 8px;}',
-    '.cb-clause-ref{color:#7effd8;display:block;font-size:9.5px;font-weight:800;',
-      'letter-spacing:0.04em;margin-bottom:2px;text-transform:uppercase;}',
-    '.cb-clause-text{color:rgba(200,228,248,0.82);font-size:10.5px;line-height:1.55;}',
+    /* Clause block — GPT code block feel */
+    '.cb-clause{background:#1e1e1e;border-left:2px solid #10a37f;border-radius:6px;',
+      'margin:6px 0 0;padding:6px 10px;}',
+    '.cb-clause-ref{color:#10a37f;display:block;font-size:9.5px;font-weight:700;',
+      'letter-spacing:0.06em;margin-bottom:3px;text-transform:uppercase;}',
+    '.cb-clause-text{color:#c5c5c5;font-size:10.5px;line-height:1.6;}',
 
     /* Source links */
-    '.cb-sources{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}',
-    '.cb-src{background:rgba(26,158,130,0.18);border:1px solid rgba(26,158,130,0.38);',
-      'border-radius:4px;color:#7effd8;font-size:8.5px;font-weight:700;',
-      'padding:2px 7px;text-decoration:none;}',
-    '.cb-src:hover{background:rgba(26,158,130,0.35);}',
+    '.cb-sources{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}',
+    '.cb-src{background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.4);',
+      'border-radius:6px;color:#19c37d;font-size:9px;font-weight:600;',
+      'padding:3px 9px;text-decoration:none;transition:background .15s;}',
+    '.cb-src:hover{background:rgba(16,163,127,0.25);}',
 
     /* Chips */
-    '#cb-chips-row{border-bottom:1px solid rgba(255,255,255,0.08);display:flex;',
-      'gap:4px;overflow-x:auto;padding:6px 10px;scrollbar-width:none;}',
+    '#cb-chips-row{border-bottom:1px solid rgba(255,255,255,0.06);display:flex;',
+      'gap:5px;overflow-x:auto;padding:7px 12px;scrollbar-width:none;}',
     '#cb-chips-row::-webkit-scrollbar{display:none;}',
-    '.cb-chip{background:rgba(26,158,130,0.13);border:1px solid rgba(26,158,130,0.38);',
-      'border-radius:10px;color:#7effd8;cursor:pointer;font-size:9px;font-weight:700;',
-      'padding:3px 8px;white-space:nowrap;transition:background .15s;}',
-    '.cb-chip:hover{background:rgba(26,158,130,0.3);}',
+    '.cb-chip{background:#2f2f2f;border:1px solid rgba(255,255,255,0.12);',
+      'border-radius:6px;color:#c5c5c5;cursor:pointer;font-size:8px;font-weight:600;',
+      'letter-spacing:0.2px;padding:3px 8px;white-space:nowrap;transition:background .15s,border-color .15s,color .15s;}',
+    '.cb-chip:hover{background:#3a3a3a;border-color:rgba(16,163,127,0.5);color:#19c37d;}',
 
     /* Input row */
-    '#cb-input-row{display:flex;gap:5px;padding:8px 10px 11px;}',
-    '#cb-input{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.13);',
-      'border-radius:6px;color:#fff;flex:1;font-size:10.5px;outline:none;padding:6px 9px;}',
-    '#cb-input::placeholder{color:rgba(200,228,248,0.35);}',
-    '#cb-input:focus{border-color:#1a9e82;}',
-    '#cb-send{background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;',
-      'border-radius:6px;color:#7effd8;cursor:pointer;font-size:15px;font-weight:700;',
-      'padding:0 10px;transition:background .15s;}',
-    '#cb-send:hover{background:rgba(26,158,130,0.45);}',
+    '#cb-input-row{display:flex;gap:6px;padding:8px 12px 10px;}',
+    '#cb-input{background:#2f2f2f;border:1px solid rgba(255,255,255,0.1);',
+      'border-radius:8px;color:#ececec;flex:1;font-family:inherit;font-size:11px;',
+      'outline:none;padding:7px 11px;}',
+    '#cb-input::placeholder{color:#6b6b6b;}',
+    '#cb-input:focus{border-color:rgba(16,163,127,0.6);}',
+    '#cb-send{align-items:center;background:#10a37f;border:none;border-radius:8px;',
+      'color:#fff;cursor:pointer;display:flex;font-size:15px;font-weight:700;',
+      'justify-content:center;padding:0 13px;transition:background .15s;}',
+    '#cb-send:hover{background:#0d8c6c;}',
+
+    /* CTA footer */
+    '#cb-cta-row{border-top:1px solid rgba(255,255,255,0.06);padding:8px 12px 11px;}',
+    '#cb-cta{align-items:center;background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.4);',
+      'border-radius:8px;color:#19c37d;display:flex;font-family:inherit;font-size:11.5px;font-weight:600;',
+      'justify-content:center;padding:8px 12px;text-decoration:none;transition:background .15s;}',
+    '#cb-cta:hover{background:rgba(16,163,127,0.25);}',
   ].join('');
   document.head.appendChild(s);
 
@@ -426,8 +450,8 @@
   }
 
   function renderAnswer(entry) {
-    var html = '<strong style="color:#fff;font-size:11px;">' + entry.title + '</strong>';
-    html += '<div style="color:rgba(184,212,234,0.75);font-size:10.5px;margin:4px 0 5px;">' + entry.summary + '</div>';
+    var html = '<strong style="color:#ececec;font-size:11.5px;font-weight:700;">' + entry.title + '</strong>';
+    html += '<div style="color:#8e8ea0;font-size:10.5px;margin:4px 0 5px;line-height:1.6;">' + entry.summary + '</div>';
     entry.clauses.forEach(function (c) {
       html += '<div class="cb-clause"><span class="cb-clause-ref">§ ' + c.ref + '</span>' +
               '<span class="cb-clause-text">' + c.text + '</span></div>';
@@ -450,7 +474,7 @@
     } else {
       addMsg(
         'No exact match found.<br>' +
-        '<span style="color:rgba(184,212,234,0.6);font-size:10px;">Try: IACS UR E26, BIMCO, IEC 62443, NIS2, USCG, DNV, KR, ABS, IMO</span>',
+        '<span style="color:#6b6b6b;font-size:10px;">Try: IACS UR E26, BIMCO, IEC 62443, NIS2, USCG, DNV, KR, ABS, IMO</span>',
         'bot'
       );
     }
@@ -458,8 +482,8 @@
 
   /* ── 5. Init & Events ────────────────────────────────────── */
   addMsg(
-    'Hello — I\'m the <strong style="color:#7effd8;">ShipPaul Compliance AI</strong>.<br>' +
-    '<span style="color:rgba(184,212,234,0.75);font-size:10.5px;">' +
+    'Hello — I\'m <strong style="color:#19c37d;">ShipPaul Compliance AI</strong>.<br>' +
+    '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask me about IACS UR E26/E27, BIMCO, NIS2, IEC 62443, USCG, class society rules, and more.</span>',
     'bot'
   );
