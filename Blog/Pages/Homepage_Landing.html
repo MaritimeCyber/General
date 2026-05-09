@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ShipPauljobs — Maritime Cybersecurity Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:#060d1a;color:#fff;line-height:1.6;}
+a{text-decoration:none;}
+@keyframes pulse{0%,100%{opacity:.25;transform:scale(1);}50%{opacity:.7;transform:scale(1.5);}}
+@keyframes pulse2{0%,100%{opacity:.15;transform:scale(1);}60%{opacity:.5;transform:scale(1.8);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scanline{0%{top:-4px;opacity:0;}10%{opacity:.6;}90%{opacity:.4;}100%{top:100%;opacity:0;}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.anim-1{animation:fadeUp .7s ease both;}
+.anim-2{animation:fadeUp .7s .15s ease both;}
+.anim-3{animation:fadeUp .7s .3s ease both;}
+.anim-4{animation:fadeUp .7s .45s ease both;}
+.anim-float{animation:float 6s ease-in-out infinite;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════════ -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,13,26,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07);padding:0 40px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:32px;height:32px;background:linear-gradient(135deg,#1a9e82,#3b82f6);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">⚓</div>
+      <span style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-.3px;">ShipPauljobs</span>
+      <span style="font-size:10px;font-weight:600;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-left:4px;">Maritime 4.0</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="#services" style="color:#9ab5c9;font-size:13px;font-weight:500;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9ab5c9'">Services</a>
+      <a href="#insights" style="color:#9ab5c9;font-size:13px;font-weight:500;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9ab5c9'">Intelligence</a>
+      <a href="#authority" style="color:#9ab5c9;font-size:13px;font-weight:500;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9ab5c9'">About</a>
+      <a href="https://www.shippauljobs.com/p/advertisement-policy.html" target="_blank" style="color:#9ab5c9;font-size:13px;font-weight:500;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#9ab5c9'">Advertise</a>
+      <a href="#cta" style="background:#1a9e82;color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;letter-spacing:.2px;" onmouseover="this.style.background='#16896f'" onmouseout="this.style.background='#1a9e82'">Request Assessment →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     HERO SECTION
+══════════════════════════════════════════════ -->
+<section style="position:relative;min-height:100vh;background:linear-gradient(160deg,#060d1a 0%,#0a1628 45%,#0d1f3c 100%);overflow:hidden;display:flex;align-items:center;padding-top:64px;">
+
+  <!-- Background grid texture -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(26,158,130,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(26,158,130,.04) 1px,transparent 1px);background-size:48px 48px;"></div>
+
+  <!-- Scanline effect -->
+  <div style="position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(26,158,130,.4),transparent);animation:scanline 6s linear infinite;pointer-events:none;"></div>
+
+  <!-- GLOBE — right side, partially clipped -->
+  <div class="anim-float" style="position:absolute;right:-140px;top:50%;transform:translateY(-50%);width:620px;height:620px;opacity:.55;">
+    <svg viewBox="0 0 560 560" width="560" height="560" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="gc"><circle cx="280" cy="280" r="240"/></clipPath>
+        <radialGradient id="gg" cx="38%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#1e5fa8" stop-opacity=".7"/>
+          <stop offset="55%" stop-color="#0d2647" stop-opacity=".9"/>
+          <stop offset="100%" stop-color="#04090f" stop-opacity="1"/>
+        </radialGradient>
+        <radialGradient id="grim" cx="50%" cy="50%" r="50%">
+          <stop offset="85%" stop-color="transparent"/>
+          <stop offset="100%" stop-color="#2a6aad" stop-opacity=".5"/>
+        </radialGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glow2"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <!-- Globe fill -->
+      <circle cx="280" cy="280" r="240" fill="url(#gg)"/>
+      <!-- Latitude lines -->
+      <g clip-path="url(#gc)" stroke="#1a5a9a" stroke-width=".6" fill="none" opacity=".45">
+        <ellipse cx="280" cy="80"  rx="131" ry="33"/>
+        <ellipse cx="280" cy="150" rx="187" ry="47"/>
+        <ellipse cx="280" cy="220" rx="224" ry="56"/>
+        <ellipse cx="280" cy="280" rx="240" ry="60"/>
+        <ellipse cx="280" cy="340" rx="224" ry="56"/>
+        <ellipse cx="280" cy="410" rx="187" ry="47"/>
+        <ellipse cx="280" cy="480" rx="131" ry="33"/>
+      </g>
+      <!-- Longitude lines -->
+      <g clip-path="url(#gc)" stroke="#1a5a9a" stroke-width=".6" fill="none" opacity=".35">
+        <ellipse cx="280" cy="280" rx="60" ry="240"/>
+        <ellipse cx="280" cy="280" rx="60" ry="240" transform="rotate(30 280 280)"/>
+        <ellipse cx="280" cy="280" rx="60" ry="240" transform="rotate(60 280 280)"/>
+        <ellipse cx="280" cy="280" rx="60" ry="240" transform="rotate(90 280 280)"/>
+        <ellipse cx="280" cy="280" rx="60" ry="240" transform="rotate(120 280 280)"/>
+        <ellipse cx="280" cy="280" rx="60" ry="240" transform="rotate(150 280 280)"/>
+      </g>
+      <!-- Shipping route connections -->
+      <g clip-path="url(#gc)" fill="none">
+        <polyline points="155,205 215,230 280,255 345,245 395,265 435,300" stroke="#1a9e82" stroke-width="1.2" opacity=".65" stroke-dasharray="4,3"/>
+        <polyline points="215,230 230,300 260,360" stroke="#3b82f6" stroke-width=".9" opacity=".5" stroke-dasharray="3,4"/>
+        <polyline points="345,245 370,220 415,210" stroke="#1a9e82" stroke-width=".9" opacity=".55" stroke-dasharray="3,4"/>
+        <line x1="155" y1="205" x2="130" y2="235" stroke="#3b82f6" stroke-width=".8" opacity=".45"/>
+        <line x1="280" y1="255" x2="280" y2="320" stroke="#1a9e82" stroke-width=".7" opacity=".4"/>
+        <line x1="395" y1="265" x2="410" y2="330" stroke="#3b82f6" stroke-width=".7" opacity=".4"/>
+      </g>
+      <!-- Network nodes -->
+      <g clip-path="url(#gc)" filter="url(#glow)">
+        <!-- Rotterdam -->
+        <circle cx="155" cy="205" r="5" fill="#7effd8" opacity=".95"/>
+        <circle cx="155" cy="205" r="12" fill="#7effd8" opacity=".15" style="animation:pulse 3s 0s ease-in-out infinite"/>
+        <!-- Suez -->
+        <circle cx="215" cy="230" r="4.5" fill="#1a9e82" opacity=".95"/>
+        <circle cx="215" cy="230" r="11" fill="#1a9e82" opacity=".2" style="animation:pulse 3s .6s ease-in-out infinite"/>
+        <!-- Persian Gulf -->
+        <circle cx="280" cy="255" r="5.5" fill="#3b82f6" opacity=".95"/>
+        <circle cx="280" cy="255" r="13" fill="#3b82f6" opacity=".2" style="animation:pulse 3s 1.2s ease-in-out infinite"/>
+        <!-- Singapore -->
+        <circle cx="345" cy="245" r="6" fill="#7effd8" opacity="1"/>
+        <circle cx="345" cy="245" r="14" fill="#7effd8" opacity=".2" style="animation:pulse2 2.8s 0.4s ease-in-out infinite"/>
+        <!-- Strait of Malacca -->
+        <circle cx="395" cy="265" r="4" fill="#1a9e82" opacity=".9"/>
+        <circle cx="395" cy="265" r="10" fill="#1a9e82" opacity=".15" style="animation:pulse 3.4s .8s ease-in-out infinite"/>
+        <!-- South Korea/Japan -->
+        <circle cx="415" cy="210" r="3.5" fill="#93c5fd" opacity=".85"/>
+        <circle cx="415" cy="210" r="9" fill="#93c5fd" opacity=".15" style="animation:pulse 3s 1.8s ease-in-out infinite"/>
+        <!-- Cape of GH -->
+        <circle cx="200" cy="370" r="3" fill="#1a9e82" opacity=".75"/>
+        <!-- Indian Ocean -->
+        <circle cx="280" cy="320" r="3.5" fill="#3b82f6" opacity=".75"/>
+        <!-- Panama -->
+        <circle cx="130" cy="235" r="3" fill="#7effd8" opacity=".7"/>
+      </g>
+      <!-- Globe rim -->
+      <circle cx="280" cy="280" r="240" fill="none" stroke="#2a6aad" stroke-width="1.5" opacity=".5"/>
+      <circle cx="280" cy="280" r="240" fill="url(#grim)"/>
+    </svg>
+  </div>
+
+  <!-- Left gradient overlay for text readability -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(6,13,26,1) 0%,rgba(6,13,26,.92) 48%,rgba(6,13,26,.45) 72%,rgba(6,13,26,0) 100%);"></div>
+
+  <!-- Hero content -->
+  <div style="position:relative;z-index:10;max-width:1200px;margin:0 auto;padding:80px 40px;width:100%;">
+    <div style="max-width:640px;">
+
+      <!-- Badge row -->
+      <div class="anim-1" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;">
+        <span style="background:rgba(26,158,130,.2);border:1px solid rgba(26,158,130,.4);border-radius:20px;color:#7effd8;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:4px 12px;text-transform:uppercase;">⚓ Maritime 4.0</span>
+        <span style="background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.4);border-radius:20px;color:#93c5fd;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:4px 12px;text-transform:uppercase;">🔐 IACS UR E26/E27</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;color:#b8d4ea;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:4px 12px;text-transform:uppercase;">IEC 62443</span>
+      </div>
+
+      <!-- H1 -->
+      <h1 class="anim-2" style="font-size:52px;font-weight:900;line-height:1.12;letter-spacing:-1.5px;color:#ffffff;margin-bottom:20px;">
+        Your Fleet Is Online.<br/>
+        <span style="background:linear-gradient(90deg,#1a9e82,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Is It Secure?</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="anim-3" style="font-size:17px;color:#9ab5c9;line-height:1.75;margin-bottom:36px;max-width:520px;">
+        Expert intelligence on <strong style="color:#e2ecf7;font-weight:600;">IACS UR E26/E27 compliance</strong>, IEC 62443 OT network design, and PSC readiness — for shipowners, fleet managers, classification societies, and maritime technology providers.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="anim-4" style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:52px;">
+        <a href="#cta" style="display:inline-flex;align-items:center;gap:8px;background:#1a9e82;color:#fff;font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;letter-spacing:.2px;transition:all .2s;" onmouseover="this.style.background='#16896f';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#1a9e82';this.style.transform='translateY(0)'">
+          Request E26 Gap Analysis
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#services" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#b8d4ea;font-size:14px;font-weight:600;padding:14px 28px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);transition:all .2s;" onmouseover="this.style.borderColor='rgba(26,158,130,.6)';this.style.color='#7effd8'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='#b8d4ea'">
+          PSC Ready Assessment
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="anim-4" style="display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(255,255,255,.08);padding-top:28px;">
+        <div style="padding-right:32px;border-right:1px solid rgba(255,255,255,.08);margin-right:32px;">
+          <div style="font-size:28px;font-weight:900;color:#7effd8;letter-spacing:-1px;line-height:1;">25+</div>
+          <div style="font-size:11px;color:#6b8fa8;margin-top:4px;letter-spacing:.3px;">E26/E27 Capability Areas</div>
+        </div>
+        <div style="padding-right:32px;border-right:1px solid rgba(255,255,255,.08);margin-right:32px;">
+          <div style="font-size:28px;font-weight:900;color:#93c5fd;letter-spacing:-1px;line-height:1;">2024</div>
+          <div style="font-size:11px;color:#6b8fa8;margin-top:4px;letter-spacing:.3px;">Newbuild Compliance Start</div>
+        </div>
+        <div>
+          <div style="font-size:28px;font-weight:900;color:#1a9e82;letter-spacing:-1px;line-height:1;">IEC</div>
+          <div style="font-size:11px;color:#6b8fa8;margin-top:4px;letter-spacing:.3px;">62443 OT Framework</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom fade -->
+  <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent,#060d1a);pointer-events:none;"></div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     TRUST / CREDENTIAL BAR
+══════════════════════════════════════════════ -->
+<section style="background:#08111f;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:20px 40px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:40px;">
+    <span style="font-size:10px;font-weight:700;color:#4a6a85;letter-spacing:1.5px;text-transform:uppercase;">Covering</span>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#1a9e82;display:inline-block;"></span>
+      <span style="font-size:12px;font-weight:700;color:#7effd8;letter-spacing:.5px;">IACS UR E26</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#1a9e82;display:inline-block;"></span>
+      <span style="font-size:12px;font-weight:700;color:#7effd8;letter-spacing:.5px;">IACS UR E27</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#3b82f6;display:inline-block;"></span>
+      <span style="font-size:12px;font-weight:600;color:#93c5fd;letter-spacing:.5px;">IEC 62443</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#3b82f6;display:inline-block;"></span>
+      <span style="font-size:12px;font-weight:600;color:#93c5fd;letter-spacing:.5px;">IMO MSC-FAL.1</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#b8d4ea;display:inline-block;"></span>
+      <span style="font-size:12px;font-weight:600;color:#b8d4ea;letter-spacing:.5px;">NIST CSF</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:#b8d4ea;display:inline-block;"></span>
+      <span style="font-size:12px;font-weight:600;color:#b8d4ea;letter-spacing:.5px;">ISM Code</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     WHO WE SERVE
+══════════════════════════════════════════════ -->
+<section style="background:#060d1a;padding:96px 40px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a9e82;">Who We Serve</span>
+      <h2 style="font-size:36px;font-weight:800;color:#fff;margin-top:12px;letter-spacing:-.8px;">Built for Maritime Decision-Makers</h2>
+      <p style="font-size:15px;color:#6b8fa8;margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;">Whether you operate vessels, certify them, build them, or secure them — this platform is your intelligence resource.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;">
+
+      <!-- Card 1 -->
+      <div style="background:linear-gradient(160deg,#0d1f3c,#08111f);border:1.5px solid rgba(26,158,130,.2);border-radius:14px;padding:28px 24px;transition:all .2s;" onmouseover="this.style.borderColor='rgba(26,158,130,.6)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(26,158,130,.2)';this.style.transform='translateY(0)'">
+        <div style="font-size:28px;margin-bottom:14px;">🚢</div>
+        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">Shipowners &amp; Fleet Operators</div>
+        <p style="font-size:12.5px;color:#6b8fa8;line-height:1.65;">Understand IACS compliance obligations, PSC inspection risk, and how to protect vessel OT networks without operational disruption.</p>
+        <div style="margin-top:16px;font-size:11px;font-weight:700;color:#1a9e82;">PSC Readiness · E26 Compliance →</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div style="background:linear-gradient(160deg,#0d1f3c,#08111f);border:1.5px solid rgba(59,130,246,.15);border-radius:14px;padding:28px 24px;transition:all .2s;" onmouseover="this.style.borderColor='rgba(59,130,246,.5)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(59,130,246,.15)';this.style.transform='translateY(0)'">
+        <div style="font-size:28px;margin-bottom:14px;">🏗️</div>
+        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">Shipyards &amp; Newbuilding</div>
+        <p style="font-size:12.5px;color:#6b8fa8;line-height:1.65;">Navigate E26/E27 requirements from contract stage. Integrate IEC 62443 zone design and SBOM management into build processes.</p>
+        <div style="margin-top:16px;font-size:11px;font-weight:700;color:#3b82f6;">E26 Gap Analysis · OT Design →</div>
+      </div>
+
+      <!-- Card 3 -->
+      <div style="background:linear-gradient(160deg,#0d1f3c,#08111f);border:1.5px solid rgba(26,158,130,.15);border-radius:14px;padding:28px 24px;transition:all .2s;" onmouseover="this.style.borderColor='rgba(26,158,130,.5)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(26,158,130,.15)';this.style.transform='translateY(0)'">
+        <div style="font-size:28px;margin-bottom:14px;">🛡️</div>
+        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">System Vendors &amp; Integrators</div>
+        <p style="font-size:12.5px;color:#6b8fa8;line-height:1.65;">Align your products with IACS UR E27 cybersecurity requirements. Understand conduit mapping, SBOM obligations, and class notation paths.</p>
+        <div style="margin-top:16px;font-size:11px;font-weight:700;color:#1a9e82;">Vendor Compliance · SBOM →</div>
+      </div>
+
+      <!-- Card 4 -->
+      <div style="background:linear-gradient(160deg,#0d1f3c,#08111f);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:28px 24px;transition:all .2s;" onmouseover="this.style.borderColor='rgba(255,255,255,.2)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform='translateY(0)'">
+        <div style="font-size:28px;margin-bottom:14px;">📋</div>
+        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;">Consultants &amp; Surveyors</div>
+        <p style="font-size:12.5px;color:#6b8fa8;line-height:1.65;">Access structured capability matrices, UR clause mappings, and OT security frameworks. Reference material for audits, surveys, and advisory engagements.</p>
+        <div style="margin-top:16px;font-size:11px;font-weight:700;color:#b8d4ea;">Capability Matrix · UR Mapping →</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     CORE SERVICES
+══════════════════════════════════════════════ -->
+<section id="services" style="background:#08111f;padding:96px 40px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a9e82;">Services</span>
+      <h2 style="font-size:36px;font-weight:800;color:#fff;margin-top:12px;letter-spacing:-.8px;">What You Can Do Here</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">
+
+      <!-- Service 1: PSC Assessment -->
+      <div style="background:#0d1f3c;border:1.5px solid rgba(26,158,130,.3);border-radius:16px;overflow:hidden;transition:all .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(26,158,130,.12)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <div style="background:linear-gradient(135deg,#0a2e28,#0d3b30);padding:24px 24px 20px;border-bottom:1px solid rgba(26,158,130,.2);">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:40px;height:40px;background:rgba(26,158,130,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">🔍</div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;">Assessment</div>
+              <div style="font-size:16px;font-weight:800;color:#fff;margin-top:1px;">PSC Ready Assessment</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:22px 24px;">
+          <p style="font-size:13px;color:#6b8fa8;line-height:1.7;margin-bottom:16px;">Evaluate your vessel's readiness for PSC cyber inspection. Identify documentation gaps, SSLS compliance posture, and E26 evidence requirements before the next port call.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;">
+            <span style="background:rgba(26,158,130,.1);border:1px solid rgba(26,158,130,.2);border-radius:6px;color:#7effd8;font-size:10.5px;font-weight:600;padding:3px 10px;">PSC Documentation</span>
+            <span style="background:rgba(26,158,130,.1);border:1px solid rgba(26,158,130,.2);border-radius:6px;color:#7effd8;font-size:10.5px;font-weight:600;padding:3px 10px;">SSLS Audit</span>
+            <span style="background:rgba(26,158,130,.1);border:1px solid rgba(26,158,130,.2);border-radius:6px;color:#7effd8;font-size:10.5px;font-weight:600;padding:3px 10px;">Annual Survey Prep</span>
+          </div>
+          <a href="#cta" style="display:inline-flex;align-items:center;gap:6px;background:#1a9e82;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;" onmouseover="this.style.background='#16896f'" onmouseout="this.style.background='#1a9e82'">Request Assessment →</a>
+        </div>
+      </div>
+
+      <!-- Service 2: E26 Gap Analysis -->
+      <div style="background:#0d1f3c;border:1.5px solid rgba(59,130,246,.25);border-radius:16px;overflow:hidden;transition:all .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(59,130,246,.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <div style="background:linear-gradient(135deg,#0d1a2e,#102238);padding:24px 24px 20px;border-bottom:1px solid rgba(59,130,246,.2);">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:40px;height:40px;background:rgba(59,130,246,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">📊</div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#3b82f6;letter-spacing:1px;text-transform:uppercase;">Compliance</div>
+              <div style="font-size:16px;font-weight:800;color:#fff;margin-top:1px;">E26 / E27 Gap Analysis</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:22px 24px;">
+          <p style="font-size:13px;color:#6b8fa8;line-height:1.7;margin-bottom:16px;">Map your current OT security posture against the 25 capability areas of IACS UR E26/E27. Prioritise remediation by NIST CSF phase and identify solution requirements.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;">
+            <span style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);border-radius:6px;color:#93c5fd;font-size:10.5px;font-weight:600;padding:3px 10px;">25 Capabilities</span>
+            <span style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);border-radius:6px;color:#93c5fd;font-size:10.5px;font-weight:600;padding:3px 10px;">NIST CSF Mapping</span>
+            <span style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);border-radius:6px;color:#93c5fd;font-size:10.5px;font-weight:600;padding:3px 10px;">IEC 62443</span>
+          </div>
+          <a href="#cta" style="display:inline-flex;align-items:center;gap:6px;background:#3b82f6;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">Start Gap Analysis →</a>
+        </div>
+      </div>
+
+      <!-- Service 3: Intelligence & Advertising -->
+      <div style="background:#0d1f3c;border:1.5px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;transition:all .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 40px rgba(0,0,0,.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <div style="background:linear-gradient(135deg,#141428,#0d1f3c);padding:24px 24px 20px;border-bottom:1px solid rgba(255,255,255,.08);">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:40px;height:40px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">📡</div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#b8d4ea;letter-spacing:1px;text-transform:uppercase;">Intelligence</div>
+              <div style="font-size:16px;font-weight:800;color:#fff;margin-top:1px;">Insights &amp; Industry Reach</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:22px 24px;">
+          <p style="font-size:13px;color:#6b8fa8;line-height:1.7;margin-bottom:16px;">Access expert analysis, regulatory updates, and technical deep-dives. Advertise shipboard systems, recruit specialists, or submit career profiles to a targeted maritime cyber audience.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;">
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#b8d4ea;font-size:10.5px;font-weight:600;padding:3px 10px;">Expert Articles</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#b8d4ea;font-size:10.5px;font-weight:600;padding:3px 10px;">Job Postings</span>
+            <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#b8d4ea;font-size:10.5px;font-weight:600;padding:3px 10px;">Sponsored Content</span>
+          </div>
+          <a href="https://www.shippauljobs.com/p/advertisement-policy.html" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);color:#e2ecf7;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;border:1px solid rgba(255,255,255,.12);" onmouseover="this.style.background='rgba(255,255,255,.13)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">View Ad Options →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     LATEST INTELLIGENCE
+══════════════════════════════════════════════ -->
+<section id="insights" style="background:#060d1a;padding:96px 40px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a9e82;">Intelligence</span>
+        <h2 style="font-size:32px;font-weight:800;color:#fff;margin-top:10px;letter-spacing:-.7px;">Latest From the Bridge</h2>
+      </div>
+      <a href="https://shippauljobs.blogspot.com" target="_blank" style="font-size:13px;font-weight:600;color:#1a9e82;border:1px solid rgba(26,158,130,.3);padding:8px 18px;border-radius:8px;" onmouseover="this.style.background='rgba(26,158,130,.1)'" onmouseout="this.style.background='transparent'">All Articles →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;">
+
+      <!-- Article card 1 -->
+      <article style="background:#08111f;border:1.5px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;transition:all .2s;" onmouseover="this.style.borderColor='rgba(26,158,130,.35)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform='translateY(0)'">
+        <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);padding:28px 24px 22px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="background:rgba(26,158,130,.35);border-radius:4px;color:#7effd8;font-size:9.5px;font-weight:700;padding:2px 8px;text-transform:uppercase;">IACS UR E26/E27</span>
+          </div>
+          <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.4;">IACS UR E26/E27 Compliance Matrix: Cybersecurity Solutions for Maritime OT</div>
+        </div>
+        <div style="padding:18px 22px;">
+          <p style="font-size:12.5px;color:#6b8fa8;line-height:1.65;margin-bottom:14px;">25 capability areas × NIST CSF 5 phases — interactive matrix mapping solutions to E26/E27 requirements for shipowners, yards, and vendors.</p>
+          <a href="https://www.shippauljobs.com/2026/05/ship-cybersecurity-capability-matrix.html" target="_blank" style="font-size:12px;font-weight:700;color:#1a9e82;">Read Article →</a>
+        </div>
+      </article>
+
+      <!-- Article card 2 -->
+      <article style="background:#08111f;border:1.5px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;transition:all .2s;" onmouseover="this.style.borderColor='rgba(59,130,246,.35)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform='translateY(0)'">
+        <div style="background:linear-gradient(135deg,#0a1a3c,#0d2e60,#154f7a);padding:28px 24px 22px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="background:rgba(59,130,246,.3);border-radius:4px;color:#93c5fd;font-size:9.5px;font-weight:700;padding:2px 8px;text-transform:uppercase;">OT Security</span>
+          </div>
+          <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.4;">IEC 62443 Zone Design for Shipboard OT Networks</div>
+        </div>
+        <div style="padding:18px 22px;">
+          <p style="font-size:12.5px;color:#6b8fa8;line-height:1.65;margin-bottom:14px;">How to implement IEC 62443-3-2 security zone architecture on vessels — conduit mapping, VLAN design, and firewall policy for maritime OT environments.</p>
+          <a href="https://shippauljobs.blogspot.com" target="_blank" style="font-size:12px;font-weight:700;color:#3b82f6;">Read Article →</a>
+        </div>
+      </article>
+
+      <!-- Article card 3 -->
+      <article style="background:#08111f;border:1.5px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;transition:all .2s;" onmouseover="this.style.borderColor='rgba(26,158,130,.35)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform='translateY(0)'">
+        <div style="background:linear-gradient(135deg,#1a1a08,#2a2a0a,#1a4a0a);padding:28px 24px 22px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span style="background:rgba(200,200,50,.2);border-radius:4px;color:#e8e870;font-size:9.5px;font-weight:700;padding:2px 8px;text-transform:uppercase;">PSC Readiness</span>
+          </div>
+          <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.4;">PSC Cyber Inspection: What Port State Control Officers Actually Check</div>
+        </div>
+        <div style="padding:18px 22px;">
+          <p style="font-size:12.5px;color:#6b8fa8;line-height:1.65;margin-bottom:14px;">Practical guide to PSC cyber inspections — documentation required, common deficiencies, and how to prepare your fleet for the new cyber-aware inspection regime.</p>
+          <a href="https://shippauljobs.blogspot.com" target="_blank" style="font-size:12px;font-weight:700;color:#1a9e82;">Read Article →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     AUTHORITY — CAPTAIN ETHAN
+══════════════════════════════════════════════ -->
+<section id="authority" style="background:#08111f;padding:96px 40px;border-top:1px solid rgba(255,255,255,.05);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+
+      <div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a9e82;">Authority</span>
+        <h2 style="font-size:32px;font-weight:800;color:#fff;margin-top:12px;letter-spacing:-.7px;margin-bottom:20px;">Guidance You Can Trust</h2>
+        <p style="font-size:15px;color:#9ab5c9;line-height:1.8;margin-bottom:24px;">ShipPauljobs is the independent intelligence platform for maritime cybersecurity professionals. Led by Captain Ethan (In Sung Lee), a specialist in maritime OT security, IACS UR E26/E27 compliance, and smart vessel digital transformation.</p>
+        <p style="font-size:14px;color:#6b8fa8;line-height:1.75;margin-bottom:32px;">Every analysis, capability matrix, and compliance framework published here is grounded in technical reality — not marketing language. Designed for the engineering deck, the boardroom, and the survey floor.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <span style="background:#0d1f3c;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#b8d4ea;font-size:12px;font-weight:600;padding:7px 14px;">Maritime OT Security</span>
+          <span style="background:#0d1f3c;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#b8d4ea;font-size:12px;font-weight:600;padding:7px 14px;">IACS UR E26/E27</span>
+          <span style="background:#0d1f3c;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#b8d4ea;font-size:12px;font-weight:600;padding:7px 14px;">IEC 62443</span>
+          <span style="background:#0d1f3c;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#b8d4ea;font-size:12px;font-weight:600;padding:7px 14px;">Smart Vessel Design</span>
+          <span style="background:#0d1f3c;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#b8d4ea;font-size:12px;font-weight:600;padding:7px 14px;">AI &amp; Data Analytics</span>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(160deg,#0d1f3c,#08111f);border:1.5px solid rgba(255,255,255,.08);border-radius:20px;padding:36px 32px;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.07);">
+          <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Ethan" style="width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;flex-shrink:0;"/>
+          <div>
+            <div style="font-size:17px;font-weight:800;color:#fff;">Captain Ethan</div>
+            <div style="font-size:12px;color:#1a9e82;font-weight:600;margin-top:2px;">In Sung Lee</div>
+            <div style="font-size:11px;color:#6b8fa8;margin-top:3px;">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#1a9e82;font-size:14px;flex-shrink:0;margin-top:1px;">✓</span>
+            <span style="font-size:13px;color:#9ab5c9;line-height:1.5;">IACS UR E26/E27 technical framework analysis &amp; compliance guidance</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#1a9e82;font-size:14px;flex-shrink:0;margin-top:1px;">✓</span>
+            <span style="font-size:13px;color:#9ab5c9;line-height:1.5;">OT network zone design based on IEC 62443-3-2</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#1a9e82;font-size:14px;flex-shrink:0;margin-top:1px;">✓</span>
+            <span style="font-size:13px;color:#9ab5c9;line-height:1.5;">Smart vessel digital transformation &amp; Maritime 4.0 architecture</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <span style="color:#1a9e82;font-size:14px;flex-shrink:0;margin-top:1px;">✓</span>
+            <span style="font-size:13px;color:#9ab5c9;line-height:1.5;">PSC readiness documentation &amp; annual survey preparation</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" style="flex:1;text-align:center;background:rgba(26,158,130,.15);border:1px solid rgba(26,158,130,.3);color:#7effd8;font-size:12px;font-weight:700;padding:10px;border-radius:8px;" onmouseover="this.style.background='rgba(26,158,130,.25)'" onmouseout="this.style.background='rgba(26,158,130,.15)'">💼 LinkedIn</a>
+          <a href="https://shippauljobs.blogspot.com" target="_blank" style="flex:1;text-align:center;background:#0a2342;border:1px solid rgba(255,255,255,.12);color:#e2ecf7;font-size:12px;font-weight:700;padding:10px;border-radius:8px;" onmouseover="this.style.background='#154f7a'" onmouseout="this.style.background='#0a2342'">🌐 All Articles</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     FINAL CTA BANNER
+══════════════════════════════════════════════ -->
+<section id="cta" style="background:linear-gradient(135deg,#0a1628 0%,#0d2647 50%,#0a2e28 100%);padding:100px 40px;border-top:1px solid rgba(26,158,130,.2);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(26,158,130,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(26,158,130,.03) 1px,transparent 1px);background-size:40px 40px;"></div>
+  <div style="position:relative;z-index:1;max-width:720px;margin:0 auto;text-align:center;">
+    <span style="background:rgba(26,158,130,.2);border:1px solid rgba(26,158,130,.4);border-radius:20px;color:#7effd8;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:4px 14px;text-transform:uppercase;">Get Started</span>
+    <h2 style="font-size:40px;font-weight:900;color:#fff;margin-top:20px;letter-spacing:-1.2px;line-height:1.15;">Ready to Secure Your Fleet?</h2>
+    <p style="font-size:16px;color:#9ab5c9;margin-top:16px;line-height:1.75;margin-bottom:40px;">Whether you need an E26 gap analysis, PSC readiness review, or expert guidance on maritime OT security — get in touch. No obligation, no marketing pitch.</p>
+    <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:14px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#1a9e82;color:#fff;font-size:14px;font-weight:700;padding:15px 32px;border-radius:10px;letter-spacing:.2px;" onmouseover="this.style.background='#16896f'" onmouseout="this.style.background='#1a9e82'">
+        Request E26 Gap Analysis
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#b8d4ea;font-size:14px;font-weight:600;padding:15px 32px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);" onmouseover="this.style.borderColor='rgba(26,158,130,.5)';this.style.color='#7effd8'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='#b8d4ea'">
+        PSC Ready Assessment
+      </a>
+    </div>
+    <p style="font-size:12px;color:#4a6a85;margin-top:24px;">Contact via LinkedIn · Response within 48 hours · No obligation</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer style="background:#04080f;border-top:1px solid rgba(255,255,255,.06);padding:48px 40px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:28px;height:28px;background:linear-gradient(135deg,#1a9e82,#3b82f6);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;">⚓</div>
+      <span style="font-size:14px;font-weight:800;color:#fff;">ShipPauljobs</span>
+      <span style="font-size:10px;color:#4a6a85;margin-left:4px;">Maritime 4.0 · Cybersecurity Intelligence</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+      <a href="https://shippauljobs.blogspot.com" target="_blank" style="font-size:12px;color:#4a6a85;" onmouseover="this.style.color='#9ab5c9'" onmouseout="this.style.color='#4a6a85'">Blog</a>
+      <a href="https://www.shippauljobs.com/p/advertisement-policy.html" target="_blank" style="font-size:12px;color:#4a6a85;" onmouseover="this.style.color='#9ab5c9'" onmouseout="this.style.color='#4a6a85'">Advertise</a>
+      <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" style="font-size:12px;color:#4a6a85;" onmouseover="this.style.color='#9ab5c9'" onmouseout="this.style.color='#4a6a85'">LinkedIn</a>
+    </div>
+    <div style="font-size:11px;color:#2a4a62;">© 2026 ShipPauljobs · shippauljobs.com</div>
+  </div>
+</footer>
+
+</body>
+</html>
