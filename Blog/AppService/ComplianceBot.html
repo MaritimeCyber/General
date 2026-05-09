@@ -37,15 +37,6 @@
     <button id="cb-send" aria-label="Send">&#8594;</button>
   </div>
 
-  <!-- CTA — full page link -->
-  <div id="cb-cta-row">
-    <a id="cb-cta"
-       href="https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html"
-       target="_blank" rel="noopener noreferrer">
-      &#127760; ShipPaul Intelligence &mdash; Full Version &nbsp;&#8594;
-    </a>
-  </div>
-
 </div>
 
 <script>
@@ -121,13 +112,6 @@
       'color:#fff;cursor:pointer;display:flex;font-size:16px;font-weight:700;',
       'justify-content:center;min-width:44px;padding:0 15px;transition:background .15s;}',
     '#cb-send:hover{background:#0d8c6c;}',
-
-    /* CTA footer */
-    '#cb-cta-row{border-top:1px solid rgba(255,255,255,0.06);padding:12px 16px 16px;}',
-    '#cb-cta{align-items:center;background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.4);',
-      'border-radius:10px;color:#19c37d;display:flex;font-family:inherit;font-size:12px;font-weight:600;',
-      'justify-content:center;padding:10px 14px;text-decoration:none;transition:background .15s;}',
-    '#cb-cta:hover{background:rgba(16,163,127,0.25);}',
   ].join('');
   document.head.appendChild(s);
 
@@ -453,7 +437,7 @@
     var html = '<strong style="color:#ececec;font-size:11.5px;font-weight:700;">' + entry.title + '</strong>';
     html += '<div style="color:#8e8ea0;font-size:10.5px;margin:4px 0 5px;line-height:1.6;">' + entry.summary + '</div>';
     entry.clauses.forEach(function (c) {
-      html += '<div class="cb-clause"><span class="cb-clause-ref">§ ' + c.ref + '</span>' +
+      html += '<div class="cb-clause"><span class="cb-clause-ref">' + c.ref + '</span>' +
               '<span class="cb-clause-text">' + c.text + '</span></div>';
     });
     html += '<div class="cb-sources">';
