@@ -100,6 +100,8 @@
     '.cb-clause-doc{color:#6fcfb0;display:block;font-size:9px;font-weight:700;letter-spacing:0.05em;margin-bottom:2px;text-transform:uppercase;}',
     '.cb-clause-ref{color:#10a37f;display:block;font-size:10px;font-weight:700;letter-spacing:0.04em;margin-bottom:4px;}',
     '.cb-clause-text{color:#c5c5c5;font-size:11px;line-height:1.65;}',
+    '.cb-doc-link{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(111,207,176,0.4);transition:border-color .15s,opacity .15s;}',
+    '.cb-doc-link:hover{border-bottom-color:#6fcfb0;opacity:0.8;}',
     '.cb-sources{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}',
     '.cb-src{background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.4);border-radius:6px;color:#19c37d;font-size:9.5px;font-weight:600;padding:4px 11px;text-decoration:none;transition:background .15s;}',
     '.cb-src:hover{background:rgba(16,163,127,0.25);}',
@@ -110,6 +112,8 @@
     '.cb-gpt-badge{background:rgba(16,163,127,0.15);border-radius:4px;color:#19c37d;font-size:8px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;text-transform:uppercase;vertical-align:middle;}',
     '.cb-gpt-text{color:#c5c5c5;font-size:11px;line-height:1.75;}',
     '.cb-gpt-ref{color:#6fcfb0;font-size:10px;font-weight:700;}',
+    '.cb-gpt-url{color:#19c37d;font-size:10px;text-decoration:none;word-break:break-all;}',
+    '.cb-gpt-url:hover{text-decoration:underline;}',
     '.cb-thinking{animation:cb-blink 1.2s ease-in-out infinite;color:#5a5a6e;font-size:11px;}',
     '@keyframes cb-blink{0%,100%{opacity:0.4;}50%{opacity:1.0;}}',
     '#cb-chips-row{border-bottom:1px solid rgba(255,255,255,0.06);display:flex;gap:6px;overflow-x:auto;padding:10px 16px;scrollbar-width:none;}',
@@ -177,6 +181,7 @@
   }
 
   /* ── 3. Knowledge Base ───────────────────────────────────── */
+  /* docUrl per clause: clicking the document name opens the official source */
   var KB = [
     {
       id: 'iacs_e26',
@@ -184,15 +189,20 @@
       title: 'IACS UR E26 — Cyber Resilience of Ships',
       summary: 'Mandatory cyber requirements for all newbuildings contracted on/after 1 July 2024.',
       clauses: [
-        { doc: 'IACS UR E26 Rev.1 (Jul 2024)',  ref: 'Sec.1 — Scope & Application',
+        { doc: 'IACS UR E26 Rev.1 (Jul 2024)',  docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.1 — Scope & Application',
           text: 'Applies to all newbuildings (contract date ≥ 1 Jul 2024) across all IACS member class societies. Covers all onboard OT/IT systems essential for safe operation.' },
-        { doc: 'IACS UR E26 Rev.1',              ref: 'Sec.4 — Security Functions (Identify · Protect · Detect · Respond · Recover)',
+        { doc: 'IACS UR E26 Rev.1',              docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.4 — Security Functions (Identify · Protect · Detect · Respond · Recover)',
           text: 'Five core functions: Identify (asset inventory & risk assessment) → Protect (access control, patch management) → Detect (anomaly/intrusion monitoring) → Respond (incident response plan) → Recover (backup, restoration).' },
-        { doc: 'IACS UR E26 Rev.1',              ref: 'Sec.3 — Security Zones & Conduits',
+        { doc: 'IACS UR E26 Rev.1',              docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.3 — Security Zones & Conduits',
           text: 'Shipboard systems must be segregated into Security Zones by criticality. Data flow between zones controlled via Conduits (firewalls, DMZ). Zone diagram required at delivery.' },
-        { doc: 'IACS UR E26 Rev.1',              ref: 'Sec.5 — Ship Delivery Requirements',
+        { doc: 'IACS UR E26 Rev.1',              docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.5 — Ship Delivery Requirements',
           text: 'At delivery: Design documentation, Cyber Risk Assessment, Zone/Conduit diagram, and functional test results must be submitted to the class society surveyor.' },
-        { doc: 'IACS UR E26 Rev.1 + UR E27',    ref: 'Sec.2 — Equipment TA/SoC Requirement',
+        { doc: 'IACS UR E26 Rev.1 + UR E27',    docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.2 — Equipment TA/SoC Requirement',
           text: 'All Computer Based Systems (CBS) installed on E26 ships must hold a valid Type Approval (TA) or Statement of Compliance (SoC) issued per IACS UR E27.' }
       ],
       sources: [
@@ -206,15 +216,20 @@
       title: 'IACS UR E27 — Cyber Resilience of Equipment',
       summary: 'Cyber requirements for OEM equipment manufacturers supplying Computer Based Systems (CBS) to E26 ships.',
       clauses: [
-        { doc: 'IACS UR E27 Rev.1 (Jul 2024)',  ref: 'Sec.1 — Scope',
+        { doc: 'IACS UR E27 Rev.1 (Jul 2024)',  docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.1 — Scope',
           text: 'Applies to all CBS installed on ships subject to UR E26. Equipment manufacturers (OEMs) must demonstrate security capability through TA or SoC issued by a class society.' },
-        { doc: 'IACS UR E27 Rev.1',              ref: 'Sec.3 — Security-by-Design Requirements',
+        { doc: 'IACS UR E27 Rev.1',              docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.3 — Security-by-Design Requirements',
           text: 'OEMs must implement: secure default configurations, minimal attack surface, authenticated interfaces, encrypted communications, and software update/patch mechanisms.' },
-        { doc: 'IACS UR E27 Rev.1',              ref: 'Sec.2 — Documentation Package',
+        { doc: 'IACS UR E27 Rev.1',              docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.2 — Documentation Package',
           text: 'Required: Security Capability Statement, Hardware/Software Bill of Materials (HBOM/SBOM), Vulnerability Disclosure Policy, and Security Test Report.' },
-        { doc: 'IACS UR E27 Rev.1',              ref: 'Sec.4 — Type Approval (TA) Process',
+        { doc: 'IACS UR E27 Rev.1',              docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.4 — Type Approval (TA) Process',
           text: 'Class societies review documentation + security testing → issue TA certificate valid 5 years. Significant changes to the product require re-approval.' },
-        { doc: 'IACS UR E26 Rev.1 + UR E27',    ref: 'Sec.2 — E26 ↔ E27 Relationship',
+        { doc: 'IACS UR E26 Rev.1 + UR E27',    docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'Sec.2 — E26 ↔ E27 Relationship',
           text: 'UR E27 = equipment level. UR E26 = ship level. Shipbuilder must verify all E26-scoped equipment holds valid TA/SoC before ship delivery to class society.' }
       ],
       sources: [
@@ -228,15 +243,20 @@
       title: 'BIMCO Cybersecurity Guidelines v5 (Nov 2024)',
       summary: 'Practical cyber risk management framework for shipping companies and fleet operators — ISM-integrated.',
       clauses: [
-        { doc: 'BIMCO Cyber Guidelines v5 (Nov 2024)', ref: 'Chap.1 — Governance & Management',
+        { doc: 'BIMCO Cyber Guidelines v5 (Nov 2024)', docUrl: 'https://www.bimco.org/topics/cybersecurity',
+          ref: 'Chap.1 — Governance & Management',
           text: 'Senior management appoints a cyber risk owner. Cyber policy integrates with ISM Code SMS. Annual cyber risk review mandated.' },
-        { doc: 'BIMCO Cyber Guidelines v5',            ref: 'Chap.2 — Risk Assessment',
+        { doc: 'BIMCO Cyber Guidelines v5',            docUrl: 'https://www.bimco.org/topics/cybersecurity',
+          ref: 'Chap.2 — Risk Assessment',
           text: 'Identify all OT/IT assets, assess threats/vulnerabilities, prioritize by operational impact. Document in Ship Cyber Risk Register. Review after every significant incident.' },
-        { doc: 'BIMCO Cyber Guidelines v5',            ref: 'Chap.3 — Network Segmentation & Controls',
+        { doc: 'BIMCO Cyber Guidelines v5',            docUrl: 'https://www.bimco.org/topics/cybersecurity',
+          ref: 'Chap.3 — Network Segmentation & Controls',
           text: 'Segregate bridge/engine OT networks from crew/passenger IT. Enforce removable media policy. Disable unused ports and services. Limit remote vendor access.' },
-        { doc: 'BIMCO Cyber Guidelines v5',            ref: 'Chap.4 — Shore–Ship Interface',
+        { doc: 'BIMCO Cyber Guidelines v5',            docUrl: 'https://www.bimco.org/topics/cybersecurity',
+          ref: 'Chap.4 — Shore–Ship Interface',
           text: 'Secure remote access via VPN + MFA. Validate all software updates before installation. Contractual cybersecurity requirements for all third-party vendors.' },
-        { doc: 'BIMCO Cyber Guidelines v5',            ref: 'Chap.5 — Incident Response (CIRP)',
+        { doc: 'BIMCO Cyber Guidelines v5',            docUrl: 'https://www.bimco.org/topics/cybersecurity',
+          ref: 'Chap.5 — Incident Response (CIRP)',
           text: 'Develop and regularly drill Cyber Incident Response Plan (CIRP). Define reporting chain including Flag State and Port State Control notification requirements.' }
       ],
       sources: [
@@ -249,15 +269,20 @@
       title: 'IEC 62443 — Industrial OT/ICS Security',
       summary: 'International standard series for industrial cybersecurity — foundation for IACS UR E26/E27 zone/conduit architecture.',
       clauses: [
-        { doc: 'IEC 62443-3-3:2013 Ed.1',  ref: 'Cl.4 — Security Levels (SL 1–4)',
+        { doc: 'IEC 62443-3-3:2013 Ed.1',  docUrl: 'https://www.iec.ch/',
+          ref: 'Cl.4 — Security Levels (SL 1–4)',
           text: 'SL1: Unintentional violation. SL2: Intentional, simple means. SL3: Sophisticated means. SL4: State-sponsored APT. Maritime typically targets SL2–SL3 for critical OT.' },
-        { doc: 'IEC 62443-3-3:2013',        ref: 'Cl.5 (SR 5.1) — Zones & Conduits',
+        { doc: 'IEC 62443-3-3:2013',        docUrl: 'https://www.iec.ch/',
+          ref: 'Cl.5 (SR 5.1) — Zones & Conduits',
           text: 'Systems divided into Security Zones with defined SL-Target. Conduits control data between zones — directly maps to IACS UR E26 Zone/Conduit architecture.' },
-        { doc: 'IEC 62443-3-3:2013',        ref: 'Cl.5 — 7 Foundational Requirements (FR 1–7)',
+        { doc: 'IEC 62443-3-3:2013',        docUrl: 'https://www.iec.ch/',
+          ref: 'Cl.5 — 7 Foundational Requirements (FR 1–7)',
           text: 'IAC (Identity Auth), UC (Use Control), SI (System Integrity), DC (Data Confidentiality), RDF (Restricted Data Flow), TRE (Timely Response), RA (Resource Availability).' },
-        { doc: 'IEC 62443-4-2:2019',        ref: 'Cl.4 — Component Security Requirements',
+        { doc: 'IEC 62443-4-2:2019',        docUrl: 'https://www.iec.ch/',
+          ref: 'Cl.4 — Component Security Requirements',
           text: 'Equipment-level security aligned with IACS UR E27. OEMs document security capabilities per Component Security Assurance Level (SAL).' },
-        { doc: 'IEC 61162-460:2018',        ref: 'Sec.5 — Navigation Network Security (NMEA)',
+        { doc: 'IEC 61162-460:2018',        docUrl: 'https://www.iec.ch/',
+          ref: 'Sec.5 — Navigation Network Security (NMEA)',
           text: 'Defines network security for NMEA 2000 and bridge navigation serial systems — specifically applicable to onboard navigation OT network security.' }
       ],
       sources: [
@@ -270,15 +295,20 @@
       title: 'NIS2 Directive (EU) 2022/2555',
       summary: 'EU mandatory cybersecurity for maritime transport, ports, and vessel traffic services operating in EU member states.',
       clauses: [
-        { doc: 'NIS2 Directive (EU) 2022/2555', ref: 'Art.2 — Scope (Maritime Sector)',
+        { doc: 'NIS2 Directive (EU) 2022/2555', docUrl: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022L2555',
+          ref: 'Art.2 — Scope (Maritime Sector)',
           text: 'Covers: passenger/freight shipping companies, port management bodies, VTS operators, and ship management companies operating within EU jurisdiction.' },
-        { doc: 'NIS2 Directive (EU) 2022/2555', ref: 'Art.3–4 — Essential / Important Entities',
+        { doc: 'NIS2 Directive (EU) 2022/2555', docUrl: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022L2555',
+          ref: 'Art.3–4 — Essential / Important Entities',
           text: 'Large operators (>250 employees or >€50M revenue) = "Essential" (strict supervision). Smaller operators = "Important Entities" (lighter regime but still mandatory).' },
-        { doc: 'NIS2 Directive (EU) 2022/2555', ref: 'Art.21 — Security Measures',
+        { doc: 'NIS2 Directive (EU) 2022/2555', docUrl: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022L2555',
+          ref: 'Art.21 — Security Measures',
           text: 'Risk analysis, incident handling, business continuity, supply chain security, vulnerability disclosure, MFA/encryption, and annual cybersecurity awareness training.' },
-        { doc: 'NIS2 Directive (EU) 2022/2555', ref: 'Art.23 — Incident Reporting Obligations',
+        { doc: 'NIS2 Directive (EU) 2022/2555', docUrl: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022L2555',
+          ref: 'Art.23 — Incident Reporting Obligations',
           text: 'Significant incidents: Early warning to national CSIRT within 24h → Notification within 72h → Final report within 1 month. Threshold: impact on service availability or data confidentiality.' },
-        { doc: 'NIS2 Directive (EU) 2022/2555', ref: 'Art.32–33 + Art.34 — Liability & Fines',
+        { doc: 'NIS2 Directive (EU) 2022/2555', docUrl: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022L2555',
+          ref: 'Art.32–33 + Art.34 — Liability & Fines',
           text: 'Management bears personal liability for compliance failures. Non-compliance fines: up to €10M or 2% of global annual turnover (whichever higher).' }
       ],
       sources: [
@@ -291,15 +321,20 @@
       title: 'NIST Cybersecurity Framework & SP 800-82',
       summary: 'US government OT/ICS security standard — NIST CSF 5 functions directly map to IACS UR E26 architecture.',
       clauses: [
-        { doc: 'NIST CSF v2.0 (Feb 2024)',        ref: 'Core — Govern · Identify · Protect · Detect · Respond · Recover',
+        { doc: 'NIST CSF v2.0 (Feb 2024)',        docUrl: 'https://www.nist.gov/cyberframework',
+          ref: 'Core — Govern · Identify · Protect · Detect · Respond · Recover',
           text: 'Six functions (v2.0 adds Govern). IACS UR E26 mirrors Identify→Recover — maritime operators can use NIST CSF as implementation guidance for E26 compliance.' },
-        { doc: 'NIST SP 800-82 Rev.3 (Sep 2023)', ref: 'Sec.5 — OT/ICS Security Architecture',
+        { doc: 'NIST SP 800-82 Rev.3 (Sep 2023)', docUrl: 'https://csrc.nist.gov/pubs/sp/800/82/r3/final',
+          ref: 'Sec.5 — OT/ICS Security Architecture',
           text: 'Covers: network architecture, remote access, patch management, physical security for control systems. Directly applicable to shipboard OT networks and SCADA systems.' },
-        { doc: 'NIST SP 800-53 Rev.5',            ref: 'CA/RA/SC/SI Control Families — Control Catalog',
+        { doc: 'NIST SP 800-53 Rev.5',            docUrl: 'https://csrc.nist.gov/pubs/sp/800/53/r5/final',
+          ref: 'CA/RA/SC/SI Control Families — Control Catalog',
           text: 'Comprehensive security and privacy controls used as baseline for maritime OT authorization by US federal operators. Mapped to NIST CSF and ISO 27001.' },
-        { doc: 'NIST SP 800-37 Rev.2',            ref: 'Ch.3 — Risk Management Framework (RMF) 6-Step',
+        { doc: 'NIST SP 800-37 Rev.2',            docUrl: 'https://csrc.nist.gov/pubs/sp/800/37/r2/final',
+          ref: 'Ch.3 — Risk Management Framework (RMF) 6-Step',
           text: 'Categorize → Select → Implement → Assess → Authorize → Monitor. Applicable to maritime critical infrastructure system authorization processes.' },
-        { doc: 'NIST CSF 2.0 + IACS UR E26',     ref: 'Alignment Mapping',
+        { doc: 'NIST CSF 2.0 + IACS UR E26',     docUrl: 'https://www.nist.gov/cyberframework',
+          ref: 'Alignment Mapping',
           text: 'NIST CSF is the recognized US implementation framework. Organizations can use NIST as the practical roadmap to satisfy IACS UR E26 functional requirements.' }
       ],
       sources: [
@@ -312,15 +347,20 @@
       title: 'USCG — Maritime Cyber Risk Management',
       summary: 'U.S. Coast Guard enforces maritime cybersecurity via MTSA and NVIC 01-20 for vessels and port facilities calling at US ports.',
       clauses: [
-        { doc: '33 CFR Parts 101–106 (MTSA)',  ref: 'Part 104 — Vessel Security Plans (VSP)',
+        { doc: '33 CFR Parts 101–106 (MTSA)',  docUrl: 'https://www.dco.uscg.mil/',
+          ref: 'Part 104 — Vessel Security Plans (VSP)',
           text: 'Maritime Transportation Security Act requires Vessel Security Plans (VSP) and Facility Security Plans (FSP). Cyber risk management must be integrated into VSP/FSP.' },
-        { doc: 'USCG NVIC 01-20 (Jan 2020)',   ref: 'Encl.1 — Cyber Guidelines',
+        { doc: 'USCG NVIC 01-20 (Jan 2020)',   docUrl: 'https://www.dco.uscg.mil/',
+          ref: 'Encl.1 — Cyber Guidelines',
           text: 'USCG voluntary guidelines: identify critical cyber systems (navigation, propulsion, cargo, comms), assess vulnerabilities, document mitigations — inspectable during PSC visits.' },
-        { doc: '33 CFR 101.305',               ref: 'Subpart C — Incident Reporting (NRC/COTP)',
+        { doc: '33 CFR 101.305',               docUrl: 'https://www.dco.uscg.mil/',
+          ref: 'Subpart C — Incident Reporting (NRC/COTP)',
           text: 'Cyber incidents affecting vessel safety or security must be reported to the National Response Center (NRC) and cognizant USCG Captain of the Port (COTP).' },
-        { doc: '33 CFR Part 105 (MTSA)',        ref: 'Subpart B — Port Facility Security',
+        { doc: '33 CFR Part 105 (MTSA)',        docUrl: 'https://www.dco.uscg.mil/',
+          ref: 'Subpart B — Port Facility Security',
           text: 'MTSA port facilities must assess cyber risks to terminal systems (cranes, TOS, access control). Annual USCG compliance audits may include cyber documentation review.' },
-        { doc: 'USCG Cyber Strategy 2021–2026', ref: 'Goal 1–3 — Defend · Enable · Grow',
+        { doc: 'USCG Cyber Strategy 2021–2026', docUrl: 'https://www.dco.uscg.mil/',
+          ref: 'Goal 1–3 — Defend · Enable · Grow',
           text: 'USCG Cyber Strategy prioritizes: defending USCG systems, enabling maritime cyber defense, and growing the cyber workforce. Mandatory training for USCG personnel on maritime OT.' }
       ],
       sources: [
@@ -333,15 +373,20 @@
       title: 'Singapore CSA — Maritime OT Cybersecurity',
       summary: "Singapore CSA's Cybersecurity Code of Practice (CCoP) is mandatory for Critical Information Infrastructure including port operators.",
       clauses: [
-        { doc: 'Singapore CSA CCoP 2022',      ref: 'Part A · Req.1 — Asset Management',
+        { doc: 'Singapore CSA CCoP 2022',      docUrl: 'https://www.csa.gov.sg/',
+          ref: 'Part A · Req.1 — Asset Management',
           text: 'Mandatory for CII owners incl. port operators. Requirements: asset identification, risk assessment, security architecture, incident reporting, and annual audit.' },
-        { doc: 'Singapore CSA CCoP 2022',      ref: 'Part B · Req.4 — OT/ICS Security',
+        { doc: 'Singapore CSA CCoP 2022',      docUrl: 'https://www.csa.gov.sg/',
+          ref: 'Part B · Req.4 — OT/ICS Security',
           text: 'Port OT systems (cranes, terminal management, VTS) must implement: network segmentation, continuous monitoring, patching schedules, and tested backup/recovery plans.' },
-        { doc: 'Cybersecurity Act 2018 (SG)',   ref: 'Sec.14 — Incident Reporting (2h / 14d)',
+        { doc: 'Cybersecurity Act 2018 (SG)',   docUrl: 'https://sso.agc.gov.sg/',
+          ref: 'Sec.14 — Incident Reporting (2h / 14d)',
           text: 'CII owners must report significant incidents to CSA within 2 hours of detection. Final incident report required within 14 days. Failure: criminal penalties under Cybersecurity Act.' },
-        { doc: 'Singapore CSA CCoP 2022',      ref: 'Part A · Req.6 — Supply Chain Security',
+        { doc: 'Singapore CSA CCoP 2022',      docUrl: 'https://www.csa.gov.sg/',
+          ref: 'Part A · Req.6 — Supply Chain Security',
           text: 'Third-party vendor risk must be formally assessed. Contracts must include cybersecurity requirements and right-to-audit clauses. Software updates require pre-installation verification.' },
-        { doc: 'Computer Misuse Act (Cap.50A)', ref: 'Sec.3–9 — Unauthorized Access & Cybercrimes',
+        { doc: 'Computer Misuse Act (Cap.50A)', docUrl: 'https://sso.agc.gov.sg/',
+          ref: 'Sec.3–9 — Unauthorized Access & Cybercrimes',
           text: 'Singapore CMA covers unauthorized access and cybercrimes — crews and operators face criminal liability for cyber security violations involving port or ship systems.' }
       ],
       sources: [
@@ -354,15 +399,20 @@
       title: 'South Korea KISA — Smart Ship Cybersecurity',
       summary: "KISA publishes cybersecurity guidelines for smart ships and autonomous vessels under Korea's Maritime Digital Transformation initiative.",
       clauses: [
-        { doc: 'KISA 스마트선박 가이드 (2023)',  ref: 'Chap.1 — Smart Ship Cyber Scope',
+        { doc: 'KISA 스마트선박 가이드 (2023)',  docUrl: 'https://www.kisa.or.kr/',
+          ref: 'Chap.1 — Smart Ship Cyber Scope',
           text: 'Covers: integrated bridge systems, remote monitoring, smart maintenance, and autonomous navigation for Korean-flagged vessels. Aligned with IACS UR E26 framework.' },
-        { doc: 'KISA 스마트선박 가이드 (2023)',  ref: 'Chap.3 — Autonomous Vessel Security (L3–L5)',
+        { doc: 'KISA 스마트선박 가이드 (2023)',  docUrl: 'https://www.kisa.or.kr/',
+          ref: 'Chap.3 — Autonomous Vessel Security (L3–L5)',
           text: 'For Level 3–5 autonomous vessels: remote operation security, communication link protection (satellite/5G), and AI/ML system integrity validation requirements.' },
-        { doc: 'KISA 해사 사이버보안 가이드',   ref: 'Chap.2 — ISM/SMS Integration',
+        { doc: 'KISA 해사 사이버보안 가이드',   docUrl: 'https://www.kisa.or.kr/',
+          ref: 'Chap.2 — ISM/SMS Integration',
           text: 'Cyber risk management in ISM/SMS. Minimum 8 hours/year crew cyber awareness training. Annual cyber incident drill required per KISA operational guidelines.' },
-        { doc: 'IMO MSC-FAL.1/Circ.3 + KR',   ref: 'Seafarer Training Requirements',
+        { doc: 'IMO MSC-FAL.1/Circ.3 + KR',   docUrl: 'https://www.imo.org/en/OurWork/Security/Pages/Cyber-security.aspx',
+          ref: 'Seafarer Training Requirements',
           text: 'Korean Maritime Administration requires seafarer cyber training aligned with IMO MSC-FAL.1/Circ.3. Training records maintained in SMS and auditable by PSC.' },
-        { doc: 'KR 사이버복원력 승인 가이드',   ref: 'IACS UR E26/E27 Implementation',
+        { doc: 'KR 사이버복원력 승인 가이드',   docUrl: 'https://www.krs.co.kr/',
+          ref: 'IACS UR E26/E27 Implementation',
           text: 'KR issues IACS UR E26/E27 certifications with Korean-language guidance specifically for Korean shipyards (HHI, SHI, HD Korea). TA process ~8-12 weeks.' }
       ],
       sources: [
@@ -376,15 +426,20 @@
       title: 'DNV — Cyber Security Rules',
       summary: 'DNV cyber rules in DNV-RU-SHIP Pt.6 Ch.5 Sec.21. CYBER SECURE notation = presumed IACS UR E26 compliant.',
       clauses: [
-        { doc: 'DNV-RU-SHIP Pt.6 Ch.5 Sec.21', ref: '§1 — Cyber Security Requirements',
+        { doc: 'DNV-RU-SHIP Pt.6 Ch.5 Sec.21', docUrl: 'https://www.dnv.com/maritime/cybersecurity/',
+          ref: '§1 — Cyber Security Requirements',
           text: 'Main rule: threat & risk assessment, system identification, security controls per zone, and crew competence requirements for DNV-classed cyber-equipped ships.' },
-        { doc: 'DNV-RU-SHIP Pt.6 Ch.5 Sec.21', ref: '§2 — Class Notations (CYBER / CYBER SECURE)',
+        { doc: 'DNV-RU-SHIP Pt.6 Ch.5 Sec.21', docUrl: 'https://www.dnv.com/maritime/cybersecurity/',
+          ref: '§2 — Class Notations (CYBER / CYBER SECURE)',
           text: 'CYBER: Basic requirements. CYBER SECURE: Enhanced for critical systems — both exceed IACS UR E26 baseline. Ships with CYBER SECURE are presumed E26 compliant (Apr 2024).' },
-        { doc: 'DNV-CP-0363 Rev.3',             ref: 'Sec.3 — CMC (Cyber Module Certificate)',
+        { doc: 'DNV-CP-0363 Rev.3',             docUrl: 'https://www.dnv.com/maritime/cybersecurity/',
+          ref: 'Sec.3 — CMC (Cyber Module Certificate)',
           text: "DNV Cyber Module Certificate (CMC) = DNV's equivalent to IACS UR E27 TA. Required for equipment supplied to DNV-classed E26 ships. Covers OEM security capabilities." },
-        { doc: 'DNV-RU-SHIP Pt.6 Ch.5 Sec.21', ref: '§4 — Newbuilding Survey Process',
+        { doc: 'DNV-RU-SHIP Pt.6 Ch.5 Sec.21', docUrl: 'https://www.dnv.com/maritime/cybersecurity/',
+          ref: '§4 — Newbuilding Survey Process',
           text: 'DNV survey: design review (zone diagram, asset inventory) → functional testing (vulnerability scan or pen test) → documentation review → certificate issuance at delivery.' },
-        { doc: 'DNV Guidance Note (Apr 2024)',   ref: 'IACS UR E26/E27 Compliance Mapping',
+        { doc: 'DNV Guidance Note (Apr 2024)',   docUrl: 'https://www.dnv.com/maritime/cybersecurity/',
+          ref: 'IACS UR E26/E27 Compliance Mapping',
           text: 'DNV guidance clarifies: existing DNV cyber notations satisfy E26/E27. Shipbuilders and yards can use DNV TA/CMC certificates to meet class delivery requirements.' }
       ],
       sources: [
@@ -397,15 +452,20 @@
       title: 'Korean Register (KR) — Cyber Resilience',
       summary: 'KR publishes IACS UR E26/E27 compliance guides in Korean and English for Korean shipyards and domestic OEM suppliers.',
       clauses: [
-        { doc: 'KR 사이버복원력 승인 가이드 (2024)', ref: 'Chap.2 — Security Zoning Design',
+        { doc: 'KR 사이버복원력 승인 가이드 (2024)', docUrl: 'https://www.krs.co.kr/',
+          ref: 'Chap.2 — Security Zoning Design',
           text: 'KR guide covers: security zoning design, required controls per zone level, documentation requirements, and survey procedures. Korean-language version for shipyard engineers.' },
-        { doc: 'KR Rules Pt.7 Ch.4',             ref: 'Sec.3 — Ship Automation Security',
+        { doc: 'KR Rules Pt.7 Ch.4',             docUrl: 'https://www.krs.co.kr/',
+          ref: 'Sec.3 — Ship Automation Security',
           text: 'Specialized guidance for Korean yards (HHI, HD Korea, SHI): integrated bridge systems, cargo management systems, and LNG handling OT network security.' },
-        { doc: 'KR UR E27 TA Guide (2024)',       ref: 'Sec.4 — Type Approval Process (8–12 wks)',
+        { doc: 'KR UR E27 TA Guide (2024)',       docUrl: 'https://www.krs.co.kr/',
+          ref: 'Sec.4 — Type Approval Process (8–12 wks)',
           text: 'KR Type Approval for UR E27: documentation review (8–12 weeks) + security testing (vulnerability assessment) + certificate issuance. Certificate valid 5 years.' },
-        { doc: 'KR Rules Pt.7 Ch.4',             ref: 'Sec.5 — Annual Cyber Audit',
+        { doc: 'KR Rules Pt.7 Ch.4',             docUrl: 'https://www.krs.co.kr/',
+          ref: 'Sec.5 — Annual Cyber Audit',
           text: 'E26-certified ships require annual KR cyber audit: change management review, incident log review, crew training verification, and system configuration check.' },
-        { doc: 'KR 선박 자동화 사이버복원력 가이드', ref: '한국어 가이드 — 조선소 엔지니어용',
+        { doc: 'KR 선박 자동화 사이버복원력 가이드', docUrl: 'https://www.krs.co.kr/',
+          ref: '한국어 가이드 — 조선소 엔지니어용',
           text: "선박 자동화 시스템의 사이버복원력 승인 및 검사 가이드 — KR's official Korean guide for shipyard engineers covering all E26/E27 compliance steps." }
       ],
       sources: [
@@ -418,15 +478,20 @@
       title: 'ABS — CyberSafety Guide Series',
       summary: 'ABS CyberSafety Guide (7 volumes) covers vessel, equipment, and facility cyber security with US-flagged vessel focus.',
       clauses: [
-        { doc: 'ABS CyberSafety Guide v2.0 (Jun 2025)', ref: 'Vol.1 — Ship Systems & Newbuildings',
+        { doc: 'ABS CyberSafety Guide v2.0 (Jun 2025)', docUrl: 'https://eagle.org/',
+          ref: 'Vol.1 — Ship Systems & Newbuildings',
           text: 'Latest version integrating IACS UR E26/E27. Covers: system identification, risk assessment, security zone design, and ABS survey requirements for newbuildings.' },
-        { doc: 'ABS CyberSafety Guide Vol.7 (2024)',    ref: 'Vol.7 — Equipment Manufacturers (E27 Aligned)',
+        { doc: 'ABS CyberSafety Guide Vol.7 (2024)',    docUrl: 'https://eagle.org/',
+          ref: 'Vol.7 — Equipment Manufacturers (E27 Aligned)',
           text: 'Aligns with IACS UR E27 for OEM Type Approval. Covers SBOM requirements, vulnerability management lifecycle, and secure-by-design documentation package.' },
-        { doc: 'ABS MVR Pt.4 Ch.9',                    ref: 'Sec.13–14 — Propulsion & Machinery Systems',
+        { doc: 'ABS MVR Pt.4 Ch.9',                    docUrl: 'https://eagle.org/',
+          ref: 'Sec.13–14 — Propulsion & Machinery Systems',
           text: 'ABS Marine Vessel Rules: cyber requirements in propulsion/machinery systems — relevant for OT integration in engine room automation and cargo handling systems.' },
-        { doc: 'ABS Rules Pt.1 Ch.3 Annex.4',          ref: 'CYB / CYBER+ Class Notations',
+        { doc: 'ABS Rules Pt.1 Ch.3 Annex.4',          docUrl: 'https://eagle.org/',
+          ref: 'CYB / CYBER+ Class Notations',
           text: 'CYB: Basic cyber notation. CYBER+: Enhanced notation meeting E26. Onboard Cyber Security Audit (CSA) optional service — thorough independent assessment.' },
-        { doc: 'ABS CyberSafety Guide Vol.2–4',         ref: 'Vol.2–4 — Offshore, ISM & Remote Access',
+        { doc: 'ABS CyberSafety Guide Vol.2–4',         docUrl: 'https://eagle.org/',
+          ref: 'Vol.2–4 — Offshore, ISM & Remote Access',
           text: 'ABS guides: network segmentation for offshore platforms, cyber risk in ISM integration, and remote access security for unmanned/remote-controlled vessels.' }
       ],
       sources: [
@@ -439,15 +504,20 @@
       title: 'IMO — Maritime Cyber Risk Framework',
       summary: 'IMO MSC-FAL.1/Circ.3 requires cyber risk management integrated into ISM Code SMS by 1 January 2021 — the global regulatory baseline.',
       clauses: [
-        { doc: 'IMO MSC-FAL.1/Circ.3 Rev.3 (2022)', ref: 'Para.1–5 — Introduction & Guidance',
+        { doc: 'IMO MSC-FAL.1/Circ.3 Rev.3 (2022)', docUrl: 'https://www.imo.org/en/OurWork/Security/Pages/Cyber-security.aspx',
+          ref: 'Para.1–5 — Introduction & Guidance',
           text: 'High-level guidance: identify cyber risks, implement protections, incorporate into Safety Management System (SMS). Not prescriptive — allows company-level implementation.' },
-        { doc: 'ISM Code (Res. MSC.380(94))',         ref: 'Para.1.2.3 — SMS Integration (from 1 Jan 2021)',
+        { doc: 'ISM Code (Res. MSC.380(94))',         docUrl: 'https://www.imo.org/en/OurWork/HumanElement/Pages/ISMCode.aspx',
+          ref: 'Para.1.2.3 — SMS Integration (from 1 Jan 2021)',
           text: 'Shipping companies must address cyber risk in their SMS. Auditable by Port State Control officers. Deficiencies in cyber SMS documentation can result in detention orders.' },
-        { doc: 'IMO Res. MSC.428(98) (2017)',         ref: 'Resolution — Cyber Risk Endorsement',
+        { doc: 'IMO Res. MSC.428(98) (2017)',         docUrl: 'https://www.imo.org/en/OurWork/Security/Pages/Cyber-security.aspx',
+          ref: 'Resolution — Cyber Risk Endorsement',
           text: 'IMO Assembly formally endorses MSC-FAL.1/Circ.3 — official recognition of cyber risk management as part of the maritime safety regulatory framework.' },
-        { doc: 'ISM Code · Para.10',                  ref: 'PSC Inspection & Detention Authority',
+        { doc: 'ISM Code · Para.10',                  docUrl: 'https://www.imo.org/en/OurWork/HumanElement/Pages/ISMCode.aspx',
+          ref: 'PSC Inspection & Detention Authority',
           text: 'PSC inspectors may verify cyber risk management documentation. Under ISM §1.2.3, any deficiency threatening safe operation can result in detention.' },
-        { doc: 'IMO MSC-FAL.1/Circ.3 + IACS UR E26', ref: 'Combined Regulatory Stack',
+        { doc: 'IMO MSC-FAL.1/Circ.3 + IACS UR E26', docUrl: 'https://www.imo.org/en/OurWork/Security/Pages/Cyber-security.aspx',
+          ref: 'Combined Regulatory Stack',
           text: 'IMO = the policy framework. IACS UR E26/E27 = technical implementation for newbuildings. Together they form the complete regulatory stack for global ship cyber compliance.' }
       ],
       sources: [
@@ -530,12 +600,21 @@
   }
 
   function renderGPTText(raw) {
-    return raw
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#ececec">$1</strong>')
-      .replace(/\[([^\]]+)\]/g, '<span class="cb-gpt-ref">[$1]</span>')
-      .replace(/\n\n/g, '<br><br>')
-      .replace(/\n/g, '<br>');
+    /* Escape HTML first, then apply formatting */
+    var escaped = raw
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    /* Bold **text** */
+    escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong style="color:#ececec">$1</strong>');
+    /* Document/clause references [Doc | Section] */
+    escaped = escaped.replace(/\[([^\]]+)\]/g, '<span class="cb-gpt-ref">[$1]</span>');
+    /* Auto-linkify URLs — href uses unescaped ampersands */
+    escaped = escaped.replace(/(https?:\/\/[^\s<>"']+)/g, function (url) {
+      var href = url.replace(/&amp;/g, '&');
+      return '<a class="cb-gpt-url" href="' + href + '" target="_blank" rel="noopener">' + url + '</a>';
+    });
+    /* Line breaks */
+    escaped = escaped.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+    return escaped;
   }
 
   /* ── 6. Search (local KB) ────────────────────────────────── */
@@ -570,8 +649,12 @@
     var html = '<strong style="color:#ececec;font-size:11.5px;font-weight:700;">' + entry.title + '</strong>';
     html += '<div style="color:#8e8ea0;font-size:10.5px;margin:4px 0 5px;line-height:1.6;">' + entry.summary + '</div>';
     entry.clauses.forEach(function (c) {
+      /* If docUrl is present, make the document name a clickable link */
+      var docLabel = c.docUrl
+        ? '<a class="cb-doc-link" href="' + c.docUrl + '" target="_blank" rel="noopener">' + c.doc + ' ↗</a>'
+        : c.doc;
       html += '<div class="cb-clause">' +
-              '<span class="cb-clause-doc">' + c.doc + '</span>' +
+              '<span class="cb-clause-doc">' + docLabel + '</span>' +
               '<span class="cb-clause-ref">▸ ' + c.ref + '</span>' +
               '<span class="cb-clause-text">' + c.text + '</span>' +
               '</div>';
@@ -655,7 +738,7 @@
     'Hello — I\'m <strong style="color:#19c37d;">ShipPaul Compliance AI</strong>.<br>' +
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask about IACS UR E26/E27, BIMCO, NIS2, IEC 62443, USCG, class society rules, and more.<br>' +
-    'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong>.<br>' +
+    'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
     '<span style="color:#5a5a6e;">⚡ Click "Connect AI" to enable GPT-4o-mini for richer answers.</span>' +
     '</span>',
     'bot'
