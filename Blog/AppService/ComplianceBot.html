@@ -159,6 +159,7 @@
     return slug.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
   }
 
+  /* Search sitemap by KB entry keywords */
   function findRelatedPosts(entry) {
     if (!SITEMAP.urls.length) return [];
     var kwList = entry.keywords.slice(0, 6);
@@ -180,8 +181,27 @@
     return scored.slice(0, 3).map(function (item) { return item.url; });
   }
 
+  /* Search sitemap directly by free-text query (used when no KB match) */
+  function findRelatedByQuery(query) {
+    if (!SITEMAP.urls.length) return [];
+    var words = query.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 2; });
+    if (!words.length) return [];
+    var scored = SITEMAP.urls.map(function (url) {
+      var slug = url.toLowerCase();
+      var score = 0;
+      words.forEach(function (word) {
+        /* Hyphenated slug match */
+        if (slug.indexOf(word) !== -1) score += word.length;
+        /* Partial prefix match */
+        if (word.length > 4 && slug.indexOf(word.slice(0, 4)) !== -1) score += 1;
+      });
+      return { url: url, score: score };
+    }).filter(function (item) { return item.score > 0; });
+    scored.sort(function (a, b) { return b.score - a.score; });
+    return scored.slice(0, 4).map(function (item) { return item.url; });
+  }
+
   /* ── 3. Knowledge Base ───────────────────────────────────── */
-  /* docUrl per clause: clicking the document name opens the official source */
   var KB = [
     {
       id: 'iacs_e26',
@@ -600,19 +620,14 @@
   }
 
   function renderGPTText(raw) {
-    /* Escape HTML first, then apply formatting */
     var escaped = raw
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    /* Bold **text** */
     escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong style="color:#ececec">$1</strong>');
-    /* Document/clause references [Doc | Section] */
     escaped = escaped.replace(/\[([^\]]+)\]/g, '<span class="cb-gpt-ref">[$1]</span>');
-    /* Auto-linkify URLs — href uses unescaped ampersands */
     escaped = escaped.replace(/(https?:\/\/[^\s<>"']+)/g, function (url) {
       var href = url.replace(/&amp;/g, '&');
       return '<a class="cb-gpt-url" href="' + href + '" target="_blank" rel="noopener">' + url + '</a>';
     });
-    /* Line breaks */
     escaped = escaped.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
     return escaped;
   }
@@ -649,7 +664,6 @@
     var html = '<strong style="color:#ececec;font-size:11.5px;font-weight:700;">' + entry.title + '</strong>';
     html += '<div style="color:#8e8ea0;font-size:10.5px;margin:4px 0 5px;line-height:1.6;">' + entry.summary + '</div>';
     entry.clauses.forEach(function (c) {
-      /* If docUrl is present, make the document name a clickable link */
       var docLabel = c.docUrl
         ? '<a class="cb-doc-link" href="' + c.docUrl + '" target="_blank" rel="noopener">' + c.doc + ' ↗</a>'
         : c.doc;
@@ -666,32 +680,37 @@
     html += '</div>';
     var related = findRelatedPosts(entry);
     if (related.length) {
-      html += '<div class="cb-related"><div class="cb-related-title">Related Posts on ShipPaulJobs</div>';
-      related.forEach(function (url) {
-        html += '<a class="cb-related-link" href="' + url + '" target="_blank" rel="noopener">&#8594; ' + slugToTitle(url) + '</a>';
-      });
-      html += '</div>';
+      html += buildRelatedBlock(related);
     }
     return html;
   }
 
+  function buildRelatedBlock(urls) {
+    var block = '<div class="cb-related"><div class="cb-related-title">Related Posts on ShipPaulJobs</div>';
+    urls.forEach(function (url) {
+      block += '<a class="cb-related-link" href="' + url + '" target="_blank" rel="noopener">&#8594; ' + slugToTitle(url) + '</a>';
+    });
+    block += '</div>';
+    return block;
+  }
+
   function appendSourcesAndRelated(bubble, query) {
     var hits = search(query);
-    if (!hits.length) return;
-    var extra = '<div class="cb-sources">';
-    hits[0].sources.forEach(function (src) {
-      extra += '<a class="cb-src" href="' + src.url + '" target="_blank" rel="noopener">' + src.label + '</a>';
-    });
-    extra += '</div>';
-    var related = findRelatedPosts(hits[0]);
-    if (related.length) {
-      extra += '<div class="cb-related"><div class="cb-related-title">Related Posts on ShipPaulJobs</div>';
-      related.forEach(function (url) {
-        extra += '<a class="cb-related-link" href="' + url + '" target="_blank" rel="noopener">&#8594; ' + slugToTitle(url) + '</a>';
+    var extra = '';
+    if (hits.length) {
+      extra += '<div class="cb-sources">';
+      hits[0].sources.forEach(function (src) {
+        extra += '<a class="cb-src" href="' + src.url + '" target="_blank" rel="noopener">' + src.label + '</a>';
       });
       extra += '</div>';
+      var kbRelated = findRelatedPosts(hits[0]);
+      if (kbRelated.length) extra += buildRelatedBlock(kbRelated);
+    } else {
+      /* No KB match — fall back to direct query-based sitemap search */
+      var qRelated = findRelatedByQuery(query);
+      if (qRelated.length) extra += buildRelatedBlock(qRelated);
     }
-    bubble.innerHTML += extra;
+    if (extra) bubble.innerHTML += extra;
   }
 
   /* ── 8. Handle Query ─────────────────────────────────────── */
@@ -721,11 +740,16 @@
       if (hits.length) {
         addMsg(renderAnswer(hits[0]), 'bot');
       } else {
-        addMsg(
-          'No exact match found.<br>' +
-          '<span style="color:#6b6b6b;font-size:10px;">Try: IACS UR E26, BIMCO, IEC 62443, NIS2, USCG, DNV, KR, ABS, IMO</span>',
-          'bot'
-        );
+        /* No KB match — show sitemap-based related posts */
+        var qRelated = findRelatedByQuery(q);
+        var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
+        if (qRelated.length) {
+          html += buildRelatedBlock(qRelated);
+        } else {
+          html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
+        }
+        html += '<div style="color:#4a4a5a;font-size:10px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">⚡ Connect your OpenAI API key for a full GPT-4o-mini answer on any topic.</div>';
+        addMsg(html, 'bot');
       }
     }
   }
@@ -739,7 +763,7 @@
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask about IACS UR E26/E27, BIMCO, NIS2, IEC 62443, USCG, class society rules, and more.<br>' +
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
-    '<span style="color:#5a5a6e;">⚡ Click "Connect AI" to enable GPT-4o-mini for richer answers.</span>' +
+    '<span style="color:#5a5a6e;">⚡ Click "Connect AI" to enable GPT-4o-mini for richer answers on any topic.</span>' +
     '</span>',
     'bot'
   );
