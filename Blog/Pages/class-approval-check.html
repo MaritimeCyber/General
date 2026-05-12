@@ -1,0 +1,188 @@
+<!-- Maritime Class Approval Check — Blog/Pages/class-approval-check.html
+     Style: About.html pattern · Error handling & fallback UI included -->
+
+<div style="max-width:760px;margin:0 auto;padding:24px 16px;font-family:'Inter',sans-serif;color:#2c3e50;line-height:1.8;">
+
+  <!-- ── Header ── -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:32px 28px;margin-bottom:28px;color:#fff;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+    <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png"
+         alt="ShipPaulJobs Logo"
+         style="height:64px;width:auto;flex-shrink:0;filter:drop-shadow(0 0 10px rgba(26,255,218,0.4));" />
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:8px;">Type Approval · 9 Classification Societies</div>
+      <h1 style="font-size:22px;font-weight:800;margin:0 0 8px;line-height:1.3;">Maritime Class Approval Check</h1>
+      <p style="font-size:13px;color:rgba(255,255,255,0.82);margin:0;">Search TA databases across ClassNK · DNV · LR · ABS · BV · KR · RINA · CCS · PRS</p>
+    </div>
+  </div>
+
+  <!-- ── What is Type Approval? ── -->
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:22px;">
+    <h2 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 10px;">What is Type Approval (TA)?</h2>
+    <p style="font-size:13.5px;margin:0 0 10px;">
+      <strong>Type Approval</strong> is the official certification issued by a classification society confirming that marine equipment meets required safety, reliability, and performance standards for installation aboard vessels. Equipment such as navigation systems, fire detection devices, communication equipment, and safety systems must hold a valid TA certificate from the ship's class society before installation.
+    </p>
+    <p style="font-size:13.5px;margin:0;">
+      For vessels trading globally or classed under multiple bodies, cross-checking TA status across different societies is essential during procurement, class renewal, and flag state inspections.
+    </p>
+  </div>
+
+  <!-- ── How to Search ── -->
+  <div style="margin-bottom:22px;">
+    <h2 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid #e0e8f0;">How to Search</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:16px;">
+        <div style="align-items:center;background:linear-gradient(135deg,#154f7a,#1a9e82);border-radius:50%;color:#fff;display:flex;font-size:15px;font-weight:800;height:36px;justify-content:center;margin-bottom:10px;width:36px;">①</div>
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">Choose a Society</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Start with the vessel's registered class society — their TA is mandatory. Other societies are supplementary</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:16px;">
+        <div style="align-items:center;background:linear-gradient(135deg,#154f7a,#1a9e82);border-radius:50%;color:#fff;display:flex;font-size:15px;font-weight:800;height:36px;justify-content:center;margin-bottom:10px;width:36px;">②</div>
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">Click Search &#8594;</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Click the society card's <strong>Search &#8594;</strong> button — the official TA database opens in a new tab</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:16px;">
+        <div style="align-items:center;background:linear-gradient(135deg,#154f7a,#1a9e82);border-radius:50%;color:#fff;display:flex;font-size:15px;font-weight:800;height:36px;justify-content:center;margin-bottom:10px;width:36px;">③</div>
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">Search on Site</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Enter manufacturer name, product type, or model number directly in the site's search box</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TA Databases ── -->
+  <div style="margin-bottom:22px;">
+    <h2 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 6px;padding-bottom:8px;border-bottom:2px solid #e0e8f0;">&#127963; Type Approval Databases</h2>
+    <p style="color:#5a7080;font-size:13px;margin:0 0 14px;">Click <strong>Search &#8594;</strong> to open each society's official TA database in a new tab.</p>
+    <div id="cac-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;"></div>
+  </div>
+
+  <!-- ── Search Tips ── -->
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:22px;">
+    <h2 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 10px;">&#128161; Search Tips</h2>
+    <div style="font-size:13.5px;display:flex;flex-direction:column;gap:8px;">
+      <div><strong>Keep this page open:</strong> Each <strong>Search &#8594;</strong> button opens in a new tab, so you can return here and check the next society without losing your place.</div>
+      <div><strong>Search strategy:</strong> Start with the manufacturer name (e.g. <em>Furuno</em>), then narrow by product type (<em>ECDIS</em>) or model number. Some sites search by model number only.</div>
+      <div><strong>Vessel's class society first:</strong> Always verify with the vessel's registered class society &#8212; their TA is mandatory. Approvals from other societies are supplementary.</div>
+      <div><strong>Certificate validity:</strong> TA certificates expire. Always check the validity date and revision status on the official certificate page before procurement.</div>
+      <div><strong>Language tips:</strong> KR (e-MESIS) and ClassNK return best results with official English model names or the manufacturer's English trade name.</div>
+    </div>
+  </div>
+
+  <!-- ── Error Handling & Improvement Plan ── -->
+  <div style="background:#f4f7fb;border-radius:8px;padding:18px 20px;margin-bottom:22px;">
+    <h2 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid #e0e8f0;">&#128295; If Something Goes Wrong</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:6px;">&#128279; Link Not Opening</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Each society card's <strong>Search →</strong> button is a direct link that opens in a new tab. If a link fails, right-click → "Open in new tab" as an alternative.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:6px;">&#127760; Site Unavailable</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Some society databases (RINA, CCS, KR) may be intermittently unavailable. Try again after a few minutes. For CCS, the China mainland server is sometimes slow outside Asia.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:6px;">&#10060; No Results Found</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Try the manufacturer's official English brand name or registered trade name. Check spelling. Search by product category if manufacturer search fails. Contact the society's local office as a last resort.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── About the Societies ── -->
+  <div style="margin-bottom:22px;">
+    <h2 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid #e0e8f0;">About the Classification Societies</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127471;&#127477; ClassNK</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Japan's largest class society. Mandatory for Japanese-built vessels and a leading approver across major Asian fleets.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127475;&#127476; DNV</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Norwegian-based global leader. Dominant in offshore, energy, and complex maritime systems including OT cybersecurity standards.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127468;&#127463; Lloyd's Register (LR)</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">UK-based society with strong global reach. Specialises in naval architecture, offshore platforms, and critical marine systems.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127482;&#127480; ABS</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">American Bureau of Shipping. Dominant for US-flagged vessels and offshore oil &amp; gas platforms in the Gulf of Mexico region.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127467;&#127479; Bureau Veritas (BV)</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">French-based global society. Strong presence in passenger vessels, superyachts, and French-flagged commercial fleets.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127472;&#127479; Korean Register (KR)</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Korea's national class. Required for vessels from Hyundai HHI, HD KSOE, Samsung SHI, and major Korean yards.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127470;&#127481; RINA</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Italian registry. Covers Mediterranean shipping, cruise industry, superyachts, and Italian naval vessels.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127464;&#127475; CCS</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">China Classification Society. Essential for Chinese-built vessels and COSCO, CSCL, and CMHI fleet groups.</div>
+      </div>
+      <div style="background:#fff;border:1px solid #d0dde8;border-radius:8px;padding:14px;grid-column:1/-1;">
+        <div style="font-weight:700;font-size:13px;color:#0a2342;margin-bottom:4px;">&#127477;&#127473; PRS (Polski Rejestr Statkow)</div>
+        <div style="font-size:12px;color:#5a7080;line-height:1.6;">Polish Register of Shipping. Covers Polish-flagged and Baltic Sea vessels. Active in EU flag state recognition programs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer CTA ── -->
+  <div style="text-align:center;padding:22px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;color:#fff;">
+    <p style="font-size:13.5px;margin:0 0 14px;color:rgba(255,255,255,0.85);">Have a question or want to suggest a society to add?</p>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+      <a href="https://www.shippauljobs.com/p/contact.html" style="display:inline-block;background:#1a9e82;color:#fff;text-decoration:none;padding:9px 22px;border-radius:6px;font-size:13px;font-weight:700;">Contact Us &#8594;</a>
+      <a href="https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html" target="_blank" rel="noopener" style="display:inline-block;background:rgba(255,255,255,0.12);color:#fff;text-decoration:none;padding:9px 22px;border-radius:6px;font-size:13px;font-weight:700;border:1px solid rgba(255,255,255,0.25);">ShipPaul Intelligence &#8594;</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var SOCIETIES = [
+    { id:"classnk", short:"NK",   name:"ClassNK",          full:"Nippon Kaiji Kyokai",            nation:"Japan",   color:"#c0392b", url:"https://www.classnk.or.jp/appr_list/material_search.aspx?lang=en" },
+    { id:"dnv",     short:"DNV",  name:"DNV",              full:"Det Norske Veritas",              nation:"Norway",  color:"#003a78", url:"https://approvalfinder.dnv.com/?filterMode=current" },
+    { id:"lr",      short:"LR",   name:"Lloyd's Register", full:"Lloyd's Register",                nation:"UK",      color:"#ce1126", url:"https://www.lr.org/en/services/classification-certification/materials-equipment-components-product-certification/lr-approvals/" },
+    { id:"abs",     short:"ABS",  name:"ABS",              full:"American Bureau of Shipping",     nation:"USA",     color:"#002868", url:"https://eagle.org/ABSEaglePrograms/ta/ta-search.jsp" },
+    { id:"bv",      short:"BV",   name:"Bureau Veritas",   full:"Bureau Veritas Marine & Offshore",nation:"France",  color:"#e63f20", url:"https://approvalexplorer.bureauveritas.com/#/" },
+    { id:"kr",      short:"KR",   name:"Korean Register",  full:"Korean Register of Shipping",     nation:"Korea",   color:"#003087", url:"https://e-mesis.krs.co.kr/KeyService/TypeApproval/En/WME_Class_4.aspx" },
+    { id:"rina",    short:"RINA", name:"RINA",             full:"Registro Italiano Navale",         nation:"Italy",   color:"#1a3a6b", url:"https://service.rina.org/RINA/qs-rina/rina-vsf.nsf/ViewbyFirm.xsp" },
+    { id:"ccs",     short:"CCS",  name:"CCS",              full:"China Classification Society",    nation:"China",   color:"#de2910", url:"https://www.ccs.org.cn/ccswzen/productMarineList?columnid=201900002000000009" },
+    { id:"prs",     short:"PRS",  name:"PRS",              full:"Polski Rejestr Statkow",          nation:"Poland",  color:"#dc143c", url:"https://approvals.prs.pl/#en%2Fp" }
+  ];
+
+  /* ── Render society cards ── */
+  var grid = document.getElementById("cac-grid");
+  if (!grid) return;
+
+  SOCIETIES.forEach(function (s) {
+    var card = document.createElement("div");
+    card.style.cssText =
+      "background:#fff;border:1px solid #d0dde8;border-top:4px solid " + s.color +
+      ";border-radius:8px;box-sizing:border-box;display:flex;flex-direction:column;padding:14px;";
+
+    card.innerHTML =
+      "<div style=\"align-items:center;display:flex;gap:10px;margin-bottom:8px;\">" +
+        "<div style=\"align-items:center;background:" + s.color + ";border-radius:6px;color:#fff;" +
+               "display:flex;flex-shrink:0;font-size:10px;font-weight:800;height:38px;" +
+               "justify-content:center;width:46px;\">" + s.short + "</div>" +
+        "<div style=\"flex:1;min-width:0;\">" +
+          "<div style=\"color:#0a2342;font-size:12.5px;font-weight:800;line-height:1.3;" +
+                       "overflow:hidden;text-overflow:ellipsis;white-space:nowrap;\">" + s.name + "</div>" +
+          "<div style=\"color:#8099b3;font-size:10px;margin-top:2px;\">" + s.nation + "</div>" +
+        "</div>" +
+      "</div>" +
+      "<div style=\"color:#5a7080;flex:1;font-size:10.5px;line-height:1.5;margin-bottom:10px;\">" + s.full + "</div>" +
+      "<a href=\"" + s.url + "\" target=\"_blank\" rel=\"noopener noreferrer\"" +
+         " style=\"align-items:center;background:" + s.color + ";border-radius:6px;color:#fff;display:flex;" +
+                "font-size:11px;font-weight:800;justify-content:center;padding:8px 10px;text-decoration:none;\">" +
+        "Search &#8594;" +
+      "</a>";
+
+    grid.appendChild(card);
+  });
+})();
+</script>

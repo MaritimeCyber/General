@@ -1,17 +1,40 @@
 <!-- ═══════════════════════════════════════════════════════
-     Maritime 4.0 | R&D Research
-     Topic : Major Onboard Systems on Commercial Ships
+     Maritime 4.0 | R&D Research — Series: Maritime AI & Data Foundations
+     Part 4: From SFI to Smart Ship — How IACS UR E26 CBS Inventory Works in Practice
      Author: Captain Ethan (In Sung Lee)
      ═══════════════════════════════════════════════════════ -->
+
+<!-- ── SERIES BREADCRUMB ── -->
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-family:Inter,sans-serif;flex-wrap:wrap;">
+  <a href="https://www.shippauljobs.com/search/label/Dept.Courses" target="_blank" rel="noopener"
+     style="font-size:11px;color:#8099b3;text-decoration:none;">Maritime AI &amp; Data Foundations</a>
+  <span style="color:#c8d9e8;font-size:11px;">›</span>
+  <span style="font-size:11px;color:#8099b3;">Part 1: <a href="https://www.shippauljobs.com/search/label/Dept.Courses" target="_blank" rel="noopener" style="color:#8099b3;text-decoration:none;">What Is the SFI Code</a></span>
+  <span style="color:#c8d9e8;font-size:11px;">›</span>
+  <span style="font-size:11px;color:#8099b3;">Part 2: <a href="https://www.shippauljobs.com/search/label/Dept.Courses" target="_blank" rel="noopener" style="color:#8099b3;text-decoration:none;">Ship Sensor Data Flow</a></span>
+  <span style="color:#c8d9e8;font-size:11px;">›</span>
+  <span style="font-size:11px;color:#8099b3;">Part 3: <a href="https://www.shippauljobs.com/search/label/Dept.Courses" target="_blank" rel="noopener" style="color:#8099b3;text-decoration:none;">Python Use Cases</a></span>
+  <span style="color:#c8d9e8;font-size:11px;">›</span>
+  <span style="font-size:11px;font-weight:700;color:#154f7a;">Part 4: IACS UR E26 CBS Inventory</span>
+</div>
 
 <!-- ── HEADER ── -->
 <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;margin-bottom:28px;position:relative;overflow:hidden;font-family:Inter,sans-serif;">
   <div style="position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+    <span style="background:rgba(26,158,130,0.35);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">🔒 Cyber Compliance</span>
+    <span style="background:rgba(255,193,7,0.3);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">IACS UR E26 · CBS · SFI</span>
+    <span style="background:rgba(255,255,255,0.15);border-radius:20px;color:rgba(255,255,255,0.85);font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">OT Security · Network Zones</span>
+    <span style="background:rgba(255,255,255,0.1);border-radius:20px;color:rgba(255,255,255,0.7);font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">Maritime 4.0</span>
+  </div>
+  <div style="display:inline-block;background:rgba(26,158,130,0.25);border:1px solid rgba(26,255,218,0.3);border-radius:6px;padding:3px 10px;margin-bottom:12px;">
+    <span style="font-size:10px;font-weight:700;color:#7effd8;letter-spacing:0.8px;">PART 4 OF 4 — Maritime AI &amp; Data Foundations</span>
+  </div>
   <h1 style="font-size:22px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px;letter-spacing:-0.3px;font-family:Inter,sans-serif;">
-    Commercial Ship Systems Explained: Functions, OT Cyber Risks, and Risk Management Guide
+    From SFI to Smart Ship — How IACS UR E26 CBS Inventory Works in Practice
   </h1>
   <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px;font-style:italic;font-family:Inter,sans-serif;">
-    A practical breakdown of 15 major onboard systems across Navigation, Power, Safety, Cargo, and Communications — with cyber threat analysis and mitigation for each
+    What the regulation actually requires, how the SFI code connects to it, and what surveyors check · ~13 min read
   </p>
   <div style="display:flex;align-items:center;gap:10px;font-family:Inter,sans-serif;">
     <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
@@ -28,8 +51,11 @@
 
 <!-- ── LEAD PARAGRAPH ── -->
 <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <p style="color:#1a2332;font-size:15px;line-height:1.75;margin:0 0 10px;">
+    In Part 1, we mapped the SFI code hierarchy. In Part 2, we traced how sensor data flows from those systems to shore. In Part 3, we wrote Python to analyze that data. Now we reach the compliance layer that governs all of it.
+  </p>
   <p style="color:#1a2332;font-size:15px;line-height:1.75;margin:0;">
-    Commercial ships — container vessels, bulk carriers, oil tankers, LNG carriers, and car carriers — are floating platforms of interconnected digital and mechanical systems. As vessels become increasingly connected through <strong>Starlink, IoT sensors, and cloud-based monitoring</strong>, the boundary between IT and OT has blurred. Understanding how each onboard system works, what can go wrong, and how to defend it has become a core competency for maritime engineers, cyber officers, and operators alike.
+    IACS UR E26 — <em>Cyber Resilience of Ships</em> — requires every vessel covered by its scope to maintain a complete inventory of onboard Computer-Based Systems (CBSs). Understanding what this inventory must contain, how the SFI code connects to it in practice, and what classification society surveyors actually check is the difference between a compliance checkbox and a genuinely useful asset register.
   </p>
 </div>
 
@@ -37,472 +63,396 @@
 <div style="background:#f8f9fa;border-radius:10px;border:1px solid #dee2e6;padding:18px 20px;margin-bottom:28px;font-family:Inter,sans-serif;">
   <div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6c757d;margin-bottom:12px;">Key Terms</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;">
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">OT</strong> — Operational Technology (navigation, engine, cargo control systems)</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IT</strong> — Information Technology (crew internet, business systems)</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">CBS</strong> — Computer-Based System (any digital onboard system per IACS UR E27)</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">DP</strong> — Dynamic Positioning System</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">ECDIS</strong> — Electronic Chart Display and Information System</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">PMS</strong> — Power Management System</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IAS</strong> — Integrated Automation System</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">BWTS</strong> — Ballast Water Treatment System</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">EGCS</strong> — Exhaust Gas Cleaning System (Scrubber)</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">GMDSS</strong> — Global Maritime Distress and Safety System</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">AIS</strong> — Automatic Identification System</div>
-    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IDS</strong> — Intrusion Detection System</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IACS UR E26</strong> — Cyber Resilience of Ships (ship-level requirement)</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IACS UR E27</strong> — Cyber Resilience of On-Board Systems and Equipment (equipment-level)</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">CBS</strong> — Computer-Based System: any onboard system using programmable logic, firmware, or software</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">Vessel Asset Inventory</strong> — UR E26 term for the master list of all onboard CBSs</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">Security Zone</strong> — Logical/physical network segment grouping CBSs by function and trust level</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">OT Network</strong> — Operational Technology network (navigation, machinery, safety systems)</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IT Network</strong> — Information Technology network (admin, crew, cargo office systems)</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">DMZ</strong> — Demilitarized Zone: intermediate network segment between OT and IT zones</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IMO MSC-FAL.1/Circ.3</strong> — IMO Guidelines on Maritime Cyber Risk Management</div>
+    <div style="font-size:13px;color:#333;"><strong style="color:#154f7a;">IEC 62443</strong> — International standard for industrial automation and control system security</div>
   </div>
 </div>
 
 <!-- ── SECTION Ⅰ ── -->
 <div style="border-left:4px solid;border-image:linear-gradient(#0a2342,#154f7a) 1;padding-left:16px;margin-bottom:20px;">
-  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅰ — Navigation &amp; Control Systems</h2>
-  <div style="font-size:13px;color:#6b7280;">Steering · Propulsion · Dynamic Positioning · ECDIS</div>
-</div>
-
-<div style="text-align:center;margin-bottom:20px;">
-  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj21Ivy9uSWVIJ4JT3bPcPnP_skpS86oRJ1-NJbVKpfpb1gTdcJVuSNDrf44TjX1GYYvzC5XpyHWyydRyamU6CEQ-0CZIzvTbkywQU6_hRO9xWJeQAg8BKol_aWapdhXGcBHXDuwC0UOq4fq1hVthPvDhsqRIPG0F9GApZwRWvM7elnfcEOGwnYnehOPts/w640-h366/%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A5%E1%86%AB%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7.webp"
-       alt="Commercial Ship Major Systems"
-       style="max-width:560px;width:100%;border-radius:12px;border:1px solid #e2ecf7;" />
+  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅰ — IACS UR E26 &amp; E27: The Regulatory Foundation</h2>
+  <div style="font-size:13px;color:#6b7280;">Scope · Effective Date · Ship Level vs. Equipment Level</div>
 </div>
 
 <p style="font-size:14px;color:#333;line-height:1.8;margin:0 0 16px;font-family:Inter,sans-serif;">
-  Navigation and control systems are the most safety-critical onboard systems — and increasingly, the most targeted by cyber threat actors seeking to manipulate vessel position or course.
+  IACS (International Association of Classification Societies) published two Unified Requirements that together form the framework for maritime cybersecurity in newbuildings. They are distinct but interdependent.
 </p>
 
-<!-- 1.1 Steering -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">1.1</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Steering System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. II-1</span>
+<!-- UR E26 vs E27 comparison -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+  <div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;font-family:Inter,sans-serif;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">UR E26</span>
+      <span style="font-size:13px;font-weight:700;color:#0a2342;">Cyber Resilience of Ships</span>
+    </div>
+    <div style="font-size:13px;color:#555;line-height:1.65;">Addresses the <strong>ship as a whole</strong> — the owner/operator's obligation. Requires a vessel asset inventory of all CBSs, security zone definitions, network segmentation, software update procedures, and incident response capability.</div>
+    <div style="margin-top:8px;font-size:12px;color:#1a9e82;font-weight:600;">→ Responsibility: Ship Owner / Operator</div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Rudder controlled by hydraulic or electric actuator. Responds to helm commands or autopilot. Rudder angle feedback loops maintain heading.</div>
+  <div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #1a9e82;padding:18px;font-family:Inter,sans-serif;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">UR E27</span>
+      <span style="font-size:13px;font-weight:700;color:#0a2342;">Cyber Resilience of On-Board Systems</span>
     </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Hydraulic failure → loss of steering. Electrical faults → system malfunction. <strong>Cyber threat: unauthorized remote control of steering actuators.</strong></div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Redundant hydraulic circuits. Emergency manual override (SOLAS req.). Cybersecurity controls for remote/autonomous steering CBS per IACS UR E27.</div>
-    </div>
+    <div style="font-size:13px;color:#555;line-height:1.65;">Addresses <strong>individual equipment and systems</strong> — the manufacturer's obligation. Requires equipment to be delivered with documented cyber resilience capabilities (hardening, patching support, documented interfaces).</div>
+    <div style="margin-top:8px;font-size:12px;color:#1a9e82;font-weight:600;">→ Responsibility: Equipment Manufacturer</div>
   </div>
 </div>
 
-<!-- 1.2 Propulsion -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">1.2</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Propulsion System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">MARPOL · SOLAS</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
+<!-- Effective date + regulatory context -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #154f7a;padding:18px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:13px;">
     <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Main engine drives propeller via shaft. Modern alternatives: LNG, hybrid, and electric propulsion systems for reduced emissions.</div>
+      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">📅 Effective Date</div>
+      <div style="color:#555;line-height:1.65;">Both UR E26 and E27 apply to ships with <strong>construction contracts signed on or after 1 July 2024</strong> (revised requirements). Existing vessels are not retroactively required but are encouraged to comply.</div>
     </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Engine overheating or failure → immobilization. Shaft misalignment → efficiency loss. Fuel contamination → engine issues.</div>
+    <div style="background:#f0f7ff;border-radius:8px;padding:12px;">
+      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">🏛 Regulatory Context</div>
+      <div style="color:#555;line-height:1.65;">UR E26/E27 build on <strong>IMO MSC-FAL.1/Circ.3</strong> (Guidelines on Maritime Cyber Risk Management). The IMO guidelines are non-binding; UR E26/E27 are binding for IACS member class society new builds.</div>
     </div>
     <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Condition-based maintenance (CBM). Fuel quality monitoring and filtration. Emergency towing arrangements for propulsion loss scenarios.</div>
-    </div>
-  </div>
-</div>
-
-<!-- 1.3 Dynamic Positioning -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">1.3</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Dynamic Positioning System (DP)</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">IMO MSC/Circ.645</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Uses thrusters, GPS, and motion sensors to maintain fixed position without anchoring. Essential for LNG carriers during STS transfers.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;"><strong>GPS spoofing</strong> → unintended vessel drift. Power failure → DP shutdown. Sensor failure → position loss during critical operations.</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Dual GPS and independent sensor backups. Emergency power redundancy. Anti-spoofing GNSS receivers for cyber-resilient positioning.</div>
-    </div>
-  </div>
-</div>
-
-<!-- 1.4 ECDIS (supplemented) -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:28px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">1.4</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">ECDIS — Electronic Chart Display and Information System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. V · IHO S-57/S-101</span>
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">+ Supplemented</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Displays digital ENC (Electronic Navigational Chart) overlaid with real-time GPS position. Integrates AIS, radar, and weather data. Mandated by SOLAS as paper chart replacement.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Outdated ENC → chart data discrepancy with actual seabed. <strong>GNSS spoofing → false position display.</strong> Software vulnerabilities → unauthorized chart manipulation via network.</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Regular ENC updates via authorized distributors. Dual ECDIS per SOLAS. Network isolation from crew IT networks. IACS UR E27 CBS documentation required for type-approved ECDIS.</div>
+      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">🔗 Referenced Standards</div>
+      <div style="color:#555;line-height:1.65;">UR E26/E27 are aligned with the <strong>IEC 62443</strong> series (industrial automation and control system cybersecurity) and the <strong>BIMCO Guidelines on Cyber Security Onboard Ships</strong> (v5, 2024).</div>
     </div>
   </div>
 </div>
 
 <!-- ── SECTION Ⅱ ── -->
 <div style="border-left:4px solid;border-image:linear-gradient(#0a2342,#154f7a) 1;padding-left:16px;margin-bottom:20px;">
-  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅱ — Power &amp; Energy Management Systems</h2>
-  <div style="font-size:13px;color:#6b7280;">PMS · Switchboard · IAS — Generate, distribute, and automate vessel power</div>
+  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅱ — What Is a CBS? Scope of the Inventory</h2>
+  <div style="font-size:13px;color:#6b7280;">Definition · Categories · What the vessel asset inventory must contain</div>
 </div>
 
-<!-- 2.1 PMS -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #154f7a;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#154f7a;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">2.1</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Power Management System (PMS)</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. II-1 · IACS UR E10</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Automatically controls generator start/stop based on power demand. Balances load between main and auxiliary generators to prevent blackout.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Overload or short circuit → electrical blackout. Generator sync failure → power instability. <strong>Cyber manipulation of PMS → intentional blackout at sea.</strong></div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Load-sharing algorithms and emergency generator backup. Automatic voltage regulation (AVR). OT network isolation for PMS CBS per IACS UR E27.</div>
-    </div>
-  </div>
-</div>
+<p style="font-size:14px;color:#333;line-height:1.8;margin:0 0 16px;font-family:Inter,sans-serif;">
+  Under UR E26, a <strong>Computer-Based System (CBS)</strong> is any system onboard that uses programmable logic, firmware, or software to perform a function. This is a deliberately broad definition — the intent is to capture every system that could be compromised or disrupted through a cyber event.
+</p>
 
-<!-- 2.2 Switchboard -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #154f7a;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#154f7a;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">2.2</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Main Switchboard System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">IACS UR E10</span>
+<!-- CBS categories table -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;overflow:hidden;margin-bottom:16px;font-family:Inter,sans-serif;">
+  <div style="background:#0a2342;padding:10px 16px;display:grid;grid-template-columns:1.3fr 2fr 1fr;gap:10px;">
+    <div style="font-size:11px;font-weight:700;color:#7ec8f4;letter-spacing:0.8px;text-transform:uppercase;">Category</div>
+    <div style="font-size:11px;font-weight:700;color:#7ec8f4;letter-spacing:0.8px;text-transform:uppercase;">Examples of CBSs</div>
+    <div style="font-size:11px;font-weight:700;color:#7ec8f4;letter-spacing:0.8px;text-transform:uppercase;">Typical Zone</div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Distributes electrical power from generators to all onboard loads. Circuit breakers protect against overcurrent. Bus-tie arrangements provide redundancy.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Short circuits or arc flash → electrical fires. Faulty insulation → electrocution hazards. Switchboard control interface unauthorized access.</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Arc flash protection, insulation resistance monitoring, and scheduled circuit breaker maintenance. Physical access control to switchboard room.</div>
-    </div>
+  <div style="display:grid;grid-template-columns:1.3fr 2fr 1fr;font-size:13px;">
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;background:#f8fbff;font-weight:700;color:#154f7a;">🧭 Navigation</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#333;">ECDIS, AIS transponder, GPS/GNSS receivers, radar (ARPA), VDR</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#154f7a;font-weight:600;">OT Bridge</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;background:#f8fbff;font-weight:700;color:#154f7a;">⚙️ Machinery</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#333;">IAS servers/workstations, PMS, main engine control units, generator management</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#154f7a;font-weight:600;">OT Machinery</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;background:#f8fbff;font-weight:700;color:#154f7a;">🔒 Safety</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#333;">Fire and gas detection systems, GMDSS equipment, EPIRB, bilge alarm panels</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#154f7a;font-weight:600;">OT Safety</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;background:#f8fbff;font-weight:700;color:#154f7a;">📡 Communication</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#333;">VSAT router, Inmarsat terminal, Iridium modem, VHF DSC radio, NAVTEX</div>
+    <div style="padding:10px 16px;border-bottom:1px solid #f0f3f7;border-left:1px solid #f0f3f7;color:#1a6fa8;font-weight:600;">DMZ / Gateway</div>
+    <div style="padding:10px 16px;background:#f8fbff;font-weight:700;color:#154f7a;">📋 Administrative</div>
+    <div style="padding:10px 16px;border-left:1px solid #f0f3f7;color:#333;">CMMS, crew management system, cargo loading computer, voyage management system</div>
+    <div style="padding:10px 16px;border-left:1px solid #f0f3f7;color:#6b7280;font-weight:600;">IT Admin</div>
   </div>
 </div>
 
-<!-- 2.3 IAS (supplemented) -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #154f7a;padding:18px;margin-bottom:28px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#154f7a;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">2.3</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Integrated Automation System (IAS)</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">IACS UR E27 CBS</span>
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">+ Supplemented</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Central monitoring and control of all ship machinery from bridge or ECR. Connects PMS, main engine, auxiliary systems, ballast, and alarms into one integrated OT network.</div>
+<!-- What the inventory must contain -->
+<div style="background:#f8f9fa;border-radius:10px;border:1px solid #dee2e6;padding:16px 20px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:12px;">📋 What Each CBS Record Must Contain (UR E26 Vessel Asset Inventory)</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:13px;color:#333;">
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">①</span>
+      <span><strong>System identifier</strong> — unique name or code (SFI widely used in practice)</span>
     </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;"><strong>Single point of failure</strong> if central IAS is compromised. Cyberattack can alter engine parameters remotely. Lateral movement from IT network into IAS OT network.</div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">②</span>
+      <span><strong>Function</strong> — what the CBS does and why it is onboard</span>
     </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Redundant IAS servers. IT/OT network segmentation (VLAN/firewall). Manual override capability for all critical functions. IACS UR E27 full CBS documentation required.</div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">③</span>
+      <span><strong>Manufacturer &amp; model</strong> — vendor, hardware make and model number</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">④</span>
+      <span><strong>Hardware version</strong> — serial number and hardware revision</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">⑤</span>
+      <span><strong>Software / firmware version</strong> — current installed version; OS if applicable</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">⑥</span>
+      <span><strong>Physical location</strong> — bridge, ECR, cargo control room, server room</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">⑦</span>
+      <span><strong>Network connections</strong> — which networks the CBS is connected to</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f0f3f7;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">⑧</span>
+      <span><strong>Interfaces to other CBSs</strong> — physical data connections to adjacent systems</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">⑨</span>
+      <span><strong>Security zone assignment</strong> — which security zone this CBS belongs to</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;">
+      <span style="color:#154f7a;font-weight:700;flex-shrink:0;">⑩</span>
+      <span><strong>Criticality classification</strong> — safety-critical / operational / administrative</span>
     </div>
   </div>
 </div>
 
 <!-- ── SECTION Ⅲ ── -->
 <div style="border-left:4px solid;border-image:linear-gradient(#0a2342,#154f7a) 1;padding-left:16px;margin-bottom:20px;">
-  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅲ — Safety &amp; Security Systems</h2>
-  <div style="font-size:13px;color:#6b7280;">Fire Detection · Cybersecurity Monitoring — Protect crew, vessel, and cargo</div>
+  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅲ — Why SFI Is Used in Practice (Though Not Mandated)</h2>
+  <div style="font-size:13px;color:#6b7280;">UR E26 does not require SFI · Practical reasons operators adopt it anyway</div>
 </div>
 
-<!-- 3.1 Fire -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #1a6fa8;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#1a6fa8;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">3.1</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Fire Detection &amp; Firefighting System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. II-2 · FSS Code</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Smoke and heat detectors trigger alarms. Automatic or manual activation of water mist, CO₂, or foam-based suppression in designated spaces.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">False alarms or sensor failures → delayed response. Inadequate suppression agent for cargo type. Network-connected fire panels exposed to cyber interference.</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Redundant sensor arrays and periodic fire drills (SOLAS). Regular suppression system inspection. Physical isolation of fire control panels from vessel network.</div>
-    </div>
-  </div>
-</div>
+<p style="font-size:14px;color:#333;line-height:1.8;margin:0 0 12px;font-family:Inter,sans-serif;">
+  IACS UR E26 requires a vessel asset inventory but does <strong>not specify SFI</strong> as the classification structure. However, most operators and class society surveyors see SFI-based CBS inventories in practice, for a clear reason: SFI is already the standard backbone of CMMS, ISM Code documentation, and planned maintenance systems on commercial vessels.
+</p>
 
-<!-- 3.2 Cybersecurity -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #1a6fa8;padding:18px;margin-bottom:28px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#1a6fa8;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">3.2</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Cybersecurity Monitoring &amp; Protection System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">IACS UR E26/E27 · IMO MSC-FAL.1</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:13px;">
     <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Firewalls, IDS/IPS, and encryption protect IT and OT networks. Monitors for unauthorized access to ship control networks. Logs and alerts on anomalous behavior.</div>
+      <div style="font-weight:700;color:#0a2342;margin-bottom:6px;">🔗 Integration with CMMS</div>
+      <div style="color:#555;line-height:1.65;">CMMS maintenance records are indexed by SFI code. A CBS inventory built on SFI connects directly to maintenance history — the surveyor can trace from the CBS entry to the last patch update in the same system.</div>
     </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Ransomware → system manipulation and operational halt. Unpatched vulnerabilities → unauthorized control of navigation and propulsion OT systems.</div>
+    <div style="background:#f0f7ff;border-radius:8px;padding:12px;">
+      <div style="font-weight:700;color:#0a2342;margin-bottom:6px;">📄 ISM Code Alignment</div>
+      <div style="color:#555;line-height:1.65;">The ISM Code requires documented procedures for critical equipment. SFI-coded CBSs inherit the same equipment ID used in ISM Code Safety Management Systems — no duplicate coding is required.</div>
     </div>
     <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Regular security patches and network segmentation. MFA and Zero Trust access controls. Cyber Officer role and crew training per IMO 2021 ISM integration.</div>
+      <div style="font-weight:700;color:#0a2342;margin-bottom:6px;">🚢 Fleet Consistency</div>
+      <div style="color:#555;line-height:1.65;">A fleet operator using SFI has the same system ID structure across all vessels. Shore teams comparing CBS inventory across ten vessels can do so using the same code structure.</div>
     </div>
   </div>
 </div>
 
 <!-- ── SECTION Ⅳ ── -->
 <div style="border-left:4px solid;border-image:linear-gradient(#0a2342,#154f7a) 1;padding-left:16px;margin-bottom:20px;">
-  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅳ — Cargo &amp; Environmental Systems</h2>
-  <div style="font-size:13px;color:#6b7280;">CMS · BWTS · EGCS — Handle cargo and meet environmental regulations</div>
+  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅳ — Building the CBS Inventory: Step by Step</h2>
+  <div style="font-size:13px;color:#6b7280;">Walkthrough · Data collection · Zone assignment · Documentation</div>
 </div>
 
-<!-- 4.1 CMS -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #1a9e82;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">4.1</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Cargo Management System (CMS)</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. VI · IMSBC Code</span>
+<!-- Step 1 -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-left:4px solid #0a2342;padding:16px 20px;margin-bottom:10px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+    <span style="background:#0a2342;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:4px;flex-shrink:0;">STEP 1</span>
+    <span style="font-size:14px;font-weight:700;color:#0a2342;">Define Scope — Which CBSs Are In?</span>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Sensors monitor cargo holds for temperature, pressure, and humidity. Automates loading/unloading for tankers, container ships, and bulk carriers.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Cargo misloading → stability issues or structural stress. Sensor malfunction → incorrect monitoring data. <strong>Falsified cargo data via cyber manipulation.</strong></div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Redundant sensor arrays and periodic calibration. Loading simulation software to predict stress distribution. Data integrity protection for cargo CBS networks.</div>
-    </div>
-  </div>
+  <div style="font-size:13px;color:#555;line-height:1.65;">Not every electronic device is a CBS under UR E26 scope. Standalone analog instruments and isolated panel indicators typically fall outside. The test is whether the device uses programmable logic, firmware, or software that could be targeted or disrupted. When in doubt, include it — exclusions must be justified to the surveyor.</div>
 </div>
 
-<!-- 4.2 BWTS -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #1a9e82;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">4.2</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Ballast Water Treatment System (BWTS)</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">BWM Convention 2004 · IMO D-2</span>
+<!-- Step 2 -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-left:4px solid #154f7a;padding:16px 20px;margin-bottom:10px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+    <span style="background:#154f7a;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:4px;flex-shrink:0;">STEP 2</span>
+    <span style="font-size:14px;font-weight:700;color:#0a2342;">Walk the Vessel — Systematically by Space and SFI Group</span>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Treats ballast water using UV irradiation, filtration, or electrochlorination before discharge. Prevents transport of invasive marine species between ocean regions.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Insufficient disinfection → IMO D-2 non-compliance and port detention. Filter clogging → system bypass. Sensor data falsification to pass PSC inspections.</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Periodic system flushing and filter maintenance. Real-time ballast water quality monitoring. BWTS treatment log integrity verification for PSC compliance.</div>
-    </div>
-  </div>
+  <div style="font-size:13px;color:#555;line-height:1.65;">Conduct a physical walkthrough covering bridge, ECR, cargo control room, server room, and communication spaces. Use the SFI group structure to organize the walk: Group 2 (Navigation), Group 4 (Main Machinery), Group 5 (Safety), Group 6 (Automation), Group 7 (Cargo) — this prevents gaps. Document every CBS encountered with make, model, and physical location.</div>
 </div>
 
-<!-- 4.3 EGCS (supplemented) -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #1a9e82;padding:18px;margin-bottom:28px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">4.3</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Exhaust Gas Cleaning System (EGCS / Scrubber)</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">MARPOL Annex VI · IMO 2020</span>
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">+ Supplemented</span>
+<!-- Step 3 -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-left:4px solid #1a6fa8;padding:16px 20px;margin-bottom:10px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+    <span style="background:#1a6fa8;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:4px;flex-shrink:0;">STEP 3</span>
+    <span style="font-size:14px;font-weight:700;color:#0a2342;">Record All Required Fields (Items ①–⑩ from Section II)</span>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Removes SOx from engine exhaust using seawater or freshwater scrubbing. IMO 2020 compliance pathway alternative to low-sulphur fuel (LSFO). Hybrid systems switch between open/closed loop.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Washwater discharge violations in EGCS-prohibited ports. Sensor failure → non-compliance and PSC detention. Port bans on open-loop EGCS (Singapore, China, EU ports).</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Regular SOx analyzer calibration. Monitoring of port entry restrictions for EGCS mode. Continuous washwater pH/PAH logging for PSC inspection readiness.</div>
-    </div>
+  <div style="font-size:13px;color:#555;line-height:1.65;">For each CBS, record hardware make/model/version, current software/firmware version, and operating system if applicable. Software version is the most frequently outdated field — many vessels have ECDIS or IAS systems running firmware that is several versions behind. Document the actual installed version, not the target version.</div>
+</div>
+
+<!-- Step 4 -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-left:4px solid #1a9e82;padding:16px 20px;margin-bottom:10px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+    <span style="background:#1a9e82;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:4px;flex-shrink:0;">STEP 4</span>
+    <span style="font-size:14px;font-weight:700;color:#0a2342;">Map Network Connections and Assign Security Zones</span>
   </div>
+  <div style="font-size:13px;color:#555;line-height:1.65;">For each CBS, document every network it is physically or logically connected to. Then assign a security zone (OT Bridge / OT Machinery / OT Safety / DMZ / IT Admin). This step reveals dual-network CBSs — systems connected to both OT and IT networks — which represent the highest risk and require the most scrutiny.</div>
+</div>
+
+<!-- Step 5 -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-left:4px solid #e67e22;padding:16px 20px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+    <span style="background:#e67e22;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:4px;flex-shrink:0;">STEP 5</span>
+    <span style="font-size:14px;font-weight:700;color:#0a2342;">Classify Criticality and Establish Update Procedures</span>
+  </div>
+  <div style="font-size:13px;color:#555;line-height:1.65;">Assign each CBS a criticality level: <strong>Safety-Critical</strong> (failure affects SOLAS-mandated functions), <strong>Operational</strong> (failure affects vessel operations but not immediate safety), or <strong>Administrative</strong> (failure affects office/cargo administration). UR E26 requires documented procedures for software updates and patch management for each CBS — the criticality level determines the review and approval process for each update.</div>
 </div>
 
 <!-- ── SECTION Ⅴ ── -->
 <div style="border-left:4px solid;border-image:linear-gradient(#0a2342,#154f7a) 1;padding-left:16px;margin-bottom:20px;">
-  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅴ — Communication, Monitoring &amp; Crew Welfare Systems</h2>
-  <div style="font-size:13px;color:#6b7280;">GMDSS · AIS · Crew Management · HVAC — Connect, track, and support crew</div>
+  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅴ — Network Segmentation: The Technical Core of UR E26</h2>
+  <div style="font-size:13px;color:#6b7280;">Security zones · Zone boundaries · Dual-network CBS risks</div>
 </div>
 
-<!-- 5.1 GMDSS (supplemented) -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">5.1</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">GMDSS — Global Maritime Distress and Safety System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. IV · ITU Radio Regs</span>
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">+ Supplemented</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">International radio communication system for SAR coordination. Includes VHF/MF/HF radio, EPIRB (406 MHz), SART, and Inmarsat terminal. Mandatory for SOLAS vessels.</div>
-    </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Equipment failure during emergencies. Battery backup failure for EPIRB. <strong>Cyberattack disrupting distress communications or triggering false MAYDAY signals.</strong></div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Regular GMDSS equipment testing per SOLAS. Battery maintenance schedule. Redundant communication paths (Inmarsat + Iridium). Physical security for radio room.</div>
-    </div>
-  </div>
-</div>
+<p style="font-size:14px;color:#333;line-height:1.8;margin:0 0 16px;font-family:Inter,sans-serif;">
+  UR E26 requires CBSs to be grouped into <strong>security zones</strong> with discrete network segments. Only explicitly permitted traffic may cross zone boundaries. This is the technical requirement that makes the CBS inventory operationally meaningful — the inventory must reflect the actual network architecture, not just the intended one.
+</p>
 
-<!-- 5.2 AIS (supplemented) -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">5.2</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">AIS — Automatic Identification System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. V · ITU-R M.1371</span>
-    <span style="background:#1a9e82;color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">+ Supplemented</span>
+<!-- Network zone diagram -->
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;padding:20px;margin-bottom:16px;font-family:Inter,sans-serif;">
+  <!-- Zone OT Safety -->
+  <div style="background:#0a2342;border-radius:8px;padding:12px 16px;margin-bottom:6px;">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.15);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;">Zone A — OT Safety</span>
+      <span style="font-size:12px;color:#9ab5c9;">Fire detection · Bilge alarms · GMDSS · EPIRB · Flooding sensors</span>
+    </div>
+    <div style="font-size:11px;color:#7ec8f4;margin-top:4px;">Highest isolation — no external connections permitted · Event-driven only</div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">VHF transponder broadcasts vessel ID, position, speed, and course every 2–10 seconds. Received by other vessels and VTS. Mandatory for vessels over 300 GT on international voyages.</div>
+  <div style="text-align:center;font-size:16px;color:#dee2e6;line-height:1;">↕ (no traffic allowed)</div>
+  <!-- Zone OT Bridge -->
+  <div style="background:#154f7a;border-radius:8px;padding:12px 16px;margin-bottom:6px;">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.15);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;">Zone B — OT Bridge</span>
+      <span style="font-size:12px;color:#b8d4ea;">ECDIS · AIS · GPS/GNSS · Radar (ARPA) · VDR · AMS bridge panel</span>
     </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;"><strong>AIS spoofing</strong> creates false targets or hides real vessels. GPS manipulation → incorrect position broadcast. AIS data is unencrypted and unauthenticated by design.</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Cross-check AIS with independent radar tracking. AIS anomaly detection systems at VTS. Authentication standards under development by ITU/IMO. Crew training on AIS spoofing indicators.</div>
-    </div>
+    <div style="font-size:11px;color:#7ec8f4;margin-top:4px;">Controlled — NMEA 0183/2000 data feeds in; no internet access</div>
   </div>
-</div>
-
-<!-- 5.3 Crew Management -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:14px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">5.3</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">Crew Management System</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">MLC 2006 · STCW</span>
+  <div style="text-align:center;font-size:16px;color:#dee2e6;line-height:1;">↕ (strictly controlled)</div>
+  <!-- Zone OT Machinery -->
+  <div style="background:#1a6fa8;border-radius:8px;padding:12px 16px;margin-bottom:6px;">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.15);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;">Zone C — OT Machinery</span>
+      <span style="font-size:12px;color:#c8e4f8;">IAS server/workstations · PMS · Main engine control · Generator management</span>
+    </div>
+    <div style="font-size:11px;color:#d8eeff;margin-top:4px;">Controlled — Modbus/OPC-UA internal; remote access strictly controlled</div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
-    <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Tracks crew schedules, working hours, rest periods, and certification compliance with ILO and STCW labor standards. Integrates payroll and HR functions.</div>
+  <div style="text-align:center;font-size:16px;color:#1a9e82;line-height:1;">↕ (DMZ enforced)</div>
+  <!-- DMZ -->
+  <div style="background:#1a9e82;border-radius:8px;padding:12px 16px;margin-bottom:6px;">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.2);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;">Zone D — DMZ / Gateway</span>
+      <span style="font-size:12px;color:#c8f4e8;">VSAT router · Communication gateway · Data aggregation servers · Remote access proxy</span>
     </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Data breaches → compromised personal crew information. Incorrect scheduling → fatigue-related accidents. PII exposure to port state authorities via insecure transmission.</div>
+    <div style="font-size:11px;color:#e0fff8;margin-top:4px;">Strict firewall rules both sides — inspects all traffic crossing OT ↔ IT boundary</div>
+  </div>
+  <div style="text-align:center;font-size:16px;color:#1a9e82;line-height:1;">↕ (IT traffic only below)</div>
+  <!-- IT Admin -->
+  <div style="background:#f0f7ff;border:1px solid #c8ddf0;border-radius:8px;padding:12px 16px;">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="background:#154f7a;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;">Zone E — IT Admin</span>
+      <span style="font-size:12px;color:#354a5e;">CMMS PCs · Cargo management · Crew management · Voyage planning (office) · Crew Wi-Fi</span>
     </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">Encrypted data storage and biometric authentication. Automated fatigue monitoring and shift scheduling. GDPR-compliant data handling for EU port calls.</div>
-    </div>
+    <div style="font-size:11px;color:#6b8fa8;margin-top:4px;">Internet-accessible — contains no OT systems</div>
   </div>
 </div>
 
-<!-- 5.4 HVAC -->
-<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:28px;font-family:Inter,sans-serif;">
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-    <span style="background:#0a2342;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">5.4</span>
-    <span style="font-size:14px;font-weight:700;color:#0a2342;">HVAC System (Heating, Ventilation &amp; Air Conditioning)</span>
-    <span style="background:#e8f4ff;color:#1a6fa8;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;">SOLAS Ch. II-2</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:13px;">
+<div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:28px;font-family:Inter,sans-serif;font-size:13px;color:#555;line-height:1.65;">
+  <strong style="color:#b45309;">⚠️ Dual-Network CBSs:</strong> The highest-risk configuration is a CBS connected to both an OT zone and the IT/DMZ zone — for example, an IAS workstation with a USB port also used for crew data transfer, or a voyage management system with both NMEA input and internet connectivity. UR E26 requires these to be explicitly documented and their cross-zone traffic justified.
+</div>
+
+<!-- ── SECTION Ⅵ ── -->
+<div style="border-left:4px solid;border-image:linear-gradient(#0a2342,#154f7a) 1;padding-left:16px;margin-bottom:20px;">
+  <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0 0 4px;font-family:Inter,sans-serif;">Section Ⅵ — What Classification Society Surveyors Check</h2>
+  <div style="font-size:13px;color:#6b7280;">Documentary review · Technical verification · Common gaps</div>
+</div>
+
+<p style="font-size:14px;color:#333;line-height:1.8;margin:0 0 16px;font-family:Inter,sans-serif;">
+  IACS member class societies (DNV, Lloyd's Register, Bureau Veritas, ClassNK, ABS, and others) verify UR E26 compliance at new build surveys. Verification covers two layers: documentary completeness and technical alignment.
+</p>
+
+<div style="background:#fff;border:1px solid #dee2e6;border-radius:10px;border-top:4px solid #0a2342;padding:18px;margin-bottom:16px;font-family:Inter,sans-serif;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;">
     <div style="background:#f8f9fa;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a2342;margin-bottom:5px;">⚙️ How It Works</div>
-      <div style="color:#555;line-height:1.65;">Regulates temperature, humidity, and air quality in crew accommodation, bridge, and cargo spaces. Refrigerant-based cooling for LNG carrier cargo containment systems.</div>
+      <div style="font-weight:700;color:#0a2342;margin-bottom:6px;">📄 Documentary Review</div>
+      <div style="color:#555;line-height:1.65;">
+        <div style="margin-bottom:4px;">✓ Is the vessel asset inventory complete? (all CBSs listed)</div>
+        <div style="margin-bottom:4px;">✓ Does each CBS record contain the required fields?</div>
+        <div style="margin-bottom:4px;">✓ Is the network diagram present and does it show zone boundaries?</div>
+        <div style="margin-bottom:4px;">✓ Are software update and patch management procedures documented?</div>
+        <div>✓ Is an incident response plan in place?</div>
+      </div>
     </div>
-    <div style="background:#fff8f0;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#b45309;margin-bottom:5px;">⚠️ Potential Risks</div>
-      <div style="color:#555;line-height:1.65;">Ventilation failure → poor air quality and mold risk. Refrigerant leaks → health hazards. Smart HVAC connected to ship network may be an OT attack entry point.</div>
-    </div>
-    <div style="background:#f0fff8;border-radius:8px;padding:12px;">
-      <div style="font-weight:700;color:#0a7c53;margin-bottom:5px;">🛡️ Risk Management</div>
-      <div style="color:#555;line-height:1.65;">CO₂ sensor-based air quality monitoring. Preventive maintenance and refrigerant leak detection. Network isolation of smart HVAC controllers from critical OT systems.</div>
+    <div style="background:#f0f7ff;border-radius:8px;padding:12px;">
+      <div style="font-weight:700;color:#0a2342;margin-bottom:6px;">🔍 Technical Verification</div>
+      <div style="color:#555;line-height:1.65;">
+        <div style="margin-bottom:4px;">✓ Does the actual network match the network diagram?</div>
+        <div style="margin-bottom:4px;">✓ Are zone boundaries enforced by hardware (firewall/switch) — not just policy?</div>
+        <div style="margin-bottom:4px;">✓ Are installed software versions consistent with what is recorded in the CBS inventory?</div>
+        <div>✓ Are remote access paths documented and controlled?</div>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- Common gaps -->
+<div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="font-size:13px;font-weight:700;color:#b45309;margin-bottom:10px;">⚠️ Common Gaps Found in Practice</div>
+  <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#555;line-height:1.65;">
+    <div style="display:flex;gap:10px;"><span style="color:#e67e22;font-weight:700;flex-shrink:0;">①</span><span><strong>Undocumented CBSs:</strong> Systems added or upgraded after the original inventory was compiled — ECDIS updates, new crew welfare Wi-Fi access points, chartlet printers — that were never added to the CBS list.</span></div>
+    <div style="display:flex;gap:10px;"><span style="color:#e67e22;font-weight:700;flex-shrink:0;">②</span><span><strong>Software version mismatch:</strong> The inventory records the version installed at the time of commissioning. By survey time, patches may have been applied without updating the CBS record — or patches may not have been applied at all.</span></div>
+    <div style="display:flex;gap:10px;"><span style="color:#e67e22;font-weight:700;flex-shrink:0;">③</span><span><strong>Network diagram vs. reality:</strong> The submitted diagram shows intended segmentation, but the actual switch configuration has exceptions — a maintenance cable left plugged in, a port not tagged to the correct VLAN.</span></div>
+    <div style="display:flex;gap:10px;"><span style="color:#e67e22;font-weight:700;flex-shrink:0;">④</span><span><strong>Missing connectivity mapping:</strong> CBSs are listed but their interfaces to other systems are not documented — so the surveyor cannot verify that zone boundary rules are complete.</span></div>
+  </div>
+</div>
+
+<!-- ── CAPTAIN'S TAKE ── -->
+<div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#8099b3;margin-bottom:8px;">⚓ Captain Ethan&#39;s Take</div>
+  <p style="font-size:13.5px;color:#354a5e;line-height:1.75;margin:0;font-style:italic;">
+    "The most common failure mode I see is treating the CBS inventory as a one-time compliance deliverable rather than a living document. A ship is commissioned in 2025. By 2027, the ECDIS has had two software updates, a new VSAT router was installed, and the IAS was upgraded. None of it made it back into the CBS record. The inventory is now a snapshot of 2025 — and the surveyor knows it. The SFI structure helps because it anchors the CBS identity to the same code used in the maintenance system — so a planned maintenance record of the ECDIS update is visible alongside the CBS entry."
+  </p>
 </div>
 
 <!-- ── CONCLUSION ── -->
 <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:14px;padding:28px 32px;margin-bottom:28px;font-family:Inter,sans-serif;">
-  <div style="font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1a9e82;margin-bottom:10px;">⚓ Captain's Take</div>
+  <div style="font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#1a9e82;margin-bottom:10px;">⚓ Series Conclusion — Key Takeaways</div>
   <p style="font-size:15px;color:#eef6ff;line-height:1.75;margin:0 0 16px;">
-    A commercial ship is no longer just a mechanical vessel — it is a floating OT network. Every system described above now has a digital control interface, and every digital interface is a potential attack surface. The maritime industry's cybersecurity challenge is not theoretical: the Maersk, COSCO, and CMA CGM incidents already demonstrated what happens when these systems are compromised. Understanding what each system does is the first step toward defending it.
+    The four articles in this series form a complete chain: SFI addresses every onboard system → those systems generate data that travels from sensor to shore → Python gives engineers tools to work with that data → IACS UR E26 defines the compliance framework that governs those systems. Understanding all four layers is what defines a maritime data or cyber professional in 2024 and beyond.
   </p>
   <div style="display:flex;flex-direction:column;gap:8px;">
     <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#b8d4ea;line-height:1.6;">
       <span style="color:#1a9e82;font-weight:700;flex-shrink:0;">✅</span>
-      <span>Navigation systems (Steering, DP, ECDIS) are the highest-value cyber targets — a compromised vessel position or course can cause collisions, groundings, or enable hijacking far from shore.</span>
+      <span>IACS UR E26 (<em>Cyber Resilience of Ships</em>) and UR E27 (<em>Cyber Resilience of On-Board Systems and Equipment</em>) apply to ships with contracts signed on or after <strong>1 July 2024</strong>.</span>
     </div>
     <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#b8d4ea;line-height:1.6;">
       <span style="color:#1a9e82;font-weight:700;flex-shrink:0;">✅</span>
-      <span>The IAS is the single most dangerous OT attack target — it bridges PMS, main engine, and auxiliary systems. A compromised IAS can trigger a blackout, propulsion loss, or false alarms simultaneously.</span>
+      <span>UR E26 requires a <strong>vessel asset inventory</strong> of all Computer-Based Systems (CBSs) covering hardware/software versions, physical location, network connections, security zone, and criticality.</span>
     </div>
     <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#b8d4ea;line-height:1.6;">
       <span style="color:#1a9e82;font-weight:700;flex-shrink:0;">✅</span>
-      <span>Environmental systems (BWTS, EGCS) are increasingly becoming compliance and data integrity risks — falsified treatment logs can result in port detention and million-dollar fines under MARPOL.</span>
+      <span><strong>SFI is not mandated</strong> by UR E26 but is widely adopted as the CBS identifier because it integrates with existing CMMS, ISM Code documentation, and planned maintenance systems.</span>
     </div>
     <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#b8d4ea;line-height:1.6;">
       <span style="color:#1a9e82;font-weight:700;flex-shrink:0;">✅</span>
-      <span>AIS spoofing is perhaps the most underestimated threat — it is technically trivial to execute, and the maritime community has yet to deploy authenticated AIS at scale. Until then, cross-checking with radar remains essential.</span>
+      <span>UR E26 requires <strong>network segmentation into security zones</strong> (OT Safety / OT Bridge / OT Machinery / DMZ / IT Admin) with only explicitly permitted traffic allowed to cross zone boundaries.</span>
     </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#b8d4ea;line-height:1.6;">
+      <span style="color:#1a9e82;font-weight:700;flex-shrink:0;">✅</span>
+      <span>The most common compliance gaps are: undocumented CBSs added post-commissioning, software version mismatches, network diagram/reality divergence, and incomplete connectivity mapping between CBSs.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── SERIES NAVIGATION ── -->
+<div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:8px;">📌 Series Complete — Maritime AI &amp; Data Foundations</div>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#354a5e;line-height:1.6;">
+    <div>✅ <strong>Part 1:</strong> What Is the SFI Code — And Why Every Maritime AI &amp; Data Career Starts Here</div>
+    <div>✅ <strong>Part 2:</strong> How Ship Sensor Data Flows — From Onboard to Shore</div>
+    <div>✅ <strong>Part 3:</strong> Python for Maritime Engineers — 5 Real Use Cases with Ship Data</div>
+    <div style="color:#154f7a;font-weight:700;">▶ <strong>Part 4 (this article):</strong> From SFI to Smart Ship — How IACS UR E26 CBS Inventory Works in Practice</div>
   </div>
 </div>
 
 <!-- ── TAGS ── -->
 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;font-family:Inter,sans-serif;">
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#CommercialShipSystems</span>
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#MaritimeCybersecurity</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#IACSURe26</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#CBSInventory</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#SFICode</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#MaritimeCyber</span>
   <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#OTSecurity</span>
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#ECDIS</span>
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#AIS</span>
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#GMDSS</span>
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#IAS</span>
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#IACSURE27</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#NetworkSegmentation</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#SmartShip</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#CyberResilience</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#MaritimeCompliance</span>
   <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#Maritime4.0</span>
-  <span style="background:#e8f4ff;color:#1a6fa8;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;">#GPSSpoofing</span>
 </div>
 
 <!-- ── REFERENCES ── -->
@@ -513,47 +463,47 @@
     <div style="display:flex;gap:12px;align-items:flex-start;">
       <span style="background:#0a2342;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;">1</span>
       <div style="font-size:13px;color:#333;line-height:1.65;">
-        <a href="https://iacs.org.uk/resolutions/unified-requirements/ur-e/" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">IACS UR E27 — Cyber Resilience of On-board Systems and Equipment</a><br/>
-        IACS &middot; 2022 &middot; Mandatory for newbuilds contracted from July 2024 &middot; <span style="color:#6c757d;">iacs.org.uk</span>
+        <a href="https://iacs.org.uk/resolutions/unified-requirements/ur-e/" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">IACS UR E26 — Cyber Resilience of Ships</a><br/>
+        IACS &middot; Applies to ships contracted on or after 1 July 2024 &middot; Requires vessel CBS asset inventory, security zones, and patch management procedures · <span style="color:#6c757d;">iacs.org.uk</span>
       </div>
     </div>
 
     <div style="display:flex;gap:12px;align-items:flex-start;">
       <span style="background:#0a2342;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;">2</span>
       <div style="font-size:13px;color:#333;line-height:1.65;">
-        <a href="https://www.imo.org/en/OurWork/Security/Pages/Cyber-security.aspx" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">IMO MSC-FAL.1/Circ.3 — Guidelines on Maritime Cyber Risk Management</a><br/>
-        IMO &middot; 2017 &middot; Integrated into ISM Code from January 2021 &middot; <span style="color:#6c757d;">imo.org</span>
+        <a href="https://iacs.org.uk/resolutions/unified-requirements/ur-e/" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">IACS UR E27 — Cyber Resilience of On-Board Systems and Equipment</a><br/>
+        IACS &middot; Equipment-level requirements for manufacturers &middot; Same effective date as UR E26 · <span style="color:#6c757d;">iacs.org.uk</span>
       </div>
     </div>
 
     <div style="display:flex;gap:12px;align-items:flex-start;">
-      <span style="background:#0a2342;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;">3</span>
+      <span style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;">3</span>
       <div style="font-size:13px;color:#333;line-height:1.65;">
-        <a href="https://www.imo.org/en/OurWork/Environment/Pages/Ballast-Water-Management.aspx" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">IMO Ballast Water Management Convention — D-2 Standard</a><br/>
-        IMO &middot; Entry into force 2017 &middot; <span style="color:#6c757d;">imo.org</span>
+        <a href="https://wwwcdn.imo.org/localresources/en/OurWork/Security/Documents/MSC-FAL.1-Circ.3-Rev.3.pdf" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">IMO MSC-FAL.1/Circ.3 — Guidelines on Maritime Cyber Risk Management</a><br/>
+        IMO &middot; Non-binding guidance that UR E26/E27 build upon &middot; Rev.3 is the current version · <span style="color:#6c757d;">imo.org</span>
       </div>
     </div>
 
     <div style="display:flex;gap:12px;align-items:flex-start;">
       <span style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;">4</span>
       <div style="font-size:13px;color:#333;line-height:1.65;">
-        <a href="https://www.bimco.org/about-shipping/shipping-guides/bimco-guidelines-on-cyber-security-onboard-ships" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">BIMCO Guidelines on Cyber Security Onboard Ships (v4)</a><br/>
-        BIMCO / ICS / INTERCARGO / INTERTANKO &middot; 2020 &middot; <span style="color:#6c757d;">bimco.org</span>
+        <a href="https://www.bimco.org/about-us-and-our-members/publications/the-guidelines-on-cyber-security-onboard-ships" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">BIMCO — The Guidelines on Cyber Security Onboard Ships (Version 5)</a><br/>
+        BIMCO &middot; Version 5 published November 2024 &middot; Industry guidance aligned with UR E26 and IMO MSC-FAL.1/Circ.3 · <span style="color:#6c757d;">bimco.org</span>
       </div>
     </div>
 
     <div style="display:flex;gap:12px;align-items:flex-start;">
-      <span style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;">5</span>
+      <span style="background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;">5</span>
       <div style="font-size:13px;color:#333;line-height:1.65;">
-        <a href="https://www.imo.org/en/OurWork/Environment/Pages/Air-Pollution.aspx" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">MARPOL Annex VI — Prevention of Air Pollution from Ships (IMO 2020 SOx Cap)</a><br/>
-        IMO &middot; 0.5% global sulphur cap effective January 2020 &middot; <span style="color:#6c757d;">imo.org</span>
+        <a href="https://www.shippauljobs.com/p/international-association-compliance.html" target="_blank" rel="noopener" style="color:#1d89cf;font-weight:600;">ShipPaulJobs — IACS UR E26/E27 Resource Library</a><br/>
+        ShipPaulJobs &middot; Download IACS, BIMCO, NIST, IEC 62443 compliance PDFs · <span style="color:#6c757d;">shippauljobs.com</span>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- ── AUTHOR CARD (BOTTOM) ── -->
+<!-- ── AUTHOR CARD ── -->
 <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:14px;padding:24px 28px;display:flex;align-items:center;gap:18px;font-family:Inter,sans-serif;flex-wrap:wrap;">
   <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
        alt="Captain Ethan"
@@ -564,7 +514,7 @@
     <div style="font-size:12px;color:#7ec8f4;margin-top:2px;">
       <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="color:#7ec8f4;text-decoration:none;">linkedin.com/in/shipjobs</a>
     </div>
-    <div style="font-size:11px;color:#6b8fa8;margin-top:4px;">Collaborator: Lew, Julius, Jin, Morgan, Yeon</div>
+    <div style="font-size:11px;color:#6b8fa8;margin-top:4px;">Maritime Intelligence Platform · Cyber · AI · Data</div>
   </div>
   <a href="https://shippauljobs.com" target="_blank" rel="noopener"
      style="background:#1a9e82;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;white-space:nowrap;">

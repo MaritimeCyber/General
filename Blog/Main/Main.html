@@ -68,60 +68,6 @@
   <meta content='index, follow' name='robots'/>
 </b:if>
 
-    <!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
-    <b:if cond='data:view.isSingleItem'>
-      <meta expr:content='data:post.snippet + &quot; — ShipPaulJobs&quot;' name='description'/>
-      <b:else/>
-      <meta content='Maritime 4.0: AI, cyber &amp; data for engineers, consultants, and operators.' name='description'/>
-    </b:if>
-
-    <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
-    <meta content='ShipPaulJobs' property='og:site_name'/>
-    <meta content='ko_KR' property='og:locale'/>
-    <meta content='en_US' property='og:locale:alternate'/>
-    <b:if cond='data:view.isSingleItem'>
-      <meta content='article' property='og:type'/>
-      <meta expr:content='data:post.title' property='og:title'/>
-      <meta expr:content='data:post.snippet' property='og:description'/>
-      <meta expr:content='data:post.url' property='og:url'/>
-      <b:if cond='data:post.firstImageUrl'>
-        <meta expr:content='data:post.firstImageUrl' property='og:image'/>
-        <meta content='1200' property='og:image:width'/>
-        <meta content='630' property='og:image:height'/>
-      <b:else/>
-        <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
-        <meta content='1200' property='og:image:width'/>
-        <meta content='630' property='og:image:height'/>
-      </b:if>
-      <meta expr:content='data:post.datePublished' property='article:published_time'/>
-      <meta expr:content='data:post.lastUpdated' property='article:modified_time'/>
-      <meta content='Captain Ethan' property='article:author'/>
-      <b:else/>
-      <meta content='website' property='og:type'/>
-      <meta content='Maritime 4.0 — AI, Data &amp; Cybersecurity' property='og:title'/>
-      <meta content='Maritime 4.0 blog: AI, cybersecurity, data &amp; digital transformation in shipping.' property='og:description'/>
-      <meta expr:content='data:blog.homepageUrl' property='og:url'/>
-      <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
-      <meta content='1200' property='og:image:width'/>
-      <meta content='630' property='og:image:height'/>
-    </b:if>
-
-    <!-- &#9552;&#9552; SEO: Twitter Card &#9552;&#9552; -->
-    <meta content='summary_large_image' name='twitter:card'/>
-    <b:if cond='data:view.isSingleItem'>
-      <meta expr:content='data:post.title' name='twitter:title'/>
-      <meta expr:content='data:post.snippet' name='twitter:description'/>
-      <b:if cond='data:post.firstImageUrl'>
-        <meta expr:content='data:post.firstImageUrl' name='twitter:image'/>
-      <b:else/>
-        <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
-      </b:if>
-      <b:else/>
-      <meta expr:content='data:blog.title' name='twitter:title'/>
-      <meta content='Maritime 4.0 study blog — AI, cybersecurity, data, and digital transformation in the maritime industry.' name='twitter:description'/>
-      <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
-    </b:if>
-
     <!-- &#9552;&#9552; SEO: JSON-LD 구조화 데이터 &#9552;&#9552; -->
     <b:if cond='data:view.isSingleItem'>
       <script type='application/ld+json'>
@@ -227,6 +173,60 @@
 
 <!-- Blogger 기본 head -->
 <b:include data='blog' name='all-head-content'/>
+
+<!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
+<b:if cond='data:view.isSingleItem'>
+  <meta expr:content='data:post.snippet + &quot; — ShipPaulJobs&quot;' name='description'/>
+  <b:else/>
+  <meta content='Maritime 4.0: AI, cyber &amp; data for engineers, consultants, and operators.' name='description'/>
+</b:if>
+
+<!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
+<meta content='ShipPaulJobs' property='og:site_name'/>
+<meta content='ko_KR' property='og:locale'/>
+<meta content='en_US' property='og:locale:alternate'/>
+<b:if cond='data:view.isSingleItem'>
+  <meta content='article' property='og:type'/>
+  <meta expr:content='data:post.title' property='og:title'/>
+  <meta expr:content='data:post.snippet' property='og:description'/>
+  <meta expr:content='data:post.url' property='og:url'/>
+  <b:if cond='data:post.firstImageUrl'>
+    <meta expr:content='data:post.firstImageUrl' property='og:image'/>
+    <meta content='1200' property='og:image:width'/>
+    <meta content='630' property='og:image:height'/>
+  <b:else/>
+    <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
+    <meta content='1200' property='og:image:width'/>
+    <meta content='630' property='og:image:height'/>
+  </b:if>
+  <meta expr:content='data:post.datePublished' property='article:published_time'/>
+  <meta expr:content='data:post.lastUpdated' property='article:modified_time'/>
+  <meta content='Captain Ethan' property='article:author'/>
+  <b:else/>
+  <meta content='website' property='og:type'/>
+  <meta content='Maritime 4.0 — AI, Data &amp; Cybersecurity' property='og:title'/>
+  <meta content='Maritime 4.0 blog: AI, cybersecurity, data &amp; digital transformation in shipping.' property='og:description'/>
+  <meta expr:content='data:blog.homepageUrl' property='og:url'/>
+  <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
+  <meta content='1200' property='og:image:width'/>
+  <meta content='630' property='og:image:height'/>
+</b:if>
+
+<!-- &#9552;&#9552; SEO: Twitter Card &#9552;&#9552; -->
+<meta content='summary_large_image' name='twitter:card'/>
+<b:if cond='data:view.isSingleItem'>
+  <meta expr:content='data:post.title' name='twitter:title'/>
+  <meta expr:content='data:post.snippet' name='twitter:description'/>
+  <b:if cond='data:post.firstImageUrl'>
+    <meta expr:content='data:post.firstImageUrl' name='twitter:image'/>
+  <b:else/>
+    <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
+  </b:if>
+  <b:else/>
+  <meta expr:content='data:blog.title' name='twitter:title'/>
+  <meta content='Maritime 4.0 study blog — AI, cybersecurity, data, and digital transformation in the maritime industry.' name='twitter:description'/>
+  <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
+</b:if>
 
 <!-- &#9989; 핵심: 동적 canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
@@ -1004,6 +1004,8 @@
       .desktop-ad .inline-ad{ display:block } .adsbygoogle{ overflow:hidden }
       .vertical-ad-container{ float:$(endSide); margin-$endSide:16px;
       width:128px } .vertical-ad-container .AdSense+.AdSense{ margin-top:16px }
+      .in-feed-ad-container{ clear:both; float:none; width:100%; margin:12px 0 16px; }
+      .in-feed-ad-container .AdSense{ display:block; width:100%; }
       .inline-ad-placeholder,.vertical-ad-placeholder{
       background:$(posts.background.color); border:1px solid #000; opacity:.9;
       vertical-align:middle; text-align:center } .inline-ad-placeholder
@@ -1753,7 +1755,7 @@
 
                 <div class='blog-name container'>
                   <b:section class='container' id='header' name='Header' showaddelement='false'>
-                    <b:widget id='Header1' locked='true' title='ShipPaulJobs Blog for Maritime 4.0 (Header)' type='Header' version='2' visible='true'>
+                    <b:widget id='Header1' locked='true' title='Maritime Industry 4.0 Intelligence (Header)' type='Header' version='2' visible='true'>
                       <b:widget-settings>
                         <b:widget-setting name='displayUrl'/>
                         <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -1815,7 +1817,7 @@
                     <b:section class='clearboth' id='page_list_top' name='Page List (Top)' showaddelement='false'>
                       <b:widget cond='!data:view.isSingleItem' id='PageList1' locked='true' title='' type='PageList' version='2' visible='true'>
                         <b:widget-settings>
-                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":4,"title":"AI Cyber Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=9","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime Compliance"},"link6":{"href":"https://www.shippauljobs.com/search/label/Life_story?max-results=9","position":6,"title":"Life"}}]]></b:widget-setting>
+                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/MaritimeCyberTrend?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":4,"title":"AI Cyber Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/paper?max-results=9","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime Compliance"}}]]></b:widget-setting>
                           <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
@@ -1869,63 +1871,7 @@
                 </div>
               </div>
             </header>
-            <div>
-              <b:section ads='true' class='vertical-ad-container' id='ads' name='Ads' showaddelement='false'>
-                <b:widget id='AdSense1' locked='true' title='' type='AdSense' version='2' visible='true'>
-                  <b:widget-settings>
-                    <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.layout'>1x1</b:widget-setting>
-                    <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
-                  </b:widget-settings>
-                  <b:includable id='main'>
-                    <div class='widget-content'>
-                      <b:if cond='data:adCode'>
-                        <data:adCode/>
-                        <b:else/>
-                        <b:include name='defaultAdUnit'/>
-                      </b:if>
-                    </div>
-                  </b:includable>
-                  <b:includable id='defaultAdUnit'>
-                    <b:comment>Clear out style (needs to be a non-empty
-                      string)</b:comment>
-                    <b:with value='&quot;/* Done in css. */&quot;' var='style'>
-                      <b:include name='super.defaultAdUnit'/>
-                    </b:with>
-                  </b:includable>
-                </b:widget>
-                <b:widget id='AdSense2' locked='true' title='' type='AdSense' version='2' visible='true'>
-                  <b:widget-settings>
-                    <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.layout'>1x1</b:widget-setting>
-                    <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
-                    <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
-                  </b:widget-settings>
-                  <b:includable id='main'>
-                    <div class='widget-content'>
-                      <b:if cond='data:adCode'>
-                        <data:adCode/>
-                        <b:else/>
-                        <b:include name='defaultAdUnit'/>
-                      </b:if>
-                    </div>
-                  </b:includable>
-                  <b:includable id='defaultAdUnit'>
-                    <b:comment>Clear out style (needs to be a non-empty
-                      string)</b:comment>
-                    <b:with value='&quot;/* Done in css. */&quot;' var='style'>
-                      <b:include name='super.defaultAdUnit'/>
-                    </b:with>
-                  </b:includable>
-                </b:widget>
-              </b:section>
+
               <main class='centered-bottom' id='main' role='main' tabindex='-1'>
                 <b:if cond='data:view.isMultipleItems'>
                   <h2 class='main-heading'><data:messages.posts/></h2>
@@ -1962,7 +1908,7 @@
                     <b:widget-settings>
                       <b:widget-setting name='showSnippet'>true</b:widget-setting>
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-                      <b:widget-setting name='postId'>2189944521342780760</b:widget-setting>
+                      <b:widget-setting name='postId'>5343431246248100449</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
                       <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
                     </b:widget-settings>
@@ -3485,7 +3431,6 @@
                   </b:widget>
                 </b:section>
               </main>
-            </div>
             <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
               <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
                 <b:widget-settings>
@@ -3524,6 +3469,60 @@
               <b:widget id='ReportAbuse1' locked='true' title='' type='ReportAbuse' version='2' visible='false'>
                 <b:includable id='main'>
                   <b:include name='reportAbuse'/>
+                </b:includable>
+              </b:widget>
+            </b:section>
+            <b:section ads='true' class='in-feed-ad-container' id='ads' name='Ads' showaddelement='false'>
+              <b:widget id='AdSense1' locked='true' title='' type='AdSense' version='2' visible='true'>
+                <b:widget-settings>
+                  <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+                  <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+                  <div class='widget-content'>
+                    <b:if cond='data:adCode'>
+                      <data:adCode/>
+                      <b:else/>
+                      <b:include name='defaultAdUnit'/>
+                    </b:if>
+                  </div>
+                </b:includable>
+                <b:includable id='defaultAdUnit'>
+                  <b:comment>Clear out style (needs to be a non-empty string)</b:comment>
+                  <b:with value='&quot;/* Done in css. */&quot;' var='style'>
+                    <b:include name='super.defaultAdUnit'/>
+                  </b:with>
+                </b:includable>
+              </b:widget>
+              <b:widget id='AdSense2' locked='true' title='' type='AdSense' version='2' visible='true'>
+                <b:widget-settings>
+                  <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+                  <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+                  <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+                  <div class='widget-content'>
+                    <b:if cond='data:adCode'>
+                      <data:adCode/>
+                      <b:else/>
+                      <b:include name='defaultAdUnit'/>
+                    </b:if>
+                  </div>
+                </b:includable>
+                <b:includable id='defaultAdUnit'>
+                  <b:comment>Clear out style (needs to be a non-empty string)</b:comment>
+                  <b:with value='&quot;/* Done in css. */&quot;' var='style'>
+                    <b:include name='super.defaultAdUnit'/>
+                  </b:with>
                 </b:includable>
               </b:widget>
             </b:section>
@@ -3814,6 +3813,86 @@
         <b:widget id='HTML4' locked='false' title='Secure Connectivity Information' type='HTML' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<div id="Hello_GuestInfo.html"></div><script>(function(){var GITHUB_RAW_URL="https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/Hello_GuestInfo.html";var target=document.getElementById("Hello_GuestInfo.html");var s=document.createElement("style");s.textContent="#hg-right #hg-wrap{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;width:100%!important;max-width:100%!important;margin:0!important;padding:10px 14px!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;line-height:1.7!important;}#hg-right #hg-greeting{font-size:15px!important;font-weight:700!important;color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.55)!important;}#hg-right #hg-flag{font-size:22px!important;}#hg-right #hg-lang{font-size:10.5px!important;color:rgba(200,228,248,0.62)!important;margin-bottom:8px!important;}#hg-right #hg-body{font-size:11.5px!important;color:#c8e4f8!important;line-height:1.65!important;}#hg-right #hg-extra{font-size:11px!important;color:rgba(200,228,248,0.78)!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:8px!important;padding-top:8px!important;}#hg-right #hg-confirm{font-size:11px!important;color:#1a9e82!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:6px!important;padding-top:6px!important;}#hg-right a{color:#1affda!important;text-decoration:none!important;}#hg-right #hg-loading{color:rgba(200,228,248,0.45)!important;}#hg-right .hg-pill,#hg-right .hg-badge{background:rgba(26,158,130,0.18)!important;border:1px solid rgba(26,158,130,0.4)!important;color:#1affda!important;border-radius:4px!important;}";document.head.appendChild(s);fetch(GITHUB_RAW_URL).then(function(res){if(!res.ok)throw new Error("HTTP "+res.status);return res.text()}).then(function(html){target.innerHTML=html;var scripts=target.querySelectorAll("script");scripts.forEach(function(oldScript){var newScript=document.createElement("script");Array.prototype.forEach.call(oldScript.attributes,function(attr){newScript.setAttribute(attr.name,attr.value)});newScript.textContent=oldScript.textContent;oldScript.parentNode.replaceChild(newScript,oldScript)})}).catch(function(err){console.warn("[gh-inject] Failed to load:",err)})})();</script>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <b:include name='widget-title'/>
+            <div class='widget-content'>
+              <data:content/>
+            </div>
+          </b:includable>
+        </b:widget>
+        <b:widget id='HTML13' locked='false' title='🤖 ShipPaul Intelligence' type='HTML' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<div style="font-family:'Segoe UI',Arial,sans-serif;">
+
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:12px 12px 0 0;padding:14px 15px 12px;">
+    <div style="align-items:center;display:flex;gap:7px;margin-bottom:10px;">
+      <span style="font-size:18px;flex-shrink:0;line-height:1;">🤖</span>
+      <div style="flex:1;">
+        <div style="color:#fff;font-size:12px;font-weight:800;letter-spacing:-0.1px;line-height:1.25;">ShipPaul Intelligence</div>
+        <div style="color:#7effd8;font-size:9px;font-weight:700;letter-spacing:0.3px;margin-top:2px;">Maritime Cyber Compliance AI</div>
+      </div>
+      <div style="align-items:center;display:flex;gap:4px;">
+        <span id="ci-dot" style="background:#1a9e82;border-radius:50%;display:inline-block;height:7px;width:7px;box-shadow:0 0 6px rgba(26,158,130,0.8);"></span>
+        <span style="color:#7effd8;font-size:8.5px;font-weight:700;">LIVE</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px;">
+      <span style="background:rgba(26,158,130,0.3);border-radius:20px;color:#7effd8;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">IACS · BIMCO · NIS2</span>
+      <span style="background:rgba(255,193,7,0.25);border-radius:20px;color:#ffe082;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">IEC · USCG · IMO</span>
+      <span style="background:rgba(255,255,255,0.12);border-radius:20px;color:#b8d4ea;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">13 Regulations</span>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div style="background:#fff;border:1.5px solid #d1e0ee;border-top:none;padding:12px 14px 13px;">
+    <p style="color:#354a5e;font-size:11.5px;line-height:1.7;margin:0 0 11px;">
+      Ask any question about maritime cyber regulations — get <strong style="color:#0a2342;">clause references</strong>, plain-English <strong style="color:#0a2342;">interpretations</strong>, and <strong style="color:#0a2342;">official PDF source links</strong> instantly.
+    </p>
+    <div style="margin-bottom:12px;">
+      <div style="color:#154f7a;font-size:8.5px;font-weight:800;letter-spacing:0.8px;margin-bottom:6px;text-transform:uppercase;">Covered Regulations</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;">
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS UR E26</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS UR E27</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">BIMCO v5</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IEC 62443</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">NIS2</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">NIST SP 800</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">USCG MTSA</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IMO MSC-FAL</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">DNV</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">KR</span>
+        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">ABS</span>
+        <span style="background:#f0fff8;border-radius:5px;color:#1a7a60;font-size:9.5px;font-weight:700;padding:2px 7px;">+2 more</span>
+      </div>
+    </div>
+    <a href="https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html"
+       target="_blank" rel="noopener noreferrer"
+       style="align-items:center;background:rgba(26,158,130,0.15);border:1.5px solid #1a9e82;border-radius:8px;color:#0a7060;display:flex;font-size:12px;font-weight:800;gap:8px;justify-content:center;padding:10px 14px;text-decoration:none;">
+      <span style="font-size:14px;line-height:1;">🤖</span>
+      <span>Open Compliance AI</span>
+      <span style="color:#1a9e82;font-size:14px;margin-left:auto;">&#8594;</span>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div style="background:#f0f5fb;border:1.5px solid #d1e0ee;border-radius:0 0 12px 12px;border-top:none;padding:7px 14px;">
+    <div style="align-items:center;display:flex;gap:5px;justify-content:center;">
+      <span style="color:#8099b3;font-size:9px;">13 regulations</span>
+      <span style="color:#c8d9e8;font-size:9px;">·</span>
+      <span style="color:#8099b3;font-size:9px;">Free</span>
+      <span style="color:#c8d9e8;font-size:9px;">·</span>
+      <span style="color:#8099b3;font-size:9px;">No login required</span>
+      <span style="color:#c8d9e8;font-size:9px;">·</span>
+      <span style="background:#1a9e82;border-radius:3px;color:#fff;font-size:7.5px;font-weight:800;padding:1px 5px;">AI</span>
+    </div>
+  </div>
+
+</div>
+<script>
+(function(){var s=document.createElement('style');s.textContent='@keyframes ci-pulse{0%,100%{opacity:.4}50%{opacity:1}}#ci-dot{animation:ci-pulse 2s ease-in-out infinite;}';document.head.appendChild(s);})();
+</script>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
             <b:include name='widget-title'/>
