@@ -228,8 +228,16 @@
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
 </b:if>
 
-<!-- &#9989; 핵심: 동적 canonical -->
-<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+<!-- ✅ Canonical: duplicate-post override → /p/ authoritative URL -->
+<b:if cond='data:blog.url == &quot;https://www.shippauljobs.com/2026/05/about.html&quot;'>
+  <link href='https://www.shippauljobs.com/p/about-this-platform.html' rel='canonical'/>
+<b:elseif cond='data:blog.url == &quot;https://www.shippauljobs.com/2026/05/contact.html&quot;'/>
+  <link href='https://www.shippauljobs.com/p/contact-shippauljobs.html' rel='canonical'/>
+<b:elseif cond='data:blog.url == &quot;https://www.shippauljobs.com/2021/05/terms-and-conditions.html&quot;'/>
+  <link href='https://www.shippauljobs.com/p/terms-and-conditions.html' rel='canonical'/>
+<b:else/>
+  <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+</b:if>
 
 
 
