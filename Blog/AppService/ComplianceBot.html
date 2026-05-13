@@ -13,21 +13,33 @@
       <div id="cb-hdr-title">ShipPaul Intelligence</div>
       <div id="cb-hdr-sub">Maritime Cyber Compliance AI</div>
     </div>
-    <button id="cb-ai-toggle" title="Connect to ChatGPT (GPT-4o-mini)">⚡ Connect AI</button>
+    <button id="cb-ai-toggle" title="AI Settings">🟣 Claude</button>
     <span id="cb-status-dot"></span>
   </div>
 
   <!-- API Key Panel (hidden by default) -->
   <div id="cb-ai-panel">
-    <div id="cb-ai-panel-label">⚡ OpenAI API Key <span id="cb-ai-conn-text"></span></div>
-    <div id="cb-ai-input-row">
-      <input id="cb-api-input" type="password" placeholder="sk-proj-…" autocomplete="off" spellcheck="false" />
-      <button id="cb-api-save">Save</button>
-      <button id="cb-api-clear">Clear</button>
+    <div id="cb-provider-tabs">
+      <button id="cb-tab-claude" class="cb-tab cb-tab-active" onclick="cbSwitchTab('claude')">🟣 Claude</button>
+      <button id="cb-tab-gpt" class="cb-tab" onclick="cbSwitchTab('gpt')">🟢 ChatGPT</button>
     </div>
-    <div id="cb-ai-note">
-      Key stored in session only (cleared on tab close) · Calls billed to your OpenAI account ·
-      <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">Get key →</a>
+    <div id="cb-claude-section">
+      <div id="cb-ai-panel-label">🟣 Claude via OpenRouter <span id="cb-claude-conn-text"></span></div>
+      <div id="cb-ai-input-row">
+        <input id="cb-claude-input" type="password" placeholder="sk-or-v1-… (default key active)" autocomplete="off" spellcheck="false" />
+        <button id="cb-claude-save">Save</button>
+        <button id="cb-claude-clear">Clear</button>
+      </div>
+      <div id="cb-ai-note">Default key provided · Save your own key · <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">Get key →</a></div>
+    </div>
+    <div id="cb-gpt-section" style="display:none;">
+      <div id="cb-ai-panel-label">🟢 OpenAI API Key <span id="cb-ai-conn-text"></span></div>
+      <div id="cb-ai-input-row">
+        <input id="cb-api-input" type="password" placeholder="sk-proj-…" autocomplete="off" spellcheck="false" />
+        <button id="cb-api-save">Save</button>
+        <button id="cb-api-clear">Clear</button>
+      </div>
+      <div id="cb-ai-note">Key stored in session only · <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">Get key →</a></div>
     </div>
   </div>
 
@@ -77,16 +89,20 @@
     '#cb-ai-toggle:hover{background:rgba(16,163,127,0.2);border-color:#10a37f;color:#19c37d;}',
     '#cb-ai-toggle.ai-active{background:rgba(16,163,127,0.2);border-color:#10a37f;color:#19c37d;}',
     '#cb-ai-panel{border-bottom:1px solid rgba(255,255,255,0.06);display:none;padding:13px 18px;}',
+    '#cb-provider-tabs{display:flex;gap:6px;margin-bottom:12px;}',
+    '.cb-tab{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#8e8ea0;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;padding:5px 12px;transition:all .15s;}',
+    '.cb-tab-active{background:rgba(16,163,127,0.15);border-color:rgba(16,163,127,0.4);color:#19c37d;}',
+    '.cb-tab:hover{background:rgba(16,163,127,0.1);border-color:rgba(16,163,127,0.3);color:#19c37d;}',
     '#cb-ai-panel-label{color:#8e8ea0;font-size:9px;font-weight:700;letter-spacing:0.07em;margin-bottom:9px;text-transform:uppercase;}',
-    '#cb-ai-conn-text{font-weight:400;letter-spacing:0;text-transform:none;}',
+    '#cb-ai-conn-text,#cb-claude-conn-text{font-weight:400;letter-spacing:0;text-transform:none;}',
     '#cb-ai-input-row{display:flex;gap:6px;margin-bottom:7px;}',
-    '#cb-api-input{background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:#ececec;flex:1;font-family:monospace;font-size:11px;outline:none;padding:7px 10px;}',
-    '#cb-api-input:focus{border-color:rgba(16,163,127,0.5);}',
-    '#cb-api-save,#cb-api-clear{border:none;border-radius:7px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;padding:7px 13px;transition:background .15s;white-space:nowrap;}',
-    '#cb-api-save{background:#10a37f;color:#fff;}',
-    '#cb-api-save:hover{background:#0d8c6c;}',
-    '#cb-api-clear{background:rgba(220,80,80,0.15);border:1px solid rgba(220,80,80,0.3);color:#e07070;display:none;}',
-    '#cb-api-clear:hover{background:rgba(220,80,80,0.25);}',
+    '#cb-api-input,#cb-claude-input{background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:#ececec;flex:1;font-family:monospace;font-size:11px;outline:none;padding:7px 10px;}',
+    '#cb-api-input:focus,#cb-claude-input:focus{border-color:rgba(16,163,127,0.5);}',
+    '#cb-api-save,#cb-api-clear,#cb-claude-save,#cb-claude-clear{border:none;border-radius:7px;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;padding:7px 13px;transition:background .15s;white-space:nowrap;}',
+    '#cb-api-save,#cb-claude-save{background:#10a37f;color:#fff;}',
+    '#cb-api-save:hover,#cb-claude-save:hover{background:#0d8c6c;}',
+    '#cb-api-clear,#cb-claude-clear{background:rgba(220,80,80,0.15);border:1px solid rgba(220,80,80,0.3);color:#e07070;display:none;}',
+    '#cb-api-clear:hover,#cb-claude-clear:hover{background:rgba(220,80,80,0.25);}',
     '#cb-ai-note{color:#4a4a5a;font-size:9px;line-height:1.5;}',
     '#cb-ai-note a{color:#5a5a6a;text-decoration:none;}',
     '#cb-ai-note a:hover{color:#10a37f;}',
@@ -548,26 +564,51 @@
   ];
 
   /* ── 4. API Key Management ───────────────────────────────── */
-  var AI_KEY = sessionStorage.getItem('cb_oai_key') || '';
+  var DEFAULT_CLAUDE_KEY = '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';
+  var AI_KEY_GPT = sessionStorage.getItem('cb_oai_key') || '';
+  var AI_KEY_CLAUDE = localStorage.getItem('cb_claude_key') || DEFAULT_CLAUDE_KEY;
+  var ACTIVE_AI = 'claude';
+
+  function cbSwitchTab(tab) {
+    document.getElementById('cb-claude-section').style.display = tab === 'claude' ? '' : 'none';
+    document.getElementById('cb-gpt-section').style.display = tab === 'gpt' ? '' : 'none';
+    document.getElementById('cb-tab-claude').className = 'cb-tab' + (tab === 'claude' ? ' cb-tab-active' : '');
+    document.getElementById('cb-tab-gpt').className = 'cb-tab' + (tab === 'gpt' ? ' cb-tab-active' : '');
+    var claudeInput = document.getElementById('cb-claude-input');
+    var savedKey = localStorage.getItem('cb_claude_key');
+    claudeInput.placeholder = savedKey ? 'sk-or-v1-… (key saved)' : 'sk-or-v1-… (default key active)';
+    claudeInput.value = '';
+  }
+  window.cbSwitchTab = cbSwitchTab;
 
   function refreshAIUI() {
     var toggle = document.getElementById('cb-ai-toggle');
-    var saveBtn = document.getElementById('cb-api-save');
-    var clearBtn = document.getElementById('cb-api-clear');
-    var connText = document.getElementById('cb-ai-conn-text');
-    if (AI_KEY) {
-      toggle.textContent = '⚡ GPT Active';
-      toggle.classList.add('ai-active');
-      saveBtn.style.display = 'none';
-      clearBtn.style.display = '';
-      connText.textContent = ' · Connected';
-      connText.style.color = '#19c37d';
+    var claudeSaveBtn = document.getElementById('cb-claude-save');
+    var claudeClearBtn = document.getElementById('cb-claude-clear');
+    var claudeConnText = document.getElementById('cb-claude-conn-text');
+    var gptSaveBtn = document.getElementById('cb-api-save');
+    var gptClearBtn = document.getElementById('cb-api-clear');
+    var gptConnText = document.getElementById('cb-ai-conn-text');
+    if (ACTIVE_AI === 'gpt') {
+      toggle.textContent = '🟢 GPT Active';
     } else {
-      toggle.textContent = '⚡ Connect AI';
-      toggle.classList.remove('ai-active');
-      saveBtn.style.display = '';
-      clearBtn.style.display = 'none';
-      connText.textContent = '';
+      toggle.textContent = '🟣 Claude';
+    }
+    toggle.classList.add('ai-active');
+    var savedClaudeKey = localStorage.getItem('cb_claude_key');
+    claudeConnText.textContent = savedClaudeKey ? ' · Custom Key' : ' · Default Key';
+    claudeConnText.style.color = '#19c37d';
+    claudeSaveBtn.style.display = '';
+    claudeClearBtn.style.display = savedClaudeKey ? '' : 'none';
+    if (AI_KEY_GPT) {
+      gptConnText.textContent = ' · Connected';
+      gptConnText.style.color = '#19c37d';
+      gptSaveBtn.style.display = 'none';
+      gptClearBtn.style.display = '';
+    } else {
+      gptConnText.textContent = '';
+      gptSaveBtn.style.display = '';
+      gptClearBtn.style.display = 'none';
     }
   }
 
@@ -592,7 +633,7 @@
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + AI_KEY
+        'Authorization': 'Bearer ' + AI_KEY_GPT
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini',
@@ -630,6 +671,55 @@
     });
     escaped = escaped.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
     return escaped;
+  }
+
+  /* ── 5b. Claude Call (OpenRouter) ───────────────────────── */
+  function callClaude(query, onDone, onError) {
+    var hits = search(query);
+    var ctx;
+    if (hits.length) {
+      var e = hits[0];
+      ctx = 'Primary reference — ' + e.title + ':\n' +
+        e.clauses.map(function (c) {
+          return '[' + c.doc + ' | ' + c.ref + ']: ' + c.text;
+        }).join('\n');
+    } else {
+      ctx = 'Topics available: IACS UR E26, E27, BIMCO v5, IEC 62443, NIS2, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, ABS, IMO MSC-FAL.1/Circ.3';
+    }
+    var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
+      'Relevant KB:\n' + ctx + '\n\n' +
+      'For each answer point, cite [Document | Article/Section]. Under 320 words. Professional maritime tone.';
+    fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + AI_KEY_CLAUDE,
+        'HTTP-Referer': 'https://www.shippauljobs.com',
+        'X-Title': 'ShipPaul Compliance AI'
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-3.5-haiku',
+        temperature: 0.25,
+        max_tokens: 600,
+        messages: [
+          { role: 'system', content: sys },
+          { role: 'user', content: query }
+        ]
+      })
+    })
+    .then(function (r) {
+      if (!r.ok) {
+        return r.json().then(function (j) {
+          throw new Error(j.error ? (j.error.message || JSON.stringify(j.error)) : 'HTTP ' + r.status);
+        });
+      }
+      return r.json();
+    })
+    .then(function (data) {
+      var msg = data.choices && data.choices[0] && data.choices[0].message;
+      onDone(msg ? msg.content.trim() : '');
+    })
+    .catch(function (err) { onError(err.message || 'Request failed'); });
   }
 
   /* ── 6. Search (local KB) ────────────────────────────────── */
@@ -719,11 +809,13 @@
     addMsg(q, 'user');
     document.getElementById('cb-input').value = '';
 
-    if (AI_KEY) {
+    if (ACTIVE_AI !== 'none') {
+      var callFn = ACTIVE_AI === 'gpt' ? callGPT : callClaude;
+      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'Claude 3.5 Haiku';
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
-      callGPT(q, function (text) {
+      callFn(q, function (text) {
         bubble.innerHTML =
-          '<span class="cb-gpt-badge">GPT-4o-mini</span><br><br>' +
+          '<span class="cb-gpt-badge">' + badgeLabel + '</span><br><br>' +
           '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
         appendSourcesAndRelated(bubble, q);
         chat.scrollTop = chat.scrollHeight;
@@ -748,7 +840,7 @@
         } else {
           html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
         }
-        html += '<div style="color:#4a4a5a;font-size:10px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">⚡ Connect your OpenAI API key for a full GPT-4o-mini answer on any topic.</div>';
+        html += '<div style="color:#4a4a5a;font-size:10px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">🟣 Claude AI answers any question — click the Claude button to manage your key.</div>';
         addMsg(html, 'bot');
       }
     }
@@ -763,7 +855,7 @@
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask about IACS UR E26/E27, BIMCO, NIS2, IEC 62443, USCG, class society rules, and more.<br>' +
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
-    '<span style="color:#5a5a6e;">⚡ Click "Connect AI" to enable GPT-4o-mini for richer answers on any topic.</span>' +
+    '<span style="color:#5a5a6e;">🟣 Claude AI is active by default — click "Claude" to manage keys or switch to ChatGPT.</span>' +
     '</span>',
     'bot'
   );
@@ -774,26 +866,52 @@
     panel.style.display = isHidden ? 'block' : 'none';
   });
 
+  document.getElementById('cb-claude-save').addEventListener('click', function () {
+    var val = document.getElementById('cb-claude-input').value.trim();
+    if (val && val.indexOf('sk-or-v1-') === 0) {
+      AI_KEY_CLAUDE = val;
+      localStorage.setItem('cb_claude_key', AI_KEY_CLAUDE);
+      document.getElementById('cb-claude-input').value = '';
+      document.getElementById('cb-claude-input').style.borderColor = '';
+      document.getElementById('cb-ai-panel').style.display = 'none';
+      refreshAIUI();
+      addMsg('🟣 <strong style="color:#19c37d;">Claude connected with your key.</strong>', 'bot');
+    } else if (!val) {
+      document.getElementById('cb-ai-panel').style.display = 'none';
+    } else {
+      document.getElementById('cb-claude-input').style.borderColor = 'rgba(220,80,80,0.7)';
+    }
+  });
+
+  document.getElementById('cb-claude-clear').addEventListener('click', function () {
+    AI_KEY_CLAUDE = DEFAULT_CLAUDE_KEY;
+    localStorage.removeItem('cb_claude_key');
+    refreshAIUI();
+    addMsg('🟣 Claude key cleared. Using default key.', 'bot');
+  });
+
   document.getElementById('cb-api-save').addEventListener('click', function () {
     var val = document.getElementById('cb-api-input').value.trim();
     if (!val || val.indexOf('sk-') !== 0) {
       document.getElementById('cb-api-input').style.borderColor = 'rgba(220,80,80,0.7)';
       return;
     }
-    AI_KEY = val;
-    sessionStorage.setItem('cb_oai_key', AI_KEY);
+    AI_KEY_GPT = val;
+    ACTIVE_AI = 'gpt';
+    sessionStorage.setItem('cb_oai_key', AI_KEY_GPT);
     document.getElementById('cb-api-input').value = '';
     document.getElementById('cb-api-input').style.borderColor = '';
     document.getElementById('cb-ai-panel').style.display = 'none';
     refreshAIUI();
-    addMsg('⚡ <strong style="color:#19c37d;">GPT-4o-mini connected.</strong> Future answers will use ChatGPT.', 'bot');
+    addMsg('🟢 <strong style="color:#19c37d;">GPT-4o-mini connected.</strong> Future answers will use ChatGPT.', 'bot');
   });
 
   document.getElementById('cb-api-clear').addEventListener('click', function () {
-    AI_KEY = '';
+    AI_KEY_GPT = '';
+    ACTIVE_AI = 'claude';
     sessionStorage.removeItem('cb_oai_key');
     refreshAIUI();
-    addMsg('API key removed. Using local knowledge base.', 'bot');
+    addMsg('GPT key removed. Switched back to Claude AI.', 'bot');
   });
 
   document.querySelectorAll('.cb-chip').forEach(function (btn) {
