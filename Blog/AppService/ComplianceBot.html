@@ -13,18 +13,18 @@
       <div id="cb-hdr-title">ShipPaul Intelligence</div>
       <div id="cb-hdr-sub">Maritime Cyber Compliance AI</div>
     </div>
-    <button id="cb-ai-toggle" title="AI Settings">🟣 Claude</button>
+    <button id="cb-ai-toggle" title="AI Settings">🔑 Connect AI</button>
     <span id="cb-status-dot"></span>
   </div>
 
   <!-- API Key Panel (hidden by default) -->
   <div id="cb-ai-panel">
     <div id="cb-provider-tabs">
-      <button id="cb-tab-claude" class="cb-tab cb-tab-active" onclick="cbSwitchTab('claude')">🟣 Claude</button>
+      <button id="cb-tab-claude" class="cb-tab cb-tab-active" onclick="cbSwitchTab('claude')">🤖 OpenRouter</button>
       <button id="cb-tab-gpt" class="cb-tab" onclick="cbSwitchTab('gpt')">🟢 ChatGPT</button>
     </div>
     <div id="cb-claude-section">
-      <div id="cb-ai-panel-label">🟣 Claude via OpenRouter <span id="cb-claude-conn-text"></span></div>
+      <div id="cb-ai-panel-label">🤖 OpenRouter API Key <span id="cb-claude-conn-text"></span></div>
       <div id="cb-ai-input-row">
         <input id="cb-claude-input" type="password" placeholder="sk-or-v1-… (default key active)" autocomplete="off" spellcheck="false" />
         <button id="cb-claude-save">Save</button>
@@ -564,10 +564,9 @@
   ];
 
   /* ── 4. API Key Management ───────────────────────────────── */
-  var DEFAULT_CLAUDE_KEY = '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';
   var AI_KEY_GPT = sessionStorage.getItem('cb_oai_key') || '';
-  var AI_KEY_CLAUDE = localStorage.getItem('cb_claude_key') || DEFAULT_CLAUDE_KEY;
-  var ACTIVE_AI = AI_KEY_GPT ? 'gpt' : 'claude';
+  var AI_KEY_CLAUDE = localStorage.getItem('cb_claude_key') || '';
+  var ACTIVE_AI = AI_KEY_GPT ? 'gpt' : (AI_KEY_CLAUDE ? 'claude' : 'kb-only');
 
   function cbSwitchTab(tab) {
     document.getElementById('cb-claude-section').style.display = tab === 'claude' ? '' : 'none';
@@ -575,8 +574,7 @@
     document.getElementById('cb-tab-claude').className = 'cb-tab' + (tab === 'claude' ? ' cb-tab-active' : '');
     document.getElementById('cb-tab-gpt').className = 'cb-tab' + (tab === 'gpt' ? ' cb-tab-active' : '');
     var claudeInput = document.getElementById('cb-claude-input');
-    var savedKey = localStorage.getItem('cb_claude_key');
-    claudeInput.placeholder = savedKey ? 'sk-or-v1-… (custom key saved)' : 'sk-or-v1-… (default key active)';
+    claudeInput.placeholder = AI_KEY_CLAUDE ? 'sk-or-v1-… (key saved)' : 'sk-or-v1-…';
     claudeInput.value = '';
   }
   window.cbSwitchTab = cbSwitchTab;
@@ -591,15 +589,18 @@
     var gptConnText = document.getElementById('cb-ai-conn-text');
     if (ACTIVE_AI === 'gpt') {
       toggle.textContent = '🟢 GPT Active';
+      toggle.classList.add('ai-active');
+    } else if (ACTIVE_AI === 'claude') {
+      toggle.textContent = '🤖 AI Active';
+      toggle.classList.add('ai-active');
     } else {
-      toggle.textContent = '🟣 Claude';
+      toggle.textContent = '🔑 Connect AI';
+      toggle.classList.remove('ai-active');
     }
-    toggle.classList.add('ai-active');
-    var savedKey = localStorage.getItem('cb_claude_key');
-    claudeConnText.textContent = savedKey ? ' · Custom Key' : ' · Default Key';
+    claudeConnText.textContent = AI_KEY_CLAUDE ? ' · Connected' : '';
     claudeConnText.style.color = '#19c37d';
     claudeSaveBtn.style.display = '';
-    claudeClearBtn.style.display = savedKey ? '' : 'none';
+    claudeClearBtn.style.display = AI_KEY_CLAUDE ? '' : 'none';
     if (AI_KEY_GPT) {
       gptConnText.textContent = ' · Connected';
       gptConnText.style.color = '#19c37d';
@@ -811,7 +812,7 @@
 
     if (ACTIVE_AI === 'gpt' || ACTIVE_AI === 'claude') {
       var callFn = ACTIVE_AI === 'gpt' ? callGPT : callClaude;
-      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'Llama 3.1 (OpenRouter)';
+      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'AI (OpenRouter · Free)';
       var aiName = ACTIVE_AI === 'gpt' ? 'GPT' : 'Claude';
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
       callFn(q, function (text) {
@@ -848,13 +849,17 @@
   }
 
   /* ── 9. Init & Events ────────────────────────────────────── */
-  /* Clean up any leftover invalid key from previous code versions */
+  /* Clean up any leftover hardcoded keys from previous code versions */
   (function () {
     var stored = localStorage.getItem('cb_claude_key');
-    var oldInvalidKey = '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';
-    if (stored === oldInvalidKey) {
+    var oldKeys = [
+      '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',
+      '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'
+    ];
+    if (oldKeys.indexOf(stored) !== -1) {
       localStorage.removeItem('cb_claude_key');
-      AI_KEY_CLAUDE = DEFAULT_CLAUDE_KEY;
+      AI_KEY_CLAUDE = '';
+      ACTIVE_AI = AI_KEY_GPT ? 'gpt' : 'kb-only';
     }
   })();
 
@@ -866,7 +871,10 @@
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask about IACS UR E26/E27, BIMCO, NIS2, IEC 62443, USCG, class society rules, and more.<br>' +
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
-    '<span style="color:#19c37d;">🟣 Claude AI active — any maritime cyber question will be answered.</span>' +
+    (ACTIVE_AI !== 'kb-only'
+      ? '<span style="color:#19c37d;">✅ AI connected — any maritime cyber question will be answered.</span>'
+      : '<span style="color:#5a5a6e;">🔑 Click "Connect AI" to add an OpenRouter or ChatGPT key — enables answers beyond the built-in 13 regulations.</span>'
+    ) +
     '</span>',
     'bot'
   );
@@ -915,7 +923,7 @@
         document.getElementById('cb-claude-input').style.borderColor = '';
         document.getElementById('cb-ai-panel').style.display = 'none';
         refreshAIUI();
-        addMsg('🟣 <strong style="color:#19c37d;">Claude connected.</strong> All questions — including topics outside the built-in KB — will be answered by Claude.', 'bot');
+        addMsg('🤖 <strong style="color:#19c37d;">OpenRouter connected.</strong> All questions — including topics outside the built-in KB — will be answered by AI.', 'bot');
       } else {
         var errMsg = (res.data.error && res.data.error.message) || 'No valid response from API';
         document.getElementById('cb-claude-input').style.borderColor = 'rgba(220,80,80,0.7)';
@@ -938,11 +946,11 @@
   });
 
   document.getElementById('cb-claude-clear').addEventListener('click', function () {
-    AI_KEY_CLAUDE = DEFAULT_CLAUDE_KEY;
-    ACTIVE_AI = AI_KEY_GPT ? 'gpt' : 'claude';
+    AI_KEY_CLAUDE = '';
+    ACTIVE_AI = AI_KEY_GPT ? 'gpt' : 'kb-only';
     localStorage.removeItem('cb_claude_key');
     refreshAIUI();
-    addMsg('Custom Claude key removed. Reverted to default key.', 'bot');
+    addMsg('OpenRouter key removed. KB-only mode.', 'bot');
   });
 
   document.getElementById('cb-api-save').addEventListener('click', function () {
@@ -996,10 +1004,10 @@
 
   document.getElementById('cb-api-clear').addEventListener('click', function () {
     AI_KEY_GPT = '';
-    ACTIVE_AI = 'claude';
+    ACTIVE_AI = AI_KEY_CLAUDE ? 'claude' : 'kb-only';
     sessionStorage.removeItem('cb_oai_key');
     refreshAIUI();
-    addMsg('GPT key removed. Switched back to Claude.', 'bot');
+    addMsg('GPT key removed. Switched to ' + (AI_KEY_CLAUDE ? 'OpenRouter mode.' : 'KB-only mode.'), 'bot');
   });
 
   document.querySelectorAll('.cb-chip').forEach(function (btn) {
