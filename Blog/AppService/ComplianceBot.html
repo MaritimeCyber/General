@@ -849,6 +849,16 @@
   }
 
   /* ── 9. Init & Events ────────────────────────────────────── */
+  /* Clean up any leftover invalid default key from previous code versions */
+  (function () {
+    var stored = localStorage.getItem('cb_claude_key');
+    if (stored === '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') {
+      localStorage.removeItem('cb_claude_key');
+      AI_KEY_CLAUDE = '';
+      ACTIVE_AI = AI_KEY_GPT ? 'gpt' : 'kb-only';
+    }
+  })();
+
   loadSitemap();
   refreshAIUI();
 
@@ -873,20 +883,60 @@
 
   document.getElementById('cb-claude-save').addEventListener('click', function () {
     var val = document.getElementById('cb-claude-input').value.trim();
-    if (val && val.indexOf('sk-or-v1-') === 0) {
+    if (!val) { document.getElementById('cb-ai-panel').style.display = 'none'; return; }
+    if (val.indexOf('sk-or-v1-') !== 0) {
+      document.getElementById('cb-claude-input').style.borderColor = 'rgba(220,80,80,0.7)';
+      return;
+    }
+    var saveBtn = document.getElementById('cb-claude-save');
+    saveBtn.textContent = 'Testing…';
+    saveBtn.disabled = true;
+    fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + val,
+        'HTTP-Referer': 'https://www.shippauljobs.com',
+        'X-Title': 'ShipPaul Compliance AI'
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-3.5-haiku',
+        max_tokens: 5,
+        messages: [{ role: 'user', content: 'hi' }]
+      })
+    })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, data: j }; }); })
+    .then(function (res) {
+      saveBtn.textContent = 'Save';
+      saveBtn.disabled = false;
+      if (res.ok || (res.data.choices && res.data.choices[0])) {
+        AI_KEY_CLAUDE = val;
+        ACTIVE_AI = 'claude';
+        localStorage.setItem('cb_claude_key', val);
+        document.getElementById('cb-claude-input').value = '';
+        document.getElementById('cb-claude-input').style.borderColor = '';
+        document.getElementById('cb-ai-panel').style.display = 'none';
+        refreshAIUI();
+        addMsg('🟣 <strong style="color:#19c37d;">Claude connected.</strong> All questions — including topics outside the built-in KB — will be answered by Claude.', 'bot');
+      } else {
+        var errMsg = res.data.error ? res.data.error.message : 'Invalid key';
+        document.getElementById('cb-claude-input').style.borderColor = 'rgba(220,80,80,0.7)';
+        document.getElementById('cb-claude-input').value = '';
+        addMsg('⚠ Key test failed: <span style="color:#e07070;">' + errMsg + '</span><br><span style="color:#5a5a6e;font-size:10px;">Get a valid key at <a style="color:#19c37d;" href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> (free account).</span>', 'bot');
+      }
+    })
+    .catch(function () {
+      /* Network error — save without validation */
+      saveBtn.textContent = 'Save';
+      saveBtn.disabled = false;
       AI_KEY_CLAUDE = val;
       ACTIVE_AI = 'claude';
-      localStorage.setItem('cb_claude_key', AI_KEY_CLAUDE);
+      localStorage.setItem('cb_claude_key', val);
       document.getElementById('cb-claude-input').value = '';
-      document.getElementById('cb-claude-input').style.borderColor = '';
       document.getElementById('cb-ai-panel').style.display = 'none';
       refreshAIUI();
-      addMsg('🟣 <strong style="color:#19c37d;">Claude connected.</strong> All questions — including topics outside the built-in KB — will be answered by Claude.', 'bot');
-    } else if (!val) {
-      document.getElementById('cb-ai-panel').style.display = 'none';
-    } else {
-      document.getElementById('cb-claude-input').style.borderColor = 'rgba(220,80,80,0.7)';
-    }
+      addMsg('🟣 Key saved (could not verify — network error). Test with a question.', 'bot');
+    });
   });
 
   document.getElementById('cb-claude-clear').addEventListener('click', function () {
@@ -903,14 +953,45 @@
       document.getElementById('cb-api-input').style.borderColor = 'rgba(220,80,80,0.7)';
       return;
     }
-    AI_KEY_GPT = val;
-    ACTIVE_AI = 'gpt';
-    sessionStorage.setItem('cb_oai_key', AI_KEY_GPT);
-    document.getElementById('cb-api-input').value = '';
-    document.getElementById('cb-api-input').style.borderColor = '';
-    document.getElementById('cb-ai-panel').style.display = 'none';
-    refreshAIUI();
-    addMsg('🟢 <strong style="color:#19c37d;">GPT-4o-mini connected.</strong> All questions — including topics outside the built-in KB — will be answered by ChatGPT.', 'bot');
+    var saveBtn = document.getElementById('cb-api-save');
+    saveBtn.textContent = 'Testing…';
+    saveBtn.disabled = true;
+    fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + val },
+      body: JSON.stringify({ model: 'gpt-4o-mini', max_tokens: 5, messages: [{ role: 'user', content: 'hi' }] })
+    })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, data: j }; }); })
+    .then(function (res) {
+      saveBtn.textContent = 'Save';
+      saveBtn.disabled = false;
+      if (res.ok || (res.data.choices && res.data.choices[0])) {
+        AI_KEY_GPT = val;
+        ACTIVE_AI = 'gpt';
+        sessionStorage.setItem('cb_oai_key', val);
+        document.getElementById('cb-api-input').value = '';
+        document.getElementById('cb-api-input').style.borderColor = '';
+        document.getElementById('cb-ai-panel').style.display = 'none';
+        refreshAIUI();
+        addMsg('🟢 <strong style="color:#19c37d;">GPT-4o-mini connected.</strong> All questions — including topics outside the built-in KB — will be answered by ChatGPT.', 'bot');
+      } else {
+        var errMsg = res.data.error ? res.data.error.message : 'Invalid key';
+        document.getElementById('cb-api-input').style.borderColor = 'rgba(220,80,80,0.7)';
+        document.getElementById('cb-api-input').value = '';
+        addMsg('⚠ Key test failed: <span style="color:#e07070;">' + errMsg + '</span><br><span style="color:#5a5a6e;font-size:10px;">Get a key at <a style="color:#19c37d;" href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com/api-keys</a>.</span>', 'bot');
+      }
+    })
+    .catch(function () {
+      saveBtn.textContent = 'Save';
+      saveBtn.disabled = false;
+      AI_KEY_GPT = val;
+      ACTIVE_AI = 'gpt';
+      sessionStorage.setItem('cb_oai_key', val);
+      document.getElementById('cb-api-input').value = '';
+      document.getElementById('cb-ai-panel').style.display = 'none';
+      refreshAIUI();
+      addMsg('🟢 Key saved (could not verify — network error). Test with a question.', 'bot');
+    });
   });
 
   document.getElementById('cb-api-clear').addEventListener('click', function () {
