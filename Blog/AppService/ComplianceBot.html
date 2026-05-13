@@ -909,7 +909,9 @@
     .then(function (res) {
       saveBtn.textContent = 'Save';
       saveBtn.disabled = false;
-      if (res.ok || (res.data.choices && res.data.choices[0])) {
+      var hasContent = res.ok && res.data.choices && res.data.choices[0] &&
+                       res.data.choices[0].message && res.data.choices[0].message.content;
+      if (hasContent) {
         AI_KEY_CLAUDE = val;
         ACTIVE_AI = 'claude';
         localStorage.setItem('cb_claude_key', val);
@@ -919,10 +921,10 @@
         refreshAIUI();
         addMsg('🟣 <strong style="color:#19c37d;">Claude connected.</strong> All questions — including topics outside the built-in KB — will be answered by Claude.', 'bot');
       } else {
-        var errMsg = res.data.error ? res.data.error.message : 'Invalid key';
+        var errMsg = (res.data.error && res.data.error.message) || 'No valid response from API';
         document.getElementById('cb-claude-input').style.borderColor = 'rgba(220,80,80,0.7)';
         document.getElementById('cb-claude-input').value = '';
-        addMsg('⚠ Key test failed: <span style="color:#e07070;">' + errMsg + '</span><br><span style="color:#5a5a6e;font-size:10px;">Get a valid key at <a style="color:#19c37d;" href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> (free account).</span>', 'bot');
+        addMsg('⚠ Key test failed: <span style="color:#e07070;">' + errMsg + '</span><br><span style="color:#5a5a6e;font-size:10px;">Need a valid key → <a style="color:#19c37d;" href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> (free account available).</span>', 'bot');
       }
     })
     .catch(function () {
@@ -965,7 +967,9 @@
     .then(function (res) {
       saveBtn.textContent = 'Save';
       saveBtn.disabled = false;
-      if (res.ok || (res.data.choices && res.data.choices[0])) {
+      var hasContent = res.ok && res.data.choices && res.data.choices[0] &&
+                       res.data.choices[0].message && res.data.choices[0].message.content;
+      if (hasContent) {
         AI_KEY_GPT = val;
         ACTIVE_AI = 'gpt';
         sessionStorage.setItem('cb_oai_key', val);
@@ -975,7 +979,7 @@
         refreshAIUI();
         addMsg('🟢 <strong style="color:#19c37d;">GPT-4o-mini connected.</strong> All questions — including topics outside the built-in KB — will be answered by ChatGPT.', 'bot');
       } else {
-        var errMsg = res.data.error ? res.data.error.message : 'Invalid key';
+        var errMsg = (res.data.error && res.data.error.message) || 'No valid response from API';
         document.getElementById('cb-api-input').style.borderColor = 'rgba(220,80,80,0.7)';
         document.getElementById('cb-api-input').value = '';
         addMsg('⚠ Key test failed: <span style="color:#e07070;">' + errMsg + '</span><br><span style="color:#5a5a6e;font-size:10px;">Get a key at <a style="color:#19c37d;" href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com/api-keys</a>.</span>', 'bot');
