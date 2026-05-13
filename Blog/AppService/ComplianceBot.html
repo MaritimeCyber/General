@@ -723,6 +723,37 @@
     .catch(function (err) { onError(err.message || 'Request failed'); });
   }
 
+  /* ── 5c. Free AI (Pollinations — no key required) ───────── */
+  function callFreeAI(query, onDone, onError) {
+    var hits = search(query);
+    var ctx = hits.length
+      ? 'Primary reference — ' + hits[0].title + ':\n' + hits[0].clauses.map(function (c) {
+          return '[' + c.doc + ' | ' + c.ref + ']: ' + c.text;
+        }).join('\n')
+      : 'Topics in KB: IACS UR E26, E27, BIMCO v5, IEC 62443, NIS2, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, ABS, IMO MSC-FAL.1/Circ.3';
+    var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
+      'Relevant KB:\n' + ctx + '\n\n' +
+      'For each answer point, cite [Document | Article/Section]. Under 320 words. Professional maritime tone.';
+    fetch('https://text.pollinations.ai/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [
+          { role: 'system', content: sys },
+          { role: 'user', content: query }
+        ],
+        model: 'openai',
+        seed: -1
+      })
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function (text) { onDone(text.trim()); })
+    .catch(function (err) { onError(err.message || 'Request failed'); });
+  }
+
   /* ── 6. Search (local KB) ────────────────────────────────── */
   function search(query) {
     var q = query.toLowerCase().trim();
@@ -830,20 +861,26 @@
         if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
       });
     } else {
-      /* kb-only mode */
+      /* kb-only mode — KB match → structured response, miss → free AI */
       var hits = search(q);
       if (hits.length) {
         addMsg(renderAnswer(hits[0]), 'bot');
       } else {
-        var qRelated = findRelatedByQuery(q);
-        var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
-        if (qRelated.length) {
-          html += buildRelatedBlock(qRelated);
-        } else {
-          html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
-        }
-        html += '<div style="color:#4a4a5a;font-size:10px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">🔑 Connect a Claude or ChatGPT key to answer any maritime cyber question.</div>';
-        addMsg(html, 'bot');
+        var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
+        callFreeAI(q, function (text) {
+          bubble.innerHTML =
+            '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
+            '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
+          appendSourcesAndRelated(bubble, q);
+          chat.scrollTop = chat.scrollHeight;
+        }, function () {
+          var qRelated = findRelatedByQuery(q);
+          var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
+          if (qRelated.length) html += buildRelatedBlock(qRelated);
+          else html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
+          bubble.innerHTML = html;
+          chat.scrollTop = chat.scrollHeight;
+        });
       }
     }
   }
@@ -873,7 +910,7 @@
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
     (ACTIVE_AI !== 'kb-only'
       ? '<span style="color:#19c37d;">✅ AI connected — any maritime cyber question will be answered.</span>'
-      : '<span style="color:#5a5a6e;">🔑 Click "Connect AI" to add an OpenRouter or ChatGPT key — enables answers beyond the built-in 13 regulations.</span>'
+      : '<span style="color:#5a5a6e;">Any question answered — 13 built-in regulations plus free AI for broader topics.</span>'
     ) +
     '</span>',
     'bot'
