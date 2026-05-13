@@ -564,10 +564,9 @@
   ];
 
   /* ── 4. API Key Management ───────────────────────────────── */
-  var DEFAULT_CLAUDE_KEY = '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';
   var AI_KEY_GPT = sessionStorage.getItem('cb_oai_key') || '';
-  var AI_KEY_CLAUDE = localStorage.getItem('cb_claude_key') || DEFAULT_CLAUDE_KEY;
-  var ACTIVE_AI = 'claude';
+  var AI_KEY_CLAUDE = localStorage.getItem('cb_claude_key') || '';
+  var ACTIVE_AI = AI_KEY_GPT ? 'gpt' : (AI_KEY_CLAUDE ? 'claude' : 'kb-only');
 
   function cbSwitchTab(tab) {
     document.getElementById('cb-claude-section').style.display = tab === 'claude' ? '' : 'none';
@@ -575,8 +574,7 @@
     document.getElementById('cb-tab-claude').className = 'cb-tab' + (tab === 'claude' ? ' cb-tab-active' : '');
     document.getElementById('cb-tab-gpt').className = 'cb-tab' + (tab === 'gpt' ? ' cb-tab-active' : '');
     var claudeInput = document.getElementById('cb-claude-input');
-    var savedKey = localStorage.getItem('cb_claude_key');
-    claudeInput.placeholder = savedKey ? 'sk-or-v1-… (key saved)' : 'sk-or-v1-… (default key active)';
+    claudeInput.placeholder = AI_KEY_CLAUDE ? 'sk-or-v1-… (key saved)' : 'sk-or-v1-…';
     claudeInput.value = '';
   }
   window.cbSwitchTab = cbSwitchTab;
@@ -591,15 +589,18 @@
     var gptConnText = document.getElementById('cb-ai-conn-text');
     if (ACTIVE_AI === 'gpt') {
       toggle.textContent = '🟢 GPT Active';
-    } else {
+      toggle.classList.add('ai-active');
+    } else if (ACTIVE_AI === 'claude') {
       toggle.textContent = '🟣 Claude';
+      toggle.classList.add('ai-active');
+    } else {
+      toggle.textContent = '🔑 Connect AI';
+      toggle.classList.remove('ai-active');
     }
-    toggle.classList.add('ai-active');
-    var savedClaudeKey = localStorage.getItem('cb_claude_key');
-    claudeConnText.textContent = savedClaudeKey ? ' · Custom Key' : ' · Default Key';
+    claudeConnText.textContent = AI_KEY_CLAUDE ? ' · Connected' : '';
     claudeConnText.style.color = '#19c37d';
     claudeSaveBtn.style.display = '';
-    claudeClearBtn.style.display = savedClaudeKey ? '' : 'none';
+    claudeClearBtn.style.display = AI_KEY_CLAUDE ? '' : 'none';
     if (AI_KEY_GPT) {
       gptConnText.textContent = ' · Connected';
       gptConnText.style.color = '#19c37d';
@@ -809,61 +810,31 @@
     addMsg(q, 'user');
     document.getElementById('cb-input').value = '';
 
-    if (ACTIVE_AI === 'gpt' && AI_KEY_GPT) {
+    if (ACTIVE_AI === 'gpt' || ACTIVE_AI === 'claude') {
+      var callFn = ACTIVE_AI === 'gpt' ? callGPT : callClaude;
+      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'Claude 3.5 Haiku';
+      var aiName = ACTIVE_AI === 'gpt' ? 'GPT' : 'Claude';
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
-      callGPT(q, function (text) {
+      callFn(q, function (text) {
         bubble.innerHTML =
-          '<span class="cb-gpt-badge">GPT-4o-mini</span><br><br>' +
+          '<span class="cb-gpt-badge">' + badgeLabel + '</span><br><br>' +
           '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
         appendSourcesAndRelated(bubble, q);
         chat.scrollTop = chat.scrollHeight;
       }, function (errMsg) {
         bubble.innerHTML =
-          '<span style="color:#e07070;font-size:11px;">⚠ API Error: ' + errMsg + '</span><br>' +
-          '<span style="color:#5a5a6e;font-size:10px;">Falling back to local knowledge base.</span>';
+          '<span style="color:#e07070;font-size:11px;">⚠ ' + aiName + ' API Error: ' + errMsg + '</span><br>' +
+          '<span style="color:#5a5a6e;font-size:10px;">Check your API key — click 🔑 Connect AI to update it. Falling back to local KB.</span>';
         chat.scrollTop = chat.scrollHeight;
         var hits = search(q);
         if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
       });
-    } else if (ACTIVE_AI === 'claude') {
-      var hasCustomKey = !!localStorage.getItem('cb_claude_key');
-      var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
-      callClaude(q, function (text) {
-        bubble.innerHTML =
-          '<span class="cb-gpt-badge">Claude 3.5 Haiku</span><br><br>' +
-          '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
-        appendSourcesAndRelated(bubble, q);
-        chat.scrollTop = chat.scrollHeight;
-      }, function (errMsg) {
-        if (hasCustomKey) {
-          /* Custom key failed — show error so user knows the key is bad */
-          bubble.innerHTML =
-            '<span style="color:#e07070;font-size:11px;">⚠ Claude API Error: ' + errMsg + '</span><br>' +
-            '<span style="color:#5a5a6e;font-size:10px;">Check your OpenRouter key — click 🟣 Claude to update it.</span>';
-          chat.scrollTop = chat.scrollHeight;
-          var hits = search(q);
-          if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
-        } else {
-          /* Default key failed — silent KB fallback */
-          var hits = search(q);
-          if (hits.length) {
-            bubble.innerHTML = renderAnswer(hits[0]);
-          } else {
-            var qRelated = findRelatedByQuery(q);
-            var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
-            if (qRelated.length) html += buildRelatedBlock(qRelated);
-            else html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
-            bubble.innerHTML = html;
-          }
-          chat.scrollTop = chat.scrollHeight;
-        }
-      });
     } else {
+      /* kb-only mode */
       var hits = search(q);
       if (hits.length) {
         addMsg(renderAnswer(hits[0]), 'bot');
       } else {
-        /* No KB match — show sitemap-based related posts */
         var qRelated = findRelatedByQuery(q);
         var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
         if (qRelated.length) {
@@ -871,7 +842,7 @@
         } else {
           html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
         }
-        html += '<div style="color:#4a4a5a;font-size:10px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">🟣 Claude AI answers any question — click the Claude button to manage your key.</div>';
+        html += '<div style="color:#4a4a5a;font-size:10px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">🔑 Connect a Claude or ChatGPT key to answer any maritime cyber question.</div>';
         addMsg(html, 'bot');
       }
     }
@@ -886,7 +857,10 @@
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask about IACS UR E26/E27, BIMCO, NIS2, IEC 62443, USCG, class society rules, and more.<br>' +
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
-    '<span style="color:#5a5a6e;">🟣 Claude AI is active by default — click "Claude" to manage keys or switch to ChatGPT.</span>' +
+    (ACTIVE_AI !== 'kb-only'
+      ? '<span style="color:#19c37d;">✅ AI connected — any maritime cyber question will be answered.</span>'
+      : '<span style="color:#5a5a6e;">🔑 Click "Connect AI" to add a Claude or ChatGPT key — enables answers beyond the built-in 13 regulations.</span>'
+    ) +
     '</span>',
     'bot'
   );
@@ -901,12 +875,13 @@
     var val = document.getElementById('cb-claude-input').value.trim();
     if (val && val.indexOf('sk-or-v1-') === 0) {
       AI_KEY_CLAUDE = val;
+      ACTIVE_AI = 'claude';
       localStorage.setItem('cb_claude_key', AI_KEY_CLAUDE);
       document.getElementById('cb-claude-input').value = '';
       document.getElementById('cb-claude-input').style.borderColor = '';
       document.getElementById('cb-ai-panel').style.display = 'none';
       refreshAIUI();
-      addMsg('🟣 <strong style="color:#19c37d;">Claude connected with your key.</strong>', 'bot');
+      addMsg('🟣 <strong style="color:#19c37d;">Claude connected.</strong> All questions — including topics outside the built-in KB — will be answered by Claude.', 'bot');
     } else if (!val) {
       document.getElementById('cb-ai-panel').style.display = 'none';
     } else {
@@ -915,10 +890,11 @@
   });
 
   document.getElementById('cb-claude-clear').addEventListener('click', function () {
-    AI_KEY_CLAUDE = DEFAULT_CLAUDE_KEY;
+    AI_KEY_CLAUDE = '';
+    ACTIVE_AI = AI_KEY_GPT ? 'gpt' : 'kb-only';
     localStorage.removeItem('cb_claude_key');
     refreshAIUI();
-    addMsg('🟣 Claude key cleared. Using default key.', 'bot');
+    addMsg('Claude key removed. Switched to ' + (AI_KEY_GPT ? 'GPT mode.' : 'KB-only mode.'), 'bot');
   });
 
   document.getElementById('cb-api-save').addEventListener('click', function () {
@@ -934,15 +910,15 @@
     document.getElementById('cb-api-input').style.borderColor = '';
     document.getElementById('cb-ai-panel').style.display = 'none';
     refreshAIUI();
-    addMsg('🟢 <strong style="color:#19c37d;">GPT-4o-mini connected.</strong> Future answers will use ChatGPT.', 'bot');
+    addMsg('🟢 <strong style="color:#19c37d;">GPT-4o-mini connected.</strong> All questions — including topics outside the built-in KB — will be answered by ChatGPT.', 'bot');
   });
 
   document.getElementById('cb-api-clear').addEventListener('click', function () {
     AI_KEY_GPT = '';
-    ACTIVE_AI = 'claude';
+    ACTIVE_AI = AI_KEY_CLAUDE ? 'claude' : 'kb-only';
     sessionStorage.removeItem('cb_oai_key');
     refreshAIUI();
-    addMsg('GPT key removed. Switched back to Claude AI.', 'bot');
+    addMsg('GPT key removed. Switched to ' + (AI_KEY_CLAUDE ? 'Claude mode.' : 'KB-only mode.'), 'bot');
   });
 
   document.querySelectorAll('.cb-chip').forEach(function (btn) {
