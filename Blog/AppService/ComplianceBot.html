@@ -698,7 +698,7 @@
         'X-Title': 'ShipPaul Compliance AI'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-3.5-haiku',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         temperature: 0.25,
         max_tokens: 600,
         messages: [
@@ -811,7 +811,7 @@
 
     if (ACTIVE_AI === 'gpt' || ACTIVE_AI === 'claude') {
       var callFn = ACTIVE_AI === 'gpt' ? callGPT : callClaude;
-      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'Claude 3.5 Haiku';
+      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'Llama 3.1 (OpenRouter)';
       var aiName = ACTIVE_AI === 'gpt' ? 'GPT' : 'Claude';
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
       callFn(q, function (text) {
@@ -896,7 +896,7 @@
         'X-Title': 'ShipPaul Compliance AI'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-3.5-haiku',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         max_tokens: 5,
         messages: [{ role: 'user', content: 'hi' }]
       })
