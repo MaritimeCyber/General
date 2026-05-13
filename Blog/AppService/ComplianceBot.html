@@ -809,13 +809,11 @@
     addMsg(q, 'user');
     document.getElementById('cb-input').value = '';
 
-    if (ACTIVE_AI !== 'none') {
-      var callFn = ACTIVE_AI === 'gpt' ? callGPT : callClaude;
-      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'Claude 3.5 Haiku';
+    if (ACTIVE_AI === 'gpt' && AI_KEY_GPT) {
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
-      callFn(q, function (text) {
+      callGPT(q, function (text) {
         bubble.innerHTML =
-          '<span class="cb-gpt-badge">' + badgeLabel + '</span><br><br>' +
+          '<span class="cb-gpt-badge">GPT-4o-mini</span><br><br>' +
           '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
         appendSourcesAndRelated(bubble, q);
         chat.scrollTop = chat.scrollHeight;
@@ -826,6 +824,28 @@
         chat.scrollTop = chat.scrollHeight;
         var hits = search(q);
         if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
+      });
+    } else if (ACTIVE_AI === 'claude') {
+      /* Claude path — silently fall back to KB on any API error */
+      var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
+      callClaude(q, function (text) {
+        bubble.innerHTML =
+          '<span class="cb-gpt-badge">Claude 3.5 Haiku</span><br><br>' +
+          '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
+        appendSourcesAndRelated(bubble, q);
+        chat.scrollTop = chat.scrollHeight;
+      }, function () {
+        var hits = search(q);
+        if (hits.length) {
+          bubble.innerHTML = renderAnswer(hits[0]);
+        } else {
+          var qRelated = findRelatedByQuery(q);
+          var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
+          if (qRelated.length) html += buildRelatedBlock(qRelated);
+          else html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
+          bubble.innerHTML = html;
+        }
+        chat.scrollTop = chat.scrollHeight;
       });
     } else {
       var hits = search(q);
