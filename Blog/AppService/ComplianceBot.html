@@ -826,7 +826,7 @@
         if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
       });
     } else if (ACTIVE_AI === 'claude') {
-      /* Claude path — silently fall back to KB on any API error */
+      var hasCustomKey = !!localStorage.getItem('cb_claude_key');
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
       callClaude(q, function (text) {
         bubble.innerHTML =
@@ -834,18 +834,29 @@
           '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
         appendSourcesAndRelated(bubble, q);
         chat.scrollTop = chat.scrollHeight;
-      }, function () {
-        var hits = search(q);
-        if (hits.length) {
-          bubble.innerHTML = renderAnswer(hits[0]);
+      }, function (errMsg) {
+        if (hasCustomKey) {
+          /* Custom key failed — show error so user knows the key is bad */
+          bubble.innerHTML =
+            '<span style="color:#e07070;font-size:11px;">⚠ Claude API Error: ' + errMsg + '</span><br>' +
+            '<span style="color:#5a5a6e;font-size:10px;">Check your OpenRouter key — click 🟣 Claude to update it.</span>';
+          chat.scrollTop = chat.scrollHeight;
+          var hits = search(q);
+          if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
         } else {
-          var qRelated = findRelatedByQuery(q);
-          var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
-          if (qRelated.length) html += buildRelatedBlock(qRelated);
-          else html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
-          bubble.innerHTML = html;
+          /* Default key failed — silent KB fallback */
+          var hits = search(q);
+          if (hits.length) {
+            bubble.innerHTML = renderAnswer(hits[0]);
+          } else {
+            var qRelated = findRelatedByQuery(q);
+            var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
+            if (qRelated.length) html += buildRelatedBlock(qRelated);
+            else html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
+            bubble.innerHTML = html;
+          }
+          chat.scrollTop = chat.scrollHeight;
         }
-        chat.scrollTop = chat.scrollHeight;
       });
     } else {
       var hits = search(q);
