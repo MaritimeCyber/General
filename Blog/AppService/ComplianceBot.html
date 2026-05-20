@@ -1146,23 +1146,68 @@
     document.getElementById('cb-input').value = '';
 
     if (ACTIVE_AI === 'gpt' || ACTIVE_AI === 'claude') {
-      var callFn = ACTIVE_AI === 'gpt' ? callGPT : callClaude;
-      var badgeLabel = ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'AI (OpenRouter · Free)';
-      var aiName = ACTIVE_AI === 'gpt' ? 'GPT' : 'Claude';
+      var callFn    = ACTIVE_AI === 'gpt' ? callGPT    : callClaude;
+      var badgeLabel= ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'OpenRouter · Free';
+      var aiName    = ACTIVE_AI === 'gpt' ? 'GPT'      : 'OpenRouter';
+      /* secondary: the OTHER commercial AI, if its key is available */
+      var altCallFn = ACTIVE_AI === 'gpt'
+        ? (AI_KEY_CLAUDE ? callClaude : null)
+        : (AI_KEY_GPT   ? callGPT    : null);
+      var altBadge  = ACTIVE_AI === 'gpt' ? 'OpenRouter · Retry' : 'GPT · Retry';
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
-      callFn(q, function (text) {
+
+      function onSuccess(badge, text) {
         bubble.innerHTML =
-          '<span class="cb-gpt-badge">' + badgeLabel + '</span><br><br>' +
+          '<span class="cb-gpt-badge">' + badge + '</span><br><br>' +
           '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
         appendSourcesAndRelated(bubble, q);
         chat.scrollTop = chat.scrollHeight;
-      }, function (errMsg) {
-        bubble.innerHTML =
-          '<span style="color:#e07070;font-size:11px;">⚠ ' + aiName + ' API Error: ' + errMsg + '</span><br>' +
-          '<span style="color:#5a5a6e;font-size:10px;">Check your API key — click 🔑 Connect AI to update it. Falling back to local KB.</span>';
-        chat.scrollTop = chat.scrollHeight;
-        var hits = search(q);
-        if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
+      }
+
+      /* Final fallback after all commercial AI attempts failed */
+      function onAllFailed(errMsg) {
+        var isNet = errMsg && (errMsg.indexOf('fetch') !== -1 || errMsg.indexOf('network') !== -1);
+        var kbHits = search(q);
+        if (kbHits.length) {
+          bubble.innerHTML =
+            '<span style="color:#e07070;font-size:10px;">⚠ ' + aiName + ' 오류: ' + errMsg + '</span><br>' +
+            (isNet ? '<span style="color:#5a5a6e;font-size:9px;">openai.com에 연결할 수 없습니다 — OpenRouter 키로 전환을 권장합니다.</span><br>' : '') +
+            '<span style="color:#5a5a6e;font-size:9px;">내장 KB 결과로 대체합니다.</span>';
+          chat.scrollTop = chat.scrollHeight;
+          setTimeout(function () { addMsg(renderAnswer(kbHits[0]), 'bot'); }, 200);
+        } else {
+          /* No KB hit either — Pollinations → connect-AI prompt */
+          callFreeAI(q, function (text) {
+            bubble.innerHTML =
+              '<span style="color:#e07070;font-size:9px;">⚠ ' + aiName + ' 오류 — 무료 AI로 대체</span><br><br>' +
+              '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
+              '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
+            appendSourcesAndRelated(bubble, q);
+            chat.scrollTop = chat.scrollHeight;
+          }, function () {
+            var qRel = findRelatedByQuery(q);
+            var hint = isNet
+              ? '🌐 ' + aiName + ' 서버에 연결할 수 없습니다. OpenRouter로 전환하거나 네트워크를 확인하세요.'
+              : '🔑 API 키를 확인하고 🔑 Connect AI를 클릭하여 업데이트하세요.';
+            var html =
+              '<span style="color:#e07070;font-size:10px;">⚠ ' + aiName + ' API 오류: ' + errMsg + '</span><br>' +
+              '<span style="color:#5a5a6e;font-size:10px;">' + hint + '</span>';
+            if (qRel.length) html += buildRelatedBlock(qRel);
+            bubble.innerHTML = html;
+            chat.scrollTop = chat.scrollHeight;
+          });
+        }
+      }
+
+      /* Primary AI call → on error try secondary AI → on error onAllFailed */
+      callFn(q, function (text) { onSuccess(badgeLabel, text); }, function (errMsg) {
+        if (altCallFn) {
+          bubble.innerHTML = '<span class="cb-thinking">● ' + altBadge + '로 재시도 중…</span>';
+          altCallFn(q, function (text) { onSuccess(altBadge, text); },
+                       function ()     { onAllFailed(errMsg); });
+        } else {
+          onAllFailed(errMsg);
+        }
       });
     } else {
       /* kb-only mode — KB match → structured response, miss → free AI → commercial AI fallback */
