@@ -868,9 +868,10 @@
   ];
 
   /* ── 4. API Key Management ───────────────────────────────── */
-  var AI_KEY_GPT = sessionStorage.getItem('cb_oai_key') || '';
+  var AI_KEY_GPT = localStorage.getItem('cb_oai_key') || '';
   var AI_KEY_CLAUDE = localStorage.getItem('cb_claude_key') || '';
   var ACTIVE_AI = AI_KEY_GPT ? 'gpt' : (AI_KEY_CLAUDE ? 'claude' : 'kb-only');
+  var cbKeyMode = null; /* { provider:'claude'|'gpt', origQuery:string } */
 
   function cbSwitchTab(tab) {
     document.getElementById('cb-claude-section').style.display = tab === 'claude' ? '' : 'none';
@@ -882,6 +883,122 @@
     claudeInput.value = '';
   }
   window.cbSwitchTab = cbSwitchTab;
+
+  /* ── Conversational key-input helpers ───────────────────────── */
+  function cbProcessKeyInput(provider, key) {
+    var origQuery = cbKeyMode ? cbKeyMode.origQuery : '';
+    cbKeyMode = null;
+    var inputEl = document.getElementById('cb-input');
+    inputEl.placeholder = 'Ask about maritime cyber compliance…';
+
+    var prefix = provider === 'claude' ? 'sk-or-v1-' : 'sk-';
+    var apiUrl = provider === 'claude'
+      ? 'https://openrouter.ai/api/v1/chat/completions'
+      : 'https://api.openai.com/v1/chat/completions';
+    var model  = provider === 'claude' ? 'meta-llama/llama-3.1-8b-instruct:free' : 'gpt-4o-mini';
+    var hdrs   = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key };
+    if (provider === 'claude') {
+      hdrs['HTTP-Referer'] = 'https://www.shippauljobs.com';
+      hdrs['X-Title'] = 'ShipPaul Compliance AI';
+    }
+    var label = provider === 'claude' ? '🤖 OpenRouter' : '🟢 ChatGPT';
+
+    if (key.indexOf(prefix) !== 0) {
+      addMsg(
+        '⚠ 형식 오류 — <span style="color:#19c37d;">' + prefix + '…</span> 형식의 키를 입력하세요.',
+        'bot'
+      );
+      cbKeyMode = { provider: provider, origQuery: origQuery };
+      inputEl.placeholder = prefix + '… 붙여넣기 후 Enter';
+      return;
+    }
+
+    var testBubble = addMsg('<span class="cb-thinking">● ' + label + ' 키 확인 중…</span>', 'bot');
+    fetch(apiUrl, {
+      method: 'POST', headers: hdrs,
+      body: JSON.stringify({ model: model, max_tokens: 5, messages: [{ role: 'user', content: 'hi' }] })
+    })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, data: j }; }); })
+    .then(function (res) {
+      var ok = res.ok && res.data.choices && res.data.choices[0] &&
+               res.data.choices[0].message && res.data.choices[0].message.content;
+      if (ok) {
+        if (provider === 'claude') { AI_KEY_CLAUDE = key; ACTIVE_AI = 'claude'; localStorage.setItem('cb_claude_key', key); }
+        else                       { AI_KEY_GPT   = key; ACTIVE_AI = 'gpt';    localStorage.setItem('cb_oai_key',   key); }
+        refreshAIUI();
+        testBubble.innerHTML =
+          label + ' <strong style="color:#19c37d;">연결 성공!</strong>' +
+          (origQuery ? ' 원래 질문에 답변합니다…' : ' 이제 모든 주제에 질문하세요.');
+        chat.scrollTop = chat.scrollHeight;
+        if (origQuery) setTimeout(function () { handleQuery(origQuery); }, 500);
+      } else {
+        var errMsg = (res.data.error && res.data.error.message) || '유효하지 않은 키';
+        testBubble.innerHTML =
+          '⚠ <span style="color:#e07070;">키 확인 실패: ' + errMsg + '</span><br>' +
+          '<span style="color:#5a5a6e;font-size:10px;">' + prefix + '… 형식의 올바른 키를 다시 입력하세요.</span>';
+        chat.scrollTop = chat.scrollHeight;
+        cbKeyMode = { provider: provider, origQuery: origQuery };
+        inputEl.placeholder = prefix + '… 다시 붙여넣기 후 Enter';
+      }
+    })
+    .catch(function () {
+      /* Network error — save key anyway */
+      if (provider === 'claude') { AI_KEY_CLAUDE = key; ACTIVE_AI = 'claude'; localStorage.setItem('cb_claude_key', key); }
+      else                       { AI_KEY_GPT   = key; ACTIVE_AI = 'gpt';    localStorage.setItem('cb_oai_key',   key); }
+      refreshAIUI();
+      testBubble.innerHTML =
+        label + ' 키 저장 완료 <span style="color:#5a5a6e;font-size:9px;">(네트워크 오류로 검증 생략)</span>.' +
+        (origQuery ? '<br><span style="color:#5a5a6e;font-size:9px;">원래 질문으로 재시도합니다…</span>' : '');
+      chat.scrollTop = chat.scrollHeight;
+      if (origQuery) setTimeout(function () { handleQuery(origQuery); }, 700);
+    });
+  }
+
+  window.cbRequestKey = function (provider, origQuery) {
+    /* Disable all connect buttons in the current prompt bubble */
+    document.querySelectorAll('.cb-connect-btn').forEach(function (b) {
+      b.disabled = true;
+      b.style.opacity = '0.4';
+      b.style.cursor = 'default';
+    });
+    var label  = provider === 'claude' ? 'OpenRouter' : 'ChatGPT';
+    var prefix = provider === 'claude' ? 'sk-or-v1-' : 'sk-';
+    var keyUrl = provider === 'claude' ? 'https://openrouter.ai/keys' : 'https://platform.openai.com/api-keys';
+    addMsg(
+      '🔑 <strong style="color:#ececec;">' + label + ' API 키를 입력해주세요.</strong><br>' +
+      '<div style="color:#8e8ea0;font-size:10.5px;margin-top:5px;line-height:1.65;">' +
+        '키 발급: <a href="' + keyUrl + '" target="_blank" rel="noopener" style="color:#19c37d;">' +
+        keyUrl.replace('https://', '') + '</a><br>' +
+        '아래 입력창에 키를 <strong style="color:#ececec;">붙여넣고 Enter</strong>를 누르세요.<br>' +
+        '<span style="color:#4a4a5a;">입력한 키는 채팅창에 표시되지 않으며 브라우저에만 저장됩니다.</span>' +
+      '</div>',
+      'bot'
+    );
+    cbKeyMode = { provider: provider, origQuery: origQuery };
+    var inp = document.getElementById('cb-input');
+    inp.placeholder = prefix + '… 붙여넣기 후 Enter';
+    inp.focus();
+    chat.scrollTop = chat.scrollHeight;
+  };
+
+  window.cbRetryFree = function (origQuery) {
+    document.querySelectorAll('.cb-connect-btn').forEach(function (b) {
+      b.disabled = true; b.style.opacity = '0.4'; b.style.cursor = 'default';
+    });
+    var retryBubble = addMsg('<span class="cb-thinking">● 무료 AI 재시도 중…</span>', 'bot');
+    callFreeAI(origQuery, function (text) {
+      retryBubble.innerHTML =
+        '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
+        '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
+      appendSourcesAndRelated(retryBubble, origQuery);
+      chat.scrollTop = chat.scrollHeight;
+    }, function () {
+      retryBubble.innerHTML =
+        '<span style="color:#8e8ea0;font-size:11px;">무료 AI가 일시 불안정합니다.<br>' +
+        '<span style="color:#5a5a6e;font-size:10px;">위에서 AI 키를 연결하면 안정적으로 답변받을 수 있습니다.</span></span>';
+      chat.scrollTop = chat.scrollHeight;
+    });
+  };
 
   function refreshAIUI() {
     var toggle = document.getElementById('cb-ai-toggle');
@@ -1142,6 +1259,16 @@
   /* ── 8. Handle Query ─────────────────────────────────────── */
   function handleQuery(q) {
     if (!q.trim()) return;
+
+    /* ── Key input intercept: when waiting for API key in chat ── */
+    if (cbKeyMode) {
+      var _prov = cbKeyMode.provider;
+      document.getElementById('cb-input').value = '';
+      addMsg('🔑 ••••••••' + q.trim().slice(-4), 'user');
+      cbProcessKeyInput(_prov, q.trim());
+      return;
+    }
+
     addMsg(q, 'user');
     document.getElementById('cb-input').value = '';
 
@@ -1217,31 +1344,31 @@
       } else {
         var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
 
-        /* ── Tier 3: no key → show connect-AI CTA and auto-open panel ── */
-        function showConnectAIPrompt(bubble2, qRelated) {
+        /* ── Tier 3: no key → conversational connect-AI CTA ── */
+        function showConnectAIPrompt(bubble2, qRelated, origQ) {
+          var oq = JSON.stringify(origQ || q);
           var html =
             '<div style="color:#8e8ea0;font-size:11px;margin-bottom:10px;">' +
               '내장 KB 및 무료 AI에 해당 주제의 정보가 없습니다.<br>' +
-              '<span style="color:#5a5a6e;font-size:10px;">아래에서 AI를 연결하면 모든 해사 사이버 주제에 바로 답변받을 수 있습니다.</span>' +
+              '<span style="color:#5a5a6e;font-size:10px;">AI를 연결하면 모든 해사 사이버 주제에 바로 답변받을 수 있습니다.</span>' +
             '</div>' +
             '<div style="background:rgba(16,163,127,0.08);border:1px solid rgba(16,163,127,0.25);border-radius:8px;padding:11px 13px;margin-bottom:8px;">' +
               '<div style="color:#6fcfb0;font-size:9.5px;font-weight:700;letter-spacing:0.06em;margin-bottom:8px;text-transform:uppercase;">🔑 AI 연결 — 모든 주제 무제한 답변</div>' +
               '<div style="display:flex;flex-direction:column;gap:6px;">' +
-                '<button onclick="(function(){' +
-                  'var p=document.getElementById(\'cb-ai-panel\');' +
-                  'p.style.display=\'block\';' +
-                  'cbSwitchTab(\'claude\');' +
-                  'p.scrollIntoView({behavior:\'smooth\',block:\'nearest\'});' +
-                '})()" style="background:rgba(16,163,127,0.18);border:1px solid rgba(16,163,127,0.5);border-radius:6px;color:#19c37d;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;width:100%;">' +
+                /* Free retry */
+                '<button class="cb-connect-btn" onclick="cbRetryFree(' + oq + ')" ' +
+                'style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#c5c5c5;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;transition:background .15s;width:100%;">' +
+                  '🔄 무료 AI 재시도 (키 불필요)' +
+                '</button>' +
+                /* OpenRouter — free account */
+                '<button class="cb-connect-btn" onclick="cbRequestKey(\'claude\',' + oq + ')" ' +
+                'style="background:rgba(16,163,127,0.18);border:1px solid rgba(16,163,127,0.5);border-radius:6px;color:#19c37d;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;transition:background .15s;width:100%;">' +
                   '🤖 OpenRouter 연결 (무료 계정 · 카드 불필요) →' +
                 '</button>' +
-                '<button onclick="(function(){' +
-                  'var p=document.getElementById(\'cb-ai-panel\');' +
-                  'p.style.display=\'block\';' +
-                  'cbSwitchTab(\'gpt\');' +
-                  'p.scrollIntoView({behavior:\'smooth\',block:\'nearest\'});' +
-                '})()" style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;color:#6ee7b7;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;width:100%;">' +
-                  '🟢 ChatGPT 연결 (OpenAI API 키) →' +
+                /* ChatGPT — paid */
+                '<button class="cb-connect-btn" onclick="cbRequestKey(\'gpt\',' + oq + ')" ' +
+                'style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;color:#6ee7b7;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;transition:background .15s;width:100%;">' +
+                  '🟢 ChatGPT 연결 (OpenAI API 키 · 유료) →' +
                 '</button>' +
               '</div>' +
               '<div style="color:#4a4a5a;font-size:9px;margin-top:8px;line-height:1.5;">' +
@@ -1251,9 +1378,6 @@
             '</div>';
           if (qRelated.length) html += buildRelatedBlock(qRelated);
           bubble2.innerHTML = html;
-          /* auto-open the AI panel */
-          var panel = document.getElementById('cb-ai-panel');
-          if (panel) panel.style.display = 'block';
           chat.scrollTop = chat.scrollHeight;
         }
 
@@ -1267,7 +1391,7 @@
                 '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
               appendSourcesAndRelated(bubble2, q2);
               chat.scrollTop = chat.scrollHeight;
-            }, function () { showConnectAIPrompt(bubble2, qRelated); });
+            }, function () { showConnectAIPrompt(bubble2, qRelated, q2); });
           } else if (AI_KEY_GPT) {
             callGPT(q2, function (text) {
               bubble2.innerHTML =
@@ -1275,9 +1399,9 @@
                 '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
               appendSourcesAndRelated(bubble2, q2);
               chat.scrollTop = chat.scrollHeight;
-            }, function () { showConnectAIPrompt(bubble2, qRelated); });
+            }, function () { showConnectAIPrompt(bubble2, qRelated, q2); });
           } else {
-            showConnectAIPrompt(bubble2, qRelated);
+            showConnectAIPrompt(bubble2, qRelated, q2);
           }
         }
 
@@ -1423,7 +1547,7 @@
       if (hasContent) {
         AI_KEY_GPT = val;
         ACTIVE_AI = 'gpt';
-        sessionStorage.setItem('cb_oai_key', val);
+        localStorage.setItem('cb_oai_key', val);
         document.getElementById('cb-api-input').value = '';
         document.getElementById('cb-api-input').style.borderColor = '';
         document.getElementById('cb-ai-panel').style.display = 'none';
@@ -1441,7 +1565,7 @@
       saveBtn.disabled = false;
       AI_KEY_GPT = val;
       ACTIVE_AI = 'gpt';
-      sessionStorage.setItem('cb_oai_key', val);
+      localStorage.setItem('cb_oai_key', val);
       document.getElementById('cb-api-input').value = '';
       document.getElementById('cb-ai-panel').style.display = 'none';
       refreshAIUI();
@@ -1452,7 +1576,7 @@
   document.getElementById('cb-api-clear').addEventListener('click', function () {
     AI_KEY_GPT = '';
     ACTIVE_AI = AI_KEY_CLAUDE ? 'claude' : 'kb-only';
-    sessionStorage.removeItem('cb_oai_key');
+    localStorage.removeItem('cb_oai_key');
     refreshAIUI();
     addMsg('GPT key removed. Switched to ' + (AI_KEY_CLAUDE ? 'OpenRouter mode.' : 'KB-only mode.'), 'bot');
   });
