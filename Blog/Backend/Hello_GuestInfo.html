@@ -1302,7 +1302,9 @@
           }
         } catch (e) {}
 
-        if (!navigator.geolocation) {
+        /* navigator 자체가 없는 환경(헤드리스 크롤러 등) 방어 */
+        var hasGeo = typeof navigator !== 'undefined' && navigator.geolocation;
+        if (!hasGeo) {
           if (fallbackD && fallbackD.latitude != null) {
             saveGPS(fallbackD.latitude, fallbackD.longitude, true);
             showGPS(fallbackD.latitude, fallbackD.longitude, true);
@@ -1320,7 +1322,7 @@
               showGPS(fallbackD.latitude, fallbackD.longitude, true);
             } else showMsg("권한 거부됨");
           },
-          { timeout: 10000, maximumAge: 0 },
+          { timeout: 5000, maximumAge: 60000 },
         );
       })(d);
 
