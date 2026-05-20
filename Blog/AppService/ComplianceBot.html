@@ -1165,12 +1165,78 @@
         if (hits.length) setTimeout(function () { addMsg(renderAnswer(hits[0]), 'bot'); }, 200);
       });
     } else {
-      /* kb-only mode — KB match → structured response, miss → free AI */
+      /* kb-only mode — KB match → structured response, miss → free AI → commercial AI fallback */
       var hits = search(q);
       if (hits.length) {
         addMsg(renderAnswer(hits[0]), 'bot');
       } else {
         var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
+
+        /* ── Tier 3: no key → show connect-AI CTA and auto-open panel ── */
+        function showConnectAIPrompt(bubble2, qRelated) {
+          var html =
+            '<div style="color:#8e8ea0;font-size:11px;margin-bottom:10px;">' +
+              '내장 KB 및 무료 AI에 해당 주제의 정보가 없습니다.<br>' +
+              '<span style="color:#5a5a6e;font-size:10px;">아래에서 AI를 연결하면 모든 해사 사이버 주제에 바로 답변받을 수 있습니다.</span>' +
+            '</div>' +
+            '<div style="background:rgba(16,163,127,0.08);border:1px solid rgba(16,163,127,0.25);border-radius:8px;padding:11px 13px;margin-bottom:8px;">' +
+              '<div style="color:#6fcfb0;font-size:9.5px;font-weight:700;letter-spacing:0.06em;margin-bottom:8px;text-transform:uppercase;">🔑 AI 연결 — 모든 주제 무제한 답변</div>' +
+              '<div style="display:flex;flex-direction:column;gap:6px;">' +
+                '<button onclick="(function(){' +
+                  'var p=document.getElementById(\'cb-ai-panel\');' +
+                  'p.style.display=\'block\';' +
+                  'cbSwitchTab(\'claude\');' +
+                  'p.scrollIntoView({behavior:\'smooth\',block:\'nearest\'});' +
+                '})()" style="background:rgba(16,163,127,0.18);border:1px solid rgba(16,163,127,0.5);border-radius:6px;color:#19c37d;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;width:100%;">' +
+                  '🤖 OpenRouter 연결 (무료 계정 · 카드 불필요) →' +
+                '</button>' +
+                '<button onclick="(function(){' +
+                  'var p=document.getElementById(\'cb-ai-panel\');' +
+                  'p.style.display=\'block\';' +
+                  'cbSwitchTab(\'gpt\');' +
+                  'p.scrollIntoView({behavior:\'smooth\',block:\'nearest\'});' +
+                '})()" style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;color:#6ee7b7;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;width:100%;">' +
+                  '🟢 ChatGPT 연결 (OpenAI API 키) →' +
+                '</button>' +
+              '</div>' +
+              '<div style="color:#4a4a5a;font-size:9px;margin-top:8px;line-height:1.5;">' +
+                'OpenRouter: <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:#5a5a6a;">openrouter.ai/keys</a> &nbsp;|&nbsp; ' +
+                'OpenAI: <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" style="color:#5a5a6a;">platform.openai.com/api-keys</a>' +
+              '</div>' +
+            '</div>';
+          if (qRelated.length) html += buildRelatedBlock(qRelated);
+          bubble2.innerHTML = html;
+          /* auto-open the AI panel */
+          var panel = document.getElementById('cb-ai-panel');
+          if (panel) panel.style.display = 'block';
+          chat.scrollTop = chat.scrollHeight;
+        }
+
+        /* ── Tier 2: commercial AI fallback (key stored despite kb-only state) ── */
+        function tryCommercialFallback(bubble2, q2) {
+          var qRelated = findRelatedByQuery(q2);
+          if (AI_KEY_CLAUDE) {
+            callClaude(q2, function (text) {
+              bubble2.innerHTML =
+                '<span class="cb-gpt-badge">OpenRouter · Fallback</span><br><br>' +
+                '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
+              appendSourcesAndRelated(bubble2, q2);
+              chat.scrollTop = chat.scrollHeight;
+            }, function () { showConnectAIPrompt(bubble2, qRelated); });
+          } else if (AI_KEY_GPT) {
+            callGPT(q2, function (text) {
+              bubble2.innerHTML =
+                '<span class="cb-gpt-badge">GPT · Fallback</span><br><br>' +
+                '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
+              appendSourcesAndRelated(bubble2, q2);
+              chat.scrollTop = chat.scrollHeight;
+            }, function () { showConnectAIPrompt(bubble2, qRelated); });
+          } else {
+            showConnectAIPrompt(bubble2, qRelated);
+          }
+        }
+
+        /* ── Tier 1: Pollinations free AI ── */
         callFreeAI(q, function (text) {
           bubble.innerHTML =
             '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
@@ -1178,12 +1244,7 @@
           appendSourcesAndRelated(bubble, q);
           chat.scrollTop = chat.scrollHeight;
         }, function () {
-          var qRelated = findRelatedByQuery(q);
-          var html = '<span style="color:#8e8ea0;font-size:11px;">My knowledge base doesn\'t have a specific entry for this topic.</span>';
-          if (qRelated.length) html += buildRelatedBlock(qRelated);
-          else html += '<div style="color:#5a5a6e;font-size:10px;margin-top:6px;">Try: IACS UR E26/E27 · BIMCO · IEC 62443 · NIS2 · USCG · DNV · KR · ABS · IMO</div>';
-          bubble.innerHTML = html;
-          chat.scrollTop = chat.scrollHeight;
+          tryCommercialFallback(bubble, q);
         });
       }
     }
@@ -1214,7 +1275,7 @@
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
     (ACTIVE_AI !== 'kb-only'
       ? '<span style="color:#19c37d;">✅ AI connected — any maritime cyber question will be answered.</span>'
-      : '<span style="color:#5a5a6e;">Any question answered — 23 built-in regulations plus free AI for broader topics.</span>'
+      : '<span style="color:#5a5a6e;">23 built-in regulations · KB 외 질문은 무료 AI 자동 응답 · AI 키 연결 시 ChatGPT/Claude로 무제한 답변.</span>'
     ) +
     '</span>',
     'bot'
