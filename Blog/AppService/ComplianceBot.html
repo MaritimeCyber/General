@@ -50,12 +50,20 @@
   <div id="cb-chips-row">
     <button class="cb-chip" data-q="IACS UR E26">UR E26</button>
     <button class="cb-chip" data-q="IACS UR E27">UR E27</button>
+    <button class="cb-chip" data-q="IACS Rec-194 existing ship">IACS Rec</button>
     <button class="cb-chip" data-q="BIMCO v5">BIMCO</button>
     <button class="cb-chip" data-q="IEC 62443">IEC 62443</button>
     <button class="cb-chip" data-q="NIS2 directive">NIS2</button>
+    <button class="cb-chip" data-q="EU Cyber Resilience Act CRA">CRA</button>
+    <button class="cb-chip" data-q="GDPR maritime">GDPR</button>
     <button class="cb-chip" data-q="USCG MTSA">USCG</button>
     <button class="cb-chip" data-q="DNV cyber">DNV</button>
     <button class="cb-chip" data-q="Korean Register KR">KR</button>
+    <button class="cb-chip" data-q="Lloyd's Register LR">LR</button>
+    <button class="cb-chip" data-q="Bureau Veritas BV NR 659">BV</button>
+    <button class="cb-chip" data-q="ClassNK cyber T1348">NK</button>
+    <button class="cb-chip" data-q="CCS China Classification">CCS</button>
+    <button class="cb-chip" data-q="RINA Rules cyber">RINA</button>
   </div>
 
   <!-- Input row -->
@@ -145,29 +153,65 @@
   ].join('');
   document.head.appendChild(s);
 
-  /* ── 2. Sitemap ───────────────────────────────────────────── */
+  /* ── 2. Sitemap (weekly cache) ────────────────────────────── */
   var SITEMAP = { urls: [], loaded: false };
+  var SM_CACHE_KEY = 'cb_sitemap_cache';
+  var SM_TTL = 7 * 24 * 60 * 60 * 1000; /* 7 days */
+  var SM_ROOT = 'https://www.shippauljobs.com/sitemap.xml';
 
-  function loadSitemap() {
-    fetch('https://www.shippauljobs.com/sitemap.xml', { cache: 'default' })
+  function parseLocs(xml) {
+    return (xml.match(/<loc>([^<]+)<\/loc>/g) || [])
+      .map(function (l) { return l.replace(/<\/?loc>/g, '').trim(); });
+  }
+
+  function smSaveCache(urls) {
+    try { localStorage.setItem(SM_CACHE_KEY, JSON.stringify({ ts: Date.now(), urls: urls })); } catch (e) {}
+  }
+
+  function smFinish(urls) {
+    SITEMAP.urls = urls;
+    SITEMAP.loaded = true;
+    smSaveCache(urls);
+  }
+
+  function smFetchFresh() {
+    fetch(SM_ROOT, { cache: 'no-cache' })
       .then(function (r) { return r.text(); })
       .then(function (text) {
-        var locs = text.match(/<loc>([^<]+)<\/loc>/g) || [];
-        locs.forEach(function (l) {
-          SITEMAP.urls.push(l.replace(/<\/?loc>/g, '').trim());
+        var urls = parseLocs(text);
+        if (text.indexOf('<sitemapindex') === -1) { smFinish(urls); return; }
+
+        /* sitemap index — collect sub-sitemap URLs then fetch each */
+        var subs = urls.filter(function (u) {
+          return u.indexOf('sitemap') !== -1 && u !== SM_ROOT;
+        }).slice(0, 6);
+        if (!subs.length) { smFinish(urls); return; }
+
+        var pending = subs.length;
+        subs.forEach(function (sub) {
+          fetch(sub, { cache: 'no-cache' })
+            .then(function (r) { return r.text(); })
+            .then(function (t) { parseLocs(t).forEach(function (u) { urls.push(u); }); })
+            .catch(function () {})
+            .then(function () { if (--pending === 0) smFinish(urls); });
         });
-        if (text.indexOf('<sitemapindex') !== -1) {
-          var subs = SITEMAP.urls.filter(function (u) { return u.indexOf('sitemap') !== -1 && u !== 'https://www.shippauljobs.com/sitemap.xml'; });
-          subs.slice(0, 4).forEach(function (sub) {
-            fetch(sub).then(function (r) { return r.text(); }).then(function (t) {
-              var subLocs = t.match(/<loc>([^<]+)<\/loc>/g) || [];
-              subLocs.forEach(function (l) { SITEMAP.urls.push(l.replace(/<\/?loc>/g, '').trim()); });
-            }).catch(function () {});
-          });
-        }
-        SITEMAP.loaded = true;
       })
       .catch(function () {});
+  }
+
+  function loadSitemap() {
+    try {
+      var raw = localStorage.getItem(SM_CACHE_KEY);
+      if (raw) {
+        var c = JSON.parse(raw);
+        if (c && c.ts && Array.isArray(c.urls) && (Date.now() - c.ts) < SM_TTL && c.urls.length) {
+          SITEMAP.urls = c.urls;
+          SITEMAP.loaded = true;
+          return; /* cache hit — skip fetch */
+        }
+      }
+    } catch (e) {}
+    smFetchFresh(); /* cache miss or expired — fetch & update */
   }
 
   function slugToTitle(url) {
@@ -561,6 +605,266 @@
         { label: '📥 Class Society Docs', url: 'https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' }
       ]
     },
+    {
+      id: 'iacs_rec',
+      keywords: ['iacs rec','iacs recommendation','rec-166','rec-171','rec-190','rec-194','existing ship','asset inventory','existing fleet','retrofit','rec 190','rec 194'],
+      title: 'IACS Recommendations — Cyber (Rec-166/171/190/194)',
+      summary: 'IACS Recommendations complement UR E26/E27 — covering existing ships, asset inventory, and SMS cyber integration. Rec-190 and Rec-194 (2025) extend cyber requirements to the existing fleet.',
+      clauses: [
+        { doc: 'IACS Rec-166 Corr.2 (Apr 2022)', docUrl: 'https://www.iacs.org.uk/publications/recommendations/',
+          ref: 'Rec-166 — Cyber Resilience Framework',
+          text: 'Foundational IACS recommendation establishing cyber resilience principles aligned with IMO MSC-FAL.1/Circ.3. Precursor to UR E26; provides high-level framework for existing ships.' },
+        { doc: 'IACS Rec-171 (2022)',              docUrl: 'https://www.iacs.org.uk/publications/recommendations/',
+          ref: 'Rec-171 — Cyber Risk in Safety Management Systems',
+          text: 'Guidance for incorporating cyber risk management into ISM Code SMS. Covers cyber risk register, crew training, and incident reporting procedures for fleet operators.' },
+        { doc: 'IACS Rec-190 (Jun 2025)',          docUrl: 'https://www.iacs.org.uk/publications/recommendations/',
+          ref: 'Rec-190 — Vessel Asset Inventory for Computer-Based Systems',
+          text: 'New 2025 recommendation: standardised format and scope for CBS asset inventories on ships subject to UR E26. Defines minimum data fields — system name, vendor, version, zone allocation, patch status.' },
+        { doc: 'IACS Rec-194 (Dec 2025)',          docUrl: 'https://www.iacs.org.uk/publications/recommendations/',
+          ref: 'Rec-194 — Cybersecurity Controls for Existing Ships',
+          text: 'Extends cybersecurity controls to the existing fleet (pre-Jul 2024 contract date). Defines baseline controls: risk assessment, crew training, incident response, and minimum technical controls for retrofit.' },
+        { doc: 'IACS Rec-166 + UR E26',           docUrl: 'https://www.iacs.org.uk/publications/recommendations/',
+          ref: 'Recommendation vs. Unified Requirement',
+          text: 'UR E26/E27 are mandatory for all IACS members (newbuildings). Recommendations are advisory but widely adopted — class societies increasingly apply Rec-194 controls during existing ship surveys.' }
+      ],
+      sources: [
+        { label: '🌐 Intl. Association Docs', url: 'https://www.shippauljobs.com/p/international-association-compliance.html' }
+      ]
+    },
+    {
+      id: 'eu_cra',
+      keywords: ['cra','cyber resilience act','eu cra','eu regulation','digital product','ce marking','oem eu','product security','sbom eu','regulation 2024'],
+      title: 'EU Cyber Resilience Act (CRA) 2024',
+      summary: 'EU Regulation 2024/2847 mandates cybersecurity for products with digital elements sold in the EU — directly affects maritime OEM manufacturers supplying navigation, SCADA, and control systems.',
+      clauses: [
+        { doc: 'EU Reg. 2024/2847 (CRA)',         docUrl: 'https://eur-lex.europa.eu/',
+          ref: 'Art.2 — Scope (Products with Digital Elements)',
+          text: 'Covers all hardware/software products connected to networks placed on the EU market — includes marine electronics, navigation systems, and SCADA components sold by OEMs into the EU.' },
+        { doc: 'EU CRA 2024',                     docUrl: 'https://eur-lex.europa.eu/',
+          ref: 'Art.13 — Essential Cybersecurity Requirements',
+          text: 'OEMs must: ship with secure default configurations, implement SBOM, provide vulnerability disclosure policy, and support security updates for minimum 5 years after market placement.' },
+        { doc: 'EU CRA 2024',                     docUrl: 'https://eur-lex.europa.eu/',
+          ref: 'Art.14 — Vulnerability Handling & ENISA Reporting',
+          text: 'Manufacturers must report actively exploited vulnerabilities to ENISA within 24 hours (early warning) and 72 hours (notification). Security patches must be distributed free of charge.' },
+        { doc: 'CRA Standards Mapping (2024)',    docUrl: 'https://eur-lex.europa.eu/',
+          ref: 'CRA ↔ IEC 62443 / IACS UR E27 Alignment',
+          text: 'CRA requirements map to IEC 62443-4-2 (component security) and IACS UR E27. OEMs holding a valid IACS UR E27 TA certificate have significant overlap with CRA essential requirements.' },
+        { doc: 'EU CRA 2024',                     docUrl: 'https://eur-lex.europa.eu/',
+          ref: 'Art.52–56 — CE Marking & Enforcement (Dec 2027)',
+          text: 'CE marking required for products in scope. Critical products (Class I/II) require third-party conformity assessment. Full enforcement from December 2027. Non-compliance: up to €15M or 2.5% global turnover.' }
+      ],
+      sources: [
+        { label: '🌐 Intl. Association Docs', url: 'https://www.shippauljobs.com/p/international-association-compliance.html' }
+      ]
+    },
+    {
+      id: 'gdpr',
+      keywords: ['gdpr','general data protection','eu data','data breach','personal data','passenger data','crew data','dpo','data protection officer','regulation 2016'],
+      title: 'GDPR (EU) 2016/679 — Maritime Data Protection',
+      summary: 'EU General Data Protection Regulation applies to shipping companies processing EU personal data — passenger manifests, crew records, and port operations data.',
+      clauses: [
+        { doc: 'GDPR Reg. (EU) 2016/679',  docUrl: 'https://gdpr-info.eu/',
+          ref: 'Art.2–3 — Scope (Maritime Application)',
+          text: 'Applies to any organisation (incl. shipping companies, port operators) processing EU persons\' data — passenger check-in data, crew records, agent communications, and shore-side HR systems.' },
+        { doc: 'GDPR Reg. (EU) 2016/679',  docUrl: 'https://gdpr-info.eu/',
+          ref: 'Art.33 — Breach Notification (72h)',
+          text: 'Personal data breaches must be reported to the supervisory authority within 72 hours. Vessel cyber incidents affecting passenger or crew data records trigger GDPR notification alongside NIS2 requirements.' },
+        { doc: 'GDPR Reg. (EU) 2016/679',  docUrl: 'https://gdpr-info.eu/',
+          ref: 'Art.37 — Data Protection Officer (DPO)',
+          text: 'Large-scale systematic processing of personal data requires a DPO. Cruise lines and ferry operators processing passenger data at scale must appoint a DPO and conduct DPIAs for new digital systems.' },
+        { doc: 'GDPR Reg. (EU) 2016/679',  docUrl: 'https://gdpr-info.eu/',
+          ref: 'Art.32 — Security of Processing',
+          text: 'Appropriate technical and organisational measures required: encryption, pseudonymization, access controls, and regular security testing. Cyber incident response plans must address data protection obligations.' },
+        { doc: 'GDPR + NIS2 + CRA',        docUrl: 'https://gdpr-info.eu/',
+          ref: 'EU Regulatory Overlap — Triple Notification Risk',
+          text: 'GDPR (data protection) + NIS2 (network security) + CRA (product security) form the EU cyber-legal stack for maritime. A single cyber incident may trigger all three notification regimes simultaneously.' }
+      ],
+      sources: [
+        { label: '🌐 Intl. Association Docs', url: 'https://www.shippauljobs.com/p/international-association-compliance.html' }
+      ]
+    },
+    {
+      id: 'bv',
+      keywords: ['bv','bureau veritas','bv cyber','nr 659','bureau veritas rules','cybersafe','bv notation'],
+      title: 'Bureau Veritas (BV) — Cyber Security Rules NR 659',
+      summary: 'BV NR 659 (Jul 2024) defines cyber security requirements for BV-classed ships and offshore units, fully aligned with IACS UR E26/E27.',
+      clauses: [
+        { doc: 'BV NR 659 (Jul 2024)',      docUrl: 'https://www.bureauveritas.com/marine-offshore/cybersecurity',
+          ref: 'Sec.1 — Scope & IACS UR E26/E27 Alignment',
+          text: 'NR 659 implements IACS UR E26/E27 for BV-classed ships. Applies to all newbuildings contracted from 1 Jul 2024. BV CyberSAFE notation serves as presumed UR E26 compliance evidence.' },
+        { doc: 'BV NR 659 (Jul 2024)',      docUrl: 'https://www.bureauveritas.com/marine-offshore/cybersecurity',
+          ref: 'Sec.3 — Security Zone Architecture',
+          text: 'BV requires zone/conduit design documentation submitted at plan approval. Critical systems (navigation, propulsion, cargo) placed in protected zones. Firewall rules and DMZ architecture reviewed by BV surveyor.' },
+        { doc: 'BV NR 659 (Jul 2024)',      docUrl: 'https://www.bureauveritas.com/marine-offshore/cybersecurity',
+          ref: 'Sec.4 — Equipment Approval (UR E27 TA)',
+          text: 'All E26-scoped CBS must carry BV Type Approval or equivalent IACS UR E27 TA. BV Software Approval covers software quality and cybersecurity evidence required for CBS certification.' },
+        { doc: 'BV NR 659 (Jul 2024)',      docUrl: 'https://www.bureauveritas.com/marine-offshore/cybersecurity',
+          ref: 'Sec.5 — Newbuilding Survey Process',
+          text: 'BV survey process: plan approval (zone diagram, asset list) → factory acceptance test → sea trials (functional cyber test) → certificate issuance at delivery.' },
+        { doc: 'BV NR 659 + IACS UR E26',  docUrl: 'https://www.bureauveritas.com/marine-offshore/cybersecurity',
+          ref: 'Class Notation — CyberSAFE',
+          text: 'CyberSAFE notation awarded when NR 659 requirements are met. BV TA/SoC certificates are mutually recognized by all IACS member class societies. Valid for 5 years with annual verification.' }
+      ],
+      sources: [
+        { label: '📥 Class Society Docs', url: 'https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' }
+      ]
+    },
+    {
+      id: 'lr',
+      keywords: ['lr','lloyds register','lloyds','lloyd\'s register','lr rules','ru-001','lloyds cyber','shipright'],
+      title: "Lloyd's Register (LR) — Rules for Classification (Jul 2025)",
+      summary: "LR RU-001 (Jul 2025) integrates mandatory cyber security requirements into the full ship classification rules, implementing IACS UR E26/E27.",
+      clauses: [
+        { doc: 'LR RU-001 Rules (Jul 2025)', docUrl: 'https://www.lr.org/en/marine-shipping/class-rules-procedures-standards/',
+          ref: 'Pt.1 — Cyber Security as Mandatory Class Requirement',
+          text: 'LR Jul 2025 rules fully integrate IACS UR E26/E27. All newbuildings contracted from Jul 2024 must comply. LR ShipRight cyber procedures define design review and survey milestones.' },
+        { doc: 'LR RU-001 Rules (Jul 2025)', docUrl: 'https://www.lr.org/en/marine-shipping/class-rules-procedures-standards/',
+          ref: 'Pt.5 — OT Systems & Cyber Resilience',
+          text: 'Covers: integrated automation systems, navigation, cargo systems. Zone/conduit documentation required at plan approval. Functional cyber test at sea trials is mandatory for all UR E26-scoped ships.' },
+        { doc: 'LR ShipRight Procedure (2024)', docUrl: 'https://www.lr.org/en/marine-shipping/class-rules-procedures-standards/',
+          ref: 'ShipRight SDA — Cyber Security Assessment',
+          text: 'LR ShipRight Ship Design Assessment covers cyber: design verification → type approval review → survey during construction. Cyber assessment can be combined with safety system surveys at the same stage.' },
+        { doc: 'LR RU-001 Rules (Jul 2025)', docUrl: 'https://www.lr.org/en/marine-shipping/class-rules-procedures-standards/',
+          ref: 'Equipment TA — IACS UR E27 Alignment',
+          text: 'LR issues Type Approval for CBS per IACS UR E27. LR TA certificates are mutually recognized across all IACS member societies. Certificate valid 5 years with annual condition monitoring.' },
+        { doc: 'LR RU-001 (Jul 2025)',       docUrl: 'https://www.lr.org/en/marine-shipping/class-rules-procedures-standards/',
+          ref: 'Continuous Class — Annual Cyber Audit',
+          text: 'LR-classed E26 ships: annual cyber survey includes change management log review, software version verification, and crew cyber training record audit against LR-approved SMS documentation.' }
+      ],
+      sources: [
+        { label: '📥 Class Society Docs', url: 'https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' }
+      ]
+    },
+    {
+      id: 'nk',
+      keywords: ['nk','classnk','nippon kaiji','japanese class','nk cyber','t1348','japan','japanese','classNK'],
+      title: 'ClassNK — Cyber Security (T1348 Technical Guidance)',
+      summary: 'ClassNK publishes Technical Information T1348 and implements IACS UR E26/E27 for Japanese-flagged and Japanese-built vessels.',
+      clauses: [
+        { doc: 'ClassNK T1348 (Technical Info)', docUrl: 'https://www.classnk.or.jp/hp/en/hp_activities_digitalization.html',
+          ref: 'T1348 — IACS UR E26/E27 Implementation Guidance',
+          text: 'Technical information for NK surveyors and shipyards: explains UR E26 five-function framework, zone/conduit design requirements, and E27 type approval process specific to NK survey procedures.' },
+        { doc: 'IACS UR E22 Rev.3 (Jun 2023)', docUrl: 'https://www.iacs.org.uk/publications/unified-requirements/ur-e/',
+          ref: 'UR E22 — Electrical & Electronic Installations',
+          text: 'NK includes UR E22 (electrical/electronic safety) alongside cyber requirements. UR E22 defines environmental testing for electronic equipment — relevant to OT equipment in bridge and engine room zones.' },
+        { doc: 'ClassNK Rules (2024)',          docUrl: 'https://www.classnk.or.jp/hp/en/hp_activities_class.html',
+          ref: 'NK CYBER Notation & Type Approval',
+          text: 'NK awards CYBER notation for vessels meeting IACS UR E26. NK TA certificates for UR E27 are issued after documentation review and security testing. NK TA is recognized by all IACS member class societies.' },
+        { doc: 'ClassNK T1348',                docUrl: 'https://www.classnk.or.jp/hp/en/hp_activities_digitalization.html',
+          ref: 'Japanese Shipyard Guidance (JMU, Imabari, Oshima)',
+          text: 'NK T1348 provides step-by-step documentation milestones from contract stage to delivery survey — specifically structured for Japanese shipbuilding workflow and NK plan approval process.' },
+        { doc: 'ClassNK Rules (2024)',          docUrl: 'https://www.classnk.or.jp/hp/en/hp_activities_class.html',
+          ref: 'Existing Ship Cyber Survey (IACS Rec-194)',
+          text: 'For existing ships, NK applies IACS Rec-194 baseline controls during periodic surveys. NK issues a Cyber Security Statement for vessels demonstrating compliance with Rec-194 minimum requirements.' }
+      ],
+      sources: [
+        { label: '📥 Class Society Docs', url: 'https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' }
+      ]
+    },
+    {
+      id: 'ccs',
+      keywords: ['ccs','china classification','chinese class','ccs cyber','ccs guidelines','chinese shipbuilding','cssc','cosco shipyard'],
+      title: 'CCS — Guidelines for Ship Cyber Security (2024)',
+      summary: "China Classification Society's 2024 cyber guidelines implement IACS UR E26/E27 for Chinese-built and Chinese-flagged vessels.",
+      clauses: [
+        { doc: 'CCS Ship Cyber Security Guidelines (2024)', docUrl: 'https://www.ccs.org.cn/',
+          ref: 'Chap.1 — Scope & Chinese Fleet Application',
+          text: 'Covers all CCS-classed ships. Aligned with IACS UR E26/E27. Particularly relevant for vessels built at Chinese yards (CSSC, COSCO, New Times) contracted from July 2024.' },
+        { doc: 'CCS Cyber Guidelines (2024)',              docUrl: 'https://www.ccs.org.cn/',
+          ref: 'Chap.2 — Security Zone Design',
+          text: 'CCS requires zone/conduit architecture documentation in the shipbuilding approval package. Defines primary zones (bridge, engine, cargo) and secondary zones with firewall configuration requirements.' },
+        { doc: 'CCS Cyber Guidelines (2024)',              docUrl: 'https://www.ccs.org.cn/',
+          ref: 'Chap.3 — Type Approval Process (UR E27)',
+          text: 'CCS issues TA for CBS per IACS UR E27. Typical CCS process duration: 10–14 weeks. CCS TA certificates are mutually recognized across all IACS member class societies.' },
+        { doc: 'CCS Cyber Guidelines (2024)',              docUrl: 'https://www.ccs.org.cn/',
+          ref: 'Chap.4 — Survey & Documentation',
+          text: 'Newbuilding survey stages: design review (plan approval) → factory acceptance test → onboard commissioning survey → delivery documentation. Chinese-language guidance available for domestic shipyards.' },
+        { doc: 'CCS Cyber Guidelines (2024)',              docUrl: 'https://www.ccs.org.cn/',
+          ref: 'Chap.5 — Smart Ship Integration (i-Ship)',
+          text: 'CCS integrates cyber requirements with its Smart Ship (i-Ship) notation. Digital twin, remote monitoring, and autonomous systems carry additional cyber requirements beyond the UR E26 baseline.' }
+      ],
+      sources: [
+        { label: '📥 Class Society Docs', url: 'https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' }
+      ]
+    },
+    {
+      id: 'rina',
+      keywords: ['rina','rina rules','italian class','rina cyber','registro italiano navale','rina ship'],
+      title: 'RINA — Rules for Ships, Part F Cyber Security (Jan 2026)',
+      summary: "RINA Rules for Ships Part F (Jan 2026) integrates mandatory cyber security requirements for RINA-classed vessels, with EU/NIS2 dual-compliance guidance.",
+      clauses: [
+        { doc: 'RINA Rules Pt.F (Jan 2026)',  docUrl: 'https://www.rina.org/en/marine/class/',
+          ref: 'Part F — Cyber Security Requirements (E26/E27)',
+          text: 'RINA Part F implements IACS UR E26 for all newbuildings contracted from Jul 2024. RINA-classed ships must meet Part F cyber requirements verified through RINA\'s four-stage survey process.' },
+        { doc: 'RINA Rules Pt.F (Jan 2026)',  docUrl: 'https://www.rina.org/en/marine/class/',
+          ref: 'Sec.2 — Zone/Conduit Design (IEC 62443)',
+          text: 'Zone/conduit architecture per IEC 62443 principles. RINA requires zone diagram at plan approval with firewall rule documentation for conduits between high-criticality zones.' },
+        { doc: 'RINA Rules Pt.F (Jan 2026)',  docUrl: 'https://www.rina.org/en/marine/class/',
+          ref: 'Sec.3 — Equipment Type Approval (UR E27)',
+          text: 'RINA issues UR E27 Type Approval certificates recognized across all IACS members. RINA TA process: 8–12 weeks, including security testing for software-intensive systems.' },
+        { doc: 'RINA Rules Pt.F (Jan 2026)',  docUrl: 'https://www.rina.org/en/marine/class/',
+          ref: 'Sec.4 — Four-Stage Survey Milestones',
+          text: 'RINA cyber survey stages: initial plan approval → pre-FAT review → onboard commissioning test → delivery audit. RINA coordinates joint surveys with Italian flag state where applicable.' },
+        { doc: 'RINA Rules Pt.F + NIS2/CRA', docUrl: 'https://www.rina.org/en/marine/class/',
+          ref: 'EU Dual Compliance — IACS UR E26 + NIS2 + CRA',
+          text: 'RINA guides EU-flagged vessel operators on combined compliance: IACS UR E26 (class requirement) + NIS2 (EU essential entity obligations) + CRA (OEM product security). Overlap analysis included in Part F guidance.' }
+      ],
+      sources: [
+        { label: '📥 Class Society Docs', url: 'https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' }
+      ]
+    },
+    {
+      id: 'cr',
+      keywords: ['cr','croatian register','croatian class','cr cyber','croatia','adriatic'],
+      title: 'Croatian Register (CR) — Cyber Security Guidelines (2025)',
+      summary: "Croatian Register's 2025 guidelines implement IACS UR E26/E27 for CR-classed vessels with EU/Adriatic operational context and NIS2 integration.",
+      clauses: [
+        { doc: 'CR Guidelines for Cyber Security (2025)', docUrl: 'https://www.crs.hr/',
+          ref: 'Chap.1 — Scope & IACS UR E26 Alignment',
+          text: 'CR cyber guidelines cover all CR-classed newbuildings contracted from Jul 2024. Aligns with IACS UR E26 five-function model and NIS2 Directive for EU-operated and Croatian-flagged vessels.' },
+        { doc: 'CR Guidelines (2025)',                    docUrl: 'https://www.crs.hr/',
+          ref: 'Chap.2 — Risk Assessment Methodology',
+          text: 'CR provides structured risk assessment methodology: asset identification, threat analysis, vulnerability assessment, and risk register format required for submission to CR surveyors.' },
+        { doc: 'CR Guidelines (2025)',                    docUrl: 'https://www.crs.hr/',
+          ref: 'Chap.3 — Zone Design & Documentation',
+          text: 'Zone/conduit diagrams required per IEC 62443. CR accepts digital documentation via its online survey portal. Croatian-language appendices provided for Adriatic-flag vessel operators.' },
+        { doc: 'CR Guidelines (2025)',                    docUrl: 'https://www.crs.hr/',
+          ref: 'Chap.4 — Equipment Approval (UR E27)',
+          text: 'CR issues UR E27 Type Approval certificates and accepts TA from all IACS member societies. CR TA process is aligned with the IMO IMSAS audit framework — interoperable with EU flag state requirements.' },
+        { doc: 'CR Guidelines (2025) + NIS2',            docUrl: 'https://www.crs.hr/',
+          ref: 'NIS2 / EU Flag State Integration',
+          text: 'CR specifically guides operators on combined IACS UR E26 + NIS2 compliance. Incident reporting to Croatian CSIRT is integrated into the class deficiency reporting chain under CR guidance.' }
+      ],
+      sources: [
+        { label: '📥 Class Society Docs', url: 'https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' }
+      ]
+    },
+    {
+      id: 'african_ports',
+      keywords: ['africa','african port','african maritime','crimson report','port security africa','sub-saharan','west africa','east africa','port cyber'],
+      title: 'African Maritime Cyber Risk — Crimson Report',
+      summary: 'Research report assessing cybersecurity vulnerabilities in African maritime critical infrastructure — port operations, VTS, and vessel traffic in coastal African ports.',
+      clauses: [
+        { doc: 'Crimson Maritime Cyber Report',   docUrl: '',
+          ref: 'Exec Summary — African Port Threat Landscape',
+          text: 'African ports face elevated cyber risk due to aging OT infrastructure, limited cyber workforce, and rapid digitalization (port community systems, automated cranes, AIS-dependent VTS centers).' },
+        { doc: 'Crimson Maritime Cyber Report',   docUrl: '',
+          ref: 'Sec.2 — Key Vulnerabilities Identified',
+          text: 'Common findings: legacy SCADA without network segmentation, default credentials on port OT systems, no incident response plans, and limited security monitoring in VTS and terminal operating systems.' },
+        { doc: 'Crimson Maritime Cyber Report',   docUrl: '',
+          ref: 'Sec.3 — Threat Actor Landscape',
+          text: 'Threats include: ransomware targeting port logistics, GPS/AIS spoofing in high-piracy regions, and state-sponsored actors targeting critical port infrastructure for geopolitical leverage.' },
+        { doc: 'Crimson Maritime Cyber Report',   docUrl: '',
+          ref: 'Sec.4 — Recommendations for Port Authorities',
+          text: 'Priority actions: IT/OT network segmentation, replace default credentials, develop Cyber Incident Response Plans (CIRP), establish minimum crew cyber training, and engage regional CERT partnerships.' },
+        { doc: 'Crimson Report + IMO/BIMCO',     docUrl: '',
+          ref: 'Regulatory Baseline for African Ports',
+          text: 'African ports lacking national cyber legislation should adopt IMO MSC-FAL.1/Circ.3 and BIMCO v5 guidelines as minimum baseline. IMO member state obligations apply regardless of domestic legislation.' }
+      ],
+      sources: [
+        { label: '🛡️ National & Port Security Docs', url: 'https://www.shippauljobs.com/p/national-and-port-security-compliance.html' }
+      ]
+    },
   ];
 
   /* ── 4. API Key Management ───────────────────────────────── */
@@ -624,7 +928,7 @@
           return '[' + c.doc + ' | ' + c.ref + ']: ' + c.text;
         }).join('\n');
     } else {
-      ctx = 'Topics available: IACS UR E26, E27, BIMCO v5, IEC 62443, NIS2, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, ABS, IMO MSC-FAL.1/Circ.3';
+      ctx = 'Topics available: IACS UR E26, E27, IACS Rec-190/194, BIMCO v5, IEC 62443, NIS2, EU CRA, GDPR, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, LR, BV, NK, CCS, RINA, CR, ABS, IMO MSC-FAL.1/Circ.3, African Port Cyber';
     }
     var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
@@ -685,7 +989,7 @@
           return '[' + c.doc + ' | ' + c.ref + ']: ' + c.text;
         }).join('\n');
     } else {
-      ctx = 'Topics available: IACS UR E26, E27, BIMCO v5, IEC 62443, NIS2, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, ABS, IMO MSC-FAL.1/Circ.3';
+      ctx = 'Topics available: IACS UR E26, E27, IACS Rec-190/194, BIMCO v5, IEC 62443, NIS2, EU CRA, GDPR, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, LR, BV, NK, CCS, RINA, CR, ABS, IMO MSC-FAL.1/Circ.3, African Port Cyber';
     }
     var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
@@ -906,11 +1210,11 @@
   addMsg(
     'Hello — I\'m <strong style="color:#19c37d;">ShipPaul Compliance AI</strong>.<br>' +
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
-    'Ask about IACS UR E26/E27, BIMCO, NIS2, IEC 62443, USCG, class society rules, and more.<br>' +
+    'Ask about IACS UR E26/E27/Rec, BIMCO, NIS2, EU CRA, GDPR, IEC 62443, USCG, DNV, LR, BV, NK, CCS, RINA, KR, ABS, IMO, and more.<br>' +
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
     (ACTIVE_AI !== 'kb-only'
       ? '<span style="color:#19c37d;">✅ AI connected — any maritime cyber question will be answered.</span>'
-      : '<span style="color:#5a5a6e;">Any question answered — 13 built-in regulations plus free AI for broader topics.</span>'
+      : '<span style="color:#5a5a6e;">Any question answered — 23 built-in regulations plus free AI for broader topics.</span>'
     ) +
     '</span>',
     'bot'
