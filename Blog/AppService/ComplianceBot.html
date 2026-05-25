@@ -20,17 +20,17 @@
   <!-- API Key Panel (hidden by default) -->
   <div id="cb-ai-panel">
     <div id="cb-provider-tabs">
-      <button id="cb-tab-claude" class="cb-tab cb-tab-active" onclick="cbSwitchTab('claude')">🤖 OpenRouter</button>
+      <button id="cb-tab-claude" class="cb-tab cb-tab-active" onclick="cbSwitchTab('claude')">🟣 Claude</button>
       <button id="cb-tab-gpt" class="cb-tab" onclick="cbSwitchTab('gpt')">🟢 ChatGPT</button>
     </div>
     <div id="cb-claude-section">
-      <div id="cb-ai-panel-label">🤖 OpenRouter API Key <span id="cb-claude-conn-text"></span></div>
+      <div id="cb-ai-panel-label">🟣 Claude API Key (OpenRouter) <span id="cb-claude-conn-text"></span></div>
       <div id="cb-ai-input-row">
-        <input id="cb-claude-input" type="password" placeholder="sk-or-v1-… (default key active)" autocomplete="off" spellcheck="false" />
+        <input id="cb-claude-input" type="password" placeholder="sk-or-v1-…" autocomplete="off" spellcheck="false" />
         <button id="cb-claude-save">Save</button>
         <button id="cb-claude-clear">Clear</button>
       </div>
-      <div id="cb-ai-note">Default key provided · Save your own key · <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">Get key →</a></div>
+      <div id="cb-ai-note">OpenRouter 키로 Claude 모델 사용 · <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">무료 계정 만들기 →</a></div>
     </div>
     <div id="cb-gpt-section" style="display:none;">
       <div id="cb-ai-panel-label">🟢 OpenAI API Key <span id="cb-ai-conn-text"></span></div>
@@ -961,7 +961,7 @@
       b.style.opacity = '0.4';
       b.style.cursor = 'default';
     });
-    var label  = provider === 'claude' ? 'OpenRouter' : 'ChatGPT';
+    var label  = provider === 'claude' ? 'Claude (OpenRouter)' : 'ChatGPT';
     var prefix = provider === 'claude' ? 'sk-or-v1-' : 'sk-';
     var keyUrl = provider === 'claude' ? 'https://openrouter.ai/keys' : 'https://platform.openai.com/api-keys';
     addMsg(
@@ -1274,13 +1274,13 @@
 
     if (ACTIVE_AI === 'gpt' || ACTIVE_AI === 'claude') {
       var callFn    = ACTIVE_AI === 'gpt' ? callGPT    : callClaude;
-      var badgeLabel= ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'OpenRouter · Free';
-      var aiName    = ACTIVE_AI === 'gpt' ? 'GPT'      : 'OpenRouter';
+      var badgeLabel= ACTIVE_AI === 'gpt' ? 'GPT-4o-mini' : 'Claude · OpenRouter';
+      var aiName    = ACTIVE_AI === 'gpt' ? 'GPT'        : 'Claude';
       /* secondary: the OTHER commercial AI, if its key is available */
       var altCallFn = ACTIVE_AI === 'gpt'
         ? (AI_KEY_CLAUDE ? callClaude : null)
         : (AI_KEY_GPT   ? callGPT    : null);
-      var altBadge  = ACTIVE_AI === 'gpt' ? 'OpenRouter · Retry' : 'GPT · Retry';
+      var altBadge  = ACTIVE_AI === 'gpt' ? 'Claude · Retry' : 'GPT · Retry';
       var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
 
       function onSuccess(badge, text) {
@@ -1363,7 +1363,7 @@
                 /* OpenRouter — free account */
                 '<button class="cb-connect-btn" onclick="cbRequestKey(\'claude\',' + oq + ')" ' +
                 'style="background:rgba(16,163,127,0.18);border:1px solid rgba(16,163,127,0.5);border-radius:6px;color:#19c37d;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;transition:background .15s;width:100%;">' +
-                  '🤖 OpenRouter 연결 (무료 계정 · 카드 불필요) →' +
+                  '🟣 Claude 연결 (OpenRouter · 무료 계정 · 카드 불필요) →' +
                 '</button>' +
                 /* ChatGPT — paid */
                 '<button class="cb-connect-btn" onclick="cbRequestKey(\'gpt\',' + oq + ')" ' +
@@ -1372,8 +1372,8 @@
                 '</button>' +
               '</div>' +
               '<div style="color:#4a4a5a;font-size:9px;margin-top:8px;line-height:1.5;">' +
-                'OpenRouter: <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:#5a5a6a;">openrouter.ai/keys</a> &nbsp;|&nbsp; ' +
-                'OpenAI: <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" style="color:#5a5a6a;">platform.openai.com/api-keys</a>' +
+                'Claude (OpenRouter): <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:#5a5a6a;">openrouter.ai/keys</a> &nbsp;|&nbsp; ' +
+                'ChatGPT (OpenAI): <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" style="color:#5a5a6a;">platform.openai.com/api-keys</a>' +
               '</div>' +
             '</div>';
           if (qRelated.length) html += buildRelatedBlock(qRelated);
