@@ -37,8 +37,6 @@
 
     <!-- 모바일 반응형 설정 -->
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
-    <meta content='ca-pub-1136000774216453' name='google-adsense-account'/>
-
     <!-- Schema.org Structured Data -->
     <script type='application/ld+json'>
     {&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;Blog&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;,&quot;url&quot;:&quot;https://www.shippauljobs.com&quot;,&quot;description&quot;:&quot;Maritime 4.0 platform focused on AI, cybersecurity and data&quot;,&quot;publisher&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;,&quot;url&quot;:&quot;https://www.shippauljobs.com&quot;}}
@@ -49,6 +47,7 @@
 
     <!-- 검색 엔진 인증 -->
     <meta content='311afdcf6eca3dcb5eb65c17b45e15bb45465a5c' name='naver-site-verification'/>
+    <meta content='472da63a757063775c60582bd3235f2887abb75c' name='naver-site-verification'/>
     <meta content='aoLG5-TDskYecZJ6gwh5L2abtHst4ystrpPfIrw5oj4' name='google-site-verification'/>
     <meta content='A22793221D21E048F53C0CCDC7AF81AB' name='msvalidate.01'/>
     <meta content='de00fd059089de3b' name='yandex-verification'/>
@@ -56,7 +55,7 @@
     <!-- 크롤링 허용 &#8212; 페이지 유형별 분기 -->
 <b:if cond='data:view.isLabelSearch'>
   
-  <b:if cond='data:blog.searchLabel == &quot;IACS UR E26/E2732&quot; or                data:blog.searchLabel == &quot;Compliance&quot; or                data:blog.searchLabel == &quot;Insight Maritime&quot; or                data:blog.searchLabel == &quot;MaritimeCyberTrend&quot;'>
+  <b:if cond='data:blog.searchLabel == &quot;IACS UR E26/E2732&quot; or                data:blog.searchLabel == &quot;Compliance&quot; or                data:blog.searchLabel == &quot;Insight Maritime&quot; or                data:blog.searchLabel == &quot;MaritimeCyberTrend&quot; or                data:blog.searchLabel == &quot;Maritime Industry Insights&quot; or                data:blog.searchLabel == &quot;Compliances&quot; or                data:blog.searchLabel == &quot;AICyberLab&quot; or                data:blog.searchLabel == &quot;Publications&quot; or                data:blog.searchLabel == &quot;JOBS&quot;'>
     <meta content='index, follow' name='robots'/>
   
   <b:else/>
@@ -159,14 +158,9 @@
 <link expr:href='data:blog.canonicalUrl' hreflang='ko' rel='alternate'/>
 <link expr:href='data:blog.canonicalUrl' hreflang='x-default' rel='alternate'/>
 
-<!-- Preconnect: AdSense + Google Fonts (광고 로드 지연 최소화) -->
-<link crossorigin='anonymous' href='https://pagead2.googlesyndication.com' rel='preconnect'/>
-<link crossorigin='anonymous' href='https://googleads.g.doubleclick.net' rel='preconnect'/>
-<link crossorigin='anonymous' href='https://adservice.google.com' rel='preconnect'/>
+<!-- Preconnect: Google Fonts -->
 <link href='https://fonts.googleapis.com' rel='preconnect'/>
 <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
-<link href='https://pagead2.googlesyndication.com' rel='dns-prefetch'/>
-<link href='https://googleads.g.doubleclick.net' rel='dns-prefetch'/>
 
 <!-- Google Fonts -->
 <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap' rel='stylesheet'/>
@@ -175,23 +169,23 @@
 <b:if cond='data:view.isSingleItem'>
   <title><data:view.title.escaped/></title>
   <b:else/>
-  <title>ShipPaulJobs | Maritime AI, Cyber Security &amp; IACS Compliance Platform</title>
+  <title>ShipPaulJobs
+  Maritime AI &amp; Cyber</title>
 </b:if>
-
-<!-- Blogger 기본 head -->
-<b:include data='blog' name='all-head-content'/>
 
 <!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
 <b:if cond='data:view.isSingleItem'>
   <meta expr:content='data:post.snippet + &quot; — ShipPaulJobs&quot;' name='description'/>
   <b:else/>
-  <meta content='Maritime AI, Cyber Security, Smart Ships, IACS UR E26/E27 compliance, maritime careers, and data-driven industry insights.' name='description'/>
+  <meta content='Experience-driven insights on maritime compliance, AI and cybersecurity.' name='description'/>
 </b:if>
+
+<!-- Blogger 기본 head -->
+<b:include data='blog' name='all-head-content'/>
 
 <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
 <meta content='ShipPaulJobs' property='og:site_name'/>
-<meta content='ko_KR' property='og:locale'/>
-<meta content='en_US' property='og:locale:alternate'/>
+<meta content='en_US' property='og:locale'/>
 <b:if cond='data:view.isSingleItem'>
   <meta content='article' property='og:type'/>
   <meta expr:content='data:post.title' property='og:title'/>
@@ -208,11 +202,11 @@
   </b:if>
   <meta expr:content='data:post.datePublished' property='article:published_time'/>
   <meta expr:content='data:post.lastUpdated' property='article:modified_time'/>
-  <meta content='Captain Ethan' property='article:author'/>
+  <meta expr:content='data:post.author.name' property='article:author'/>
   <b:else/>
   <meta content='website' property='og:type'/>
-  <meta content='ShipPaulJobs | Maritime AI, Cyber Security &amp; IACS Compliance Platform' property='og:title'/>
-  <meta content='Maritime AI, Cyber Security, Smart Ships, IACS UR E26/E27 compliance, maritime careers, and data-driven industry insights.' property='og:description'/>
+  <meta content='ShipPaulJobs Maritime AI &amp; Cyber' property='og:title'/>
+  <meta content='Experience-driven insights on maritime compliance, AI and cybersecurity.' property='og:description'/>
   <meta expr:content='data:blog.homepageUrl' property='og:url'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
   <meta content='1200' property='og:image:width'/>
@@ -230,8 +224,8 @@
     <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
   </b:if>
   <b:else/>
-  <meta content='ShipPaulJobs | Maritime AI, Cyber Security &amp; IACS Compliance Platform' name='twitter:title'/>
-  <meta content='Maritime AI, Cyber Security, Smart Ships, IACS UR E26/E27 compliance, maritime careers, and data-driven industry insights.' name='twitter:description'/>
+  <meta content='ShipPaulJobs Maritime AI &amp; Cyber' name='twitter:title'/>
+  <meta content='Experience-driven insights on maritime compliance, AI and cybersecurity.' name='twitter:description'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
 </b:if>
 
@@ -1770,7 +1764,7 @@
 
                 <div class='blog-name container'>
                   <b:section class='container' id='header' name='Header' showaddelement='false'>
-                    <b:widget id='Header1' locked='true' title='Maritime AI, Cyber Security &amp;amp; Compliance Platform (Header)' type='Header' version='2' visible='true'>
+                    <b:widget id='Header1' locked='true' title='ShipPaulJobs | Maritime AI &amp;amp; Cybersecurity (Header)' type='Header' version='2' visible='true'>
                       <b:widget-settings>
                         <b:widget-setting name='displayUrl'/>
                         <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -1804,7 +1798,7 @@
                         <p id='spj-desc-p'/>
                         <script>//<![CDATA[
                         (function(){
-                          var txt='ShipPaulJobs (SPJ) is an independent platform shaping the future of Maritime Industry 4.0 through AI, data, and cybersecurity. It covers maritime compliance including IACS UR E26 and E27, smart ship technologies, and data-driven maritime operations. Rather than listing job postings, SPJ defines emerging roles and market opportunities in maritime AI, data, and cybersecurity, connecting professionals and learners across shipbuilding, smart ships, and OT/IT security.';
+                          var txt='Experience-driven insights on maritime compliance, AI and cybersecurity.';
                           var p=document.getElementById('spj-desc-p');
                           if(!p)return;
                           p.innerHTML=txt.split(' ').map(function(w){return '<span style="opacity:0;display:inline-block;transition:opacity 0.4s,transform 0.4s;transform:translateY(6px)">'+w+'</span>';}).join(' ');
@@ -1821,7 +1815,12 @@
                       <b:includable id='title'>
                         <div>
                           <b:class cond='data:this.imagePlacement == &quot;REPLACE&quot;' name='replaced'/>
-                          <b:include name='super.title'/>
+                          <h1 class='title'>
+                            <a expr:href='data:blog.homepageUrl' expr:title='data:blog.title'>
+                              ShipPaulJobs<br/>
+                              <span style='font-size:0.68em;font-weight:500;letter-spacing:0.2px;'>Maritime AI &amp; Cybersecurity</span>
+                            </a>
+                          </h1>
                         </div>
                       </b:includable>
                     </b:widget>
@@ -1832,7 +1831,7 @@
                     <b:section class='clearboth' id='page_list_top' name='Page List (Top)' showaddelement='false'>
                       <b:widget cond='!data:view.isSingleItem' id='PageList1' locked='true' title='' type='PageList' version='2' visible='true'>
                         <b:widget-settings>
-                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/Maritime Industry Insights?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":4,"title":"AI Cyber Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/Publications?max-results=9","position":3,"title":"Publications"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime Compliance"}}]]></b:widget-setting>
+                          <b:widget-setting name='pageListJson'><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/Maritime Industry Insights?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/Publications?max-results=9","position":4,"title":"Publications"},"link3":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":3,"title":"AI Cyber Lab"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime Compliance"}}]]></b:widget-setting>
                           <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                         </b:widget-settings>
                         <b:includable id='main'>
@@ -2782,26 +2781,6 @@
   var S_ACT  = S_BTN + 'background:#1d89cf;color:#fff;';
   var S_OFF  = S_BTN + 'background:rgba(15,30,55,0.4);color:#334466;cursor:default;';
 
-  // ── pinned ad card (always first) ───────────────────────
-  var AD_URL    = 'https://www.shippauljobs.com/p/advertisement-26-01.html';
-  var ORDER_URL = 'https://www.coupang.com/?src=1139000&amp;spec=10799999&amp;addtag=900&amp;ctag=HOME&amp;lptag=AF0526816&amp;itime=20260504235421&amp;pageType=HOME&amp;pageValue=HOME&amp;wPcid=17421017702267830069309&amp;wRef=ads-partners.coupang.com&amp;wTime=20260504235421&amp;redirect=landing&amp;traceid=V0-541-f1c1c0fa2d1581c7-I476010&amp;mcid=6654bddc6f39470590300404e9a77e0d&amp;placementid=&amp;campaignid=&amp;contentcategory=&amp;imgsize=&amp;pageid=&amp;tsource=&amp;deviceid=&amp;contenttype=&amp;token=&amp;impressionid=20260504235402145073137739&amp;subid=&amp;campaigntype=&amp;contentkeyword=&amp;newssource=&amp;subparam=';
-  var adCard = '<div style="' + S_CARD + ';border-top-color:#e8231a" data-card>'
-    + '<span style="position:absolute;top:8px;left:8px;background:#e8231a;color:#fff;font-size:9px;font-weight:800;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 6px;line-height:1;z-index:2;letter-spacing:0.4px">AD</span>'
-    + '<div style="padding:10px 14px 8px 38px;">'
-    + '<div style="font-size:12.5px;font-weight:800;color:#0a2342;line-height:1.3;">Purchase Products at Coupang!</div>'
-    + '</div>'
-    + '<div style="width:100%;height:165px;overflow:hidden;position:relative;background:#f5f5f5;border-bottom:1px solid #e0eaf4;">'
-    + '<div id="cp-preview-host" style="position:absolute;top:0;left:50%;width:600px;height:460px;transform:translateX(-50%) scale(0.35);transform-origin:top center;overflow:hidden;"></div>'
-    + '<a href="' + ORDER_URL + '" target="_blank" rel="noopener sponsored" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;display:block;cursor:pointer;" title="Shop at Coupang"></a>'
-    + '</div>'
-    + '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px 12px;border-top:1px solid #e0eaf4;">'
-    + '<div style="display:flex;gap:6px;">'
-    + '<a href="' + AD_URL + '" style="font-size:11px;color:#fff;background:#e8231a;padding:4px 11px;border-radius:5px;text-decoration:none;font-weight:700;letter-spacing:0.4px;" target="_blank" rel="noopener">VISIT &#8594;</a>'
-    + '<a href="' + ORDER_URL + '" style="font-size:11px;color:#fff;background:#c8121a;padding:4px 11px;border-radius:5px;text-decoration:none;font-weight:700;letter-spacing:0.4px;" target="_blank" rel="noopener sponsored">Order Now &#128722;</a>'
-    + '</div>'
-    + '</div>'
-    + '<div style="padding:3px 14px 9px;font-size:10px;color:#aaa;line-height:1.5;">&#8251; 이 콘텐츠는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>'
-    + '</div>';
 
   // ── #4: XSS 이스케이프 ──────────────────────────────────
   function esc(s){
@@ -2905,33 +2884,12 @@
     pageBtns += '<button style="' + (page < totalPages ? S_ON : S_OFF) + '" data-pg="' + (page+1) + '"' + (page < totalPages ? '' : ' disabled') + '>Next &#8594;</button>';
 
     // #1: repeat(auto-fill) 으로 모바일 자동 대응
-    contEl.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:14px">' + adCard + cards + '</div>'
+    contEl.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:14px">' + cards + '</div>'
       + '<div id="apl-pager" style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">'
       + pageBtns
       + '<span style="font-size:11px;color:#999">' + page + ' / ' + totalPages + '</span>'
       + '</div>';
     contEl.style.display = 'block';
-    // ── Coupang carousel preview (iframe doc.write) ──────────
-    (function(){
-      var host = document.getElementById('cp-preview-host');
-      if(!host) return;
-      host.innerHTML = '';
-      var ifrm = document.createElement('iframe');
-      ifrm.style.cssText = 'width:100%;height:100%;border:none;pointer-events:none;display:block;';
-      ifrm.setAttribute('scrolling','no');
-      host.appendChild(ifrm);
-      try {
-        var d = ifrm.contentDocument || ifrm.contentWindow.document;
-        d.open();
-        d.write(
-          '<html><body style="margin:0;padding:0;overflow:hidden;">'
-          + '<sc'+'ript src="https://ads-partners.coupang.com/g.js"></sc'+'ript>'
-          + '<sc'+'ript>new PartnersCoupang.G({id:476010,template:"carousel",trackingCode:"AF0526816",width:"600",height:"460"});</sc'+'ript>'
-          + '</body></html>'
-        );
-        d.close();
-      } catch(e) {}
-    })();
   }
 
   function render(){
@@ -3482,79 +3440,6 @@
   </div>
 </b:includable>
               </b:widget>
-              <b:widget id='HTML3' locked='false' title='Advertising Guide' type='HTML' version='2' visible='true'>
-                <b:widget-settings>
-                  <b:widget-setting name='content'><![CDATA[<div
-  style="
-    border-radius: 12px;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    overflow: hidden;
-    background: linear-gradient(135deg, #0a2342, #154f7a);
-    margin-bottom: 14px;
-  "
->
-  <div style="padding: 14px 16px 12px">
-    <p
-      style="
-        color: rgba(184, 212, 234, 0.9);
-        font-size: 11.5px;
-        line-height: 1.7;
-        margin: 0 0 12px;
-      "
-    >
-      Reach maritime engineers, OT/cyber specialists &amp; industry
-      decision-makers. Ad placements for shipboard systems, offshore tech
-      &amp; maritime recruitment.
-    
-
-    <a
-      href="https://www.shippauljobs.com/p/advertisement-policy.html"
-      target="_blank"
-      rel="noopener"
-      style="
-        align-items: center;
-        background: linear-gradient(135deg, #1fd6b5, #1aa3ff);
-        border: 1.5px solid rgba(255,255,255,0.25);
-        border-radius: 10px;
-        color: #ffffff;
-        display: flex;
-        font-size: 12.5px;
-        font-weight: 800;
-        gap: 8px;
-        justify-content: center;
-        padding: 11px 16px;
-        text-decoration: none;
-        box-shadow: 0 0 18px rgba(31, 214, 181, 0.35);
-        letter-spacing: 0.3px;
-        transition: all 0.25s ease;
-        text-shadow: 0 0 8px rgba(255,255,255,0.35);
-      "
-      onmouseover="
-        this.style.transform='translateY(-2px)';
-        this.style.boxShadow='0 0 24px rgba(31,214,181,0.55)';
-        this.style.filter='brightness(1.08)';
-      "
-      onmouseout="
-        this.style.transform='translateY(0)';
-        this.style.boxShadow='0 0 18px rgba(31,214,181,0.35)';
-        this.style.filter='brightness(1)';
-      "
-    >
-      🚢 Advertise with Us →
-    
-  </a
-></p
-></div>
-</div
->]]></b:widget-setting>
-                </b:widget-settings>
-                <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-              </b:widget>
               <b:widget id='ReportAbuse1' locked='true' title='' type='ReportAbuse' version='2' visible='false'>
                 <b:includable id='main'>
                   <b:include name='reportAbuse'/>
@@ -3562,7 +3447,7 @@
               </b:widget>
             </b:section>
             <b:section ads='true' class='in-feed-ad-container' id='ads' name='Ads' showaddelement='false'>
-              <b:widget id='AdSense1' locked='true' title='' type='AdSense' version='2' visible='true'>
+              <b:widget id='AdSense1' locked='true' title='' type='AdSense' version='2' visible='false'>
                 <b:widget-settings>
                   <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
                   <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
@@ -3588,7 +3473,7 @@
                   </b:with>
                 </b:includable>
               </b:widget>
-              <b:widget id='AdSense2' locked='true' title='' type='AdSense' version='2' visible='true'>
+              <b:widget id='AdSense2' locked='true' title='' type='AdSense' version='2' visible='false'>
                 <b:widget-settings>
                   <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
                   <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
@@ -3869,7 +3754,7 @@
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[AI(artificial intelligence),AICyberLab,CRSI,Compliances,Cyber Security,IACS UR E26/E27,MaritimeDataAI,Pentesting,Research Papers & Studies]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AI(artificial intelligence),CRSI,Compliances,Cyber Security,IACS UR E26/E27,MaritimeDataAI,Pentesting</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
