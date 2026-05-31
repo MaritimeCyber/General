@@ -55,7 +55,7 @@
     <!-- 크롤링 허용 &#8212; 페이지 유형별 분기 -->
 <b:if cond='data:view.isLabelSearch'>
   
-  <b:if cond='data:blog.searchLabel == &quot;IACS UR E26/E2732&quot; or                data:blog.searchLabel == &quot;Compliance&quot; or                data:blog.searchLabel == &quot;Insight Maritime&quot; or                data:blog.searchLabel == &quot;MaritimeCyberTrend&quot; or                data:blog.searchLabel == &quot;Maritime Industry Insights&quot; or                data:blog.searchLabel == &quot;Compliances&quot; or                data:blog.searchLabel == &quot;AICyberLab&quot; or                data:blog.searchLabel == &quot;Publications&quot; or                data:blog.searchLabel == &quot;JOBS&quot;'>
+  <b:if cond='data:blog.searchLabel == &quot;IACS UR E26 E27&quot; or                data:blog.searchLabel == &quot;Compliance&quot; or                data:blog.searchLabel == &quot;Insight Maritime&quot; or                data:blog.searchLabel == &quot;MaritimeCyberTrend&quot; or                data:blog.searchLabel == &quot;Maritime Industry Insights&quot; or                data:blog.searchLabel == &quot;Compliances&quot; or                data:blog.searchLabel == &quot;AICyberLab&quot; or                data:blog.searchLabel == &quot;Publications&quot; or                data:blog.searchLabel == &quot;JOBS&quot; or                data:blog.searchLabel == &quot;CRSI&quot; or                data:blog.searchLabel == &quot;MaritimeDataAI&quot; or                data:blog.searchLabel == &quot;Cyber Security&quot;'>
     <meta content='index, follow' name='robots'/>
   
   <b:else/>
@@ -71,7 +71,7 @@
 </b:if>
 
     <!-- &#9552;&#9552; SEO: JSON-LD 구조화 데이터 &#9552;&#9552; -->
-    <b:if cond='data:view.isSingleItem'>
+    <b:if cond='data:view.isSingleItem and not data:view.isPage'>
       <script type='application/ld+json'>
         {
           &quot;@context&quot;: &quot;https://schema.org&quot;,
@@ -119,6 +119,21 @@
             &quot;@type&quot;: &quot;ImageObject&quot;,
             &quot;url&quot;: &quot;<data:post.firstImageUrl/>&quot;
           }</b:if>
+        }
+      </script>
+      <b:elseif cond='data:view.isPage'/>
+      <script type='application/ld+json'>
+        {
+          &quot;@context&quot;: &quot;https://schema.org&quot;,
+          &quot;@type&quot;: &quot;WebPage&quot;,
+          &quot;name&quot;: &quot;<data:post.title.escaped/>&quot;,
+          &quot;url&quot;: &quot;<data:post.url/>&quot;,
+          &quot;description&quot;: &quot;ShipPaulJobs &#8212; Maritime 4.0 platform focused on AI, cybersecurity and data.&quot;,
+          &quot;isPartOf&quot;: {
+            &quot;@type&quot;: &quot;WebSite&quot;,
+            &quot;name&quot;: &quot;ShipPaulJobs&quot;,
+            &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;
+          }
         }
       </script>
       <b:else/>
@@ -174,9 +189,13 @@
 </b:if>
 
 <!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
-<b:if cond='data:view.isSingleItem'>
-  <meta expr:content='data:post.snippet + &quot; — ShipPaulJobs&quot;' name='description'/>
+<b:if cond='data:view.isPost'>
+  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
+    <meta expr:content='data:blog.metaDescription' name='description'/>
   <b:else/>
+    <meta expr:content='data:post.title' name='description'/>
+  </b:if>
+<b:else/>
   <meta content='Experience-driven insights on maritime compliance, AI and cybersecurity.' name='description'/>
 </b:if>
 
@@ -186,24 +205,13 @@
 <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
 <meta content='ShipPaulJobs' property='og:site_name'/>
 <meta content='en_US' property='og:locale'/>
-<b:if cond='data:view.isSingleItem'>
-  <meta content='article' property='og:type'/>
-  <meta expr:content='data:post.title' property='og:title'/>
-  <meta expr:content='data:post.snippet' property='og:description'/>
-  <meta expr:content='data:post.url' property='og:url'/>
-  <b:if cond='data:post.firstImageUrl'>
-    <meta expr:content='data:post.firstImageUrl' property='og:image'/>
-    <meta content='1200' property='og:image:width'/>
-    <meta content='630' property='og:image:height'/>
-  <b:else/>
-    <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
-    <meta content='1200' property='og:image:width'/>
-    <meta content='630' property='og:image:height'/>
+<b:if cond='data:view.isPost'>
+  <meta expr:content='data:blog.pageName' property='og:title'/>
+  <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
+    <meta expr:content='data:blog.metaDescription' property='og:description'/>
   </b:if>
-  <meta expr:content='data:post.datePublished' property='article:published_time'/>
-  <meta expr:content='data:post.lastUpdated' property='article:modified_time'/>
-  <meta expr:content='data:post.author.name' property='article:author'/>
-  <b:else/>
+<b:else/>
   <meta content='website' property='og:type'/>
   <meta content='ShipPaulJobs Maritime AI &amp; Cyber' property='og:title'/>
   <meta content='Experience-driven insights on maritime compliance, AI and cybersecurity.' property='og:description'/>
@@ -215,15 +223,12 @@
 
 <!-- &#9552;&#9552; SEO: Twitter Card &#9552;&#9552; -->
 <meta content='summary_large_image' name='twitter:card'/>
-<b:if cond='data:view.isSingleItem'>
-  <meta expr:content='data:post.title' name='twitter:title'/>
-  <meta expr:content='data:post.snippet' name='twitter:description'/>
-  <b:if cond='data:post.firstImageUrl'>
-    <meta expr:content='data:post.firstImageUrl' name='twitter:image'/>
-  <b:else/>
-    <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
+<b:if cond='data:view.isPost'>
+  <meta expr:content='data:blog.pageName' name='twitter:title'/>
+  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
+    <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
   </b:if>
-  <b:else/>
+<b:else/>
   <meta content='ShipPaulJobs Maritime AI &amp; Cyber' name='twitter:title'/>
   <meta content='Experience-driven insights on maritime compliance, AI and cybersecurity.' name='twitter:description'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
@@ -1922,7 +1927,7 @@
                     <b:widget-settings>
                       <b:widget-setting name='showSnippet'>true</b:widget-setting>
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-                      <b:widget-setting name='postId'>2651932892461711465</b:widget-setting>
+                      <b:widget-setting name='postId'>3434570290907802303</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
                       <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
                     </b:widget-settings>
@@ -3447,7 +3452,7 @@
               </b:widget>
             </b:section>
             <b:section ads='true' class='in-feed-ad-container' id='ads' name='Ads' showaddelement='false'>
-              <b:widget id='AdSense1' locked='true' title='' type='AdSense' version='2' visible='false'>
+              <b:widget id='AdSense1' locked='true' title='' type='AdSense' version='2' visible='true'>
                 <b:widget-settings>
                   <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
                   <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
@@ -3754,7 +3759,7 @@
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'>AI(artificial intelligence),CRSI,Compliances,Cyber Security,IACS UR E26/E27,MaritimeDataAI,Pentesting</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AI(artificial intelligence),CRSI,Cyber Security,IACS UR E26 E27,ISO 23806,MaritimeDataAI,Pentesting,Risk Management,SFICode</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -3847,7 +3852,7 @@
     <div style="align-items:center;display:flex;gap:7px;margin-bottom:10px;">
       <span style="font-size:18px;flex-shrink:0;line-height:1;">🤖</span>
       <div style="flex:1;">
-        <div style="color:#fff;font-size:12px;font-weight:800;letter-spacing:-0.1px;line-height:1.25;">ShipPaul Intelligence</div>
+ 
         <div style="color:#7effd8;font-size:9px;font-weight:700;letter-spacing:0.3px;margin-top:2px;">Maritime Cyber Compliance AI</div>
       </div>
       <!-- Online indicator -->
