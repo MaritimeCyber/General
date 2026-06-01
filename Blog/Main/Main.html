@@ -66,6 +66,9 @@
 <b:elseif cond='data:view.isArchive || data:view.isSearch'/>
   <meta content='noindex, follow' name='robots'/>
 
+<b:elseif cond='data:view.isSingleItem'/>
+  <meta content='index, follow' name='robots'/>
+
 <b:else/>
   <meta content='index, follow' name='robots'/>
 </b:if>
@@ -1483,7 +1486,6 @@
 
     <b:include cond='not data:view.isPreview' data='{                         image: data:skin.vars.body_background.image,                         selector: &quot;.bg-photo&quot;,                         imageSizes: [480, 640, 800, 1200, 1600]                      }' name='responsiveImageStyle'/>
 
-    <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1136000774216453'/>
     <b:include data='blog' name='google-analytics'/>
 
     <script async='async' src='https://www.gstatic.com/external_hosted/clipboardjs/clipboard.min.js'/>
