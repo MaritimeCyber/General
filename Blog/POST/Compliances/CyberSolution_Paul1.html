@@ -1,0 +1,379 @@
+<div style="font-family:'Inter','Segoe UI',Arial,sans-serif;max-width:720px;margin:0 auto;color:#2c3e50;">
+
+  <!-- ── Header ── -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 28px 28px;margin-bottom:28px;position:relative;overflow:hidden;">
+    <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:220px;position:absolute;right:-40px;top:-40px;width:220px;"></div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+      <span style="background:rgba(26,158,130,0.35);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">📝 Field Notes</span>
+      <span style="background:rgba(255,193,7,0.3);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">Smart Marine Consultant</span>
+      <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:rgba(255,255,255,0.85);font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">4/4 · RISK</span>
+    </div>
+
+    <h1 style="color:#fff;font-size:22px;font-weight:800;letter-spacing:-0.3px;line-height:1.4;margin:0 0 12px;">
+      Smart Marine Consultant [4/4]:<br />Cyber Threats I've Actually Stood in Front Of
+    </h1>
+
+    <p style="color:rgba(255,255,255,0.78);font-size:13px;font-style:italic;line-height:1.8;margin:0 0 20px;">
+      The threat isn't always a hacker in a foreign country.<br />
+      Sometimes it's a USB drive from the service engineer who came to fix the radar.<br />
+      Sometimes it's the remote access session that was never closed.<br />
+      Sometimes it's the update that was never applied — for three years.
+    </p>
+
+    <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.18);display:flex;gap:12px;padding-top:18px;">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+           alt="Captain Paul"
+           style="border:2px solid rgba(26,158,130,0.5);border-radius:50%;flex-shrink:0;height:38px;object-fit:cover;width:38px;" />
+      <div>
+        <div style="color:#fff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Maritime 4.0 · AI, Data &amp; Cyber Security · June 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Why This Post Exists ── -->
+  <h2 style="border-left:4px solid #154f7a;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 16px;padding-left:14px;">
+    Why This Post Exists
+  </h2>
+  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
+    Most maritime cybersecurity content describes threats in the abstract. Attack vectors. Threat actor categories. MITRE ATT&amp;CK frameworks adapted for OT environments.
+  </p>
+  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
+    That content is useful. It is not sufficient.
+  </p>
+  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
+    What changes how you think about vessel security is standing in front of a real incident — or a near-miss — and understanding exactly how it happened, what the exposure was, and what would have prevented it.
+  </p>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 32px;">
+    <p style="color:#374151;font-size:13px;line-height:1.75;margin:0;">
+      This is a record of threat patterns I have observed directly or investigated in the course of my work. Vessel identities, operators, and specific technical details have been anonymized or generalized. The threat patterns are real. IACS UR E26/E27 references are included where the regulation directly addresses the vulnerability — and where it doesn't.
+    </p>
+  </div>
+
+  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
+
+  <!-- ══════════════════════════════════════
+       THREAT PATTERNS
+  ══════════════════════════════════════ -->
+
+  <!-- Threat 1 -->
+  <div style="margin-bottom:36px;">
+    <div style="align-items:center;display:flex;gap:12px;margin-bottom:16px;">
+      <span style="background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:8px;color:white;flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:0.5px;padding:4px 10px;text-transform:uppercase;">Threat 1</span>
+      <div style="color:#0a2342;font-size:15px;font-weight:800;line-height:1.3;">The Unclosed Remote Access Session</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:#f8fafe;border-radius:8px;padding:14px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:7px;text-transform:uppercase;">📋 What Happened</div>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0 0 8px;">A vessel's engine monitoring system required remote access from the manufacturer for a scheduled diagnostic. The manufacturer connected via the ship's VSAT link, ran the diagnostic, and left the session open — not maliciously, not intentionally. The technician finished the task, closed the application on their end, and moved on.</p>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0;">The session remained active on the vessel side for eleven days. During that window, the remote access path was visible on the network. It was not exploited in this case. In another case, under similar conditions, it would be.</p>
+      </div>
+      <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">📌 What IACS E26/E27 Says</div>
+        <p style="color:#374151;font-size:12.5px;line-height:1.7;margin:0;">UR E26 requires that remote access to onboard systems be controlled, logged, and terminated when no longer required. UR E27 requires that individual systems have documented remote access procedures.</p>
+      </div>
+      <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#b7500a;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚠ What Was Actually in Place</div>
+        <p style="color:#5c3a1e;font-size:12.5px;line-height:1.7;margin:0;">A general policy statement that remote access must be authorized. No automated session timeout. No monitoring capability that would have detected an open session. No process for verifying session closure after vendor work.</p>
+      </div>
+      <div style="background:#f0fff8;border-left:4px solid #1a9e82;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a6b55;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">✅ What Would Have Prevented It</div>
+        <p style="color:#1a3a2e;font-size:12.5px;line-height:1.7;margin:0;">Automated session timeout enforced at the network boundary. A post-maintenance checklist that includes remote access session verification. An OT monitoring system with visibility into active connections.</p>
+      </div>
+      <div style="background:#0a2342;border-radius:8px;padding:14px 16px;">
+        <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚓ The Uncomfortable Truth</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:12.5px;line-height:1.75;margin:0;">Remote access is how equipment manufacturers provide warranty support, how service engineers diagnose faults, and how software updates are delivered. On a vessel with fifteen to twenty CBS vendors, each with their own remote access path, the management of those sessions is a full-time operational task — and it is rarely treated as one.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Threat 2 -->
+  <div style="margin-bottom:36px;">
+    <div style="align-items:center;display:flex;gap:12px;margin-bottom:16px;">
+      <span style="background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:8px;color:white;flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:0.5px;padding:4px 10px;text-transform:uppercase;">Threat 2</span>
+      <div style="color:#0a2342;font-size:15px;font-weight:800;line-height:1.3;">The USB Drive from the Service Engineer</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:#f8fafe;border-radius:8px;padding:14px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:7px;text-transform:uppercase;">📋 What Happened</div>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0 0 8px;">A port call. A service engineer from a navigation equipment supplier arrives to perform a software update on the ECDIS. Standard procedure. The engineer connects a USB drive to the ECDIS terminal. The update runs. The engineer leaves.</p>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0 0 8px;">Three weeks later, the vessel's IT administrator notices unusual outbound traffic on the network during port calls. Investigation traces it to a process running on the ECDIS that was not part of the original software.</p>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0;">The USB drive had been used on multiple vessels and multiple shore-side systems before arriving on this vessel. The malware was opportunistic — designed to establish persistence on whatever system it landed on.</p>
+      </div>
+      <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">📌 What IACS E26/E27 Says</div>
+        <p style="color:#374151;font-size:12.5px;line-height:1.7;margin:0;">UR E27 requires that removable media used for software updates be controlled and verified. UR E26 requires that change management procedures cover software updates to CBS.</p>
+      </div>
+      <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#b7500a;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚠ What Was Actually in Place</div>
+        <p style="color:#5c3a1e;font-size:12.5px;line-height:1.7;margin:0;">A policy that software updates must come from approved sources. No technical control preventing USB connection. No malware scanning capability on the ECDIS itself. No network monitoring that would have detected the malware's initial execution.</p>
+      </div>
+      <div style="background:#f0fff8;border-left:4px solid #1a9e82;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a6b55;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">✅ What Would Have Prevented It</div>
+        <p style="color:#1a3a2e;font-size:12.5px;line-height:1.7;margin:0;">A removable media control policy with technical enforcement — disabling USB ports on CBS terminals or requiring media to be scanned on an isolated system before use. A software integrity verification process for all updates, whether delivered by USB or remote access.</p>
+      </div>
+      <div style="background:#0a2342;border-radius:8px;padding:14px 16px;">
+        <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚓ The Uncomfortable Truth</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:12.5px;line-height:1.75;margin:0;">ECDIS and other bridge systems are often treated as closed, standalone systems. They are not. They receive software updates. They connect to chart update services. On modern vessels, they integrate with vessel performance monitoring platforms. Each of those connections is a potential entry point — and the systems themselves often have minimal endpoint security because they were designed for reliability, not security.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Threat 3 -->
+  <div style="margin-bottom:36px;">
+    <div style="align-items:center;display:flex;gap:12px;margin-bottom:16px;">
+      <span style="background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:8px;color:white;flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:0.5px;padding:4px 10px;text-transform:uppercase;">Threat 3</span>
+      <div style="color:#0a2342;font-size:15px;font-weight:800;line-height:1.3;">The Flat Network</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:#f8fafe;border-radius:8px;padding:14px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:7px;text-transform:uppercase;">📋 What Happened</div>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0 0 8px;">A shipowner's technical superintendent was reviewing a vessel's network during a dry dock. The original security zone diagram showed clean segmentation: navigation systems isolated from machinery systems, both isolated from the crew welfare network.</p>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0;">The network scan told a different story. Navigation and machinery systems were on the same subnet. The crew welfare network — which crew members connected personal devices to — had a path to the vessel management system through a misconfigured switch. No incident had occurred. The exposure had existed for four years.</p>
+      </div>
+      <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">📌 What IACS E26/E27 Says — and Doesn't</div>
+        <p style="color:#374151;font-size:12.5px;line-height:1.7;margin:0;">This vessel predated the July 2024 mandatory application of UR E26/E27. IMO MSC.428(98) required cyber risk management in the SMS, but did not mandate specific technical architecture. The flat network was legal, compliant with all applicable regulations, and a significant operational risk.</p>
+      </div>
+      <div style="background:#f0fff8;border-left:4px solid #1a9e82;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a6b55;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">🔧 What Was Done</div>
+        <p style="color:#1a3a2e;font-size:12.5px;line-height:1.7;margin:0;">The dry dock provided an opportunity for network remediation. The switch configuration was corrected. A basic network monitoring capability was deployed. The security zone diagram was updated to reflect reality — for the first time since the vessel was delivered.</p>
+      </div>
+      <div style="background:#0a2342;border-radius:8px;padding:14px 16px;">
+        <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚓ The Uncomfortable Truth</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:12.5px;line-height:1.75;margin:0;">This vessel was one of dozens in the same fleet, all built to the same design, all with the same network architecture. The dry dock audit was not fleet policy — it was the initiative of one technical superintendent who had attended a cybersecurity seminar six months earlier. The rest of the fleet continues to operate with the same exposure.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Threat 4 -->
+  <div style="margin-bottom:36px;">
+    <div style="align-items:center;display:flex;gap:12px;margin-bottom:16px;">
+      <span style="background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:8px;color:white;flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:0.5px;padding:4px 10px;text-transform:uppercase;">Threat 4</span>
+      <div style="color:#0a2342;font-size:15px;font-weight:800;line-height:1.3;">The Unpatched System</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:#f8fafe;border-radius:8px;padding:14px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:7px;text-transform:uppercase;">📋 What Happened</div>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0 0 8px;">A vessel's power management system — controlling load distribution across the vessel's generators — was running on an operating system version that had reached end-of-life three years prior. The OS vendor no longer issued security patches. The equipment manufacturer had not released an updated version compatible with the vessel's hardware.</p>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0;">The vessel's operator had a written acceptance from the equipment manufacturer acknowledging the end-of-life status, and a documented compensating control: enhanced monitoring of the system's network traffic. The enhanced monitoring had never been implemented.</p>
+      </div>
+      <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">📌 What IACS E26/E27 Says</div>
+        <p style="color:#374151;font-size:12.5px;line-height:1.7;margin:0;">UR E27 requires that patch management procedures for CBS address cases where patches are unavailable — including compensating controls and risk acceptance documentation. The documented compensating control was compliant with the requirement.</p>
+      </div>
+      <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#b7500a;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚠ The Gap</div>
+        <p style="color:#5c3a1e;font-size:12.5px;line-height:1.7;margin:0;">The documentation was compliant. The implementation was not. This is the gap between the VCSP and reality — in a context where the system in question controls the vessel's electrical power.</p>
+      </div>
+      <div style="background:#f0fff8;border-left:4px solid #1a9e82;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a6b55;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">✅ What Would Have Prevented It</div>
+        <p style="color:#1a3a2e;font-size:12.5px;line-height:1.7;margin:0;">Implementation of the documented compensating control. A verification process that checks whether compensating controls are operational, not just documented. An annual review of end-of-life system status and the effectiveness of risk mitigations.</p>
+      </div>
+      <div style="background:#0a2342;border-radius:8px;padding:14px 16px;">
+        <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚓ The Uncomfortable Truth</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:12.5px;line-height:1.75;margin:0;">End-of-life operating systems on safety-critical OT systems are endemic in the maritime sector. The hardware lifecycles of vessel systems — fifteen to twenty-five years — are fundamentally mismatched with the software support lifecycles of the operating systems they run on. IACS UR E27 creates a framework for managing this mismatch. It does not make the mismatch disappear.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Threat 5 -->
+  <div style="margin-bottom:36px;">
+    <div style="align-items:center;display:flex;gap:12px;margin-bottom:16px;">
+      <span style="background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:8px;color:white;flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:0.5px;padding:4px 10px;text-transform:uppercase;">Threat 5</span>
+      <div style="color:#0a2342;font-size:15px;font-weight:800;line-height:1.3;">The Insider with the Laptop</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:#f8fafe;border-radius:8px;padding:14px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:7px;text-transform:uppercase;">📋 What Happened</div>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0 0 8px;">A crew change in a major port. A new engineer joins the vessel. During the handover period, he connects a personal laptop to the vessel's maintenance network to transfer work files from a previous vessel — a practice he had used routinely on his previous postings.</p>
+        <p style="color:#374151;font-size:13px;line-height:1.75;margin:0;">The personal laptop was running outdated software. The files transferred included a directory containing compressed archives from a previous vessel's network. The vessel's IT administrator discovered the connection during a routine network audit two weeks later. No exploitation was detected. The exposure window was unknown.</p>
+      </div>
+      <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">📌 What IACS E26/E27 Says</div>
+        <p style="color:#374151;font-size:12.5px;line-height:1.7;margin:0;">UR E26 requires that access control procedures cover crew and visitor access to onboard networks. UR E27 requires that CBS have controls preventing unauthorized connection of external devices.</p>
+      </div>
+      <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="color:#b7500a;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚠ What Was Actually in Place</div>
+        <p style="color:#5c3a1e;font-size:12.5px;line-height:1.7;margin:0;">A policy prohibiting personal devices on the maintenance network. No technical enforcement. No network access control requiring authentication before a device could connect. No monitoring that would have detected the connection in real time.</p>
+      </div>
+      <div style="background:#0a2342;border-radius:8px;padding:14px 16px;">
+        <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;">⚓ The Uncomfortable Truth</div>
+        <p style="color:rgba(255,255,255,0.85);font-size:12.5px;line-height:1.75;margin:0;">The engineer was not malicious. He was following a practice he had used across his entire career without incident. The policy existed. The culture that would make him check the policy before plugging in his laptop did not. This is the human factor. It cannot be fully addressed by regulation, documentation, or technical controls alone — it requires a security culture that treats vessel networks with the same caution as safety-critical physical systems.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
+
+  <!-- ── What These Patterns Have in Common ── -->
+  <h2 style="border-left:4px solid #154f7a;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 16px;padding-left:14px;">
+    What These Patterns Have in Common
+  </h2>
+  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
+    Five different threat patterns. Five different vessels. Five different operators. The same underlying structure in every case:
+  </p>
+
+  <div style="display:flex;flex-direction:column;gap:10px;margin:0 0 32px;">
+    <div style="align-items:flex-start;background:#f8fafe;border:1px solid #dde8f5;border-radius:8px;display:flex;gap:12px;padding:14px 16px;">
+      <span style="color:#e67e22;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
+      <p style="color:#374151;font-size:13px;line-height:1.65;margin:0;"><strong style="color:#0a2342;">A documented requirement that was not implemented.</strong> Remote access controls. Removable media procedures. Network segmentation. Compensating controls for unpatched systems. Device connection policies. Every one of these was covered by a policy or a plan. None of them were functioning as designed.</p>
+    </div>
+    <div style="align-items:flex-start;background:#f8fafe;border:1px solid #dde8f5;border-radius:8px;display:flex;gap:12px;padding:14px 16px;">
+      <span style="color:#e67e22;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
+      <p style="color:#374151;font-size:13px;line-height:1.65;margin:0;"><strong style="color:#0a2342;">No detection capability.</strong> In four of the five cases, the issue was discovered by a manual audit or a human observation — not by a technical monitoring system. The window between initial exposure and discovery was measured in weeks or years.</p>
+    </div>
+    <div style="align-items:flex-start;background:#f8fafe;border:1px solid #dde8f5;border-radius:8px;display:flex;gap:12px;padding:14px 16px;">
+      <span style="color:#e67e22;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
+      <p style="color:#374151;font-size:13px;line-height:1.65;margin:0;"><strong style="color:#0a2342;">No one whose job it was to check.</strong> The VCSP was written. The zone diagram was approved. The compensating control was documented. But nobody had a standing mandate to verify that the implementation matched the documentation, on an ongoing basis, as the vessel and its systems changed.</p>
+    </div>
+  </div>
+
+  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
+
+  <!-- ── What IACS Addresses / Doesn't ── -->
+  <h2 style="border-left:4px solid #1a9e82;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 16px;padding-left:14px;">
+    What IACS UR E26/E27 Addresses — and What It Doesn't
+  </h2>
+  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
+    IACS UR E26/E27 is the most significant advance in maritime cybersecurity regulation in the industry's history. It establishes mandatory architecture requirements, documentation standards, and supplier responsibilities that did not exist before July 2024.
+  </p>
+  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
+    It addresses the newbuild design problem. It creates a framework for CBS documentation. It defines the CRSI role. It requires survey evidence that can be checked.
+  </p>
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 16px;">
+    <div style="color:#b7500a;font-size:10.5px;font-weight:800;letter-spacing:0.5px;margin-bottom:7px;text-transform:uppercase;">⚠ What It Cannot Do</div>
+    <p style="color:#5c3a1e;font-size:13px;line-height:1.75;margin:0;">It does not — because no regulation can — guarantee implementation. It does not address the existing fleet. It does not create the detection capabilities that most vessels currently lack. It does not build the security culture that turns documented procedures into practiced behavior.</p>
+  </div>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 32px;">
+    <p style="color:#0a2342;font-size:13px;font-weight:800;line-height:1.65;margin:0;">
+      The regulation is necessary. It is not sufficient. The gap between necessary and sufficient is where a Smart Marine Consultant works.
+    </p>
+  </div>
+
+  <!-- ── From This Series to the Next ── -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:24px 28px;margin:0 0 28px;">
+    <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:1.2px;margin-bottom:12px;text-transform:uppercase;">📘 From This Series to the Next</div>
+    <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.75;margin:0 0 12px;">
+      The threat patterns in this post are the operational reality behind the regulatory framework. IACS UR E26/E27 exists because these patterns exist — because connected ships create attack surfaces that weren't there before.
+    </p>
+    <p style="color:rgba(255,255,255,0.78);font-size:13px;line-height:1.75;margin:0 0 16px;">
+      Understanding why maritime cybersecurity became a system engineering issue — the deeper architecture of the regulation, the stakeholder dynamics, the technical requirements at the system level — is what the next series covers.
+    </p>
+    <a href="https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became.html" target="_blank" rel="noopener"
+       style="align-items:center;background:#1a9e82;border-radius:8px;color:white;display:inline-flex;font-size:12px;font-weight:700;gap:6px;padding:10px 18px;text-decoration:none;">
+      → Start Here: Why Maritime Cybersecurity Became a System Engineering Issue (1/9)
+    </a>
+  </div>
+
+  <!-- ── Conclusion ── -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px 24px;margin:0 0 28px;">
+    <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:1.2px;margin-bottom:16px;text-transform:uppercase;">Key Takeaways</div>
+    <div style="display:flex;flex-direction:column;gap:11px;">
+      <div style="align-items:flex-start;display:flex;gap:10px;">
+        <span style="color:#e74c3c;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
+        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">Real threats are not exotic. Unclosed sessions, unscanned USB drives, misconfigured switches, unimplemented compensating controls, personal laptops — these are the actual attack surface.</p>
+      </div>
+      <div style="align-items:flex-start;display:flex;gap:10px;">
+        <span style="color:#e74c3c;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
+        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">Policy without technical enforcement is not a control. Every case here had a policy. None had the implementation to match.</p>
+      </div>
+      <div style="align-items:flex-start;display:flex;gap:10px;">
+        <span style="color:#e74c3c;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
+        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">Detection capability is the missing layer. In four of five cases, discovery came from manual audit — not monitoring. Exposure windows of weeks or years are the result.</p>
+      </div>
+      <div style="align-items:flex-start;display:flex;gap:10px;">
+        <span style="color:#e74c3c;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
+        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">IACS UR E26/E27 is necessary, not sufficient. The gap between the two is where the work happens.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Series Navigation ── -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 100%);border-radius:14px;font-family:Inter,sans-serif;margin-bottom:28px;padding:28px 32px;">
+    <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:1.8px;margin-bottom:16px;text-transform:uppercase;">📚 Series Navigation — Smart Marine Consultant (4 Parts)</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+
+      <a href="https://www.shippauljobs.com/2026/06/smart-marine-consultant-14-what-does.html" style="align-items:flex-start;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:inherit;display:flex;gap:12px;padding:12px 16px;text-decoration:none;">
+        <div style="flex:1;min-width:0;">
+          <div style="align-items:center;display:flex;gap:8px;margin-bottom:4px;">
+            <span style="background:rgba(255,255,255,0.15);border-radius:4px;color:#9ab5c9;font-size:9px;font-weight:800;padding:2px 7px;">DONE</span>
+            <span style="color:#9ab5c9;font-size:10px;">Part 1 · WHY</span>
+          </div>
+          <div style="color:#b8d4ea;font-size:13px;font-weight:600;line-height:1.4;">What Does This Job Actually Mean?</div>
+        </div>
+        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;line-height:2;">→</span>
+      </a>
+
+      <a href="https://www.shippauljobs.com/2026/06/smart-marine-consultant-24-full-map-how.html" style="align-items:flex-start;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:inherit;display:flex;gap:12px;padding:12px 16px;text-decoration:none;">
+        <div style="flex:1;min-width:0;">
+          <div style="align-items:center;display:flex;gap:8px;margin-bottom:4px;">
+            <span style="background:rgba(255,255,255,0.15);border-radius:4px;color:#9ab5c9;font-size:9px;font-weight:800;padding:2px 7px;">DONE</span>
+            <span style="color:#9ab5c9;font-size:10px;">Part 2 · HOW</span>
+          </div>
+          <div style="color:#b8d4ea;font-size:13px;font-weight:600;line-height:1.4;">The Full Map — How Smart Ship Projects Actually Get Built</div>
+        </div>
+        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;line-height:2;">→</span>
+      </a>
+
+      <a href="https://www.shippauljobs.com/2026/06/smart-marine-consultant-34-what-i-see.html" style="align-items:flex-start;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:inherit;display:flex;gap:12px;padding:12px 16px;text-decoration:none;">
+        <div style="flex:1;min-width:0;">
+          <div style="align-items:center;display:flex;gap:8px;margin-bottom:4px;">
+            <span style="background:rgba(255,255,255,0.15);border-radius:4px;color:#9ab5c9;font-size:9px;font-weight:800;padding:2px 7px;">DONE</span>
+            <span style="color:#9ab5c9;font-size:10px;">Part 3 · WHAT</span>
+          </div>
+          <div style="color:#b8d4ea;font-size:13px;font-weight:600;line-height:1.4;">What I See. What I Solve. What Stays Broken.</div>
+        </div>
+        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;line-height:2;">→</span>
+      </a>
+
+      <div style="align-items:flex-start;background:rgba(26,158,130,0.2);border:1px solid rgba(26,158,130,0.4);border-radius:8px;display:flex;gap:12px;padding:12px 16px;">
+        <div style="flex:1;min-width:0;">
+          <div style="align-items:center;display:flex;gap:8px;margin-bottom:4px;">
+            <span style="background:#1a9e82;border-radius:4px;color:white;font-size:9px;font-weight:800;padding:2px 7px;">NOW</span>
+            <span style="color:#9ab5c9;font-size:10px;">Part 4 · RISK</span>
+          </div>
+          <div style="color:white;font-size:13px;font-weight:600;line-height:1.4;">Cyber Threats I've Actually Stood in Front Of</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Tags ── -->
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:0 0 28px;">
+    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#SmartMarineConsultant</span>
+    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#MaritimeCyber</span>
+    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#IACS_E26</span>
+    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#OTSecurity</span>
+    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#Maritime4.0</span>
+    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#FieldNotes</span>
+    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#ShipCybersecurity</span>
+  </div>
+
+  <!-- ── Author Card ── -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:14px;padding:24px 28px;display:flex;align-items:center;gap:18px;font-family:'Inter',sans-serif;flex-wrap:wrap;">
+    <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+         alt="Captain Paul"
+         style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;flex-shrink:0;" />
+    <div style="flex:1;min-width:180px;">
+      <div style="font-size:15px;font-weight:800;color:#ffffff;line-height:1.3;">Captain Paul</div>
+      <div style="font-size:12px;color:#9ab5c9;margin-top:3px;">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+      <div style="font-size:12px;color:#7ec8f4;margin-top:2px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="color:#7ec8f4;text-decoration:none;">linkedin.com/in/shipjobs</a>
+      </div>
+      <div style="font-size:11px;color:#6b8fa8;margin-top:4px;">Collaborator: Lew, Julius, Jin, Morgan, Yeon</div>
+    </div>
+    <a href="https://shippauljobs.com" target="_blank" rel="noopener"
+       style="background:#1a9e82;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;white-space:nowrap;">
+      shippauljobs.com
+    </a>
+  </div>
+
+</div>
