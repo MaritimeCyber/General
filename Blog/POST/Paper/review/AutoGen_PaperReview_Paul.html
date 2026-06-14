@@ -1,0 +1,543 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article : AutoGen — Enabling Next-Gen LLM Applications via Multi-Agent Conversation (2023) Review
+     Author  : Captain Paul  |  Published: June 2026
+     Source  : Wu et al. — Microsoft Research · arXiv:2308.08155 · ICLR 2024
+     Style   : Maritime 4.0 Design System (PAPER template_insung1 기반)
+════════════════════════════════════════════════════════════ -->
+
+<div style="font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;max-width:780px;margin:0 auto;color:#2c3e50;line-height:1.75;box-sizing:border-box;">
+
+  <!-- ══ HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+      <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">📄 ICLR 2024</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">AutoGen</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Microsoft Research</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Conversational Multi-Agent</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">arXiv:2308.08155</span>
+    </div>
+    <h1 style="font-size:21px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
+      AutoGen — AI가 서로 대화하며 문제를 푼다: 대화 중심 멀티에이전트 프레임워크
+    </h1>
+    <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
+      Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Shaokun Zhang, Erkang Zhu, Beibin Li, Li Dong, Chi Wang, Ahmed Hassan Awadallah<br>
+      Microsoft Research &nbsp;·&nbsp; arXiv:2308.08155 &nbsp;·&nbsp; ICLR 2024
+    </p>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+          <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);" />
+        </a>
+        <div>
+          <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAPER INFO CARD ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">Paper Details</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;width:100px;">제목</td>
+        <td style="padding:5px 0;color:#2c3e50;">AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">저자</td>
+        <td style="padding:5px 0;color:#2c3e50;">Qingyun Wu, Gagan Bansal et al. (Microsoft Research, 총 10인)</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">학회</td>
+        <td style="padding:5px 0;color:#2c3e50;">ICLR 2024 (International Conference on Learning Representations)</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">arXiv</td>
+        <td style="padding:5px 0;color:#2c3e50;">arXiv:2308.08155 &nbsp;·&nbsp; 2023년 8월</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">핵심 개념</td>
+        <td style="padding:5px 0;color:#2c3e50;">ConversableAgent — 대화로 협력하는 멀티에이전트<br>UserProxy Agent ↔ AssistantAgent 기본 패턴<br>GroupChat — N:N 에이전트 대화 관리자</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">차별점</td>
+        <td style="padding:5px 0;color:#2c3e50;">대화(Conversation)를 에이전트 협력의 기본 단위로 정의<br>CrewAI: 역할 고정 / LangGraph: 그래프 구조 / AutoGen: 자유 대화</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Source</td>
+        <td style="padding:5px 0;">
+          <a href="https://arxiv.org/abs/2308.08155" target="_blank" rel="noopener" style="color:#154f7a;font-weight:700;">arXiv ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/microsoft/autogen" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">GitHub ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://microsoft.github.io/autogen/" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">Docs ↗</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ══ CONCEPT IMAGE ══ -->
+  <div style="margin-bottom:36px;text-align:center;">
+    <img src="../../../../../Asset/img/content/AutoGen_concept.png"
+         alt="AutoGen 대화형 멀티에이전트 개념도"
+         style="max-width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);" />
+    <div style="font-size:11px;color:#9ab5c9;margin-top:8px;font-style:italic;">
+      UserProxy ↔ AssistantAgent 양방향 대화 · GroupChat 패턴 · 코드 자동 실행 루프
+    </div>
+  </div>
+
+  <!-- ══ LEAD PARAGRAPH ══ -->
+  <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 28px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
+    CrewAI가 사전에 역할을 설계한 팀을 만든다면, AutoGen은 <strong style="color:#0a2342;">에이전트들이 자유롭게 대화하며 스스로 협력 방식을 만들어갑니다.</strong> Microsoft Research가 제시한 핵심 아이디어는 단순하지만 강력합니다 — <em>"대화(conversation)가 바로 협력(collaboration)이다."</em> 이 통찰이 LLM 시대의 팀워크를 재정의했습니다.
+  </p>
+
+  <!-- ══ TABLE OF CONTENTS ══ -->
+  <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 22px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">리뷰 목차</div>
+    <ol style="margin:0;padding:0 0 0 18px;font-size:14px;color:#354a5e;line-height:2.2;">
+      <li><strong style="color:#0a2342;">핵심 아이디어 — "대화 = 협력"</strong></li>
+      <li><strong style="color:#0a2342;">ConversableAgent — 모든 에이전트의 기반</strong></li>
+      <li><strong style="color:#0a2342;">기본 패턴 — UserProxy ↔ AssistantAgent</strong></li>
+      <li><strong style="color:#0a2342;">GroupChat — N:N 에이전트 토론</strong></li>
+      <li><strong style="color:#0a2342;">Human-in-the-Loop 3가지 모드</strong></li>
+      <li><strong style="color:#0a2342;">벤치마크 성능</strong></li>
+      <li><strong style="color:#0a2342;">평가 — 강점과 한계</strong></li>
+      <li><strong style="color:#0a2342;">해양 산업 시사점</strong></li>
+      <li><strong style="color:#0a2342;">Captain Paul의 결론 — 시리즈 마무리</strong></li>
+    </ol>
+  </div>
+
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 1 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📌 (1) 핵심 아이디어 — "대화 = 협력"</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGen 이전 프레임워크들은 에이전트 협력을 <em>사전에 설계된 구조</em>로 표현했습니다. CrewAI는 역할, LangGraph는 그래프. 하지만 AutoGen은 다른 길을 택했습니다.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:14px 16px;text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;margin-bottom:6px;">CrewAI</div>
+        <div style="font-size:20px;margin-bottom:6px;">📋</div>
+        <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">사전 정의<br>역할 기반 팀</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:14px 16px;text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;margin-bottom:6px;">LangGraph</div>
+        <div style="font-size:20px;margin-bottom:6px;">🔀</div>
+        <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">사전 설계<br>상태 그래프</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:14px 16px;text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;margin-bottom:6px;">AutoGen</div>
+        <div style="font-size:20px;margin-bottom:6px;">💬</div>
+        <p style="font-size:12px;color:#1a9e82;line-height:1.6;margin:0;font-weight:700;">자유 대화<br>동적 협력</p>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:18px 22px;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;">논문의 핵심 주장</div>
+      <p style="font-size:14px;color:#d6eaf8;line-height:1.8;margin:0;">
+        "LLM 기반 에이전트들이 대화를 통해 서로 정보를 교환하고, 피드백을 주고받고, 코드를 실행하고 검증하는 <strong style="color:#ffe082;">자유로운 대화 루프</strong>가 복잡한 태스크를 해결하는 가장 자연스러운 방법이다."
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚙️ (2) ConversableAgent — 모든 에이전트의 기반</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGen의 모든 에이전트는 <strong style="color:#0a2342;">ConversableAgent</strong>를 상속합니다. 이 단일 기반 클래스가 "대화를 통한 협력"을 가능하게 합니다.
+    </p>
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:20px 22px;margin-bottom:14px;">
+      <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:12px;">ConversableAgent 핵심 메서드</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#e8f0f7;border-radius:8px;padding:10px 12px;">
+          <div style="font-family:monospace;font-size:11px;color:#154f7a;font-weight:700;margin-bottom:4px;">initiate_chat(recipient, message)</div>
+          <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">다른 에이전트와 대화 시작. 종료 조건까지 자동 반복.</p>
+        </div>
+        <div style="background:#e8f0f7;border-radius:8px;padding:10px 12px;">
+          <div style="font-family:monospace;font-size:11px;color:#154f7a;font-weight:700;margin-bottom:4px;">generate_reply(messages)</div>
+          <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">수신한 메시지를 보고 다음 응답 생성. LLM 또는 함수로 구현.</p>
+        </div>
+        <div style="background:#e8f0f7;border-radius:8px;padding:10px 12px;">
+          <div style="font-family:monospace;font-size:11px;color:#154f7a;font-weight:700;margin-bottom:4px;">register_reply(trigger, reply_func)</div>
+          <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">특정 조건에서 실행할 커스텀 응답 함수 등록. 유연한 확장.</p>
+        </div>
+        <div style="background:#e8f0f7;border-radius:8px;padding:10px 12px;">
+          <div style="font-family:monospace;font-size:11px;color:#154f7a;font-weight:700;margin-bottom:4px;">is_termination_msg(message)</div>
+          <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">종료 메시지 감지. "TERMINATE" 키워드 또는 커스텀 함수.</p>
+        </div>
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">설계 철학:</strong> 에이전트를 함수나 도구가 아닌 <em>대화 상대</em>로 취급합니다. 결과적으로 인간도 에이전트와 동일한 인터페이스로 협력에 참여할 수 있습니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🔄 (3) 기본 패턴 — UserProxy ↔ AssistantAgent</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGen의 가장 기본적이고 강력한 패턴입니다. 두 에이전트가 문제가 해결될 때까지 대화를 반복합니다.
+    </p>
+    <!-- Conversation flow -->
+    <div style="background:#0d1b2e;border-radius:12px;padding:18px 20px;margin-bottom:14px;font-family:monospace;font-size:12px;line-height:1.8;">
+      <div style="color:#6b8599;margin-bottom:6px;"># 전형적인 AutoGen 대화 흐름 — 수학 문제 풀기</div>
+      <div style="border-left:3px solid #e67e22;padding-left:12px;margin-bottom:6px;">
+        <span style="color:#e67e22;font-weight:700;">UserProxy:</span><span style="color:#eeffff;"> "피보나치 수열 50번째 항을 구하는 Python 코드를 작성해."</span>
+      </div>
+      <div style="border-left:3px solid #1a9e82;padding-left:12px;margin-bottom:6px;">
+        <span style="color:#1a9e82;font-weight:700;">AssistantAgent:</span><span style="color:#eeffff;"> "아래 코드를 실행하세요:<br>  def fib(n): ..."</span>
+      </div>
+      <div style="border-left:3px solid #e67e22;padding-left:12px;margin-bottom:6px;">
+        <span style="color:#e67e22;font-weight:700;">UserProxy</span><span style="color:#6b8599;"> (코드 자동 실행):</span><span style="color:#eeffff;"> "결과: 12586269025"</span>
+      </div>
+      <div style="border-left:3px solid #1a9e82;padding-left:12px;margin-bottom:6px;">
+        <span style="color:#1a9e82;font-weight:700;">AssistantAgent:</span><span style="color:#eeffff;"> "피보나치 50번째 항은 12,586,269,025입니다. TERMINATE"</span>
+      </div>
+      <div style="border-left:3px solid #ffe082;padding-left:12px;">
+        <span style="color:#ffe082;font-weight:700;">System:</span><span style="color:#eeffff;"> "TERMINATE 감지 → 대화 종료"</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#e67e22;margin-bottom:6px;">👤 UserProxy Agent</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">사람(또는 자동화 스크립트)을 대표. 코드 실행 환경 보유. AssistantAgent가 제안한 코드를 샌드박스에서 실행하고 결과 반환. 인간 개입 모드 설정 가능.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#1a9e82;margin-bottom:6px;">🤖 AssistantAgent</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">LLM을 백엔드로 사용. 코드 작성, 계획 수립, 분석, 수정 등 지적 작업 담당. UserProxy의 코드 실행 결과를 보고 필요시 수정 버전 제공.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">👥 (4) GroupChat — N:N 에이전트 토론</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      2인 대화를 넘어 N개의 에이전트가 함께 토론하는 <strong style="color:#0a2342;">GroupChat</strong> 패턴입니다. GroupChatManager가 대화 흐름을 조율합니다.
+    </p>
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;margin-bottom:14px;">
+      <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:10px;">GroupChat 구성 — 코드 리뷰 팀 예시</div>
+      <div style="background:#e8f0f7;border-radius:8px;padding:14px 16px;font-family:monospace;font-size:12px;color:#154f7a;line-height:1.9;">
+        <span style="color:#6b8599;"># 5명의 AI 팀이 코드 리뷰</span><br>
+        coder    = AssistantAgent("Coder", system_message="코드 작성 전문가")<br>
+        critic   = AssistantAgent("Critic", system_message="버그·보안 취약점 탐지")<br>
+        reviewer = AssistantAgent("Reviewer", system_message="코드 품질·가독성 평가")<br>
+        tester   = AssistantAgent("Tester", system_message="테스트 케이스 작성")<br>
+        user     = UserProxyAgent("User", code_execution_config={...})<br><br>
+        groupchat = GroupChat(<br>
+        &nbsp;&nbsp;agents=[user, coder, critic, reviewer, tester],<br>
+        &nbsp;&nbsp;max_round=20<br>
+        )<br>
+        manager = GroupChatManager(groupchat=groupchat, llm_config=...)
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">다음 발언자 선택:</strong> GroupChatManager는 대화 맥락을 보고 다음에 발언할 에이전트를 선택합니다. Round-robin(순서대로) 또는 LLM 기반 동적 선택 중 선택 가능. 이 선택 자체가 LLM 호출이므로 메타 수준의 지능이 작동합니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🧑 (5) Human-in-the-Loop 3가지 모드</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGen의 독특한 강점 중 하나는 <strong style="color:#0a2342;">인간 참여 수준을 세밀하게 조절</strong>할 수 있다는 것입니다.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:22px;margin-bottom:6px;">🚫</div>
+        <div style="font-size:12px;font-weight:800;color:#1a9e82;margin-bottom:6px;">NEVER</div>
+        <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">완전 자동화. 인간 개입 없이 에이전트끼리 끝까지 대화. 테스트·배치 환경에 적합.</p>
+        <div style="background:#d4edda;border-radius:6px;padding:4px 8px;font-family:monospace;font-size:10px;color:#0a5435;margin-top:8px;">human_input_mode="NEVER"</div>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:22px;margin-bottom:6px;">⏸</div>
+        <div style="font-size:12px;font-weight:800;color:#b8860b;margin-bottom:6px;">TERMINATE</div>
+        <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">에이전트가 완료 신호를 보낼 때만 사람 확인. 가장 많이 사용되는 균형 모드.</p>
+        <div style="background:#fff3cd;border-radius:6px;padding:4px 8px;font-family:monospace;font-size:10px;color:#856404;margin-top:8px;">human_input_mode="TERMINATE"</div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:22px;margin-bottom:6px;">✋</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:6px;">ALWAYS</div>
+        <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:0;">매 대화 턴마다 사람 승인 요청. 안전 임계 시스템, 민감한 작업에 적합.</p>
+        <div style="background:#e8f0f7;border-radius:6px;padding:4px 8px;font-family:monospace;font-size:10px;color:#154f7a;margin-top:8px;">human_input_mode="ALWAYS"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📊 (6) 벤치마크 성능</h2>
+    </div>
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:14px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#e8f0f7;">
+            <th style="padding:10px 14px;text-align:left;color:#154f7a;font-weight:800;">벤치마크</th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">기존 최고</th>
+            <th style="padding:10px 14px;text-align:center;color:#1a9e82;font-weight:800;">AutoGen</th>
+            <th style="padding:10px 14px;text-align:left;color:#154f7a;font-weight:800;">비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">MATH (경시대회 수학)</td>
+            <td style="padding:9px 14px;text-align:center;">49.9%</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">72.0%</td>
+            <td style="padding:9px 14px;font-size:12px;color:#6b8599;">+22.1%p 향상</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">HumanEval (코드 생성)</td>
+            <td style="padding:9px 14px;text-align:center;">80.1%</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">96.3%</td>
+            <td style="padding:9px 14px;font-size:12px;color:#6b8599;">코드 실행 루프의 힘</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">ALFWorld (지시 수행)</td>
+            <td style="padding:9px 14px;text-align:center;">ReAct 71%</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">85.0%</td>
+            <td style="padding:9px 14px;font-size:12px;color:#6b8599;">ReAct 대비 +14%p</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">OptiGuide (공급망 최적화)</td>
+            <td style="padding:9px 14px;text-align:center;">단일 LLM</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">+30% 효율</td>
+            <td style="padding:9px 14px;font-size:12px;color:#6b8599;">Microsoft 내부 검증</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">HumanEval 96.3% 해석:</strong> 단순히 코드를 생성하는 것이 아니라, 실행하고 오류를 보고 수정하는 루프 덕분입니다. 인간 개발자의 "디버그-수정-재실행" 사이클을 AI가 자동으로 수행.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">✅ (7) 평가 — 강점과 한계</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 동적 문제 해결</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">사전에 워크플로를 설계하지 않아도 됨. 에이전트들이 대화를 통해 스스로 접근 방식을 결정. 새로운 유형의 문제에 즉각 적응.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 코드 실행 통합</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">코드 생성 → 자동 실행 → 결과 반환 → 수정의 루프가 프레임워크 레벨에서 내장. 코딩·데이터 분석 태스크에서 특히 강력.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ Human-AI 혼성 팀</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">인간이 대화 도중 언제든 개입 가능. AI와 인간이 동일한 인터페이스로 협력. 점진적 자동화 전환에 이상적.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 예측 불가능한 대화</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">대화 흐름이 동적이므로 재현성이 낮음. 같은 입력에도 다른 대화 경로. 결정론적 결과가 필요한 시스템에는 부적합.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 대화 루프 비용</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">한 태스크에 수십~수백 번의 LLM 호출이 발생할 수 있음. max_round 제한 없이는 토큰 비용이 예측 불가. 종료 조건 설계 중요.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 대화 감사 어려움</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">긴 대화에서 어느 에이전트가 어떤 결정을 내렸는지 추적이 복잡. LangGraph처럼 명시적 상태 로그가 없어 디버깅이 어려울 수 있음.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚓ (8) 해양 산업 시사점</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      AutoGen의 "대화 중심 협력"은 해양 분야의 <strong style="color:#0a2342;">다부처·다전문가 협업 문제</strong>에 특히 적합합니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🔧 선박 기술 문제 해결 팀</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">기관 고장 신호가 들어오면 — 진단 에이전트(증상 분석) ↔ 기술 매뉴얼 에이전트(관련 항목 검색) ↔ 안전 에이전트(위험도 평가) ↔ 정비 에이전트(조치 절차 제안)가 자유롭게 토론. 인간 기관장은 TERMINATE 모드로 최종 승인만 담당.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">📋 항만 행정 자동화</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">항만 국가 통제(PSC) 결함 발견 시 — 법률 해석 에이전트 ↔ 기술 조치 에이전트 ↔ 문서 작성 에이전트가 대화로 조치 계획 수립. 코드 실행 에이전트가 관련 데이터 자동 수집·집계. 수 시간의 수작업을 30분으로 단축 가능.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🛡 사이버보안 레드팀 시뮬레이션</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">공격자 에이전트(취약점 탐색) ↔ 방어자 에이전트(대응책 제시) ↔ 감사자 에이전트(IACS E26 기준 검증)가 GroupChat으로 해양 시스템 침투 테스트 시뮬레이션. 인간 보안 전문가가 ALWAYS 모드로 매 라운드 검토.</p>
+      </div>
+    </div>
+    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#4a4a4a;line-height:1.75;margin-top:14px;">
+      <strong style="color:#c0520a;">⚠ 코드 실행 보안:</strong> UserProxy의 코드 자동 실행 기능은 해양 OT 네트워크에서 주의가 필요합니다. 반드시 격리된 샌드박스에서만 실행하고, 실제 선박 시스템과의 네트워크 접근을 차단해야 합니다. IEC 62443 구역 분리 원칙 준수 필수.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 9 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🎯 (9) Captain Paul의 결론 — 시리즈 마무리</h2>
+    </div>
+    <!-- Final comparison table -->
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="background:#e8f0f7;">
+            <th style="padding:9px 12px;text-align:left;color:#154f7a;font-weight:800;">프레임워크</th>
+            <th style="padding:9px 12px;text-align:center;color:#154f7a;font-weight:800;">핵심 메타포</th>
+            <th style="padding:9px 12px;text-align:center;color:#154f7a;font-weight:800;">최적 사용</th>
+            <th style="padding:9px 12px;text-align:center;color:#154f7a;font-weight:800;">진입 장벽</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:8px 12px;font-weight:700;color:#0a2342;">ReAct</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">생각-행동-관찰</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">단일 에이전트 추론</td>
+            <td style="padding:8px 12px;text-align:center;color:#1a9e82;">낮음</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:8px 12px;font-weight:700;color:#0a2342;">CrewAI</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">역할 기반 팀</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">보고서·콘텐츠 파이프라인</td>
+            <td style="padding:8px 12px;text-align:center;color:#1a9e82;">낮음</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:8px 12px;font-weight:700;color:#0a2342;">LangGraph</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">상태 그래프</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">복잡한 조건 분기</td>
+            <td style="padding:8px 12px;text-align:center;color:#e67e22;">높음</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:8px 12px;font-weight:700;color:#0a2342;">Generative Agents</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">사회 시뮬레이션</td>
+            <td style="padding:8px 12px;text-align:center;color:#6b8599;">시뮬레이션·연구</td>
+            <td style="padding:8px 12px;text-align:center;color:#e67e22;">높음</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:8px 12px;font-weight:700;color:#0a2342;">AutoGen</td>
+            <td style="padding:8px 12px;text-align:center;color:#1a9e82;font-weight:700;">대화형 협력</td>
+            <td style="padding:8px 12px;text-align:center;color:#1a9e82;font-weight:700;">동적 문제 해결·코딩</td>
+            <td style="padding:8px 12px;text-align:center;color:#e67e22;">중간</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:12px;padding:22px 26px;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;">Agent AI 시리즈를 마치며</div>
+      <p style="font-size:14px;color:#ffffff;line-height:1.85;margin:0;">
+        ReAct에서 출발한 이 여정은 Toolformer(도구 사용), MCP(표준 연결), AutoGPT(자율성), CrewAI(팀워크), LangGraph(정밀 제어), Generative Agents(사회성), AutoGen(대화 협력)으로 이어졌습니다.<br><br>
+        <strong style="color:#ffe082;">결론: "AI는 도구에서 팀원으로, 팀원에서 사회 구성원으로 진화하고 있습니다."</strong><br>
+        해양 산업도 이 변화를 피할 수 없습니다. 아니, 오히려 IACS·IMO의 규제 프레임워크가 있기 때문에 <strong style="color:#7effd8;">신뢰할 수 있는 AI 도입에 가장 준비된 산업</strong>이 될 수 있습니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ CLOSING ══ -->
+  <div style="text-align:center;margin-bottom:36px;padding:20px 22px;background:#f7fafe;border-radius:12px;border:1px solid #d1e0ee;">
+    <p style="font-size:13px;color:#6b8599;line-height:1.8;margin:0;font-style:italic;">
+      8편의 Agent AI 핵심 논문 리뷰를 완독해 주셔서 감사합니다. 다음 시리즈에서는 이 기술들을 해양 사이버보안 실무에 적용하는 구체적 사례를 다룹니다.
+    </p>
+    <p style="font-size:13px;font-weight:800;color:#0a2342;margin:14px 0 0 0;">— Captain Paul —</p>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AutoGen</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MultiAgent</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ConversationalAI</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AgentAI</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Microsoft</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ICLR2024</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#HumaninLoop</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#GroupChat</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#해양사이버보안</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+    </div>
+  </div>
+
+
+  <!-- ══ SERIES NAVIGATION ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:22px 24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">📚 Agent AI 논문 시리즈 — 8편 완결</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <a href="https://www.shippauljobs.com/2023/06/react-synergizing-reasoning-and-acting.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">01</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">ReAct — 생각하며 행동하는 AI</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/03/toolformer-language-models-can-teach.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">02</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Toolformer — 도구를 스스로 배우는 LLM</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">NeurIPS 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/model-context-protocol-open-standard.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">03</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">MCP — AI와 세계를 연결하는 표준</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">Open Std 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/08/auto-gpt-autonomous-gpt-4-experiment.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">04</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGPT — 최초의 자율 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/05/crewai-role-based-ai-multi-agent.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">05</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">CrewAI — 역할 기반 멀티에이전트 팀</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/langgraph-building-stateful-multi-actor.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">06</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">LangGraph — 상태 기반 그래프 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">arXiv 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/generative-agents-interactive-simulacra.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">07</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Generative Agents — AI가 사는 마을</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">UIST 2023</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:linear-gradient(90deg,#154f7a,#1a9e82);border:none;">
+        <span style="font-size:10px;font-weight:800;color:#ffe082;min-width:22px;flex-shrink:0;">08</span>
+        <span style="font-size:13px;font-weight:800;color:#ffffff;flex:1;">AutoGen — 대화형 멀티에이전트 협력</span>
+        <span style="font-size:9px;font-weight:700;color:#7effd8;background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:10px;white-space:nowrap;">현재 글</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div style="border-top:2px solid #e2eaf3;padding-top:28px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #e2eaf3;" />
+    </a>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:2px;">Captain Paul</div>
+      <div style="font-size:11px;color:#6b8599;margin-bottom:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence · ShipPaulJobs</div>
+      <p style="font-size:12.5px;color:#6b8599;line-height:1.7;margin:0 0 14px 0;">데이터, AI, 사이버보안을 해양 산업과 연결하는 혁신 리더. Agent AI 핵심 논문을 해양 실무자의 시각으로 리뷰합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a66c2;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a2342;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;border:2px solid #1a9e82;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,510 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article : LangGraph — Stateful Graph-Based Agent Orchestration (2024) Review
+     Author  : Captain Paul  |  Published: June 2026
+     Source  : LangChain Inc. — arXiv:2401.01335 / github.com/langchain-ai/langgraph
+     Style   : Maritime 4.0 Design System (PAPER template_insung1 기반)
+════════════════════════════════════════════════════════════ -->
+
+<div style="font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;max-width:780px;margin:0 auto;color:#2c3e50;line-height:1.75;box-sizing:border-box;">
+
+  <!-- ══ HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+      <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">📄 arXiv 2024.01</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">LangGraph</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Stateful Graph Agent</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Conditional Edges</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">LangChain Inc.</span>
+    </div>
+    <h1 style="font-size:21px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
+      LangGraph — 워크플로를 그래프로: 상태 기반 멀티에이전트 오케스트레이션
+    </h1>
+    <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
+      LangChain Inc. &nbsp;·&nbsp; arXiv:2401.01335 &nbsp;·&nbsp; 2024년 1월 &nbsp;·&nbsp; github.com/langchain-ai/langgraph
+    </p>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+          <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);" />
+        </a>
+        <div>
+          <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAPER INFO CARD ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">Paper / Project Details</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;width:100px;">제목</td>
+        <td style="padding:5px 0;color:#2c3e50;">LangGraph: Building Stateful Multi-Actor Applications with LLMs</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">저자/기관</td>
+        <td style="padding:5px 0;color:#2c3e50;">LangChain Inc. (Harrison Chase et al.)<br><span style="color:#6b8599;font-size:12px;">LangChain 생태계를 주도하는 회사, 2022년 설립</span></td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">arXiv</td>
+        <td style="padding:5px 0;color:#2c3e50;">arXiv:2401.01335 &nbsp;·&nbsp; 2024년 1월</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">핵심 개념</td>
+        <td style="padding:5px 0;color:#2c3e50;">StateGraph — 노드(함수) + 엣지(전환) + 상태(공유 딕셔너리)<br>Conditional Edge: 조건에 따른 동적 경로 분기<br>Cyclic Workflow: 루프 지원 (ReAct 패턴 구현 가능)</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">포지셔닝</td>
+        <td style="padding:5px 0;color:#2c3e50;">CrewAI(고수준 추상화)의 한계를 극복하는 저수준 그래프 제어</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Source</td>
+        <td style="padding:5px 0;">
+          <a href="https://arxiv.org/abs/2401.01335" target="_blank" rel="noopener" style="color:#154f7a;font-weight:700;">arXiv:2401.01335 ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">GitHub ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">Docs ↗</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ══ CONCEPT IMAGE ══ -->
+  <div style="margin-bottom:36px;text-align:center;">
+    <img src="../../../../../Asset/img/content/LangGraph_concept.png"
+         alt="LangGraph 상태 기반 그래프 에이전트 개념도"
+         style="max-width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);" />
+    <div style="font-size:11px;color:#9ab5c9;margin-top:8px;font-style:italic;">
+      LangGraph 상태 그래프 — Node(함수) + Conditional Edge + Shared State + Cyclic Loop
+    </div>
+  </div>
+
+  <!-- ══ LEAD PARAGRAPH ══ -->
+  <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 28px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
+    CrewAI가 "AI 팀을 어떻게 조직할까"를 풀었다면, LangGraph는 "그 팀이 어떻게 협력하며 결정을 내릴까"를 그래프로 표현합니다. 복잡한 <strong style="color:#0a2342;">조건 분기, 루프, 상태 유지</strong>가 필요한 실제 프로덕션 AI 시스템에서 LangGraph는 현재 가장 강력한 오케스트레이션 도구입니다.
+  </p>
+
+  <!-- ══ TABLE OF CONTENTS ══ -->
+  <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 22px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">리뷰 목차</div>
+    <ol style="margin:0;padding:0 0 0 18px;font-size:14px;color:#354a5e;line-height:2.2;">
+      <li><strong style="color:#0a2342;">왜 그래프인가 — 선형 파이프라인의 한계</strong></li>
+      <li><strong style="color:#0a2342;">StateGraph 핵심 구조 — Node · Edge · State</strong></li>
+      <li><strong style="color:#0a2342;">Conditional Edge — 동적 경로 분기</strong></li>
+      <li><strong style="color:#0a2342;">Cyclic Workflow — ReAct 루프 네이티브 구현</strong></li>
+      <li><strong style="color:#0a2342;">실제 코드 예시 — Agent + Tool 루프</strong></li>
+      <li><strong style="color:#0a2342;">평가 — 강점과 한계</strong></li>
+      <li><strong style="color:#0a2342;">해양 산업 시사점</strong></li>
+      <li><strong style="color:#0a2342;">Captain Paul의 결론 — 언제 LangGraph인가</strong></li>
+    </ol>
+  </div>
+
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 1 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📌 (1) 왜 그래프인가 — 선형 파이프라인의 한계</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      CrewAI의 Sequential Process는 A→B→C로만 흐릅니다. 그런데 실제 업무는 어떨까요? B 단계에서 문제가 발견되면 A로 돌아가야 합니다. C 단계 결과가 불충분하면 D를 건너뛰고 B를 재실행해야 합니다. 이것이 <strong style="color:#0a2342;">DAG(Directed Acyclic Graph)가 아닌 Cyclic Graph가 필요한 이유</strong>입니다.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#b8860b;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">⚠ 선형 파이프라인 (CrewAI Sequential)</div>
+        <div style="font-size:13px;color:#4a6278;line-height:1.7;font-family:monospace;">A → B → C → D → END<br><br>
+        <span style="color:#e74c3c;">✗ 조건 분기 없음</span><br>
+        <span style="color:#e74c3c;">✗ 루프 불가</span><br>
+        <span style="color:#e74c3c;">✗ 실패 시 재시도 어려움</span></div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#1a9e82;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">✅ 그래프 기반 (LangGraph)</div>
+        <div style="font-size:13px;color:#4a6278;line-height:1.7;font-family:monospace;">Agent → [Cond] → Tool → Agent<br>
+                         ↓<br>
+                        END<br><br>
+        <span style="color:#1a9e82;">✓ 조건 분기</span>·<span style="color:#1a9e82;">루프</span>·<span style="color:#1a9e82;">재시도 모두 가능</span></div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:16px 20px;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;">논문의 핵심 주장</div>
+      <p style="font-size:14px;color:#d6eaf8;line-height:1.8;margin:0;">
+        "기존 LLM 에이전트 프레임워크는 DAG 기반으로 설계돼 사이클(반복)을 지원하지 못한다. 하지만 실제 에이전트 동작은 본질적으로 반복적이다. LangGraph는 <strong style="color:#ffe082;">상태 기계(State Machine) 개념</strong>을 LLM 오케스트레이션에 적용한다."
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚙️ (2) StateGraph 핵심 구조 — Node · Edge · State</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      LangGraph의 3가지 핵심 요소입니다. Python 코드와 1:1로 대응됩니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <!-- State -->
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:10px;">📊 State — 공유 메모리</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">모든 노드가 읽고 쓰는 <strong>공유 딕셔너리</strong>. 에이전트가 이전 단계 결과를 자동으로 참조. TypedDict로 타입 안전하게 정의.</p>
+          <div style="background:#e8f0f7;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:11px;color:#154f7a;line-height:1.9;">
+            from typing import TypedDict<br><br>
+            class AgentState(TypedDict):<br>
+            &nbsp;&nbsp;messages: list[str]<br>
+            &nbsp;&nbsp;tool_calls: list<br>
+            &nbsp;&nbsp;final_answer: str
+          </div>
+        </div>
+      </div>
+      <!-- Node -->
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:10px;">🔵 Node — 함수 단위 실행</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">State를 입력받고 업데이트된 State를 반환하는 Python 함수. LLM 호출, 도구 실행, 데이터 처리 모두 노드로 표현.</p>
+          <div style="background:#e8f0f7;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:11px;color:#154f7a;line-height:1.9;">
+            def agent_node(state: AgentState):<br>
+            &nbsp;&nbsp;msg = llm.invoke(<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;state["messages"]<br>
+            &nbsp;&nbsp;)<br>
+            &nbsp;&nbsp;return {"messages": [msg]}
+          </div>
+        </div>
+      </div>
+      <!-- Edge -->
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:10px;">➡ Edge — 노드 간 전환</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 8px 0;"><strong>Normal Edge</strong>: 항상 A→B</p>
+            <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;"><strong>Conditional Edge</strong>: 상태 기반 동적 분기. 함수 반환값에 따라 다른 노드로.</p>
+          </div>
+          <div style="background:#d4edda;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:11px;color:#0a5435;line-height:1.9;">
+            graph.add_edge(<br>
+            &nbsp;&nbsp;"agent", "tool"<br>
+            )<br><br>
+            graph.add_conditional_edges(<br>
+            &nbsp;&nbsp;"agent", should_continue,<br>
+            &nbsp;&nbsp;{"continue":"tool",<br>
+            &nbsp;&nbsp;&nbsp;"end": END}<br>
+            )
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🔀 (3) Conditional Edge — 동적 경로 분기</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      Conditional Edge는 LangGraph에서 가장 강력한 기능입니다. 현재 State를 검사해서 <strong style="color:#0a2342;">어느 노드로 이동할지 동적으로 결정</strong>합니다.
+    </p>
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:20px 22px;margin-bottom:14px;">
+      <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.8px;">Conditional Edge 패턴 — Tool Call 존재 여부로 분기</div>
+      <div style="background:#e8f0f7;border-radius:8px;padding:14px 16px;font-family:monospace;font-size:12px;color:#154f7a;line-height:1.9;">
+        <span style="color:#6b8599;"># 분기 함수 — State를 보고 다음 노드 결정</span><br>
+        def should_continue(state: AgentState) -> str:<br>
+        &nbsp;&nbsp;last_msg = state["messages"][-1]<br>
+        &nbsp;&nbsp;<span style="color:#1a9e82;">if</span> last_msg.tool_calls:     <span style="color:#6b8599;"># 도구 호출 있으면</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#1a9e82;">return</span> "continue"          <span style="color:#6b8599;"># → tool 노드로</span><br>
+        &nbsp;&nbsp;<span style="color:#1a9e82;">return</span> "end"                 <span style="color:#6b8599;"># → END로</span><br><br>
+        <span style="color:#6b8599;"># 그래프에 등록</span><br>
+        graph.add_conditional_edges(<br>
+        &nbsp;&nbsp;"agent",                            <span style="color:#6b8599;"># from</span><br>
+        &nbsp;&nbsp;should_continue,                    <span style="color:#6b8599;"># 분기 함수</span><br>
+        &nbsp;&nbsp;{"continue": "tool", "end": END}    <span style="color:#6b8599;"># 매핑</span><br>
+        )
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">핵심 인사이트:</strong> 분기 함수는 어떤 Python 로직도 담을 수 있습니다. LLM 판단, 규칙 기반 체크, 외부 DB 조회 등. CrewAI는 이 레벨의 제어를 추상화 뒤에 숨겼지만, LangGraph는 완전히 노출합니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🔁 (4) Cyclic Workflow — ReAct 루프 네이티브 구현</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      ReAct 논문 (Yao et al., 2022)의 Think-Act-Observe 루프는 LangGraph로 가장 자연스럽게 구현됩니다. 그래프가 사이클을 허용하기 때문에 <strong style="color:#0a2342;">Agent가 도구를 쓰고 → 결과를 보고 → 다시 판단하는 루프</strong>가 종료 조건을 만날 때까지 반복됩니다.
+    </p>
+    <!-- Loop flow diagram (text) -->
+    <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:20px 24px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">ReAct 루프 in LangGraph</div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:13px;">
+        <div style="background:#1a9e82;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;">START</div>
+        <div style="color:#7effd8;font-size:18px;">→</div>
+        <div style="background:#154f7a;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;border:1px solid #1a9e82;">Agent<br><span style="font-size:10px;color:#b8d4ea;">Think</span></div>
+        <div style="color:#7effd8;font-size:18px;">→</div>
+        <div style="background:#e67e22;color:#fff;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;">Cond.<br>Edge</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin:0 4px;">
+          <div style="color:#ffe082;font-size:11px;">→ tool_call</div>
+          <div style="color:#7effd8;font-size:11px;">→ done</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="background:#154f7a;color:#fff;padding:8px 14px;border-radius:8px;font-weight:700;font-size:12px;border:1px solid #e67e22;">Tool<br><span style="font-size:10px;color:#b8d4ea;">Act</span></div>
+          <div style="background:#8e44ad;color:#fff;padding:8px 14px;border-radius:8px;font-weight:700;font-size:12px;">END</div>
+        </div>
+        <div style="color:#ffe082;font-size:18px;margin-left:4px;">↩</div>
+        <div style="color:#b8d4ea;font-size:12px;">(Tool → Agent 반복)</div>
+      </div>
+    </div>
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:14px 18px;font-size:13px;color:#4a6278;line-height:1.75;">
+      <strong style="color:#0a2342;">Human-in-the-Loop:</strong> LangGraph는 특정 노드에서 실행을 일시 중단하고 사람의 승인을 기다리는 기능을 내장합니다. 해양 안전 시스템에서 "AI가 제안하고 사람이 승인한다" 패턴 구현에 필수적입니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">💻 (5) 실제 코드 예시 — Agent + Tool 루프</h2>
+    </div>
+    <div style="background:#0d1b2e;border-radius:12px;padding:20px 22px;font-family:monospace;font-size:12px;line-height:1.9;overflow-x:auto;">
+      <div style="color:#6b8599;margin-bottom:10px;"># LangGraph ReAct 에이전트 — 전체 구조</div>
+      <div style="color:#c3e88d;">from</div><span style="color:#eeffff;"> langgraph.graph </span><div style="display:inline;color:#c3e88d;">import</div><span style="color:#eeffff;"> StateGraph, END</span><br>
+      <div style="color:#c3e88d;">from</div><span style="color:#eeffff;"> langchain_core.messages </span><div style="display:inline;color:#c3e88d;">import</div><span style="color:#eeffff;"> BaseMessage</span><br><br>
+
+      <div style="color:#6b8599;"># 1. State 정의</div>
+      <div style="color:#c3e88d;">class</div><span style="color:#ffcb6b;"> AgentState</span><span style="color:#eeffff;">(TypedDict):</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;messages: </span><div style="display:inline;color:#c3e88d;">list</div><span style="color:#eeffff;">[BaseMessage]</span><br><br>
+
+      <div style="color:#6b8599;"># 2. 노드 함수</div>
+      <div style="color:#c3e88d;">def</div><span style="color:#82aaff;"> call_agent</span><span style="color:#eeffff;">(state):</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;response = model.invoke(state[</span><span style="color:#c3e88d;">"messages"</span><span style="color:#eeffff;">])</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;</span><div style="display:inline;color:#c3e88d;">return</div><span style="color:#eeffff;"> {</span><span style="color:#c3e88d;">"messages"</span><span style="color:#eeffff;">: [response]}</span><br><br>
+
+      <div style="color:#c3e88d;">def</div><span style="color:#82aaff;"> call_tools</span><span style="color:#eeffff;">(state):</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;results = tool_executor.batch(</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;&nbsp;&nbsp;state[</span><span style="color:#c3e88d;">"messages"</span><span style="color:#eeffff;">][-1].tool_calls</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;)</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;</span><div style="display:inline;color:#c3e88d;">return</div><span style="color:#eeffff;"> {</span><span style="color:#c3e88d;">"messages"</span><span style="color:#eeffff;">: results}</span><br><br>
+
+      <div style="color:#6b8599;"># 3. 그래프 조립</div>
+      <span style="color:#eeffff;">graph = StateGraph(AgentState)</span><br>
+      <span style="color:#eeffff;">graph.add_node(</span><span style="color:#c3e88d;">"agent"</span><span style="color:#eeffff;">, call_agent)</span><br>
+      <span style="color:#eeffff;">graph.add_node(</span><span style="color:#c3e88d;">"tool"</span><span style="color:#eeffff;">, call_tools)</span><br>
+      <span style="color:#eeffff;">graph.set_entry_point(</span><span style="color:#c3e88d;">"agent"</span><span style="color:#eeffff;">)</span><br><br>
+
+      <div style="color:#6b8599;"># 4. Conditional Edge</div>
+      <span style="color:#eeffff;">graph.add_conditional_edges(</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;</span><span style="color:#c3e88d;">"agent"</span><span style="color:#eeffff;">, should_continue,</span><br>
+      <span style="color:#eeffff;">&nbsp;&nbsp;{</span><span style="color:#c3e88d;">"continue"</span><span style="color:#eeffff;">: </span><span style="color:#c3e88d;">"tool"</span><span style="color:#eeffff;">, </span><span style="color:#c3e88d;">"end"</span><span style="color:#eeffff;">: END})</span><br>
+      <span style="color:#eeffff;">graph.add_edge(</span><span style="color:#c3e88d;">"tool"</span><span style="color:#eeffff;">, </span><span style="color:#c3e88d;">"agent"</span><span style="color:#eeffff;">)  </span><div style="display:inline;color:#6b8599;"># Tool → Agent 루프</div><br><br>
+
+      <span style="color:#eeffff;">app = graph.compile()</span><br>
+      <span style="color:#eeffff;">result = app.invoke({</span><span style="color:#c3e88d;">"messages"</span><span style="color:#eeffff;">: [initial_msg]})</span>
+    </div>
+    <div style="font-size:11px;color:#9ab5c9;margin-top:8px;font-style:italic;">↑ 이 20줄 코드가 완전한 ReAct 에이전트입니다. Tool 호출 → 결과 확인 → 재판단 루프가 자동 실행됩니다.</div>
+  </div>
+
+  <!-- ══ SECTION 6 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">✅ (6) 평가 — 강점과 한계</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 완전한 상태 제어</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">모든 노드가 공유 State에 접근. 어느 시점이든 전체 실행 상태를 직렬화·복원 가능. 디버깅이 매우 용이.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 사이클 지원</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">ReAct, MCTS, Self-Critique 등 루프가 필요한 모든 패턴을 네이티브로 구현. 종료 조건을 개발자가 완전히 제어.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ Human-in-the-Loop 내장</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">interrupt_before, interrupt_after로 임의 노드에서 실행 중단 → 사람 검토 → 재개. 안전 임계 시스템에 이상적.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ LangSmith 통합 관찰성</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">각 노드 실행, 토큰 사용, 레이턴시를 LangSmith로 추적. 프로덕션 디버깅과 비용 분석 용이.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 높은 학습 곡선</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">State, Node, Edge, Conditional Edge, Checkpointer 개념을 모두 이해해야 함. CrewAI 대비 코드량이 많고 복잡. 팀 온보딩 비용 높음.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 역할 추상화 부재</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">CrewAI처럼 "연구원·분석가·작가" 역할 개념이 없음. 그래프 설계자가 직접 Agent 페르소나를 시스템 프롬프트에 포함해야 함.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚓ (7) 해양 산업 시사점</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      해양 사이버보안에서 가장 중요한 요건은 <strong style="color:#0a2342;">예측 가능성과 감사 추적성</strong>입니다. LangGraph의 상태 기반 설계는 이 두 가지를 모두 충족합니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🛡 사이버 인시던트 대응 자동화 (IACS E26/E27 준수)</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          이상 탐지 노드 → 위협 분류 노드 → Conditional Edge(경중에 따라 자동 격리 또는 Human-in-Loop 승인 요청) → 대응 실행 노드 → 보고서 생성 노드. <strong style="color:#0a2342;">Human-in-Loop 기능이 안전 필수 시스템에서 필수</strong>입니다. IMO MSC-FAL.1/Circ.3 권고와 부합.
+        </p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">📋 선박 검사·감사 워크플로</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          ECDIS 소프트웨어 버전 체크 → NtM(Notice to Mariners) 조회 → 불일치 시 자동 루프(최대 3회 조회 시도) → Human 리뷰 → 보고서 작성. 실패 시 재시도 로직을 Conditional Edge로 정확히 구현.
+        </p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🔍 취약점 관리 파이프라인</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          CBS(Computer Based Systems) 목록 수집 → CVE DB 매칭 → 심각도 평가 → Conditional Branch(Critical: 즉시 알림, High: 30일 내 조치, Low: 다음 점검 시) → 각 경로별 액션 자동 실행. 정확한 분기 제어가 핵심.
+        </p>
+      </div>
+    </div>
+    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#4a4a4a;line-height:1.75;margin-top:14px;">
+      <strong style="color:#c0520a;">주의 — 무한 루프 방지:</strong> Cyclic Graph는 종료 조건이 없으면 무한 루프에 빠집니다. 해양 시스템에서 max_iterations 제한과 timeout을 반드시 설정하십시오. LangGraph는 이를 위한 recursion_limit 파라미터를 제공합니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🎯 (8) Captain Paul의 결론 — 언제 LangGraph인가</h2>
+    </div>
+    <!-- Framework comparison summary -->
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <thead>
+          <tr style="background:#e8f0f7;">
+            <th style="padding:10px 14px;text-align:left;color:#154f7a;font-weight:800;">상황</th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">추천 도구</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#4a6278;">빠른 프로토타입, 콘텐츠 파이프라인, 역할 명확한 보고서</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">CrewAI</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#4a6278;">복잡한 조건 분기·루프, 프로덕션 시스템, 안전 임계 워크플로</td>
+            <td style="padding:9px 14px;text-align:center;color:#154f7a;font-weight:700;">LangGraph</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#4a6278;">동적 실시간 멀티에이전트 대화 (Agent끼리 자유롭게 협의)</td>
+            <td style="padding:9px 14px;text-align:center;color:#e67e22;font-weight:700;">AutoGen</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#4a6278;">시뮬레이션·에뮬레이션, 사회 모델링, 역할 기반 롤플레이</td>
+            <td style="padding:9px 14px;text-align:center;color:#8e44ad;font-weight:700;">Generative Agents</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      "ReAct를 배웠고 → CrewAI로 팀을 만들었고 → 이제 그 팀의 의사결정 프로세스를 정밀하게 제어하고 싶다." 그것이 LangGraph가 존재하는 이유입니다.
+    </p>
+    <div style="background:#f0f7ff;border-left:4px solid #0a2342;border-radius:0 10px 10px 0;padding:16px 20px;font-size:14px;color:#354a5e;line-height:1.75;">
+      Agent AI 기술 스택의 흐름: <strong style="color:#0a2342;">ReAct(사고법) → Toolformer(도구 사용법) → MCP(표준 연결) → AutoGPT(자율 실험) → CrewAI(팀 구성) → LangGraph(정밀 제어).</strong> 각 레이어가 이전 한계를 해결하며 발전했습니다. 다음 단계는 이 모든 개념이 실제 인간과 협업하는 시스템으로 통합되는 것입니다.
+    </div>
+  </div>
+
+  <!-- ══ CLOSING ══ -->
+  <div style="text-align:center;margin-bottom:36px;padding:20px 22px;background:#f7fafe;border-radius:12px;border:1px solid #d1e0ee;">
+    <p style="font-size:13px;color:#6b8599;line-height:1.8;margin:0;font-style:italic;">
+      다음 리뷰: Generative Agents (Park et al., Stanford 2023) — 25개 AI가 마을을 이루다. 메모리·반성·계획 구조가 롤플레이를 넘어 시뮬레이션 세계를 만든다.
+    </p>
+    <p style="font-size:13px;font-weight:800;color:#0a2342;margin:14px 0 0 0;">— Captain Paul —</p>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#LangGraph</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#StateGraph</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AgentAI</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MultiAgent</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ConditionalEdge</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#LangChain</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#HumaninLoop</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#해양사이버보안</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Python</span>
+    </div>
+  </div>
+
+
+  <!-- ══ SERIES NAVIGATION ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:22px 24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">📚 Agent AI 논문 시리즈 — 8편 완결</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <a href="https://www.shippauljobs.com/2023/06/react-synergizing-reasoning-and-acting.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">01</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">ReAct — 생각하며 행동하는 AI</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/03/toolformer-language-models-can-teach.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">02</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Toolformer — 도구를 스스로 배우는 LLM</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">NeurIPS 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/model-context-protocol-open-standard.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">03</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">MCP — AI와 세계를 연결하는 표준</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">Open Std 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/08/auto-gpt-autonomous-gpt-4-experiment.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">04</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGPT — 최초의 자율 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/05/crewai-role-based-ai-multi-agent.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">05</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">CrewAI — 역할 기반 멀티에이전트 팀</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2024</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:linear-gradient(90deg,#154f7a,#1a9e82);border:none;">
+        <span style="font-size:10px;font-weight:800;color:#ffe082;min-width:22px;flex-shrink:0;">06</span>
+        <span style="font-size:13px;font-weight:800;color:#ffffff;flex:1;">LangGraph — 상태 기반 그래프 에이전트</span>
+        <span style="font-size:9px;font-weight:700;color:#7effd8;background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:10px;white-space:nowrap;">현재 글</span>
+      </div>
+      <a href="https://www.shippauljobs.com/2024/06/generative-agents-interactive-simulacra.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">07</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Generative Agents — AI가 사는 마을</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">UIST 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/autogen-enabling-next-gen-llm.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">08</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGen — 대화형 멀티에이전트 협력</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2024</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div style="border-top:2px solid #e2eaf3;padding-top:28px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #e2eaf3;" />
+    </a>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:2px;">Captain Paul</div>
+      <div style="font-size:11px;color:#6b8599;margin-bottom:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence · ShipPaulJobs</div>
+      <p style="font-size:12.5px;color:#6b8599;line-height:1.7;margin:0 0 14px 0;">데이터, AI, 사이버보안을 해양 산업과 연결하는 혁신 리더. Agent AI 핵심 논문을 해양 실무자의 시각으로 리뷰합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a66c2;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a2342;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;border:2px solid #1a9e82;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>

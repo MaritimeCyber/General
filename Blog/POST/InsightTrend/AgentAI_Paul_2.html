@@ -1,0 +1,431 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F916; Agent AI</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x2699;&#xFE0F; How It Works</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">시리즈 2편</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Maritime 4.0</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">Core Concept</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">[시리즈 2편] Agent AI는 어떻게 동작할까?</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">생각하고, 계획하고, 실행하는 AI &mdash; LLM·Planning·Memory·Tool Use의 완전 해부</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Maritime 4.0 &#xB7; AI &amp; Cyber Intelligence &#xB7; June 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIES INTRO -->
+<div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F4DA; 시리즈 소개</div>
+  <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 14px;">ChatGPT의 등장 이후 생성형 AI는 빠르게 발전하고 있습니다. 최근에는 단순히 질문에 답하는 수준을 넘어 스스로 계획을 세우고 여러 도구를 활용하며 목표를 수행하는 <strong>'Agent AI'</strong>가 새로운 패러다임으로 주목받고 있습니다. 이번 시리즈에서는 Agent AI가 등장하게 된 배경부터 핵심 기술, 실제 기업 적용 사례, 그리고 미래 비즈니스 변화까지 쉽게 살펴보겠습니다.</p>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">1편</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-15-ai-agent-ai.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">왜 Agent AI가 등장했을까? &mdash; 생성형 AI에서 Agent AI로 진화한 이유</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">2편 ▶</span>
+      <p style="font-size:12.5px;color:#0a2342;font-weight:700;margin:0;">Agent AI는 어떻게 동작할까? &mdash; 생각하고, 계획하고, 실행하는 AI</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">3편</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-35-llmplanningmemorytool-use.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">Agent AI 기술은 어디까지 발전했을까? &mdash; Single에서 Multi-Agent까지</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">4편</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-45-llmplanningmemorytool-use.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">기업은 Agent AI를 어떻게 활용할 수 있을까? &mdash; 실제 비즈니스 적용 사례</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">5편</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-55-llmplanningmemorytool-use.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">Agent AI 시대의 미래와 새로운 비즈니스 &mdash; AI 직원과 인간의 협업</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT THIS ARTICLE COVERS -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F9ED; 이번 편에서 다루는 내용</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 1</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>두뇌: LLM의 역할</strong> — Agent AI의 핵심인 대형 언어 모델이 어떤 역할을 하는지, 왜 LLM이 Agent의 두뇌가 될 수 있는지 설명합니다.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 2</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>4가지 핵심 능력</strong> — Planning(계획), Memory(기억), Tool Use(도구 활용), Multi-step Reasoning을 해양 산업 사례로 풀어냅니다.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 3</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Agent Workflow</strong> — 목표에서 결과까지, Agent AI가 실제로 어떤 순서로 일하는지 전체 흐름을 시각화합니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROLOGUE -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">프롤로그</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;font-style:italic;font-family:Georgia,serif;">선박 엔진은 수천 개의 부품으로 이루어져 있습니다. 각 부품을 따로 보면 복잡하지만, 전체 구조를 이해하면 어떻게 배가 움직이는지 명확해집니다.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">Agent AI도 마찬가지입니다. 내부 구조를 알면, 무엇을 할 수 있고 무엇을 할 수 없는지 정확히 판단할 수 있습니다. 블랙박스로 두지 말고, 엔진룸처럼 들여다봅시다.</p>
+</div>
+
+<!-- ═══ PART 1 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:0 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 1 &mdash; 두뇌</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">LLM: Agent AI의 두뇌가 하는 일</div>
+</div>
+
+<!-- SECTION 1 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">1. LLM이란 무엇인가?</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">LLM(Large Language Model, 대형 언어 모델)은 수천억 개의 텍스트 데이터로 학습한 AI 모델입니다. 인터넷 문서, 책, 논문, 코드, 법률 문서 등 인류가 생산한 방대한 텍스트를 학습하여 언어의 패턴과 지식을 내재화했습니다.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 18px;">단순히 텍스트를 출력하는 것을 넘어, 현대 LLM은 <strong>맥락을 이해하고, 추론하고, 다음 행동을 결정</strong>할 수 있습니다. 이 능력이 Agent AI의 '두뇌' 역할을 가능하게 합니다.</p>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:18px 20px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:8px;">&#x1F4A1; Agent에서 LLM이 하는 일</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1a9e82;font-weight:800;font-size:13px;flex-shrink:0;">→</span><p style="font-size:13.5px;color:#2c3e50;line-height:1.7;margin:0;"><strong>목표 이해:</strong> 사용자 지시를 이해하고 의도를 파악합니다</p></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1a9e82;font-weight:800;font-size:13px;flex-shrink:0;">→</span><p style="font-size:13.5px;color:#2c3e50;line-height:1.7;margin:0;"><strong>계획 수립:</strong> 목표를 달성하기 위한 단계를 분해합니다</p></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1a9e82;font-weight:800;font-size:13px;flex-shrink:0;">→</span><p style="font-size:13.5px;color:#2c3e50;line-height:1.7;margin:0;"><strong>도구 선택:</strong> 각 단계에 필요한 도구(검색, 계산, DB 조회 등)를 결정합니다</p></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1a9e82;font-weight:800;font-size:13px;flex-shrink:0;">→</span><p style="font-size:13.5px;color:#2c3e50;line-height:1.7;margin:0;"><strong>결과 해석:</strong> 도구 실행 결과를 해석하고 다음 행동을 결정합니다</p></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:#1a9e82;font-weight:800;font-size:13px;flex-shrink:0;">→</span><p style="font-size:13.5px;color:#2c3e50;line-height:1.7;margin:0;"><strong>최종 답변:</strong> 모든 과정을 종합해 사용자에게 결과를 전달합니다</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PART 2 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:36px 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 2 &mdash; 4가지 핵심 능력</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">Planning · Memory · Tool Use · Multi-step Reasoning</div>
+</div>
+
+<!-- SECTION 2 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">2. Planning (계획) &mdash; 목표를 단계로 쪼개는 능력</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">Agent AI의 첫 번째 핵심 능력은 복잡한 목표를 실행 가능한 작은 단계들로 분해하는 것입니다. 이를 <strong>Task Decomposition(작업 분해)</strong>이라고 합니다.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;text-align:center;">Planning 예시: 선박 사이버보안 감사 준비</div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:13px;color:rgba(255,255,255,0.8);">
+      <span style="color:#1affda;font-weight:700;">목표:</span> "DNV 사이버보안 감사를 위한 준비 보고서를 작성해줘"
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+        <p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;">DNV 사이버보안 최신 규정 검색 및 요구사항 추출</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+        <p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;">선박 CBS 데이터베이스 조회 → 현재 시스템 현황 파악</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#154f7a;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+        <p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;">규정 요구사항 vs 현재 상태 Gap 분석</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#154f7a;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">4</div>
+        <p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;">리스크 우선순위 산정 및 조치 계획 수립</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#0a2342;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;border:1px solid #1a9e82;">5</div>
+        <p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;">감사 준비 보고서 작성 → 담당자에게 공유</p>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,0.4);font-size:10.5px;text-align:center;margin:14px 0 0;">사람이 지시한 것은 목표 하나뿐. 나머지 5단계는 Agent가 스스로 계획하고 실행.</p>
+  </div>
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:16px 18px;">
+    <div style="font-size:13px;font-weight:800;color:#c0520a;margin-bottom:6px;">&#x26A0;&#xFE0F; 계획이 없으면 실패한다</div>
+    <p style="font-size:13.5px;color:#4a4a4a;line-height:1.75;margin:0;">단순히 질문에 즉답하는 것과 달리, 복잡한 목표는 계획 없이 한 번에 실행할 수 없습니다. Planning 능력이 약한 Agent는 중간에 길을 잃거나 엉뚱한 방향으로 흘러갑니다. 좋은 Agent는 처음에 충분히 생각하고, 중간에 계획을 수정하는 능력도 갖춥니다.</p>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">3. Memory (기억) &mdash; 잊지 않는 능력</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">1편에서 기존 LLM의 가장 큰 한계 중 하나로 '기억 없음'을 언급했습니다. Agent AI는 이 문제를 해결하기 위해 여러 종류의 메모리를 갖춥니다.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;text-align:center;">Agent AI의 4가지 메모리 유형</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:14px 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="color:#1affda;font-size:12px;font-weight:700;">&#x1F4AD; Working Memory (작업 기억)</span>
+          <span style="background:rgba(26,158,130,0.2);color:#6ee7b7;font-size:10px;padding:2px 8px;border-radius:20px;">현재 대화</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">현재 진행 중인 작업의 맥락을 유지. 사람의 단기 기억과 유사. 대화가 끝나면 사라집니다.</p>
+      </div>
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:14px 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="color:#1affda;font-size:12px;font-weight:700;">&#x1F4BE; External Memory (외부 기억)</span>
+          <span style="background:rgba(26,158,130,0.2);color:#6ee7b7;font-size:10px;padding:2px 8px;border-radius:20px;">데이터베이스</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">벡터 데이터베이스나 일반 DB에 정보를 저장하고 필요할 때 검색. 회의록, 이전 분석 결과, 선박 데이터 등을 오래 기억.</p>
+      </div>
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:14px 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="color:#1affda;font-size:12px;font-weight:700;">&#x1F9E0; Semantic Memory (의미 기억)</span>
+          <span style="background:rgba(26,158,130,0.2);color:#6ee7b7;font-size:10px;padding:2px 8px;border-radius:20px;">모델 내재 지식</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">LLM이 학습을 통해 내재화한 일반 지식. IACS 규정 내용, 해양 용어, 기술 개념 등이 여기 해당.</p>
+      </div>
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:14px 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="color:#1affda;font-size:12px;font-weight:700;">&#x1F4CB; Episodic Memory (에피소드 기억)</span>
+          <span style="background:rgba(26,158,130,0.2);color:#6ee7b7;font-size:10px;padding:2px 8px;border-radius:20px;">과거 경험</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">이전에 수행한 작업의 결과와 교훈을 저장. "지난번 A선박 감사에서 이런 문제가 있었다"는 정보가 다음 감사에 활용됩니다.</p>
+      </div>
+    </div>
+  </div>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 18px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">&#x1F4A1; 해양 산업 적용 포인트</div>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0;">선박 50척의 CBS 데이터를 External Memory에 저장해두면, Agent는 "A선박의 ECDIS 패치 이력"을 즉시 조회할 수 있습니다. 5년 치 감사 결과를 Episodic Memory로 활용하면, 반복되는 문제 패턴을 스스로 발견합니다.</p>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">4. Tool Use (도구 활용) &mdash; 손발이 생기다</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">Agent AI가 단순 챗봇과 근본적으로 다른 이유는 <strong>외부 도구를 사용할 수 있다</strong>는 점입니다. LLM이 두뇌라면, 도구는 손발입니다. Agent는 목표를 달성하기 위해 필요한 도구를 스스로 선택하고 실행합니다.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;text-align:center;">Agent AI가 활용할 수 있는 도구 유형</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:6px;">&#x1F50D; 검색 도구</div>
+        <p style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;margin:0;">웹 검색, 문서 검색, 규정 DB 조회, 특허 검색</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:6px;">&#x1F4CA; 데이터 도구</div>
+        <p style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;margin:0;">엑셀/CSV 분석, 데이터베이스 쿼리, 통계 계산</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:6px;">&#x1F4E7; 커뮤니케이션 도구</div>
+        <p style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;margin:0;">이메일 발송, 슬랙 메시지, 보고서 생성</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:6px;">&#x1F527; 시스템 도구</div>
+        <p style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;margin:0;">API 호출, 코드 실행, ERP 시스템 연동</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:6px;">&#x1F4C4; 파일 도구</div>
+        <p style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;margin:0;">PDF 읽기, Word 문서 작성, 스프레드시트 편집</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:6px;">&#x1F6A2; 해양 특화 도구</div>
+        <p style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;margin:0;">AIS 조회, 선박 모니터링 시스템, 선급 포털 연동</p>
+      </div>
+    </div>
+  </div>
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:16px 18px;">
+    <div style="font-size:13px;font-weight:800;color:#c0520a;margin-bottom:6px;">&#x1F4A1; Tool Use의 핵심: 언제 어떤 도구를 쓸지 스스로 판단</div>
+    <p style="font-size:13.5px;color:#4a4a4a;line-height:1.75;margin:0;">중요한 것은 도구 자체가 아니라, <strong>상황에 맞는 도구를 스스로 선택하는 판단력</strong>입니다. "IACS 최신 규정을 찾아야 한다" → 웹 검색 도구 사용. "선박 데이터가 필요하다" → DB 조회 도구 사용. 이 판단을 LLM이 합니다. 3편에서는 이를 가능하게 하는 MCP 기술을 설명합니다.</p>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">5. Multi-step Reasoning &mdash; 여러 단계를 연결하는 사고</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">Multi-step Reasoning은 Agent AI의 가장 강력한 능력입니다. 단순히 A → B가 아니라, A의 결과를 보고, B를 결정하고, B의 결과로 C를 조정하는 <strong>연쇄적·적응적 사고</strong>입니다.</p>
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:18px 20px;margin-bottom:16px;font-family:monospace;font-size:12.5px;">
+    <div style="color:#64748b;margin-bottom:10px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">실시간 사고 과정 예시 (선박 이상 탐지 시나리오)</div>
+    <div style="color:#0a2342;line-height:2;">
+      <span style="color:#1a9e82;font-weight:700;">[생각]</span> ECDIS에서 비정상 트래픽 감지됨. 먼저 트래픽 패턴을 분석해야겠다.<br/>
+      <span style="color:#154f7a;font-weight:700;">[행동]</span> 네트워크 로그 분석 도구 실행<br/>
+      <span style="color:#1a9e82;font-weight:700;">[관찰]</span> 외부 IP에서 포트 22로 반복 접근 시도 발견<br/>
+      <span style="color:#1a9e82;font-weight:700;">[생각]</span> SSH 브루트포스 공격 패턴. 해당 IP를 위협 인텔리전스 DB에서 확인해야겠다.<br/>
+      <span style="color:#154f7a;font-weight:700;">[행동]</span> 위협 IP 조회 도구 실행<br/>
+      <span style="color:#1a9e82;font-weight:700;">[관찰]</span> 해당 IP는 알려진 악성 봇넷에 등록된 주소<br/>
+      <span style="color:#1a9e82;font-weight:700;">[생각]</span> 즉시 차단이 필요하고, 선급 보고도 해야 한다. 두 작업을 동시에 진행하겠다.<br/>
+      <span style="color:#154f7a;font-weight:700;">[행동]</span> 방화벽 차단 규칙 적용 + 인시던트 보고서 초안 작성
+    </div>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">이 과정을 <strong>ReAct(Reasoning + Acting)</strong> 패턴이라고 합니다. 생각(Reasoning)과 행동(Acting)을 번갈아 반복하며 점점 목표에 가까워집니다. 사람 전문가가 일하는 방식과 매우 유사합니다.</p>
+</div>
+
+<!-- ═══ PART 3 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:36px 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 3 &mdash; Agent Workflow</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">목표에서 결과까지: Agent AI의 전체 작동 흐름</div>
+</div>
+
+<!-- SECTION 6 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">6. Agent Workflow &mdash; 전체 그림</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 18px;">지금까지 배운 네 가지 능력이 실제로 어떻게 조합되어 작동하는지 전체 흐름으로 봅시다.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:28px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;text-align:center;">Agent AI Workflow &mdash; 해양 사이버보안 감사 준비</div>
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <!-- Step 1 -->
+      <div style="display:flex;gap:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#1a9e82,#1affda);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#0a2342;">1</div>
+          <div style="flex:1;width:2px;background:rgba(26,158,130,0.3);min-height:40px;"></div>
+        </div>
+        <div style="padding:4px 0 24px 16px;">
+          <div style="color:#1affda;font-size:13px;font-weight:700;margin-bottom:4px;">목표 수신 &amp; 해석</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">사용자: "IACS E27 연간 감사 준비 보고서 작성해줘" → LLM이 의도 파악, 필요 정보 목록 작성</p>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div style="display:flex;gap:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#1a9e82,#1affda);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#0a2342;">2</div>
+          <div style="flex:1;width:2px;background:rgba(26,158,130,0.3);min-height:40px;"></div>
+        </div>
+        <div style="padding:4px 0 24px 16px;">
+          <div style="color:#1affda;font-size:13px;font-weight:700;margin-bottom:4px;">계획 수립 (Planning)</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">작업을 5단계로 분해, 각 단계에 필요한 도구 결정</p>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div style="display:flex;gap:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#154f7a,#1a9e82);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;">3</div>
+          <div style="flex:1;width:2px;background:rgba(26,158,130,0.3);min-height:40px;"></div>
+        </div>
+        <div style="padding:4px 0 24px 16px;">
+          <div style="color:#7effd8;font-size:13px;font-weight:700;margin-bottom:4px;">정보 수집 (Tool Use + Memory)</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">웹 검색으로 최신 IACS E27 요구사항 수집 + DB에서 선박 CBS 현황 조회 + 과거 감사 이력 확인</p>
+        </div>
+      </div>
+      <!-- Step 4 -->
+      <div style="display:flex;gap:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#154f7a,#1a9e82);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;">4</div>
+          <div style="flex:1;width:2px;background:rgba(26,158,130,0.3);min-height:40px;"></div>
+        </div>
+        <div style="padding:4px 0 24px 16px;">
+          <div style="color:#7effd8;font-size:13px;font-weight:700;margin-bottom:4px;">분석 및 추론 (Multi-step Reasoning)</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">수집된 정보를 바탕으로 Gap 분석, 리스크 우선순위 산정, 개선 방안 도출</p>
+        </div>
+      </div>
+      <!-- Step 5 -->
+      <div style="display:flex;gap:0;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#0a2342,#154f7a);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#1affda;border:1.5px solid #1a9e82;">5</div>
+        </div>
+        <div style="padding:4px 0 0 16px;">
+          <div style="color:#fcd34d;font-size:13px;font-weight:700;margin-bottom:4px;">결과 생성 &amp; 전달</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">보고서 자동 작성, 파일 저장, 담당자에게 이메일 발송 — 사람이 다시 클릭할 필요 없음</p>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:20px;padding-top:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div style="text-align:center;">
+          <div style="color:#1affda;font-size:16px;font-weight:800;">~2시간</div>
+          <div style="color:rgba(255,255,255,0.5);font-size:10px;margin-top:2px;">사람이 하면</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:#6ee7b7;font-size:16px;font-weight:800;">~5분</div>
+          <div style="color:rgba(255,255,255,0.5);font-size:10px;margin-top:2px;">Agent가 하면</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:#fcd34d;font-size:16px;font-weight:800;">24/7</div>
+          <div style="color:rgba(255,255,255,0.5);font-size:10px;margin-top:2px;">자율 실행 가능</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: LIMITATIONS -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">7. Agent AI의 현재 한계 &mdash; 솔직한 이야기</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">Agent AI는 강력하지만, 아직 완벽하지 않습니다. 현장에서 활용하려면 이 한계를 알고 있어야 합니다.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="background:#fff5f5;border-left:4px solid #dc2626;border-radius:0 10px 10px 0;padding:14px 18px;">
+      <div style="font-size:12.5px;font-weight:800;color:#991b1b;margin-bottom:4px;">⚠️ 환각(Hallucination): 없는 정보를 만들어내기도 한다</div>
+      <p style="font-size:13px;color:#4a4a4a;line-height:1.7;margin:0;">확인되지 않은 정보를 사실처럼 출력하는 경우가 있습니다. 특히 규정 조문 번호나 수치에서 오류가 날 수 있어, 중요 사항은 반드시 원문 확인이 필요합니다.</p>
+    </div>
+    <div style="background:#fff5f5;border-left:4px solid #dc2626;border-radius:0 10px 10px 0;padding:14px 18px;">
+      <div style="font-size:12.5px;font-weight:800;color:#991b1b;margin-bottom:4px;">⚠️ 비용: 복잡한 작업일수록 토큰 비용이 증가한다</div>
+      <p style="font-size:13px;color:#4a4a4a;line-height:1.7;margin:0;">단순 Q&A보다 Agent 실행은 훨씬 많은 API 호출과 토큰을 소비합니다. 작업 규모에 따른 비용 계획이 필요합니다.</p>
+    </div>
+    <div style="background:#fff5f5;border-left:4px solid #dc2626;border-radius:0 10px 10px 0;padding:14px 18px;">
+      <div style="font-size:12.5px;font-weight:800;color:#991b1b;margin-bottom:4px;">⚠️ 루프(Infinite Loop): 목표를 달성하지 못하고 같은 행동을 반복하기도 한다</div>
+      <p style="font-size:13px;color:#4a4a4a;line-height:1.7;margin:0;">복잡한 상황에서 올바른 경로를 찾지 못하고 반복 행동에 빠지는 경우가 있습니다. 사람의 모니터링과 개입 시점 설계가 중요합니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EPILOGUE -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">에필로그</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;font-style:italic;font-family:Georgia,serif;">좋은 선장은 배의 구조를 알아야 합니다. 엔진이 어떻게 돌아가는지, 조타 시스템이 어떻게 연결되는지.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">Agent AI를 현업에 도입하려면 그 내부 구조를 이해해야 합니다. LLM이 두뇌, Memory가 항해 로그, Tool이 선박 장비, Planning이 항로 계획. 이 구조를 알면 Agent AI를 어떻게 설계하고, 어디에 사람이 개입해야 하는지 판단할 수 있습니다. <strong>다음 편에서는 이 기술들이 실제로 어떻게 구현되어 있는지, ReAct부터 MCP까지 살펴봅니다.</strong></p>
+</div>
+
+<!-- CAPTAIN PAUL'S TAKE -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="color:#7effd8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:16px;text-transform:uppercase;">&#x1F9ED; Captain Paul&rsquo;s Take</div>
+  <p style="color:rgba(255,255,255,0.92);font-size:15px;line-height:1.85;margin:0 0 16px;font-style:italic;font-family:Georgia,serif;">&ldquo;해양 산업에서 우리는 오랫동안 시스템을 '구성 요소'로 이해해왔습니다. ECDIS가 무엇을 하는지, AIS가 어떻게 작동하는지. Agent AI도 같은 방식으로 접근하면 됩니다. LLM이라는 두뇌, Memory라는 항해 로그, Tool이라는 선박 장비, Planning이라는 항로 계획. 이 네 가지가 어떻게 조합되는지 이해한 사람은 Agent AI를 두려워하지 않습니다. 오히려 선박 시스템을 다루듯 자신 있게 설계하고 운용할 수 있습니다.&rdquo;</p>
+  <p style="color:rgba(255,255,255,0.7);font-size:13px;line-height:1.7;margin:0;">블랙박스가 아닙니다. 엔진룸처럼 열어보면 이해할 수 있는 시스템입니다.</p>
+</div>
+
+<!-- NEXT EPISODE -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x27A1; 다음 편 예고</div>
+  <div style="display:flex;gap:12px;align-items:flex-start;">
+    <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">3편</span>
+    <div>
+      <p style="font-size:14px;font-weight:700;color:#0a2342;margin:0 0 6px;">Agent AI 기술은 어디까지 발전했을까? &mdash; Single에서 Multi-Agent 시스템까지</p>
+      <p style="font-size:13px;color:#6b8599;line-height:1.6;margin:0;">ReAct, Tool Calling, MCP(Model Context Protocol), AutoGPT, CrewAI, LangGraph, Multi-Agent 구조, AI 운영체계(Agent OS)까지 — 기술 발전의 최전선을 한눈에 정리합니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAGS -->
+<div style="display:flex;flex-wrap:wrap;gap:8px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#AgentAI</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#LLM</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#Planning</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#Memory</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#ToolUse</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#ReAct</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#Maritime40</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#해양사이버보안</span>
+</div>
+
+<!-- AUTHOR CARD -->
+<div style="background:linear-gradient(135deg,#0a1929,#0d2137);border:1px solid rgba(26,158,130,0.3);border-radius:12px;padding:22px;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:16px;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+    <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #1a9e82;display:block;" />
+  </a>
+  <div>
+    <div style="color:white;font-size:16px;font-weight:800;line-height:1.3;margin-bottom:4px;">Captain Paul</div>
+    <div style="color:#1affda;font-size:11px;font-weight:600;margin-bottom:10px;">Maritime 4.0 &#xB7; AI &amp; Cyber Intelligence &#xB7; ShipPaulJobs</div>
+    <p style="color:rgba(255,255,255,0.7);font-size:13px;line-height:1.7;margin:0 0 10px;">데이터, AI, 사이버보안을 해양 산업과 연결하는 혁신 리더. 해양 종사자 누구나 AI를 이해하고 활용할 수 있도록 쉽게 씁니다.</p>
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="color:#1affda;font-size:11px;font-weight:600;text-decoration:none;">LinkedIn &#x2197;</a>
+  </div>
+</div>

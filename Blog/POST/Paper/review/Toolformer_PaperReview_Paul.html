@@ -1,0 +1,546 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article : Toolformer — Language Models Can Teach Themselves to Use Tools (NeurIPS 2023) Review
+     Author  : Captain Paul  |  Published: June 2026
+     Source  : Schick et al. — Meta AI
+     Style   : Maritime 4.0 Design System (PAPER template_insung1 기반)
+════════════════════════════════════════════════════════════ -->
+
+<div style="font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;max-width:780px;margin:0 auto;color:#2c3e50;line-height:1.75;box-sizing:border-box;">
+
+  <!-- ══ HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+      <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">🏆 NeurIPS 2023</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Toolformer</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Agent AI 기반 기술</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Self-supervised Tool Use</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Meta AI</span>
+    </div>
+    <h1 style="font-size:21px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
+      Toolformer: Language Models Can Teach Themselves to Use Tools
+    </h1>
+    <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
+      Timo Schick · Jane Dwivedi-Yu · Roberto Dessì · Roberta Raileanu · Maria Lomeli · Luke Zettlemoyer · Nicola Cancedda · Thomas Scialom &nbsp;·&nbsp; Meta AI &nbsp;·&nbsp; NeurIPS 2023
+    </p>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+          <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);" />
+        </a>
+        <div>
+          <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAPER INFO CARD ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">Paper Details</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;width:100px;">Title</td>
+        <td style="padding:5px 0;color:#2c3e50;line-height:1.55;">Toolformer: Language Models Can Teach Themselves to Use Tools</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Authors</td>
+        <td style="padding:5px 0;color:#2c3e50;">Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom<br><span style="color:#6b8599;font-size:12px;">Meta AI (전원)</span></td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Venue</td>
+        <td style="padding:5px 0;color:#2c3e50;">NeurIPS 2023 &nbsp;·&nbsp; arXiv 제출: 2023년 2월 9일</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">모델</td>
+        <td style="padding:5px 0;color:#2c3e50;">GPT-J (6.7B) → Toolformer (파인튜닝)&nbsp;·&nbsp; GPT-3 (175B) 성능 초과 달성</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Tools</td>
+        <td style="padding:5px 0;color:#2c3e50;">Calculator · Wikipedia Search · Calendar · Translation API · QA System — 5종 도구</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">인용 수</td>
+        <td style="padding:5px 0;color:#2c3e50;">2,000+ (2024년 기준) — Tool Use 자기지도 학습의 핵심 참조 논문</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Source</td>
+        <td style="padding:5px 0;">
+          <a href="https://arxiv.org/abs/2302.04761" target="_blank" rel="noopener" style="color:#154f7a;font-weight:700;">arXiv:2302.04761 ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/facebookresearch/metaseq" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">Meta AI GitHub ↗</a>
+        </td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;font-size:10px;color:#b0bcc7;border-top:1px solid #e2eaf3;padding-top:10px;">
+      ※ 이 리뷰는 리뷰어의 독립적 분석이며, 원저자의 공식 견해를 대표하지 않습니다.
+    </div>
+  </div>
+
+  <!-- ══ LEAD PARAGRAPH ══ -->
+  <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 28px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
+    ReAct가 "어떻게 추론하며 행동하는가"를 다뤘다면, Toolformer는 그 이전 단계를 묻습니다 — "어떻게 도구를 쓸 줄 <em>아는</em> AI를 만드는가?" 놀라운 점은 Toolformer가 스스로 자신의 학습 데이터를 생성한다는 것입니다. 6.7B 파라미터 모델이 175B GPT-3을 이기는 비결이 여기 있습니다.
+  </p>
+
+  <!-- ══ TABLE OF CONTENTS ══ -->
+  <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 22px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">리뷰 목차</div>
+    <ol style="margin:0;padding:0 0 0 18px;font-size:14px;color:#354a5e;line-height:2.2;">
+      <li><strong style="color:#0a2342;">이 논문이 해결하는 문제</strong></li>
+      <li><strong style="color:#0a2342;">기존 접근 방식의 한계 — 수작업 annotation의 한계</strong></li>
+      <li><strong style="color:#0a2342;">Toolformer 핵심 아이디어 — 자기지도 도구 학습</strong></li>
+      <li><strong style="color:#0a2342;">5가지 도구와 학습 데이터 생성 방식</strong></li>
+      <li><strong style="color:#0a2342;">실험 결과 — 6.7B vs 175B</strong></li>
+      <li><strong style="color:#0a2342;">논문 평가 — 강점과 한계</strong></li>
+      <li><strong style="color:#0a2342;">해양 산업 시사점</strong></li>
+      <li><strong style="color:#0a2342;">Captain Paul의 결론 — ReAct와의 비교</strong></li>
+    </ol>
+  </div>
+
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 1 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📌 (1) 이 논문이 해결하는 문제</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      LLM은 "계산기가 없는 수학자"입니다. 덧셈, 나눗셈, 현재 날짜, 실시간 검색 — 이런 단순한 작업에서도 LLM은 실수를 합니다. 해법은 명확합니다: <strong style="color:#0a2342;">외부 도구(APIs)를 사용하게 하면 됩니다.</strong> 그런데 어떻게?
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">❌</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">기존 방식</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">사람이 직접 수천 건의 "언제 어떤 도구를 써야 하는지" 예시를 작성(annotation). 비용이 막대하고 새 도구마다 반복 필요.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">✅</div>
+        <div style="font-size:12px;font-weight:800;color:#1a9e82;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Toolformer 방식</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">LLM 스스로 학습 데이터를 생성. "도구를 호출하는 게 예측 정확도를 높이면 유지, 아니면 버림." 사람의 개입 최소화.</p>
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 20px;font-size:14px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">핵심 질문:</strong> "도구가 도움이 되는지 아닌지를 모델 스스로 판단할 수 있다면, 어노테이션 없이 도구 사용 능력을 획득할 수 있지 않을까?" — 이것이 Toolformer의 출발점입니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🔍 (2) 기존 접근 방식의 한계</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:48px;height:32px;border-radius:8px;background:#b8860b;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;">수동<br>주석</div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">Human Annotation — 확장 불가능한 수작업</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+            GPT-4의 Function Calling이나 초기 CoT 연구들은 모두 "좋은 예시"를 사람이 직접 설계했습니다. 도구가 5개에서 50개로 늘어나면? 각 도구 조합마다? 비용은 선형이 아니라 지수적으로 증가합니다. <strong style="color:#c0520a;">새 도구 추가 = 새 어노테이션 작업 = 높은 비용.</strong>
+          </p>
+        </div>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:48px;height:32px;border-radius:8px;background:#b8860b;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;">한정된<br>도구</div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">도구별 특화 Fine-tuning — 일반화 실패</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+            이전 연구들은 "계산기를 쓰는 모델", "검색을 쓰는 모델"처럼 도구별로 따로 학습했습니다. 하나의 모델이 맥락에 따라 적절한 도구를 자율 선택하는 능력은 부재했습니다. <strong style="color:#c0520a;">단일 통합 도구 사용 = 미해결 문제.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 100%);border-radius:12px;padding:20px 24px;color:#fff;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;">Toolformer의 답</div>
+      <p style="font-size:14px;color:#d6eaf8;line-height:1.8;margin:0;">
+        <strong style="color:#ffe082;">퍼플렉시티(Perplexity) 필터링</strong>을 사용합니다. "도구를 호출한 버전"이 "도구를 호출하지 않은 버전"보다 이후 텍스트를 더 잘 예측하면(= 낮은 perplexity) → 해당 도구 호출을 학습 데이터로 유지. 그렇지 않으면 삭제. LLM 자신이 심판이 됩니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚙️ (3) Toolformer 핵심 아이디어 — 자기지도 도구 학습</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      Toolformer의 학습 파이프라인은 4단계로 구성됩니다. 중요한 것은 이 전 과정에서 <strong style="color:#0a2342;">사람의 어노테이션이 필요 없다</strong>는 점입니다. 초기 few-shot 예시(~5개)만으로 파이프라인이 작동합니다.
+    </p>
+    <!-- 4-step pipeline -->
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <!-- Step 1 -->
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#1a9e82;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+          <div style="width:2px;flex:1;background:#e2eaf3;margin:4px 0;"></div>
+        </div>
+        <div style="padding:0 0 16px 14px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">샘플링 (Sampling)</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">기존 LLM에 few-shot 예시를 제공해 텍스트 코퍼스의 각 위치에서 "도구 호출이 유용할 것 같은 자리"에 API 호출을 삽입하도록 요청합니다. 예: "오늘 날짜는 <span style="background:#eef6f3;color:#1a9e82;font-size:11px;padding:2px 8px;border-radius:6px;font-family:monospace;">[Calendar()|June 13]</span> 입니다."</p>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#1a9e82;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+          <div style="width:2px;flex:1;background:#e2eaf3;margin:4px 0;"></div>
+        </div>
+        <div style="padding:0 0 16px 14px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">실행 (Execution)</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">샘플링된 모든 API 호출을 실제로 실행합니다. 계산기는 수식을 계산하고, 검색 API는 Wikipedia 스니펫을 반환합니다. 결과가 텍스트에 삽입됩니다.</p>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#154f7a;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+          <div style="width:2px;flex:1;background:#e2eaf3;margin:4px 0;"></div>
+        </div>
+        <div style="padding:0 0 16px 14px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">필터링 (Filtering) ★ 핵심</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">각 API 호출에 대해 <strong style="color:#0a2342;">세 가지 버전의 perplexity</strong>를 비교합니다: ① 원본(도구 없음), ② 도구 호출+결과 포함, ③ 빈 결과. 버전 ②가 ①, ③보다 낮은 perplexity = 이후 텍스트를 더 잘 예측 → 학습 데이터로 채택. 그렇지 않으면 삭제.</p>
+        </div>
+      </div>
+      <!-- Step 4 -->
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#154f7a;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+        </div>
+        <div style="padding:0 0 0 14px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">파인튜닝 (Fine-tuning)</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">필터링을 통과한 고품질 API-포함 텍스트로 LLM(GPT-J 6.7B)을 파인튜닝합니다. 결과물이 Toolformer입니다. 이제 모델은 자연스럽게 텍스트 생성 중 도구가 필요한 순간에 API 호출을 생성합니다.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Code example -->
+    <div style="background:#0d1117;border-radius:12px;padding:20px 22px;margin-top:16px;overflow-x:auto;">
+      <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">Toolformer 생성 예시 — 텍스트 내 자연스러운 API 호출</div>
+      <pre style="margin:0;font-size:12px;line-height:2;color:#e6edf3;font-family:'Courier New',monospace;white-space:pre-wrap;"><span style="color:#7effd8;">입력:</span>  "Alan Turing was born in 1912. He would now be"
+
+<span style="color:#fcd34d;">Toolformer:</span> "Alan Turing was born in 1912. He would now be
+    [Calculator(2024-1912)|112] years old."
+
+<span style="color:#7effd8;">입력:</span>  "The Eiffel Tower is located in"
+
+<span style="color:#fcd34d;">Toolformer:</span> "The Eiffel Tower is located in
+    [Wikipedia(Eiffel Tower location)|Paris, France, on the Champ de Mars] Paris."</pre>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🛠 (4) 5가지 도구와 학습 데이터 생성</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      Toolformer는 5가지 다른 성격의 도구를 통해 범용성을 증명합니다. 중요한 것은 각 도구마다 약 5개의 few-shot 예시만으로 수십만 건의 학습 데이터를 자동 생성한다는 점입니다.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">🔢</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">Calculator</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">수식 계산 API. LLM이 틀리기 쉬운 사칙연산·백분율·날짜 계산. 예: [Calculator(2+3*4)|14]</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">🌐</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">Wikipedia Search</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">BM25 기반 Wikipedia 검색. 사실 기반 질문 응답에서 환각 억제. 가장 광범위하게 사용.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">📅</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">Calendar</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">현재 날짜 조회 API. LLM은 학습 데이터 이후의 날짜를 알 수 없음 — 이 도구로 해결.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">🌍</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">MT (번역)</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">기계번역 API. 다국어 텍스트에서 특정 언어로 번역이 필요할 때 자동 호출.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">❓</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">QA System</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">Atlas QA 시스템. 사실적 QA에서 전문 검색 모델을 하위 도구로 활용.</p>
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;margin-top:14px;">
+      <strong style="color:#0a2342;">텍스트 내 API 호출 형식:</strong> <code style="background:#e8f0f7;padding:2px 8px;border-radius:5px;font-family:monospace;font-size:12px;">[ToolName(input)|output]</code> 형태로 텍스트에 자연스럽게 삽입됩니다. 추론 시에는 모델이 <code style="background:#e8f0f7;padding:2px 8px;border-radius:5px;font-family:monospace;font-size:12px;">[</code>을 생성하면 중단하고 실제 API를 호출한 후 결과를 삽입하여 계속 생성합니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📊 (5) 실험 결과 — 6.7B vs 175B</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      Toolformer의 핵심 주장: <strong style="color:#0a2342;">6.7B Toolformer가 도구 사용이 필요한 태스크에서 175B GPT-3을 능가합니다.</strong> 파라미터 수 기준 26배 작은 모델입니다.
+    </p>
+    <!-- Results Table -->
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#e8f0f7;">
+            <th style="padding:10px 14px;text-align:left;color:#154f7a;font-weight:800;">태스크</th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">GPT-3<br><span style="font-size:10px;font-weight:400;">175B</span></th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">GPT-J<br><span style="font-size:10px;font-weight:400;">6.7B (no tools)</span></th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">Toolformer<br><span style="font-size:10px;font-weight:400;">6.7B</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:10px 14px;color:#2c3e50;font-weight:600;">수학 계산 (ASDiv)</td>
+            <td style="padding:10px 14px;text-align:center;color:#2c3e50;">29.4</td>
+            <td style="padding:10px 14px;text-align:center;color:#6b8599;">21.8</td>
+            <td style="padding:10px 14px;text-align:center;color:#1a9e82;font-weight:800;">40.4 ↑</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:10px 14px;color:#2c3e50;font-weight:600;">QA (WebQuestions)</td>
+            <td style="padding:10px 14px;text-align:center;color:#2c3e50;">14.4</td>
+            <td style="padding:10px 14px;text-align:center;color:#6b8599;">9.5</td>
+            <td style="padding:10px 14px;text-align:center;color:#1a9e82;font-weight:800;">20.7 ↑</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:10px 14px;color:#2c3e50;font-weight:600;">QA (TriviaQA)</td>
+            <td style="padding:10px 14px;text-align:center;color:#2c3e50;">64.3</td>
+            <td style="padding:10px 14px;text-align:center;color:#6b8599;">57.7</td>
+            <td style="padding:10px 14px;text-align:center;color:#1a9e82;font-weight:800;">68.5 ↑</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:10px 14px;color:#2c3e50;font-weight:600;">날짜 추론 (TemporalQA)</td>
+            <td style="padding:10px 14px;text-align:center;color:#2c3e50;">17.0</td>
+            <td style="padding:10px 14px;text-align:center;color:#6b8599;">3.0</td>
+            <td style="padding:10px 14px;text-align:center;color:#1a9e82;font-weight:800;">20.6 ↑</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:10px 14px;color:#2c3e50;font-weight:600;">번역 (Flores-101, de-en)</td>
+            <td style="padding:10px 14px;text-align:center;color:#2c3e50;">34.0</td>
+            <td style="padding:10px 14px;text-align:center;color:#6b8599;">28.4</td>
+            <td style="padding:10px 14px;text-align:center;color:#1a9e82;font-weight:800;">36.4 ↑</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">핵심 인사이트:</strong> "더 큰 모델"보다 "도구를 적절히 쓰는 작은 모델"이 강합니다. 이는 Toolformer 이후 AI 업계의 방향을 바꾼 발견입니다 — 파라미터 수 경쟁보다 <em>도구 연동 설계</em>가 실용 성능에 더 중요할 수 있다는 것.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">✅ (6) 논문 평가 — 강점과 한계</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 자기지도 학습 (Self-supervised)</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">사람의 어노테이션 없이 수십만 건 학습 데이터 자동 생성. 새 도구 추가도 few-shot 예시 몇 개로 확장 가능. 현실적 확장성.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 효율성 — 작은 모델, 큰 성능</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">6.7B Toolformer가 175B GPT-3을 다수 태스크에서 능가. "크기 = 성능"이라는 통념에 도전. 비용 효율적 AI 개발의 가능성 제시.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 자연스러운 통합</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">도구 호출이 텍스트 생성 흐름 안에 자연스럽게 통합. 별도 오케스트레이션 레이어 없이 LLM 자체가 도구 사용 타이밍을 판단.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 단일 도구 호출</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">하나의 텍스트 위치에서 한 번에 하나의 도구만 호출 가능. 도구 체이닝(A 결과를 B에 입력) 미지원. ReAct처럼 반복 루프가 없음.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 피드백 루프 부재</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">도구 실행 결과가 예상과 다를 때 재시도나 전략 수정이 불가. Observation → 새 Thought로 이어지는 ReAct의 반응적 루프가 없음.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 도구 발견 불가</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">학습 시 정의된 도구만 사용 가능. 새 도구를 런타임에 자동 발견하거나 적응하는 능력은 없음. MCP 같은 표준 프로토콜의 필요성을 역설적으로 보여줌.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚓ (7) 해양 산업 시사점</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      Toolformer의 자기지도 도구 학습 원리는 해양 AI 시스템 설계에 중요한 시사점을 줍니다. 특히 "어떤 데이터베이스·시스템을 언제 조회해야 하는지"를 AI가 스스로 학습하게 할 수 있다는 가능성이 핵심입니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🛡 해양 사이버보안 도구 통합</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          ECDIS 데이터 조회, AIS 이상 탐지 API, CVE 취약점 DB 검색, IMO 규정 문서 조회 — 이 모든 시스템을 하나의 AI가 "언제 어떤 시스템을 조회해야 하는지" 학습하게 하는 것이 Toolformer의 원리입니다. 해양 특화 약 5개 예시만으로 자동 학습 데이터를 생성하고 파인튜닝하면 해양 도구 전문 AI가 됩니다.
+        </p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">📋 규정 준수 자동 계산</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          "IACS UR E26 Rev.3 기준 리스크 점수" 계산, 항해 가능 시간 계산, 연료 소비율 계산 — 정확한 수치가 필요한 해양 업무에서 Toolformer의 Calculator 도구 통합 원리가 직접 적용됩니다. 숫자가 틀린 AI의 안전 보고서는 무용합니다.
+        </p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🌍 다국어 해양 문서 처리</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          국제 선박 운항에서는 러시아어 항만 규정, 중국어 검사 보고서, 아라비아어 계약서를 동시에 처리해야 합니다. Toolformer의 번역 도구 자동 호출 원리를 해양 문서 AI에 적용하면 다국어 장벽이 낮아집니다.
+        </p>
+      </div>
+    </div>
+    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#4a4a4a;line-height:1.75;margin-top:14px;">
+      <strong style="color:#c0520a;">⚠ 설계 시 주의:</strong> Toolformer는 도구 결과를 검증 없이 신뢰합니다. 해양 시스템에서 잘못된 API 결과가 잘못된 안전 판단으로 이어질 수 있습니다. 도구 결과 검증 레이어와 Human-in-the-Loop 감시는 필수 설계 요소입니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🎯 (8) Captain Paul의 결론 — ReAct와의 비교</h2>
+    </div>
+    <!-- Comparison table -->
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#e8f0f7;">
+            <th style="padding:10px 14px;text-align:left;color:#154f7a;font-weight:800;">항목</th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">ReAct (2022)</th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">Toolformer (2023)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">도구 사용 방식</td>
+            <td style="padding:9px 14px;text-align:center;color:#2c3e50;">프롬프트 엔지니어링</td>
+            <td style="padding:9px 14px;text-align:center;color:#2c3e50;">파인튜닝 (자기지도)</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">도구 선택</td>
+            <td style="padding:9px 14px;text-align:center;color:#2c3e50;">Thought에서 명시적 판단</td>
+            <td style="padding:9px 14px;text-align:center;color:#2c3e50;">텍스트 생성 중 자연 삽입</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">반복 루프</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">✓ (Thought-Act-Obs 루프)</td>
+            <td style="padding:9px 14px;text-align:center;color:#b8860b;">✗ (단일 호출)</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">해석 가능성</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">높음 (Thought 추적)</td>
+            <td style="padding:9px 14px;text-align:center;color:#2c3e50;">중간 (API 호출만 추적)</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">사람 어노테이션</td>
+            <td style="padding:9px 14px;text-align:center;color:#b8860b;">필요 (few-shot 예시)</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">최소화 (자동 생성)</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">적합한 태스크</td>
+            <td style="padding:9px 14px;text-align:center;color:#2c3e50;">동적·순차적 의사결정</td>
+            <td style="padding:9px 14px;text-align:center;color:#2c3e50;">정보 조회·계산 중심</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      ReAct와 Toolformer는 경쟁 관계가 아니라 <strong style="color:#0a2342;">상호 보완 관계</strong>입니다. Toolformer가 "어떻게 도구를 쓸 줄 아는 LLM을 만드는가"를 해결했다면, ReAct는 "그 도구를 사용하며 어떻게 다단계 추론을 수행하는가"를 해결했습니다. 오늘날 GPT-4의 Function Calling, Anthropic의 Tool Use, MCP 생태계는 Toolformer의 아이디어(도구 통합)와 ReAct의 패턴(추론-행동 루프)을 동시에 계승합니다.
+    </p>
+    <div style="background:#f0f7ff;border-left:4px solid #0a2342;border-radius:0 10px 10px 0;padding:16px 20px;font-size:14px;color:#354a5e;line-height:1.75;">
+      Toolformer의 가장 중요한 메시지: <strong style="color:#0a2342;">AI가 강해지는 방법은 더 많은 파라미터가 아니라, 더 좋은 도구를 더 잘 사용하는 것입니다.</strong> 이 철학이 현대 Agent AI 설계의 근간입니다.
+    </div>
+  </div>
+
+  <!-- ══ CLOSING NOTE ══ -->
+  <div style="text-align:center;margin-bottom:36px;padding:20px 22px;background:#f7fafe;border-radius:12px;border:1px solid #d1e0ee;">
+    <p style="font-size:13px;color:#6b8599;line-height:1.8;margin:0;font-style:italic;">
+      Toolformer는 "AI가 스스로 배운다"는 개념을 도구 사용에 적용한 최초의 실증 논문입니다. 이 논문 이후 AI 개발의 방향은 "얼마나 큰 모델"에서 "얼마나 좋은 도구를 얼마나 잘 통합하는가"로 전환되었습니다.
+    </p>
+    <p style="font-size:13px;font-weight:800;color:#0a2342;margin:14px 0 0 0;">— Captain Paul —</p>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Toolformer</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AgentAI</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#PaperReview</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MetaAI</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#NeurIPS2023</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ToolUse</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#SelfSupervised</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#LLM</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#해양사이버보안</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+    </div>
+  </div>
+
+
+  <!-- ══ SERIES NAVIGATION ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:22px 24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">📚 Agent AI 논문 시리즈 — 8편 완결</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <a href="https://www.shippauljobs.com/2023/06/react-synergizing-reasoning-and-acting.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">01</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">ReAct — 생각하며 행동하는 AI</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2023</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:linear-gradient(90deg,#154f7a,#1a9e82);border:none;">
+        <span style="font-size:10px;font-weight:800;color:#ffe082;min-width:22px;flex-shrink:0;">02</span>
+        <span style="font-size:13px;font-weight:800;color:#ffffff;flex:1;">Toolformer — 도구를 스스로 배우는 LLM</span>
+        <span style="font-size:9px;font-weight:700;color:#7effd8;background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:10px;white-space:nowrap;">현재 글</span>
+      </div>
+      <a href="https://www.shippauljobs.com/2025/01/model-context-protocol-open-standard.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">03</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">MCP — AI와 세계를 연결하는 표준</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">Open Std 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/08/auto-gpt-autonomous-gpt-4-experiment.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">04</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGPT — 최초의 자율 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/05/crewai-role-based-ai-multi-agent.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">05</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">CrewAI — 역할 기반 멀티에이전트 팀</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/langgraph-building-stateful-multi-actor.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">06</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">LangGraph — 상태 기반 그래프 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">arXiv 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/generative-agents-interactive-simulacra.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">07</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Generative Agents — AI가 사는 마을</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">UIST 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/autogen-enabling-next-gen-llm.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">08</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGen — 대화형 멀티에이전트 협력</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2024</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div style="border-top:2px solid #e2eaf3;padding-top:28px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #e2eaf3;" />
+    </a>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:2px;">Captain Paul</div>
+      <div style="font-size:11px;color:#6b8599;margin-bottom:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence · ShipPaulJobs</div>
+      <p style="font-size:12.5px;color:#6b8599;line-height:1.7;margin:0 0 14px 0;">데이터, AI, 사이버보안을 해양 산업과 연결하는 혁신 리더. Agent AI 핵심 논문을 해양 실무자의 시각으로 리뷰합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a66c2;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a2342;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;border:2px solid #1a9e82;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>

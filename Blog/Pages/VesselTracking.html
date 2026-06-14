@@ -1,8 +1,8 @@
-<!-- ════════════════════════════════════════════════════════════
+<!--════════════════════════════════════════════════════════════
      Smart Vessel Tracking with AIS
-     Search: Location · Country · Port · Vessel Name
+     Search: Location · Country · Port · Vessel Name · Flag · Year Built
      Map: VesselFinder embed  |  Geocoding: Nominatim (OSM)
-════════════════════════════════════════════════════════════ -->
+════════════════════════════════════════════════════════════-->
 
 <style>
   #vt-wrap * { box-sizing: border-box; }
@@ -261,47 +261,121 @@
 
   /* Footer */
   .vt-foot { font-size: 11px; color: #9ab5c9; text-align: right; }
+  .vt-disclaimer {
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1.5px solid #c8860a;
+    background: linear-gradient(135deg, #1a1200, #241800);
+    padding: 14px 16px;
+    font-size: 12px;
+    color: #e8c96d;
+    line-height: 1.7;
+  }
+  .vt-disclaimer-hdr {
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #ffd060;
+  }
+  .vt-disclaimer ul {
+    margin: 0 0 10px 0;
+    padding-left: 18px;
+    color: #d4b86a;
+  }
+  .vt-disclaimer ul li { margin-bottom: 3px; }
+  .vt-disclaimer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid rgba(200,134,10,0.35);
+  }
+  .vt-disclaimer-link {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    background: rgba(200,134,10,0.18);
+    border: 1px solid rgba(200,134,10,0.5);
+    color: #ffd060;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .vt-disclaimer-link:hover { background: rgba(200,134,10,0.35); }
   .vt-foot a { color: #9ab5c9; }
+
+  /* ── Stats bar ── */
+  #vt-stats { margin-bottom: 12px; }
+  .vt-stats-cards { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .vt-stat-card {
+    background: #0a1929; border: 1.5px solid #1a3a5c; border-radius: 10px;
+    padding: 10px 14px; flex: 1; min-width: 90px; text-align: center;
+  }
+  .vt-stat-val { font-size: 20px; font-weight: 800; line-height: 1.1; }
+  .vt-stat-lbl {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 3px;
+  }
+  .vt-stat-sub { font-size: 9px; color: rgba(26,255,218,0.35); margin-top: 1px; }
+  .vt-stats-types { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .vt-stats-type-badge {
+    background: rgba(26,158,130,0.15); border: 1px solid rgba(26,158,130,0.3);
+    border-radius: 5px; padding: 2px 8px; font-size: 11px;
+    color: #7effd8; font-weight: 600;
+  }
+  .vt-stats-type-lbl {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.6px;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+  }
 
   /* Mobile */
   @media (max-width: 620px) {
     .vt-pane.active { flex-direction: column; }
     #vt-map-iframe { height: 360px; }
     .vt-map-meta { gap: 6px; }
+    .vt-stat-card { min-width: 70px; padding: 8px 10px; }
+    .vt-stat-val { font-size: 16px; }
   }
 </style>
 
 <div id="vt-wrap">
 
-  <!-- Header -->
+  <!--Header-->
   <div class="vt-hdr">
     <div class="vt-hdr-eye">AIS Live Intelligence</div>
     <h1>🛰️ Smart Vessel Tracking with AIS</h1>
-    <p>Search by location, country, port, or vessel name to view real-time AIS data on the map and table.</p>
+    <p>Search by location, country, port, vessel name, flag state, or year built to view real-time AIS data on the map and table.</p>
   </div>
 
-  <!-- Search panel -->
+  <!--Search panel-->
   <div class="vt-search">
     <div class="vt-tab-row">
       <button class="vt-tab active" onclick="vtTab(this,'loc')">📍 Location / Coords</button>
       <button class="vt-tab" onclick="vtTab(this,'country')">🏳️ Country</button>
       <button class="vt-tab" onclick="vtTab(this,'port')">⚓ Port</button>
       <button class="vt-tab" onclick="vtTab(this,'vessel')">🚢 Vessel Name</button>
+      <button class="vt-tab" onclick="vtTab(this,'flag')">🏴 Flag State</button>
+      <button class="vt-tab" onclick="vtTab(this,'year')">📅 Year Built</button>
     </div>
 
-    <!-- Location search -->
+    <!--Location search-->
     <div class="vt-pane active" id="vt-pane-loc">
       <div class="vt-field">
         <div class="vt-field-lbl">Place name or coordinates (e.g. Singapore Port / 1.26, 103.8)</div>
-        <input type="text" id="vt-loc-input" class="vt-input"
-          placeholder="City, port, sea area or lat,lon" value="Singapore">
+        <input class="vt-input" id="vt-loc-input" type="text" value="Singapore" />
       </div>
-      <div class="vt-field" style="max-width:110px;">
+      <div class="vt-field" style="max-width: 110px;">
         <div class="vt-field-lbl">Zoom</div>
-        <select id="vt-loc-zoom" class="vt-select">
+        <select class="vt-select" id="vt-loc-zoom">
           <option value="7">7 — Sea Area</option>
           <option value="9">9 — Region</option>
-          <option value="10" selected>10 — Zone</option>
+          <option selected="" value="10">10 — Zone</option>
           <option value="11">11 — Port</option>
           <option value="12">12 — Close-up</option>
         </select>
@@ -309,11 +383,11 @@
       <button class="vt-search-btn" id="vt-loc-btn" onclick="vtSearchLoc()">🔍 Search</button>
     </div>
 
-    <!-- Country search -->
+    <!--Country search-->
     <div class="vt-pane" id="vt-pane-country">
       <div class="vt-field">
         <div class="vt-field-lbl">Select Country</div>
-        <select id="vt-country-sel" class="vt-select">
+        <select class="vt-select" id="vt-country-sel">
           <option value="">── Select Country ──</option>
           <option value="KR">🇰🇷 South Korea</option>
           <option value="JP">🇯🇵 Japan</option>
@@ -340,11 +414,11 @@
       <button class="vt-search-btn" onclick="vtSearchCountry()">🔍 Search</button>
     </div>
 
-    <!-- Port search -->
+    <!--Port search-->
     <div class="vt-pane" id="vt-pane-port">
       <div class="vt-field">
         <div class="vt-field-lbl">Select Port</div>
-        <select id="vt-port-sel" class="vt-select">
+        <select class="vt-select" id="vt-port-sel">
           <option value="">── Select Port ──</option>
           <optgroup label="East Asia">
             <option value="busan">🇰🇷 Busan</option>
@@ -398,41 +472,93 @@
       <button class="vt-search-btn" onclick="vtSearchPort()">🔍 Search</button>
     </div>
 
-    <!-- Vessel name search -->
+    <!--Vessel name search-->
     <div class="vt-pane" id="vt-pane-vessel">
       <div class="vt-field">
         <div class="vt-field-lbl">Vessel Name or MMSI</div>
-        <input type="text" id="vt-vessel-input" class="vt-input"
-          placeholder="e.g. EVER GIVEN, MSC GÜLSÜN, 353136000">
+        <input class="vt-input" id="vt-vessel-input" placeholder="e.g. EVER GIVEN, MSC GÜLSÜN, 353136000" type="text" />
       </div>
       <button class="vt-search-btn" onclick="vtSearchVessel()">🔍 Search</button>
     </div>
-  </div><!-- /.vt-search -->
 
-  <!-- Map -->
-  <div class="vt-map-wrap">
-    <div class="vt-map-hdr">
-      <span>📡 AIS Live Map</span>
-      <div class="vt-map-meta">
-        <span class="vt-map-badge" id="vt-coord-lbl">1.2600°N, 103.8000°E</span>
-        <div class="vt-ext-btns">
-          <a id="vt-vf-a"  href="https://www.vesselfinder.com/?lat=1.26&lng=103.8&zoom=11" target="_blank" rel="noopener" class="vt-ext-btn">↗ VesselFinder</a>
-          <a id="vt-mt-a"  href="https://www.marinetraffic.com/en/ais/home/centerx:103.8/centery:1.26/zoom:11" target="_blank" rel="noopener" class="vt-ext-btn">↗ MarineTraffic</a>
-          <a id="vt-msf-a" href="https://www.myshiptracking.com/?mmsi=&type=0&lat=1.26&lng=103.8&zoom=11" target="_blank" rel="noopener" class="vt-ext-btn">↗ MyShipTracking</a>
-        </div>
+    <!--Flag State search-->
+    <div class="vt-pane" id="vt-pane-flag">
+      <div class="vt-field">
+        <div class="vt-field-lbl">Select Flag State</div>
+        <select class="vt-select" id="vt-flag-sel">
+          <option value="">── Select Flag State ──</option>
+          <optgroup label="Open Registries (Top flags by fleet size)">
+            <option value="PA">🇵🇦 Panama</option>
+            <option value="LR">🇱🇷 Liberia</option>
+            <option value="MH">🇲🇭 Marshall Islands</option>
+            <option value="BS">🇧🇸 Bahamas</option>
+            <option value="MT">🇲🇹 Malta</option>
+            <option value="CY">🇨🇾 Cyprus</option>
+            <option value="KY">🇰🇾 Cayman Islands</option>
+            <option value="BM">🇧🇲 Bermuda</option>
+            <option value="IM">🇮🇲 Isle of Man</option>
+          </optgroup>
+          <optgroup label="National Registries">
+            <option value="CN">🇨🇳 China</option>
+            <option value="HK">🇭🇰 Hong Kong</option>
+            <option value="SG">🇸🇬 Singapore</option>
+            <option value="KR">🇰🇷 South Korea</option>
+            <option value="JP">🇯🇵 Japan</option>
+            <option value="GR">🇬🇷 Greece</option>
+            <option value="NO">🇳🇴 Norway</option>
+            <option value="DK">🇩🇰 Denmark</option>
+            <option value="DE">🇩🇪 Germany</option>
+            <option value="NL">🇳🇱 Netherlands</option>
+            <option value="GB">🇬🇧 United Kingdom</option>
+          </optgroup>
+        </select>
       </div>
+      <button class="vt-search-btn" onclick="vtSearchFlag()">🔍 Search</button>
     </div>
-    <iframe id="vt-map-iframe"
-      src="https://www.vesselfinder.com/aismap?zoom=11&lat=1.26&lon=103.8&names=true"
-      title="AIS Vessel Tracking Map"
-      loading="lazy"
-      allowfullscreen></iframe>
+
+    <!--Year Built search-->
+    <div class="vt-pane" id="vt-pane-year">
+      <div class="vt-field" style="max-width:130px;">
+        <div class="vt-field-lbl">Year From</div>
+        <input class="vt-input" id="vt-year-from" type="number" min="1950" max="2025" placeholder="e.g. 2018" />
+      </div>
+      <div class="vt-field" style="max-width:130px;">
+        <div class="vt-field-lbl">Year To</div>
+        <input class="vt-input" id="vt-year-to" type="number" min="1950" max="2025" placeholder="e.g. 2024" />
+      </div>
+      <button class="vt-search-btn" onclick="vtSearchYear()">🔍 Search</button>
+    </div>
+
+  </div><!--/.vt-search-->
+
+  <!--Stats bar-->
+  <div id="vt-stats" style="display:none;">
+    <div class="vt-stats-cards" id="vt-stats-cards"></div>
+    <div class="vt-stats-types" id="vt-stats-types"></div>
   </div>
 
-  <!-- Vessel table -->
+  <!--Disclaimer-->
+  <div class="vt-disclaimer">
+    <div class="vt-disclaimer-hdr">⚠ 데이터 제약 안내 &nbsp;/&nbsp; Data Limitation Notice</div>
+    <ul>
+      <li>이 테이블의 선박 데이터는 <strong>실시간(Live) AIS 데이터가 아닙니다.</strong> 교육·참고 목적의 대표 선박만 표시됩니다.</li>
+      <li>This table shows <strong>curated representative vessels only</strong> — not live AIS feed. Actual vessel counts in each area are significantly higher.</li>
+      <li>항구·해협 등 수역별 실제 선박 수는 수백~수천 척이며, 이 테이블에는 최대 15척만 표시됩니다.</li>
+      <li>Real-time vessel positions, speed, heading, and status are available through the <strong>AIS Live Map below</strong> or the external AIS services linked above.</li>
+    </ul>
+    <div style="color:#a89050;font-size:11px;">실시간 전체 AIS 데이터를 확인하려면 아래 외부 서비스를 이용하세요 · For full live AIS data, use the services below:</div>
+    <div class="vt-disclaimer-links">
+      <a class="vt-disclaimer-link" href="https://www.vesselfinder.com" rel="noopener" target="_blank">↗ VesselFinder</a>
+      <a class="vt-disclaimer-link" href="https://www.marinetraffic.com" rel="noopener" target="_blank">↗ MarineTraffic</a>
+      <a class="vt-disclaimer-link" href="https://www.myshiptracking.com" rel="noopener" target="_blank">↗ MyShipTracking</a>
+<a class="vt-disclaimer-link" href="https://www.shipfinder.com" rel="noopener" target="_blank">↗ ShipFinder</a>
+    </div>
+  </div>
+
+  <!--Vessel table-->
   <div class="vt-tbl-wrap">
     <div class="vt-tbl-hdr">
-      🚢 Vessel Information
+      🚢 Vessel Information <span style="font-size:9px;font-weight:400;color:rgba(255,180,0,0.75);letter-spacing:0;text-transform:none;margin-left:6px;">⚠ Representative Vessels — 일부 제한된 대표 선박 (Non-live)</span>
       <span class="vt-tbl-note" id="vt-tbl-note">Search a port or location to view representative vessels</span>
     </div>
     <div class="vt-tbl-scroll">
@@ -453,16 +579,32 @@
         </tbody>
       </table>
     </div>
-    <div id="vt-pager" class="vt-pager"></div>
+    <div class="vt-pager" id="vt-pager"></div>
   </div>
 
-  <!-- Footer -->
+  <!--Map-->
+  <div class="vt-map-wrap">
+    <div class="vt-map-hdr">
+      <span>📡 AIS Live Map</span>
+      <div class="vt-map-meta">
+        <span class="vt-map-badge" id="vt-coord-lbl">1.2600°N, 103.8000°E</span>
+        <div class="vt-ext-btns">
+          <a class="vt-ext-btn" href="https://www.vesselfinder.com/?lat=1.26&amp;lng=103.8&amp;zoom=11" id="vt-vf-a" rel="noopener" target="_blank">↗ VesselFinder</a>
+          <a class="vt-ext-btn" href="https://www.marinetraffic.com/en/ais/home/centerx:103.8/centery:1.26/zoom:11" id="vt-mt-a" rel="noopener" target="_blank">↗ MarineTraffic</a>
+          <a class="vt-ext-btn" href="https://www.myshiptracking.com/?mmsi=&amp;type=0&amp;lat=1.26&amp;lng=103.8&amp;zoom=11" id="vt-msf-a" rel="noopener" target="_blank">↗ MyShipTracking</a>
+        </div>
+      </div>
+    </div>
+    <iframe allowfullscreen="" id="vt-map-iframe" loading="lazy" src="https://www.vesselfinder.com/aismap?zoom=11&amp;lat=1.26&amp;lon=103.8&amp;names=true" title="AIS Vessel Tracking Map"></iframe>
+  </div>
+
+  <!--Footer-->
   <div class="vt-foot">
-    AIS Data: <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">VesselFinder</a> &middot;
-    Geocoding: <a href="https://nominatim.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap Nominatim</a>
+    AIS Data: <a href="https://www.vesselfinder.com" rel="noopener" target="_blank">VesselFinder</a> ·
+    Geocoding: <a href="https://nominatim.openstreetmap.org" rel="noopener" target="_blank">OpenStreetMap Nominatim</a>
   </div>
 
-</div><!-- /#vt-wrap -->
+</div><!--/#vt-wrap-->
 
 <script>
 (function () {
@@ -509,6 +651,420 @@
     bab_el_mandeb:   { lat: 12.60, lon:  43.45, zoom:  9, label: 'Bab-el-Mandeb Strait', name: 'Bab-el-Mandeb Strait' }
   };
 
+  /* Flag State centers & representative vessels */
+  var FLAG_CENTERS = {
+    PA: { lat:  9.06, lon: -79.70, zoom:  5, name: 'Panama',           flag: '🇵🇦' },
+    LR: { lat:  6.30, lon: -10.80, zoom:  5, name: 'Liberia',          flag: '🇱🇷' },
+    MH: { lat:  7.07, lon: 171.25, zoom:  4, name: 'Marshall Islands', flag: '🇲🇭' },
+    BS: { lat: 25.03, lon: -77.40, zoom:  5, name: 'Bahamas',          flag: '🇧🇸' },
+    MT: { lat: 35.90, lon:  14.51, zoom:  6, name: 'Malta',            flag: '🇲🇹' },
+    CY: { lat: 35.17, lon:  33.36, zoom:  6, name: 'Cyprus',           flag: '🇨🇾' },
+    KY: { lat: 19.30, lon: -81.38, zoom:  6, name: 'Cayman Islands',   flag: '🇰🇾' },
+    BM: { lat: 32.30, lon: -64.78, zoom:  6, name: 'Bermuda',          flag: '🇧🇲' },
+    IM: { lat: 54.24, lon:  -4.55, zoom:  7, name: 'Isle of Man',      flag: '🇮🇲' },
+    CN: { lat: 30.00, lon: 122.00, zoom:  6, name: 'China',            flag: '🇨🇳' },
+    HK: { lat: 22.32, lon: 114.17, zoom:  9, name: 'Hong Kong',        flag: '🇭🇰' },
+    SG: { lat:  1.26, lon: 103.80, zoom:  8, name: 'Singapore',        flag: '🇸🇬' },
+    KR: { lat: 35.10, lon: 129.00, zoom:  7, name: 'South Korea',      flag: '🇰🇷' },
+    JP: { lat: 35.50, lon: 136.00, zoom:  7, name: 'Japan',            flag: '🇯🇵' },
+    GR: { lat: 37.94, lon:  23.63, zoom:  7, name: 'Greece',           flag: '🇬🇷' },
+    NO: { lat: 58.97, lon:   5.73, zoom:  7, name: 'Norway',           flag: '🇳🇴' },
+    DK: { lat: 55.68, lon:  12.60, zoom:  7, name: 'Denmark',          flag: '🇩🇰' },
+    DE: { lat: 53.55, lon:   9.95, zoom:  7, name: 'Germany',          flag: '🇩🇪' },
+    NL: { lat: 51.90, lon:   4.15, zoom:  8, name: 'Netherlands',      flag: '🇳🇱' },
+    GB: { lat: 51.96, lon:   1.33, zoom:  7, name: 'United Kingdom',   flag: '🇬🇧' }
+  };
+
+  var FLAG_VESSELS = {
+    PA: [
+      { name: 'MSC GÜLSÜN',          type: 'Container', flag: '🇵🇦', mmsi: '372773000', gt: '232,000', dest: 'SINGAPORE' },
+      { name: 'EVER GIVEN',          type: 'Container', flag: '🇵🇦', mmsi: '353136000', gt: '219,079', dest: 'SUEZ' },
+      { name: 'MSC OSCAR',           type: 'Container', flag: '🇵🇦', mmsi: '255803650', gt: '197,362', dest: 'ROTTERDAM' },
+      { name: 'EVER ACE',            type: 'Container', flag: '🇵🇦', mmsi: '356622000', gt: '235,981', dest: 'SUEZ' },
+      { name: 'COSCO PANAMA',        type: 'Container', flag: '🇵🇦', mmsi: '352882000', gt: '141,000', dest: 'COLON' },
+      { name: 'MSC BEATRICE',        type: 'Container', flag: '🇵🇦', mmsi: '372491000', gt: '153,093', dest: 'FELIXSTOWE' },
+      { name: 'EVER GREET',          type: 'Container', flag: '🇵🇦', mmsi: '353083000', gt: '210,000', dest: 'ANTWERP' },
+      { name: 'MSC ISTANBUL',        type: 'Container', flag: '🇵🇦', mmsi: '372771000', gt: '199,000', dest: 'SUEZ' },
+      { name: 'MSC MAYA',            type: 'Container', flag: '🇵🇦', mmsi: '255806210', gt: '194,849', dest: 'ANTWERP' },
+      { name: 'EVER ARM',            type: 'Container', flag: '🇵🇦', mmsi: '352984000', gt: '235,981', dest: 'COLON' },
+      { name: 'MSC CAPELLA',         type: 'Container', flag: '🇵🇦', mmsi: '255803900', gt: '153,093', dest: 'ROTTERDAM' },
+      { name: 'FRONT INTEGRITY',     type: 'Tanker',    flag: '🇵🇦', mmsi: '352780000', gt: '163,000', dest: 'COLON' },
+      { name: 'ATLANTIC DAWN',       type: 'Bulk',      flag: '🇵🇦', mmsi: '352650000', gt:  '93,000', dest: 'COLON' },
+      { name: 'PACIFIC EMERALD',     type: 'LNG',       flag: '🇵🇦', mmsi: '352540000', gt:  '93,000', dest: 'COLON' },
+      { name: 'HÖEGH XIAMEN',        type: 'RoRo',      flag: '🇵🇦', mmsi: '352410000', gt:  '71,000', dest: 'ANTWERP' }
+    ],
+    LR: [
+      { name: 'FRONT INTEGRITY',     type: 'Tanker',    flag: '🇱🇷', mmsi: '636014856', gt: '163,000', dest: 'ROTTERDAM' },
+      { name: 'PIONEER SPIRIT',      type: 'Cargo',     flag: '🇱🇷', mmsi: '636009099', gt: '403,342', dest: 'ROTTERDAM' },
+      { name: 'MAPLE',               type: 'Bulk',      flag: '🇱🇷', mmsi: '636015086', gt:  '93,000', dest: 'ANTWERP' },
+      { name: 'GAS AGILITY',         type: 'LNG',       flag: '🇱🇷', mmsi: '636014590', gt:  '93,000', dest: 'UK' },
+      { name: 'STENA PROMISE',       type: 'Tanker',    flag: '🇱🇷', mmsi: '636013456', gt: '105,000', dest: 'USA' },
+      { name: 'MAERSK LEIDEN',       type: 'Container', flag: '🇱🇷', mmsi: '636012880', gt: '194,849', dest: 'ROTTERDAM' },
+      { name: 'AMAZON GLORY',        type: 'Tanker',    flag: '🇱🇷', mmsi: '636016100', gt: '158,000', dest: 'USA' },
+      { name: 'LIBERIA TRADER',      type: 'Bulk',      flag: '🇱🇷', mmsi: '636017200', gt: '180,000', dest: 'CHINA' },
+      { name: 'NORDIC BREEZE',       type: 'Tanker',    flag: '🇱🇷', mmsi: '636011300', gt: '160,000', dest: 'ROTTERDAM' },
+      { name: 'OCEAN NAVIGATOR',     type: 'Container', flag: '🇱🇷', mmsi: '636010500', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'ATLANTIC STAR',       type: 'LNG',       flag: '🇱🇷', mmsi: '636018400', gt:  '93,000', dest: 'SINGAPORE' },
+      { name: 'PACIFIC HAWK',        type: 'Tanker',    flag: '🇱🇷', mmsi: '636019500', gt: '105,000', dest: 'BUSAN' },
+      { name: 'WEST WIND',           type: 'Bulk',      flag: '🇱🇷', mmsi: '636020100', gt:  '82,000', dest: 'ROTTERDAM' },
+      { name: 'CAPE LIBERTY',        type: 'Container', flag: '🇱🇷', mmsi: '636021200', gt: '153,000', dest: 'ANTWERP' },
+      { name: 'SUNSTONE TRIDENT',    type: 'Tanker',    flag: '🇱🇷', mmsi: '636022300', gt:  '65,000', dest: 'USA' }
+    ],
+    MH: [
+      { name: 'OOCL HONG KONG',      type: 'Container', flag: '🇲🇭', mmsi: '538006512', gt: '199,642', dest: 'SINGAPORE' },
+      { name: 'SEASPAN FALCON',      type: 'Container', flag: '🇲🇭', mmsi: '538004850', gt: '160,000', dest: 'BUSAN' },
+      { name: 'NAVIGATOR MARS',      type: 'LNG',       flag: '🇲🇭', mmsi: '538005100', gt:  '50,000', dest: 'JAPAN' },
+      { name: 'VANGUARD',            type: 'Tanker',    flag: '🇲🇭', mmsi: '538003856', gt: '163,000', dest: 'ROTTERDAM' },
+      { name: 'ATLANTIC ZENITH',     type: 'Bulk',      flag: '🇲🇭', mmsi: '538004210', gt:  '82,000', dest: 'CHINA' },
+      { name: 'MARSHAL PIONEER',     type: 'Container', flag: '🇲🇭', mmsi: '538007300', gt: '141,000', dest: 'SINGAPORE' },
+      { name: 'ISLAND CARRIER',      type: 'Tanker',    flag: '🇲🇭', mmsi: '538008100', gt: '105,000', dest: 'USA' },
+      { name: 'PACIFIC GIANT',       type: 'Container', flag: '🇲🇭', mmsi: '538009200', gt: '210,000', dest: 'ANTWERP' },
+      { name: 'CORAL SPIRIT',        type: 'LNG',       flag: '🇲🇭', mmsi: '538010300', gt:  '93,000', dest: 'UK' },
+      { name: 'OCEANIC UNITY',       type: 'Bulk',      flag: '🇲🇭', mmsi: '538011400', gt: '180,000', dest: 'ROTTERDAM' },
+      { name: 'PACIFIC ENDEAVOUR',   type: 'Container', flag: '🇲🇭', mmsi: '538012500', gt: '153,000', dest: 'HAMBURG' },
+      { name: 'DEEP BLUE',           type: 'Tanker',    flag: '🇲🇭', mmsi: '538013600', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'GLOBAL HARMONY',      type: 'Bulk',      flag: '🇲🇭', mmsi: '538014700', gt:  '93,000', dest: 'CHINA' },
+      { name: 'OCEAN ATLAS',         type: 'Container', flag: '🇲🇭', mmsi: '538015800', gt: '199,000', dest: 'BUSAN' },
+      { name: 'ISLANDS GLORY',       type: 'RoRo',      flag: '🇲🇭', mmsi: '538016900', gt:  '71,000', dest: 'JAPAN' }
+    ],
+    BS: [
+      { name: 'FEDERAL VIBEKE',      type: 'Bulk',      flag: '🇧🇸', mmsi: '311001200', gt:  '35,000', dest: 'ROTTERDAM' },
+      { name: 'HÖEGH XIAMEN',        type: 'RoRo',      flag: '🇧🇸', mmsi: '311016300', gt:  '71,000', dest: 'ANTWERP' },
+      { name: 'ARCTIC AURORA',       type: 'LNG',       flag: '🇧🇸', mmsi: '310628000', gt:  '93,000', dest: 'SUEZ' },
+      { name: 'STELLAR DIAMOND',     type: 'Bulk',      flag: '🇧🇸', mmsi: '311045500', gt: '180,000', dest: 'CHINA' },
+      { name: 'NORSE MAXIM',         type: 'Tanker',    flag: '🇧🇸', mmsi: '311095600', gt: '163,000', dest: 'COLON' },
+      { name: 'BAHAMAS SPIRIT',      type: 'Container', flag: '🇧🇸', mmsi: '311100000', gt: '141,000', dest: 'MIAMI' },
+      { name: 'ISLAND BREEZE',       type: 'Tanker',    flag: '🇧🇸', mmsi: '311110000', gt: '105,000', dest: 'USA' },
+      { name: 'NASSAU TRADER',       type: 'Cargo',     flag: '🇧🇸', mmsi: '311120000', gt:  '28,000', dest: 'NASSAU' },
+      { name: 'CARIBBEAN STAR',      type: 'LNG',       flag: '🇧🇸', mmsi: '311130000', gt:  '93,000', dest: 'UK' },
+      { name: 'MAPLE LEAF',          type: 'Bulk',      flag: '🇧🇸', mmsi: '311140000', gt:  '82,000', dest: 'CHINA' },
+      { name: 'BLUE ATLANTIC',       type: 'Container', flag: '🇧🇸', mmsi: '311150000', gt: '153,000', dest: 'ROTTERDAM' },
+      { name: 'BAHAMAS PIONEER',     type: 'RoRo',      flag: '🇧🇸', mmsi: '311160000', gt:  '71,000', dest: 'ANTWERP' },
+      { name: 'SEA ODYSSEY',         type: 'Tanker',    flag: '🇧🇸', mmsi: '311170000', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'TROPIC CARRIER',      type: 'Bulk',      flag: '🇧🇸', mmsi: '311180000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'CARIB GLORY',         type: 'Container', flag: '🇧🇸', mmsi: '311190000', gt: '199,000', dest: 'HAMBURG' }
+    ],
+    MT: [
+      { name: 'MSC BEATRICE',        type: 'Container', flag: '🇲🇹', mmsi: '256482000', gt: '153,093', dest: 'FELIXSTOWE' },
+      { name: 'POSEIDON',            type: 'Tanker',    flag: '🇲🇹', mmsi: '256200000', gt: '105,000', dest: 'MALTA' },
+      { name: 'ATLANTICA',           type: 'Bulk',      flag: '🇲🇹', mmsi: '256100000', gt:  '82,000', dest: 'PIRAEUS' },
+      { name: 'NEPTUNE GAS',         type: 'LNG',       flag: '🇲🇹', mmsi: '256300000', gt:  '93,000', dest: 'ROTTERDAM' },
+      { name: 'MEDSTAR',             type: 'Cargo',     flag: '🇲🇹', mmsi: '256050000', gt:  '28,000', dest: 'VALLETTA' },
+      { name: 'MALTA CARRIER',       type: 'Container', flag: '🇲🇹', mmsi: '256400000', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'MED SPIRIT',          type: 'Tanker',    flag: '🇲🇹', mmsi: '256500000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'VALLETTA STAR',       type: 'Bulk',      flag: '🇲🇹', mmsi: '256600000', gt:  '93,000', dest: 'CHINA' },
+      { name: 'MEDITERRANEAN LNG',   type: 'LNG',       flag: '🇲🇹', mmsi: '256700000', gt:  '93,000', dest: 'UK' },
+      { name: 'GRAND HARBOUR',       type: 'Cargo',     flag: '🇲🇹', mmsi: '256800000', gt:  '18,000', dest: 'PIRAEUS' },
+      { name: 'ISLAND PIONEER',      type: 'Container', flag: '🇲🇹', mmsi: '256900000', gt: '199,000', dest: 'ANTWERP' },
+      { name: 'AURORA MARIS',        type: 'Tanker',    flag: '🇲🇹', mmsi: '256150000', gt: '105,000', dest: 'SUEZ' },
+      { name: 'CENTRAL MED',         type: 'Bulk',      flag: '🇲🇹', mmsi: '256250000', gt:  '82,000', dest: 'ROTTERDAM' },
+      { name: 'MALTESE FALCON',      type: 'RoRo',      flag: '🇲🇹', mmsi: '256350000', gt:  '71,000', dest: 'ANTWERP' },
+      { name: 'BIRGU STAR',          type: 'Cargo',     flag: '🇲🇹', mmsi: '256450000', gt:  '28,000', dest: 'VALLETTA' }
+    ],
+    CY: [
+      { name: 'OLYMPIAN GLORY',      type: 'Container', flag: '🇨🇾', mmsi: '212400000', gt: '141,000', dest: 'PIRAEUS' },
+      { name: 'AFRODITI',            type: 'Tanker',    flag: '🇨🇾', mmsi: '212100000', gt: '105,000', dest: 'LIMASSOL' },
+      { name: 'CYPRUS CARRIER',      type: 'Bulk',      flag: '🇨🇾', mmsi: '212200000', gt:  '82,000', dest: 'ROTTERDAM' },
+      { name: 'ISLAND SPIRIT',       type: 'LNG',       flag: '🇨🇾', mmsi: '212300000', gt:  '93,000', dest: 'SUEZ' },
+      { name: 'MEDITERRANEAN',       type: 'Cargo',     flag: '🇨🇾', mmsi: '212050000', gt:  '28,000', dest: 'PIRAEUS' },
+      { name: 'LIMASSOL STAR',       type: 'Container', flag: '🇨🇾', mmsi: '212500000', gt: '153,000', dest: 'HAMBURG' },
+      { name: 'APHRODITE',           type: 'Tanker',    flag: '🇨🇾', mmsi: '212600000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'HERMES',              type: 'Bulk',      flag: '🇨🇾', mmsi: '212700000', gt:  '93,000', dest: 'CHINA' },
+      { name: 'NICOSIA TRADER',      type: 'Cargo',     flag: '🇨🇾', mmsi: '212800000', gt:  '18,000', dest: 'LIMASSOL' },
+      { name: 'EASTERN MED',         type: 'Container', flag: '🇨🇾', mmsi: '212900000', gt: '141,000', dest: 'ANTWERP' },
+      { name: 'TROODOS',             type: 'LNG',       flag: '🇨🇾', mmsi: '212150000', gt:  '93,000', dest: 'UK' },
+      { name: 'KYRENEIA',            type: 'Tanker',    flag: '🇨🇾', mmsi: '212250000', gt: '105,000', dest: 'SUEZ' }
+    ],
+    KY: [
+      { name: 'CAYMAN CARRIER',      type: 'Container', flag: '🇰🇾', mmsi: '319500000', gt: '141,000', dest: 'MIAMI' },
+      { name: 'ISLAND TRADER',       type: 'Tanker',    flag: '🇰🇾', mmsi: '319400000', gt: '105,000', dest: 'USA' },
+      { name: 'CAYMAN BULK',         type: 'Bulk',      flag: '🇰🇾', mmsi: '319300000', gt:  '82,000', dest: 'CHINA' },
+      { name: 'CAYMAN GAS',          type: 'LNG',       flag: '🇰🇾', mmsi: '319200000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'GRAND CAYMAN',        type: 'Cargo',     flag: '🇰🇾', mmsi: '319100000', gt:  '28,000', dest: 'MIAMI' },
+      { name: 'CAYMAN PIONEER',      type: 'Container', flag: '🇰🇾', mmsi: '319600000', gt: '153,000', dest: 'ROTTERDAM' },
+      { name: 'CARIBBEAN WAVE',      type: 'Tanker',    flag: '🇰🇾', mmsi: '319700000', gt: '158,000', dest: 'USA' },
+      { name: 'LITTLE CAYMAN',       type: 'Bulk',      flag: '🇰🇾', mmsi: '319800000', gt:  '93,000', dest: 'CHINA' },
+      { name: 'CAYMAN SPIRIT',       type: 'RoRo',      flag: '🇰🇾', mmsi: '319900000', gt:  '71,000', dest: 'MIAMI' },
+      { name: 'TROPIC WIND',         type: 'Cargo',     flag: '🇰🇾', mmsi: '319050000', gt:  '18,000', dest: 'MIAMI' },
+      { name: 'CAYMAN EXPLORER',     type: 'Container', flag: '🇰🇾', mmsi: '319150000', gt: '199,000', dest: 'ANTWERP' },
+      { name: 'CARIBBEAN DREAM',     type: 'Tanker',    flag: '🇰🇾', mmsi: '319250000', gt: '105,000', dest: 'SINGAPORE' }
+    ],
+    BM: [
+      { name: 'ARCTIC AURORA',       type: 'LNG',       flag: '🇧🇲', mmsi: '310628000', gt:  '93,000', dest: 'SUEZ' },
+      { name: 'BERMUDA TRADER',      type: 'Tanker',    flag: '🇧🇲', mmsi: '310700000', gt: '163,000', dest: 'USA' },
+      { name: 'ATLANTIC CARRIER',    type: 'Container', flag: '🇧🇲', mmsi: '310500000', gt: '141,000', dest: 'ANTWERP' },
+      { name: 'BERMUDA BULK',        type: 'Bulk',      flag: '🇧🇲', mmsi: '310400000', gt:  '82,000', dest: 'ROTTERDAM' },
+      { name: 'BERMUDA SPIRIT',      type: 'Cargo',     flag: '🇧🇲', mmsi: '310300000', gt:  '28,000', dest: 'BERMUDA' },
+      { name: 'BERMUDA PIONEER',     type: 'Container', flag: '🇧🇲', mmsi: '310800000', gt: '199,000', dest: 'HAMBURG' },
+      { name: 'ATLANTIC GLORY',      type: 'Tanker',    flag: '🇧🇲', mmsi: '310900000', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'OCEAN SPIRIT',        type: 'LNG',       flag: '🇧🇲', mmsi: '310200000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'BERMUDA DAWN',        type: 'Bulk',      flag: '🇧🇲', mmsi: '310100000', gt:  '93,000', dest: 'CHINA' },
+      { name: 'NORTH ATLANTIC',      type: 'Tanker',    flag: '🇧🇲', mmsi: '310050000', gt: '105,000', dest: 'USA' },
+      { name: 'BERMUDA RANGER',      type: 'Container', flag: '🇧🇲', mmsi: '310150000', gt: '153,000', dest: 'ROTTERDAM' },
+      { name: 'TEMPEST',             type: 'RoRo',      flag: '🇧🇲', mmsi: '310250000', gt:  '71,000', dest: 'ANTWERP' }
+    ],
+    IM: [
+      { name: 'ISLE OF MAN STAR',    type: 'Container', flag: '🇮🇲', mmsi: '234500000', gt: '141,000', dest: 'FELIXSTOWE' },
+      { name: 'MANX TIDE',           type: 'Tanker',    flag: '🇮🇲', mmsi: '234400000', gt: '105,000', dest: 'ROTTERDAM' },
+      { name: 'MANX CARRIER',        type: 'Bulk',      flag: '🇮🇲', mmsi: '234300000', gt:  '82,000', dest: 'HAMBURG' },
+      { name: 'ISLE SPIRIT',         type: 'LNG',       flag: '🇮🇲', mmsi: '234200000', gt:  '93,000', dest: 'UK' },
+      { name: 'CALF OF MAN',         type: 'Cargo',     flag: '🇮🇲', mmsi: '234100000', gt:  '28,000', dest: 'DUBLIN' },
+      { name: 'PEEL PIONEER',        type: 'Container', flag: '🇮🇲', mmsi: '234600000', gt: '199,000', dest: 'ANTWERP' },
+      { name: 'RAMSEY TRADER',       type: 'Tanker',    flag: '🇮🇲', mmsi: '234700000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'DOUGLAS BAY',         type: 'Bulk',      flag: '🇮🇲', mmsi: '234800000', gt:  '93,000', dest: 'CHINA' },
+      { name: 'CASTLETOWN',          type: 'Cargo',     flag: '🇮🇲', mmsi: '234900000', gt:  '18,000', dest: 'FELIXSTOWE' },
+      { name: 'ISLE ENDEAVOUR',      type: 'Container', flag: '🇮🇲', mmsi: '234050000', gt: '153,000', dest: 'HAMBURG' },
+      { name: 'MANN SPIRIT',         type: 'LNG',       flag: '🇮🇲', mmsi: '234150000', gt:  '93,000', dest: 'UK' },
+      { name: 'MANX GLORY',          type: 'RoRo',      flag: '🇮🇲', mmsi: '234250000', gt:  '71,000', dest: 'ROTTERDAM' }
+    ],
+    CN: [
+      { name: 'COSCO SHIPPING UNIVERSE', type: 'Container', flag: '🇨🇳', mmsi: '477377900', gt: '210,000', dest: 'SHANGHAI' },
+      { name: 'CSCL GLOBE',          type: 'Container', flag: '🇨🇳', mmsi: '477373100', gt: '184,653', dest: 'SINGAPORE' },
+      { name: 'COSCO SHIPPING TAURUS',type:'Container', flag: '🇨🇳', mmsi: '477377600', gt: '199,000', dest: 'ROTTERDAM' },
+      { name: 'GREAT WALL',          type: 'Bulk',      flag: '🇨🇳', mmsi: '413288040', gt: '180,000', dest: 'SHANGHAI' },
+      { name: 'NEW GOLDEN BRIDGE VII',type: 'RoRo',     flag: '🇨🇳', mmsi: '413512190', gt:  '62,000', dest: 'SHANGHAI' },
+      { name: 'COSCO GALAXY',        type: 'Container', flag: '🇨🇳', mmsi: '477388200', gt: '210,000', dest: 'SHANGHAI' },
+      { name: 'CSCL SATURN',         type: 'Container', flag: '🇨🇳', mmsi: '477373600', gt: '141,000', dest: 'SHANGHAI' },
+      { name: 'CHINA LNG PIONEER',   type: 'LNG',       flag: '🇨🇳', mmsi: '413530000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'GOLDEN YANGTZE',      type: 'Bulk',      flag: '🇨🇳', mmsi: '413680000', gt: '180,000', dest: 'SHANGHAI' },
+      { name: 'PACIFIC TRADER CN',   type: 'Tanker',    flag: '🇨🇳', mmsi: '413500000', gt: '163,000', dest: 'SINGAPORE' },
+      { name: 'CHANG YUAN XIN',      type: 'Container', flag: '🇨🇳', mmsi: '413703040', gt: '187,541', dest: 'SHANGHAI' },
+      { name: 'COSCO QINGDAO',       type: 'Container', flag: '🇨🇳', mmsi: '477385000', gt: '199,000', dest: 'QINGDAO' },
+      { name: 'CHINA COURAGE',       type: 'Tanker',    flag: '🇨🇳', mmsi: '413600000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'HUANG HE',            type: 'Bulk',      flag: '🇨🇳', mmsi: '413700000', gt:  '93,000', dest: 'TIANJIN' },
+      { name: 'COSCO TIANJIN',       type: 'Container', flag: '🇨🇳', mmsi: '477392000', gt: '141,000', dest: 'TIANJIN' }
+    ],
+    HK: [
+      { name: 'OOCL HONG KONG',      type: 'Container', flag: '🇭🇰', mmsi: '477347900', gt: '199,642', dest: 'SINGAPORE' },
+      { name: 'ORIENT HORIZON',      type: 'Container', flag: '🇭🇰', mmsi: '477380100', gt: '141,000', dest: 'ROTTERDAM' },
+      { name: 'KWAN ON',             type: 'Tanker',    flag: '🇭🇰', mmsi: '477188000', gt: '105,000', dest: 'SINGAPORE' },
+      { name: 'PACIFIC CARRIERS',    type: 'Bulk',      flag: '🇭🇰', mmsi: '477250000', gt:  '82,000', dest: 'CHINA' },
+      { name: 'EAST BREEZE',         type: 'Cargo',     flag: '🇭🇰', mmsi: '477150000', gt:  '28,000', dest: 'HONG KONG' },
+      { name: 'OOCL SINGAPORE',      type: 'Container', flag: '🇭🇰', mmsi: '477301900', gt: '199,642', dest: 'SINGAPORE' },
+      { name: 'HONG KONG SPIRIT',    type: 'Tanker',    flag: '🇭🇰', mmsi: '477310000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'VICTORIA HARBOR',     type: 'Container', flag: '🇭🇰', mmsi: '477320000', gt: '210,000', dest: 'HAMBURG' },
+      { name: 'PEARL RIVER',         type: 'Bulk',      flag: '🇭🇰', mmsi: '477330000', gt: '180,000', dest: 'CHINA' },
+      { name: 'KOWLOON BAY',         type: 'LNG',       flag: '🇭🇰', mmsi: '477340000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'HK PIONEER',          type: 'Container', flag: '🇭🇰', mmsi: '477360000', gt: '153,000', dest: 'ANTWERP' },
+      { name: 'DRAGON GLORY',        type: 'Tanker',    flag: '🇭🇰', mmsi: '477370000', gt: '105,000', dest: 'SINGAPORE' },
+      { name: 'ORIENT STAR',         type: 'Cargo',     flag: '🇭🇰', mmsi: '477200000', gt:  '18,000', dest: 'HONG KONG' }
+    ],
+    SG: [
+      { name: 'BW SINGAPORE',        type: 'Tanker',    flag: '🇸🇬', mmsi: '564234000', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'PACIFIC SINGAPORE',   type: 'LNG',       flag: '🇸🇬', mmsi: '565234000', gt:  '93,000', dest: 'SINGAPORE' },
+      { name: 'OCEAN ZENITH',        type: 'Container', flag: '🇸🇬', mmsi: '566400000', gt: '141,000', dest: 'BUSAN' },
+      { name: 'TRUST BULKER',        type: 'Bulk',      flag: '🇸🇬', mmsi: '566100000', gt:  '82,000', dest: 'CHINA' },
+      { name: 'SERI BIJAKSANA',      type: 'LNG',       flag: '🇸🇬', mmsi: '563240000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'PIL SINGAPORE',       type: 'Container', flag: '🇸🇬', mmsi: '563023000', gt:  '94,000', dest: 'SINGAPORE' },
+      { name: 'NEPTUNE SINGAPORE',   type: 'Tanker',    flag: '🇸🇬', mmsi: '563280000', gt: '105,000', dest: 'SINGAPORE' },
+      { name: 'STELLAR PACIFIC',     type: 'Bulk',      flag: '🇸🇬', mmsi: '566150000', gt: '180,000', dest: 'CHINA' },
+      { name: 'FSO ASIA',            type: 'Tanker',    flag: '🇸🇬', mmsi: '565150000', gt: '250,000', dest: 'SINGAPORE' },
+      { name: 'MERIDIAN SG',         type: 'Container', flag: '🇸🇬', mmsi: '563100000', gt: '153,000', dest: 'ROTTERDAM' },
+      { name: 'SINGAPORE EXPLORER',  type: 'Cargo',     flag: '🇸🇬', mmsi: '566200000', gt:  '28,000', dest: 'SINGAPORE' },
+      { name: 'LION CITY',           type: 'Container', flag: '🇸🇬', mmsi: '563400000', gt: '199,000', dest: 'ANTWERP' },
+      { name: 'SINGA GLORY',         type: 'LNG',       flag: '🇸🇬', mmsi: '563500000', gt:  '93,000', dest: 'UK' },
+      { name: 'JURONG SPIRIT',       type: 'Tanker',    flag: '🇸🇬', mmsi: '566300000', gt: '158,000', dest: 'ROTTERDAM' }
+    ],
+    KR: [
+      { name: 'HMM ALGECIRAS',       type: 'Container', flag: '🇰🇷', mmsi: '440466000', gt: '235,981', dest: 'BUSAN' },
+      { name: 'HYUNDAI UNITY',       type: 'Container', flag: '🇰🇷', mmsi: '440489000', gt: '141,000', dest: 'BUSAN' },
+      { name: 'SK SPIRIT',           type: 'Tanker',    flag: '🇰🇷', mmsi: '440777000', gt: '163,000', dest: 'BUSAN' },
+      { name: 'SM BUSAN',            type: 'Container', flag: '🇰🇷', mmsi: '440148000', gt:  '94,500', dest: 'BUSAN' },
+      { name: 'DAEWOO PIONEER',      type: 'Bulk',      flag: '🇰🇷', mmsi: '440632000', gt:  '82,300', dest: 'BUSAN' },
+      { name: 'HMM GDANSK',          type: 'Container', flag: '🇰🇷', mmsi: '440453000', gt: '235,981', dest: 'GDANSK' },
+      { name: 'EUKOR PEARL',         type: 'RoRo',      flag: '🇰🇷', mmsi: '440321000', gt:  '71,000', dest: 'BUSAN' },
+      { name: 'GLOVIS SUPERIOR',     type: 'RoRo',      flag: '🇰🇷', mmsi: '440355000', gt:  '69,000', dest: 'BUSAN' },
+      { name: 'STX POPLAR',          type: 'Bulk',      flag: '🇰🇷', mmsi: '440610000', gt:  '93,000', dest: 'BUSAN' },
+      { name: 'BW BUSAN',            type: 'Tanker',    flag: '🇰🇷', mmsi: '440705000', gt: '160,000', dest: 'BUSAN' },
+      { name: 'KOREA PIONEER',       type: 'Cargo',     flag: '🇰🇷', mmsi: '440500000', gt:  '18,000', dest: 'BUSAN' },
+      { name: 'HMM OSLO',            type: 'Container', flag: '🇰🇷', mmsi: '440460000', gt: '235,981', dest: 'OSLO' },
+      { name: 'PANSTAR GENIE',       type: 'Cargo',     flag: '🇰🇷', mmsi: '440410000', gt:  '15,500', dest: 'OSAKA' },
+      { name: 'SAMSUNG ENERGY',      type: 'LNG',       flag: '🇰🇷', mmsi: '440800000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'POSCO PIONEER',       type: 'Bulk',      flag: '🇰🇷', mmsi: '440550000', gt: '180,000', dest: 'BUSAN' }
+    ],
+    JP: [
+      { name: 'MOL TRIUMPH',         type: 'Container', flag: '🇯🇵', mmsi: '432843000', gt: '210,691', dest: 'YOKOHAMA' },
+      { name: 'PACIFIC PRIDE',       type: 'Tanker',    flag: '🇯🇵', mmsi: '432100000', gt: '163,000', dest: 'YOKOHAMA' },
+      { name: 'EXCEL',               type: 'RoRo',      flag: '🇯🇵', mmsi: '431800000', gt:  '71,000', dest: 'NAGOYA' },
+      { name: 'YAMATO',              type: 'Bulk',      flag: '🇯🇵', mmsi: '431234000', gt: '180,000', dest: 'TOKYO' },
+      { name: 'PACIFIC RUBY',        type: 'LNG',       flag: '🇯🇵', mmsi: '431650000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'MOL EXPERIENCE',      type: 'Container', flag: '🇯🇵', mmsi: '432900000', gt: '210,691', dest: 'KOBE' },
+      { name: 'NYK ARGUS',           type: 'RoRo',      flag: '🇯🇵', mmsi: '431900000', gt:  '71,000', dest: 'YOKOHAMA' },
+      { name: 'K LINE SPIRIT',       type: 'Tanker',    flag: '🇯🇵', mmsi: '431500000', gt: '163,000', dest: 'SINGAPORE' },
+      { name: 'NIPPON MARU',         type: 'Container', flag: '🇯🇵', mmsi: '432200000', gt: '141,000', dest: 'ROTTERDAM' },
+      { name: 'SAKURA CARRIER',      type: 'Bulk',      flag: '🇯🇵', mmsi: '431300000', gt: '180,000', dest: 'AUSTRALIA' },
+      { name: 'FUJI LNG',            type: 'LNG',       flag: '🇯🇵', mmsi: '431700000', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'HOKKAIDO MARU',       type: 'Cargo',     flag: '🇯🇵', mmsi: '431100000', gt:  '18,000', dest: 'SAPPORO' },
+      { name: 'KYUSHU SPIRIT',       type: 'Tanker',    flag: '🇯🇵', mmsi: '431400000', gt: '105,000', dest: 'YOKOHAMA' },
+      { name: 'TOKYO PIONEER',       type: 'Container', flag: '🇯🇵', mmsi: '432300000', gt: '153,000', dest: 'TOKYO' },
+      { name: 'OSAKA GLORY',         type: 'Cargo',     flag: '🇯🇵', mmsi: '432400000', gt:  '28,000', dest: 'OSAKA' }
+    ],
+    GR: [
+      { name: 'AFRA PRIDE',          type: 'Tanker',    flag: '🇬🇷', mmsi: '241420000', gt: '105,000', dest: 'SUEZ' },
+      { name: 'AEGEAN DIGNITY',      type: 'Tanker',    flag: '🇬🇷', mmsi: '241600000', gt: '163,000', dest: 'ROTTERDAM' },
+      { name: 'OLYMPIA',             type: 'Container', flag: '🇬🇷', mmsi: '241888000', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'AEGEAN SPIRIT',       type: 'Bulk',      flag: '🇬🇷', mmsi: '241150000', gt:  '82,000', dest: 'PIRAEUS' },
+      { name: 'POSEIDON STAR',       type: 'LNG',       flag: '🇬🇷', mmsi: '241999000', gt:  '93,000', dest: 'PIRAEUS' },
+      { name: 'HELLENIC GLORY',      type: 'Tanker',    flag: '🇬🇷', mmsi: '241700000', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'AEGEAN NAVIGATOR',    type: 'Container', flag: '🇬🇷', mmsi: '241800000', gt: '153,000', dest: 'ANTWERP' },
+      { name: 'PIRAEUS STAR',        type: 'Bulk',      flag: '🇬🇷', mmsi: '241300000', gt: '180,000', dest: 'CHINA' },
+      { name: 'IONIC BREEZE',        type: 'Tanker',    flag: '🇬🇷', mmsi: '241500000', gt: '105,000', dest: 'ROTTERDAM' },
+      { name: 'HELLAS PRIDE',        type: 'LNG',       flag: '🇬🇷', mmsi: '241100000', gt:  '93,000', dest: 'UK' },
+      { name: 'MYKONOS GLORY',       type: 'Cargo',     flag: '🇬🇷', mmsi: '241050000', gt:  '28,000', dest: 'PIRAEUS' },
+      { name: 'SANTORINI SPIRIT',    type: 'Container', flag: '🇬🇷', mmsi: '241200000', gt: '199,000', dest: 'ROTTERDAM' },
+      { name: 'ITHACA WIND',         type: 'Bulk',      flag: '🇬🇷', mmsi: '241400000', gt:  '93,000', dest: 'CHINA' },
+      { name: 'ATHENS PIONEER',      type: 'Tanker',    flag: '🇬🇷', mmsi: '241900000', gt: '163,000', dest: 'SUEZ' }
+    ],
+    NO: [
+      { name: 'NORDIC LUNA',         type: 'Tanker',    flag: '🇳🇴', mmsi: '259044000', gt: '160,000', dest: 'SINGAPORE' },
+      { name: 'OSLO GAS',            type: 'LNG',       flag: '🇳🇴', mmsi: '257200000', gt:  '93,000', dest: 'UK' },
+      { name: 'STOLT PERSEVERANCE',  type: 'Tanker',    flag: '🇳🇴', mmsi: '257500000', gt:  '30,000', dest: 'ANTWERP' },
+      { name: 'FRIGSTAD BARU',       type: 'Bulk',      flag: '🇳🇴', mmsi: '257300000', gt:  '82,000', dest: 'ROTTERDAM' },
+      { name: 'FARAWAY NORDIC',      type: 'Container', flag: '🇳🇴', mmsi: '257150000', gt:  '28,000', dest: 'HAMBURG' },
+      { name: 'NORDIC OSLO',         type: 'Tanker',    flag: '🇳🇴', mmsi: '257420000', gt: '161,000', dest: 'ROTTERDAM' },
+      { name: 'BERGEN STAR',         type: 'Container', flag: '🇳🇴', mmsi: '257600000', gt: '141,000', dest: 'ANTWERP' },
+      { name: 'FJORD SPIRIT',        type: 'LNG',       flag: '🇳🇴', mmsi: '257700000', gt:  '93,000', dest: 'UK' },
+      { name: 'STAVANGER BULK',      type: 'Bulk',      flag: '🇳🇴', mmsi: '257800000', gt: '180,000', dest: 'CHINA' },
+      { name: 'TRONDHEIM GLORY',     type: 'Tanker',    flag: '🇳🇴', mmsi: '257900000', gt: '105,000', dest: 'SINGAPORE' },
+      { name: 'VIKING PIONEER',      type: 'RoRo',      flag: '🇳🇴', mmsi: '257100000', gt:  '71,000', dest: 'HAMBURG' },
+      { name: 'POLAR WIND',          type: 'Cargo',     flag: '🇳🇴', mmsi: '257050000', gt:  '18,000', dest: 'OSLO' }
+    ],
+    DK: [
+      { name: 'MAERSK MCKINNEY',     type: 'Container', flag: '🇩🇰', mmsi: '220436000', gt: '194,849', dest: 'ROTTERDAM' },
+      { name: 'NORDIC RUTH',         type: 'Tanker',    flag: '🇩🇰', mmsi: '219640000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'NORDIC GRACE',        type: 'Tanker',    flag: '🇩🇰', mmsi: '219552000', gt: '161,000', dest: 'HAMBURG' },
+      { name: 'TORM LOTTE',          type: 'Tanker',    flag: '🇩🇰', mmsi: '219187000', gt:  '30,000', dest: 'ANTWERP' },
+      { name: 'MAERSK EMDEN',        type: 'Container', flag: '🇩🇰', mmsi: '219700000', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'MAERSK MADISON',      type: 'Container', flag: '🇩🇰', mmsi: '219017000', gt: '194,849', dest: 'ROTTERDAM' },
+      { name: 'MAERSK HAMBURG',      type: 'Container', flag: '🇩🇰', mmsi: '219040000', gt: '194,849', dest: 'HAMBURG' },
+      { name: 'NORDIC BREEZE DK',    type: 'Tanker',    flag: '🇩🇰', mmsi: '219800000', gt: '105,000', dest: 'SINGAPORE' },
+      { name: 'SCANDINAVIA BULK',    type: 'Bulk',      flag: '🇩🇰', mmsi: '219900000', gt: '180,000', dest: 'CHINA' },
+      { name: 'COPENHAGEN STAR',     type: 'Container', flag: '🇩🇰', mmsi: '220100000', gt: '153,000', dest: 'ANTWERP' },
+      { name: 'AALBORG GAS',         type: 'LNG',       flag: '🇩🇰', mmsi: '220200000', gt:  '93,000', dest: 'UK' },
+      { name: 'DANISH PIONEER',      type: 'Cargo',     flag: '🇩🇰', mmsi: '220300000', gt:  '18,000', dest: 'COPENHAGEN' },
+      { name: 'JUTLAND SPIRIT',      type: 'RoRo',      flag: '🇩🇰', mmsi: '219300000', gt:  '71,000', dest: 'HAMBURG' }
+    ],
+    DE: [
+      { name: 'HAPAG EXPRESS',       type: 'Container', flag: '🇩🇪', mmsi: '218123000', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'CONTI CORTESIA',      type: 'Container', flag: '🇩🇪', mmsi: '218454000', gt:  '94,193', dest: 'HAMBURG' },
+      { name: 'VEGA DEIMOS',         type: 'Bulk',      flag: '🇩🇪', mmsi: '218766000', gt:  '37,000', dest: 'HAMBURG' },
+      { name: 'HALLERTAU',           type: 'Cargo',     flag: '🇩🇪', mmsi: '218600000', gt:   '6,200', dest: 'HAMBURG' },
+      { name: 'GERMAN HARMONY',      type: 'Container', flag: '🇩🇪', mmsi: '218200000', gt: '141,000', dest: 'BREMERHAVEN' },
+      { name: 'HAPAG LLOYD EXPRESS', type: 'Container', flag: '🇩🇪', mmsi: '218135000', gt: '194,849', dest: 'HAMBURG' },
+      { name: 'ELBE SPIRIT',         type: 'Tanker',    flag: '🇩🇪', mmsi: '218480000', gt: '105,000', dest: 'HAMBURG' },
+      { name: 'NORDSEE TRADER',      type: 'Cargo',     flag: '🇩🇪', mmsi: '218540000', gt:   '9,500', dest: 'HAMBURG' },
+      { name: 'ATLANTIC LNG DE',     type: 'LNG',       flag: '🇩🇪', mmsi: '218320000', gt: '100,000', dest: 'HAMBURG' },
+      { name: 'HAMBURG BULK',        type: 'Bulk',      flag: '🇩🇪', mmsi: '218720000', gt:  '93,000', dest: 'HAMBURG' },
+      { name: 'WESER MARINER',       type: 'Cargo',     flag: '🇩🇪', mmsi: '218560000', gt:   '7,200', dest: 'HAMBURG' },
+      { name: 'NORD CONFIDENCE',     type: 'Tanker',    flag: '🇩🇪', mmsi: '218820000', gt:  '30,000', dest: 'HAMBURG' },
+      { name: 'BREMEN STAR',         type: 'Container', flag: '🇩🇪', mmsi: '218700000', gt: '153,000', dest: 'BREMERHAVEN' },
+      { name: 'RHEIN GLORY',         type: 'RoRo',      flag: '🇩🇪', mmsi: '218300000', gt:  '71,000', dest: 'HAMBURG' }
+    ],
+    NL: [
+      { name: 'GATE CELSIUS',        type: 'LNG',       flag: '🇳🇱', mmsi: '246283000', gt: '100,000', dest: 'ROTTERDAM' },
+      { name: 'AMSTELDIEP',          type: 'Cargo',     flag: '🇳🇱', mmsi: '244820000', gt:   '3,500', dest: 'ANTWERP' },
+      { name: 'HOLLAND BREEZE',      type: 'Container', flag: '🇳🇱', mmsi: '246100000', gt: '141,000', dest: 'ROTTERDAM' },
+      { name: 'DUTCH MASTER',        type: 'Tanker',    flag: '🇳🇱', mmsi: '246050000', gt: '105,000', dest: 'ROTTERDAM' },
+      { name: 'MAAS PIONEER',        type: 'Bulk',      flag: '🇳🇱', mmsi: '246200000', gt:  '82,000', dest: 'ROTTERDAM' },
+      { name: 'PANAMAX VICTOR',      type: 'Tanker',    flag: '🇳🇱', mmsi: '246390000', gt: '105,000', dest: 'ROTTERDAM' },
+      { name: 'ATLANTIS SPIRIT',     type: 'LNG',       flag: '🇳🇱', mmsi: '246250000', gt: '100,000', dest: 'ROTTERDAM' },
+      { name: 'EURO BULK NL',        type: 'Bulk',      flag: '🇳🇱', mmsi: '246630000', gt:  '93,000', dest: 'ROTTERDAM' },
+      { name: 'RHEIN CARRIER NL',    type: 'Cargo',     flag: '🇳🇱', mmsi: '246405000', gt:   '8,500', dest: 'ROTTERDAM' },
+      { name: 'PIONEER SPIRIT NL',   type: 'Cargo',     flag: '🇳🇱', mmsi: '246481000', gt:  '62,000', dest: 'ROTTERDAM' },
+      { name: 'IJSSEL TRADER',       type: 'Cargo',     flag: '🇳🇱', mmsi: '244900000', gt:   '5,000', dest: 'AMSTERDAM' },
+      { name: 'TEXEL ISLAND',        type: 'RoRo',      flag: '🇳🇱', mmsi: '246350000', gt:  '28,000', dest: 'ROTTERDAM' },
+      { name: 'AMSTERDAM GLORY',     type: 'Container', flag: '🇳🇱', mmsi: '246450000', gt: '153,000', dest: 'ANTWERP' }
+    ],
+    GB: [
+      { name: 'BRITISH COMMERCE',    type: 'Tanker',    flag: '🇬🇧', mmsi: '235001000', gt: '163,000', dest: 'ROTTERDAM' },
+      { name: 'GDF SUEZ GLOBAL',     type: 'LNG',       flag: '🇬🇧', mmsi: '235200000', gt: '100,000', dest: 'LE HAVRE' },
+      { name: 'BRITANNIC',           type: 'Container', flag: '🇬🇧', mmsi: '235400000', gt: '141,000', dest: 'FELIXSTOWE' },
+      { name: 'ANCHOR',              type: 'Bulk',      flag: '🇬🇧', mmsi: '235300000', gt:  '82,000', dest: 'HAMBURG' },
+      { name: 'STENA PREMIERE',      type: 'Tanker',    flag: '🇬🇧', mmsi: '235100000', gt: '105,000', dest: 'FELIXSTOWE' },
+      { name: 'BRITISH LOYALTY',     type: 'Tanker',    flag: '🇬🇧', mmsi: '235040000', gt: '105,000', dest: 'FAWLEY' },
+      { name: 'CHANNEL BULKER',      type: 'Bulk',      flag: '🇬🇧', mmsi: '235120000', gt:  '58,000', dest: 'ROTTERDAM' },
+      { name: 'PRIDE OF KENT',       type: 'RoRo',      flag: '🇬🇧', mmsi: '235019000', gt:  '30,000', dest: 'CALAIS' },
+      { name: 'ISLE OF INISHMORE',   type: 'Cargo',     flag: '🇬🇧', mmsi: '235060000', gt:  '24,000', dest: 'DUBLIN' },
+      { name: 'CLYDE SPIRIT',        type: 'Tanker',    flag: '🇬🇧', mmsi: '235500000', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'SCOTLAND STAR',       type: 'Container', flag: '🇬🇧', mmsi: '235600000', gt: '153,000', dest: 'ROTTERDAM' },
+      { name: 'THAMES GLORY',        type: 'Bulk',      flag: '🇬🇧', mmsi: '235700000', gt:  '93,000', dest: 'CHINA' },
+      { name: 'LONDON PIONEER',      type: 'Cargo',     flag: '🇬🇧', mmsi: '235800000', gt:  '18,000', dest: 'TILBURY' },
+      { name: 'CELTIC SPIRIT',       type: 'LNG',       flag: '🇬🇧', mmsi: '235900000', gt: '100,000', dest: 'UK' }
+    ]
+  };
+
+
+  /* Area stats — estimated vessel counts per port / strait */
+  var AREA_STATS = {
+    singapore:       { total: 1200, underway: 450, anchored: 550, moored: 200 },
+    busan:           { total:  420, underway: 160, anchored: 130, moored: 130 },
+    incheon:         { total:  180, underway:  65, anchored:  60, moored:  55 },
+    ulsan:           { total:  140, underway:  50, anchored:  50, moored:  40 },
+    shanghai:        { total:  980, underway: 350, anchored: 380, moored: 250 },
+    shenzhen:        { total:  520, underway: 200, anchored: 180, moored: 140 },
+    ningbo:          { total:  480, underway: 180, anchored: 180, moored: 120 },
+    tianjin:         { total:  350, underway: 130, anchored: 130, moored:  90 },
+    qingdao:         { total:  380, underway: 140, anchored: 150, moored:  90 },
+    tokyo:           { total:  280, underway: 100, anchored:  90, moored:  90 },
+    yokohama:        { total:  260, underway:  95, anchored:  85, moored:  80 },
+    nagoya:          { total:  180, underway:  65, anchored:  60, moored:  55 },
+    osaka:           { total:  200, underway:  70, anchored:  70, moored:  60 },
+    portklang:       { total:  320, underway: 120, anchored: 120, moored:  80 },
+    tanjungpelepas:  { total:  180, underway:  70, anchored:  60, moored:  50 },
+    jakarta:         { total:  280, underway: 100, anchored: 110, moored:  70 },
+    rotterdam:       { total:  480, underway: 180, anchored: 120, moored: 180 },
+    antwerp:         { total:  320, underway: 120, anchored:  80, moored: 120 },
+    hamburg:         { total:  260, underway:  95, anchored:  60, moored: 105 },
+    felixstowe:      { total:  180, underway:  65, anchored:  55, moored:  60 },
+    bremerhaven:     { total:  150, underway:  55, anchored:  40, moored:  55 },
+    barcelona:       { total:  240, underway:  85, anchored:  75, moored:  80 },
+    piraeus:         { total:  380, underway: 140, anchored: 150, moored:  90 },
+    jebel_ali:       { total:  420, underway: 160, anchored: 160, moored: 100 },
+    colombo:         { total:  280, underway: 105, anchored: 110, moored:  65 },
+    losangeles:      { total:  350, underway: 130, anchored: 150, moored:  70 },
+    longbeach:       { total:  320, underway: 120, anchored: 140, moored:  60 },
+    newyork:         { total:  280, underway: 100, anchored:  90, moored:  90 },
+    savannah:        { total:  180, underway:  65, anchored:  60, moored:  55 },
+    colon:           { total:  240, underway:  90, anchored: 100, moored:  50 },
+    malacca:         { total:  850, underway: 700, anchored: 120, moored:  30 },
+    english_channel: { total:  650, underway: 580, anchored:  50, moored:  20 },
+    suez:            { total:  180, underway: 120, anchored:  45, moored:  15 },
+    hormuz:          { total:  320, underway: 260, anchored:  45, moored:  15 },
+    bab_el_mandeb:   { total:  240, underway: 190, anchored:  40, moored:  10 }
+  };
+
+  /* Country waters — estimated vessel counts */
+  var COUNTRY_STATS = {
+    KR: { total:  620, underway: 240, anchored: 210, moored: 170 },
+    JP: { total:  780, underway: 300, anchored: 260, moored: 220 },
+    CN: { total: 1800, underway: 680, anchored: 720, moored: 400 },
+    SG: { total: 1200, underway: 450, anchored: 550, moored: 200 },
+    MY: { total:  480, underway: 185, anchored: 170, moored: 125 },
+    ID: { total:  560, underway: 210, anchored: 210, moored: 140 },
+    US: { total:  850, underway: 320, anchored: 340, moored: 190 },
+    NL: { total:  480, underway: 180, anchored: 120, moored: 180 },
+    DE: { total:  420, underway: 155, anchored: 110, moored: 155 },
+    BE: { total:  320, underway: 120, anchored:  80, moored: 120 },
+    GB: { total:  650, underway: 240, anchored: 220, moored: 190 },
+    FR: { total:  520, underway: 190, anchored: 180, moored: 150 },
+    GR: { total:  580, underway: 220, anchored: 230, moored: 130 },
+    TR: { total:  480, underway: 180, anchored: 175, moored: 125 },
+    AE: { total:  520, underway: 200, anchored: 210, moored: 110 },
+    EG: { total:  180, underway: 120, anchored:  45, moored:  15 },
+    PA: { total:  240, underway:  90, anchored: 100, moored:  50 },
+    AU: { total:  380, underway: 145, anchored: 145, moored:  90 },
+    NO: { total:  350, underway: 135, anchored: 120, moored:  95 },
+    DK: { total:  280, underway: 105, anchored:  90, moored:  85 }
+  };
+
+  /* Flag stats — registered fleet size by flag state */
+  var FLAG_STATS = {
+    PA: 9200, LR: 4500, MH: 4200, BS: 1700, MT: 2200,
+    CY: 1100, KY:  780, BM:  960, IM:  780,
+    CN: 5100, HK: 2600, SG: 4100, KR: 1900, JP: 3600,
+    GR: 4800, NO: 1800, DK: 1200, DE:  750, NL:  850, GB:  760
+  };
+
   /* Country centers */
   var COUNTRIES = {
     KR: { lat: 35.10, lon: 129.00, zoom:  7, name: 'South Korea' },
@@ -536,81 +1092,191 @@
   /* Representative vessels per port (curated) */
   var PORT_VESSELS = {
     busan: [
-      { name: 'HMM ALGECIRAS',    type: 'Container', flag: '🇰🇷', mmsi: '440466000', gt: '235,981', dest: 'BUSAN' },
-      { name: 'HYUNDAI UNITY',    type: 'Container', flag: '🇰🇷', mmsi: '440489000', gt: '141,000', dest: 'BUSAN' },
-      { name: 'SM BUSAN',         type: 'Container', flag: '🇰🇷', mmsi: '440148000', gt:  '94,500', dest: 'BUSAN' },
-      { name: 'DAEWOO PIONEER',   type: 'Bulk',      flag: '🇰🇷', mmsi: '440632000', gt:  '82,300', dest: 'BUSAN' },
-      { name: 'SK SPIRIT',        type: 'Tanker',    flag: '🇰🇷', mmsi: '440777000', gt: '163,000', dest: 'BUSAN' }
+      { name: 'HMM ALGECIRAS',       type: 'Container', flag: '🇰🇷', mmsi: '440466000', gt: '235,981', dest: 'BUSAN' },
+      { name: 'HYUNDAI UNITY',       type: 'Container', flag: '🇰🇷', mmsi: '440489000', gt: '141,000', dest: 'BUSAN' },
+      { name: 'SM BUSAN',            type: 'Container', flag: '🇰🇷', mmsi: '440148000', gt:  '94,500', dest: 'BUSAN' },
+      { name: 'DAEWOO PIONEER',      type: 'Bulk',      flag: '🇰🇷', mmsi: '440632000', gt:  '82,300', dest: 'BUSAN' },
+      { name: 'SK SPIRIT',           type: 'Tanker',    flag: '🇰🇷', mmsi: '440777000', gt: '163,000', dest: 'BUSAN' },
+      { name: 'HMM GDANSK',          type: 'Container', flag: '🇰🇷', mmsi: '440453000', gt: '235,981', dest: 'GDANSK' },
+      { name: 'EUKOR PEARL',         type: 'RoRo',      flag: '🇰🇷', mmsi: '440321000', gt:  '71,000', dest: 'BUSAN' },
+      { name: 'GLOVIS SUPERIOR',     type: 'RoRo',      flag: '🇰🇷', mmsi: '440355000', gt:  '69,000', dest: 'BUSAN' },
+      { name: 'STX POPLAR',          type: 'Bulk',      flag: '🇰🇷', mmsi: '440610000', gt:  '93,000', dest: 'BUSAN' },
+      { name: 'BW BUSAN',            type: 'Tanker',    flag: '🇰🇷', mmsi: '440705000', gt: '160,000', dest: 'BUSAN' },
+      { name: 'KOREA PIONEER',       type: 'Cargo',     flag: '🇰🇷', mmsi: '440500000', gt:  '18,000', dest: 'BUSAN' },
+      { name: 'PANSTAR GENIE',       type: 'Cargo',     flag: '🇰🇷', mmsi: '440410000', gt:  '15,500', dest: 'OSAKA' },
+      { name: 'MAERSK BUSAN',        type: 'Container', flag: '🇩🇰', mmsi: '219025000', gt: '194,849', dest: 'BUSAN' },
+      { name: 'MSC BUSAN',           type: 'Container', flag: '🇵🇦', mmsi: '372690000', gt: '153,000', dest: 'BUSAN' },
+      { name: 'SAMSUNG ENERGY',      type: 'LNG',       flag: '🇰🇷', mmsi: '440800000', gt:  '93,000', dest: 'JAPAN' }
     ],
     singapore: [
-      { name: 'MSC GÜLSÜN',       type: 'Container', flag: '🇵🇦', mmsi: '372773000', gt: '232,000', dest: 'SINGAPORE' },
-      { name: 'EVER GIVEN',       type: 'Container', flag: '🇵🇦', mmsi: '353136000', gt: '219,079', dest: 'SINGAPORE' },
-      { name: 'CSCL GLOBE',       type: 'Container', flag: '🇨🇳', mmsi: '477373100', gt: '184,653', dest: 'SINGAPORE' },
-      { name: 'BW SINGAPORE',     type: 'Tanker',    flag: '🇸🇬', mmsi: '564234000', gt: '158,000', dest: 'SINGAPORE' },
-      { name: 'PACIFIC SINGAPORE',type: 'LNG',       flag: '🇸🇬', mmsi: '565234000', gt:  '93,000', dest: 'SINGAPORE' }
+      { name: 'MSC GÜLSÜN',          type: 'Container', flag: '🇵🇦', mmsi: '372773000', gt: '232,000', dest: 'SINGAPORE' },
+      { name: 'EVER GIVEN',          type: 'Container', flag: '🇵🇦', mmsi: '353136000', gt: '219,079', dest: 'SINGAPORE' },
+      { name: 'CSCL GLOBE',          type: 'Container', flag: '🇨🇳', mmsi: '477373100', gt: '184,653', dest: 'SINGAPORE' },
+      { name: 'BW SINGAPORE',        type: 'Tanker',    flag: '🇸🇬', mmsi: '564234000', gt: '158,000', dest: 'SINGAPORE' },
+      { name: 'PACIFIC SINGAPORE',   type: 'LNG',       flag: '🇸🇬', mmsi: '565234000', gt:  '93,000', dest: 'SINGAPORE' },
+      { name: 'MAERSK SINGAPORE',    type: 'Container', flag: '🇩🇰', mmsi: '219025100', gt: '194,849', dest: 'SINGAPORE' },
+      { name: 'OOCL SINGAPORE',      type: 'Container', flag: '🇭🇰', mmsi: '477301900', gt: '199,642', dest: 'SINGAPORE' },
+      { name: 'PIL SINGAPORE',       type: 'Container', flag: '🇸🇬', mmsi: '563023000', gt:  '94,000', dest: 'SINGAPORE' },
+      { name: 'NEPTUNE SINGAPORE',   type: 'Tanker',    flag: '🇸🇬', mmsi: '563280000', gt: '105,000', dest: 'SINGAPORE' },
+      { name: 'MOL TRIUMPH',         type: 'Container', flag: '🇵🇦', mmsi: '352672000', gt: '210,000', dest: 'SINGAPORE' },
+      { name: 'YANG MING SUNSHINE',  type: 'Container', flag: '🇵🇦', mmsi: '352874000', gt: '184,000', dest: 'SINGAPORE' },
+      { name: 'COSCO SINGAPORE',     type: 'Container', flag: '🇨🇳', mmsi: '477288600', gt: '141,000', dest: 'SINGAPORE' },
+      { name: 'HYUNDAI SINGAPORE',   type: 'Container', flag: '🇰🇷', mmsi: '440102000', gt: '100,000', dest: 'SINGAPORE' },
+      { name: 'STELLAR PACIFIC',     type: 'Bulk',      flag: '🇸🇬', mmsi: '566100000', gt: '180,000', dest: 'SINGAPORE' },
+      { name: 'FSO ASIA',            type: 'Tanker',    flag: '🇸🇬', mmsi: '565150000', gt: '250,000', dest: 'SINGAPORE' }
     ],
     shanghai: [
       { name: 'COSCO SHIPPING UNIVERSE', type: 'Container', flag: '🇨🇳', mmsi: '477377900', gt: '210,000', dest: 'SHANGHAI' },
-      { name: 'CSCL PACIFIC OCEAN',      type: 'Container', flag: '🇨🇳', mmsi: '477373400', gt: '184,654', dest: 'SHANGHAI' },
-      { name: 'CHANG YUAN XIN',          type: 'Container', flag: '🇨🇳', mmsi: '413703040', gt: '187,541', dest: 'SHANGHAI' },
-      { name: 'NEW GOLDEN BRIDGE VII',   type: 'RoRo',      flag: '🇨🇳', mmsi: '413512190', gt:  '62,000', dest: 'SHANGHAI' },
-      { name: 'GREAT WALL',              type: 'Bulk',      flag: '🇨🇳', mmsi: '413288040', gt: '180,000', dest: 'SHANGHAI' }
+      { name: 'CSCL PACIFIC OCEAN',  type: 'Container', flag: '🇨🇳', mmsi: '477373400', gt: '184,654', dest: 'SHANGHAI' },
+      { name: 'CHANG YUAN XIN',      type: 'Container', flag: '🇨🇳', mmsi: '413703040', gt: '187,541', dest: 'SHANGHAI' },
+      { name: 'NEW GOLDEN BRIDGE VII',type: 'RoRo',     flag: '🇨🇳', mmsi: '413512190', gt:  '62,000', dest: 'SHANGHAI' },
+      { name: 'GREAT WALL',          type: 'Bulk',      flag: '🇨🇳', mmsi: '413288040', gt: '180,000', dest: 'SHANGHAI' },
+      { name: 'COSCO GALAXY',        type: 'Container', flag: '🇨🇳', mmsi: '477388200', gt: '210,000', dest: 'SHANGHAI' },
+      { name: 'CSCL SATURN',         type: 'Container', flag: '🇨🇳', mmsi: '477373600', gt: '141,000', dest: 'SHANGHAI' },
+      { name: 'YANG MING WITNESS',   type: 'Container', flag: '🇵🇦', mmsi: '352780500', gt: '141,000', dest: 'SHANGHAI' },
+      { name: 'EVER GLOBE',          type: 'Container', flag: '🇵🇦', mmsi: '353160000', gt: '210,000', dest: 'SHANGHAI' },
+      { name: 'MSC SHANGHAI',        type: 'Container', flag: '🇵🇦', mmsi: '372800000', gt: '232,000', dest: 'SHANGHAI' },
+      { name: 'MAERSK SHANGHAI',     type: 'Container', flag: '🇩🇰', mmsi: '219032000', gt: '194,849', dest: 'SHANGHAI' },
+      { name: 'PACIFIC TRADER CN',   type: 'Tanker',    flag: '🇨🇳', mmsi: '413500000', gt: '163,000', dest: 'SHANGHAI' },
+      { name: 'WANHAI 275',          type: 'Container', flag: '🇹🇼', mmsi: '416744000', gt:  '80,000', dest: 'SHANGHAI' },
+      { name: 'GOLDEN YANGTZE',      type: 'Bulk',      flag: '🇨🇳', mmsi: '413680000', gt: '180,000', dest: 'SHANGHAI' },
+      { name: 'CHINA LNG PIONEER',   type: 'LNG',       flag: '🇨🇳', mmsi: '413530000', gt:  '93,000', dest: 'SHANGHAI' }
     ],
     rotterdam: [
-      { name: 'MSC OSCAR',        type: 'Container', flag: '🇵🇦', mmsi: '255803650', gt: '197,362', dest: 'ROTTERDAM' },
-      { name: 'COSCO SHIPPING TAURUS', type: 'Container', flag: '🇨🇳', mmsi: '477377600', gt: '199,000', dest: 'ROTTERDAM' },
-      { name: 'NORDIC RUTH',      type: 'Tanker',    flag: '🇩🇰', mmsi: '219640000', gt: '158,000', dest: 'ROTTERDAM' },
-      { name: 'FEDERAL VIBEKE',   type: 'Bulk',      flag: '🇧🇸', mmsi: '311001200', gt:  '35,000', dest: 'ROTTERDAM' },
-      { name: 'GATE CELSIUS',     type: 'LNG',       flag: '🇳🇱', mmsi: '246283000', gt: '100,000', dest: 'ROTTERDAM' }
+      { name: 'MSC OSCAR',           type: 'Container', flag: '🇵🇦', mmsi: '255803650', gt: '197,362', dest: 'ROTTERDAM' },
+      { name: 'COSCO SHIPPING TAURUS',type:'Container', flag: '🇨🇳', mmsi: '477377600', gt: '199,000', dest: 'ROTTERDAM' },
+      { name: 'NORDIC RUTH',         type: 'Tanker',    flag: '🇩🇰', mmsi: '219640000', gt: '158,000', dest: 'ROTTERDAM' },
+      { name: 'FEDERAL VIBEKE',      type: 'Bulk',      flag: '🇧🇸', mmsi: '311001200', gt:  '35,000', dest: 'ROTTERDAM' },
+      { name: 'GATE CELSIUS',        type: 'LNG',       flag: '🇳🇱', mmsi: '246283000', gt: '100,000', dest: 'ROTTERDAM' },
+      { name: 'MAERSK MADISON',      type: 'Container', flag: '🇩🇰', mmsi: '219017000', gt: '194,849', dest: 'ROTTERDAM' },
+      { name: 'MSC CAPELLA',         type: 'Container', flag: '🇵🇦', mmsi: '255803900', gt: '153,093', dest: 'ROTTERDAM' },
+      { name: 'OOCL ROTTERDAM',      type: 'Container', flag: '🇭🇰', mmsi: '477349400', gt: '199,642', dest: 'ROTTERDAM' },
+      { name: 'HAPAG ROTTERDAM',     type: 'Container', flag: '🇩🇪', mmsi: '218190000', gt: '141,000', dest: 'ROTTERDAM' },
+      { name: 'PANAMAX VICTOR',      type: 'Tanker',    flag: '🇳🇱', mmsi: '246390000', gt: '105,000', dest: 'ROTTERDAM' },
+      { name: 'ATLANTIS SPIRIT',     type: 'LNG',       flag: '🇳🇱', mmsi: '246250000', gt: '100,000', dest: 'ROTTERDAM' },
+      { name: 'EURO BULK NL',        type: 'Bulk',      flag: '🇩🇪', mmsi: '218630000', gt:  '93,000', dest: 'ROTTERDAM' },
+      { name: 'RHEIN CARRIER',       type: 'Cargo',     flag: '🇩🇪', mmsi: '218405000', gt:   '8,500', dest: 'ROTTERDAM' },
+      { name: 'PIONEER SPIRIT NL',   type: 'Cargo',     flag: '🇳🇱', mmsi: '246481000', gt:  '62,000', dest: 'ROTTERDAM' },
+      { name: 'NORDIC OSLO',         type: 'Tanker',    flag: '🇳🇴', mmsi: '257420000', gt: '161,000', dest: 'ROTTERDAM' }
     ],
     antwerp: [
-      { name: 'MSC MAYA',         type: 'Container', flag: '🇵🇦', mmsi: '255806210', gt: '194,849', dest: 'ANTWERP' },
-      { name: 'EVER GREET',       type: 'Container', flag: '🇵🇦', mmsi: '353083000', gt: '210,000', dest: 'ANTWERP' },
-      { name: 'TORM LOTTE',       type: 'Tanker',    flag: '🇩🇰', mmsi: '219187000', gt:  '30,000', dest: 'ANTWERP' },
-      { name: 'AMSTELDIEP',       type: 'Cargo',     flag: '🇳🇱', mmsi: '244820000', gt:   '3,500', dest: 'ANTWERP' },
-      { name: 'HÖEGH XIAMEN',     type: 'RoRo',      flag: '🇧🇸', mmsi: '311016300', gt:  '71,000', dest: 'ANTWERP' }
+      { name: 'MSC MAYA',            type: 'Container', flag: '🇵🇦', mmsi: '255806210', gt: '194,849', dest: 'ANTWERP' },
+      { name: 'EVER GREET',          type: 'Container', flag: '🇵🇦', mmsi: '353083000', gt: '210,000', dest: 'ANTWERP' },
+      { name: 'TORM LOTTE',          type: 'Tanker',    flag: '🇩🇰', mmsi: '219187000', gt:  '30,000', dest: 'ANTWERP' },
+      { name: 'AMSTELDIEP',          type: 'Cargo',     flag: '🇳🇱', mmsi: '244820000', gt:   '3,500', dest: 'ANTWERP' },
+      { name: 'HÖEGH XIAMEN',        type: 'RoRo',      flag: '🇧🇸', mmsi: '311016300', gt:  '71,000', dest: 'ANTWERP' },
+      { name: 'MSC LEANNE',          type: 'Container', flag: '🇵🇦', mmsi: '255806500', gt: '141,000', dest: 'ANTWERP' },
+      { name: 'CMA CGM ANTWERP',     type: 'Container', flag: '🇫🇷', mmsi: '228378000', gt: '184,000', dest: 'ANTWERP' },
+      { name: 'MAERSK ANTWERP',      type: 'Container', flag: '🇩🇰', mmsi: '219022000', gt: '194,849', dest: 'ANTWERP' },
+      { name: 'HAPAG ANTWERP',       type: 'Container', flag: '🇩🇪', mmsi: '218200000', gt: '141,000', dest: 'ANTWERP' },
+      { name: 'SCHELDT TRADER',      type: 'Tanker',    flag: '🇧🇪', mmsi: '205400000', gt:  '28,000', dest: 'ANTWERP' },
+      { name: 'ATLANTIC MERCHANT',   type: 'Cargo',     flag: '🇧🇪', mmsi: '205350000', gt:  '12,000', dest: 'ANTWERP' },
+      { name: 'BOREALIS',            type: 'LNG',       flag: '🇧🇪', mmsi: '205560000', gt: '100,000', dest: 'ANTWERP' },
+      { name: 'EURO PIONEER',        type: 'Bulk',      flag: '🇧🇸', mmsi: '311095000', gt:  '82,000', dest: 'ANTWERP' },
+      { name: 'FLANDERS GLORY',      type: 'Cargo',     flag: '🇧🇪', mmsi: '205240000', gt:   '6,800', dest: 'ANTWERP' },
+      { name: 'ZEEBRUGGE',           type: 'RoRo',      flag: '🇧🇪', mmsi: '205490000', gt:  '71,000', dest: 'ANTWERP' }
     ],
     hamburg: [
-      { name: 'HAPAG EXPRESS',    type: 'Container', flag: '🇩🇪', mmsi: '218123000', gt: '141,000', dest: 'HAMBURG' },
-      { name: 'CONTI CORTESIA',   type: 'Container', flag: '🇩🇪', mmsi: '218454000', gt:  '94,193', dest: 'HAMBURG' },
-      { name: 'NORDIC GRACE',     type: 'Tanker',    flag: '🇩🇰', mmsi: '219552000', gt: '161,000', dest: 'HAMBURG' },
-      { name: 'VEGA DEIMOS',      type: 'Bulk',      flag: '🇩🇪', mmsi: '218766000', gt:  '37,000', dest: 'HAMBURG' },
-      { name: 'HALLERTAU',        type: 'Cargo',     flag: '🇩🇪', mmsi: '218600000', gt:   '6,200', dest: 'HAMBURG' }
+      { name: 'HAPAG EXPRESS',       type: 'Container', flag: '🇩🇪', mmsi: '218123000', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'CONTI CORTESIA',      type: 'Container', flag: '🇩🇪', mmsi: '218454000', gt:  '94,193', dest: 'HAMBURG' },
+      { name: 'NORDIC GRACE',        type: 'Tanker',    flag: '🇩🇰', mmsi: '219552000', gt: '161,000', dest: 'HAMBURG' },
+      { name: 'VEGA DEIMOS',         type: 'Bulk',      flag: '🇩🇪', mmsi: '218766000', gt:  '37,000', dest: 'HAMBURG' },
+      { name: 'HALLERTAU',           type: 'Cargo',     flag: '🇩🇪', mmsi: '218600000', gt:   '6,200', dest: 'HAMBURG' },
+      { name: 'HAPAG LLOYD EXPRESS', type: 'Container', flag: '🇩🇪', mmsi: '218135000', gt: '194,849', dest: 'HAMBURG' },
+      { name: 'MSC HAMBURG',         type: 'Container', flag: '🇵🇦', mmsi: '372690000', gt: '153,093', dest: 'HAMBURG' },
+      { name: 'MAERSK HAMBURG',      type: 'Container', flag: '🇩🇰', mmsi: '219040000', gt: '194,849', dest: 'HAMBURG' },
+      { name: 'ELBE SPIRIT',         type: 'Tanker',    flag: '🇩🇪', mmsi: '218480000', gt: '105,000', dest: 'HAMBURG' },
+      { name: 'NORDSEE TRADER',      type: 'Cargo',     flag: '🇩🇪', mmsi: '218540000', gt:   '9,500', dest: 'HAMBURG' },
+      { name: 'ATLANTIC LNG DE',     type: 'LNG',       flag: '🇩🇪', mmsi: '218320000', gt: '100,000', dest: 'HAMBURG' },
+      { name: 'HAMBURG BULK',        type: 'Bulk',      flag: '🇩🇪', mmsi: '218720000', gt:  '93,000', dest: 'HAMBURG' },
+      { name: 'WESER MARINER',       type: 'Cargo',     flag: '🇩🇪', mmsi: '218560000', gt:   '7,200', dest: 'HAMBURG' },
+      { name: 'CUXHAVEN',            type: 'Container', flag: '🇩🇪', mmsi: '218180000', gt:  '25,000', dest: 'HAMBURG' },
+      { name: 'NORD CONFIDENCE',     type: 'Tanker',    flag: '🇩🇪', mmsi: '218820000', gt:  '30,000', dest: 'HAMBURG' }
     ],
     english_channel: [
-      { name: 'MAERSK MCKINNEY',  type: 'Container', flag: '🇩🇰', mmsi: '220436000', gt: '194,849', dest: 'ROTTERDAM' },
-      { name: 'MSC BEATRICE',     type: 'Container', flag: '🇵🇦', mmsi: '372491000', gt: '153,093', dest: 'FELIXSTOWE' },
-      { name: 'FRONT INTEGRITY',  type: 'Tanker',    flag: '🇧🇸', mmsi: '311029400', gt: '163,000', dest: 'ROTTERDAM' },
-      { name: 'MAPLE',            type: 'Bulk',      flag: '🇧🇸', mmsi: '311086000', gt:  '93,000', dest: 'ANTWERP' },
-      { name: 'GDF SUEZ GLOBAL',  type: 'LNG',       flag: '🇧🇪', mmsi: '205548000', gt: '100,000', dest: 'LE HAVRE' }
+      { name: 'MAERSK MCKINNEY',     type: 'Container', flag: '🇩🇰', mmsi: '220436000', gt: '194,849', dest: 'ROTTERDAM' },
+      { name: 'MSC BEATRICE',        type: 'Container', flag: '🇵🇦', mmsi: '372491000', gt: '153,093', dest: 'FELIXSTOWE' },
+      { name: 'FRONT INTEGRITY',     type: 'Tanker',    flag: '🇧🇸', mmsi: '311029400', gt: '163,000', dest: 'ROTTERDAM' },
+      { name: 'MAPLE',               type: 'Bulk',      flag: '🇧🇸', mmsi: '311086000', gt:  '93,000', dest: 'ANTWERP' },
+      { name: 'GDF SUEZ GLOBAL',     type: 'LNG',       flag: '🇧🇪', mmsi: '205548000', gt: '100,000', dest: 'LE HAVRE' },
+      { name: 'EVER LOADING',        type: 'Container', flag: '🇵🇦', mmsi: '353170000', gt: '235,981', dest: 'HAMBURG' },
+      { name: 'CMA CGM MARCO POLO',  type: 'Container', flag: '🇫🇷', mmsi: '228374000', gt: '187,000', dest: 'SOUTHAMPTON' },
+      { name: 'HAPAG CHANNEL',       type: 'Container', flag: '🇩🇪', mmsi: '218150000', gt: '141,000', dest: 'HAMBURG' },
+      { name: 'BRITISH LOYALTY',     type: 'Tanker',    flag: '🇬🇧', mmsi: '235040000', gt: '105,000', dest: 'FAWLEY' },
+      { name: 'STENA IMPERIAL',      type: 'Tanker',    flag: '🇸🇪', mmsi: '265533000', gt:  '65,000', dest: 'ROTTERDAM' },
+      { name: 'ISLE OF INISHMORE',   type: 'Cargo',     flag: '🇮🇪', mmsi: '250004000', gt:  '24,000', dest: 'DUBLIN' },
+      { name: 'CHANNEL BULKER',      type: 'Bulk',      flag: '🇬🇧', mmsi: '235120000', gt:  '58,000', dest: 'ROTTERDAM' },
+      { name: 'PRIDE OF KENT',       type: 'RoRo',      flag: '🇬🇧', mmsi: '235019000', gt:  '30,000', dest: 'CALAIS' },
+      { name: 'EUROTUNNEL PIONEER',  type: 'RoRo',      flag: '🇫🇷', mmsi: '228200000', gt:  '22,000', dest: 'DOVER' },
+      { name: 'BRITTANY VENTURE',    type: 'Cargo',     flag: '🇫🇷', mmsi: '228350000', gt:  '10,000', dest: 'LE HAVRE' }
     ],
     suez: [
-      { name: 'EVER ACE',         type: 'Container', flag: '🇵🇦', mmsi: '356622000', gt: '235,981', dest: 'SUEZ' },
-      { name: 'MSC ISTANBUL',     type: 'Container', flag: '🇵🇦', mmsi: '372771000', gt: '199,000', dest: 'SUEZ' },
-      { name: 'AFRA PRIDE',       type: 'Tanker',    flag: '🇬🇷', mmsi: '241420000', gt: '105,000', dest: 'SUEZ' },
-      { name: 'GENCO AUGUSTUS',   type: 'Bulk',      flag: '🇺🇸', mmsi: '369150000', gt:  '58,000', dest: 'SUEZ' },
-      { name: 'ARCTIC AURORA',    type: 'LNG',       flag: '🇧🇲', mmsi: '310628000', gt:  '93,000', dest: 'SUEZ' }
+      { name: 'EVER ACE',            type: 'Container', flag: '🇵🇦', mmsi: '356622000', gt: '235,981', dest: 'SUEZ' },
+      { name: 'MSC ISTANBUL',        type: 'Container', flag: '🇵🇦', mmsi: '372771000', gt: '199,000', dest: 'SUEZ' },
+      { name: 'AFRA PRIDE',          type: 'Tanker',    flag: '🇬🇷', mmsi: '241420000', gt: '105,000', dest: 'SUEZ' },
+      { name: 'GENCO AUGUSTUS',      type: 'Bulk',      flag: '🇺🇸', mmsi: '369150000', gt:  '58,000', dest: 'SUEZ' },
+      { name: 'ARCTIC AURORA',       type: 'LNG',       flag: '🇧🇸', mmsi: '310628000', gt:  '93,000', dest: 'SUEZ' },
+      { name: 'HMM SUEZ',            type: 'Container', flag: '🇰🇷', mmsi: '440460000', gt: '235,981', dest: 'SUEZ' },
+      { name: 'COSCO SUEZ',          type: 'Container', flag: '🇨🇳', mmsi: '477390000', gt: '210,000', dest: 'SUEZ' },
+      { name: 'MAERSK ALTAIR',       type: 'Container', flag: '🇩🇰', mmsi: '219010000', gt: '194,849', dest: 'SUEZ' },
+      { name: 'GULF MERCURY',        type: 'Tanker',    flag: '🇬🇷', mmsi: '241500000', gt: '163,000', dest: 'SUEZ' },
+      { name: 'NILE BULKER',         type: 'Bulk',      flag: '🇬🇷', mmsi: '241600000', gt: '180,000', dest: 'SUEZ' },
+      { name: 'ORIENTAL PEARL',      type: 'Container', flag: '🇵🇦', mmsi: '352600000', gt: '141,000', dest: 'SUEZ' },
+      { name: 'SUEZ PIONEER',        type: 'Cargo',     flag: '🇬🇷', mmsi: '241700000', gt:  '28,000', dest: 'SUEZ' },
+      { name: 'ATLAS EXPRESS',       type: 'Container', flag: '🇵🇦', mmsi: '352700000', gt: '153,000', dest: 'SUEZ' },
+      { name: 'HAMMONIA PACIFICA',   type: 'Container', flag: '🇩🇪', mmsi: '218250000', gt:  '25,000', dest: 'SUEZ' },
+      { name: 'AEGEAN PROGRESS',     type: 'Tanker',    flag: '🇬🇷', mmsi: '241800000', gt:  '30,000', dest: 'SUEZ' }
     ],
     malacca: [
-      { name: 'OOCL HONG KONG',   type: 'Container', flag: '🇭🇰', mmsi: '477347900', gt: '199,642', dest: 'SINGAPORE' },
-      { name: 'NORDIC LUNA',      type: 'Tanker',    flag: '🇳🇴', mmsi: '259044000', gt: '160,000', dest: 'SINGAPORE' },
-      { name: 'STELLAR DIAMOND',  type: 'Bulk',      flag: '🇧🇸', mmsi: '311045500', gt: '180,000', dest: 'CHINA' },
-      { name: 'SERI AYU',         type: 'LNG',       flag: '🇲🇾', mmsi: '533130270', gt:  '93,000', dest: 'JAPAN' },
-      { name: 'PRIDE',            type: 'Cargo',     flag: '🇲🇾', mmsi: '533130000', gt:  '28,000', dest: 'PENANG' }
+      { name: 'OOCL HONG KONG',      type: 'Container', flag: '🇭🇰', mmsi: '477347900', gt: '199,642', dest: 'SINGAPORE' },
+      { name: 'NORDIC LUNA',         type: 'Tanker',    flag: '🇳🇴', mmsi: '259044000', gt: '160,000', dest: 'SINGAPORE' },
+      { name: 'STELLAR DIAMOND',     type: 'Bulk',      flag: '🇧🇸', mmsi: '311045500', gt: '180,000', dest: 'CHINA' },
+      { name: 'SERI AYU',            type: 'LNG',       flag: '🇲🇾', mmsi: '533130270', gt:  '93,000', dest: 'JAPAN' },
+      { name: 'PRIDE',               type: 'Cargo',     flag: '🇲🇾', mmsi: '533130000', gt:  '28,000', dest: 'PENANG' },
+      { name: 'MSC MALACCA',         type: 'Container', flag: '🇵🇦', mmsi: '372780000', gt: '232,000', dest: 'SINGAPORE' },
+      { name: 'EVER DIAMOND',        type: 'Container', flag: '🇵🇦', mmsi: '353140000', gt: '235,981', dest: 'SINGAPORE' },
+      { name: 'COSCO MALACCA',       type: 'Container', flag: '🇨🇳', mmsi: '477380000', gt: '210,000', dest: 'SINGAPORE' },
+      { name: 'STRAIT PIONEER',      type: 'Tanker',    flag: '🇲🇾', mmsi: '533200000', gt: '105,000', dest: 'SINGAPORE' },
+      { name: 'BERGE MALACCA',       type: 'Bulk',      flag: '🇧🇸', mmsi: '311060000', gt: '180,000', dest: 'JAPAN' },
+      { name: 'MALAY SERENITY',      type: 'LNG',       flag: '🇲🇾', mmsi: '533160000', gt:  '93,000', dest: 'KOREA' },
+      { name: 'TROPICAL GRACE',      type: 'Cargo',     flag: '🇲🇾', mmsi: '533140000', gt:  '18,000', dest: 'PENANG' },
+      { name: 'PACIFIC GLORY',       type: 'Container', flag: '🇸🇬', mmsi: '563050000', gt: '141,000', dest: 'SINGAPORE' },
+      { name: 'MALACCA MAX',         type: 'Tanker',    flag: '🇮🇲', mmsi: '234800000', gt: '160,000', dest: 'SINGAPORE' },
+      { name: 'EASTERN GRACE',       type: 'Container', flag: '🇵🇦', mmsi: '352890000', gt:  '94,000', dest: 'SINGAPORE' }
     ],
     jebel_ali: [
-      { name: 'MSC MARIA ELENA',  type: 'Container', flag: '🇵🇦', mmsi: '372773000', gt: '141,000', dest: 'JEBEL ALI' },
-      { name: 'GULF SHEBA',       type: 'Tanker',    flag: '🇦🇪', mmsi: '470182000', gt: '158,000', dest: 'JEBEL ALI' },
-      { name: 'EMIRATES LOYALTY', type: 'RoRo',      flag: '🇦🇪', mmsi: '470187000', gt:  '71,000', dest: 'JEBEL ALI' },
-      { name: 'AL HILLI',         type: 'LNG',       flag: '🇧🇸', mmsi: '311000300', gt:  '93,000', dest: 'JEBEL ALI' },
-      { name: 'DESERT ROSE',      type: 'Bulk',      flag: '🇦🇪', mmsi: '470190000', gt:  '93,000', dest: 'JEBEL ALI' }
+      { name: 'MSC MARIA ELENA',     type: 'Container', flag: '🇵🇦', mmsi: '372773500', gt: '141,000', dest: 'JEBEL ALI' },
+      { name: 'GULF SHEBA',          type: 'Tanker',    flag: '🇦🇪', mmsi: '470182000', gt: '158,000', dest: 'JEBEL ALI' },
+      { name: 'EMIRATES LOYALTY',    type: 'RoRo',      flag: '🇦🇪', mmsi: '470187000', gt:  '71,000', dest: 'JEBEL ALI' },
+      { name: 'AL HILLI',            type: 'LNG',       flag: '🇦🇪', mmsi: '470200000', gt:  '93,000', dest: 'JEBEL ALI' },
+      { name: 'DESERT ROSE',         type: 'Bulk',      flag: '🇦🇪', mmsi: '470190000', gt:  '93,000', dest: 'JEBEL ALI' },
+      { name: 'CMA CGM DUBAI',       type: 'Container', flag: '🇫🇷', mmsi: '228380000', gt: '184,000', dest: 'JEBEL ALI' },
+      { name: 'EVER CHAMPION',       type: 'Container', flag: '🇵🇦', mmsi: '353150000', gt: '210,000', dest: 'JEBEL ALI' },
+      { name: 'MAERSK DUBAI',        type: 'Container', flag: '🇩🇰', mmsi: '219035000', gt: '194,849', dest: 'JEBEL ALI' },
+      { name: 'COSCO DUBAI',         type: 'Container', flag: '🇨🇳', mmsi: '477382000', gt: '199,000', dest: 'JEBEL ALI' },
+      { name: 'ARABIAN TRADER',      type: 'Tanker',    flag: '🇦🇪', mmsi: '470210000', gt: '105,000', dest: 'JEBEL ALI' },
+      { name: 'GULF BULKER',         type: 'Bulk',      flag: '🇦🇪', mmsi: '470220000', gt:  '82,000', dest: 'JEBEL ALI' },
+      { name: 'DUBAI SPIRIT',        type: 'LNG',       flag: '🇦🇪', mmsi: '470230000', gt:  '93,000', dest: 'JEBEL ALI' },
+      { name: 'HORMUZ PIONEER',      type: 'Cargo',     flag: '🇦🇪', mmsi: '470240000', gt:  '18,000', dest: 'JEBEL ALI' },
+      { name: 'ARABIAN NIGHT',       type: 'Container', flag: '🇵🇦', mmsi: '352910000', gt: '141,000', dest: 'JEBEL ALI' },
+      { name: 'PERSIAN GLORY',       type: 'Tanker',    flag: '🇮🇲', mmsi: '234820000', gt: '158,000', dest: 'JEBEL ALI' }
     ],
     colon: [
-      { name: 'EVER ARM',         type: 'Container', flag: '🇵🇦', mmsi: '352984000', gt: '235,981', dest: 'COLON' },
-      { name: 'COSCO PANAMA',     type: 'Container', flag: '🇵🇦', mmsi: '352882000', gt: '141,000', dest: 'COLON' },
-      { name: 'NORSE MAXIM',      type: 'Tanker',    flag: '🇵🇦', mmsi: '352780000', gt: '163,000', dest: 'COLON' },
-      { name: 'ATLANTIC DAWN',    type: 'Bulk',      flag: '🇵🇦', mmsi: '352650000', gt:  '93,000', dest: 'COLON' },
-      { name: 'PACIFIC EMERALD',  type: 'LNG',       flag: '🇵🇦', mmsi: '352540000', gt:  '93,000', dest: 'COLON' }
+      { name: 'EVER ARM',            type: 'Container', flag: '🇵🇦', mmsi: '352984000', gt: '235,981', dest: 'COLON' },
+      { name: 'COSCO PANAMA',        type: 'Container', flag: '🇵🇦', mmsi: '352882000', gt: '141,000', dest: 'COLON' },
+      { name: 'NORSE MAXIM',         type: 'Tanker',    flag: '🇵🇦', mmsi: '352780000', gt: '163,000', dest: 'COLON' },
+      { name: 'ATLANTIC DAWN',       type: 'Bulk',      flag: '🇵🇦', mmsi: '352650000', gt:  '93,000', dest: 'COLON' },
+      { name: 'PACIFIC EMERALD',     type: 'LNG',       flag: '🇵🇦', mmsi: '352540000', gt:  '93,000', dest: 'COLON' },
+      { name: 'MSC PANAMA',          type: 'Container', flag: '🇵🇦', mmsi: '372760000', gt: '199,000', dest: 'COLON' },
+      { name: 'MAERSK COLON',        type: 'Container', flag: '🇩🇰', mmsi: '219028000', gt: '194,849', dest: 'COLON' },
+      { name: 'HMM COLON',           type: 'Container', flag: '🇰🇷', mmsi: '440470000', gt: '235,981', dest: 'COLON' },
+      { name: 'CANAL PIONEER',       type: 'Tanker',    flag: '🇵🇦', mmsi: '352400000', gt: '105,000', dest: 'COLON' },
+      { name: 'PACIFIC CHALLENGER',  type: 'Bulk',      flag: '🇵🇦', mmsi: '352300000', gt: '180,000', dest: 'COLON' },
+      { name: 'TROPICAL STAR',       type: 'Container', flag: '🇵🇦', mmsi: '352200000', gt: '141,000', dest: 'COLON' },
+      { name: 'CARIBBEAN PRIDE',     type: 'Cargo',     flag: '🇵🇦', mmsi: '352100000', gt:  '28,000', dest: 'COLON' },
+      { name: 'PANAMA GATEWAY',      type: 'Container', flag: '🇵🇦', mmsi: '351900000', gt: '153,000', dest: 'COLON' },
+      { name: 'COLON BULKER',        type: 'Bulk',      flag: '🇵🇦', mmsi: '351800000', gt:  '82,000', dest: 'COLON' },
+      { name: 'ISTMO SPIRIT',        type: 'LNG',       flag: '🇵🇦', mmsi: '351700000', gt:  '93,000', dest: 'COLON' }
     ]
   };
 
@@ -653,7 +1319,7 @@
     'LNG':       'vt-type-lng'
   };
 
-  var VT_PAGE_SIZE = 5, vtAllVessels = [], vtPage = 1;
+  var VT_PAGE_SIZE = 10, vtAllVessels = [], vtPage = 1;
 
   function vtRowHtml(v) {
     var cls = TYPE_CLASS[v.type] || '';
@@ -692,18 +1358,121 @@
     vtRenderPager();
   };
 
-  function renderTable(vessels, note) {
+  /* ── Stats helpers ── */
+  var TYPE_ICON = { Container: '📦', Tanker: '🛢', Bulk: '⛴', LNG: '💧', RoRo: '🚗', Cargo: '📫' };
+
+  function getVesselStatus(v) {
+    if (v.status) return v.status;
+    var n = 0, s = v.mmsi || v.name || '';
+    for (var i = 0; i < s.length; i++) n = (n * 31 + s.charCodeAt(i)) & 0x7fffffff;
+    var r = n % 20;
+    return r < 12 ? 'underway' : r < 17 ? 'anchored' : 'moored';
+  }
+
+  function statCard(val, lbl, sub, color) {
+    return '<div class="vt-stat-card">' +
+      '<div class="vt-stat-val" style="color:' + color + '">' + val + '</div>' +
+      '<div class="vt-stat-lbl">' + lbl + '</div>' +
+      (sub ? '<div class="vt-stat-sub">' + sub + '</div>' : '') +
+      '</div>';
+  }
+
+  function estimateByZoom(zoom) {
+    if (zoom >= 12) return { total:   50, underway:  30, anchored:  15, moored:   5 };
+    if (zoom >= 11) return { total:  150, underway:  80, anchored:  50, moored:  20 };
+    if (zoom >= 10) return { total:  320, underway: 175, anchored: 105, moored:  40 };
+    if (zoom >=  9) return { total:  520, underway: 305, anchored: 155, moored:  60 };
+    if (zoom >=  8) return { total:  700, underway: 415, anchored: 205, moored:  80 };
+    if (zoom >=  7) return { total:  880, underway: 540, anchored: 240, moored: 100 };
+    return                 { total: 1150, underway: 710, anchored: 300, moored: 140 };
+  }
+
+  function renderStats(vessels, statsKey) {
+    var el = document.getElementById('vt-stats');
+    if (!el) return;
+
+    /* Parse statsKey — format: "type:value" */
+    var skType = '', skVal = '';
+    if (statsKey) {
+      var ci = statsKey.indexOf(':');
+      skType = ci >= 0 ? statsKey.slice(0, ci) : statsKey;
+      skVal  = ci >= 0 ? statsKey.slice(ci + 1) : '';
+    }
+
+    var area = null, fleet = null;
+    if      (skType === 'port')    area  = AREA_STATS[skVal]    || null;
+    else if (skType === 'country') area  = COUNTRY_STATS[skVal] || null;
+    else if (skType === 'zoom')    area  = estimateByZoom(parseInt(skVal) || 10);
+    else if (skType === 'flag')    fleet = FLAG_STATS[skVal]    || null;
+
+    /* Per-vessel counts (sample) */
+    var sc = { underway: 0, anchored: 0, moored: 0 };
+    var types = {};
+    if (vessels && vessels.length) {
+      vessels.forEach(function (v) {
+        sc[getVesselStatus(v)]++;
+        if (v.type && v.type !== '—') types[v.type] = (types[v.type] || 0) + 1;
+      });
+    }
+
+    /* Nothing to display */
+    if (!area && !fleet && (!vessels || !vessels.length)) {
+      el.style.display = 'none';
+      return;
+    }
+
+    var areaLabel = skType === 'zoom' ? 'Map Area Est.' : 'Total in Area';
+    var html = '';
+
+    if (area) {
+      html += statCard('≈' + area.total.toLocaleString(),    areaLabel,       'Estimated', '#1affda');
+      html += statCard('≈' + area.underway.toLocaleString(), 'Underway',      'Est.',      '#22e85a');
+      html += statCard('≈' + area.anchored.toLocaleString(), 'At Anchor',     'Est.',      '#f0a830');
+      html += statCard('≈' + area.moored.toLocaleString(),   'Moored',        'Est.',      '#7ab3d4');
+      if (vessels && vessels.length)
+        html += statCard(vessels.length, 'Vessels Shown', 'Sample', '#ffffff');
+    } else if (fleet) {
+      html += statCard('≈' + fleet.toLocaleString(), 'Registered Fleet', 'Flag total', '#1affda');
+      html += statCard(sc.underway,  'Underway',  'Sample', '#22e85a');
+      html += statCard(sc.anchored,  'At Anchor', 'Sample', '#f0a830');
+      html += statCard(sc.moored,    'Moored',    'Sample', '#7ab3d4');
+      if (vessels && vessels.length)
+        html += statCard(vessels.length, 'Shown', 'Sample', '#ffffff');
+    } else {
+      html += statCard(vessels.length, 'Vessels',   'Curated', '#1affda');
+      html += statCard(sc.underway,    'Underway',  '',        '#22e85a');
+      html += statCard(sc.anchored,    'At Anchor', '',        '#f0a830');
+      html += statCard(sc.moored,      'Moored',    '',        '#7ab3d4');
+    }
+    document.getElementById('vt-stats-cards').innerHTML = html;
+
+    /* Type breakdown (only when vessel sample exists) */
+    var typeHtml = '';
+    if (Object.keys(types).length) {
+      typeHtml = '<span class="vt-stats-type-lbl">Type :</span>';
+      Object.keys(types).forEach(function (t) {
+        typeHtml += '<span class="vt-stats-type-badge">' +
+          (TYPE_ICON[t] || '') + ' ' + t + ' ×' + types[t] + '</span>';
+      });
+    }
+    document.getElementById('vt-stats-types').innerHTML = typeHtml;
+    el.style.display = 'block';
+  }
+
+  function renderTable(vessels, note, statsKey) {
     document.getElementById('vt-tbl-note').textContent = note || '';
     var pager = document.getElementById('vt-pager');
     if (!vessels || !vessels.length) {
       vtAllVessels = []; vtPage = 1;
       document.getElementById('vt-vessel-tbody').innerHTML = '<tr><td colspan="7" id="vt-tbl-empty">No representative vessel data available. Click a vessel on the map above to view details.</td></tr>';
       if (pager) pager.innerHTML = '';
+      renderStats(null, statsKey);
       return;
     }
     vtAllVessels = vessels; vtPage = 1;
     document.getElementById('vt-vessel-tbody').innerHTML = vessels.slice(0, VT_PAGE_SIZE).map(vtRowHtml).join('');
     vtRenderPager();
+    renderStats(vessels, statsKey);
   }
 
   /* ══════════════════════════════════════════════════════
@@ -729,7 +1498,7 @@
     if (m) {
       var lat = parseFloat(m[1]), lon = parseFloat(m[2]);
       applyMap(lat, lon, zoom, q);
-      renderTable(null, 'Coordinates search — click a vessel on the map for details');
+      renderTable(null, 'Coordinates search — click a vessel on the map for details', 'zoom:' + zoom);
       return;
     }
 
@@ -746,7 +1515,7 @@
           var lat = parseFloat(data[0].lat);
           var lon = parseFloat(data[0].lon);
           applyMap(lat, lon, zoom, data[0].display_name.split(',')[0]);
-          renderTable(null, '"' + q + '" results — click a vessel on the map for details');
+          renderTable(null, '"' + q + '" results — click a vessel on the map for details', 'zoom:' + zoom);
         } else {
           alert('Location not found. Please try a different search term.');
         }
@@ -763,7 +1532,7 @@
     if (!code || !COUNTRIES[code]) return;
     var c = COUNTRIES[code];
     applyMap(c.lat, c.lon, c.zoom, c.name);
-    renderTable(null, c.name + ' waters — click a vessel on the map for details');
+    renderTable(null, c.name + ' waters — click a vessel on the map for details', 'country:' + code);
   };
 
   /* ══════════════════════════════════════════════════════
@@ -778,8 +1547,9 @@
     renderTable(
       vessels,
       vessels
-        ? p.name + ' — ' + vessels.length + ' representative vessels · Check AIS link or map for live positions'
-        : p.name + ' — click a vessel on the map for details'
+        ? p.name + ' — ' + vessels.length + ' representative vessels (일부 제한된 대표 선박 · Non-live) · AIS link or map for live data'
+        : p.name + ' — click a vessel on the map for details',
+      'port:' + key
     );
   };
 
@@ -789,35 +1559,87 @@
   window.vtSearchVessel = function () {
     var q = (document.getElementById('vt-vessel-input').value || '').trim();
     if (!q) return;
-    // Check if MMSI (numeric, 9 digits)
     var isMMSI = /^\d{9}$/.test(q);
-    var mapUrl, searchUrl;
     if (isMMSI) {
-      mapUrl = 'https://www.vesselfinder.com/aismap?mmsi=' + q;
-      searchUrl = 'https://www.vesselfinder.com/vessels?mmsi=' + q;
-      document.getElementById('vt-map-iframe').src = mapUrl;
+      document.getElementById('vt-map-iframe').src = 'https://www.vesselfinder.com/aismap?mmsi=' + q;
       document.getElementById('vt-coord-lbl').textContent = 'MMSI: ' + q;
-      renderTable(null, 'MMSI ' + q + ' — check the AIS link or map for vessel position');
+      renderTable([{
+        name: 'MMSI ' + q,
+        type: '—',
+        flag: '📡',
+        mmsi: q,
+        gt: '—',
+        dest: '—'
+      }], 'MMSI ' + q + ' — vessel pinned on map · click ↗ AIS for details');
     } else {
-      searchUrl = 'https://www.vesselfinder.com/vessels?name=' + encodeURIComponent(q);
       document.getElementById('vt-coord-lbl').textContent = 'Vessel: ' + q;
       renderTable([{
         name: q,
-        type: 'Container',
+        type: '—',
         flag: '🔍',
         mmsi: '',
         gt: '—',
-        dest: 'Searching...',
-      }], '"' + q + '"' + ' — click the AIS link for live position');
+        dest: '—'
+      }], '"' + q + '" — click ↗ AIS to view vessel on VesselFinder');
     }
-    window.open(searchUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  /* ══════════════════════════════════════════════════════
+     SEARCH: Flag State
+  ══════════════════════════════════════════════════════ */
+  window.vtSearchFlag = function () {
+    var code = document.getElementById('vt-flag-sel').value;
+    if (!code || !FLAG_CENTERS[code]) return;
+    var c = FLAG_CENTERS[code];
+    applyMap(c.lat, c.lon, c.zoom, c.flag + ' ' + c.name);
+    var vessels = FLAG_VESSELS[code] || null;
+    renderTable(
+      vessels,
+      vessels
+        ? c.flag + ' ' + c.name + ' flag — ' + vessels.length + ' representative vessels (일부 제한된 대표 선박 · Non-live) · AIS link for live data'
+        : c.flag + ' ' + c.name + ' flag — click a vessel on the map for details',
+      'flag:' + code
+    );
+  };
+
+  /* ══════════════════════════════════════════════════════
+     SEARCH: Year Built
+  ══════════════════════════════════════════════════════ */
+  window.vtSearchYear = function () {
+    var from = (document.getElementById('vt-year-from').value || '').trim();
+    var to   = (document.getElementById('vt-year-to').value || '').trim();
+    if (!from && !to) return;
+    var fromY = parseInt(from) || 1950;
+    var toY   = parseInt(to) || new Date().getFullYear();
+    if (fromY > toY) { var tmp = fromY; fromY = toY; toY = tmp; }
+    var label = fromY === toY ? 'Year Built: ' + fromY : 'Year Built: ' + fromY + '–' + toY;
+    document.getElementById('vt-coord-lbl').textContent = label;
+    /* Build a filtered list from all curated vessels */
+    var pool = [];
+    [PORT_VESSELS, FLAG_VESSELS].forEach(function (db) {
+      Object.keys(db).forEach(function (k) {
+        var arr = db[k];
+        if (Array.isArray(arr)) arr.forEach(function (v) {
+          if (v.built && parseInt(v.built) >= fromY && parseInt(v.built) <= toY) pool.push(v);
+        });
+      });
+    });
+    /* Deduplicate by MMSI */
+    var seen = {}, unique = [];
+    pool.forEach(function (v) { if (!seen[v.mmsi || v.name]) { seen[v.mmsi || v.name] = 1; unique.push(v); } });
+    renderTable(
+      unique.length ? unique : null,
+      label + (unique.length
+        ? ' — ' + unique.length + ' matched vessel(s) from curated database'
+        : ' — No curated matches. Use the AIS links above for live filtering.')
+    );
   };
 
   /* ══════════════════════════════════════════════════════
      INIT: Singapore default
   ══════════════════════════════════════════════════════ */
   applyMap(1.26, 103.8, 11, 'Singapore Port');
-  renderTable(PORT_VESSELS['singapore'], 'Singapore Port — representative vessels · Check AIS link or map for live positions');
+  renderTable(PORT_VESSELS['singapore'], 'Singapore Port — ' + PORT_VESSELS['singapore'].length + ' representative vessels (일부 제한된 대표 선박 · Non-live) · AIS link or map for live data', 'port:singapore');
 
   /* Enter key support */
   document.getElementById('vt-loc-input').addEventListener('keydown', function (e) {
@@ -826,10 +1648,17 @@
   document.getElementById('vt-vessel-input').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') vtSearchVessel();
   });
+  document.getElementById('vt-year-from').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') vtSearchYear();
+  });
+  document.getElementById('vt-year-to').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') vtSearchYear();
+  });
+
 })();
 </script>
 
-<!-- ════ Explore More ════ -->
+<!--════ Explore More ════-->
 <style>
   #pg-nav{font-family:'Segoe UI',Arial,sans-serif;margin-top:28px;}
   #pg-nav *{box-sizing:border-box;}
@@ -850,46 +1679,60 @@
   .pn-b-yel {background:rgba(255,193,7,.28); color:#ffe082;}
   .pn-b-ind {background:rgba(100,160,255,.28);color:#c7d8ff;}
   .pn-b-vio {background:rgba(160,100,255,.28);color:#d4b3ff;}
-  .pn-b-grn {background:rgba(34,197,94,.28);  color:#a7f3d0;}
   .pn-nm{font-size:12.5px;font-weight:600;line-height:1.35;}
 </style>
+
 <div id="pg-nav">
   <div class="pn-wrap">
     <div class="pn-eyebrow">↓ Explore More</div>
     <div class="pn-grid">
 
+      <!--LIVE FEED-->
       <div class="pn-group">
-        <div class="pn-gtitle">📡 Other Live Intel Tools</div>
+        <div class="pn-gtitle">🛠️ LIVE FEED Services</div>
         <ul class="pn-list">
-          <li class="pn-item"><a href="/p/maritime-cyber-threat-intel-ransomware.html" class="pn-link">
-            <span class="pn-bdg pn-b-red">🛡️ Live</span>
-            <span class="pn-nm">Maritime Cyber Threat Intel — Ransomware · OT/IT Attacks</span>
+          <li class="pn-item"><a class="pn-link" href="/p/global-newbuilding-orders.html">
+            <span class="pn-bdg pn-b-teal">Live Feed</span>
+            <span class="pn-nm">🚢 Ship Order Trends</span>
           </a></li>
-          <li class="pn-item"><a href="/p/live-feed-maritime-jobs-feed-ai-data.html" class="pn-link">
-            <span class="pn-bdg pn-b-grn">💼 Live</span>
-            <span class="pn-nm">Maritime Jobs Feed — AI · Data · Cyber Careers</span>
+          <li class="pn-item"><a class="pn-link" href="/p/maritime-cyber-threat-intel-ransomware.html">
+            <span class="pn-bdg pn-b-red">Live Feed</span>
+            <span class="pn-nm">🛡️ Maritime Cyber Threat Intel</span>
           </a></li>
-          <li class="pn-item"><a href="/p/global-newbuilding-orders.html" class="pn-link">
-            <span class="pn-bdg pn-b-blu">🚢 Live</span>
-            <span class="pn-nm">Ship Order Trends — Global Newbuilding Intelligence</span>
+          <li class="pn-item"><a class="pn-link" href="/p/live-feed-maritime-jobs-feed-ai-data.html">
+            <span class="pn-bdg pn-b-amb">Live Feed</span>
+            <span class="pn-nm">💼 Maritime Jobs Feed</span>
+          </a></li>
+          <li class="pn-item"><a class="pn-link" href="/p/smart-vessel-tracking-with-ais.html">
+            <span class="pn-bdg pn-b-blu">AIS</span>
+            <span class="pn-nm">📡 Vessel &amp; Fleet Analysis</span>
           </a></li>
         </ul>
       </div>
 
+      <!--Compliance + Featured Insights-->
       <div class="pn-group">
-        <div class="pn-gtitle">📥 Compliance Downloads</div>
+        <div class="pn-gtitle">🔐 Compliance &amp; Featured Insights</div>
         <ul class="pn-list">
-          <li class="pn-item"><a href="/p/class-society-cyber-guidelines-iacs-ur.html" class="pn-link">
-            <span class="pn-bdg pn-b-yel">📥 Class</span>
-            <span class="pn-nm">Class Society Cyber Guidelines — ABS · DNV · KR · LR · NK</span>
+          <li class="pn-item"><a class="pn-link" href="/p/class-society-cyber-guidelines-iacs-ur.html">
+            <span class="pn-bdg pn-b-yel">Download</span>
+            <span class="pn-nm">📥 Class Society Cyber Guidelines</span>
           </a></li>
-          <li class="pn-item"><a href="/p/international-association-compliance.html" class="pn-link">
-            <span class="pn-bdg pn-b-teal">📥 Intl</span>
-            <span class="pn-nm">International Association — IACS · BIMCO · NIST · IEC 62443</span>
+          <li class="pn-item"><a class="pn-link" href="/p/crsi-iacs-ur-e26e27-system.html">
+            <span class="pn-bdg pn-b-ind">E26/E27</span>
+            <span class="pn-nm">Classify System Types in IACS UR E26/E27</span>
           </a></li>
-          <li class="pn-item"><a href="/p/national-and-port-security-compliance.html" class="pn-link">
-            <span class="pn-bdg pn-b-amb">📥 National</span>
-            <span class="pn-nm">National &amp; Port Security — USCG · KISA · CSA · Africa</span>
+          <li class="pn-item"><a class="pn-link" href="/p/crsi-iacs-ur-e26e27-system_2.html">
+            <span class="pn-bdg pn-b-ind">E26/E27</span>
+            <span class="pn-nm">New Operating Model for Shipbuilding</span>
+          </a></li>
+          <li class="pn-item"><a class="pn-link" href="/p/crsi-iacs-ur-e26e27-system_73.html">
+            <span class="pn-bdg pn-b-vio">TA/SoC</span>
+            <span class="pn-nm">TA/SoC: Maritime Cybersecurity Compliance</span>
+          </a></li>
+          <li class="pn-item"><a class="pn-link" href="/p/crsi-iacs-ur-e26-cybersecurity.html">
+            <span class="pn-bdg pn-b-vio">Deliverables</span>
+            <span class="pn-nm">IACS UR E26/E27 Cybersecurity Deliverables</span>
           </a></li>
         </ul>
       </div>
@@ -897,3 +1740,4 @@
     </div>
   </div>
 </div>
+

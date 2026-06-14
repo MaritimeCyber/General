@@ -1,0 +1,486 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article : AutoGPT — An Autonomous GPT-4 Experiment (2023) Review
+     Author  : Captain Paul  |  Published: June 2026
+     Source  : Toran Bruce Richards — Significant Gravitas / GitHub 2023.03.30
+     Style   : Maritime 4.0 Design System (PAPER template_insung1 기반)
+════════════════════════════════════════════════════════════ -->
+
+<div style="font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;max-width:780px;margin:0 auto;color:#2c3e50;line-height:1.75;box-sizing:border-box;">
+
+  <!-- ══ HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+      <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">🚀 GitHub 2023.03</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">AutoGPT</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Agent AI 프레임워크</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">최초 자율 에이전트 데모</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Significant Gravitas</span>
+    </div>
+    <h1 style="font-size:21px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
+      AutoGPT — AI가 처음으로 스스로 달리기 시작한 날
+    </h1>
+    <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
+      Toran Bruce Richards (Torantulino) &nbsp;·&nbsp; Significant Gravitas &nbsp;·&nbsp; GitHub 공개: 2023년 3월 30일 &nbsp;·&nbsp; ⭐ 160,000+ Stars
+    </p>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+          <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);" />
+        </a>
+        <div>
+          <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT INFO CARD ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">Project Details</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;width:100px;">이름</td>
+        <td style="padding:5px 0;color:#2c3e50;">Auto-GPT: An Autonomous GPT-4 Experiment</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">제작자</td>
+        <td style="padding:5px 0;color:#2c3e50;">Toran Bruce Richards (Torantulino)<br><span style="color:#6b8599;font-size:12px;">Significant Gravitas — 1인 개발자 → 커뮤니티 오픈소스 프로젝트</span></td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">공개일</td>
+        <td style="padding:5px 0;color:#2c3e50;">2023년 3월 30일 &nbsp;·&nbsp; GPT-4 출시 (3월 14일) 16일 후</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">LLM 기반</td>
+        <td style="padding:5px 0;color:#2c3e50;">GPT-4 (기본) · GPT-3.5-turbo (저비용) — OpenAI API 사용</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">도구</td>
+        <td style="padding:5px 0;color:#2c3e50;">웹 검색 · Python 코드 실행 · 파일 I/O · DALL-E · 브라우저 조작 · 커스텀 API</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">메모리</td>
+        <td style="padding:5px 0;color:#2c3e50;">단기: 컨텍스트 윈도우 &nbsp;·&nbsp; 장기: Pinecone / Milvus / Redis 벡터 DB</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">역사적 기록</td>
+        <td style="padding:5px 0;color:#2c3e50;">GitHub 역대 최고 속도 성장 — 공개 1주일 만에 ⭐ 100,000 돌파</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Source</td>
+        <td style="padding:5px 0;">
+          <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener" style="color:#154f7a;font-weight:700;">GitHub ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://agpt.co" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">agpt.co ↗</a>
+        </td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;font-size:10px;color:#b0bcc7;border-top:1px solid #e2eaf3;padding-top:10px;">
+      ※ AutoGPT는 학술 논문이 아닌 오픈소스 GitHub 프로젝트입니다. 이 리뷰는 코드·문서·커뮤니티 기록 기반의 독립적 분석입니다.
+    </div>
+  </div>
+
+  <!-- ══ LEAD PARAGRAPH ══ -->
+  <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 28px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
+    2023년 3월 30일, 인터넷이 술렁였습니다. 한 개발자가 GitHub에 올린 프로젝트가 "AI에게 목표만 주면 혼자 다 한다"고 주장했습니다. 학술 논문도 아니고, 대기업의 발표도 아니었습니다. 그런데 1주일 만에 ⭐ 100,000을 돌파했습니다. AutoGPT는 Agent AI가 <em>실제로 작동한다</em>는 것을 세상이 처음 본 순간이었습니다.
+  </p>
+
+  <!-- ══ TABLE OF CONTENTS ══ -->
+  <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 22px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">리뷰 목차</div>
+    <ol style="margin:0;padding:0 0 0 18px;font-size:14px;color:#354a5e;line-height:2.2;">
+      <li><strong style="color:#0a2342;">역사적 배경 — GPT-4 출시 후 16일</strong></li>
+      <li><strong style="color:#0a2342;">AutoGPT가 보여준 것 — 자율 에이전트의 첫 데모</strong></li>
+      <li><strong style="color:#0a2342;">핵심 아키텍처 — Goal · Plan · Act · Memory · Reflect</strong></li>
+      <li><strong style="color:#0a2342;">5가지 핵심 도구와 메모리 시스템</strong></li>
+      <li><strong style="color:#0a2342;">실제 성능 — 놀라운 데모, 냉정한 현실</strong></li>
+      <li><strong style="color:#0a2342;">평가 — 강점과 한계</strong></li>
+      <li><strong style="color:#0a2342;">해양 산업 시사점</strong></li>
+      <li><strong style="color:#0a2342;">Captain Paul의 결론 — AutoGPT가 남긴 것</strong></li>
+    </ol>
+  </div>
+
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 1 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📌 (1) 역사적 배경 — GPT-4 출시 후 16일</h2>
+    </div>
+    <!-- Timeline -->
+    <div style="display:flex;flex-direction:column;gap:0;margin-bottom:18px;">
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+          <div style="background:#154f7a;color:#fff;font-size:9px;font-weight:800;padding:3px 6px;border-radius:6px;text-align:center;line-height:1.4;">2022<br>11월</div>
+          <div style="width:2px;flex:1;background:#e2eaf3;margin:4px 0;"></div>
+        </div>
+        <div style="padding:0 0 14px 16px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:2px;">ChatGPT 출시</div>
+          <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">세계가 "대화형 AI"에 열광. 하지만 대화만 함 — 스스로 행동하지는 않음.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+          <div style="background:#154f7a;color:#fff;font-size:9px;font-weight:800;padding:3px 6px;border-radius:6px;text-align:center;line-height:1.4;">2023<br>3/14</div>
+          <div style="width:2px;flex:1;background:#e2eaf3;margin:4px 0;"></div>
+        </div>
+        <div style="padding:0 0 14px 16px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:2px;">GPT-4 출시</div>
+          <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">추론 능력이 GPT-3.5 대비 비약적 향상. Function Calling 기능 포함. "이걸 자율 에이전트에 쓰면?"이라는 아이디어가 싹틈.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+          <div style="background:#1a9e82;color:#fff;font-size:9px;font-weight:800;padding:3px 6px;border-radius:6px;text-align:center;line-height:1.4;">2023<br>3/30</div>
+          <div style="width:2px;flex:1;background:#b2ddd4;margin:4px 0;"></div>
+        </div>
+        <div style="padding:0 0 14px 16px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#1a9e82;margin-bottom:2px;">AutoGPT GitHub 공개 ★</div>
+          <p style="font-size:12.5px;color:#4a6278;line-height:1.65;margin:0;">"목표만 입력하면 AI가 계획 세우고 실행하고 기억하고 반성한다." 1주일 만에 ⭐ 100,000. Hacker News, Twitter 폭발.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0;">
+          <div style="background:#154f7a;color:#fff;font-size:9px;font-weight:800;padding:3px 6px;border-radius:6px;text-align:center;line-height:1.4;">2023<br>4~6월</div>
+        </div>
+        <div style="padding:0 0 0 16px;flex:1;">
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:2px;">Agent AI 생태계 폭발</div>
+          <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">BabyAGI, AgentGPT, SuperAGI, HuggingGPT... AutoGPT에 영감받은 수십 개 프로젝트 등장. LangChain, CrewAI 연구 가속화.</p>
+        </div>
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 18px;font-size:14px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">역사적 의미:</strong> AutoGPT는 "Agent AI는 이론이 아니라 지금 당장 만들 수 있다"는 것을 증명했습니다. 학술 논문보다 GitHub 스타 수가 더 빠르게 인식을 바꾼 사례입니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🌟 (2) AutoGPT가 보여준 것 — 자율 에이전트의 첫 데모</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      AutoGPT 이전에도 Agent AI 개념은 있었습니다(ReAct: 2022.10, Toolformer: 2023.02). 하지만 <strong style="color:#0a2342;">실제로 실행 가능한 코드</strong>를 누구나 `pip install`로 쓸 수 있게 만든 것은 AutoGPT가 처음이었습니다.
+    </p>
+    <div style="background:#0d1117;border-radius:12px;padding:20px 22px;margin-bottom:16px;overflow-x:auto;">
+      <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">AutoGPT 실행 예시</div>
+      <pre style="margin:0;font-size:12px;line-height:2;color:#e6edf3;font-family:'Courier New',monospace;white-space:pre-wrap;"><span style="color:#b8d4ea;">AI Name:</span>    MarketResearchGPT
+<span style="color:#b8d4ea;">AI Role:</span>    해운 시장 동향을 조사하고 보고서를 작성하는 AI
+<span style="color:#b8d4ea;">Goal 1:</span>     2024년 컨테이너 운임 동향 데이터 수집
+<span style="color:#b8d4ea;">Goal 2:</span>     주요 선사별 실적 비교 분석
+<span style="color:#b8d4ea;">Goal 3:</span>     결과를 PDF 보고서로 저장
+
+<span style="color:#7effd8;">THOUGHTS:</span>  먼저 컨테이너 운임 지수(WCI, CCFI)를 검색해야겠다.
+<span style="color:#fca5a5;">COMMAND:</span>   web_search("container freight index 2024 trend")
+<span style="color:#fcd34d;">RESULT:</span>    WCI $2,347/FEU... [검색 결과 반환]
+<span style="color:#7effd8;">THOUGHTS:</span>  MSC, Maersk 데이터도 필요하다. 각각 검색하자.
+<span style="color:#fca5a5;">COMMAND:</span>   web_search("MSC Maersk 2024 earnings report")
+...</pre>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 16px;text-align:center;">
+        <div style="font-size:28px;font-weight:800;color:#1a9e82;margin-bottom:4px;">⭐ 160K+</div>
+        <p style="font-size:12px;color:#6b8599;margin:0;">GitHub Stars<br><span style="opacity:0.7;">역대 최고 성장 속도</span></p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 16px;text-align:center;">
+        <div style="font-size:28px;font-weight:800;color:#1a9e82;margin-bottom:4px;">16일</div>
+        <p style="font-size:12px;color:#6b8599;margin:0;">GPT-4 → AutoGPT<br><span style="opacity:0.7;">아이디어에서 세계 충격까지</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚙️ (3) 핵심 아키텍처 — Goal · Plan · Act · Memory · Reflect</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      AutoGPT의 핵심은 <strong style="color:#0a2342;">단일 LLM이 모든 역할을 번갈아 수행</strong>하는 무한 루프입니다. GPT-4가 Planner, Executor, Critic, Memory Manager 역할을 모두 담당합니다.
+    </p>
+    <!-- Loop diagram using boxes -->
+    <div style="position:relative;background:#f0f7ff;border:1px solid #b8d4ea;border-radius:14px;padding:24px 20px;margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;text-align:center;">AutoGPT 자율 실행 루프</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;">
+        <div style="background:#0a2342;border:2px solid #1a9e82;border-radius:12px;padding:12px 16px;text-align:center;min-width:100px;">
+          <div style="font-size:18px;margin-bottom:4px;">🎯</div>
+          <div style="font-size:11px;font-weight:800;color:#1a9e82;">Goal</div>
+          <div style="font-size:10px;color:#b8d4ea;margin-top:2px;">목표 설정</div>
+        </div>
+        <div style="font-size:18px;color:#1a9e82;">→</div>
+        <div style="background:#0a2342;border:2px solid #154f7a;border-radius:12px;padding:12px 16px;text-align:center;min-width:100px;">
+          <div style="font-size:18px;margin-bottom:4px;">📋</div>
+          <div style="font-size:11px;font-weight:800;color:#b8d4ea;">Plan</div>
+          <div style="font-size:10px;color:#b8d4ea;margin-top:2px;">서브태스크 분해</div>
+        </div>
+        <div style="font-size:18px;color:#1a9e82;">→</div>
+        <div style="background:#0a2342;border:2px solid #154f7a;border-radius:12px;padding:12px 16px;text-align:center;min-width:100px;">
+          <div style="font-size:18px;margin-bottom:4px;">⚡</div>
+          <div style="font-size:11px;font-weight:800;color:#b8d4ea;">Act</div>
+          <div style="font-size:10px;color:#b8d4ea;margin-top:2px;">도구 실행</div>
+        </div>
+        <div style="font-size:18px;color:#1a9e82;">→</div>
+        <div style="background:#0a2342;border:2px solid #1a9e82;border-radius:12px;padding:12px 16px;text-align:center;min-width:100px;">
+          <div style="font-size:18px;margin-bottom:4px;">🔄</div>
+          <div style="font-size:11px;font-weight:800;color:#1a9e82;">Reflect</div>
+          <div style="font-size:10px;color:#b8d4ea;margin-top:2px;">결과 평가 → 반복</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <div style="display:inline-block;background:#1a9e82;color:#fff;font-size:10px;font-weight:800;padding:5px 18px;border-radius:20px;">🗄 Memory (단기 + 장기 벡터 DB) — 모든 단계에 공유</div>
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">ReAct와의 차이:</strong> ReAct의 Thought-Act-Observation은 한 태스크 내 단계적 추론이지만, AutoGPT는 <em>장기 목표</em>를 스스로 서브태스크로 분해하고 각 서브태스크마다 루프를 반복합니다. "한 수 앞"이 아니라 "전략적 계획"을 생성하려 시도합니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🛠 (4) 5가지 핵심 도구와 메모리 시스템</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:16px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">🔍</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">웹 검색</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">Bing/Google API로 실시간 정보 수집. 학습 데이터 이후의 최신 정보 접근 가능.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">🐍</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">Python 코드 실행</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">Docker 컨테이너에서 Python 코드를 직접 생성·실행. 계산, 데이터 처리, 자동화 스크립트.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">📁</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">파일 I/O</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">파일 읽기·쓰기·삭제. 보고서 저장, CSV 처리, 로컬 데이터 관리.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">🌐</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">브라우저 조작</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">Selenium 기반 웹 스크레이핑. 로그인, 클릭, 폼 입력 등 웹 자동화.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:20px;margin-bottom:6px;">🎨</div>
+        <div style="font-size:12px;font-weight:800;color:#154f7a;margin-bottom:4px;">DALL-E (이미지 생성)</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">텍스트 → 이미지 자동 생성. 마케팅 자료, 보고서 이미지 자동 제작.</p>
+      </div>
+    </div>
+    <!-- Memory system -->
+    <div style="background:#f0f7ff;border:1px solid #b8d4ea;border-radius:12px;padding:18px 20px;">
+      <div style="font-size:11px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">🧠 메모리 시스템 — 단기 + 장기</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:4px;">단기 메모리 (In-context)</div>
+          <p style="font-size:12.5px;color:#4a6278;line-height:1.65;margin:0;">현재 컨텍스트 윈도우에 대화 히스토리 유지. 8K~128K 토큰 한계. 긴 작업에서 초기 정보 손실.</p>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:4px;">장기 메모리 (Vector DB)</div>
+          <p style="font-size:12.5px;color:#4a6278;line-height:1.65;margin:0;">Pinecone / Redis / Milvus에 임베딩 저장. 과거 작업 결과를 의미론적 검색으로 참조. 컨텍스트 윈도우 초과 정보 보존.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📊 (5) 실제 성능 — 놀라운 데모, 냉정한 현실</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGPT는 <em>데모 영상</em>으로 세상을 놀라게 했지만, 실제 사용에서의 경험은 엇갈렸습니다. 학술 벤치마크가 없기 때문에 커뮤니티 보고와 후속 연구(WebArena, AgentBench 등)를 종합해야 합니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#1a9e82;margin-bottom:4px;">✅ 잘 되는 것들</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">단순 웹 조사 + 파일 저장 / 반복적 데이터 수집 자동화 / 정해진 절차가 있는 태스크 / 짧은 루프(3~5단계) 작업. 이런 경우 실제로 인상적인 결과를 냅니다.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:14px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#b8860b;margin-bottom:4px;">⚠ 잘 안 되는 것들</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;"><strong style="color:#c0520a;">Task Drift</strong> — 긴 루프에서 원래 목표를 잃고 엉뚱한 방향으로 진행. <strong style="color:#c0520a;">Loop</strong> — 같은 검색을 반복하며 진행 없음. <strong style="color:#c0520a;">비용</strong> — GPT-4 API 비용이 예상보다 10~50배 초과. <strong style="color:#c0520a;">실패 감지 불가</strong> — 작업이 실패해도 계속 진행.</p>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 100%);border-radius:12px;padding:18px 22px;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;">후속 연구 (WebArena, 2023)</div>
+      <p style="font-size:13px;color:#d6eaf8;line-height:1.75;margin:0;">
+        AutoGPT 방식의 단일 에이전트를 실제 웹 태스크 벤치마크(WebArena)에서 측정하자 <strong style="color:#ffe082;">성공률 14.9%</strong>에 불과했습니다. 데모 영상이 최선의 케이스였던 것. 이 한계가 CrewAI(역할 분담)와 LangGraph(상태 관리)의 설계 동기가 됩니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">✅ (6) 평가 — 강점과 한계</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 진입 장벽 제로</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">pip install + OpenAI API 키만 있으면 누구나 실행 가능. 연구자·개발자·일반인 모두 Agent AI를 직접 경험하게 한 민주화.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 장기 메모리 선구자</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">벡터 DB를 Agent 장기 기억으로 사용하는 아이디어를 대중화. 이후 LangChain Memory, LangGraph State의 설계에 영향.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 생태계 폭발의 방아쇠</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">AutoGPT의 한계(Task Drift, Loop)를 목격한 연구자들이 CrewAI, LangGraph, AutoGen 등 더 정교한 프레임워크를 설계. 실패가 혁신의 씨앗.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ Task Drift</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">긴 루프에서 원래 목표를 잃는 현상. 하나의 LLM이 계획자+실행자+감시자를 모두 담당하면 역할 충돌 발생.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 비용·토큰 폭발</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">각 루프마다 전체 컨텍스트 + 메모리를 LLM에 전송. GPT-4 비용이 복잡한 태스크에서 시간당 수십 달러 발생.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 단일 에이전트 한계</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">하나의 AI가 모든 것을 담당 = 병렬 처리 불가, 전문화 불가. 복잡한 태스크에서 역할 분리(CrewAI)나 상태 관리(LangGraph)가 왜 필요한지 역설.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚓ (7) 해양 산업 시사점</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      AutoGPT의 아이디어 — "목표만 주면 AI가 알아서 계획하고 실행한다" — 는 해양 산업의 반복적 조사·보고·모니터링 업무에 직접 적용될 수 있습니다. 단, 한계를 알고 적용해야 합니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">📋 IACS E26/E27 규정 준수 모니터링 에이전트</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          <strong>목표:</strong> "IMO 2024 사이버보안 개정 사항을 모니터링하고, 우리 선단의 영향 여부를 분석해 보고서를 작성하라" → AutoGPT 방식의 에이전트가 IMO 사이트 검색 → 개정 내용 파일 저장 → 선대 CBS 목록과 교차 분석 → Word 보고서 생성까지 자율 수행. <strong style="color:#0a2342;">반복 보고 업무 자동화에 적합.</strong>
+        </p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">⛽ 벙커링 비교·최적화 에이전트</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          <strong>목표:</strong> "싱가포르·로테르담·부산 3개 항만의 현재 VLSFO 가격을 조사하고 다음 항차 최적 벙커링 항구를 추천하라" → 가격 데이터 수집 → 항로 이탈 비용 계산 → 비교표 생성. 루프가 짧아 AutoGPT 방식에 적합한 태스크.
+        </p>
+      </div>
+      <div style="background:#fff8f0;border:1px solid #ffe082;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#c0520a;margin-bottom:6px;">⚠ 적합하지 않은 사용 사례</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">선박 조타·기관 제어 / 실시간 충돌 회피 결정 / 화물 선적 순서 최종 결정 / 선원 안전 관련 판단. Task Drift와 루프 실패 가능성이 있는 AutoGPT 방식을 안전 필수 시스템에 적용하는 것은 현재 기술 수준에서 금물입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🎯 (8) Captain Paul의 결론 — AutoGPT가 남긴 것</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGPT는 완벽한 제품이 아니었습니다. Task Drift, 비용 폭발, 낮은 성공률 — 실용성 면에서 많은 한계가 있었습니다. 하지만 그것이 중요한 게 아닙니다.
+    </p>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGPT는 <strong style="color:#0a2342;">"AI 에이전트가 실제로 작동할 수 있다"는 개념 증명(Proof of Concept)</strong>이었습니다. 수백만 명이 처음으로 AI Agent를 직접 실행해 보았고, 그 경험이 "무엇이 부족한가"를 명확히 드러냈습니다. CrewAI는 역할 분리를, LangGraph는 상태 관리를, AutoGen은 다중 에이전트 대화를 — 모두 AutoGPT의 한계에 대한 응답으로 탄생했습니다.
+    </p>
+    <div style="background:#f0f7ff;border-left:4px solid #0a2342;border-radius:0 10px 10px 0;padding:16px 20px;font-size:14px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">1인 개발자의 주말 프로젝트가 AI 산업의 방향을 바꿨습니다.</strong> AutoGPT 이전과 이후, Agent AI에 대한 세계의 시선이 달라졌습니다. 이것만으로도 역사적 가치는 충분합니다.
+    </div>
+  </div>
+
+  <!-- ══ CLOSING NOTE ══ -->
+  <div style="text-align:center;margin-bottom:36px;padding:20px 22px;background:#f7fafe;border-radius:12px;border:1px solid #d1e0ee;">
+    <p style="font-size:13px;color:#6b8599;line-height:1.8;margin:0;font-style:italic;">
+      다음 리뷰에서는 AutoGPT의 "단일 에이전트 한계"를 역할 분담으로 해결한 CrewAI를 살펴봅니다. 오케스트레이터와 서브에이전트의 협업 — 이것이 현대 Multi-Agent 시스템의 출발점입니다.
+    </p>
+    <p style="font-size:13px;font-weight:800;color:#0a2342;margin:14px 0 0 0;">— Captain Paul —</p>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AutoGPT</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AgentAI</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AutonomousAgent</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#GPT4</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#OpenSource</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#LLM</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MemorySystem</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#VectorDB</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#해양사이버보안</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+    </div>
+  </div>
+
+
+  <!-- ══ SERIES NAVIGATION ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:22px 24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">📚 Agent AI 논문 시리즈 — 8편 완결</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <a href="https://www.shippauljobs.com/2023/06/react-synergizing-reasoning-and-acting.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">01</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">ReAct — 생각하며 행동하는 AI</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/03/toolformer-language-models-can-teach.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">02</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Toolformer — 도구를 스스로 배우는 LLM</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">NeurIPS 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/model-context-protocol-open-standard.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">03</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">MCP — AI와 세계를 연결하는 표준</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">Open Std 2024</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:linear-gradient(90deg,#154f7a,#1a9e82);border:none;">
+        <span style="font-size:10px;font-weight:800;color:#ffe082;min-width:22px;flex-shrink:0;">04</span>
+        <span style="font-size:13px;font-weight:800;color:#ffffff;flex:1;">AutoGPT — 최초의 자율 에이전트</span>
+        <span style="font-size:9px;font-weight:700;color:#7effd8;background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:10px;white-space:nowrap;">현재 글</span>
+      </div>
+      <a href="https://www.shippauljobs.com/2024/05/crewai-role-based-ai-multi-agent.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">05</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">CrewAI — 역할 기반 멀티에이전트 팀</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/langgraph-building-stateful-multi-actor.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">06</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">LangGraph — 상태 기반 그래프 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">arXiv 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/generative-agents-interactive-simulacra.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">07</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Generative Agents — AI가 사는 마을</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">UIST 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/autogen-enabling-next-gen-llm.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">08</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGen — 대화형 멀티에이전트 협력</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2024</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div style="border-top:2px solid #e2eaf3;padding-top:28px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #e2eaf3;" />
+    </a>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:2px;">Captain Paul</div>
+      <div style="font-size:11px;color:#6b8599;margin-bottom:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence · ShipPaulJobs</div>
+      <p style="font-size:12.5px;color:#6b8599;line-height:1.7;margin:0 0 14px 0;">데이터, AI, 사이버보안을 해양 산업과 연결하는 혁신 리더. Agent AI 핵심 논문을 해양 실무자의 시각으로 리뷰합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a66c2;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a2342;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;border:2px solid #1a9e82;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>

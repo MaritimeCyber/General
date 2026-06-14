@@ -146,7 +146,7 @@
           &quot;@type&quot;: &quot;WebSite&quot;,
           &quot;name&quot;: &quot;ShipPaulJobs&quot;,
           &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;,
-          &quot;description&quot;: &quot;Maritime 4.0 study blog &#8212; AI, cybersecurity, data, and digital transformation in the maritime industry.&quot;,
+          &quot;description&quot;: &quot;Maritime AI &amp; Cybersecurity &#8212; Experience-driven insights on maritime compliance, resilience and transformation.&quot;,
           &quot;keywords&quot;: &quot;maritime cybersecurity, IACS UR E26, ship cyber risk management, smart ship security, maritime cybersecurity framework, Maritime 4.0, OT security, ICS security&quot;,
           &quot;publisher&quot;: {
             &quot;@type&quot;: &quot;Organization&quot;,
@@ -1558,16 +1558,16 @@
         <div class='rp-sep'/>
         <div class='rp-card' id='rp-card-ais'>
           <div class='rp-head'>
-            <span class='rp-title'>🛰 AIS Tracking</span>
+            <span class='rp-title'>🛰 Vessel &amp; Fleet Analysis</span>
             <button class='rp-btn' onclick='rpToggle(&quot;rp-card-ais&quot;,this)'>&#8212;</button>
           </div>
           <div class='rp-body' style='padding:0;overflow:hidden;'>
             <div style='position:relative;'>
-              <iframe src='https://www.vesselfinder.com/aismap?zoom=5&amp;lat=35&amp;lon=128' width='100%' height='158' frameborder='0' scrolling='no' style='display:block;border:0;pointer-events:none;'></iframe>
-              <a href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' target='_blank' style='display:block;height:100%;left:0;position:absolute;top:0;width:100%;z-index:10;'></a>
+              <iframe frameborder='0' height='158' scrolling='no' src='https://www.vesselfinder.com/aismap?zoom=5&amp;lat=35&amp;lon=128' style='display:block;border:0;pointer-events:none;' width='100%'/>
+              <a href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' style='display:block;height:100%;left:0;position:absolute;top:0;width:100%;z-index:10;' target='_blank'/>
             </div>
-            <a href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' target='_blank' style='align-items:center;background:rgba(26,158,130,0.15);border-top:1px solid rgba(26,158,130,0.3);color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:5px;justify-content:center;padding:7px 12px;text-decoration:none;'>
-              🗺 Open AIS Tracker &#8594;
+            <a href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' style='align-items:center;background:rgba(26,158,130,0.15);border-top:1px solid rgba(26,158,130,0.3);color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:5px;justify-content:center;padding:7px 12px;text-decoration:none;' target='_blank'>
+              🗺 Open Vessel &amp; Fleet Analysis &#8594;
             </a>
           </div>
         </div>
@@ -2752,6 +2752,9 @@
   };
   function displayAuthor(name){ return AUTHOR_DISPLAY[name] || name; }
 
+  // ── 비노출 라벨 ──────────────────────────────────────
+  var HIDDEN_LABELS = ['Career Journey', 'books', 'motivation'];
+
 
   // ── DOM ─────────────────────────────────────────────────
   var loadEl = document.getElementById('apl-loading');
@@ -2903,6 +2906,9 @@
   }
 
   function render(){
+    all = all.filter(function(p){
+      return !p.labels.some(function(l){ return HIDDEN_LABELS.indexOf(l) >= 0; });
+    });
     if(loadEl) loadEl.style.display = 'none';
     var cntEl = document.getElementById('apl-count');
     if(cntEl) cntEl.textContent = all.length;
@@ -3707,7 +3713,7 @@
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<!-- 설명 텍스트 -->
   <div style="font-size: 11.5px; color: #6b8599; margin-top: 3px">
-      Meet our crew of engineers, consultants, and operators leading the way in Maritime 4.0.
+      A professional consulting &amp; intelligence platform for maritime AI, cybersecurity and digital transformation.
   </div>
 
   <!-- 바로가기 버튼 -->
@@ -3760,7 +3766,7 @@
             </div>
           </b:includable>
         </b:widget>
-        <b:widget id='Label1' locked='false' title='Knowledge Hub' type='Label' version='2' visible='true'>
+        <b:widget id='Label1' locked='false' title='Professional Development Resources' type='Label' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
@@ -3794,11 +3800,11 @@
             </ul>
           </b:includable>
         </b:widget>
-        <b:widget id='Label4' locked='false' title='Popular labels' type='Label' version='2' visible='true'>
+        <b:widget id='Label4' locked='false' title='People &amp; Perspectives' type='Label' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[Career Journey & Life Stories,Crew,Event,Leadership,Learning Curriculum,Research Papers & Studies,books,motivation]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[Crew,Event,Knowledge Resources,Learning Curriculum,Maritime Leadership & Strategy,Maritime Professional Development,Operational Mindset,Research Papers & Studies]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -4551,8 +4557,8 @@
   }
   (function() {
     var configs = [
-      { id: 'Label1', icon: '🔖', title: 'Knowledge Hub' },
-      { id: 'Label4', icon: '📌', title: 'Leadership & Stories' },
+      { id: 'Label1', icon: '🔖', title: 'Professional Development Resources' },
+      { id: 'Label4', icon: '📌', title: 'People & Perspectives' },
       { id: 'HTML10', icon: '🧭', title: 'MARITIME INTELLIGENCE' }
     ];
     function initCard(cfg) {

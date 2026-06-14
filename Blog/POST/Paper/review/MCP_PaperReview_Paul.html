@@ -1,0 +1,506 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article : Model Context Protocol (MCP) — Anthropic 2024 Specification Review
+     Author  : Captain Paul  |  Published: June 2026
+     Source  : Anthropic — modelcontextprotocol.io / GitHub
+     Style   : Maritime 4.0 Design System (PAPER template_insung1 기반)
+════════════════════════════════════════════════════════════ -->
+
+<div style="font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;max-width:780px;margin:0 auto;color:#2c3e50;line-height:1.75;box-sizing:border-box;">
+
+  <!-- ══ HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+      <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">🏗 Open Standard 2024</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">MCP</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Agent AI 기반 기술</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Universal Protocol</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Anthropic</span>
+    </div>
+    <h1 style="font-size:21px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
+      Model Context Protocol (MCP) — AI와 세계를 연결하는 표준
+    </h1>
+    <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
+      Anthropic &nbsp;·&nbsp; 공개: 2024년 11월 &nbsp;·&nbsp; JSON-RPC 2.0 기반 오픈 표준 &nbsp;·&nbsp; modelcontextprotocol.io
+    </p>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+          <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);" />
+        </a>
+        <div>
+          <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAPER INFO CARD ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">Specification Details</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;width:100px;">Title</td>
+        <td style="padding:5px 0;color:#2c3e50;line-height:1.55;">Model Context Protocol — Open Standard Specification</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Publisher</td>
+        <td style="padding:5px 0;color:#2c3e50;">Anthropic (오픈소스 공개 — 커뮤니티 기여 허용)<br><span style="color:#6b8599;font-size:12px;">핵심 기여: Anthropic Engineering 팀</span></td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">공개일</td>
+        <td style="padding:5px 0;color:#2c3e50;">2024년 11월 (Claude Desktop 함께 발표) &nbsp;·&nbsp; 현재도 지속 업데이트</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">기반 기술</td>
+        <td style="padding:5px 0;color:#2c3e50;">JSON-RPC 2.0 &nbsp;·&nbsp; stdio / HTTP+SSE Transport &nbsp;·&nbsp; TypeScript &amp; Python SDK</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">주요 채택</td>
+        <td style="padding:5px 0;color:#2c3e50;">Claude · Cursor · Zed · Sourcegraph · Block · Replit · 수백 개 커뮤니티 서버</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">유사 선례</td>
+        <td style="padding:5px 0;color:#2c3e50;">LSP (Language Server Protocol) — VS Code의 코드 에디터 표준화와 동일한 전략</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Source</td>
+        <td style="padding:5px 0;">
+          <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener" style="color:#154f7a;font-weight:700;">modelcontextprotocol.io ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/modelcontextprotocol/specification" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">GitHub Spec ↗</a>
+        </td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;font-size:10px;color:#b0bcc7;border-top:1px solid #e2eaf3;padding-top:10px;">
+      ※ MCP는 학술 논문이 아닌 오픈 표준 스펙입니다. 이 리뷰는 스펙 문서와 공개 발표 기반의 독립적 분석입니다.
+    </div>
+  </div>
+
+  <!-- ══ LEAD PARAGRAPH ══ -->
+  <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 28px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
+    ReAct가 "어떻게 추론하며 행동하는가"를 정의했고, Toolformer가 "어떻게 도구를 쓸 줄 아는 AI를 만드는가"를 해결했다면 — MCP는 <em>훨씬 더 근본적인 질문</em>을 해결합니다. "어떻게 모든 AI가 모든 도구와 데이터 소스를 <strong>표준화된 방식</strong>으로 연결하는가?" USB가 컴퓨터 주변기기를 통일한 것처럼, MCP는 AI와 세계를 연결하는 범용 표준입니다.
+  </p>
+
+  <!-- ══ TABLE OF CONTENTS ══ -->
+  <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 22px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">리뷰 목차</div>
+    <ol style="margin:0;padding:0 0 0 18px;font-size:14px;color:#354a5e;line-height:2.2;">
+      <li><strong style="color:#0a2342;">MCP가 해결하는 문제 — N×M의 악몽</strong></li>
+      <li><strong style="color:#0a2342;">MCP 이전의 세계 — 파편화된 통합</strong></li>
+      <li><strong style="color:#0a2342;">MCP 핵심 아키텍처 — Host · Client · Server</strong></li>
+      <li><strong style="color:#0a2342;">4가지 기본 기능 — Resources · Tools · Prompts · Sampling</strong></li>
+      <li><strong style="color:#0a2342;">전송 계층과 보안 모델</strong></li>
+      <li><strong style="color:#0a2342;">평가 — 강점과 한계</strong></li>
+      <li><strong style="color:#0a2342;">해양 산업 시사점</strong></li>
+      <li><strong style="color:#0a2342;">Captain Paul의 결론 — Agent AI 생태계에서 MCP의 위치</strong></li>
+    </ol>
+  </div>
+
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 1 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📌 (1) MCP가 해결하는 문제 — N×M의 악몽</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      AI 모델이 현실 세계에서 유용하려면 외부 시스템과 연결되어야 합니다. 파일 시스템, 데이터베이스, API, 협업 도구, 코드 저장소... 문제는 <strong style="color:#0a2342;">각 연결마다 맞춤형 코드가 필요</strong>하다는 것입니다.
+    </p>
+    <!-- N×M diagram -->
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;margin-bottom:20px;background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:24px;">
+      <!-- Left: AI models -->
+      <div style="text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">N개 AI 모델</div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+          <div style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:8px;width:110px;">Claude</div>
+          <div style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:8px;width:110px;">GPT-4</div>
+          <div style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:8px;width:110px;">Gemini</div>
+          <div style="background:#b8d4ea;color:#0a2342;font-size:10px;font-weight:700;padding:4px 18px;border-radius:8px;width:110px;">+ N개 ···</div>
+        </div>
+      </div>
+      <!-- Center: × -->
+      <div style="text-align:center;padding:0 20px;">
+        <div style="font-size:32px;font-weight:800;color:#e74c3c;line-height:1;">×</div>
+        <div style="font-size:10px;color:#e74c3c;font-weight:700;margin-top:4px;">각각 맞춤 코드</div>
+        <div style="font-size:22px;font-weight:800;color:#e74c3c;margin-top:8px;">= N×M</div>
+        <div style="font-size:10px;color:#e74c3c;margin-top:3px;">조합</div>
+      </div>
+      <!-- Right: Tools -->
+      <div style="text-align:center;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">M개 데이터·도구</div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+          <div style="background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:8px;width:110px;">GitHub</div>
+          <div style="background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:8px;width:110px;">Slack</div>
+          <div style="background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:8px;width:110px;">PostgreSQL</div>
+          <div style="background:#b2ddd4;color:#0a2342;font-size:10px;font-weight:700;padding:4px 18px;border-radius:8px;width:110px;">+ M개 ···</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 20px;font-size:14px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">MCP의 해법:</strong> N×M → <strong>N+M.</strong> 모든 AI는 MCP Client 하나만 구현하면 되고, 모든 도구/데이터는 MCP Server 하나만 만들면 됩니다. 중간에 표준 프로토콜이 있어 누구나 연결 가능합니다. USB, LSP와 동일한 전략입니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🔍 (2) MCP 이전의 세계 — 파편화된 통합</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:48px;height:32px;border-radius:8px;background:#b8860b;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;">사일로<br>통합</div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">플랫폼별 전용 플러그인 — 이식 불가</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+            ChatGPT 플러그인은 ChatGPT에서만, Claude.ai의 통합은 Claude에서만 작동했습니다. 동일한 GitHub 연동 기능을 GPT와 Claude 양쪽에 제공하려면 코드를 두 번 작성해야 했습니다. 이 구조는 생태계 파편화를 심화시켰습니다.
+          </p>
+        </div>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:48px;height:32px;border-radius:8px;background:#b8860b;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-align:center;">맞춤<br>코드</div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:4px;">통합별 커스텀 구현 — 유지보수 부담</div>
+          <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+            AI에게 회사 내부 DB를 조회하게 하려면 개발자가 직접 파싱 코드, 에러 핸들링, 인증 처리를 모두 AI 모델에 맞게 구현해야 했습니다. AI 모델이 바뀌면 전부 다시 작성. <strong style="color:#c0520a;">표준 없음 = 모든 통합이 일회성 작업.</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 100%);border-radius:12px;padding:20px 24px;color:#fff;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;">LSP와의 비교 — Anthropic이 선택한 전략</div>
+      <p style="font-size:14px;color:#d6eaf8;line-height:1.8;margin:0;">
+        2016년 이전, 코드 에디터(Vim, Emacs, VS Code...)마다 언어 지원(자동완성, 오류 표시)을 각각 구현해야 했습니다. Microsoft가 <strong style="color:#ffe082;">LSP(Language Server Protocol)</strong>를 만들자 하나의 Python Language Server가 모든 에디터와 연결됩니다. MCP는 AI 생태계에 같은 혁명을 가져오려 합니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚙️ (3) MCP 핵심 아키텍처 — Host · Client · Server</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      MCP는 세 가지 주체로 구성됩니다. 각 역할의 분리가 MCP의 핵심 설계 원칙입니다 — <strong style="color:#0a2342;">AI 능력(Host)과 데이터·도구 접근(Server)을 완전히 분리</strong>합니다.
+    </p>
+    <!-- Architecture 3-box -->
+    <div style="display:flex;gap:0;align-items:stretch;margin-bottom:20px;flex-wrap:wrap;">
+      <!-- Host -->
+      <div style="flex:1;min-width:200px;background:#e8f0f7;border:2px solid #154f7a;border-radius:14px 0 0 14px;padding:20px 18px;border-right:none;">
+        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">① Host</div>
+        <div style="font-size:15px;font-weight:800;color:#0a2342;margin-bottom:8px;">🖥 AI 애플리케이션</div>
+        <p style="font-size:12.5px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">Claude Desktop, Cursor, 사용자의 AI 앱. LLM을 포함하며 전체 대화 흐름을 관리.</p>
+        <div style="background:#d1e0ee;border-radius:8px;padding:8px 10px;font-size:11px;color:#154f7a;font-weight:700;">MCP Client를 내장</div>
+      </div>
+      <!-- Client (inside Host) -->
+      <div style="flex:0.7;min-width:150px;background:#eef6f3;border:2px solid #1a9e82;padding:20px 18px;border-right:none;border-left:none;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">② Client</div>
+        <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:8px;">🔗 프로토콜 레이어</div>
+        <p style="font-size:12px;color:#4a6278;line-height:1.65;margin:0 0 8px 0;">Host 내부에 존재. Server와 1:1 세션 유지. JSON-RPC 2.0 메시지를 교환.</p>
+        <div style="background:#b2ddd4;border-radius:8px;padding:6px 10px;font-size:10px;color:#0a2342;font-weight:700;text-align:center;">JSON-RPC 2.0</div>
+      </div>
+      <!-- Server -->
+      <div style="flex:1;min-width:200px;background:#f7fafe;border:2px solid #154f7a;border-radius:0 14px 14px 0;padding:20px 18px;">
+        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">③ Server</div>
+        <div style="font-size:15px;font-weight:800;color:#0a2342;margin-bottom:8px;">🗄 데이터·도구 제공자</div>
+        <p style="font-size:12.5px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">파일 시스템, DB, GitHub, Slack 등. Resources / Tools / Prompts를 MCP 형식으로 노출.</p>
+        <div style="background:#d1e0ee;border-radius:8px;padding:8px 10px;font-size:11px;color:#154f7a;font-weight:700;">AI와 독립적으로 개발 가능</div>
+      </div>
+    </div>
+    <!-- Transport types -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:11px;font-weight:800;color:#154f7a;margin-bottom:6px;">📡 로컬 Transport (stdio)</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">같은 컴퓨터에서 실행되는 MCP Server와 표준 입출력(stdin/stdout)으로 통신. 낮은 지연, 높은 보안. 예: 로컬 파일 시스템 서버.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:14px 16px;">
+        <div style="font-size:11px;font-weight:800;color:#154f7a;margin-bottom:6px;">🌐 원격 Transport (HTTP+SSE)</div>
+        <p style="font-size:12.5px;color:#6b8599;line-height:1.65;margin:0;">원격 서버와 HTTP + Server-Sent Events(SSE)로 통신. 클라우드 서비스, 외부 API 연동에 적합. 인증 필요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🧩 (4) 4가지 기본 기능 — Resources · Tools · Prompts · Sampling</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:6px;">📄 Resources</div>
+        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;">데이터 노출 — Read-only</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">Server가 AI에게 <em>읽을 수 있는 데이터</em>를 제공합니다. 파일, DB 레코드, API 응답 등을 URI 형태로 노출. AI는 읽기만 가능 — 데이터 수정 불가.</p>
+        <div style="background:#e8f0f7;border-radius:8px;padding:8px 12px;font-family:monospace;font-size:11px;color:#154f7a;">resource://file/report.pdf<br>resource://db/vessel/IMO-1234567</div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:6px;">🔧 Tools</div>
+        <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;">함수 실행 — Action</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">AI가 <em>호출할 수 있는 함수</em>를 제공합니다. Toolformer의 도구 개념과 유사하지만 표준화된 인터페이스. 검색, 계산, 시스템 제어 등.</p>
+        <div style="background:#d4edda;border-radius:8px;padding:8px 12px;font-family:monospace;font-size:11px;color:#0a5435;">tools/search_ecdis_logs<br>tools/calculate_fuel_rate</div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:6px;">💬 Prompts</div>
+        <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;">프롬프트 템플릿</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">Server가 재사용 가능한 프롬프트 템플릿을 제공합니다. 특정 도메인(법률, 의학, 해양)에 최적화된 프롬프트를 패키징하여 AI에게 전달.</p>
+        <div style="background:#e8f0f7;border-radius:8px;padding:8px 12px;font-family:monospace;font-size:11px;color:#154f7a;">prompts/iacs_risk_assessment<br>prompts/cyber_incident_report</div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:6px;">🔄 Sampling</div>
+        <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;">역방향 — Server → LLM 요청</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">Server가 Host에게 LLM 추론을 <em>요청</em>합니다. 역방향 통신. Server 로직 안에서 AI 분석이 필요할 때 사용. 복잡한 에이전틱 워크플로 가능.</p>
+        <div style="background:#d4edda;border-radius:8px;padding:8px 12px;font-family:monospace;font-size:11px;color:#0a5435;">sampling/request → LLM<br>→ 분석 결과 Server 반환</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🔒 (5) 전송 계층과 보안 모델</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      MCP 스펙은 기능뿐만 아니라 <strong style="color:#0a2342;">보안 원칙을 명시적으로 정의</strong>합니다. 이는 AI 프로토콜 설계에서 보안을 핵심으로 다룬 드문 사례입니다.
+    </p>
+    <!-- Code block: JSON-RPC example -->
+    <div style="background:#0d1117;border-radius:12px;padding:20px 22px;margin-bottom:16px;overflow-x:auto;">
+      <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">MCP 메시지 예시 — JSON-RPC 2.0 형식</div>
+      <pre style="margin:0;font-size:12px;line-height:1.9;color:#e6edf3;font-family:'Courier New',monospace;white-space:pre-wrap;"><span style="color:#7effd8;">// Client → Server: Tool 호출 요청</span>
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": <span style="color:#fcd34d;">"search_ecdis_logs"</span>,
+    "arguments": {
+      "vessel_imo": <span style="color:#fcd34d;">"IMO-1234567"</span>,
+      "time_range": <span style="color:#fcd34d;">"last_6h"</span>
+    }
+  }
+}
+
+<span style="color:#7effd8;">// Server → Client: 결과 반환</span>
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "content": [{"type": "text", "text": <span style="color:#fcd34d;">"이상 트래픽 3,400건 탐지..."</span>}]
+  }
+}</pre>
+    </div>
+    <!-- Security principles -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="color:#1a9e82;font-size:18px;flex-shrink:0;">🛡</div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:3px;">사용자 동의 — Human-in-the-Loop</div>
+          <p style="font-size:12.5px;color:#4a6278;line-height:1.65;margin:0;">민감한 작업(파일 수정, API 호출)은 사용자 명시적 승인 요구. AI가 자동으로 데이터를 수정하거나 외부로 전송하는 것을 차단.</p>
+        </div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="color:#1a9e82;font-size:18px;flex-shrink:0;">🔑</div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:3px;">최소 권한 원칙 (Least Privilege)</div>
+          <p style="font-size:12.5px;color:#4a6278;line-height:1.65;margin:0;">MCP Server는 자신이 제공하는 기능에 필요한 권한만 갖습니다. 파일 읽기 서버가 네트워크 접근 권한을 갖지 않음. 보안 경계 명확화.</p>
+        </div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="color:#1a9e82;font-size:18px;flex-shrink:0;">🌐</div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#0a2342;margin-bottom:3px;">데이터 로컬 처리 (Privacy by Design)</div>
+          <p style="font-size:12.5px;color:#4a6278;line-height:1.65;margin:0;">로컬 stdio 전송 사용 시 데이터가 외부로 나가지 않음. 기밀 데이터를 AI와 연동하면서도 외부 유출을 방지하는 아키텍처 제공.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">✅ (6) 평가 — 강점과 한계</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 생태계 표준화</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">하나의 MCP Server가 Claude, GPT, Gemini 등 모든 MCP Client와 연결. 개발자가 AI 모델에 무관하게 도구를 만들 수 있는 진정한 표준.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 기업 데이터 보안 연동</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">기밀 사내 DB를 AI와 연결하면서도 로컬 stdio 전송으로 데이터 외부 유출 없음. 엔터프라이즈 채택 장벽을 획기적으로 낮춤.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 빠른 생태계 성장</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">발표 수개월 내 수백 개 오픈소스 MCP Server 등장. Cursor, Zed, Sourcegraph 등 주요 개발 도구가 즉시 채택. LSP의 성공 패턴 반복.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ Anthropic 주도 표준</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">오픈소스이지만 Anthropic이 스펙을 주도. W3C, IETF 같은 중립 표준 기구가 아님. 장기적으로 거버넌스 문제 발생 가능.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 인증·권한 관리 복잡성</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">원격 MCP Server(HTTP+SSE)에서의 OAuth, API 키 관리는 여전히 서버마다 다르게 구현. 보안 일관성을 보장하는 표준화된 인증 레이어 미성숙.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ Prompt Injection 위험</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">악의적인 MCP Server가 AI에게 의도치 않은 지시를 삽입하는 Prompt Injection 공격 가능성. 신뢰할 수 없는 Server 연결 시 위험.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚓ (7) 해양 산업 시사점</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      해양 산업은 선박·항구·규제기관·보험사·기상청 등 수많은 시스템이 파편화되어 있습니다. MCP는 이 모든 시스템을 AI로 연결하는 <strong style="color:#0a2342;">해양 디지털 인프라의 표준 레이어</strong>가 될 수 있습니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🚢 선박 OT 시스템 연동 MCP Server</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          ECDIS MCP Server, AIS MCP Server, 기관 모니터링 MCP Server를 각각 독립적으로 개발하면, 어떤 AI Agent(Claude, GPT, 자체 개발)든 동일한 방식으로 선박 데이터를 조회할 수 있습니다. AI가 바뀌어도 MCP Server는 재사용. 선박 회사 입장에서 <strong style="color:#0a2342;">AI 벤더 종속성(vendor lock-in) 해소.</strong>
+        </p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🛡 사이버보안 운영 센터 (SOC) 통합</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          해양 사이버보안 SOC에서 IDS 알람 MCP Server, CVE DB MCP Server, IACS 규정 문서 MCP Server, 인시던트 티켓 MCP Server를 구축하면 — AI Agent가 실시간으로 모든 소스를 조회하며 자동 분류·대응 초안을 생성. IACS E26/E27 준수 자동화의 인프라가 됩니다.
+        </p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🌏 항만 커뮤니티 시스템 (PCS) 연계</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">
+          항만 통관, 적하목록, 선하증권 시스템이 각각 MCP Server를 제공하면, 선사·화주·포워더·세관이 각자의 AI Agent로 동일한 데이터에 접근 가능. 문서 파편화와 중복 입력 비효율 해소.
+        </p>
+      </div>
+    </div>
+    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#4a4a4a;line-height:1.75;margin-top:14px;">
+      <strong style="color:#c0520a;">⚠ 해양 OT 보안 경고:</strong> 선박의 운항·기관 시스템에 연결되는 MCP Server는 반드시 <strong>읽기 전용(Resources)</strong> 원칙으로 설계하고, 쓰기·제어 Tool은 물리적 Human-in-the-Loop 승인 게이트 뒤에 두어야 합니다. Prompt Injection을 통해 악의적 MCP Server가 선박 제어 명령을 위조하는 시나리오는 반드시 위협 모델에 포함해야 합니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🎯 (8) Captain Paul의 결론 — Agent AI 생태계에서 MCP의 위치</h2>
+    </div>
+    <!-- 3-layer summary -->
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px;">
+      <div style="display:flex;gap:12px;align-items:center;background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:12px 16px;">
+        <div style="background:#154f7a;color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;flex-shrink:0;">ReAct</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.6;margin:0;">Thought-Act-Observe 루프로 <em>어떻게 추론하며 행동하는가</em>를 정의</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:12px 16px;">
+        <div style="background:#154f7a;color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;flex-shrink:0;">Toolformer</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.6;margin:0;">자기지도 학습으로 <em>어떻게 도구를 쓸 줄 아는 AI를 만드는가</em>를 해결</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;background:#eef6f3;border:1px solid #b2ddd4;border-radius:10px;padding:12px 16px;">
+        <div style="background:#1a9e82;color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;flex-shrink:0;">MCP</div>
+        <p style="font-size:13px;color:#354a5e;line-height:1.6;margin:0;font-weight:600;"><em>어떤 AI든 어떤 도구·데이터와도 표준화된 방식으로 연결되는가</em>의 인프라 표준을 정의</p>
+      </div>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      MCP는 논문이 아닙니다. 하지만 Agent AI가 실제로 작동하려면 반드시 필요한 <strong style="color:#0a2342;">인프라 레이어</strong>입니다. ReAct가 패턴을 정의했고, Toolformer가 학습 방법을 보여줬다면 — MCP는 "그 Agent가 실제 세계와 연결되는 방법"의 표준입니다. 빌딩에서 전기 콘센트가 220V 표준이어야 모든 가전이 꽂힐 수 있는 것처럼.
+    </p>
+    <div style="background:#f0f7ff;border-left:4px solid #0a2342;border-radius:0 10px 10px 0;padding:16px 20px;font-size:14px;color:#354a5e;line-height:1.75;">
+      MCP의 성공 여부는 기술적 완성도보다 <strong style="color:#0a2342;">생태계 채택 속도</strong>에 달려 있습니다. LSP가 성공한 이유는 기술이 뛰어나서가 아니라 VS Code의 엄청난 파급력 덕분이었습니다. Claude의 파급력이 MCP를 AI의 USB로 만들 수 있을지 — 지금이 그 분기점입니다.
+    </div>
+  </div>
+
+  <!-- ══ CLOSING NOTE ══ -->
+  <div style="text-align:center;margin-bottom:36px;padding:20px 22px;background:#f7fafe;border-radius:12px;border:1px solid #d1e0ee;">
+    <p style="font-size:13px;color:#6b8599;line-height:1.8;margin:0;font-style:italic;">
+      ReAct (추론 패턴) → Toolformer (도구 학습) → MCP (연결 표준). 이 세 편의 리뷰가 Agent AI의 기술적 토대를 완성합니다. 다음은 이 기반 위에 실제 Agent 시스템이 어떻게 구축되는가입니다 — AutoGPT, CrewAI, LangGraph.
+    </p>
+    <p style="font-size:13px;font-weight:800;color:#0a2342;margin:14px 0 0 0;">— Captain Paul —</p>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MCP</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ModelContextProtocol</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AgentAI</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Anthropic</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#OpenStandard</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#ToolUse</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#JSONRPC</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#LLM</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#해양사이버보안</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+    </div>
+  </div>
+
+
+  <!-- ══ SERIES NAVIGATION ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:22px 24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">📚 Agent AI 논문 시리즈 — 8편 완결</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <a href="https://www.shippauljobs.com/2023/06/react-synergizing-reasoning-and-acting.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">01</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">ReAct — 생각하며 행동하는 AI</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/03/toolformer-language-models-can-teach.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">02</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Toolformer — 도구를 스스로 배우는 LLM</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">NeurIPS 2023</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:linear-gradient(90deg,#154f7a,#1a9e82);border:none;">
+        <span style="font-size:10px;font-weight:800;color:#ffe082;min-width:22px;flex-shrink:0;">03</span>
+        <span style="font-size:13px;font-weight:800;color:#ffffff;flex:1;">MCP — AI와 세계를 연결하는 표준</span>
+        <span style="font-size:9px;font-weight:700;color:#7effd8;background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:10px;white-space:nowrap;">현재 글</span>
+      </div>
+      <a href="https://www.shippauljobs.com/2024/08/auto-gpt-autonomous-gpt-4-experiment.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">04</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGPT — 최초의 자율 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/05/crewai-role-based-ai-multi-agent.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">05</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">CrewAI — 역할 기반 멀티에이전트 팀</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/langgraph-building-stateful-multi-actor.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">06</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">LangGraph — 상태 기반 그래프 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">arXiv 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/generative-agents-interactive-simulacra.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">07</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Generative Agents — AI가 사는 마을</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">UIST 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/autogen-enabling-next-gen-llm.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">08</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGen — 대화형 멀티에이전트 협력</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2024</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div style="border-top:2px solid #e2eaf3;padding-top:28px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #e2eaf3;" />
+    </a>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:2px;">Captain Paul</div>
+      <div style="font-size:11px;color:#6b8599;margin-bottom:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence · ShipPaulJobs</div>
+      <p style="font-size:12.5px;color:#6b8599;line-height:1.7;margin:0 0 14px 0;">데이터, AI, 사이버보안을 해양 산업과 연결하는 혁신 리더. Agent AI 핵심 논문을 해양 실무자의 시각으로 리뷰합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a66c2;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a2342;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;border:2px solid #1a9e82;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>

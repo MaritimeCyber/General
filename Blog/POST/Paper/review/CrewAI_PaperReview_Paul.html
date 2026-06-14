@@ -1,0 +1,498 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article : CrewAI — Role-Based Multi-Agent Orchestration (2024) Review
+     Author  : Captain Paul  |  Published: June 2026
+     Source  : João Moura — github.com/joaomdmoura/crewAI · January 2024
+     Style   : Maritime 4.0 Design System (PAPER template_insung1 기반)
+════════════════════════════════════════════════════════════ -->
+
+<div style="font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;max-width:780px;margin:0 auto;color:#2c3e50;line-height:1.75;box-sizing:border-box;">
+
+  <!-- ══ HEADER ══ -->
+  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+      <span style="background:rgba(255,193,7,0.35);color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">🤝 GitHub 2024.01</span>
+      <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">CrewAI</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Multi-Agent 프레임워크</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">Role-Based Orchestration</span>
+      <span style="background:rgba(255,255,255,0.13);color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;border-radius:20px;text-transform:uppercase;">João Moura</span>
+    </div>
+    <h1 style="font-size:21px;font-weight:800;color:#ffffff;line-height:1.45;margin:0 0 8px 0;letter-spacing:-0.3px;">
+      CrewAI — AI 팀을 만들다: 역할 기반 멀티에이전트 오케스트레이션
+    </h1>
+    <p style="font-size:13px;color:#b8d4ea;margin:0 0 20px 0;font-style:italic;">
+      João Moura &nbsp;·&nbsp; GitHub 공개: 2024년 1월 &nbsp;·&nbsp; Python 기반 오픈소스 &nbsp;·&nbsp; ⭐ 20,000+
+    </p>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.15);padding-top:18px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+          <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);" />
+        </a>
+        <div>
+          <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+          <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROJECT INFO CARD ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">Project Details</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;width:100px;">이름</td>
+        <td style="padding:5px 0;color:#2c3e50;">CrewAI — Role-based AI Multi-Agent Framework</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">제작자</td>
+        <td style="padding:5px 0;color:#2c3e50;">João Moura<br><span style="color:#6b8599;font-size:12px;">오픈소스 커뮤니티 프로젝트 → 현재 CrewAI Inc. 스타트업으로 성장</span></td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">공개일</td>
+        <td style="padding:5px 0;color:#2c3e50;">2024년 1월 (AutoGPT 이후 약 9개월, LangChain 생태계 통합)</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">핵심 개념</td>
+        <td style="padding:5px 0;color:#2c3e50;">Agent = Role + Goal + Backstory + LLM + Tools<br>Crew = Agents + Tasks + Process (Sequential / Hierarchical)</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">LLM 지원</td>
+        <td style="padding:5px 0;color:#2c3e50;">GPT-4 · Claude · Gemini · Llama (Ollama) · 모든 OpenAI-compatible API</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">학술 연계</td>
+        <td style="padding:5px 0;color:#2c3e50;">Generative Agents (Stanford 2023) 개념 구현 · CAMEL 논문 영향</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 12px 5px 0;color:#6b8599;font-weight:700;white-space:nowrap;vertical-align:top;">Source</td>
+        <td style="padding:5px 0;">
+          <a href="https://github.com/joaomdmoura/crewAI" target="_blank" rel="noopener" style="color:#154f7a;font-weight:700;">GitHub ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://crewai.com" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">crewai.com ↗</a>
+        </td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;font-size:10px;color:#b0bcc7;border-top:1px solid #e2eaf3;padding-top:10px;">
+      ※ CrewAI는 학술 논문이 아닌 오픈소스 프레임워크입니다. 이 리뷰는 코드·문서·커뮤니티 기록 기반의 독립적 분석입니다.
+    </div>
+  </div>
+
+  <!-- ══ LEAD PARAGRAPH ══ -->
+  <p style="font-size:15px;color:#354a5e;line-height:1.85;margin:0 0 28px 0;padding:20px 22px;background:#f0f7ff;border-radius:12px;border-left:4px solid #1a9e82;">
+    AutoGPT가 "AI 혼자 다 한다"의 한계를 드러냈다면, CrewAI는 "전문가 팀을 만들자"는 답을 제시했습니다. 마케터, 연구원, 엔지니어가 협업하듯 — 각 AI Agent에게 명확한 역할, 목표, 배경을 부여하고 팀으로 조직하면 훨씬 복잡한 문제를 해결할 수 있습니다. <strong style="color:#0a2342;">사람 조직을 AI로 재현한 최초의 프레임워크.</strong>
+  </p>
+
+  <!-- ══ TABLE OF CONTENTS ══ -->
+  <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 22px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#1a9e82;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px;">리뷰 목차</div>
+    <ol style="margin:0;padding:0 0 0 18px;font-size:14px;color:#354a5e;line-height:2.2;">
+      <li><strong style="color:#0a2342;">AutoGPT 한계에서 출발한 설계 철학</strong></li>
+      <li><strong style="color:#0a2342;">핵심 개념 — Agent · Task · Crew · Process</strong></li>
+      <li><strong style="color:#0a2342;">역할 기반 설계 — Role · Goal · Backstory</strong></li>
+      <li><strong style="color:#0a2342;">2가지 실행 프로세스 — Sequential vs Hierarchical</strong></li>
+      <li><strong style="color:#0a2342;">실제 성능과 활용 사례</strong></li>
+      <li><strong style="color:#0a2342;">평가 — 강점과 한계</strong></li>
+      <li><strong style="color:#0a2342;">해양 산업 시사점</strong></li>
+      <li><strong style="color:#0a2342;">Captain Paul의 결론 — LangGraph와 비교</strong></li>
+    </ol>
+  </div>
+
+  <hr style="border:none;border-top:2px solid #e2eaf3;margin:0 0 36px 0;" />
+
+  <!-- ══ SECTION 1 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📌 (1) AutoGPT 한계에서 출발한 설계 철학</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      AutoGPT의 가장 큰 문제는 <strong style="color:#0a2342;">하나의 AI가 모든 역할을 동시에 맡는다</strong>는 것이었습니다. 계획자이면서 실행자이고, 감시자이면서 보고자여야 했습니다. 인간 조직에서 한 사람이 CEO + 엔지니어 + 감사원 역할을 동시에 하면 어떻게 될까요?
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#b8860b;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">🤖 AutoGPT 방식</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">하나의 AI가 모든 것을 결정. 역할 충돌 → Task Drift. 장기 작업에서 원래 목표를 잃음.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:16px 18px;">
+        <div style="font-size:12px;font-weight:800;color:#1a9e82;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">🤝 CrewAI 방식</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;">각 AI에게 전문 역할 부여. 연구원이 조사하고 분석가가 평가하고 작가가 씁니다. 역할 분리 → 집중.</p>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 100%);border-radius:12px;padding:18px 22px;">
+      <div style="font-size:11px;font-weight:800;color:#7effd8;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;">설계 영감 — "회사 조직 구조"</div>
+      <p style="font-size:14px;color:#d6eaf8;line-height:1.8;margin:0;">
+        João Moura는 인터뷰에서 "사람이 회사에서 팀을 꾸리듯 AI 팀을 만들고 싶었다"고 밝혔습니다. Stanford의 <strong style="color:#ffe082;">Generative Agents (2023)</strong> 논문이 학문적 영감을 주었고, CAMEL 논문의 역할 기반 대화 프레임워크도 영향을 주었습니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚙️ (2) 핵심 개념 — Agent · Task · Crew · Process</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;margin-bottom:16px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:8px;">🤖 Agent</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">CrewAI의 기본 단위. 5가지 속성으로 정의됩니다.</p>
+        <div style="background:#e8f0f7;border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;color:#154f7a;line-height:1.8;">
+          role      = "Senior Maritime Researcher"<br>
+          goal      = "해양 사이버위협 동향 수집"<br>
+          backstory = "10년 경력 IMO 전문가"<br>
+          llm       = claude-opus<br>
+          tools     = [web_search, file_read]
+        </div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:8px;">📋 Task</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">Agent가 수행해야 하는 구체적 작업 단위.</p>
+        <div style="background:#e8f0f7;border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;color:#154f7a;line-height:1.8;">
+          description     = "2024 해양 사이버 사건<br>                      TOP 10 조사"<br>
+          expected_output = "Markdown 보고서"<br>
+          agent           = researcher
+        </div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:8px;">🚢 Crew</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">Agents + Tasks + Process를 하나의 팀으로 묶는 최상위 단위.</p>
+        <div style="background:#d4edda;border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;color:#0a5435;line-height:1.8;">
+          agents  = [researcher, analyst,<br>           writer]<br>
+          tasks   = [research_task,<br>           analysis_task, write_task]<br>
+          process = Process.sequential
+        </div>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:13px;font-weight:800;color:#0a2342;margin-bottom:8px;">⚙ Process</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0 0 10px 0;">태스크 실행 순서와 위계를 결정. 두 가지 모드 제공.</p>
+        <div style="background:#d4edda;border-radius:8px;padding:10px 12px;font-size:12px;color:#0a5435;line-height:1.8;">
+          <strong>Sequential</strong>: A → B → C 순차 실행<br>
+          <strong>Hierarchical</strong>: Manager가 Sub-agent에게 위임
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🎭 (3) 역할 기반 설계 — Role · Goal · Backstory</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      CrewAI의 가장 독창적인 기여는 <strong style="color:#0a2342;">Backstory(배경 이야기)</strong>의 도입입니다. LLM 연구에서 "persona prompting"이 결과를 크게 개선한다는 사실을 발견하고, 이를 구조화된 Agent 속성으로 만들었습니다.
+    </p>
+    <!-- Role examples -->
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:14px 18px;display:flex;gap:14px;">
+        <div style="width:60px;text-align:center;flex-shrink:0;">
+          <div style="font-size:24px;">🔬</div>
+          <div style="font-size:9px;color:#154f7a;font-weight:800;margin-top:2px;">RESEARCHER</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#0a2342;margin-bottom:3px;">Role / Goal / Backstory 예시</div>
+          <p style="font-size:12px;color:#6b8599;line-height:1.65;margin:0;font-style:italic;">"당신은 15년 경력의 해양 사이버보안 연구원입니다. IACS, IMO 문서를 속속들이 알고 있으며 최신 위협 동향을 추적하는 것이 전문입니다."</p>
+          <p style="font-size:12px;color:#4a6278;line-height:1.6;margin:4px 0 0 0;">→ 이 Backstory가 LLM의 응답 스타일과 전문성을 극적으로 변화시킵니다.</p>
+        </div>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:14px 18px;display:flex;gap:14px;">
+        <div style="width:60px;text-align:center;flex-shrink:0;">
+          <div style="font-size:24px;">📊</div>
+          <div style="font-size:9px;color:#154f7a;font-weight:800;margin-top:2px;">ANALYST</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#0a2342;margin-bottom:3px;">비판적 평가 역할</div>
+          <p style="font-size:12px;color:#6b8599;line-height:1.65;margin:0;font-style:italic;">"당신은 회의적인 리스크 분석가입니다. 연구 결과의 허점을 찾아내고 증거를 검증하는 것이 임무입니다."</p>
+          <p style="font-size:12px;color:#4a6278;line-height:1.6;margin:4px 0 0 0;">→ 동일한 LLM이지만 다른 역할 → 결과물의 비판적 검토 역할 수행.</p>
+        </div>
+      </div>
+    </div>
+    <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#354a5e;line-height:1.75;">
+      <strong style="color:#0a2342;">핵심 인사이트:</strong> Backstory는 단순한 프롬프트가 아닙니다. LLM이 응답을 생성할 때 참조하는 <em>일관된 인격(persona)</em>을 형성합니다. 연구에 따르면 구체적인 Backstory가 있는 Agent가 일반 프롬프트 대비 응답의 일관성과 전문성이 유의미하게 향상됩니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🔀 (4) 2가지 실행 프로세스 — Sequential vs Hierarchical</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <!-- Sequential -->
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:12px;font-weight:800;color:#154f7a;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">📶 Sequential Process</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+          <div style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;text-align:center;">① Researcher → 조사 완료</div>
+          <div style="text-align:center;font-size:12px;color:#1a9e82;">↓</div>
+          <div style="background:#154f7a;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;text-align:center;">② Analyst → 분석 완료</div>
+          <div style="text-align:center;font-size:12px;color:#1a9e82;">↓</div>
+          <div style="background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;text-align:center;">③ Writer → 최종 보고서</div>
+        </div>
+        <p style="font-size:12px;color:#6b8599;line-height:1.65;margin:0;">이전 단계 결과가 다음 Agent의 입력이 됨. 명확한 의존성이 있을 때 적합. 단순하고 예측 가능.</p>
+      </div>
+      <!-- Hierarchical -->
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:12px;font-weight:800;color:#1a9e82;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">🏛 Hierarchical Process</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;align-items:center;">
+          <div style="background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:6px 20px;border-radius:8px;">Manager Agent</div>
+          <div style="display:flex;gap:8px;">
+            <div style="font-size:14px;color:#b2ddd4;">↙</div>
+            <div style="font-size:14px;color:#b2ddd4;">↓</div>
+            <div style="font-size:14px;color:#b2ddd4;">↘</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div style="background:#154f7a;color:#fff;font-size:10px;font-weight:700;padding:5px 8px;border-radius:6px;">Sub A</div>
+            <div style="background:#154f7a;color:#fff;font-size:10px;font-weight:700;padding:5px 8px;border-radius:6px;">Sub B</div>
+            <div style="background:#154f7a;color:#fff;font-size:10px;font-weight:700;padding:5px 8px;border-radius:6px;">Sub C</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#4a6278;line-height:1.65;margin:0;">Manager가 전체를 계획하고 Sub-agent에게 위임·검토. 복잡한 병렬 작업에 적합. LLM이 Manager 역할도 담당.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">📊 (5) 실제 성능과 활용 사례</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      CrewAI는 학술 벤치마크보다 <strong style="color:#0a2342;">실무 사용 사례</strong>로 평가됩니다. 커뮤니티 보고와 공식 문서 기반의 대표 활용 유형입니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#1a9e82;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;flex-shrink:0;white-space:nowrap;">✅ 강점</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;"><strong style="color:#0a2342;">콘텐츠 파이프라인</strong> — 리서처(조사) + 에디터(개선) + SEO전문가(최적화)가 자동으로 블로그 포스트 완성. 실제 마케팅 팀 대체 수준의 결과.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#1a9e82;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;flex-shrink:0;white-space:nowrap;">✅ 강점</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;"><strong style="color:#0a2342;">코드 리뷰 파이프라인</strong> — 코더(구현) + 리뷰어(검토) + 테스터(테스트) + 문서화 Agent가 풀 사이클 처리. GitHub PR 자동화.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#1a9e82;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;flex-shrink:0;white-space:nowrap;">✅ 강점</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;"><strong style="color:#0a2342;">조사·분석 보고서</strong> — 시장 조사자 + 데이터 분석가 + 보고서 작성자. 10분 내 정형화된 전문 보고서. 컨설팅 초안 업무에 활용.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="background:#b8860b;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;flex-shrink:0;white-space:nowrap;">⚠ 한계</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.7;margin:0;"><strong style="color:#c0520a;">Agent 간 실시간 협업 미흡</strong> — Sequential 모드에서는 Agent들이 이전 결과만 볼 뿐 실시간 소통 불가. LangGraph처럼 복잡한 상태 기반 조건 분기가 필요한 태스크에는 부족.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">✅ (6) 평가 — 강점과 한계</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 직관적 설계 — 낮은 진입 장벽</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">Agent·Task·Crew 3개 개념만 이해하면 시작 가능. 코드 20줄로 3인 AI 팀을 구성. 비개발자도 이해 가능한 추상화 수준.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ LLM 불가지론적 설계</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">각 Agent마다 다른 LLM 사용 가능. Researcher는 Claude, Writer는 GPT-4, 로컬 작업은 Llama 조합. 비용·성능 최적화.</p>
+      </div>
+      <div style="background:#eef6f3;border:1px solid #b2ddd4;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#1a9e82;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">✔ 역할 분리의 품질 향상</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">비판적 역할(Critic Agent)을 두면 결과물 품질이 크게 향상. "AI가 AI를 검토"하는 내부 검수 파이프라인 구성 가능.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 상태 관리 부재</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">태스크 간 복잡한 조건 분기(if-else, loop, 재시도)가 어려움. 이를 위해서는 LangGraph로 전환 필요.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 비용 예측 어려움</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">Agent 수×Task 수만큼 LLM 호출 증가. Hierarchical에서 Manager Agent의 메타 호출까지 더해지면 토큰 비용이 급증.</p>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:800;color:#b8860b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">⚠ 실시간 Agent 협업 제한</div>
+        <p style="font-size:13px;color:#4a6278;line-height:1.75;margin:0;">Sequential 모드에서 Agent A가 실행 중 Agent B에게 질문할 수 없음. 동적 상호작용이 필요하면 AutoGen 또는 LangGraph 필요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">⚓ (7) 해양 산업 시사점</h2>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 16px 0;">
+      해양 조직은 이미 역할 기반으로 운영됩니다 — 선장, 항해사, 기관장, 안전 담당관, 감사관. CrewAI의 역할 기반 설계는 <strong style="color:#0a2342;">이 해양 조직 구조를 AI 시스템으로 직접 매핑</strong>할 수 있습니다.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🛡 해양 사이버보안 인시던트 대응 크루</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#4a6278;">
+            <span style="background:#154f7a;color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:2px;">탐지관</span>
+            <span>ECDIS·AIS 로그 분석, 이상 징후 1차 분류 (Researcher Agent)</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#4a6278;">
+            <span style="background:#154f7a;color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:2px;">분석관</span>
+            <span>CVE DB·IMO 지침 대조, IACS E26/E27 위반 여부 판단 (Analyst Agent)</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#4a6278;">
+            <span style="background:#1a9e82;color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:2px;">보고관</span>
+            <span>선주·기국·관련 기관용 인시던트 보고서 자동 작성 (Writer Agent)</span>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#6b8599;line-height:1.65;margin:8px 0 0 0;">→ 현재 수 시간 걸리는 초기 대응 보고서를 30분 이내로 단축.</p>
+      </div>
+      <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:10px;padding:16px 18px;">
+        <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">📋 Port State Control 준비 크루</div>
+        <div style="font-size:13px;color:#4a6278;line-height:1.75;">
+          규정 조사 Agent(최신 PSC 중점 점검 항목 수집) + 자가 점검 Agent(선박 현황과 대조) + 개선안 작성 Agent(결함별 시정 조치 초안) + 검토 Agent(법적 요건 검증) → Sequential Process로 순차 수행. 입항 전 PSC 대비 패키지 자동 생성.
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#4a4a4a;line-height:1.75;margin-top:14px;">
+      <strong style="color:#c0520a;">⚠ 주의:</strong> CrewAI의 결과물은 항상 전문가 검토를 거쳐야 합니다. 특히 법적 효력이 있는 보고서, 안전 관련 판단, 규정 해석에서 AI 초안은 출발점이지 최종 산출물이 아닙니다.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 ══ -->
+  <div style="margin-bottom:36px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2eaf3;">
+      <div style="width:4px;height:32px;background:linear-gradient(180deg,#154f7a,#1a9e82);border-radius:4px;flex-shrink:0;"></div>
+      <h2 style="font-size:17px;font-weight:800;color:#0a2342;margin:0;line-height:1.4;">🎯 (8) Captain Paul의 결론 — LangGraph와 비교</h2>
+    </div>
+    <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#e8f0f7;">
+            <th style="padding:10px 14px;text-align:left;color:#154f7a;font-weight:800;">항목</th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">CrewAI</th>
+            <th style="padding:10px 14px;text-align:center;color:#154f7a;font-weight:800;">LangGraph</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">핵심 추상화</td>
+            <td style="padding:9px 14px;text-align:center;">역할 기반 팀</td>
+            <td style="padding:9px 14px;text-align:center;">상태 그래프</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">진입 장벽</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">낮음 ✓</td>
+            <td style="padding:9px 14px;text-align:center;color:#b8860b;">높음</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">조건 분기·루프</td>
+            <td style="padding:9px 14px;text-align:center;color:#b8860b;">제한적</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">강력 ✓</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;background:#fafcff;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">적합한 사용</td>
+            <td style="padding:9px 14px;text-align:center;">보고서·콘텐츠·조사</td>
+            <td style="padding:9px 14px;text-align:center;">복잡한 워크플로·프로덕션</td>
+          </tr>
+          <tr style="border-top:1px solid #e2eaf3;">
+            <td style="padding:9px 14px;color:#6b8599;font-weight:700;">학습 곡선</td>
+            <td style="padding:9px 14px;text-align:center;color:#1a9e82;font-weight:700;">1~2일</td>
+            <td style="padding:9px 14px;text-align:center;color:#b8860b;">1~2주</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:#4a6278;line-height:1.85;margin:0 0 14px 0;">
+      CrewAI와 LangGraph는 경쟁이 아닌 <strong style="color:#0a2342;">용도에 따른 선택</strong>입니다. "빠르게 AI 팀 파이프라인을 만들고 싶다" → CrewAI. "복잡한 조건 분기와 상태 관리가 있는 프로덕션 시스템" → LangGraph. 많은 프로젝트가 CrewAI로 시작해서 LangGraph로 이전하는 패턴을 따릅니다.
+    </p>
+    <div style="background:#f0f7ff;border-left:4px solid #0a2342;border-radius:0 10px 10px 0;padding:16px 20px;font-size:14px;color:#354a5e;line-height:1.75;">
+      CrewAI의 가장 중요한 기여는 기술보다 <strong style="color:#0a2342;">인식의 전환</strong>입니다. "하나의 AI를 더 강하게"가 아니라 "여러 AI를 잘 조직하라" — 이것이 현대 Multi-Agent 시스템 설계의 핵심 철학입니다.
+    </div>
+  </div>
+
+  <!-- ══ CLOSING NOTE ══ -->
+  <div style="text-align:center;margin-bottom:36px;padding:20px 22px;background:#f7fafe;border-radius:12px;border:1px solid #d1e0ee;">
+    <p style="font-size:13px;color:#6b8599;line-height:1.8;margin:0;font-style:italic;">
+      다음 리뷰: CrewAI의 "역할 분리"가 잘 되지 않는 영역 — 복잡한 상태 분기와 반복 워크플로. 이를 그래프 기반 설계로 해결한 LangGraph를 살펴봅니다.
+    </p>
+    <p style="font-size:13px;font-weight:800;color:#0a2342;margin:14px 0 0 0;">— Captain Paul —</p>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom:32px;">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#CrewAI</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#MultiAgent</span>
+      <span style="background:#eef6f3;color:#1a9e82;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#AgentAI</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#RoleBasedAI</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Orchestration</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#LLM</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#OpenSource</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Python</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#해양사이버보안</span>
+      <span style="background:#e8f0f7;color:#154f7a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+    </div>
+  </div>
+
+
+  <!-- ══ SERIES NAVIGATION ══ -->
+  <div style="background:#f7fafe;border:1px solid #d1e0ee;border-radius:14px;padding:22px 24px;margin-bottom:36px;">
+    <div style="font-size:10px;font-weight:800;color:#154f7a;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">📚 Agent AI 논문 시리즈 — 8편 완결</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <a href="https://www.shippauljobs.com/2023/06/react-synergizing-reasoning-and-acting.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">01</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">ReAct — 생각하며 행동하는 AI</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/03/toolformer-language-models-can-teach.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">02</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Toolformer — 도구를 스스로 배우는 LLM</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">NeurIPS 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/model-context-protocol-open-standard.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">03</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">MCP — AI와 세계를 연결하는 표준</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">Open Std 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/08/auto-gpt-autonomous-gpt-4-experiment.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">04</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGPT — 최초의 자율 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">GitHub 2023</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;background:linear-gradient(90deg,#154f7a,#1a9e82);border:none;">
+        <span style="font-size:10px;font-weight:800;color:#ffe082;min-width:22px;flex-shrink:0;">05</span>
+        <span style="font-size:13px;font-weight:800;color:#ffffff;flex:1;">CrewAI — 역할 기반 멀티에이전트 팀</span>
+        <span style="font-size:9px;font-weight:700;color:#7effd8;background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:10px;white-space:nowrap;">현재 글</span>
+      </div>
+      <a href="https://www.shippauljobs.com/2024/06/langgraph-building-stateful-multi-actor.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">06</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">LangGraph — 상태 기반 그래프 에이전트</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">arXiv 2024</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2024/06/generative-agents-interactive-simulacra.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">07</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">Generative Agents — AI가 사는 마을</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">UIST 2023</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2025/01/autogen-enabling-next-gen-llm.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;text-decoration:none;background:#f0f5fa;border:1px solid #d1e0ee;transition:background 0.2s;">
+        <span style="font-size:10px;font-weight:800;color:#1a9e82;min-width:22px;flex-shrink:0;">08</span>
+        <span style="font-size:13px;font-weight:700;color:#0a2342;flex:1;">AutoGen — 대화형 멀티에이전트 협력</span>
+        <span style="font-size:9px;color:#9ab5c9;white-space:nowrap;">ICLR 2024</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div style="border-top:2px solid #e2eaf3;padding-top:28px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #e2eaf3;" />
+    </a>
+    <div style="flex:1;min-width:220px;">
+      <div style="font-size:14px;font-weight:800;color:#0a2342;margin-bottom:2px;">Captain Paul</div>
+      <div style="font-size:11px;color:#6b8599;margin-bottom:10px;">Maritime 4.0 · AI &amp; Cyber Intelligence · ShipPaulJobs</div>
+      <p style="font-size:12.5px;color:#6b8599;line-height:1.7;margin:0 0 14px 0;">데이터, AI, 사이버보안을 해양 산업과 연결하는 혁신 리더. Agent AI 핵심 논문을 해양 실무자의 시각으로 리뷰합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a66c2;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;background:#0a2342;color:#fff;border-radius:9px;text-decoration:none;font-size:12px;font-weight:700;border:2px solid #1a9e82;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+
+</div>
