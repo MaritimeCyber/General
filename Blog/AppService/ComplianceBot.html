@@ -867,6 +867,69 @@
     },
   ];
 
+
+  /* ── 3b. E26 GitHub Content Fetcher ────────────────────── */
+  var E26_RAW_BASE = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Blog/POST/Compliances/IACS%20E26/';
+
+  var E26_FILE_MAP = [
+    { keys: ['s1', 'section 1', 'general', 'purpose', 'scope', 'application date'],        file: 'E26_S1_General_Paul.html' },
+    { keys: ['s2', 'section 2', 'terms', 'definition'],                                    file: 'E26_S2_Definitions_Paul.html' },
+    { keys: ['s3', 'section 3', 'five function', 'functional security', 'security element'],file: 'E26_S3_Functions_Paul.html' },
+    { keys: ['4.1.1', 'asset inventory', 'vessel asset', 'cbs list'],                      file: 'E26_4_1_1_Inventory_Paul.html' },
+    { keys: ['4.2.1', 'security zone', 'network segment', 'conduit'],                      file: 'E26_4_2_1_Zones_Paul.html' },
+    { keys: ['4.2.2', 'network protection', 'safeguard', 'firewall', 'dmz'],               file: 'E26_4_2_2_Network_Paul.html' },
+    { keys: ['4.2.3', 'antivirus', 'antimalware', 'antispam', 'malware'],                  file: 'E26_4_2_3_Malware_Paul.html' },
+    { keys: ['4.2.4', 'access control', 'authentication', 'privilege'],                    file: 'E26_4_2_4_Access_Paul.html' },
+    { keys: ['4.2.5', 'wireless', 'wifi', 'bluetooth'],                                    file: 'E26_4_2_5_Wireless_Paul.html' },
+    { keys: ['4.2.6', 'remote access', 'vpn', 'untrusted network'],                        file: 'E26_4_2_6_Remote_Paul.html' },
+    { keys: ['4.2.7', 'portable', 'removable', 'usb', 'media device'],                    file: 'E26_4_2_7_Media_Paul.html' },
+    { keys: ['4.3.1', 'network monitor', 'monitoring', 'ids', 'anomaly detect'],           file: 'E26_4_3_1_Monitor_Paul.html' },
+    { keys: ['4.3.2', 'verification', 'diagnostic'],                                       file: 'E26_4_3_2_Verify_Paul.html' },
+    { keys: ['4.4.1', 'incident response', 'cirp', 'respond'],                             file: 'E26_4_4_1_Response_Paul.html' },
+    { keys: ['4.4.2', 'local operation', 'manual operation', 'independent'],               file: 'E26_4_4_2_Local_Paul.html' },
+    { keys: ['4.4.3', 'network isolation', 'isolat'],                                      file: 'E26_4_4_3_Isolate_Paul.html' },
+    { keys: ['4.4.4', 'minimal risk', 'mrc', 'fallback condition'],                        file: 'E26_4_4_4_MRC_Paul.html' },
+    { keys: ['4.5.1', 'recovery plan', 'continuity'],                                      file: 'E26_4_5_1_Continuity_Paul.html' },
+    { keys: ['4.5.2', 'backup', 'restore'],                                                file: 'E26_4_5_2_Backup_Paul.html' },
+    { keys: ['4.5.3', 'shutdown', 'reset', 'rollback', 'restart'],                        file: 'E26_4_5_3_Shutdown_Paul.html' },
+    { keys: ['5.1', 'documentation requirement', 'zcd', 'csdd'],                          file: 'E26_5_1_Documentation_Paul.html' },
+    { keys: ['5.2', 'construction survey', 'test procedure', 'resilience test'],           file: 'E26_5_2_Construction_Paul.html' },
+    { keys: ['5.3', 'annual survey', 'annual', 'programme'],                              file: 'E26_5_3_Annual_Paul.html' },
+    { keys: ['s6', 'section 6', 'class society guideline', 'exclusion of cbs', 'class guideline'], file: 'E26_S6_ClassGuidelines_Paul.html' },
+    { keys: ['appendix i', 'appi', 'document comparison'],                                file: 'E26_AppI_DocComparison_Paul.html' },
+    { keys: ['appendix ii', 'appii', 'checklist', 'implementation reference'],            file: 'E26_AppII_Checklist_Paul.html' },
+  ];
+
+  function isE26Query(q) {
+    var ql = q.toLowerCase();
+    return ql.indexOf('e26') !== -1 || ql.indexOf('iacs ur') !== -1 ||
+           ql.indexOf('cyber resilience of ship') !== -1;
+  }
+
+  function findE26File(q) {
+    var ql = q.toLowerCase();
+    var best = 0, bestFile = null;
+    E26_FILE_MAP.forEach(function (entry) {
+      var score = 0;
+      entry.keys.forEach(function (k) { if (ql.indexOf(k) !== -1) score += k.length; });
+      if (score > best) { best = score; bestFile = entry.file; }
+    });
+    return bestFile;
+  }
+
+  function fetchE26Content(filename, cb) {
+    fetch(E26_RAW_BASE + encodeURIComponent(filename))
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        var tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        tmp.querySelectorAll('script,style').forEach(function (el) { el.remove(); });
+        var text = (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+        cb(text.slice(0, 4500));
+      })
+      .catch(function () { cb(null); });
+  }
+
   /* ── 4. API Key Management ───────────────────────────────── */
   var AI_KEY_GPT = localStorage.getItem('cb_oai_key') || '';
   var AI_KEY_CLAUDE = localStorage.getItem('cb_claude_key') || '';
@@ -986,7 +1049,7 @@
       b.disabled = true; b.style.opacity = '0.4'; b.style.cursor = 'default';
     });
     var retryBubble = addMsg('<span class="cb-thinking">● 무료 AI 재시도 중…</span>', 'bot');
-    callFreeAI(origQuery, function (text) {
+    callFreeAI(origQuery, null, function (text) {
       retryBubble.innerHTML =
         '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
         '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
@@ -1035,7 +1098,7 @@
   }
 
   /* ── 5. GPT Call ─────────────────────────────────────────── */
-  function callGPT(query, onDone, onError) {
+  function callGPT(query, e26ctx, onDone, onError) {
     var hits = search(query);
     var ctx;
     if (hits.length) {
@@ -1046,6 +1109,9 @@
         }).join('\n');
     } else {
       ctx = 'Topics available: IACS UR E26, E27, IACS Rec-190/194, BIMCO v5, IEC 62443, NIS2, EU CRA, GDPR, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, LR, BV, NK, CCS, RINA, CR, ABS, IMO MSC-FAL.1/Circ.3, African Port Cyber';
+    }
+    if (e26ctx) {
+      ctx = 'IACS UR E26 Article Detail (ShipPaul blog — primary source):\n' + e26ctx + '\n\n---\nKB Summary:\n' + ctx;
     }
     var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
@@ -1096,7 +1162,7 @@
   }
 
   /* ── 5b. Claude Call (OpenRouter) ───────────────────────── */
-  function callClaude(query, onDone, onError) {
+  function callClaude(query, e26ctx, onDone, onError) {
     var hits = search(query);
     var ctx;
     if (hits.length) {
@@ -1107,6 +1173,9 @@
         }).join('\n');
     } else {
       ctx = 'Topics available: IACS UR E26, E27, IACS Rec-190/194, BIMCO v5, IEC 62443, NIS2, EU CRA, GDPR, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, LR, BV, NK, CCS, RINA, CR, ABS, IMO MSC-FAL.1/Circ.3, African Port Cyber';
+    }
+    if (e26ctx) {
+      ctx = 'IACS UR E26 Article Detail (ShipPaul blog — primary source):\n' + e26ctx + '\n\n---\nKB Summary:\n' + ctx;
     }
     var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
@@ -1145,13 +1214,16 @@
   }
 
   /* ── 5c. Free AI (Pollinations — no key required) ───────── */
-  function callFreeAI(query, onDone, onError) {
+  function callFreeAI(query, e26ctx, onDone, onError) {
     var hits = search(query);
     var ctx = hits.length
       ? 'Primary reference — ' + hits[0].title + ':\n' + hits[0].clauses.map(function (c) {
           return '[' + c.doc + ' | ' + c.ref + ']: ' + c.text;
         }).join('\n')
       : 'Topics in KB: IACS UR E26, E27, BIMCO v5, IEC 62443, NIS2, NIST SP 800-82, USCG MTSA, Singapore CSA, KISA, DNV, KR, ABS, IMO MSC-FAL.1/Circ.3';
+    if (e26ctx) {
+      ctx = 'IACS UR E26 Article Detail (ShipPaul blog — primary source):\n' + e26ctx + '\n\n---\nKB Summary:\n' + ctx;
+    }
     var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
       'For each answer point, cite [Document | Article/Section]. Under 320 words. Professional maritime tone.';
@@ -1304,7 +1376,7 @@
           setTimeout(function () { addMsg(renderAnswer(kbHits[0]), 'bot'); }, 200);
         } else {
           /* No KB hit either — Pollinations → connect-AI prompt */
-          callFreeAI(q, function (text) {
+          callFreeAI(q, null, function (text) {
             bubble.innerHTML =
               '<span style="color:#e07070;font-size:9px;">⚠ ' + aiName + ' 오류 — 무료 AI로 대체</span><br><br>' +
               '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
@@ -1327,15 +1399,23 @@
       }
 
       /* Primary AI call → on error try secondary AI → on error onAllFailed */
-      callFn(q, function (text) { onSuccess(badgeLabel, text); }, function (errMsg) {
-        if (altCallFn) {
-          bubble.innerHTML = '<span class="cb-thinking">● ' + altBadge + '로 재시도 중…</span>';
-          altCallFn(q, function (text) { onSuccess(altBadge, text); },
-                       function ()     { onAllFailed(errMsg); });
-        } else {
-          onAllFailed(errMsg);
-        }
-      });
+      function _doAICall(e26ctx) {
+        callFn(q, e26ctx, function (text) { onSuccess(badgeLabel, text); }, function (errMsg) {
+          if (altCallFn) {
+            bubble.innerHTML = '<span class="cb-thinking">● ' + altBadge + '로 재시도 중…</span>';
+            altCallFn(q, e26ctx, function (text) { onSuccess(altBadge, text); },
+                         function ()        { onAllFailed(errMsg); });
+          } else {
+            onAllFailed(errMsg);
+          }
+        });
+      }
+      var _e26f = isE26Query(q) ? findE26File(q) : null;
+      if (_e26f) {
+        fetchE26Content(_e26f, function (ctx) { _doAICall(ctx); });
+      } else {
+        _doAICall(null);
+      }
     } else {
       /* kb-only mode — KB match → structured response, miss → free AI → commercial AI fallback */
       var hits = search(q);
@@ -1385,7 +1465,7 @@
         function tryCommercialFallback(bubble2, q2) {
           var qRelated = findRelatedByQuery(q2);
           if (AI_KEY_CLAUDE) {
-            callClaude(q2, function (text) {
+            callClaude(q2, null, function (text) {
               bubble2.innerHTML =
                 '<span class="cb-gpt-badge">OpenRouter · Fallback</span><br><br>' +
                 '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
@@ -1393,7 +1473,7 @@
               chat.scrollTop = chat.scrollHeight;
             }, function () { showConnectAIPrompt(bubble2, qRelated, q2); });
           } else if (AI_KEY_GPT) {
-            callGPT(q2, function (text) {
+            callGPT(q2, null, function (text) {
               bubble2.innerHTML =
                 '<span class="cb-gpt-badge">GPT · Fallback</span><br><br>' +
                 '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
@@ -1406,7 +1486,7 @@
         }
 
         /* ── Tier 1: Pollinations free AI ── */
-        callFreeAI(q, function (text) {
+        callFreeAI(q, null, function (text) {
           bubble.innerHTML =
             '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
             '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
