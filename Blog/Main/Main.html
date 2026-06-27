@@ -35,8 +35,6 @@
 
     <!-- End Google Tag Manager -->
 
-    <!-- Google AdSense Auto Ads -->
-    <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1136000774216453'/>
 
     <!-- 모바일 반응형 설정 -->
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
@@ -45,7 +43,7 @@
     {&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;Blog&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;,&quot;url&quot;:&quot;https://www.shippauljobs.com&quot;,&quot;description&quot;:&quot;Maritime 4.0 platform focused on AI, cybersecurity and data&quot;,&quot;publisher&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;,&quot;url&quot;:&quot;https://www.shippauljobs.com&quot;}}
     </script>
     <script type='application/ld+json'>
-    {&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;Captain Ethan&quot;,&quot;jobTitle&quot;:&quot;Maritime Cyber Security Analyst&quot;,&quot;worksFor&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;},&quot;url&quot;:&quot;https://www.shippauljobs.com/2026/01/202601-crew-behind-shipjobs.html&quot;}
+    {&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;Captain Ethan&quot;,&quot;jobTitle&quot;:&quot;Maritime Cyber Security Analyst&quot;,&quot;worksFor&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;},&quot;url&quot;:&quot;https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html&quot;}
     </script>
 
     <!-- 검색 엔진 인증 -->
@@ -57,21 +55,11 @@
 
     <!-- 크롤링 허용 &#8212; 페이지 유형별 분기 -->
 <b:if cond='data:view.isLabelSearch'>
-  
-  <b:if cond='data:blog.searchLabel == &quot;IACS UR E26 E27&quot; or                data:blog.searchLabel == &quot;Compliance&quot; or                data:blog.searchLabel == &quot;Insight Maritime&quot; or                data:blog.searchLabel == &quot;MaritimeCyberTrend&quot; or                data:blog.searchLabel == &quot;Maritime Industry Insights&quot; or                data:blog.searchLabel == &quot;Compliances&quot; or                data:blog.searchLabel == &quot;AICyberLab&quot; or                data:blog.searchLabel == &quot;Publications&quot; or                data:blog.searchLabel == &quot;JOBS&quot; or                data:blog.searchLabel == &quot;CRSI&quot; or                data:blog.searchLabel == &quot;MaritimeDataAI&quot; or                data:blog.searchLabel == &quot;Cyber Security&quot;'>
-    <meta content='index, follow' name='robots'/>
-  
-  <b:else/>
-    <meta content='noindex, follow' name='robots'/>
-  
-  </b:if>
-
+  <meta content='index, follow' name='robots'/>
 <b:elseif cond='data:view.isArchive || data:view.isSearch'/>
   <meta content='noindex, follow' name='robots'/>
-
 <b:elseif cond='data:view.isSingleItem'/>
   <meta content='index, follow' name='robots'/>
-
 <b:else/>
   <meta content='index, follow' name='robots'/>
 </b:if>
@@ -194,17 +182,27 @@
   Maritime AI &amp; Cyber</title>
 </b:if>
 
-<!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
-<b:if cond='data:view.isPost'>
-  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
+
+<!-- meta description — isPage 먼저 체크 (isSingleItem이 정적 페이지에서도 true로 작동하므로) -->
+<b:if cond='data:view.isPage'>
+  <b:if cond='data:blog.pageName == &quot;About This Platform&quot;'>
+    <meta content='ShipPaulJobs — Maritime cybersecurity practitioner sharing hands-on insights on IACS UR E26/E27, vessel OT security, AI in maritime operations, and industry career trends.' name='description'/>
+  <b:elseif cond='data:blog.pageName == &quot;PrivacyPolicy&quot;'/>
+    <meta content='ShipPaulJobs Privacy Policy: how we collect, use, and protect your data. Covers Google Analytics, Google AdSense cookies, and third-party advertising on shippauljobs.com.' name='description'/>
+  <b:elseif cond='data:blog.pageName == &quot;Contact ShipPaulJobs&quot;'/>
+    <meta content='Contact ShipPaulJobs — reach out for maritime cybersecurity consulting, IACS UR E26/E27 compliance questions, or collaboration on vessel OT security projects.' name='description'/>
+  <b:else/>
+    <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' name='description'/>
+  </b:if>
+<b:elseif cond='data:view.isSingleItem'/>
+  <b:if cond='data:blog.metaDescription'>
     <meta expr:content='data:blog.metaDescription' name='description'/>
   <b:else/>
-    <meta expr:content='data:post.title' name='description'/>
+    <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' name='description'/>
   </b:if>
-<b:else/>
-  <meta content='Experience-driven insights on maritime compliance, resilience and transformation.' name='description'/>
+<b:elseif cond='data:view.isLabelSearch'/>
+  <meta expr:content='&quot;ShipPaulJobs posts on &quot; + data:blog.pageName + &quot; — Maritime cybersecurity, IACS UR E26/E27 compliance insights.&quot;' name='description'/>
 </b:if>
-
 <!-- Blogger 기본 head -->
 <b:include data='blog' name='all-head-content'/>
 
@@ -214,8 +212,23 @@
 <b:if cond='data:view.isPost'>
   <meta expr:content='data:blog.pageName' property='og:title'/>
   <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
+  <b:if cond='data:blog.metaDescription'>
     <meta expr:content='data:blog.metaDescription' property='og:description'/>
+  <b:else/>
+    <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' property='og:description'/>
+  </b:if>
+<b:elseif cond='data:view.isPage'/>
+  <meta content='article' property='og:type'/>
+  <meta expr:content='data:blog.pageName' property='og:title'/>
+  <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+  <b:if cond='data:blog.pageName == &quot;About This Platform&quot;'>
+    <meta content='ShipPaulJobs — Maritime cybersecurity practitioner sharing hands-on insights on IACS UR E26/E27, vessel OT security, AI in maritime operations, and industry career trends.' property='og:description'/>
+  <b:elseif cond='data:blog.pageName == &quot;PrivacyPolicy&quot;'/>
+    <meta content='ShipPaulJobs Privacy Policy: how we collect, use, and protect your data. Covers Google Analytics, Google AdSense cookies, and third-party advertising on shippauljobs.com.' property='og:description'/>
+  <b:elseif cond='data:blog.pageName == &quot;Contact ShipPaulJobs&quot;'/>
+    <meta content='Contact ShipPaulJobs — reach out for maritime cybersecurity consulting, IACS UR E26/E27 compliance questions, or collaboration on vessel OT security projects.' property='og:description'/>
+  <b:else/>
+    <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' property='og:description'/>
   </b:if>
 <b:else/>
   <meta content='website' property='og:type'/>
@@ -231,8 +244,21 @@
 <meta content='summary_large_image' name='twitter:card'/>
 <b:if cond='data:view.isPost'>
   <meta expr:content='data:blog.pageName' name='twitter:title'/>
-  <b:if cond='data:blog.metaDescription != &quot;&quot;'>
+  <b:if cond='data:blog.metaDescription'>
     <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+  <b:else/>
+    <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' name='twitter:description'/>
+  </b:if>
+<b:elseif cond='data:view.isPage'/>
+  <meta expr:content='data:blog.pageName + &quot; | ShipPaulJobs&quot;' name='twitter:title'/>
+  <b:if cond='data:blog.pageName == &quot;About This Platform&quot;'>
+    <meta content='ShipPaulJobs — Maritime cybersecurity practitioner sharing hands-on insights on IACS UR E26/E27, vessel OT security, AI in maritime operations, and industry career trends.' name='twitter:description'/>
+  <b:elseif cond='data:blog.pageName == &quot;PrivacyPolicy&quot;'/>
+    <meta content='ShipPaulJobs Privacy Policy: how we collect, use, and protect your data. Covers Google Analytics, Google AdSense cookies, and third-party advertising on shippauljobs.com.' name='twitter:description'/>
+  <b:elseif cond='data:blog.pageName == &quot;Contact ShipPaulJobs&quot;'/>
+    <meta content='Contact ShipPaulJobs — reach out for maritime cybersecurity consulting, IACS UR E26/E27 compliance questions, or collaboration on vessel OT security projects.' name='twitter:description'/>
+  <b:else/>
+    <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' name='twitter:description'/>
   </b:if>
 <b:else/>
   <meta content='ShipPaulJobs Maritime AI &amp; Cyber' name='twitter:title'/>
@@ -240,16 +266,6 @@
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
 </b:if>
 
-<!-- &#9989; Canonical: duplicate-post override &#8594; /p/ authoritative URL -->
-<b:if cond='data:blog.url == &quot;https://www.shippauljobs.com/2026/05/about.html&quot;'>
-  <link href='https://www.shippauljobs.com/p/about-this-platform.html' rel='canonical'/>
-<b:elseif cond='data:blog.url == &quot;https://www.shippauljobs.com/2026/05/contact.html&quot;'/>
-  <link href='https://www.shippauljobs.com/p/contact-shippauljobs.html' rel='canonical'/>
-<b:elseif cond='data:blog.url == &quot;https://www.shippauljobs.com/2021/05/terms-and-conditions.html&quot;'/>
-  <link href='https://www.shippauljobs.com/p/terms-and-conditions.html' rel='canonical'/>
-<b:else/>
-  <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
-</b:if>
 
 
 
@@ -1180,6 +1196,7 @@
       .Attribution a,.Attribution a:hover,.Attribution a:visited{color:#1a9e82 !important}
       .post-filter-message .search-label,.post-filter-message .search-query{color:#1a9e82 !important}
       .post-body .snippet-thumbnail img,.FeaturedPost .snippet-thumbnail img{border-radius:8px}
+
       ]]></b:skin>
 
     <b:template-skin>
@@ -1503,6 +1520,7 @@
       .stats1-pulse{display:inline-block;width:7px;height:7px;background:#1d89cf;border-radius:50%;margin:10px auto 0;box-shadow:0 0 8px rgba(29,137,207,0.5);animation:s1pulse 2s ease-in-out infinite;}
       @keyframes s1pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);}}
       #page_body .FeaturedPost,.Blog .blog-posts .post-outer-container{padding:15px 40px !important;}
+      .Blog .blog-posts .post-outer-container{background:#f4f9ff !important;border-radius:14px !important;box-shadow:0 2px 8px rgba(10,35,66,.07) !important;margin-bottom:14px !important;}
       .post-title{margin:0 0 4px !important;}
       .post-body{margin:0.75em 0 1em !important;}
       .byline{margin-top:4px !important;}
@@ -1545,7 +1563,7 @@
             <button class='rp-btn' onclick='rpToggle(&quot;rp-card-weather&quot;,this)'>&#8212;</button>
           </div>
           <div class='rp-body'>
-            <div id='mw-widget'>Loading weather&#8230;</div>
+            <div id='mw-widget'><p style='font-size:11px;color:rgba(200,228,248,0.6);margin:0;line-height:1.6;'>Real-time maritime weather conditions including wind speed, wave height, barometric pressure and sea state &#8212; updated for the vessel&#39;s current position.</p></div>
           </div>
         </div>
         <div class='rp-sep'/>
@@ -1555,7 +1573,7 @@
             <button class='rp-btn' onclick='rpToggle(&quot;rp-card-hello&quot;,this)'>&#8212;</button>
           </div>
           <div class='rp-body'>
-            <div id='hg-right'/>
+            <div id='hg-right'><p style='font-size:11px;color:rgba(200,228,248,0.6);margin:0;line-height:1.6;'>Visitor intelligence panel &#8212; displays connection origin, language, timezone and maritime region context for site visitors.</p></div>
           </div>
         </div>
         <div class='rp-sep'/>
@@ -1565,6 +1583,7 @@
             <button class='rp-btn' onclick='rpToggle(&quot;rp-card-ais&quot;,this)'>&#8212;</button>
           </div>
           <div class='rp-body' style='padding:0;overflow:hidden;'>
+            <p style='font-size:11px;color:rgba(200,228,248,0.6);margin:0 0 6px;padding:8px 12px;line-height:1.6;'>Live AIS vessel tracking map &#8212; displays real-time positions of commercial vessels including cargo ships, tankers and bulk carriers operating in Korean and East Asian waters.</p>
             <div style='position:relative;'>
               <iframe frameborder='0' height='158' scrolling='no' src='https://www.vesselfinder.com/aismap?zoom=5&amp;lat=35&amp;lon=128' style='display:block;border:0;pointer-events:none;' width='100%'/>
               <a href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' style='display:block;height:100%;left:0;position:absolute;top:0;width:100%;z-index:10;' target='_blank'/>
@@ -1925,7 +1944,7 @@
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
                       <b:widget-setting name='postId'>8632089234924152102</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
-                      <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
+                      <b:widget-setting name='useMostRecentPost'>true</b:widget-setting>
                     </b:widget-settings>
                     <b:includable id='main' var='this'>
                       <b:include name='widget-title'/>
@@ -2609,11 +2628,7 @@
                       <b:include cond='data:view.isMultipleItems and data:post.includeAd' data='post' name='inlineAd'/>
                     </b:includable>
                     <b:includable id='postCommentsLink'>
-                      <b:if cond='data:view.isMultipleItems'>
-                        <span class='byline post-comment-link container'>
-                          <b:include cond='data:post.commentSource != 1' name='commentsLink'/>
-                        </span>
-                      </b:if>
+                      <b:comment>Moved to postFooterJumpLink (inline with Read More).</b:comment>
                     </b:includable>
                     <b:includable id='postFooter' var='post'>
                       <div class='post-bottom'>
@@ -2658,10 +2673,19 @@
                     <b:includable id='postFooterJumpLink'>
                       <b:comment>Ripple, and show &#39;keep reading&#39; as the
                         default.</b:comment>
-                      <div class='jump-link flat-button ripple'>
-                        <a expr:href='data:post.hasJumpLink ? data:post.url fragment &quot;more&quot; : data:post.url' expr:title='data:post.title'>
-                          <data:blog.jumpLinkMessage/>
-                        </a>
+                      <div style='display:flex;justify-content:space-between;align-items:center;width:100%;order:3;margin-top:4px'>
+                        <span>
+                          <b:if cond='data:post.allowComments and data:post.commentSource != 1'>
+                            <span class='byline post-comment-link container' style='margin:0'>
+                              <b:include name='commentsLink'/>
+                            </span>
+                          </b:if>
+                        </span>
+                        <div class='jump-link flat-button ripple'>
+                          <a expr:href='data:post.hasJumpLink ? data:post.url fragment &quot;more&quot; : data:post.url' expr:title='data:post.title'>
+                            <data:blog.jumpLinkMessage/>
+                          </a>
+                        </div>
                       </div>
                     </b:includable>
                     <b:includable id='postHeader' var='post'>
@@ -2732,7 +2756,44 @@
                           <span id='apl-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'/>
                         </div>
                         <div id='apl-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
-                        <div id='apl-content' style='display:none'/>
+                        <div id='apl-content' style='display:block'><div id='apl-static' style='display:block'>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/e26-deliverable-quality-low-medium-and.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>E26 Deliverable Quality &#8212; The Low, Medium, and High Tiers</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-26 &#8212; 💡 Insight Deliverable Quality UR E26 Cyber Resilience E26 Deliverable Quality: The Low, Medium, and High Tiers The same E26 docume...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/what-uscgs-performance-driven-coc.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>What USCG&#39;s Performance-Driven COC Inspection Regime and IACS UR E26 Are Telling Us</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-24 &#8212; 💡 Insight Pilot Program USCG COC UR E26 What USCG&#39;s Performance-Driven COC Inspection Regime and IACS UR E26 Are Telling Us Not &quot;a...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/maritime-cyber-resilience-brief.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>Maritime Cyber Resilience Brief &#8212; Charting the USCG Cybersecurity Rule: Implementation Timeline and the Foreign&#8209;Flag Question</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-22 &#8212; 📋 Brief Comparative Series USCG Rule UR E26/E27 Maritime Cyber Resilience Brief &#8212; Charting the USCG Cybersecurity Rule: Implementa...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/securing-maritime-ot-operating.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>Securing Maritime OT Systems: A Practical Cyber Security Strategy</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-18 &#8212; 💡 Insight OT Security Maritime Cybersecurity Defence in Depth Securing Maritime OT Systems: A Practical Cyber Security Strategy Ba...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became_0911737879.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>Why Maritime Cybersecurity Became a System Engineering Issue (3/9)</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-16 &#8212; 💡 Insight IACS UR E26 / E27 System Engineering Maritime Cybersecurity Chapter 3. Why Cybersecurity Became a System Engineering Iss...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/the-shipyard-one-you-must-walk-closest.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>The Shipyard &#8212; The One You Must Walk Closest Beside</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-14 &#8212; 💡 Insight Three-Body Series UR E26 Owner-Side Advisory The Shipyard &#8212; The One You Must Walk Closest Beside One you must walk with ...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/agent-ai-55-llmplanningmemorytool-use.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>I. Agent AI의 발전 배경과 사업 적용 (5/5) :  LLM&#183;Planning&#183;Memory&#183;Tool Use의 완전 해부</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-13 &#8212; Agent AI &#62766; Future Vision 시리즈 5편 (완결) Maritime 4.0 시리즈 완결 [시리즈 5편] Agent AI 시대의 미래와 새로운 비즈니스 AI 직원과 인간의 협업 &#8212; AI Agent Economy, Agen...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became_01937875339.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>Why Maritime Cybersecurity Became a System Engineering Issue (2/9)</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-07 &#8212; 💡 Insight OT Cybersecurity System Interdependency Maritime 4.0 Chapter 2. Increasing OT System Interdependency Blue Horizonist Ser...</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/06/the-maritime-market-is-no-exception-to_0261507464.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>The Maritime Market Is No Exception to AI Hacking  (3/3) : When Algorithms Attack a Ship, What Are Our Weapons?</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-06 &#8212; &#63201;&#65039; Maritime Defense &#62667; SFI / IACS E26 Defense in Depth Maritime 4.0 3-Part Series&#183;Final [Field Notes] When Algorithms Attack a Ship...</div>
+</div>
+</div></div>
                       </div>
                       <script type='text/javascript'>
 //<![CDATA[
@@ -2870,13 +2931,21 @@
     var cards = slice.map(function(p, i){
       var gi = start + i;
       var imgBlock = p.image
-        ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy" style="width:72px;height:72px;object-fit:cover;border-radius:6px;flex-shrink:0;display:block">'
-        : '<div style="width:72px;height:72px;flex-shrink:0;border-radius:6px;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
+        ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy" style="width:72px;height:72px;object-fit:cover;border-radius:6px;display:block">'
+        : '<div style="width:72px;height:72px;border-radius:6px;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
+      var visibleLabels = p.labels.filter(function(l){ return HIDDEN_LABELS.indexOf(l) < 0; });
+      var labelsHtml = visibleLabels.length
+        ? '<div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:2px">'
+          + visibleLabels.map(function(l){
+              return '<a href="/search/label/' + encodeURIComponent(l) + '" style="background:#f5faff;color:#154f7a;border-radius:5px;font-size:9px;font-weight:600;padding:1px 5px;text-decoration:none;line-height:1.5;display:inline-block">' + esc(l) + '</a>';
+            }).join('')
+          + '</div>'
+        : '';
 
       return '<div style="' + S_CARD + '" data-card>'
         + '<span style="position:absolute;top:8px;left:8px;background:#0a2342;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;line-height:1;z-index:1">' + (gi+1) + '</span>'
         + '<div style="display:flex;align-items:flex-start;gap:12px;padding:14px 14px 10px">'
-        + imgBlock
+        + '<div style="flex-shrink:0;width:72px">' + imgBlock + labelsHtml + '</div>'
         + '<a href="' + esc(p.url) + '" style="font-size:13px;font-weight:700;line-height:1.5;color:#0a2342;flex:1;text-decoration:none;cursor:pointer">' + esc(p.title) + '</a>'
         + '</div>'
         + '<div>'
@@ -3423,6 +3492,32 @@
                     </b:includable>
                   </b:widget>
                 </b:section>
+              <b:if cond='data:view.isHomepage'>
+              <div style='margin:1em 0 1em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.38);border-radius:10px;backdrop-filter:blur(6px);'>
+                <div style='display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#c8e4f8;margin-bottom:14px;letter-spacing:0.4px;'>
+                  <span>🧭 What We Cover</span>
+                </div>
+                <p style='font-size:12px;line-height:1.8;color:rgba(200,228,248,0.55);margin:0 0 16px;border-bottom:1px solid rgba(29,137,207,0.15);padding-bottom:14px;'>ShipPaulJobs is a practitioner-led maritime cybersecurity and compliance platform focused on IACS UR E26 and E27 implementation, OT system security, and AI-driven risk management for ships and offshore assets. Content is written by working consultants with direct experience in class approval, vessel commissioning, and flag state compliance &#8212; not academic theory. The platform covers network segmentation under IEC 62443, zone-and-conduit architecture for shipboard systems, and the practical gap between what classification societies require and what shipyards deliver.</p>
+                <div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;'>
+                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>IACS UR E26 / E27</p>
+                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>IACS Unified Requirements E26 and E27 mandate cyber resilience from contract signing after 1 July 2024. UR E26 defines minimum requirements for network architecture, access control, software update procedures, and incident response. UR E27 covers supply chain cyber security documentation per equipment supplier. Coverage includes clause-by-clause IEC 62443 cross-references and deliverable guidance for class surveyors and flag state inspectors.</p>
+                  </div>
+                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Maritime OT Security</p>
+                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>Operational Technology on modern vessels &#8212; integrated bridge systems, propulsion control, ballast management, cargo handling automation, dynamic positioning &#8212; is increasingly networked and cyber-exposed. Unlike IT, maritime OT has long lifecycles and safety-critical real-time constraints. This platform provides OT-specific guidance on asset inventory, vulnerability analysis, and defence-in-depth strategy aligned with IMO MSC-FAL.1/Circ.3 and BIMCO recommendations.</p>
+                  </div>
+                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>AI in Maritime Operations</p>
+                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>AI is reshaping fleet management, predictive maintenance, port logistics, and compliance monitoring. This platform examines how LLMs, autonomous agents, and structured maritime data &#8212; AIS feeds, class records, inspection histories &#8212; reduce compliance burden and increase operational visibility. Coverage targets ship operators, class surveyors, shipyard project managers, and flag state administrators who need AI insight without vendor-driven hype.</p>
+                  </div>
+                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Industry Trends, Talent &amp; Careers</p>
+                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>The maritime industry is undergoing structural transformation driven by decarbonisation, digitalisation, and tightening cyber regulation. This platform discusses the evolving competency requirements for seafarers, shore-based engineers, compliance officers, and surveyors &#8212; and how the hiring market is responding. Topics include cross-disciplinary skills at the intersection of OT engineering and cyber security, the emergence of maritime cyber roles at flag states and classification societies, salary benchmarks, and practical pathways for professionals transitioning into this space. A community-oriented space where industry practitioners share insights and shape the conversation on maritime&#39;s digital future.</p>
+                  </div>
+                </div>
+              </div>
+              </b:if>
               </main>
             <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
               <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
@@ -3797,7 +3892,7 @@
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR E26 E27,Maritime Industry Events,Maritime Leadership & Strategy,Risk Management]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR E26 E27,Maritime Industry Events,Maritime Leadership & Strategy,Maritime News Analysis,Maritime OT Systems,Risk Management]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -3831,7 +3926,7 @@
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[Cyber Security,IACS UR E26,ISO 23806,Knowledge Resources,Maritime Solution,MaritimeData,Pentesting,Research Papers & Studies,SFICode]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[Cyber Security,IACS UR E26,ISO 23806,Knowledge Resources,Maritime Solution,MaritimeData,Research Papers & Studies,SFICode,Security Assessment]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -4767,7 +4862,7 @@
       el.innerHTML = '<span style="color:rgba(200,228,248,0.5)">Weather unavailable</span>';
     });
   })();
-  //]]></script>
+//]]></script>
 
   </body>
 </html>
