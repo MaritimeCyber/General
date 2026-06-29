@@ -94,6 +94,22 @@ All Live Feed widgets share the same architecture:
 | `Top/Header.html` | Blog header widget |
 | `SideBar/*.html` | Sidebar widgets (GitHub link, team intro, logo icon, Maritime Cyber Intelligence) |
 
+#### Main.html — Custom CSS Sections (key modifications)
+
+**Popular Posts (`#PopularPosts1`) — lines ~1126–1150**
+- Custom flex card layout: `pp-num` (번호) + `pp-col-left` (썸네일 44×44 + 댓글수) + `pp-col-mid` (제목 + 작성자/날짜 + 라벨)
+- CSS counter for rank numbers (`counter-increment:pp-counter`)
+- `$(popularposts.title.color)` Blogger skin variable used for title link color
+
+**Popular Posts 배치 규칙 — lines ~1203–1205**
+- 데스크탑 (≥960px) 홈페이지: `position:absolute; top:360px; right:12px; width:252px` — Maritime Hub 자리에 우측 고정 위젯으로 표시
+- 모바일/가로회전 (≤960px) 홈페이지: `position:static; width:100%` — Post List 하단에 일반 흐름으로 표시
+- 단일 포스트(`item-view`): 위 규칙 미적용, Post List 하단에 자연스럽게 렌더링
+
+**Popular Posts 모바일 겹침 방지 — Blogger 기본 800px 블록 직후 삽입**
+- Blogger 기본 CSS가 `@media(max-width:800px)`에서 `.widget.PopularPosts div.item-thumbnail img{ height:20vw; width:20vw }`로 이미지를 강제 확대 → 겹침 원인
+- 재정의: `@media screen and (max-width:960px)` 블록으로 이미지 44×44 고정, flex 열 너비 px 고정 (`pp-num:24px`, `pp-col-left:50px`, `pp-col-mid:flex:1 1 0`)
+
 ### Article Templates (`POST/`)
 
 Templates follow the **Maritime 4.0 Design System** — full inline styles only (no `<style>` block; Blogger strips CSS blocks).

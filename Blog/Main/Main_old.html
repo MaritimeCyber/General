@@ -49,13 +49,6 @@
 
     <!-- End Google Tag Manager -->
 
-    <!-- Google AdSense Auto Ads -->
-    <script
-      async="async"
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1136000774216453"
-    />
-
     <!-- 모바일 반응형 설정 -->
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <!-- Schema.org Structured Data -->
@@ -63,7 +56,7 @@
       {&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;Blog&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;,&quot;url&quot;:&quot;https://www.shippauljobs.com&quot;,&quot;description&quot;:&quot;Maritime 4.0 platform focused on AI, cybersecurity and data&quot;,&quot;publisher&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;,&quot;url&quot;:&quot;https://www.shippauljobs.com&quot;}}
     </script>
     <script type="application/ld+json">
-      {&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;Captain Ethan&quot;,&quot;jobTitle&quot;:&quot;Maritime Cyber Security Analyst&quot;,&quot;worksFor&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;},&quot;url&quot;:&quot;https://www.shippauljobs.com/2026/01/202601-crew-behind-shipjobs.html&quot;}
+      {&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;Captain Ethan&quot;,&quot;jobTitle&quot;:&quot;Maritime Cyber Security Analyst&quot;,&quot;worksFor&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;ShipPaulJobs&quot;},&quot;url&quot;:&quot;https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html&quot;}
     </script>
 
     <!-- 검색 엔진 인증 -->
@@ -82,25 +75,9 @@
     <meta content="A22793221D21E048F53C0CCDC7AF81AB" name="msvalidate.01" />
     <meta content="de00fd059089de3b" name="yandex-verification" />
 
-    <!-- 크롤링 허용 &#8212; 페이지 유형별 분기 -->
-    <b:if cond="data:view.isLabelSearch">
-      <b:if
-        cond='data:blog.searchLabel == "IACS UR E26 E27" or                data:blog.searchLabel == "Compliance" or                data:blog.searchLabel == "Insight Maritime" or                data:blog.searchLabel == "MaritimeCyberTrend" or                data:blog.searchLabel == "Maritime Industry Insights" or                data:blog.searchLabel == "Compliances" or                data:blog.searchLabel == "AICyberLab" or                data:blog.searchLabel == "Publications" or                data:blog.searchLabel == "JOBS" or                data:blog.searchLabel == "CRSI" or                data:blog.searchLabel == "MaritimeDataAI" or                data:blog.searchLabel == "Cyber Security"'
-      >
-        <meta content="index, follow" name="robots" />
-
-        <b:else />
-        <meta content="noindex, follow" name="robots" />
-      </b:if>
-
-      <b:elseif cond="data:view.isArchive || data:view.isSearch" />
+    <!-- 크롤링 허용 &#8212; 아카이브/검색만 명시적 noindex, 나머지는 Blogger 페이지별 설정에 위임 -->
+    <b:if cond="data:view.isArchive || data:view.isSearch">
       <meta content="noindex, follow" name="robots" />
-
-      <b:elseif cond="data:view.isSingleItem" />
-      <meta content="index, follow" name="robots" />
-
-      <b:else />
-      <meta content="index, follow" name="robots" />
     </b:if>
 
     <!-- &#9552;&#9552; SEO: JSON-LD 구조화 데이터 &#9552;&#9552; -->
@@ -231,22 +208,63 @@
       <title>ShipPaulJobs Maritime AI &amp; Cyber</title>
     </b:if>
 
-    <!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
+    <!-- Blogger 기본 head &#8212; all-head-content 먼저 출력 후 커스텀 description으로 덮어씌움 -->
+    <b:include data="blog" name="all-head-content" />
+
+    <!-- noindex: JS-only 툴 페이지 (thin content &#8212; AdSense 위험 방지) &#8212; data:view.title로 페이지 식별 (canonicalUrl은 head context에서 빈값 반환) -->
+    <b:if
+      cond='data:view.title == "ShipPaul Intelligence-Maritime Cyber Compliance AI" || data:view.title == "Smart Vessel Tracking with AIS: Real-Time Ship Monitoring Explained"'
+    >
+      <meta content="noindex, follow" name="robots" />
+    </b:if>
+
+    <!-- meta description &#8212; all-head-content 이후에 위치해야 Blogger 기본값을 override 함 -->
     <b:if cond="data:view.isPost">
-      <b:if cond='data:blog.metaDescription != ""'>
+      <!-- 포스트 페이지: 편집기 검색설명 우선, 없으면 generic -->
+      <b:if cond="data:blog.metaDescription">
         <meta expr:content="data:blog.metaDescription" name="description" />
         <b:else />
-        <meta expr:content="data:post.title" name="description" />
+        <meta
+          content="Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations."
+          name="description"
+        />
       </b:if>
-      <b:else />
+      <b:elseif cond="data:view.isPage" />
+      <!-- 정적 페이지: 페이지별 커스텀 description -->
+      <b:if cond='data:blog.pageName == "About This Platform"'>
+        <meta
+          content="ShipPaulJobs — Maritime cybersecurity practitioner sharing hands-on insights on IACS UR E26/E27, vessel OT security, AI in maritime operations, and industry career trends."
+          name="description"
+        />
+        <b:elseif cond='data:blog.pageName == "PrivacyPolicy"' />
+        <meta
+          content="ShipPaulJobs Privacy Policy: how we collect, use, and protect your data. Covers Google Analytics, Google AdSense cookies, and third-party advertising on shippauljobs.com."
+          name="description"
+        />
+        <b:elseif cond='data:blog.pageName == "Contact ShipPaulJobs"' />
+        <meta
+          content="Contact ShipPaulJobs — reach out for maritime cybersecurity consulting, IACS UR E26/E27 compliance questions, or collaboration on vessel OT security projects."
+          name="description"
+        />
+        <b:else />
+        <meta
+          content="Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations."
+          name="description"
+        />
+      </b:if>
+      <b:elseif cond="data:view.isSearch" />
+      <!-- 라벨/검색 페이지: 라벨명 포함 description -->
       <meta
-        content="Experience-driven insights on maritime compliance, resilience and transformation."
+        expr:content='"ShipPaulJobs — Maritime cybersecurity articles tagged: " + data:blog.pageName'
+        name="description"
+      />
+      <b:else />
+      <!-- 홈 및 기타 -->
+      <meta
+        content="Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations and Ship's lifecycle"
         name="description"
       />
     </b:if>
-
-    <!-- Blogger 기본 head -->
-    <b:include data="blog" name="all-head-content" />
 
     <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
     <meta content="ShipPaulJobs" property="og:site_name" />
@@ -254,9 +272,39 @@
     <b:if cond="data:view.isPost">
       <meta expr:content="data:blog.pageName" property="og:title" />
       <meta expr:content="data:blog.canonicalUrl" property="og:url" />
-      <b:if cond='data:blog.metaDescription != ""'>
+      <b:if cond="data:blog.metaDescription">
         <meta
           expr:content="data:blog.metaDescription"
+          property="og:description"
+        />
+        <b:else />
+        <meta
+          content="Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations."
+          property="og:description"
+        />
+      </b:if>
+      <b:elseif cond="data:view.isPage" />
+      <meta content="article" property="og:type" />
+      <meta expr:content="data:blog.pageName" property="og:title" />
+      <meta expr:content="data:blog.canonicalUrl" property="og:url" />
+      <b:if cond='data:blog.pageName == "About This Platform"'>
+        <meta
+          content="ShipPaulJobs — Maritime cybersecurity practitioner sharing hands-on insights on IACS UR E26/E27, vessel OT security, AI in maritime operations, and industry career trends."
+          property="og:description"
+        />
+        <b:elseif cond='data:blog.pageName == "PrivacyPolicy"' />
+        <meta
+          content="ShipPaulJobs Privacy Policy: how we collect, use, and protect your data. Covers Google Analytics, Google AdSense cookies, and third-party advertising on shippauljobs.com."
+          property="og:description"
+        />
+        <b:elseif cond='data:blog.pageName == "Contact ShipPaulJobs"' />
+        <meta
+          content="Contact ShipPaulJobs — reach out for maritime cybersecurity consulting, IACS UR E26/E27 compliance questions, or collaboration on vessel OT security projects."
+          property="og:description"
+        />
+        <b:else />
+        <meta
+          content="Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations."
           property="og:description"
         />
       </b:if>
@@ -283,9 +331,40 @@
     <meta content="summary_large_image" name="twitter:card" />
     <b:if cond="data:view.isPost">
       <meta expr:content="data:blog.pageName" name="twitter:title" />
-      <b:if cond='data:blog.metaDescription != ""'>
+      <b:if cond="data:blog.metaDescription">
         <meta
           expr:content="data:blog.metaDescription"
+          name="twitter:description"
+        />
+        <b:else />
+        <meta
+          content="Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations."
+          name="twitter:description"
+        />
+      </b:if>
+      <b:elseif cond="data:view.isPage" />
+      <meta
+        expr:content='data:blog.pageName + " | ShipPaulJobs"'
+        name="twitter:title"
+      />
+      <b:if cond='data:blog.pageName == "About This Platform"'>
+        <meta
+          content="ShipPaulJobs — Maritime cybersecurity practitioner sharing hands-on insights on IACS UR E26/E27, vessel OT security, AI in maritime operations, and industry career trends."
+          name="twitter:description"
+        />
+        <b:elseif cond='data:blog.pageName == "PrivacyPolicy"' />
+        <meta
+          content="ShipPaulJobs Privacy Policy: how we collect, use, and protect your data. Covers Google Analytics, Google AdSense cookies, and third-party advertising on shippauljobs.com."
+          name="twitter:description"
+        />
+        <b:elseif cond='data:blog.pageName == "Contact ShipPaulJobs"' />
+        <meta
+          content="Contact ShipPaulJobs — reach out for maritime cybersecurity consulting, IACS UR E26/E27 compliance questions, or collaboration on vessel OT security projects."
+          name="twitter:description"
+        />
+        <b:else />
+        <meta
+          content="Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations."
           name="twitter:description"
         />
       </b:if>
@@ -302,32 +381,6 @@
         content="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png"
         name="twitter:image"
       />
-    </b:if>
-
-    <!-- &#9989; Canonical: duplicate-post override &#8594; /p/ authoritative URL -->
-    <b:if
-      cond='data:blog.url == "https://www.shippauljobs.com/2026/05/about.html"'
-    >
-      <link
-        href="https://www.shippauljobs.com/p/about-this-platform.html"
-        rel="canonical"
-      />
-      <b:elseif
-        cond='data:blog.url == "https://www.shippauljobs.com/2026/05/contact.html"'
-      />
-      <link
-        href="https://www.shippauljobs.com/p/contact-shippauljobs.html"
-        rel="canonical"
-      />
-      <b:elseif
-        cond='data:blog.url == "https://www.shippauljobs.com/2021/05/terms-and-conditions.html"'
-      />
-      <link
-        href="https://www.shippauljobs.com/p/terms-and-conditions.html"
-        rel="canonical"
-      />
-      <b:else />
-      <link expr:href="data:blog.canonicalUrl" rel="canonical" />
     </b:if>
 
     <b:skin version="1.0.1"
@@ -1090,19 +1143,42 @@
       a,.PopularPosts a:hover,.PopularPosts a:visited{
       color:$(popularposts.link.color) } .PopularPosts .post-title,.PopularPosts
       .post-title a,.PopularPosts .post-title a:hover,.PopularPosts .post-title
-      a:visited{ color:$(popularposts.title.color); font-size:18px;
-      font-weight:700; line-height:24px } .PopularPosts,.PopularPosts h3.title
-      a{ color:$(posts.text.color); font:$(posts.text.font) } .main
-      .PopularPosts{ padding:16px 40px } .PopularPosts h3.title{ font-size:14px;
-      margin:0 } .PopularPosts h3.post-title{ margin-bottom:0 } .PopularPosts
-      .byline{ color:$(popularposts.byline.color) } .PopularPosts .jump-link{
+      a:visited{ color:$(popularposts.title.color); font-size:15px;
+      font-weight:700; line-height:20px } .PopularPosts,.PopularPosts h3.title
+      a{ color:$(posts.text.color); font:$(posts.text.font) } .main .Blog
+      .b1-card-top{ display:flex; justify-content:space-between;
+      align-items:flex-start; gap:8px; margin-bottom:8px } .Blog .b1-card-top
+      .post-title{ flex:1; margin:0 } .Blog .b1-card-mid{ display:flex;
+      gap:12px; margin-bottom:8px } .Blog .b1-card-thumb{ width:20%;
+      flex-shrink:0 } .Blog .b1-card-thumb a{ display:block } .Blog
+      .b1-card-thumb img{ width:100%; aspect-ratio:1/1; object-fit:cover;
+      border-radius:6px; display:block } .Blog .b1-card-snippet{ width:80%;
+      min-width:0; font-size:13px; line-height:1.6; overflow:hidden;
+      display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical }
+      .Blog .b1-card-loc{ display:block; font-size:11px; opacity:.65;
+      margin-top:4px; margin-bottom:2px } .Blog .b1-card-bot{ display:flex;
+      align-items:center; justify-content:space-between; padding-top:6px;
+      margin-top:4px; border-top:1px solid rgba(0,0,0,.08); gap:8px } .Blog
+      .b1-card-tags{ display:flex; flex-wrap:wrap; gap:3px; margin-top:6px }
+      .Blog .b1-card-tag{ background:rgba(29,137,207,0.1); color:#1d89cf;
+      border-radius:4px; font-size:9px; font-weight:600; padding:1px 6px;
+      text-decoration:none; line-height:1.7; display:inline-block;
+      white-space:nowrap } .Blog .b1-card-tag:hover{ background:#1d89cf;
+      color:#fff } .Blog .b1-card-loc a{ color:inherit; text-decoration:none }
+      .Blog .b1-card-byline{ display:block; font-size:11px; opacity:.65 } .Blog
+      .b1-card-comment{ flex-shrink:0 } .Blog .b1-card-comment a{
+      font-size:11px; color:#1d89cf; text-decoration:none; font-weight:600;
+      white-space:nowrap } .PopularPosts{ padding:16px 8px } .PopularPosts
+      h3.title{ font-size:14px; margin:0 } .PopularPosts h3.post-title{
+      margin-bottom:0 } .PopularPosts .byline{
+      color:$(popularposts.byline.color) } .PopularPosts .jump-link{
       float:$(endSide); margin-top:16px } .PopularPosts .post-header .byline{
       font-size:.9em; font-style:italic; margin-top:6px } .PopularPosts ul{
-      list-style:none; padding:0; margin:0 } .PopularPosts .post{ padding:20px 0
+      list-style:none; padding:0; margin:0 } .PopularPosts .post{ padding:12px 0
       } .PopularPosts .post+.post{ border-top:1px dashed
       $(sidebar.separator.color) } .PopularPosts .item-thumbnail{
-      float:$(startSide); margin-$endSide:32px } .PopularPosts .item-thumbnail
-      img{ height:88px; padding:0; width:88px } .inline-ad{ margin-bottom:16px }
+      float:$(startSide); margin-$endSide:12px } .PopularPosts .item-thumbnail
+      img{ height:60px; padding:0; width:60px } .inline-ad{ margin-bottom:16px }
       .desktop-ad .inline-ad{ display:block } .adsbygoogle{ overflow:hidden }
       .vertical-ad-container{ float:$(endSide); margin-$endSide:16px;
       width:128px } .vertical-ad-container .AdSense+.AdSense{ margin-top:16px }
@@ -1168,7 +1244,38 @@
       100%); background:linear-gradient(to $startSide,$(posts.background.color)
       0,$(posts.background.color) 20%,$(posts.background.color.transparent)
       100%); color:$(body.text.color); height:24px }
-      .popular-posts-snippet.snippet-container{ max-height:72px }
+      .popular-posts-snippet.snippet-container{ display:none } .PopularPosts
+      .num_comments{ display:none } .PopularPosts .post-location{ display:none }
+      .PopularPosts h3.title{ display:none } .PopularPosts .pp-header{
+      font-size:13px; font-weight:700; letter-spacing:0.4px; padding:0 0 8px;
+      margin-bottom:4px; border-bottom:2px solid rgba(29,137,207,0.35) }
+      .PopularPosts div[role=feed]{ counter-reset:pp-counter } .PopularPosts
+      article.post{ display:flex; align-items:center;
+      counter-increment:pp-counter; padding:7px 0 } .PopularPosts .pp-num{
+      width:5%; flex-shrink:0; text-align:center; font-size:15px;
+      font-weight:800; opacity:.5; line-height:1; align-self:center }
+      .PopularPosts .pp-num::before{ content:counter(pp-counter) } .PopularPosts
+      .pp-col-left{ width:10%; flex-shrink:0; display:flex;
+      flex-direction:column; align-items:center; gap:3px } .PopularPosts
+      .item-thumbnail{ float:none; margin:0 } .PopularPosts .item-thumbnail img{
+      height:44px; width:44px; object-fit:cover; border-radius:4px }
+      .PopularPosts .pp-col-mid{ width:85%; padding:0 8px; min-width:0;
+      overflow:hidden } .PopularPosts .pp-col-right{ width:10%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center } .PopularPosts
+      .pp-col-mid h3.pp-title{ margin:0 0 3px; font-size:13px; line-height:17px
+      } .PopularPosts .pp-byline{ font-size:11px; line-height:14px; opacity:.65
+      } .PopularPosts .pp-labels{ margin-top:4px; display:flex; flex-wrap:wrap;
+      gap:3px } .PopularPosts .pp-tag{ font-size:10px; font-weight:600;
+      padding:1px 6px; border-radius:4px; background:rgba(29,137,207,0.12);
+      color:#1d89cf; text-decoration:none; line-height:1.6; display:inline-block
+      } .PopularPosts .pp-tag:hover{ background:#1d89cf; color:#fff }
+      .PopularPosts .pp-count{ font-size:11px; font-weight:600; line-height:1.3;
+      opacity:.75 } .PopularPosts article.post{ transition:background .18s }
+      .PopularPosts article.post:hover{ background:rgba(29,137,207,0.06);
+      border-radius:6px } .PopularPosts .pp-col-mid h3.pp-title a{
+      color:$(popularposts.title.color); text-decoration:none; transition:color
+      .18s; display:block; cursor:pointer } .PopularPosts .pp-col-mid
+      h3.pp-title a:hover{ color:#1d89cf; text-decoration:underline }
       .popular-posts-snippet .snippet-item{ line-height:24px } .PopularPosts
       .popular-posts-snippet .snippet-fade{ color:$(body.text.color);
       height:24px } .main .popular-posts-snippet .snippet-fade{
@@ -1218,10 +1325,15 @@
       body.item-view .centered-top{ margin-bottom:5px }
       .search-action,.search-input{ margin-bottom:-8px } .search form{
       margin-bottom:8px } body.item-view .subscribe-section-container{
-      margin:5px 0 0; width:100% } #page_body.section
-      div.widget.FeaturedPost,.widget.Blog .blog-posts
-      .post-outer-container,.widget.PopularPosts{ padding:16px } .widget.Blog
-      .blog-posts .post-outer-container .post-outer{ padding:0 }
+      margin:5px 0 0; width:100% } /* 단일포스트: flex column */
+      #page_body.section{ display:flex; flex-direction:column } /* 홈페이지:
+      Popular Posts → Maritime Hub 위치, Maritime Hub → 아래로 */
+      body.is-homepage #PopularPosts1{ position:absolute; top:360px; right:12px;
+      width:252px; z-index:59 } @media(max-width:960px){ body.is-homepage
+      #PopularPosts1{ position:static; width:100%; top:auto; right:auto;
+      z-index:auto } } #page_body.section div.widget.FeaturedPost,.widget.Blog
+      .blog-posts .post-outer-container,.widget.PopularPosts{ padding:8px }
+      .widget.Blog .blog-posts .post-outer-container .post-outer{ padding:0 }
       .post:first-child{ margin:0 } .post-body .snippet-thumbnail{ margin:0 3vw
       3vw 0 } .post-body .snippet-thumbnail img{ height:20vw; width:20vw;
       max-height:128px; max-width:128px } .widget.PopularPosts
@@ -1235,17 +1347,25 @@
       ins{ display:none } .page_body.has-vertical-ads .centered
       .centered-bottom,.page_body.has-vertical-ads .centered .centered-top{
       display:block; width:auto } .post-filter-message div{ padding:8px 16px } }
-      @media screen and (min-width:$(sidebar.width + content.width +
-      content.margin * 2)){ body{ position:relative } body.item-view .blog-name{
-      margin-left:48px } .no-sidebar-widget .page_body,.preview .page_body{
-      margin-left:0 } .page_body{ margin-left:$(sidebar.width) } .search{
-      margin-left:0 } .search.focused{ width:100% } .sticky{
-      padding-left:$(sidebar.width) } .hamburger-menu{ display:none }
-      body.collapsed-header .page_body .centered-top-container{
-      padding-left:$(sidebar.width); padding-right:0; width:100% }
-      body.collapsed-header .centered-top-container .search.focused{ width:100%
-      } body.collapsed-header .centered-top-container .blog-name{ margin-left:0
-      } body.collapsed-header.item-view .centered-top-container .search.focused{
+      @media screen and (max-width:960px){ .widget.PopularPosts .pp-col-left
+      div.item-thumbnail{ margin:0 } .widget.PopularPosts .pp-col-left
+      div.item-thumbnail img{ height:44px; width:44px; max-height:44px;
+      max-width:44px } .PopularPosts article.post{ display:flex;
+      align-items:center; flex-wrap:nowrap } .PopularPosts .pp-num{ flex:0 0
+      24px; width:24px; align-self:center } .PopularPosts .pp-col-left{ flex:0 0
+      50px; width:50px } .PopularPosts .pp-col-mid{ flex:1 1 0; width:0;
+      min-width:0; padding:0 6px; overflow:hidden } } @media screen and
+      (min-width:$(sidebar.width + content.width + content.margin * 2)){ body{
+      position:relative } body.item-view .blog-name{ margin-left:48px }
+      .no-sidebar-widget .page_body,.preview .page_body{ margin-left:0 }
+      .page_body{ margin-left:$(sidebar.width) } .search{ margin-left:0 }
+      .search.focused{ width:100% } .sticky{ padding-left:$(sidebar.width) }
+      .hamburger-menu{ display:none } body.collapsed-header .page_body
+      .centered-top-container{ padding-left:$(sidebar.width); padding-right:0;
+      width:100% } body.collapsed-header .centered-top-container
+      .search.focused{ width:100% } body.collapsed-header
+      .centered-top-container .blog-name{ margin-left:0 }
+      body.collapsed-header.item-view .centered-top-container .search.focused{
       width:calc(100% - 50px) } body.collapsed-header.item-view
       .centered-top-container .blog-name{ margin-left:40px } } /*
       ═══════════════════════════════════════════ Maritime 4.0 Design System
@@ -1265,7 +1385,19 @@
       a,.Attribution a:hover,.Attribution a:visited{color:#1a9e82 !important}
       .post-filter-message .search-label,.post-filter-message
       .search-query{color:#1a9e82 !important} .post-body .snippet-thumbnail
-      img,.FeaturedPost .snippet-thumbnail img{border-radius:8px} ]]></b:skin
+      img,.FeaturedPost .snippet-thumbnail img{border-radius:8px}
+      .post-footer-line{text-align:right !important;}
+      .byline.post-location{text-align:left !important;float:left !important;}
+      /* 리스트 뷰: footer의 날짜·작성자는 제목 아래로 이동했으므로 숨김 */
+      .blog-posts .post-footer-line .byline.post-timestamp, .blog-posts
+      .post-footer-line .byline.post-author{display:none !important;}
+      .byline.post-author{display:inline-flex !important;align-items:center
+      !important;gap:6px !important;} .byline.post-author
+      img{border-radius:50%;border:1.5px solid
+      #1a9e82;height:22px;width:22px;object-fit:cover;flex-shrink:0;}
+      .byline.post-author .fn a,.byline.post-author .fn span{color:#0a2342
+      !important;font-weight:600 !important;font-size:12px
+      !important;text-decoration:none !important;} ]]></b:skin
     >
 
     <b:template-skin>
@@ -1785,13 +1917,114 @@
       }
       #page_body .FeaturedPost,
       .Blog .blog-posts .post-outer-container {
-        padding: 15px 40px !important;
+        padding: 12px 16px !important;
+      }
+      .FeaturedPost h3.title {
+        display: none;
+      }
+      .FeaturedPost .fp-section-header {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        padding: 0 0 8px;
+        margin-bottom: 8px;
+        border-bottom: 2px solid rgba(29, 137, 207, 0.35);
+      }
+      .FeaturedPost article.post {
+        background: #f4f9ff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(10, 35, 66, 0.07);
+        padding: 12px 16px;
+        margin-bottom: 4px;
+        overflow: hidden;
+      }
+      .FeaturedPost .fp-thumb-link {
+        display: block;
+        line-height: 0;
+      }
+      .FeaturedPost .fp-snippet-link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .FeaturedPost .fp-snippet-link:hover {
+        opacity: 0.85;
+      }
+      .FeaturedPost .fp-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        margin: 6px 0 4px;
+      }
+      .FeaturedPost .fp-tag {
+        background: rgba(29, 137, 207, 0.1);
+        color: #1d89cf;
+        border-radius: 4px;
+        font-size: 9px;
+        font-weight: 600;
+        padding: 1px 6px;
+        text-decoration: none;
+        line-height: 1.7;
+        display: inline-block;
+        white-space: nowrap;
+      }
+      .FeaturedPost .fp-tag:hover {
+        background: #1d89cf;
+        color: #fff;
+      }
+      .FeaturedPost .fp-bot {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 8px;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        padding-top: 6px;
+        margin-top: 6px;
+      }
+      .FeaturedPost .fp-bot-info {
+        display: block;
+        min-width: 0;
+      }
+      .FeaturedPost .fp-bot-loc {
+        display: block;
+        font-size: 11px;
+        opacity: 0.65;
+        margin-bottom: 3px;
+      }
+      .FeaturedPost .fp-bot-loc a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .FeaturedPost .fp-bot-byline {
+        display: block;
+        font-size: 11px;
+        opacity: 0.65;
+      }
+      .FeaturedPost .fp-bot-comment {
+        flex-shrink: 0;
+      }
+      .FeaturedPost .fp-bot-comment a {
+        font-size: 11px;
+        color: #1d89cf;
+        text-decoration: none;
+        font-weight: 600;
+        white-space: nowrap;
       }
       .Blog .blog-posts .post-outer-container {
         background: #f4f9ff !important;
-        border-radius: 14px !important;
+        border-radius: 10px !important;
         box-shadow: 0 2px 8px rgba(10, 35, 66, 0.07) !important;
-        margin-bottom: 14px !important;
+        margin-bottom: 10px !important;
+      }
+      .Blog .b1-latest-header {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        padding: 0 0 8px;
+        margin-bottom: 8px;
+        border-bottom: 2px solid rgba(29, 137, 207, 0.35);
+        color: #fff;
       }
       .post-title {
         margin: 0 0 4px !important;
@@ -1827,6 +2060,11 @@
   </head>
 
   <body>
+    <b:if cond="data:view.isHomepage"
+      ><script>
+        document.body.classList.add(&#39;is-homepage&#39;)
+      </script></b:if
+    >
     <canvas
       id="globe-canvas"
       style="
@@ -1866,7 +2104,20 @@
             </button>
           </div>
           <div class="rp-body">
-            <div id="mw-widget">Loading weather&#8230;</div>
+            <div id="mw-widget">
+              <p
+                style="
+                  font-size: 11px;
+                  color: rgba(200, 228, 248, 0.6);
+                  margin: 0;
+                  line-height: 1.6;
+                "
+              >
+                Real-time maritime weather conditions including wind speed, wave
+                height, barometric pressure and sea state &#8212; updated for
+                the vessel&#39;s current position.
+              </p>
+            </div>
           </div>
         </div>
         <div class="rp-sep" />
@@ -1878,7 +2129,20 @@
             </button>
           </div>
           <div class="rp-body">
-            <div id="hg-right" />
+            <div id="hg-right">
+              <p
+                style="
+                  font-size: 11px;
+                  color: rgba(200, 228, 248, 0.6);
+                  margin: 0;
+                  line-height: 1.6;
+                "
+              >
+                Visitor intelligence panel &#8212; displays connection origin,
+                language, timezone and maritime region context for site
+                visitors.
+              </p>
+            </div>
           </div>
         </div>
         <div class="rp-sep" />
@@ -1890,6 +2154,19 @@
             </button>
           </div>
           <div class="rp-body" style="padding: 0; overflow: hidden">
+            <p
+              style="
+                font-size: 11px;
+                color: rgba(200, 228, 248, 0.6);
+                margin: 0 0 6px;
+                padding: 8px 12px;
+                line-height: 1.6;
+              "
+            >
+              Live AIS vessel tracking map &#8212; displays real-time positions
+              of commercial vessels including cargo ships, tankers and bulk
+              carriers operating in Korean and East Asian waters.
+            </p>
             <div style="position: relative">
               <iframe
                 frameborder="0"
@@ -2342,12 +2619,13 @@
                       >
                         <b:widget-settings>
                           <b:widget-setting name="pageListJson"
-                            ><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/Maritime
-                            Industry
-                            Insights?max-results=9","position":1,"title":"Insight"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/JOBS?max-results=9","position":5,"title":"Jobs"},"link4":{"href":"https://www.shippauljobs.com/search/label/Publications?max-results=9","position":4,"title":"Publications"},"link3":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":3,"title":"AI
+                            ><![CDATA[{"link1":{"href":"https://www.shippauljobs.com/search/label/Maritime%20News%20Analysis?max-results=9","position":1,"title":"Maritime
+                            News"},"link0":{"href":"https://www.shippauljobs.com/","position":0,"title":"HOME"},"link5":{"href":"https://www.shippauljobs.com/search/label/Publications?max-results=9","position":5,"title":"Publications"},"link4":{"href":"https://www.shippauljobs.com/search/label/AICyberLab?max-results=9","position":4,"title":"AI
                             Cyber
-                            Lab"},"link2":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":2,"title":"Maritime
-                            Compliance"}}]]></b:widget-setting
+                            Lab"},"link3":{"href":"https://www.shippauljobs.com/search/label/Compliances?max-results=9","position":3,"title":"Maritime
+                            Compliance"},"link2":{"href":"https://www.shippauljobs.com/search/label/Maritime
+                            Industry
+                            Insights?max-results=9","position":2,"title":"Insight"}}]]></b:widget-setting
                           >
                           <b:widget-setting name="homeTitle"
                             >Home</b:widget-setting
@@ -2521,7 +2799,7 @@
                     >
                   </b:widget-settings>
                   <b:includable id="main" var="this">
-                    <b:include name="widget-title" />
+                    <div class="fp-section-header">Featured Posts</div>
                     <div class="widget-content">
                       <b:include name="snippetedPosts" />
                     </div>
@@ -2698,9 +2976,12 @@
                   </b:includable>
                   <b:includable id="postAuthor">
                     <span class="byline post-author vcard">
-                      <span class="post-author-label">
-                        <data:byline.label />
-                      </span>
+                      <b:if cond="data:post.author.authorPhoto.url">
+                        <img
+                          expr:alt="data:post.author.name"
+                          expr:src="data:post.author.authorPhoto.url"
+                        />
+                      </b:if>
                       <span class="fn">
                         <b:if cond="data:post.author.profileUrl">
                           <meta expr:content="data:post.author.profileUrl" />
@@ -2710,7 +2991,7 @@
                             rel="author"
                             title="author profile"
                           >
-                            <span><data:post.author.name /></span>
+                            <data:post.author.name />
                           </a>
                           <b:else />
                           <span><data:post.author.name /></span>
@@ -2913,26 +3194,59 @@
                     <b:include name="headerByline" />
                   </b:includable>
                   <b:includable id="snippetedPostContent">
-                    <b:comment
-                      >Re-order the thumbnail before the snippet, add &#39;Keep
-                      reading&#39; link.</b:comment
-                    >
                     <b:include
                       cond="data:this.postDisplay.showTitle"
                       name="snippetedPostTitle"
                     />
-                    <b:include name="headerByline" />
-                    <b:include
+                    <b:if
                       cond="data:this.postDisplay.showFeaturedImage and data:post.featuredImage"
-                      data="post"
-                      name="snippetedPostThumbnail"
-                    />
-                    <b:include
-                      cond="data:this.postDisplay.showSnippet"
-                      data="post"
-                      name="postSnippet"
-                    />
-                    <b:include data="post" name="postFooter" />
+                    >
+                      <a class="fp-thumb-link" expr:href="data:post.url">
+                        <b:include data="post" name="snippetedPostThumbnail" />
+                      </a>
+                    </b:if>
+                    <b:if cond="data:this.postDisplay.showSnippet">
+                      <a class="fp-snippet-link" expr:href="data:post.url">
+                        <b:include data="post" name="postSnippet" />
+                      </a>
+                    </b:if>
+                    <b:if cond="data:post.labels">
+                      <div class="fp-tags">
+                        <b:loop values="data:post.labels" var="label">
+                          <a class="fp-tag" expr:href="data:label.url"
+                            ><data:label.name
+                          /></a>
+                        </b:loop>
+                      </div>
+                    </b:if>
+                    <div class="fp-bot">
+                      <div class="fp-bot-info">
+                        <div class="fp-bot-loc">
+                          <b:if cond="data:post.location">
+                            📍
+                            <a
+                              expr:href="data:post.location.mapsUrl"
+                              target="_blank"
+                              ><data:post.location.name
+                            /></a>
+                          </b:if>
+                        </div>
+                        <div class="fp-bot-byline">
+                          <data:post.author.name /> &#183; <data:post.date />
+                        </div>
+                      </div>
+                      <div class="fp-bot-comment">
+                        <b:if cond="data:post.allowComments">
+                          <a
+                            expr:href="data:post.commentsUrl"
+                            expr:onclick="data:post.commentsUrlOnclick"
+                            >💬
+                            <b:if cond="data:post.numberOfComments &gt; 0"
+                              ><data:post.numberOfComments /></b:if
+                          ></a>
+                        </b:if>
+                      </div>
+                    </div>
                   </b:includable>
                   <b:includable id="snippetedPostThumbnail">
                     <div class="snippet-thumbnail">
@@ -3038,7 +3352,11 @@
                   </b:widget-settings>
                   <b:includable id="main">
                     <b:include name="noContentPlaceholder" />
-
+                    <b:if
+                      cond="data:view.isHomepage or data:view.isMultipleItems"
+                    >
+                      <div class="b1-latest-header">Latest Posts</div>
+                    </b:if>
                     <b:comment
                       >Cap the total number of ads (widgets and inline
                       ads).</b:comment
@@ -3543,22 +3861,93 @@
                   <b:includable id="post" var="post">
                     <div class="post">
                       <b:include data="post" name="postMeta" />
-                      <b:include data="post" name="postTitle" />
-                      <b:include name="headerByline" />
                       <b:if cond="data:view.isSingleItem">
+                        <!-- 단일 포스트: 기존 레이아웃 유지 -->
+                        <b:include data="post" name="postTitle" />
+                        <b:include name="headerByline" />
                         <b:include data="post" name="postBody" />
+                        <b:include data="post" name="postFooter" />
                         <b:else />
-                        <b:include data="post" name="postBodySnippet" />
-                        <b:include data="post" name="postJumpLink" />
+                        <!-- 목록 카드: 3단 레이아웃 -->
+                        <!-- 상단: 제목 + 공유 버튼 -->
+                        <div class="b1-card-top">
+                          <b:include data="post" name="postTitle" />
+                          <b:include
+                            data='{ shareButtonClass: "post-share-buttons-top", overridden: true }'
+                            name="maybeAddShareButtons"
+                          />
+                        </div>
+                        <!-- 중단: 좌 20% 썸네일 + 우 80% 본문 미리보기 -->
+                        <div class="b1-card-mid">
+                          <div class="b1-card-thumb">
+                            <b:if cond="data:post.featuredImage">
+                              <a expr:href="data:post.url">
+                                <b:include
+                                  data='{ image: data:post.featuredImage, imageSizes: [128, 256], imageRatio: "1:1", sourceSizes: "128px" }'
+                                  name="responsiveImage"
+                                />
+                              </a>
+                            </b:if>
+                          </div>
+                          <div class="b1-card-snippet">
+                            <b:include
+                              cond="data:post"
+                              data="post"
+                              name="postSnippet"
+                            />
+                            <b:if cond="data:post.labels">
+                              <div class="b1-card-tags">
+                                <b:loop values="data:post.labels" var="label">
+                                  <a
+                                    class="b1-card-tag"
+                                    expr:href="data:label.url"
+                                    ><data:label.name
+                                  /></a>
+                                </b:loop>
+                              </div>
+                            </b:if>
+                          </div>
+                        </div>
+                        <!-- location: 구분선 위 좌측 -->
+                        <div class="b1-card-loc">
+                          <b:if cond="data:post.location">
+                            📍
+                            <a
+                              expr:href="data:post.location.mapsUrl"
+                              target="_blank"
+                              ><data:post.location.name
+                            /></a>
+                          </b:if>
+                        </div>
+                        <!-- 하단: 작성자&#183;날짜 / 💬 댓글 -->
+                        <div class="b1-card-bot">
+                          <div class="b1-card-byline">
+                            <data:post.author.name /> &#183; <data:post.date />
+                          </div>
+                          <div class="b1-card-comment">
+                            <b:if cond="data:post.allowComments">
+                              <a
+                                class="b1-comment-link"
+                                expr:href="data:post.commentsUrl"
+                                expr:onclick="data:post.commentsUrlOnclick"
+                                >💬
+                                <b:if cond="data:post.numberOfComments &gt; 0"
+                                  ><data:post.numberOfComments /></b:if
+                              ></a>
+                            </b:if>
+                          </div>
+                        </div>
                       </b:if>
-                      <b:include data="post" name="postFooter" />
                     </div>
                   </b:includable>
                   <b:includable id="postAuthor">
                     <span class="byline post-author vcard">
-                      <span class="post-author-label">
-                        <data:byline.label />
-                      </span>
+                      <b:if cond="data:post.author.authorPhoto.url">
+                        <img
+                          expr:alt="data:post.author.name"
+                          expr:src="data:post.author.authorPhoto.url"
+                        />
+                      </b:if>
                       <span class="fn">
                         <b:if cond="data:post.author.profileUrl">
                           <meta expr:content="data:post.author.profileUrl" />
@@ -3568,7 +3957,7 @@
                             rel="author"
                             title="author profile"
                           >
-                            <span><data:post.author.name /></span>
+                            <data:post.author.name />
                           </a>
                           <b:else />
                           <span><data:post.author.name /></span>
@@ -3712,8 +4101,9 @@
                     <div
                       style="
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: flex-end;
                         align-items: center;
+                        gap: 10px;
                         width: 100%;
                         order: 3;
                         margin-top: 4px;
@@ -3813,66 +4203,24 @@
                     </b:if>
                   </b:includable>
                   <b:includable id="postPagination">
-                    <div style="text-align: center; margin: 1.8em 0 0">
-                      <button
-                        id="apl-toggle"
-                        onclick="
-                          (function () {
-                            var w = document.getElementById('apl-wrap');
-                            var b = document.getElementById('apl-toggle');
-                            if (w.style.display === 'none') {
-                              w.style.display = 'block';
-                              b.textContent = '▲ Close';
-                            } else {
-                              w.style.display = 'none';
-                              b.textContent = '▼ More Posts';
-                            }
-                          })()
-                        "
-                        onmouseout="this.style.background = '#154f7a'"
-                        onmouseover="this.style.background = '#0a2342'"
-                        style="
-                          background: #154f7a;
-                          color: #fff;
-                          border: none;
-                          border-radius: 7px;
-                          padding: 9px 28px;
-                          font-size: 13px;
-                          font-weight: 700;
-                          cursor: pointer;
-                          letter-spacing: 0.3px;
-                          transition: background 0.2s;
-                        "
-                      >
-                        &#9650; Close
-                      </button>
-                    </div>
-                    <div
-                      id="apl-wrap"
-                      style="
-                        display: block;
-                        margin: 1em 0 1em;
-                        border-top: 2px solid rgba(29, 137, 207, 0.35);
-                        padding: 1.2em 14px 14px;
-                        background: rgba(4, 10, 24, 0.38);
-                        border-radius: 10px;
-                        backdrop-filter: blur(6px);
-                      "
-                    >
+                    <div style="margin: 1.8em 0 0">
                       <div
-                        id="apl-header"
                         style="
                           display: flex;
                           justify-content: space-between;
                           align-items: center;
-                          font-size: 13px;
-                          font-weight: 700;
-                          color: #c8e4f8;
-                          margin-bottom: 10px;
-                          letter-spacing: 0.4px;
+                          margin-bottom: 6px;
                         "
                       >
-                        <span>📋 Post List</span>
+                        <span
+                          style="
+                            font-size: 13px;
+                            font-weight: 700;
+                            color: #fff;
+                            letter-spacing: 0.4px;
+                          "
+                          >Post List</span
+                        >
                         <span
                           id="apl-count"
                           style="
@@ -3887,12 +4235,351 @@
                         />
                       </div>
                       <div
+                        style="border-top: 1px solid rgba(255, 255, 255, 0.35)"
+                      />
+                    </div>
+                    <div
+                      id="apl-wrap"
+                      style="
+                        display: block;
+                        margin: 1em 0 1em;
+                        border-top: 2px solid rgba(29, 137, 207, 0.35);
+                        padding: 1.2em 14px 14px;
+                        background: rgba(4, 10, 24, 0.38);
+                        border-radius: 10px;
+                        backdrop-filter: blur(6px);
+                      "
+                    >
+                      <div id="apl-header" style="display: none" />
+                      <div
                         id="apl-loading"
                         style="color: #7eaac8; font-size: 12px; padding: 8px 0"
                       >
                         Loading&#8230;
                       </div>
-                      <div id="apl-content" style="display: none" />
+                      <div id="apl-content" style="display: block">
+                        <!-- SEO/크롤러용 정적 링크 목록 &#8212; JS가 전체 포스트로 업데이트 -->
+                        <div
+                          aria-hidden="true"
+                          id="apl-static"
+                          style="
+                            position: absolute;
+                            left: -9999px;
+                            width: 1px;
+                            height: 1px;
+                            overflow: hidden;
+                          "
+                        >
+                          <div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/e26-deliverable-quality-low-medium-and.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >E26 Deliverable Quality &#8212; The Low,
+                                Medium, and High Tiers</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-26 &#8212; 💡 Insight Deliverable
+                                Quality UR E26 Cyber Resilience E26 Deliverable
+                                Quality: The Low, Medium, and High Tiers The
+                                same E26 docume...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/what-uscgs-performance-driven-coc.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >What USCG&#39;s Performance-Driven COC
+                                Inspection Regime and IACS UR E26 Are Telling
+                                Us</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-24 &#8212; 💡 Insight Pilot Program USCG
+                                COC UR E26 What USCG&#39;s Performance-Driven
+                                COC Inspection Regime and IACS UR E26 Are
+                                Telling Us Not &quot;a...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/maritime-cyber-resilience-brief.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >Maritime Cyber Resilience Brief &#8212;
+                                Charting the USCG Cybersecurity Rule:
+                                Implementation Timeline and the
+                                Foreign&#8209;Flag Question</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-22 &#8212; 📋 Brief Comparative Series
+                                USCG Rule UR E26/E27 Maritime Cyber Resilience
+                                Brief &#8212; Charting the USCG Cybersecurity
+                                Rule: Implementa...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/securing-maritime-ot-operating.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >Securing Maritime OT Systems: A Practical Cyber
+                                Security Strategy</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-18 &#8212; 💡 Insight OT Security
+                                Maritime Cybersecurity Defence in Depth Securing
+                                Maritime OT Systems: A Practical Cyber Security
+                                Strategy Ba...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became_0911737879.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >Why Maritime Cybersecurity Became a System
+                                Engineering Issue (3/9)</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-16 &#8212; 💡 Insight IACS UR E26 / E27
+                                System Engineering Maritime Cybersecurity
+                                Chapter 3. Why Cybersecurity Became a System
+                                Engineering Iss...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/the-shipyard-one-you-must-walk-closest.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >The Shipyard &#8212; The One You Must Walk
+                                Closest Beside</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-14 &#8212; 💡 Insight Three-Body Series
+                                UR E26 Owner-Side Advisory The Shipyard &#8212;
+                                The One You Must Walk Closest Beside One you
+                                must walk with ...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/agent-ai-55-llmplanningmemorytool-use.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >I. Agent AI의 발전 배경과 사업 적용 (5/5) :
+                                LLM&#183;Planning&#183;Memory&#183;Tool Use의
+                                완전 해부</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-13 &#8212; Agent AI &#62766; Future
+                                Vision 시리즈 5편 (완결) Maritime 4.0 시리즈
+                                완결 [시리즈 5편] Agent AI 시대의 미래와 새로운
+                                비즈니스 AI 직원과 인간의 협업 &#8212; AI Agent
+                                Economy, Agen...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became_01937875339.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >Why Maritime Cybersecurity Became a System
+                                Engineering Issue (2/9)</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-07 &#8212; 💡 Insight OT Cybersecurity
+                                System Interdependency Maritime 4.0 Chapter 2.
+                                Increasing OT System Interdependency Blue
+                                Horizonist Ser...
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                padding: 8px 0;
+                                border-bottom: 1px solid
+                                  rgba(29, 137, 207, 0.18);
+                              "
+                            >
+                              <a
+                                href="https://www.shippauljobs.com/2026/06/the-maritime-market-is-no-exception-to_0261507464.html"
+                                style="
+                                  color: #c8e4f8;
+                                  font-size: 13px;
+                                  font-weight: 600;
+                                  text-decoration: none;
+                                  line-height: 1.4;
+                                  display: block;
+                                "
+                                >The Maritime Market Is No Exception to AI
+                                Hacking (3/3) : When Algorithms Attack a Ship,
+                                What Are Our Weapons?</a
+                              >
+                              <div
+                                style="
+                                  color: rgba(200, 228, 248, 0.55);
+                                  font-size: 11px;
+                                  margin-top: 3px;
+                                "
+                              >
+                                2026-06-06 &#8212; &#63201;&#65039; Maritime
+                                Defense &#62667; SFI / IACS E26 Defense in Depth
+                                Maritime 4.0 3-Part Series&#183;Final [Field
+                                Notes] When Algorithms Attack a Ship...
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /#apl-static -->
+                        <div id="apl-cards" />
+                      </div>
+                      <!-- /#apl-content -->
                     </div>
                     <script type="text/javascript">
                       //<![CDATA[
@@ -3927,6 +4614,8 @@
                         // ── DOM ─────────────────────────────────────────────────
                         var loadEl = document.getElementById("apl-loading");
                         var contEl = document.getElementById("apl-content");
+                        var cardsEl = document.getElementById("apl-cards");
+                        var staticEl = document.getElementById("apl-static");
                         var headEl = document.getElementById("apl-header");
                         if (!contEl) return;
 
@@ -4051,6 +4740,18 @@
                                       ? ""
                                       : n;
                                   })(e.content || e.summary, e.author),
+                                  authorUrl:
+                                    e.author &&
+                                    e.author[0] &&
+                                    e.author[0].uri &&
+                                    e.author[0].uri.$t
+                                      ? e.author[0].uri.$t
+                                      : "",
+                                  location:
+                                    e["georss$featurename"] &&
+                                    e["georss$featurename"]["$t"]
+                                      ? e["georss$featurename"]["$t"]
+                                      : "",
                                   comments: e.thr$total
                                     ? e.thr$total.$t || "0"
                                     : "0",
@@ -4096,71 +4797,91 @@
                           var cards = slice
                             .map(function (p, i) {
                               var gi = start + i;
+                              /* 이미지: object-fit:contain + 고정 영역(3:2) → 자연 비율 그대로 표시 */
                               var imgBlock = p.image
                                 ? '<img src="' +
                                   esc(p.image) +
                                   '" alt="' +
                                   esc(p.title) +
-                                  '" loading="lazy" style="width:72px;height:72px;object-fit:cover;border-radius:6px;display:block">'
-                                : '<div style="width:72px;height:72px;border-radius:6px;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
+                                  '" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block">'
+                                : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:30px">&#128196;</span></div>';
+
+                              /* 태그 (HIDDEN_LABELS 제외) */
                               var visibleLabels = p.labels.filter(function (l) {
                                 return HIDDEN_LABELS.indexOf(l) < 0;
                               });
-                              var labelsHtml = visibleLabels.length
-                                ? '<div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:2px">' +
+                              var tagsHtml = visibleLabels.length
+                                ? '<div style="padding:0 14px 4px;display:flex;flex-wrap:wrap;gap:3px">' +
                                   visibleLabels
                                     .map(function (l) {
                                       return (
                                         '<a href="/search/label/' +
                                         encodeURIComponent(l) +
-                                        '" style="background:#f5faff;color:#154f7a;border-radius:5px;font-size:9px;font-weight:600;padding:1px 5px;text-decoration:none;line-height:1.5;display:inline-block">' +
+                                        '" style="background:rgba(29,137,207,0.1);color:#1d89cf;border-radius:4px;font-size:9px;font-weight:600;padding:1px 6px;text-decoration:none;line-height:1.7;display:inline-block;white-space:nowrap">' +
                                         esc(l) +
                                         "</a>"
                                       );
                                     })
                                     .join("") +
                                   "</div>"
-                                : "";
+                                : '<div style="padding:0 14px 4px;min-height:20px"></div>';
 
                               return (
                                 '<div style="' +
                                 S_CARD +
                                 '" data-card>' +
-                                '<span style="position:absolute;top:8px;left:8px;background:#0a2342;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;line-height:1;z-index:1">' +
+                                /* 상단 60%: 흰색 외곽 테두리(padding wrapper) + 이미지 */
+                                '<div style="padding:2px;background:rgba(255,255,255,0.6);border-radius:8px 8px 0 0;line-height:0;position:relative;overflow:hidden">' +
+                                '<span style="position:absolute;top:10px;left:10px;background:#0a2342;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;line-height:1;z-index:1">' +
                                 (gi + 1) +
                                 "</span>" +
-                                '<div style="display:flex;align-items:flex-start;gap:12px;padding:14px 14px 10px">' +
-                                '<div style="flex-shrink:0;width:72px">' +
-                                imgBlock +
-                                labelsHtml +
-                                "</div>" +
                                 '<a href="' +
                                 esc(p.url) +
-                                '" style="font-size:13px;font-weight:700;line-height:1.5;color:#0a2342;flex:1;text-decoration:none;cursor:pointer">' +
+                                '" style="display:block;position:relative;aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;border-radius:6px 6px 0 0">' +
+                                imgBlock +
+                                "</a>" +
+                                "</div>" +
+                                /* 중단 20%: 제목 */
+                                '<div style="padding:10px 14px 4px">' +
+                                '<a href="' +
+                                esc(p.url) +
+                                '" style="font-size:13px;font-weight:700;line-height:1.5;color:#0a2342;text-decoration:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' +
                                 esc(p.title) +
                                 "</a>" +
                                 "</div>" +
-                                "<div>" +
-                                '<div style="display:flex;align-items:center;gap:6px;padding:2px 14px 8px;flex-wrap:wrap">' +
-                                '<span style="font-size:10px;color:#8099b3">' +
-                                esc(p.date) +
-                                "</span>" +
-                                (p.author
-                                  ? '<span style="font-size:10px;color:#c0ccd8">&#183;</span><span style="font-size:10px;color:#8099b3">&#128100; ' +
-                                    esc(displayAuthor(p.author)) +
+                                /* 태그 10%: 라벨 chips */
+                                tagsHtml +
+                                /* 하단 10%: location */
+                                '<div style="padding:0 14px 4px;min-height:18px">' +
+                                (p.location
+                                  ? '<span style="font-size:10px;color:#8099b3">&#128205; ' +
+                                    esc(p.location) +
                                     "</span>"
                                   : "") +
                                 "</div>" +
-                                '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px 12px;border-top:1px solid #e0eaf4">' +
-                                '<a href="' +
-                                esc(p.url) +
-                                '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;letter-spacing:0.2px">&#128172; Comment (' +
-                                esc(p.comments) +
-                                ")</a>" +
-                                '<a href="' +
-                                esc(p.url) +
-                                '" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#1d89cf;border-radius:50%;color:#fff;text-decoration:none;font-size:15px;line-height:1" title="Read more">&#8594;</a>' +
+                                /* 최하단 10%: 작성자·날짜(좌) / 댓글(우) */
+                                '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 14px 10px;border-top:1px solid #e0eaf4">' +
+                                '<div style="display:flex;gap:4px;align-items:center;font-size:10px;color:#8099b3;min-width:0;overflow:hidden">' +
+                                (p.author
+                                  ? '<span style="white-space:nowrap">' +
+                                    (p.authorUrl
+                                      ? '<a href="' +
+                                        esc(p.authorUrl) +
+                                        '" style="color:#8099b3;text-decoration:none;font-weight:600" target="_blank" rel="noopener">' +
+                                        esc(displayAuthor(p.author)) +
+                                        "</a>"
+                                      : esc(displayAuthor(p.author))) +
+                                    "</span><span>&#183;</span>"
+                                  : "") +
+                                '<span style="white-space:nowrap">' +
+                                esc(p.date) +
+                                "</span>" +
                                 "</div>" +
+                                '<a href="' +
+                                esc(p.url) +
+                                '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap;flex-shrink:0">&#128172; ' +
+                                esc(p.comments) +
+                                "</a>" +
                                 "</div>" +
                                 "</div>"
                               );
@@ -4199,18 +4920,20 @@
                             ">Next &#8594;</button>";
 
                           // #1: repeat(auto-fill) 으로 모바일 자동 대응
-                          contEl.innerHTML =
-                            '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:14px">' +
-                            cards +
-                            "</div>" +
-                            '<div id="apl-pager" style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">' +
-                            pageBtns +
-                            '<span style="font-size:11px;color:#999">' +
-                            page +
-                            " / " +
-                            totalPages +
-                            "</span>" +
-                            "</div>";
+                          if (cardsEl) {
+                            cardsEl.innerHTML =
+                              '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:14px">' +
+                              cards +
+                              "</div>" +
+                              '<div id="apl-pager" style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">' +
+                              pageBtns +
+                              '<span style="font-size:11px;color:#999">' +
+                              page +
+                              " / " +
+                              totalPages +
+                              "</span>" +
+                              "</div>";
+                          }
                           contEl.style.display = "block";
                         }
 
@@ -4223,10 +4946,27 @@
                           if (loadEl) loadEl.style.display = "none";
                           var cntEl = document.getElementById("apl-count");
                           if (cntEl) cntEl.textContent = all.length;
+                          // ── 전체 포스트 링크를 #apl-static에 기록 (크롤러/AdSense용) ──
+                          if (staticEl) {
+                            staticEl.innerHTML =
+                              "<div>" +
+                              all
+                                .map(function (p) {
+                                  return (
+                                    '<a href="' +
+                                    esc(p.url) +
+                                    '">' +
+                                    esc(p.title) +
+                                    "</a>"
+                                  );
+                                })
+                                .join("") +
+                              "</div>";
+                          }
                           if (!all.length) {
-                            contEl.innerHTML =
-                              '<p style="color:#aaa;font-size:12px">No posts found.</p>';
-                            contEl.style.display = "block";
+                            if (cardsEl)
+                              cardsEl.innerHTML =
+                                '<p style="color:#aaa;font-size:12px">No posts found.</p>';
                             return;
                           }
                           renderPage(1);
@@ -4534,31 +5274,30 @@
                   </b:includable>
                 </b:widget>
                 <b:widget
-                  cond="data:view.isSingleItem and data:posts any (p =&gt; p.id != data:view.postId)"
+                  cond="data:view.isHomepage or data:view.isMultipleItems or (data:view.isSingleItem and data:posts any (p =&gt; p.id != data:view.postId))"
                   id="PopularPosts1"
                   locked="true"
                   title="Popular Posts"
                   type="PopularPosts"
                   version="2"
-                  visible="false"
+                  visible="true"
                 >
                   <b:widget-settings>
-                    <b:widget-setting name="numItemsToShow">1</b:widget-setting>
+                    <b:widget-setting name="numItemsToShow"
+                      >10</b:widget-setting
+                    >
                     <b:widget-setting name="showThumbnails"
-                      >false</b:widget-setting
+                      >true</b:widget-setting
                     >
                     <b:widget-setting name="showSnippets"
-                      >false</b:widget-setting
+                      >true</b:widget-setting
                     >
                     <b:widget-setting name="timeRange"
                       >LAST_YEAR</b:widget-setting
                     >
                   </b:widget-settings>
                   <b:includable id="main" var="this">
-                    <b:comment
-                      >Default the title to &#39;Popular posts from this
-                      blog&#39;.</b:comment
-                    >
+                    <div class="pp-header">Popular Posts</div>
                     <b:with
                       value="data:messages.popularPostsFromThisBlog"
                       var="defaultTitle"
@@ -4744,9 +5483,12 @@
                   </b:includable>
                   <b:includable id="postAuthor">
                     <span class="byline post-author vcard">
-                      <span class="post-author-label">
-                        <data:byline.label />
-                      </span>
+                      <b:if cond="data:post.author.authorPhoto.url">
+                        <img
+                          expr:alt="data:post.author.name"
+                          expr:src="data:post.author.authorPhoto.url"
+                        />
+                      </b:if>
                       <span class="fn">
                         <b:if cond="data:post.author.profileUrl">
                           <meta expr:content="data:post.author.profileUrl" />
@@ -4756,7 +5498,7 @@
                             rel="author"
                             title="author profile"
                           >
-                            <span><data:post.author.name /></span>
+                            <data:post.author.name />
                           </a>
                           <b:else />
                           <span><data:post.author.name /></span>
@@ -4959,27 +5701,32 @@
                     <b:include name="headerByline" />
                   </b:includable>
                   <b:includable id="snippetedPostContent">
-                    <b:comment
-                      >Add a &#39;keep reading&#39; link to the
-                      item-content.</b:comment
-                    >
-                    <b:include name="snippetedPostTitle" />
-                    <b:include name="snippetedPostByline" />
-                    <div class="item-content float-container">
+                    <div class="pp-num" />
+                    <div class="pp-col-left">
                       <b:include
                         cond="data:this.postDisplay.showFeaturedImage and data:post.featuredImage"
                         name="snippetedPostThumbnail"
                       />
-                      <b:if cond="data:this.postDisplay.showSnippet">
-                        <b:with value='"popular-posts"' var="snippetPrefix">
-                          <b:include
-                            cond="data:post"
-                            data="post"
-                            name="postSnippet"
-                          />
-                        </b:with>
+                      <span class="pp-count"
+                        >💬 <data:post.numberOfComments
+                      /></span>
+                    </div>
+                    <div class="pp-col-mid">
+                      <h3 class="pp-title">
+                        <a expr:href="data:post.url"><data:post.title /></a>
+                      </h3>
+                      <b:if cond="data:post.labels">
+                        <div class="pp-labels">
+                          <b:loop values="data:post.labels" var="label">
+                            <a class="pp-tag" expr:href="data:label.url"
+                              ><data:label.name
+                            /></a>
+                          </b:loop>
+                        </div>
                       </b:if>
-                      <b:include data="post" name="postFooterJumpLink" />
+                      <div class="pp-byline">
+                        <data:post.author.name /> &#183; <data:post.date />
+                      </div>
                     </div>
                   </b:includable>
                   <b:includable id="snippetedPostThumbnail">
@@ -5014,6 +5761,223 @@
                   </b:includable>
                 </b:widget>
               </b:section>
+              <b:if cond="data:view.isHomepage">
+                <div
+                  style="
+                    margin: 1em 0 1em;
+                    border-top: 2px solid rgba(29, 137, 207, 0.35);
+                    padding: 1.2em 14px 14px;
+                    background: rgba(4, 10, 24, 0.38);
+                    border-radius: 10px;
+                    backdrop-filter: blur(6px);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      font-size: 13px;
+                      font-weight: 700;
+                      color: #c8e4f8;
+                      margin-bottom: 14px;
+                      letter-spacing: 0.4px;
+                    "
+                  >
+                    <span>🧭 What We Cover</span>
+                  </div>
+                  <p
+                    style="
+                      font-size: 12px;
+                      line-height: 1.8;
+                      color: rgba(200, 228, 248, 0.55);
+                      margin: 0 0 16px;
+                      border-bottom: 1px solid rgba(29, 137, 207, 0.15);
+                      padding-bottom: 14px;
+                    "
+                  >
+                    ShipPaulJobs is a practitioner-led maritime cybersecurity
+                    and compliance platform focused on IACS UR E26 and E27
+                    implementation, OT system security, and AI-driven risk
+                    management for ships and offshore assets. Content is written
+                    by working consultants with direct experience in class
+                    approval, vessel commissioning, and flag state compliance
+                    &#8212; not academic theory. The platform covers network
+                    segmentation under IEC 62443, zone-and-conduit architecture
+                    for shipboard systems, and the practical gap between what
+                    classification societies require and what shipyards deliver.
+                  </p>
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(240px, 1fr)
+                      );
+                      gap: 14px;
+                    "
+                  >
+                    <div
+                      style="
+                        background: rgba(10, 35, 66, 0.45);
+                        border-radius: 7px;
+                        padding: 12px 14px;
+                        border-left: 3px solid rgba(29, 137, 207, 0.5);
+                      "
+                    >
+                      <p
+                        style="
+                          font-size: 11px;
+                          font-weight: 700;
+                          letter-spacing: 0.8px;
+                          color: #7ec8f4;
+                          margin: 0 0 6px;
+                        "
+                      >
+                        IACS UR E26 / E27
+                      </p>
+                      <p
+                        style="
+                          font-size: 11px;
+                          line-height: 1.75;
+                          color: rgba(200, 228, 248, 0.45);
+                          margin: 0;
+                        "
+                      >
+                        IACS Unified Requirements E26 and E27 mandate cyber
+                        resilience from contract signing after 1 July 2024. UR
+                        E26 defines minimum requirements for network
+                        architecture, access control, software update
+                        procedures, and incident response. UR E27 covers supply
+                        chain cyber security documentation per equipment
+                        supplier. Coverage includes clause-by-clause IEC 62443
+                        cross-references and deliverable guidance for class
+                        surveyors and flag state inspectors.
+                      </p>
+                    </div>
+                    <div
+                      style="
+                        background: rgba(10, 35, 66, 0.45);
+                        border-radius: 7px;
+                        padding: 12px 14px;
+                        border-left: 3px solid rgba(29, 137, 207, 0.5);
+                      "
+                    >
+                      <p
+                        style="
+                          font-size: 11px;
+                          font-weight: 700;
+                          letter-spacing: 0.8px;
+                          color: #7ec8f4;
+                          margin: 0 0 6px;
+                        "
+                      >
+                        Maritime OT Security
+                      </p>
+                      <p
+                        style="
+                          font-size: 11px;
+                          line-height: 1.75;
+                          color: rgba(200, 228, 248, 0.45);
+                          margin: 0;
+                        "
+                      >
+                        Operational Technology on modern vessels &#8212;
+                        integrated bridge systems, propulsion control, ballast
+                        management, cargo handling automation, dynamic
+                        positioning &#8212; is increasingly networked and
+                        cyber-exposed. Unlike IT, maritime OT has long
+                        lifecycles and safety-critical real-time constraints.
+                        This platform provides OT-specific guidance on asset
+                        inventory, vulnerability analysis, and defence-in-depth
+                        strategy aligned with IMO MSC-FAL.1/Circ.3 and BIMCO
+                        recommendations.
+                      </p>
+                    </div>
+                    <div
+                      style="
+                        background: rgba(10, 35, 66, 0.45);
+                        border-radius: 7px;
+                        padding: 12px 14px;
+                        border-left: 3px solid rgba(29, 137, 207, 0.5);
+                      "
+                    >
+                      <p
+                        style="
+                          font-size: 11px;
+                          font-weight: 700;
+                          letter-spacing: 0.8px;
+                          color: #7ec8f4;
+                          margin: 0 0 6px;
+                        "
+                      >
+                        AI in Maritime Operations
+                      </p>
+                      <p
+                        style="
+                          font-size: 11px;
+                          line-height: 1.75;
+                          color: rgba(200, 228, 248, 0.45);
+                          margin: 0;
+                        "
+                      >
+                        AI is reshaping fleet management, predictive
+                        maintenance, port logistics, and compliance monitoring.
+                        This platform examines how LLMs, autonomous agents, and
+                        structured maritime data &#8212; AIS feeds, class
+                        records, inspection histories &#8212; reduce compliance
+                        burden and increase operational visibility. Coverage
+                        targets ship operators, class surveyors, shipyard
+                        project managers, and flag state administrators who need
+                        AI insight without vendor-driven hype.
+                      </p>
+                    </div>
+                    <div
+                      style="
+                        background: rgba(10, 35, 66, 0.45);
+                        border-radius: 7px;
+                        padding: 12px 14px;
+                        border-left: 3px solid rgba(29, 137, 207, 0.5);
+                      "
+                    >
+                      <p
+                        style="
+                          font-size: 11px;
+                          font-weight: 700;
+                          letter-spacing: 0.8px;
+                          color: #7ec8f4;
+                          margin: 0 0 6px;
+                        "
+                      >
+                        Industry Trends, Talent &amp; Careers
+                      </p>
+                      <p
+                        style="
+                          font-size: 11px;
+                          line-height: 1.75;
+                          color: rgba(200, 228, 248, 0.45);
+                          margin: 0;
+                        "
+                      >
+                        The maritime industry is undergoing structural
+                        transformation driven by decarbonisation,
+                        digitalisation, and tightening cyber regulation. This
+                        platform discusses the evolving competency requirements
+                        for seafarers, shore-based engineers, compliance
+                        officers, and surveyors &#8212; and how the hiring
+                        market is responding. Topics include cross-disciplinary
+                        skills at the intersection of OT engineering and cyber
+                        security, the emergence of maritime cyber roles at flag
+                        states and classification societies, salary benchmarks,
+                        and practical pathways for professionals transitioning
+                        into this space. A community-oriented space where
+                        industry practitioners share insights and shape the
+                        conversation on maritime&#39;s digital future.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </b:if>
             </main>
             <b:section
               class="footer"
@@ -5567,8 +6531,8 @@
             <b:widget-setting name="display">LIST</b:widget-setting>
             <b:widget-setting name="selectedLabelsList"
               ><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR
-              E26 E27,Maritime Industry Events,Maritime Leadership &
-              Strategy,Risk Management]]></b:widget-setting
+              E26 E27,JOBS,Maritime Industry Events,Maritime Leadership &
+              Strategy,Maritime OT Systems,Risk Management]]></b:widget-setting
             >
             <b:widget-setting name="showType">USER_SELECTED</b:widget-setting>
             <b:widget-setting name="showFreqNumbers">true</b:widget-setting>
@@ -5617,8 +6581,8 @@
             <b:widget-setting name="display">LIST</b:widget-setting>
             <b:widget-setting name="selectedLabelsList"
               ><![CDATA[Cyber Security,IACS UR E26,ISO 23806,Knowledge
-              Resources,Maritime Solution,MaritimeData,Pentesting,Research
-              Papers & Studies,SFICode]]></b:widget-setting
+              Resources,Maritime Solution,MaritimeData,Research Papers &
+              Studies,SFICode,Security Assessment]]></b:widget-setting
             >
             <b:widget-setting name="showType">USER_SELECTED</b:widget-setting>
             <b:widget-setting name="showFreqNumbers">true</b:widget-setting>
@@ -7324,6 +8288,165 @@
             el.innerHTML =
               '<span style="color:rgba(200,228,248,0.5)">Weather unavailable</span>';
           });
+      })();
+      //]]>
+    </script>
+
+    <script>
+      //<![CDATA[
+      window.addEventListener("load", function () {
+        if (!document.body.classList.contains("is-homepage")) return;
+        var pp = document.getElementById("PopularPosts1");
+        var rp = document.getElementById("right-panel");
+        if (!pp || !rp) return;
+        var ppBottom = 360 + pp.offsetHeight + 12;
+        rp.style.top = ppBottom + "px";
+      });
+      //]]>
+    </script>
+
+    <script>
+      //<![CDATA[
+      /* ── 라벨 페이지: Popular Posts → 해당 라벨 포스트로 교체 ── */
+      (function () {
+        var labelMatch = window.location.pathname.match(
+          /\/search\/label\/(.+)/,
+        );
+        if (!labelMatch) return;
+        var label = decodeURIComponent(labelMatch[1].replace(/\+/g, " "));
+
+        function esc(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function renderPP(entries) {
+          var pp = document.getElementById("PopularPosts1");
+          if (!pp) return;
+
+          /* 헤더 텍스트 업데이트 */
+          var hdr = pp.querySelector(".pp-header");
+          if (hdr) hdr.textContent = "📌 " + label;
+
+          var feed = pp.querySelector("div[role=feed]");
+          if (!feed) return;
+          feed.innerHTML = "";
+
+          if (!entries.length) {
+            feed.innerHTML =
+              '<p style="font-size:12px;opacity:.6;padding:8px 0">No posts found.</p>';
+            return;
+          }
+
+          entries.forEach(function (entry) {
+            var title = (entry.title && entry.title.$t) || "";
+            var postUrl = "";
+            (entry.link || []).forEach(function (l) {
+              if (l.rel === "alternate") postUrl = l.href;
+            });
+            var comments = parseInt(
+              (entry["thr$total"] && entry["thr$total"]["$t"]) || 0,
+            );
+            var author =
+              (entry.author &&
+                entry.author[0] &&
+                entry.author[0].name &&
+                entry.author[0].name.$t) ||
+              "";
+            var pubRaw = entry.published && entry.published.$t;
+            var pubStr = pubRaw
+              ? new Date(pubRaw).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })
+              : "";
+            var thumb = entry.media$thumbnail
+              ? entry.media$thumbnail.url.replace(/\/s\d+(-c)?\//, "/s128-c/")
+              : "";
+            var tags = (entry.category || []).map(function (c) {
+              return c.term;
+            });
+
+            var article = document.createElement("article");
+            article.className = "post";
+            article.innerHTML =
+              '<div class="pp-num"></div>' +
+              '<div class="pp-col-left">' +
+              (thumb
+                ? '<div class="item-thumbnail"><img src="' +
+                  esc(thumb) +
+                  '" alt="' +
+                  esc(title) +
+                  '" loading="lazy"/></div>'
+                : "") +
+              '<span class="pp-count">💬 ' +
+              comments +
+              "</span>" +
+              "</div>" +
+              '<div class="pp-col-mid">' +
+              '<h3 class="pp-title"><a href="' +
+              esc(postUrl) +
+              '">' +
+              esc(title) +
+              "</a></h3>" +
+              (tags.length
+                ? '<div class="pp-labels">' +
+                  tags
+                    .slice(0, 3)
+                    .map(function (t) {
+                      return (
+                        '<a class="pp-tag" href="/search/label/' +
+                        encodeURIComponent(t) +
+                        '">' +
+                        esc(t) +
+                        "</a>"
+                      );
+                    })
+                    .join("") +
+                  "</div>"
+                : "") +
+              '<div class="pp-byline">' +
+              esc(author) +
+              " &middot; " +
+              esc(pubStr) +
+              "</div>" +
+              "</div>";
+            feed.appendChild(article);
+          });
+        }
+
+        window.addEventListener("load", function () {
+          var apiUrl =
+            "https://www.shippauljobs.com/feeds/posts/default/-/" +
+            encodeURIComponent(label) +
+            "?alt=json&max-results=50&v=2";
+
+          fetch(apiUrl)
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (data) {
+              var entries = (data.feed && data.feed.entry) || [];
+              /* 댓글 수 내림차순 정렬 */
+              entries.sort(function (a, b) {
+                var ca = parseInt(
+                  (a["thr$total"] && a["thr$total"]["$t"]) || 0,
+                );
+                var cb = parseInt(
+                  (b["thr$total"] && b["thr$total"]["$t"]) || 0,
+                );
+                return cb - ca;
+              });
+              renderPP(entries.slice(0, 10));
+            })
+            .catch(function (e) {
+              console.warn("[PP label]", e);
+            });
+        });
       })();
       //]]>
     </script>
