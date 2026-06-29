@@ -3054,9 +3054,29 @@
         (d.feed.entry || []).forEach(function(e){
           var href = '';
           (e.link || []).forEach(function(l){ if(l.rel === 'alternate') href = l.href; });
+          /* Blogger 이미지 URL → 원본 해상도 변환 */
+          function toOriginal(url){
+            return url
+              .replace(/\/s\d+[^\/]*\//g, '/s0/')   /* /s640-rw/ /s320-no/ 등 */
+              .replace(/\/w\d+-h\d+[^\/]*\//g, '/s0/') /* /w640-h480/ 등 */
+              .replace(/=s\d+[^&]*/g, '=s0');        /* =s72-c =s400 등 */
+          }
           var thumb = '';
-          if(e.media$thumbnail && e.media$thumbnail.url)
-            thumb = e.media$thumbnail.url.replace(/\/s\d+(-c)?\//, '/s400/');
+          /* 1순위: 본문 HTML에서 첫 번째 이미지 추출 (원본 해상도) */
+          var contentHtml = (e.content || e.summary || {}).$t || '';
+          if(contentHtml){
+            var imgTags = contentHtml.match(/<img\s[^>]*src=["']([^"']+)["'][^>]*>/gi) || [];
+            for(var ii=0; ii<imgTags.length; ii++){
+              var srcM = imgTags[ii].match(/src=["']([^"']+)["']/i);
+              if(srcM && srcM[1] && !/Asset\/img\/member\//i.test(srcM[1])){
+                thumb = toOriginal(srcM[1]);
+                break;
+              }
+            }
+          }
+          /* 2순위: media$thumbnail fallback */
+          if(!thumb && e.media$thumbnail && e.media$thumbnail.url)
+            thumb = toOriginal(e.media$thumbnail.url);
           all.push({
             title   : e.title.$t,
             url     : href,
@@ -3103,7 +3123,7 @@
       var gi = start + i;
       /* 이미지: object-fit:contain + 고정 영역(3:2) → 자연 비율 그대로 표시 */
       var imgBlock = p.image
-        ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block">'
+        ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onload="this.style.objectFit=this.naturalWidth>=this.naturalHeight?\'cover\':\'contain\'">'
         : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:30px">&#128196;</span></div>';
 
       /* 태그 (HIDDEN_LABELS 제외) */
