@@ -1299,7 +1299,6 @@
       </b:defaultmarkup>
       <b:defaultmarkup type='Blog,FeaturedPost'>
         <b:includable id='headerByline'>
-          <b:include cond='data:view.isMultipleItems or data:widgets.Blog.first.headerByline.items.share' data='{ shareButtonClass: &quot;post-share-buttons-top&quot;, overridden: true }' name='maybeAddShareButtons'/>
           <b:include name='super.headerByline'/>
         </b:includable>
       </b:defaultmarkup>
@@ -1590,7 +1589,7 @@
       #page_body .FeaturedPost,.Blog .blog-posts .post-outer-container{padding:12px 16px !important;}
       .FeaturedPost h3.title{display:none}
       .FeaturedPost .fp-section-header{font-size:13px;font-weight:700;letter-spacing:0.4px;padding:0 0 8px;margin-bottom:8px;border-bottom:2px solid rgba(29,137,207,0.35)}
-      .FeaturedPost article.post{background:#f4f9ff;border-radius:10px;box-shadow:0 2px 8px rgba(10,35,66,.07);padding:12px 16px;margin-bottom:4px;overflow:hidden}
+      .FeaturedPost article.post{background:#f4f9ff;border-radius:10px;box-shadow:0 2px 8px rgba(10,35,66,.07);padding:12px 16px;margin-bottom:4px;position:relative}
       .FeaturedPost .fp-thumb-link{display:block;line-height:0}
       .FeaturedPost .fp-snippet-link{display:block;color:inherit;text-decoration:none;cursor:pointer}
       .FeaturedPost .fp-snippet-link:hover{opacity:.85}
@@ -1604,7 +1603,18 @@
       .FeaturedPost .fp-bot-byline{display:block;font-size:11px;opacity:.65}
       .FeaturedPost .fp-bot-comment{flex-shrink:0}
       .FeaturedPost .fp-bot-comment a{font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap}
-      .Blog .blog-posts .post-outer-container{background:#f4f9ff !important;border-radius:10px !important;box-shadow:0 2px 8px rgba(10,35,66,.07) !important;margin-bottom:10px !important;}
+      .Blog .blog-posts .post-outer-container{background:#f4f9ff !important;border-radius:10px !important;box-shadow:0 2px 8px rgba(10,35,66,.07) !important;margin-bottom:10px !important;position:relative !important;}
+      .b1-share-wrap{position:absolute;top:10px;right:10px;z-index:20}
+      .b1-share-toggle{width:32px;height:32px;border-radius:50%;background:rgba(26,158,130,0.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .18s,background .18s}
+      .b1-share-toggle:hover,.b1-share-toggle.active{background:#1a9e82;transform:scale(1.08)}
+      @keyframes b1SmIn{from{opacity:0;transform:translateY(-6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+      .b1-share-panel{display:none;position:absolute;top:calc(100% + 7px);right:0;flex-direction:column;gap:2px;background:#fff;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:6px;min-width:152px}
+      .b1-share-panel.open{display:flex;animation:b1SmIn .16s ease}
+      .b1-share-btn{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:7px;text-decoration:none;font-size:12px;color:#fff;font-weight:500;white-space:nowrap;transition:opacity .14s,transform .14s}
+      .b1-share-btn:hover{opacity:.85;transform:translateX(-2px)}
+      .b1-post-share-wrap{position:relative;display:inline-block}
+      .b1-post-share-section{padding:14px 0 6px;border-top:1px solid rgba(29,137,207,0.2);margin-top:10px;display:flex;align-items:center;gap:12px}
+      .b1-post-share-label{font-size:12px;color:#8099b3;font-weight:700;letter-spacing:.3px;white-space:nowrap}
       .Blog .b1-latest-header{font-size:13px;font-weight:700;letter-spacing:0.4px;padding:0 0 8px;margin-bottom:8px;border-bottom:2px solid rgba(29,137,207,0.35);color:#fff}
       .post-title{margin:0 0 4px !important;}
       .post-body{margin:0.75em 0 1em !important;}
@@ -2113,7 +2123,6 @@
                     </b:includable>
                     <b:includable id='googlePlusShare'> </b:includable>
                     <b:includable id='headerByline'>
-                      <b:include cond='data:view.isMultipleItems or data:widgets.Blog.first.headerByline.items.share' data='{ shareButtonClass: &quot;post-share-buttons-top&quot;, overridden: true }' name='maybeAddShareButtons'/>
                       <b:include name='super.headerByline'/>
                     </b:includable>
                     <b:includable id='linkShare'>
@@ -2274,6 +2283,22 @@
                       <b:include name='headerByline'/>
                     </b:includable>
                     <b:includable id='snippetedPostContent'>
+                      <!-- 우측 상단 공유 버튼 -->
+                      <div class='b1-share-wrap'>
+                        <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
+                          <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' y1='13.51' x2='15.42' y2='17.49'/><line x1='15.41' y1='6.51' x2='8.59' y2='10.49'/></svg>
+                        </button>
+                        <div class='b1-share-panel'>
+                          <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#0a66c2'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#1877f2'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#111'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#25d366'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#26a5e4'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#ff4500'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
+                          <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg><span>WeChat</span></a>
+                          <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background="#1a9e82";s.querySelector("span").textContent="Copied!";setTimeout(function(){s.style.background=orig;s.querySelector("span").textContent="Copy Link"},1500);return false;' style='background:#607d8b'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                        </div>
+                      </div>
                       <b:include cond='data:this.postDisplay.showTitle' name='snippetedPostTitle'/>
                       <b:if cond='data:this.postDisplay.showFeaturedImage and data:post.featuredImage'>
                         <a class='fp-thumb-link' expr:href='data:post.url'>
@@ -2639,7 +2664,6 @@
                     </b:includable>
                     <b:includable id='googlePlusShare'> </b:includable>
                     <b:includable id='headerByline'>
-                      <b:include cond='data:view.isMultipleItems or data:widgets.Blog.first.headerByline.items.share' data='{ shareButtonClass: &quot;post-share-buttons-top&quot;, overridden: true }' name='maybeAddShareButtons'/>
                       <b:include name='super.headerByline'/>
                     </b:includable>
                     <b:includable id='homePageLink'><b:comment>Don&#39;t show</b:comment></b:includable>
@@ -2683,6 +2707,76 @@
                       <div class='post'>
                         <b:include data='post' name='postMeta'/>
                         <b:if cond='data:view.isSingleItem'>
+                          <!-- 단일 포스트 상단 우측 공유 버튼 -->
+                          <div class='b1-share-wrap'>
+                            <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
+                              <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' y1='13.51' x2='15.42' y2='17.49'/><line x1='15.41' y1='6.51' x2='8.59' y2='10.49'/></svg>
+                            </button>
+                            <div class='b1-share-panel'>
+                              <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#0a66c2'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg>
+                                <span>LinkedIn</span>
+                              </a>
+                              <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#1877f2'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg>
+                                <span>Facebook</span>
+                              </a>
+                              <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#111'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>
+                                <span>X (Twitter)</span>
+                              </a>
+                              <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#25d366'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg>
+                                <span>WhatsApp</span>
+                              </a>
+                              <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#26a5e4'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg>
+                                <span>Telegram</span>
+                              </a>
+                              <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#ff4500'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg>
+                                <span>Reddit</span>
+                              </a>
+                              <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg>
+                                <span>WeChat</span>
+                              </a>
+                              <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background="#1a9e82";s.querySelector("span").textContent="Copied!";setTimeout(function(){s.style.background=orig;s.querySelector("span").textContent="Copy Link"},1500);return false;' style='background:#607d8b'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>
+                                <span>Copy Link</span>
+                              </a>
+                            </div>
+                          </div>
+                          <script>/*<![CDATA[*/
+                          if(!window.b1ShareToggle){
+                            window.b1ShareToggle=function(btn){
+                              var p=btn.nextElementSibling;
+                              var was=p.classList.contains('open');
+                              document.querySelectorAll('.b1-share-panel.open').forEach(function(e){e.classList.remove('open')});
+                              document.querySelectorAll('.b1-share-toggle.active').forEach(function(e){e.classList.remove('active')});
+                              if(!was){p.classList.add('open');btn.classList.add('active');}
+                            };
+                            document.addEventListener('click',function(e){
+                              if(!e.target.closest('.b1-share-wrap')){
+                                document.querySelectorAll('.b1-share-panel.open').forEach(function(el){el.classList.remove('open')});
+                                document.querySelectorAll('.b1-share-toggle.active').forEach(function(el){el.classList.remove('active')});
+                              }
+                            });
+                          }
+                          if(!window.b1WC){window.b1WC=function(btn){
+                            var u=btn.dataset.u,e=document.getElementById('b1-wc-qr');
+                            if(e){e.remove();return;}
+                            var p=document.createElement('div');p.id='b1-wc-qr';
+                            var r=btn.getBoundingClientRect();
+                            p.style.cssText='position:fixed;top:'+(r.bottom+8)+'px;right:'+(window.innerWidth-r.right)+'px;z-index:99999;background:#fff;border:1px solid #d4edda;border-radius:12px;padding:14px;box-shadow:0 6px 24px rgba(0,0,0,.18);text-align:center;width:172px';
+                            var h=document.createElement('div');h.style.cssText='font-size:12px;font-weight:700;color:#07c160;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:4px';h.textContent='WeChat 공유';
+                            var img=document.createElement('img');img.src='https://api.qrserver.com/v1/create-qr-code/?size=144x144&data='+encodeURIComponent(u);img.setAttribute('width','144');img.setAttribute('height','144');img.style.borderRadius='4px';
+                            var f=document.createElement('div');f.style.cssText='font-size:10px;color:#aaa;margin-top:7px';f.textContent='WeChat으로 QR코드 스캔';
+                            p.appendChild(h);p.appendChild(img);p.appendChild(f);
+                            document.body.appendChild(p);
+                            setTimeout(function(){document.addEventListener('click',function cl(ev){if(!p.contains(ev.target)&&ev.target!==btn){p.remove();document.removeEventListener('click',cl);}});},50);
+                          };}
+                          /*]]>*/</script>
                           <!-- 단일 포스트: 기존 레이아웃 유지 -->
                           <b:include data='post' name='postTitle'/>
                           <b:include name='headerByline'/>
@@ -2690,10 +2784,123 @@
                           <b:include data='post' name='postFooter'/>
                           <b:else/>
                           <!-- 목록 카드: 3단 레이아웃 -->
+                          <!-- WeChat QR 팝업 핸들러 (한 번만 정의) -->
+                          <script type='text/javascript'>
+//<![CDATA[
+if(!window.b1WC){window.b1WC=function(btn){
+  var u=btn.dataset.u,e=document.getElementById('b1-wc-qr');
+  if(e){e.remove();return;}
+  var p=document.createElement('div');p.id='b1-wc-qr';
+  var r=btn.getBoundingClientRect();
+  p.style.cssText='position:fixed;top:'+(r.bottom+8)+'px;right:'+(window.innerWidth-r.right)+'px;z-index:99999;background:#fff;border:1px solid #d4edda;border-radius:12px;padding:14px;box-shadow:0 6px 24px rgba(0,0,0,.18);text-align:center;width:172px';
+  var h=document.createElement('div');h.style.cssText='font-size:12px;font-weight:700;color:#07c160;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:4px';h.textContent='WeChat 공유';
+  var img=document.createElement('img');img.src='https://api.qrserver.com/v1/create-qr-code/?size=144x144&data='+encodeURIComponent(u);img.setAttribute('width','144');img.setAttribute('height','144');img.style.borderRadius='4px';
+  var f=document.createElement('div');f.style.cssText='font-size:10px;color:#aaa;margin-top:7px';f.textContent='WeChat으로 QR코드 스캔';
+  p.appendChild(h);p.appendChild(img);p.appendChild(f);
+  document.body.appendChild(p);
+  setTimeout(function(){document.addEventListener('click',function cl(ev){if(!p.contains(ev.target)&&ev.target!==btn){p.remove();document.removeEventListener('click',cl);}});},50);
+};}
+//]]>
+                          </script>
                           <!-- 상단: 제목 + 공유 버튼 -->
+                          <!-- 우측 상단 공유 버튼 -->
+                          <div class='b1-share-wrap'>
+                            <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
+                              <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' y1='13.51' x2='15.42' y2='17.49'/><line x1='15.41' y1='6.51' x2='8.59' y2='10.49'/></svg>
+                            </button>
+                            <div class='b1-share-panel'>
+                              <!-- LinkedIn -->
+                              <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#0a66c2'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg>
+                                <span>LinkedIn</span>
+                              </a>
+                              <!-- Facebook -->
+                              <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#1877f2'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg>
+                                <span>Facebook</span>
+                              </a>
+                              <!-- X (Twitter) -->
+                              <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#111'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>
+                                <span>X (Twitter)</span>
+                              </a>
+                              <!-- WhatsApp -->
+                              <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#25d366'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg>
+                                <span>WhatsApp</span>
+                              </a>
+                              <!-- Telegram -->
+                              <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#26a5e4'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg>
+                                <span>Telegram</span>
+                              </a>
+                              <!-- Reddit -->
+                              <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#ff4500'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg>
+                                <span>Reddit</span>
+                              </a>
+                              <!-- WeChat QR -->
+                              <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg>
+                                <span>WeChat</span>
+                              </a>
+                              <!-- Copy Link -->
+                              <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background="#1a9e82";s.querySelector("span").textContent="Copied!";setTimeout(function(){s.style.background=orig;s.querySelector("span").textContent="Copy Link"},1500);return false;' style='background:#607d8b'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>
+                                <span>Copy Link</span>
+                              </a>
+                            </div>
+                          </div>
+                          <script>/*<![CDATA[*/
+                          if(!window.b1ShareToggle){
+                            window.b1ShareToggle=function(btn){
+                              var p=btn.nextElementSibling;
+                              var was=p.classList.contains('open');
+                              document.querySelectorAll('.b1-share-panel.open').forEach(function(e){e.classList.remove('open')});
+                              document.querySelectorAll('.b1-share-toggle.active').forEach(function(e){e.classList.remove('active')});
+                              if(!was){p.classList.add('open');btn.classList.add('active');}
+                            };
+                            document.addEventListener('click',function(e){
+                              if(!e.target.closest('.b1-share-wrap')){
+                                document.querySelectorAll('.b1-share-panel.open').forEach(function(el){el.classList.remove('open')});
+                                document.querySelectorAll('.b1-share-toggle.active').forEach(function(el){el.classList.remove('active')});
+                              }
+                            });
+                          }
+                          if(!window.b1ShareHtml){
+                            window.b1ShareHtml=function(url){
+                              var eu=encodeURIComponent(url);
+                              var du=url.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+                              var svgShare='<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
+                              var cpOnclick="navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background='#1a9e82';s.querySelector('span').textContent='Copied!';setTimeout(function(){s.style.background=orig;s.querySelector('span').textContent='Copy Link'},1500);return false;";
+                              return '<div class="b1-share-wrap">'
+                                +'<button class="b1-share-toggle" onclick="b1ShareToggle(this);return false;" title="Share">'+svgShare+'</button>'
+                                +'<div class="b1-share-panel">'
+                                +'<a class="b1-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url='+eu+'" target="_blank" rel="noopener" style="background:#0a66c2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span>LinkedIn</span></a>'
+                                +'<a class="b1-share-btn" href="https://www.facebook.com/sharer/sharer.php?u='+eu+'" target="_blank" rel="noopener" style="background:#1877f2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg><span>Facebook</span></a>'
+                                +'<a class="b1-share-btn" href="https://twitter.com/intent/tweet?url='+eu+'" target="_blank" rel="noopener" style="background:#111"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>X (Twitter)</span></a>'
+                                +'<a class="b1-share-btn" href="https://wa.me/?text='+eu+'" target="_blank" rel="noopener" style="background:#25d366"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>WhatsApp</span></a>'
+                                +'<a class="b1-share-btn" href="https://t.me/share/url?url='+eu+'" target="_blank" rel="noopener" style="background:#26a5e4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg><span>Telegram</span></a>'
+                                +'<a class="b1-share-btn" href="https://www.reddit.com/submit?url='+eu+'" target="_blank" rel="noopener" style="background:#ff4500"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg><span>Reddit</span></a>'
+                                +'<a class="b1-share-btn" href="#" onclick="b1WC(this);return false;" data-u="'+du+'" style="background:#07c160"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg><span>WeChat</span></a>'
+                                +'<a class="b1-share-btn" href="#" onclick="'+cpOnclick+'" data-u="'+du+'" style="background:#607d8b"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Copy Link</span></a>'
+                                +'</div></div>';
+                            };
+                          }
+                          if(!window.b1WC){
+                            window.b1WC=function(el){
+                              var u=el.dataset.u;
+                              var qr='https://api.qrserver.com/v1/create-qr-code/?data='+encodeURIComponent(u)+'&size=160x160';
+                              var d=document.createElement('div');
+                              d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer';
+                              d.innerHTML='<div style="background:#fff;border-radius:12px;padding:20px;text-align:center;cursor:default" onclick="event.stopPropagation()"><img src="'+qr+'" width="160" height="160" style="display:block"><p style="margin:10px 0 4px;font-size:13px;color:#333;font-weight:600">WeChat으로 QR 스캔</p><p style="margin:0 0 12px;font-size:11px;color:#888">WeChat 앱 → 스캔 기능 사용</p><button onclick="this.closest(\'div[style*=fixed]\').remove()" style="padding:5px 18px;border:none;background:#07c160;color:#fff;border-radius:5px;cursor:pointer;font-size:13px">닫기</button></div>';
+                              document.body.appendChild(d);
+                              d.addEventListener('click',function(){d.remove();});
+                            };
+                          }
+                          /*]]>*/</script>
                           <div class='b1-card-top'>
                             <b:include data='post' name='postTitle'/>
-                            <b:include data='{ shareButtonClass: &quot;post-share-buttons-top&quot;, overridden: true }' name='maybeAddShareButtons'/>
                           </div>
                           <!-- 중단: 좌 20% 썸네일 + 우 80% 본문 미리보기 -->
                           <div class='b1-card-mid'>
@@ -2795,7 +3002,25 @@
                           <b:include cond='data:widget.type == &quot;Blog&quot;' data='post' name='postFooterAuthorProfile'/>
                         </div>
                         <b:if cond='data:view.isSingleItem'>
-                          <b:include data='{ shareButtonClass: &quot;post-share-buttons-bottom invisible&quot;, overridden: true }' name='maybeAddShareButtons'/>
+                          <!-- 포스트 상세 공유 버튼 -->
+                          <div class='b1-post-share-section'>
+                            <span class='b1-post-share-label'>Share</span>
+                            <div class='b1-post-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' y1='13.51' x2='15.42' y2='17.49'/><line x1='15.41' y1='6.51' x2='8.59' y2='10.49'/></svg>
+                              </button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#0a66c2'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#1877f2'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#111'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#25d366'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#26a5e4'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' target='_blank' rel='noopener' style='background:#ff4500'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='white'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                          </div>
                           <nav class='spj-post-nav'>
                             <b:if cond='data:olderPageUrl'>
                               <a class='spj-pnav-btn' expr:href='data:olderPageUrl'>
@@ -3012,7 +3237,7 @@
   // ── #8: 공통 스타일 상수 ─────────────────────────────────
   var S_CARD = 'position:relative;display:flex;flex-direction:column;justify-content:space-between;'
              + 'background:#ffffff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.1);'
-             + 'overflow:hidden;border-top:3px solid #1d89cf;transition:box-shadow .2s,background .2s';
+             + 'border-top:3px solid #1d89cf;transition:box-shadow .2s,background .2s';
   var S_BTN  = 'font-size:12px;font-weight:700;border:none;border-radius:5px;padding:5px 11px;cursor:pointer;transition:background .15s;';
   var S_ON   = S_BTN + 'background:rgba(20,55,100,0.75);color:#7ec8f4;';
   var S_ACT  = S_BTN + 'background:#1d89cf;color:#fff;';
@@ -3057,14 +3282,23 @@
           /* Blogger 이미지 URL → 원본 해상도 변환 */
           function toOriginal(url){
             return url
-              .replace(/\/s\d+[^\/]*\//g, '/s0/')   /* /s640-rw/ /s320-no/ 등 */
-              .replace(/\/w\d+-h\d+[^\/]*\//g, '/s0/') /* /w640-h480/ 등 */
-              .replace(/=s\d+[^&]*/g, '=s0');        /* =s72-c =s400 등 */
+              .replace(/\/s\d+[^\/]*\//g, '/s0/')
+              .replace(/\/w\d+-h\d+[^\/]*\//g, '/s0/')
+              .replace(/=s\d+[^&]*/g, '=s0');
           }
-          var thumb = '';
-          /* 1순위: 본문 HTML에서 첫 번째 이미지 추출 (원본 해상도) */
+          var thumb = '', isVideo = false, ytId = '';
           var contentHtml = (e.content || e.summary || {}).$t || '';
+          /* 1순위: YouTube iframe → 썸네일 */
           if(contentHtml){
+            var ytM = contentHtml.match(/(?:youtube\.com\/embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+            if(ytM){
+              ytId  = ytM[1];
+              thumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
+              isVideo = true;
+            }
+          }
+          /* 2순위: 본문 첫 번째 이미지 */
+          if(!thumb && contentHtml){
             var imgTags = contentHtml.match(/<img\s[^>]*src=["']([^"']+)["'][^>]*>/gi) || [];
             for(var ii=0; ii<imgTags.length; ii++){
               var srcM = imgTags[ii].match(/src=["']([^"']+)["']/i);
@@ -3074,7 +3308,7 @@
               }
             }
           }
-          /* 2순위: media$thumbnail fallback */
+          /* 3순위: media$thumbnail fallback */
           if(!thumb && e.media$thumbnail && e.media$thumbnail.url)
             thumb = toOriginal(e.media$thumbnail.url);
           all.push({
@@ -3083,6 +3317,8 @@
             date    : (e.published.$t || '').substring(0,10),
             labels  : (e.category || []).map(function(c){ return c.term; }),
             image   : thumb,
+            isVideo : isVideo,
+            ytId    : ytId,
             author  : (function(content, a){ var html = content ? content.$t : ''; if(html){ var img = html.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/); if(img){ var alt = img[0].match(/alt="([^"]+)"/); if(alt && alt[1]) return alt[1]; } } var n = a && a.length ? (a[0].name.$t || '') : ''; return (n === 'Unknown' || n === 'unknown') ? '' : n; })(e.content || e.summary, e.author),
             authorUrl: (e.author && e.author[0] && e.author[0].uri && e.author[0].uri.$t) ? e.author[0].uri.$t : '',
             location: (e['georss$featurename'] && e['georss$featurename']['$t']) ? e['georss$featurename']['$t'] : '',
@@ -3121,11 +3357,6 @@
 
     var cards = slice.map(function(p, i){
       var gi = start + i;
-      /* 이미지: object-fit:contain + 고정 영역(3:2) → 자연 비율 그대로 표시 */
-      var imgBlock = p.image
-        ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onload="this.style.objectFit=this.naturalWidth>=this.naturalHeight?\'cover\':\'contain\'">'
-        : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:30px">&#128196;</span></div>';
-
       /* 태그 (HIDDEN_LABELS 제외) */
       var visibleLabels = p.labels.filter(function(l){ return HIDDEN_LABELS.indexOf(l) < 0; });
       var tagsHtml = visibleLabels.length
@@ -3138,13 +3369,36 @@
           + '</div>'
         : '<div style="padding:0 14px 4px;min-height:20px"></div>';
 
+      var imgWrap;
+      if(p.isVideo && p.ytId){
+        /* 동영상: imgWrap 자체에 onclick, play 버튼은 absolute 오버레이 */
+        imgWrap =
+          '<div data-img-wrap style="display:block;position:relative;aspect-ratio:3/2;background:#000;line-height:0;border-radius:6px 6px 0 0;cursor:pointer;overflow:hidden"'
+          + ' onclick="(function(el){el.style.aspectRatio=\'16/9\';el.innerHTML=\'<iframe src=&quot;https://www.youtube.com/embed/' + esc(p.ytId) + '?autoplay=1&quot; frameborder=&quot;0&quot; allow=&quot;autoplay;encrypted-media&quot; allowfullscreen style=&quot;width:100%;height:100%;display:block;&quot;></iframe>\'})(this)">'
+          + '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy"'
+            + ' onerror="this.src=\'https://img.youtube.com/vi/' + esc(p.ytId) + '/hqdefault.jpg\'"'
+            + ' style="width:100%;height:100%;object-fit:cover;display:block;">'
+          + '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">'
+            + '<div style="width:56px;height:56px;background:rgba(0,0,0,0.72);border-radius:50%;display:flex;align-items:center;justify-content:center;">'
+              + '<span style="color:#fff;font-size:26px;line-height:1;margin-left:5px;">&#9654;</span>'
+            + '</div>'
+          + '</div>'
+          + '</div>';
+      } else {
+        var imgContent = p.image
+          ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onload="this.style.objectFit=this.naturalWidth>=this.naturalHeight?\'cover\':\'contain\'">'
+          : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:30px">&#128196;</span></div>';
+        imgWrap = '<a href="' + esc(p.url) + '" style="display:block;position:relative;aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;border-radius:6px 6px 0 0">'
+          + imgContent + '</a>';
+      }
+
       return '<div style="' + S_CARD + '" data-card>'
-        /* 상단 60%: 흰색 외곽 테두리(padding wrapper) + 이미지 */
-        + '<div style="padding:2px;background:rgba(255,255,255,0.6);border-radius:8px 8px 0 0;line-height:0;position:relative;overflow:hidden">'
+        /* 우측 상단 공유 버튼 */
+        + (window.b1ShareHtml ? b1ShareHtml(p.url) : '')
+        /* 상단: 이미지 영역 */
+        + '<div style="padding:2px;background:rgba(255,255,255,0.6);border-radius:8px 8px 0 0;line-height:0;position:relative">'
         + '<span style="position:absolute;top:10px;left:10px;background:#0a2342;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;line-height:1;z-index:1">' + (gi+1) + '</span>'
-        + '<a href="' + esc(p.url) + '" style="display:block;position:relative;aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;border-radius:6px 6px 0 0">'
-        + imgBlock
-        + '</a>'
+        + imgWrap
         + '</div>'
         /* 중단 20%: 제목 */
         + '<div style="padding:10px 14px 4px">'
