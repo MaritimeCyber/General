@@ -1,0 +1,707 @@
+<!--════════════════════════════════════════════════════════════
+     Ship OT Cybersecurity Series · Part 1 of 5
+     From Cable to Cyber Resilience
+     Designing Physical Networks for IACS UR E26/E27
+     Author  : Captain Paul (In Sung Lee)
+     Series  : Ship OT Cybersecurity Series
+     Style   : Maritime 4.0 Design System — Paul Style
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:800px;">
+
+<!-- ══ HERO HEADER ══ -->
+<div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;margin-bottom:32px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-50px;top:-50px;width:260px;"></div>
+  <!-- Tags -->
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(26,158,130,0.35);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">🛡 IACS UR E26/E27</span>
+    <span style="background:rgba(255,193,7,0.30);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Ship OT Cybersecurity Series</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Part 1 of 5</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">OT Network Architecture</span>
+  </div>
+  <!-- Title -->
+  <h1 style="color:#fff;font-size:24px;font-weight:800;letter-spacing:-0.3px;line-height:1.4;margin:0 0 8px;">
+    From Cable to Cyber Resilience
+  </h1>
+  <p style="color:#b8d4ea;font-size:14px;font-weight:600;margin:0 0 4px;">
+    Designing Physical Networks for IACS UR E26/E27
+  </p>
+  <p style="color:#9ab5c9;font-size:12px;font-style:italic;margin:0 0 24px;">
+    Ship OT Cybersecurity Series · Part 1
+  </p>
+  <!-- Author -->
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;gap:12px;padding-top:18px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+           style="border-radius:50%;border:2px solid rgba(26,158,130,0.8);flex-shrink:0;height:40px;object-fit:cover;width:40px;"/>
+    </a>
+    <div>
+      <div style="color:#fff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+      <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI, Data &amp; Cyber Security ·
+        <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" style="color:#7effd8;" target="_blank">linkedin.com/in/shipjobs</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SERIES NAVIGATION ══ -->
+<div style="background:#f0f7ff;border:1px solid #c5d8ec;border-radius:12px;margin-bottom:32px;padding:20px 24px;">
+  <div style="color:#154f7a;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;">📚 Ship OT Cybersecurity Series — 5 Parts</div>
+  <div style="display:flex;flex-direction:column;gap:9px;">
+
+    <!-- Part 1 — Current -->
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#0a2342;border-radius:12px;color:#7effd8;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">▶ Part 1</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:700;line-height:1.5;">From Cable to Cyber Resilience — Designing Physical Networks for IACS UR E26/E27</span>
+    </div>
+
+    <!-- Part 2 -->
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 2</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/zone-conduit-vlan-purdue-model-ship-iacs-ur-e26.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">Zone Before VLAN — Designing Logical Networks Using the Purdue Model and Zone &amp; Conduit Concepts</a></span>
+    </div>
+
+    <!-- Part 3 -->
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 3</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-documentation-zone-conduit-diagram-iacs-ur-e26.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">From Networks to ZCD — Translating Physical and Logical Networks into IACS UR E26 Documentation</a></span>
+    </div>
+
+    <!-- Part 4 -->
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 4</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-failures-iacs-ur-e26-e27-seven-mistakes.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">Why Most Ship ZCDs Fail — Seven Common Mistakes in IACS UR E26/E27 Projects</a></span>
+    </div>
+
+    <!-- Part 5 -->
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 5</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-anatomy-building-blocks-iacs-ur-e26.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">Anatomy of a Ship ZCD — Understanding the Building Blocks of an IACS UR E26 Zone and Conduit Diagram</a></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SERIES OVERVIEW ══ -->
+<div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;margin-bottom:24px;padding:18px 22px;">
+  <div style="color:#e67e22;font-size:10px;font-weight:800;letter-spacing:0.8px;margin-bottom:8px;text-transform:uppercase;">📌 Series Overview</div>
+  <p style="color:#374151;font-size:14px;line-height:1.8;margin:0;">
+    This series explains how physical networks evolve into logical networks, and how those architectures are ultimately translated into <strong>Zone and Conduit Diagrams (ZCD)</strong> and <strong>Cyber Security Design Descriptions (CSDD)</strong> required by IACS UR E26/E27.
+  </p>
+</div>
+
+<!-- ══ KEY TERMS ══ -->
+<div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:32px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;">📖 Key Terms — Terminology Used in This Article</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">OT (Operational Technology)</span>
+      <span style="color:#6b7280;font-size:13px;"> — Systems that directly operate and control the ship at the field level — engine automation, navigation, cargo management. Distinct from IT (office/administrative networks).</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">IACS UR E26 / E27</span>
+      <span style="color:#6b7280;font-size:13px;"> — Unified Requirements for ship cybersecurity issued by IACS. E26 covers cyber resilience for the entire ship system; E27 covers cybersecurity requirements for individual onboard equipment (computer-based systems).</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">Cyber Resilience</span>
+      <span style="color:#6b7280;font-size:13px;"> — The ability to maintain or rapidly restore critical ship functions even when a cyber incident occurs. The goal is operational continuity — keep the ship running — not just security hardening.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">Managed Switch</span>
+      <span style="color:#6b7280;font-size:13px;"> — A network switch that supports traffic control and monitoring. Enables VLAN configuration, port isolation, and traffic prioritization. Unlike a simple hub, it is the core device for implementing cyber architecture.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">Redundancy</span>
+      <span style="color:#6b7280;font-size:13px;"> — Designing critical equipment and paths in duplicate so that operations continue when one fails. On ships, redundancy is the cornerstone of availability.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">RSTP / PRP / HSR</span>
+      <span style="color:#6b7280;font-size:13px;"> — Network redundancy protocols. RSTP (Rapid Spanning Tree Protocol) prevents loops and enables fast path switching. PRP (Parallel Redundancy Protocol) and HSR (High-availability Seamless Redundancy) provide zero-downtime failover. PRP or HSR is recommended for OT environments.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRODUCTION ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Introduction</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    When people first encounter IACS UR E26 and E27, they often think about cyber security <em>products</em>.
+  </p>
+
+  <!-- Product list callout -->
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;margin-bottom:18px;padding:16px 20px;">
+    <div style="color:#354a5e;font-size:13.5px;line-height:1.9;">
+      Firewalls. &nbsp;·&nbsp; Anti-virus software. &nbsp;·&nbsp; Intrusion detection systems. &nbsp;·&nbsp; Security monitoring solutions.
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    However, cyber resilience begins much earlier than that.
+  </p>
+
+  <!-- Key sequence -->
+  <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;margin-bottom:18px;padding:16px 20px;">
+    <p style="color:#354a5e;font-size:14px;line-height:1.9;margin:0;">
+      Before firewalls, there are <strong>networks</strong>.<br/>
+      Before networks, there are <strong>cables</strong>.<br/>
+      And before any security controls can be applied, <strong>systems must first be connected</strong>.
+    </p>
+  </div>
+
+  <div style="background:#0a2342;border-radius:10px;padding:16px 20px;">
+    <p style="color:#7effd8;font-size:14px;font-weight:700;line-height:1.75;margin:0;">
+      Understanding this sequence is essential because IACS UR E26 is fundamentally an <em>architectural</em> requirement — not a <em>product</em> requirement.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 1: OT NETWORKS ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">OT Networks Were Never Designed for Cybersecurity</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    To understand modern ship cyber security, we must first understand how OT systems evolved.
+  </p>
+
+  <!-- Legacy architecture cards -->
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:18px;padding:20px 22px;">
+    <p style="color:#354a5e;font-size:13.5px;font-weight:700;margin:0 0 12px;">Traditionally, shipboard systems were designed independently:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:700;padding:4px 12px;">Navigation Systems — Vendor A</span>
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:700;padding:4px 12px;">Propulsion Systems — Vendor B</span>
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:700;padding:4px 12px;">Power Management — Vendor C</span>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    Each supplier optimized its own system for reliability and operational performance. Connectivity between systems was minimal. Isolation itself acted as protection.
+  </p>
+
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;">
+    <p style="color:#7a4f10;font-size:13.5px;line-height:1.75;margin:0;">
+      Cybersecurity was rarely considered because these systems were never expected to be exposed to external networks.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 2: DIGITAL TRANSFORMATION ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Digital Transformation Changed Everything</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Modern vessels are no longer isolated environments. Today, ships continuously exchange information with:
+  </p>
+
+  <!-- Connectivity grid -->
+  <div style="display:grid;gap:8px;grid-template-columns:repeat(2,1fr);margin-bottom:18px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:8px;border:1px solid #c5d8ec;display:flex;gap:10px;padding:10px 14px;">
+      <span style="font-size:18px;">🏢</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:600;">Fleet Operation Centers</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:8px;border:1px solid #c5d8ec;display:flex;gap:10px;padding:10px 14px;">
+      <span style="font-size:18px;">☁️</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:600;">Cloud Services</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:8px;border:1px solid #c5d8ec;display:flex;gap:10px;padding:10px 14px;">
+      <span style="font-size:18px;">🔧</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:600;">OEM Remote Maintenance Platforms</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:8px;border:1px solid #c5d8ec;display:flex;gap:10px;padding:10px 14px;">
+      <span style="font-size:18px;">🛰</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:600;">Satellite Communication Networks</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:8px;border:1px solid #c5d8ec;display:flex;gap:10px;padding:10px 14px;">
+      <span style="font-size:18px;">🏭</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:600;">Shore Offices</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:8px;border:1px solid #c5d8ec;display:flex;gap:10px;padding:10px 14px;">
+      <span style="font-size:18px;">🤝</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:600;">Third-party Service Providers</span>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Consequently, systems that were originally designed to operate independently are now interconnected. The result is a <strong style="color:#0a2342;">System of Systems</strong>.
+  </p>
+
+  <div style="background:#0a2342;border-radius:10px;padding:18px 22px;">
+    <p style="color:#b8d4ea;font-size:13.5px;line-height:1.85;margin:0 0 10px;">
+      The cyber risk no longer comes from individual equipment.
+    </p>
+    <p style="color:#7effd8;font-size:14px;font-weight:700;line-height:1.75;margin:0;">
+      It emerges from the connections between systems. In many incidents, the vulnerability is not inside the equipment itself — it lies in the interfaces.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 3: WHY IACS ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Why IACS Introduced UR E26 and E27</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Historically, class societies focused primarily on safety and reliability. However, increasing digitalization introduced new risks. A cyber incident affecting one system could propagate throughout the vessel and compromise safety, operational continuity, and environmental protection.
+  </p>
+
+  <!-- E26 / E27 Cards -->
+  <div style="display:grid;gap:14px;grid-template-columns:repeat(2,1fr);margin-bottom:16px;">
+
+    <!-- E26 -->
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="background:linear-gradient(135deg,#0a2342,#154f7a);padding:12px 16px;">
+        <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">IACS UR E26</div>
+        <div style="color:#fff;font-size:13px;font-weight:700;margin-top:4px;">Cyber Resilience of Ships</div>
+      </div>
+      <div style="padding:14px 16px;">
+        <p style="color:#4a6278;font-size:12px;font-weight:600;margin:0 0 10px;">Focuses on:</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> Cyber Security Architecture</div>
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> System Segmentation</div>
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> Security Controls</div>
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> Verification Activities</div>
+        </div>
+        <div style="background:#e8f5f1;border-radius:6px;margin-top:12px;padding:8px 10px;">
+          <p style="color:#0a5e42;font-size:11.5px;font-weight:700;margin:0;">📌 Applies to: The Ship</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- E27 -->
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="background:linear-gradient(135deg,#154f7a,#1a9e82);padding:12px 16px;">
+        <div style="color:#ffe082;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">IACS UR E27</div>
+        <div style="color:#fff;font-size:13px;font-weight:700;margin-top:4px;">Cyber Resilience of On-board Systems &amp; Equipment</div>
+      </div>
+      <div style="padding:14px 16px;">
+        <p style="color:#4a6278;font-size:12px;font-weight:600;margin:0 0 10px;">Focuses on:</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> Product Suppliers</div>
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> Secure Development</div>
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> Product Maintenance</div>
+          <div style="align-items:center;color:#354a5e;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span> Vulnerability Management</div>
+        </div>
+        <div style="background:#e8f5f1;border-radius:6px;margin-top:12px;padding:8px 10px;">
+          <p style="color:#0a5e42;font-size:11.5px;font-weight:700;margin:0;">📌 Applies to: Products on the Ship</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:14px 20px;">
+    <p style="color:#0a2342;font-size:14px;line-height:1.75;margin:0;">
+      In simple terms: <strong>E26 focuses on the ship. E27 focuses on the products installed on the ship.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 4: RESILIENCE vs SECURITY ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Cyber Resilience Is Different from Cyber Security</h2>
+  </div>
+
+  <!-- Comparison -->
+  <div style="display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-bottom:18px;">
+    <div style="background:#faecea;border-radius:10px;border:1px solid #f5b7b1;padding:16px 18px;">
+      <p style="color:#922b21;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 8px;text-transform:uppercase;">🔒 Cyber Security</p>
+      <p style="color:#6b2020;font-size:13.5px;font-weight:600;line-height:1.7;margin:0;">Focuses on <em>preventing</em> attacks.</p>
+    </div>
+    <div style="background:#e8f8f2;border-radius:10px;border:1px solid #a9dfce;padding:16px 18px;">
+      <p style="color:#0a5e42;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 8px;text-transform:uppercase;">🛡 Cyber Resilience</p>
+      <p style="color:#085041;font-size:13.5px;font-weight:600;line-height:1.7;margin:0;">Focuses on <em>maintaining essential functions</em> despite attacks.</p>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    This distinction is particularly important for ships. Because a ship cannot simply stop operating in the middle of the ocean.
+  </p>
+
+  <div style="background:#0a2342;border-radius:10px;padding:18px 22px;">
+    <p style="color:#b8d4ea;font-size:13.5px;line-height:1.85;margin:0 0 10px;">
+      The objective is not to create perfect protection.
+    </p>
+    <p style="color:#7effd8;font-size:14px;font-weight:700;line-height:1.75;margin:0 0 10px;">
+      The objective is to ensure that critical functions remain available even when cyber incidents occur.
+    </p>
+    <p style="color:#b8d4ea;font-size:13px;line-height:1.75;margin:0;">
+      Availability becomes as important as confidentiality. This is why <strong style="color:#ffe082;">redundancy, segmentation, and survivability</strong> play a central role in E26.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 5: PHYSICAL NETWORK ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">The Physical Network Is the Foundation</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    A cyber architecture does not exist independently. It is built on top of a physical architecture. Every switch, every router, every firewall, every communication cable — together they form the foundation upon which cyber resilience is built.
+  </p>
+
+  <!-- Design Sequence Flow -->
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:18px;padding:20px 24px;">
+    <p style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 16px;text-transform:uppercase;">The Correct Design Sequence</p>
+    <div style="display:flex;flex-direction:column;gap:0;">
+
+      <div style="align-items:center;background:#0a2342;border-radius:8px;display:flex;gap:12px;padding:12px 16px;">
+        <span style="background:#1a9e82;border-radius:50%;color:#fff;flex-shrink:0;font-size:10px;font-weight:800;height:24px;line-height:24px;text-align:center;width:24px;">1</span>
+        <span style="color:#fff;font-size:13.5px;font-weight:700;">Physical Network</span>
+        <span style="color:#9ab5c9;font-size:11.5px;margin-left:auto;">Cables · Switches · Routers · Firewalls</span>
+      </div>
+
+      <div style="color:#1a9e82;font-size:18px;font-weight:700;padding:2px 0 2px 28px;">↓</div>
+
+      <div style="align-items:center;background:#154f7a;border-radius:8px;display:flex;gap:12px;padding:12px 16px;">
+        <span style="background:#1a9e82;border-radius:50%;color:#fff;flex-shrink:0;font-size:10px;font-weight:800;height:24px;line-height:24px;text-align:center;width:24px;">2</span>
+        <span style="color:#fff;font-size:13.5px;font-weight:700;">Logical Network</span>
+        <span style="color:#b8d4ea;font-size:11.5px;margin-left:auto;">VLANs · IP Addressing · Routing</span>
+      </div>
+
+      <div style="color:#1a9e82;font-size:18px;font-weight:700;padding:2px 0 2px 28px;">↓</div>
+
+      <div style="align-items:center;background:#1a6e5a;border-radius:8px;display:flex;gap:12px;padding:12px 16px;">
+        <span style="background:#ffe082;border-radius:50%;color:#0a2342;flex-shrink:0;font-size:10px;font-weight:800;height:24px;line-height:24px;text-align:center;width:24px;">3</span>
+        <span style="color:#fff;font-size:13.5px;font-weight:700;">Zone and Conduit Architecture</span>
+        <span style="color:#b8e8d0;font-size:11.5px;margin-left:auto;">Zones · Conduits · Security Levels</span>
+      </div>
+
+      <div style="color:#1a9e82;font-size:18px;font-weight:700;padding:2px 0 2px 28px;">↓</div>
+
+      <div style="align-items:center;background:#1a6e5a;border-radius:8px;display:flex;gap:12px;padding:12px 16px;">
+        <span style="background:#ffe082;border-radius:50%;color:#0a2342;flex-shrink:0;font-size:10px;font-weight:800;height:24px;line-height:24px;text-align:center;width:24px;">4</span>
+        <span style="color:#fff;font-size:13.5px;font-weight:700;">Cyber Security Design Description (CSDD)</span>
+        <span style="color:#b8e8d0;font-size:11.5px;margin-left:auto;">Documentation · Evidence</span>
+      </div>
+
+      <div style="color:#1a9e82;font-size:18px;font-weight:700;padding:2px 0 2px 28px;">↓</div>
+
+      <div style="align-items:center;background:#c0392b;border-radius:8px;display:flex;gap:12px;padding:12px 16px;">
+        <span style="background:#fff;border-radius:50%;color:#c0392b;flex-shrink:0;font-size:10px;font-weight:800;height:24px;line-height:24px;text-align:center;width:24px;">5</span>
+        <span style="color:#fff;font-size:13.5px;font-weight:700;">Verification and Validation</span>
+        <span style="color:#fca5a5;font-size:11.5px;margin-left:auto;">Testing · Class Survey</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;">
+    <p style="color:#7a4f10;font-size:13.5px;line-height:1.75;margin:0;">
+      ⚠️ Skipping these steps often leads to diagrams that satisfy documentation requirements but <strong>fail to represent reality</strong>.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 6: PURDUE MODEL ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Understanding the Purdue Reference Model</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Although originally developed for industrial automation systems, the Purdue Model provides an effective framework for maritime OT environments. Most ship architectures can be interpreted through its layered structure.
+  </p>
+
+  <!-- Purdue Levels -->
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+
+    <!-- Level 5 -->
+    <div style="background:#f0f7ff;border-left:5px solid #c0392b;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#c0392b;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 5</span>
+        <span style="color:#c0392b;font-size:12px;font-weight:700;">External Connectivity</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#faecea;border-radius:12px;color:#922b21;font-size:11.5px;padding:2px 10px;">Internet</span>
+        <span style="background:#faecea;border-radius:12px;color:#922b21;font-size:11.5px;padding:2px 10px;">VSAT</span>
+        <span style="background:#faecea;border-radius:12px;color:#922b21;font-size:11.5px;padding:2px 10px;">LTE</span>
+        <span style="background:#faecea;border-radius:12px;color:#922b21;font-size:11.5px;padding:2px 10px;">Shore Connection</span>
+      </div>
+    </div>
+
+    <!-- Level 4 -->
+    <div style="background:#f0f7ff;border-left:5px solid #e67e22;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#e67e22;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 4</span>
+        <span style="color:#e67e22;font-size:12px;font-weight:700;">Business Network</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#fff3e0;border-radius:12px;color:#8b4513;font-size:11.5px;padding:2px 10px;">Office LAN</span>
+        <span style="background:#fff3e0;border-radius:12px;color:#8b4513;font-size:11.5px;padding:2px 10px;">Crew Network</span>
+        <span style="background:#fff3e0;border-radius:12px;color:#8b4513;font-size:11.5px;padding:2px 10px;">Administrative Systems</span>
+      </div>
+    </div>
+
+    <!-- Level 3.5 -->
+    <div style="background:#f0f7ff;border-left:5px solid #8e44ad;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#8e44ad;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 3.5</span>
+        <span style="color:#8e44ad;font-size:12px;font-weight:700;">Demilitarized Zone (DMZ)</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#f5eef8;border-radius:12px;color:#6c3483;font-size:11.5px;padding:2px 10px;">Jump Server</span>
+        <span style="background:#f5eef8;border-radius:12px;color:#6c3483;font-size:11.5px;padding:2px 10px;">Patch Server</span>
+        <span style="background:#f5eef8;border-radius:12px;color:#6c3483;font-size:11.5px;padding:2px 10px;">Remote Access Gateway</span>
+        <span style="background:#f5eef8;border-radius:12px;color:#6c3483;font-size:11.5px;padding:2px 10px;">Antivirus Server</span>
+      </div>
+    </div>
+
+    <!-- Level 3 -->
+    <div style="background:#f0f7ff;border-left:5px solid #154f7a;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#154f7a;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 3</span>
+        <span style="color:#154f7a;font-size:12px;font-weight:700;">Operations Network</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Navigation Systems</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Communication Systems</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Operational Servers</span>
+      </div>
+    </div>
+
+    <!-- Level 2 -->
+    <div style="background:#f0f7ff;border-left:5px solid #1a9e82;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#1a9e82;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 2</span>
+        <span style="color:#1a9e82;font-size:12px;font-weight:700;">Supervisory Control</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f5f1;border-radius:12px;color:#085041;font-size:11.5px;padding:2px 10px;">HMI</span>
+        <span style="background:#e8f5f1;border-radius:12px;color:#085041;font-size:11.5px;padding:2px 10px;">SCADA</span>
+        <span style="background:#e8f5f1;border-radius:12px;color:#085041;font-size:11.5px;padding:2px 10px;">Operator Stations</span>
+      </div>
+    </div>
+
+    <!-- Level 1 -->
+    <div style="background:#f0f7ff;border-left:5px solid #0a2342;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#0a2342;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 1</span>
+        <span style="color:#0a2342;font-size:12px;font-weight:700;">Basic Control</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">PLC</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Controllers</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Remote I/O</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;padding:14px 18px;">
+    <p style="color:#354a5e;font-size:13.5px;line-height:1.75;margin:0;">
+      The Purdue Model is not explicitly mandated by IACS. Nevertheless, it provides a practical foundation for designing <strong>trust boundaries</strong> and <strong>network segmentation</strong> in ship environments.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 7: NETWORK COMPONENTS ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">The Role of Network Components</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Each network component serves a different purpose. Understanding these roles is essential before designing a cyber architecture.
+  </p>
+
+  <div style="display:flex;flex-direction:column;gap:12px;">
+
+    <!-- Router -->
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="align-items:center;background:#0a2342;display:flex;gap:10px;padding:10px 16px;">
+        <span style="font-size:20px;">🔀</span>
+        <span style="color:#fff;font-size:14px;font-weight:800;">Router</span>
+        <span style="color:#9ab5c9;font-size:12px;margin-left:auto;">External connectivity</span>
+      </div>
+      <div style="padding:12px 16px;">
+        <p style="color:#354a5e;font-size:13.5px;line-height:1.75;margin:0 0 8px;">Provides connectivity to external networks.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11.5px;font-weight:600;padding:3px 10px;">VSAT Routers</span>
+          <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11.5px;font-weight:600;padding:3px 10px;">LTE Routers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Switch -->
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="align-items:center;background:#154f7a;display:flex;gap:10px;padding:10px 16px;">
+        <span style="font-size:20px;">🔌</span>
+        <span style="color:#fff;font-size:14px;font-weight:800;">Switch</span>
+        <span style="color:#b8d4ea;font-size:12px;margin-left:auto;">Intra-network communication</span>
+      </div>
+      <div style="padding:12px 16px;">
+        <p style="color:#354a5e;font-size:13.5px;line-height:1.75;margin:0 0 8px;">Provides communication within a network.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11.5px;font-weight:600;padding:3px 10px;">Core Switches</span>
+          <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11.5px;font-weight:600;padding:3px 10px;">Distribution Switches</span>
+          <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11.5px;font-weight:600;padding:3px 10px;">Access Switches</span>
+        </div>
+        <div style="background:#fff8f0;border-left:3px solid #e67e22;border-radius:0 6px 6px 0;padding:8px 12px;">
+          <p style="color:#7a4f10;font-size:12px;font-weight:700;margin:0;">Switches are responsible for connectivity, not security.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Firewall -->
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="align-items:center;background:#c0392b;display:flex;gap:10px;padding:10px 16px;">
+        <span style="font-size:20px;">🛡</span>
+        <span style="color:#fff;font-size:14px;font-weight:800;">Firewall</span>
+        <span style="color:#fca5a5;font-size:12px;margin-left:auto;">Trust boundaries</span>
+      </div>
+      <div style="padding:12px 16px;">
+        <p style="color:#354a5e;font-size:13.5px;line-height:1.75;margin:0 0 8px;">Provides trust boundaries. Controls communication between networks.</p>
+        <div style="background:#e8f5f1;border-left:3px solid #1a9e82;border-radius:0 6px 6px 0;padding:8px 12px;">
+          <p style="color:#085041;font-size:12.5px;font-weight:700;margin:0 0 4px;">Firewalls define <em>conduits</em>. They do not define <em>zones</em>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wireless -->
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="align-items:center;background:#8e44ad;display:flex;gap:10px;padding:10px 16px;">
+        <span style="font-size:20px;">📡</span>
+        <span style="color:#fff;font-size:14px;font-weight:800;">Wireless Access Points</span>
+        <span style="color:#d7b8f3;font-size:12px;margin-left:auto;">Mobility</span>
+      </div>
+      <div style="padding:12px 16px;">
+        <p style="color:#354a5e;font-size:13.5px;line-height:1.75;margin:0 0 8px;">Provide mobility. However, wireless networks also increase the attack surface.</p>
+        <div style="background:#fff8f0;border-left:3px solid #e67e22;border-radius:0 6px 6px 0;padding:8px 12px;">
+          <p style="color:#7a4f10;font-size:12px;font-weight:700;margin:0;">Wireless access should be isolated from critical OT environments whenever possible.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 8: REDUNDANCY ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Cyber Resilience Requires Redundancy</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Unlike office environments, shipboard systems must remain operational under abnormal conditions. Physical network design must account for survivability.
+  </p>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:16px;padding:20px 22px;">
+    <p style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 14px;text-transform:uppercase;">Redundancy Design Considerations</p>
+    <div style="display:grid;gap:8px;grid-template-columns:repeat(2,1fr);">
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:8px;padding:9px 12px;">
+        <span style="color:#1a9e82;font-weight:800;">✓</span>
+        <span style="color:#354a5e;font-size:13px;">Redundant Core Switches</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:8px;padding:9px 12px;">
+        <span style="color:#1a9e82;font-weight:800;">✓</span>
+        <span style="color:#354a5e;font-size:13px;">Ring Topologies</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:8px;padding:9px 12px;">
+        <span style="color:#1a9e82;font-weight:800;">✓</span>
+        <span style="color:#354a5e;font-size:13px;">RSTP (Rapid Spanning Tree)</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:8px;padding:9px 12px;">
+        <span style="color:#1a9e82;font-weight:800;">✓</span>
+        <span style="color:#354a5e;font-size:13px;">PRP / HSR Protocols</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:8px;padding:9px 12px;">
+        <span style="color:#1a9e82;font-weight:800;">✓</span>
+        <span style="color:#354a5e;font-size:13px;">Dual Communication Paths</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:8px;padding:9px 12px;">
+        <span style="color:#1a9e82;font-weight:800;">✓</span>
+        <span style="color:#354a5e;font-size:13px;">Dual Power Supplies</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#0a2342;border-radius:10px;padding:16px 20px;">
+    <p style="color:#7effd8;font-size:14px;font-weight:700;margin:0;">
+      Cyber resilience is not merely about security. It is equally about survivability.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 9: CONCLUSION ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Before Designing Security, Design the Network</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    Many projects begin with security products. But experienced engineers understand that products alone cannot create cyber resilience. <strong style="color:#0a2342;">Architecture creates cyber resilience. And architecture begins with networks.</strong>
+  </p>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;margin-bottom:16px;padding:16px 20px;">
+    <p style="color:#354a5e;font-size:13.5px;line-height:1.9;margin:0;">
+      Before defining VLANs,<br/>
+      before assigning IP addresses,<br/>
+      before creating firewall rules,<br/>
+      we must first understand how systems are <strong>physically connected</strong>.
+    </p>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:20px 24px;text-align:center;">
+    <p style="color:#7effd8;font-size:15px;font-weight:800;letter-spacing:0.3px;line-height:1.7;margin:0;">
+      Because every cyber architecture ultimately begins with a cable.
+    </p>
+  </div>
+</div>
+
+<!-- ══ NEXT ARTICLE ══ -->
+<div style="background:#f0f7ff;border:1px solid #c5d8ec;border-radius:12px;margin-bottom:32px;padding:20px 24px;">
+  <div style="color:#154f7a;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:12px;text-transform:uppercase;">➡ Next in the Series</div>
+  <div style="align-items:flex-start;display:flex;gap:12px;">
+    <span style="background:#0a2342;border-radius:12px;color:#7effd8;flex-shrink:0;font-size:9px;font-weight:800;margin-top:3px;padding:3px 10px;white-space:nowrap;">Part 2</span>
+    <div>
+      <p style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 6px;">Zone Before VLAN</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.65;margin:0 0 12px;">
+        In Part 2, we move one layer above physical connectivity. Instead of asking "How should VLANs be configured?" we will ask a much more important question: <em>"How should Zones be defined?"</em><br/>
+        Because in ship cyber security — <strong>Zones come before VLANs.</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AUTHOR FOOTER ══ -->
+<div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;padding:20px 24px;">
+  <div style="align-items:center;display:flex;gap:14px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+           style="border-radius:50%;border:2px solid #1a9e82;flex-shrink:0;height:52px;object-fit:cover;width:52px;"/>
+    </a>
+    <div>
+      <div style="color:#0a2342;font-size:14px;font-weight:800;">Captain Paul</div>
+      <div style="color:#4a6278;font-size:12px;line-height:1.6;margin-top:4px;">
+        Maritime cybersecurity professional specializing in IACS UR E26/E27 compliance, OT system architecture, and shipyard-level cyber resilience design. Writing for engineers, superintendents, and operators navigating Maritime 4.0.
+      </div>
+      <div style="display:flex;gap:12px;margin-top:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"
+           style="color:#0077b5;font-size:12px;font-weight:700;text-decoration:none;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" rel="noopener" target="_blank"
+           style="color:#154f7a;font-size:12px;font-weight:700;text-decoration:none;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

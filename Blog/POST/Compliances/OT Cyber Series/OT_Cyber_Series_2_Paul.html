@@ -1,0 +1,808 @@
+<!--════════════════════════════════════════════════════════════
+     Ship OT Cybersecurity Series · Part 2 of 5
+     Zone Before VLAN
+     Designing Logical Networks Using the Purdue Model
+     and Zone & Conduit Concepts
+     Author  : Captain Paul (In Sung Lee)
+     Series  : Ship OT Cybersecurity Series
+     Style   : Maritime 4.0 Design System — Paul Style
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:800px;">
+
+<!-- ══ HERO HEADER ══ -->
+<div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;margin-bottom:32px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-50px;top:-50px;width:260px;"></div>
+  <!-- Tags -->
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(26,158,130,0.35);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">🛡 IACS UR E26/E27</span>
+    <span style="background:rgba(255,193,7,0.30);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Ship OT Cybersecurity Series</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Part 2 of 5</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Zone &amp; Conduit Architecture</span>
+  </div>
+  <!-- Title -->
+  <h1 style="color:#fff;font-size:24px;font-weight:800;letter-spacing:-0.3px;line-height:1.4;margin:0 0 8px;">
+    Zone Before VLAN
+  </h1>
+  <p style="color:#b8d4ea;font-size:14px;font-weight:600;margin:0 0 4px;">
+    Designing Logical Networks Using the Purdue Model and Zone &amp; Conduit Concepts
+  </p>
+  <p style="color:#9ab5c9;font-size:12px;font-style:italic;margin:0 0 24px;">
+    Ship OT Cybersecurity Series · Part 2
+  </p>
+  <!-- Author -->
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;gap:12px;padding-top:18px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+           style="border-radius:50%;border:2px solid rgba(26,158,130,0.8);flex-shrink:0;height:40px;object-fit:cover;width:40px;"/>
+    </a>
+    <div>
+      <div style="color:#fff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+      <div style="color:#9ab5c9;font-size:10px;">Maritime 4.0 · AI, Data &amp; Cyber Security ·
+        <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" style="color:#7effd8;" target="_blank">linkedin.com/in/shipjobs</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SERIES NAVIGATION ══ -->
+<div style="background:#f0f7ff;border:1px solid #c5d8ec;border-radius:12px;margin-bottom:32px;padding:20px 24px;">
+  <div style="color:#154f7a;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;">📚 Ship OT Cybersecurity Series — 5 Parts</div>
+  <div style="display:flex;flex-direction:column;gap:9px;">
+
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 1</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-ot-network-design-iacs-ur-e26-e27.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">From Cable to Cyber Resilience — Designing Physical Networks for IACS UR E26/E27</a></span>
+    </div>
+
+    <!-- Part 2 — Current -->
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#0a2342;border-radius:12px;color:#7effd8;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">▶ Part 2</span>
+      <span style="color:#0a2342;font-size:13px;font-weight:700;line-height:1.5;">Zone Before VLAN — Designing Logical Networks Using the Purdue Model and Zone &amp; Conduit Concepts</span>
+    </div>
+
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 3</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-documentation-zone-conduit-diagram-iacs-ur-e26.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">From Networks to ZCD — Translating Physical and Logical Networks into IACS UR E26 Documentation</a></span>
+    </div>
+
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 4</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-failures-iacs-ur-e26-e27-seven-mistakes.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">Why Most Ship ZCDs Fail — Seven Common Mistakes in IACS UR E26/E27 Projects</a></span>
+    </div>
+
+    <div style="align-items:flex-start;display:flex;gap:10px;">
+      <span style="background:#e2edf8;border-radius:12px;color:#154f7a;flex-shrink:0;font-size:9px;font-weight:800;margin-top:2px;padding:2px 9px;white-space:nowrap;">Part 5</span>
+      <span style="color:#4a6278;font-size:13px;line-height:1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-anatomy-building-blocks-iacs-ur-e26.html" rel="noopener" style="color:#154f7a;font-weight:600;text-decoration:none;" target="_blank">Anatomy of a Ship ZCD — Understanding the Building Blocks of an IACS UR E26 Zone and Conduit Diagram</a></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SERIES OVERVIEW ══ -->
+<div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;margin-bottom:24px;padding:18px 22px;">
+  <div style="color:#e67e22;font-size:10px;font-weight:800;letter-spacing:0.8px;margin-bottom:8px;text-transform:uppercase;">📌 Series Overview</div>
+  <p style="color:#374151;font-size:14px;line-height:1.8;margin:0;">
+    This series explains how physical networks evolve into logical architectures and eventually become <strong>Zone and Conduit Diagrams (ZCD)</strong> required by IACS UR E26/E27.
+  </p>
+</div>
+
+<!-- ══ KEY TERMS ══ -->
+<div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:32px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;">📖 Key Terms — Terminology Used in This Article</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">Zone</span>
+      <span style="color:#6b7280;font-size:13px;"> — IEC 62443 definition: "A grouping of assets that share common security requirements." Grouped by trust level, not physical location. Examples: Navigation Zone, Machinery Control Zone.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">Conduit</span>
+      <span style="color:#6b7280;font-size:13px;"> — A controlled communication path between Zones. Specifies which systems can communicate, using which protocol, in which direction. Includes security controls such as firewalls, ACLs, and VPNs.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">VLAN (Virtual Local Area Network)</span>
+      <span style="color:#6b7280;font-size:13px;"> — Technology that logically segments a single physical switch into multiple networks. A tool for implementing Zones — but Zone design comes first; VLANs follow.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">Purdue Model</span>
+      <span style="color:#6b7280;font-size:13px;"> — A reference model that organizes industrial control systems into levels (1 through 5). Level 1 is field control (PLCs); Level 5 is external internet. Provides the structural framework for Zone design required by IACS UR E26.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">DMZ (Demilitarized Zone)</span>
+      <span style="color:#6b7280;font-size:13px;"> — A buffer network zone between IT and OT (Purdue Level 3.5). Houses jump servers, patch servers, and remote access gateways.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">ACL (Access Control List)</span>
+      <span style="color:#6b7280;font-size:13px;"> — A rule list on a network device specifying which traffic is permitted or denied. Used alongside firewalls; one of the key security controls applied within a Conduit.</span>
+    </div>
+    <div style="background:#fff;border-left:3px solid #1a9e82;border-radius:0 8px 8px 0;padding:10px 14px;">
+      <span style="color:#0a2342;font-size:13px;font-weight:800;">SL-T (Security Level Target)</span>
+      <span style="color:#6b7280;font-size:13px;"> — The required security protection level for each Zone (SL-1 to SL-4), determined through risk assessment. Navigation and machinery Zones typically require SL-T 3 or above.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRODUCTION ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Introduction</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    Once the physical network has been established, engineers naturally begin asking:
+  </p>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;margin-bottom:18px;padding:16px 20px;">
+    <div style="color:#354a5e;font-size:14px;line-height:2.0;">
+      <em>"How should we configure VLANs?"</em><br/>
+      <em>"Which IP addresses should we use?"</em><br/>
+      <em>"How many subnets are required?"</em>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    Although these questions are important, they are not the first questions we should ask. The more fundamental question is:
+  </p>
+
+  <div style="background:#0a2342;border-radius:12px;margin-bottom:18px;padding:20px 24px;text-align:center;">
+    <p style="color:#ffe082;font-size:18px;font-weight:800;letter-spacing:0.3px;margin:0;">
+      What are we trying to protect?
+    </p>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 10px;">
+    And the answer to that question leads us to <strong style="color:#0a2342;">Zones</strong>.
+  </p>
+
+  <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 20px;">
+    <p style="color:#085041;font-size:14px;font-weight:700;margin:0;">
+      In cyber architecture, Zones come before VLANs.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 1: WHY SEGMENTATION ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Why Network Segmentation Exists</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    Historically, many shipboard systems were connected primarily for operational efficiency — information sharing improved, maintenance became easier, and remote access reduced operational costs.
+  </p>
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    However, increased connectivity also created new risks.
+  </p>
+
+  <div style="display:grid;gap:10px;grid-template-columns:repeat(2,1fr);margin-bottom:18px;">
+    <div style="background:#faecea;border-radius:10px;border:1px solid #f5b7b1;padding:14px 16px;">
+      <p style="color:#922b21;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 8px;text-transform:uppercase;">⚠ Propagation Risk</p>
+      <p style="color:#6b2020;font-size:13px;line-height:1.7;margin:0;">A compromise in one system could propagate into another.</p>
+    </div>
+    <div style="background:#faecea;border-radius:10px;border:1px solid #f5b7b1;padding:14px 16px;">
+      <p style="color:#922b21;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 8px;text-transform:uppercase;">⚠ Lateral Movement</p>
+      <p style="color:#6b2020;font-size:13px;line-height:1.7;margin:0;">An infected engineering workstation might affect the IAS.</p>
+    </div>
+    <div style="background:#faecea;border-radius:10px;border:1px solid #f5b7b1;padding:14px 16px;">
+      <p style="color:#922b21;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 8px;text-transform:uppercase;">⚠ Entry Point Risk</p>
+      <p style="color:#6b2020;font-size:13px;line-height:1.7;margin:0;">A maintenance laptop could become an entry point into a navigation system.</p>
+    </div>
+    <div style="background:#e8f5f1;border-radius:10px;border:1px solid #a9dfce;padding:14px 16px;">
+      <p style="color:#085041;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 8px;text-transform:uppercase;">✓ The Challenge</p>
+      <p style="color:#085041;font-size:13px;line-height:1.7;margin:0;">No longer protecting individual equipment — controlling <strong>trust between systems</strong>.</p>
+    </div>
+  </div>
+
+  <div style="background:#0a2342;border-radius:10px;padding:16px 20px;">
+    <p style="color:#7effd8;font-size:14px;font-weight:700;margin:0;">This is where segmentation becomes essential.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION 2: PHYSICAL VS LOGICAL ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Physical Separation vs. Logical Separation</h2>
+  </div>
+
+  <div style="display:grid;gap:14px;grid-template-columns:repeat(2,1fr);margin-bottom:18px;">
+
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="background:#154f7a;padding:12px 16px;">
+        <p style="color:#fff;font-size:12px;font-weight:800;margin:0;">Traditional: Physical Separation</p>
+      </div>
+      <div style="padding:14px 16px;">
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="align-items:center;display:flex;font-size:12.5px;gap:8px;"><span style="color:#154f7a;font-weight:700;">■</span><span style="color:#354a5e;">Separate switches per system</span></div>
+          <div style="align-items:center;display:flex;font-size:12.5px;gap:8px;"><span style="color:#154f7a;font-weight:700;">■</span><span style="color:#354a5e;">Separate cables per system</span></div>
+          <div style="align-items:center;display:flex;font-size:12.5px;gap:8px;"><span style="color:#154f7a;font-weight:700;">■</span><span style="color:#354a5e;">Separate workstations</span></div>
+        </div>
+        <div style="background:#fff8f0;border-radius:6px;margin-top:10px;padding:8px 10px;">
+          <p style="color:#7a4f10;font-size:11.5px;margin:0;">Strong isolation, but high complexity and cost.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+      <div style="background:linear-gradient(135deg,#0a2342,#1a9e82);padding:12px 16px;">
+        <p style="color:#fff;font-size:12px;font-weight:800;margin:0;">Modern: Logical Separation</p>
+      </div>
+      <div style="padding:14px 16px;">
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="align-items:center;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span><span style="color:#354a5e;">Common switches</span></div>
+          <div style="align-items:center;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span><span style="color:#354a5e;">Shared fiber networks</span></div>
+          <div style="align-items:center;display:flex;font-size:12.5px;gap:8px;"><span style="color:#1a9e82;font-weight:700;">✓</span><span style="color:#354a5e;">Integrated platforms</span></div>
+        </div>
+        <div style="background:#e8f5f1;border-radius:6px;margin-top:10px;padding:8px 10px;">
+          <p style="color:#085041;font-size:11.5px;margin:0;">Trust boundaries defined logically, not physically.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:14px 20px;">
+    <p style="color:#085041;font-size:13.5px;font-weight:700;margin:0;">
+      Cyber architecture must define trust boundaries even when systems share physical infrastructure.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 3: ZONE CONCEPT ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Understanding the Concept of a Zone</h2>
+  </div>
+
+  <!-- IEC 62443 Definition -->
+  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;margin-bottom:18px;padding:20px 24px;">
+    <p style="color:#9ab5c9;font-size:10px;font-weight:800;letter-spacing:1px;margin:0 0 10px;text-transform:uppercase;">IEC 62443 — Definition</p>
+    <p style="color:#fff;font-size:15px;font-style:italic;font-weight:700;line-height:1.7;margin:0;">
+      "A grouping of assets sharing common security requirements."
+    </p>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">Notice what the definition does <strong>not</strong> say:</p>
+
+  <div style="background:#faecea;border-left:4px solid #c0392b;border-radius:0 10px 10px 0;margin-bottom:18px;padding:14px 18px;">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <span style="background:#f5b7b1;border-radius:20px;color:#922b21;font-size:12px;font-weight:700;padding:3px 12px;">✗ Same VLAN</span>
+      <span style="background:#f5b7b1;border-radius:20px;color:#922b21;font-size:12px;font-weight:700;padding:3px 12px;">✗ Same IP range</span>
+      <span style="background:#f5b7b1;border-radius:20px;color:#922b21;font-size:12px;font-weight:700;padding:3px 12px;">✗ Same supplier</span>
+      <span style="background:#f5b7b1;border-radius:20px;color:#922b21;font-size:12px;font-weight:700;padding:3px 12px;">✗ Same switch</span>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    Instead, a Zone groups assets that require similar levels of protection.
+  </p>
+
+  <div style="background:#0a2342;border-radius:12px;padding:18px 22px;text-align:center;">
+    <p style="color:#b8d4ea;font-size:14px;margin:0 0 6px;">Zones are based on</p>
+    <p style="color:#7effd8;font-size:20px;font-weight:800;margin:0 0 6px;">Trust</p>
+    <p style="color:#9ab5c9;font-size:13px;font-style:italic;margin:0;">Not topology.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION 4: CONDUITS ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Understanding Conduits</h2>
+  </div>
+
+  <div style="display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-bottom:18px;">
+    <div style="background:#f0f7ff;border:1px solid #c5d8ec;border-radius:10px;padding:16px;">
+      <p style="color:#154f7a;font-size:12px;font-weight:800;margin:0 0 6px;text-transform:uppercase;">Zone</p>
+      <p style="color:#0a2342;font-size:13.5px;font-weight:700;margin:0;">Represents <em>trust boundaries</em></p>
+    </div>
+    <div style="background:#e8f5f1;border:1px solid #a9dfce;border-radius:10px;padding:16px;">
+      <p style="color:#085041;font-size:12px;font-weight:800;margin:0 0 6px;text-transform:uppercase;">Conduit</p>
+      <p style="color:#085041;font-size:13.5px;font-weight:700;margin:0;">Represents <em>controlled communication paths</em></p>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    Conduits answer the key questions governing communication between Zones:
+  </p>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:18px;padding:18px 22px;">
+    <div style="display:grid;gap:8px;grid-template-columns:repeat(2,1fr);">
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:10px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;">?</span>
+        <span style="color:#0a2342;font-size:13px;font-weight:600;">Who can communicate?</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:10px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;">?</span>
+        <span style="color:#0a2342;font-size:13px;font-weight:600;">Which protocols are allowed?</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:10px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;">?</span>
+        <span style="color:#0a2342;font-size:13px;font-weight:600;">In which direction?</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:10px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;">?</span>
+        <span style="color:#0a2342;font-size:13px;font-weight:600;">Under what conditions?</span>
+      </div>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    A conduit is much more than a cable. It represents the <strong>security controls</strong> that govern communication between Zones.
+  </p>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:18px;padding:16px 20px;">
+    <p style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 12px;text-transform:uppercase;">Typical Conduit Controls</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:600;padding:4px 12px;">🛡 Firewalls</span>
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:600;padding:4px 12px;">📋 Access Control Lists</span>
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:600;padding:4px 12px;">🔐 VPNs</span>
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:600;padding:4px 12px;">🔑 Authentication</span>
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:600;padding:4px 12px;">👁 IDS Monitoring</span>
+      <span style="background:#e8f0f8;border-radius:20px;color:#0a2342;font-size:12px;font-weight:600;padding:4px 12px;">📝 Logging</span>
+    </div>
+  </div>
+
+  <div style="display:grid;gap:10px;grid-template-columns:repeat(2,1fr);">
+    <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <p style="color:#0a2342;font-size:13.5px;font-weight:700;margin:0;">Zones define trust.</p>
+    </div>
+    <div style="background:#e8f5f1;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <p style="color:#085041;font-size:13.5px;font-weight:700;margin:0;">Conduits control trust.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 5: PURDUE MODEL ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">The Purdue Model Provides Structure</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Most maritime cyber architectures can be aligned with the Purdue Reference Model to establish trust boundary layers.
+  </p>
+
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+
+    <div style="background:#f0f7ff;border-left:5px solid #c0392b;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#c0392b;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 5</span>
+        <span style="color:#c0392b;font-size:12px;font-weight:700;">External Connectivity</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#faecea;border-radius:12px;color:#922b21;font-size:11.5px;padding:2px 10px;">Internet</span>
+        <span style="background:#faecea;border-radius:12px;color:#922b21;font-size:11.5px;padding:2px 10px;">VSAT</span>
+        <span style="background:#faecea;border-radius:12px;color:#922b21;font-size:11.5px;padding:2px 10px;">LTE</span>
+      </div>
+    </div>
+
+    <div style="background:#f0f7ff;border-left:5px solid #e67e22;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#e67e22;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 4</span>
+        <span style="color:#e67e22;font-size:12px;font-weight:700;">Business Network</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#fff3e0;border-radius:12px;color:#8b4513;font-size:11.5px;padding:2px 10px;">Office Network</span>
+        <span style="background:#fff3e0;border-radius:12px;color:#8b4513;font-size:11.5px;padding:2px 10px;">Crew Welfare Network</span>
+      </div>
+    </div>
+
+    <div style="background:#f0f7ff;border-left:5px solid #8e44ad;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#8e44ad;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 3.5</span>
+        <span style="color:#8e44ad;font-size:12px;font-weight:700;">DMZ</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#f5eef8;border-radius:12px;color:#6c3483;font-size:11.5px;padding:2px 10px;">Jump Server</span>
+        <span style="background:#f5eef8;border-radius:12px;color:#6c3483;font-size:11.5px;padding:2px 10px;">Patch Server</span>
+        <span style="background:#f5eef8;border-radius:12px;color:#6c3483;font-size:11.5px;padding:2px 10px;">Remote Access Gateway</span>
+      </div>
+    </div>
+
+    <div style="background:#f0f7ff;border-left:5px solid #154f7a;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#154f7a;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 3</span>
+        <span style="color:#154f7a;font-size:12px;font-weight:700;">Operational Network</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Navigation Systems</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Communication Systems</span>
+      </div>
+    </div>
+
+    <div style="background:#f0f7ff;border-left:5px solid #1a9e82;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#1a9e82;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 2</span>
+        <span style="color:#1a9e82;font-size:12px;font-weight:700;">Supervisory Control</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f5f1;border-radius:12px;color:#085041;font-size:11.5px;padding:2px 10px;">HMI</span>
+        <span style="background:#e8f5f1;border-radius:12px;color:#085041;font-size:11.5px;padding:2px 10px;">Operator Stations</span>
+      </div>
+    </div>
+
+    <div style="background:#f0f7ff;border-left:5px solid #0a2342;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="background:#0a2342;border-radius:6px;color:#fff;font-size:10px;font-weight:800;padding:2px 10px;">Level 1</span>
+        <span style="color:#0a2342;font-size:12px;font-weight:700;">Basic Control</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">PLC</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#0a2342;font-size:11.5px;padding:2px 10px;">Controllers</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;padding:14px 18px;">
+    <p style="color:#354a5e;font-size:13.5px;line-height:1.75;margin:0;">
+      Although IACS UR E26 does not mandate the Purdue model, it provides a practical framework for establishing <strong>trust boundaries</strong> in maritime environments.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 6: DESIGNING ZONES ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Designing Zones</h2>
+  </div>
+
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;margin-bottom:18px;padding:14px 18px;">
+    <p style="color:#7a4f10;font-size:13.5px;line-height:1.75;margin:0;">
+      ⚠️ One of the biggest mistakes in E26 projects is defining Zones according to <strong>equipment names</strong> alone — Navigation Zone, Machinery Zone, Cargo Zone. This approach is only partially correct.
+    </p>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">A proper Zone design must consider five dimensions:</p>
+
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+
+    <div style="align-items:flex-start;background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;display:flex;gap:14px;padding:14px 18px;">
+      <span style="background:#0a2342;border-radius:50%;color:#fff;flex-shrink:0;font-size:10px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">1</span>
+      <div>
+        <p style="color:#0a2342;font-size:13.5px;font-weight:800;margin:0 0 4px;">Criticality</p>
+        <p style="color:#4a6278;font-size:13px;margin:0;">How important is the system to vessel safety and operation?</p>
+      </div>
+    </div>
+
+    <div style="align-items:flex-start;background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;display:flex;gap:14px;padding:14px 18px;">
+      <span style="background:#154f7a;border-radius:50%;color:#fff;flex-shrink:0;font-size:10px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">2</span>
+      <div>
+        <p style="color:#0a2342;font-size:13.5px;font-weight:800;margin:0 0 4px;">Connectivity</p>
+        <p style="color:#4a6278;font-size:13px;margin:0;">What other systems communicate with it?</p>
+      </div>
+    </div>
+
+    <div style="align-items:flex-start;background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;display:flex;gap:14px;padding:14px 18px;">
+      <span style="background:#1a9e82;border-radius:50%;color:#fff;flex-shrink:0;font-size:10px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">3</span>
+      <div>
+        <p style="color:#0a2342;font-size:13.5px;font-weight:800;margin:0 0 4px;">Consequences of Compromise</p>
+        <p style="color:#4a6278;font-size:13px;margin:0;">What happens if the system becomes unavailable or corrupted?</p>
+      </div>
+    </div>
+
+    <div style="align-items:flex-start;background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;display:flex;gap:14px;padding:14px 18px;">
+      <span style="background:#8e44ad;border-radius:50%;color:#fff;flex-shrink:0;font-size:10px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">4</span>
+      <div>
+        <p style="color:#0a2342;font-size:13.5px;font-weight:800;margin:0 0 4px;">Trust Level</p>
+        <p style="color:#4a6278;font-size:13px;margin:0;">Can the system trust external connections?</p>
+      </div>
+    </div>
+
+    <div style="align-items:flex-start;background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;display:flex;gap:14px;padding:14px 18px;">
+      <span style="background:#e67e22;border-radius:50%;color:#fff;flex-shrink:0;font-size:10px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">5</span>
+      <div>
+        <p style="color:#0a2342;font-size:13.5px;font-weight:800;margin:0 0 4px;">Operational Requirements</p>
+        <p style="color:#4a6278;font-size:13px;margin:0;">Does the system require continuous availability?</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 7: NINE BASELINE ZONES ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">The Nine Baseline Zones</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    A practical ship architecture typically includes the following zones. These may vary depending on vessel type, but they provide a useful starting point.
+  </p>
+
+  <div style="display:grid;gap:8px;grid-template-columns:repeat(3,1fr);">
+
+    <div style="background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:10px;padding:14px 14px;">
+      <p style="color:#fca5a5;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 1</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">External Access Zone</p>
+      <p style="color:#fca5a5;font-size:11px;margin:0;">Internet · VSAT · LTE</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#e67e22,#f39c12);border-radius:10px;padding:14px 14px;">
+      <p style="color:#fde8c8;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 2</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">Ship Business Zone</p>
+      <p style="color:#fde8c8;font-size:11px;margin:0;">Office Network</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#7f8c8d,#95a5a6);border-radius:10px;padding:14px 14px;">
+      <p style="color:#ecf0f1;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 3</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">Crew Welfare Zone</p>
+      <p style="color:#ecf0f1;font-size:11px;margin:0;">WiFi · Entertainment</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#8e44ad,#9b59b6);border-radius:10px;padding:14px 14px;">
+      <p style="color:#e8d5f5;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 4</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">DMZ</p>
+      <p style="color:#e8d5f5;font-size:11px;margin:0;">Jump Server · Patch Server</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#1a6e5a,#1a9e82);border-radius:10px;padding:14px 14px;">
+      <p style="color:#b8e8d0;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 5</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">Security Monitoring Zone</p>
+      <p style="color:#b8e8d0;font-size:11px;margin:0;">SIEM · IDS · Syslog</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:14px 14px;">
+      <p style="color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 6</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">Navigation Zone</p>
+      <p style="color:#b8d4ea;font-size:11px;margin:0;">ECDIS · Radar · VDR</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#154f7a,#1a6e8a);border-radius:10px;padding:14px 14px;">
+      <p style="color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 7</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">Communication Zone</p>
+      <p style="color:#b8d4ea;font-size:11px;margin:0;">GMDSS · Satellite Comms</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#1a5276,#2980b9);border-radius:10px;padding:14px 14px;">
+      <p style="color:#d6eaf8;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 8</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">Machinery Control Zone</p>
+      <p style="color:#d6eaf8;font-size:11px;margin:0;">IAS · AMS · PMS</p>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#117864,#148f77);border-radius:10px;padding:14px 14px;">
+      <p style="color:#d1f2eb;font-size:9px;font-weight:800;letter-spacing:0.8px;margin:0 0 6px;text-transform:uppercase;">Zone 9</p>
+      <p style="color:#fff;font-size:12.5px;font-weight:800;margin:0 0 4px;">Cargo / Mission Zone</p>
+      <p style="color:#d1f2eb;font-size:11px;margin:0;">Cargo Control · DP Systems</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 8: WHY VLANs COME LATER ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Why VLANs Come Later</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    After Zones are defined, VLANs can be assigned. For example:
+  </p>
+
+  <!-- Zone-VLAN Table -->
+  <div style="border:1px solid #d1e0ee;border-radius:12px;margin-bottom:18px;overflow:hidden;">
+    <table style="border-collapse:collapse;font-size:13.5px;width:100%;">
+      <thead>
+        <tr style="background:#0a2342;">
+          <th style="color:#b8d4ea;font-size:10px;font-weight:800;letter-spacing:0.8px;padding:12px 18px;text-align:left;text-transform:uppercase;">Zone</th>
+          <th style="color:#b8d4ea;font-size:10px;font-weight:800;letter-spacing:0.8px;padding:12px 18px;text-align:left;text-transform:uppercase;">VLAN Assignment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#fff;">
+          <td style="border-top:1px solid #e8f0f8;color:#0a2342;font-weight:600;padding:11px 18px;">Navigation Zone</td>
+          <td style="border-top:1px solid #e8f0f8;padding:11px 18px;"><span style="background:#e8f0f8;border-radius:6px;color:#154f7a;font-size:12px;font-weight:700;padding:3px 10px;">VLAN 10</span></td>
+        </tr>
+        <tr style="background:#f7fafd;">
+          <td style="border-top:1px solid #e8f0f8;color:#0a2342;font-weight:600;padding:11px 18px;">Communication Zone</td>
+          <td style="border-top:1px solid #e8f0f8;padding:11px 18px;"><span style="background:#e8f0f8;border-radius:6px;color:#154f7a;font-size:12px;font-weight:700;padding:3px 10px;">VLAN 20</span></td>
+        </tr>
+        <tr style="background:#fff;">
+          <td style="border-top:1px solid #e8f0f8;color:#0a2342;font-weight:600;padding:11px 18px;">Machinery Zone</td>
+          <td style="border-top:1px solid #e8f0f8;padding:11px 18px;"><span style="background:#e8f0f8;border-radius:6px;color:#154f7a;font-size:12px;font-weight:700;padding:3px 10px;">VLAN 30</span></td>
+        </tr>
+        <tr style="background:#f7fafd;">
+          <td style="border-top:1px solid #e8f0f8;color:#0a2342;font-weight:600;padding:11px 18px;">Cargo Zone</td>
+          <td style="border-top:1px solid #e8f0f8;padding:11px 18px;"><span style="background:#e8f0f8;border-radius:6px;color:#154f7a;font-size:12px;font-weight:700;padding:3px 10px;">VLAN 40</span></td>
+        </tr>
+        <tr style="background:#fff;">
+          <td style="border-top:1px solid #e8f0f8;color:#0a2342;font-weight:600;padding:11px 18px;">DMZ</td>
+          <td style="border-top:1px solid #e8f0f8;padding:11px 18px;"><span style="background:#e8f0f8;border-radius:6px;color:#154f7a;font-size:12px;font-weight:700;padding:3px 10px;">VLAN 50</span></td>
+        </tr>
+        <tr style="background:#f7fafd;">
+          <td style="border-top:1px solid #e8f0f8;color:#0a2342;font-weight:600;padding:11px 18px;">Business Zone</td>
+          <td style="border-top:1px solid #e8f0f8;padding:11px 18px;"><span style="background:#e8f0f8;border-radius:6px;color:#154f7a;font-size:12px;font-weight:700;padding:3px 10px;">VLAN 60</span></td>
+        </tr>
+        <tr style="background:#fff;">
+          <td style="border-top:1px solid #e8f0f8;color:#0a2342;font-weight:600;padding:11px 18px;">Crew Zone</td>
+          <td style="border-top:1px solid #e8f0f8;padding:11px 18px;"><span style="background:#e8f0f8;border-radius:6px;color:#154f7a;font-size:12px;font-weight:700;padding:3px 10px;">VLAN 70</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;margin-bottom:14px;padding:16px 20px;">
+    <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0;">
+      VLANs are <strong>implementation mechanisms</strong>. They are not cyber architecture.<br/>
+      Two systems belonging to different trust levels should <strong>never</strong> be placed in the same Zone simply because they share a VLAN.<br/>
+      Likewise, one Zone may span <strong>multiple VLANs</strong>.
+    </p>
+  </div>
+
+  <div style="display:grid;gap:10px;grid-template-columns:repeat(2,1fr);">
+    <div style="background:#faecea;border-left:4px solid #c0392b;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <p style="color:#922b21;font-size:13.5px;font-weight:800;margin:0;">✗ VLANs do not create Zones.</p>
+    </div>
+    <div style="background:#e8f5f1;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:12px 16px;">
+      <p style="color:#085041;font-size:13.5px;font-weight:800;margin:0;">✓ Zones create VLANs.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 9: ASSET INVENTORY ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Asset Inventory Comes First</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    Before defining Zones, engineers must understand the assets they are protecting. This is why Asset Inventory and Dependency Mapping are foundational activities in IACS UR E26.
+  </p>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:16px;padding:18px 22px;">
+    <p style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.8px;margin:0 0 14px;text-transform:uppercase;">Four Questions to Answer Before Defining Zones</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;font-weight:800;">①</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">What assets exist?</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;font-weight:800;">②</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">How are they connected?</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;font-weight:800;">③</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Which functions do they perform?</span>
+      </div>
+      <div style="align-items:center;background:#e8f0f8;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#154f7a;font-size:16px;font-weight:800;">④</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Which systems depend on them?</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;">
+    <p style="color:#7a4f10;font-size:13.5px;line-height:1.75;margin:0;">
+      Without understanding assets and dependencies, meaningful Zone definitions become impossible.
+    </p>
+  </div>
+</div>
+
+<!-- ══ SECTION 10: LOGICAL = TRUST ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Logical Networks Are About Trust</h2>
+  </div>
+
+  <div style="display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-bottom:18px;">
+    <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:10px;padding:16px;">
+      <p style="color:#154f7a;font-size:11px;font-weight:800;margin:0 0 8px;text-transform:uppercase;">Physical Networks</p>
+      <p style="color:#354a5e;font-size:13.5px;font-weight:600;margin:0;">Describe <em>connectivity</em></p>
+    </div>
+    <div style="background:#e8f5f1;border:1px solid #a9dfce;border-radius:10px;padding:16px;">
+      <p style="color:#085041;font-size:11px;font-weight:800;margin:0 0 8px;text-transform:uppercase;">Logical Networks</p>
+      <p style="color:#085041;font-size:13.5px;font-weight:600;margin:0;">Describe <em>trust</em></p>
+    </div>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 14px;">
+    The purpose of Zone and Conduit architecture is not to simplify drawings. Its purpose is to <strong>contain cyber incidents</strong>. If one Zone is compromised, the impact should be limited.
+  </p>
+
+  <div style="background:#0a2342;border-radius:12px;padding:18px 22px;text-align:center;">
+    <p style="color:#b8d4ea;font-size:13.5px;margin:0 0 6px;">Segmentation is not about efficiency.</p>
+    <p style="color:#7effd8;font-size:16px;font-weight:800;margin:0;">Segmentation is about survivability.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION 11: PRE-ZCD CHECKLIST ══ -->
+<div style="margin-bottom:36px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:16px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:28px;width:5px;"></div>
+    <h2 style="color:#0a2342;font-size:18px;font-weight:800;margin:0;">Before Drawing the ZCD</h2>
+  </div>
+
+  <p style="color:#4a6278;font-size:14.5px;line-height:1.85;margin:0 0 16px;">
+    By the end of this stage, we should have the following in place. These are the ingredients — not yet the ZCD itself.
+  </p>
+
+  <div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:18px;padding:18px 22px;">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="align-items:center;background:#e8f5f1;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#1a9e82;font-size:16px;font-weight:800;">✓</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Asset Inventory</span>
+      </div>
+      <div style="align-items:center;background:#e8f5f1;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#1a9e82;font-size:16px;font-weight:800;">✓</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Dependency Mapping</span>
+      </div>
+      <div style="align-items:center;background:#e8f5f1;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#1a9e82;font-size:16px;font-weight:800;">✓</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Criticality Assessment</span>
+      </div>
+      <div style="align-items:center;background:#e8f5f1;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#1a9e82;font-size:16px;font-weight:800;">✓</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Purdue Level Assignments</span>
+      </div>
+      <div style="align-items:center;background:#e8f5f1;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#1a9e82;font-size:16px;font-weight:800;">✓</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Zone Definitions</span>
+      </div>
+      <div style="align-items:center;background:#e8f5f1;border-radius:8px;display:flex;gap:12px;padding:10px 14px;">
+        <span style="color:#1a9e82;font-size:16px;font-weight:800;">✓</span>
+        <span style="color:#0a2342;font-size:13.5px;font-weight:600;">Conduit Requirements</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;">
+    <p style="color:#7a4f10;font-size:13.5px;line-height:1.75;margin:0;">
+      None of these are yet a Zone and Conduit Diagram. They are simply the ingredients. The next step is translating these concepts into documentation — and that is where many projects struggle.
+    </p>
+  </div>
+</div>
+
+<!-- ══ NEXT ARTICLE ══ -->
+<div style="background:#f0f7ff;border:1px solid #c5d8ec;border-radius:12px;margin-bottom:32px;padding:20px 24px;">
+  <div style="color:#154f7a;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:12px;text-transform:uppercase;">➡ Next in the Series</div>
+  <div style="align-items:flex-start;display:flex;gap:12px;">
+    <span style="background:#0a2342;border-radius:12px;color:#7effd8;flex-shrink:0;font-size:9px;font-weight:800;margin-top:3px;padding:3px 10px;white-space:nowrap;">Part 3</span>
+    <div>
+      <p style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 6px;">From Networks to ZCD</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.65;margin:0 0 12px;">
+        In Part 3, we explore how physical networks and logical architectures are transformed into actual IACS UR E26 deliverables — including Zone and Conduit Diagrams, Zone Tables, Conduit Tables, Data Flow Matrices, Security Level Definitions, and Cyber Security Design Descriptions (CSDD).
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11px;font-weight:600;padding:3px 10px;">ZCD</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11px;font-weight:600;padding:3px 10px;">Zone Tables</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11px;font-weight:600;padding:3px 10px;">Conduit Tables</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11px;font-weight:600;padding:3px 10px;">Data Flow Matrix</span>
+        <span style="background:#e8f0f8;border-radius:12px;color:#154f7a;font-size:11px;font-weight:600;padding:3px 10px;">CSDD</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AUTHOR FOOTER ══ -->
+<div style="background:#f7fafd;border:1px solid #d1e0ee;border-radius:12px;padding:20px 24px;">
+  <div style="align-items:center;display:flex;gap:14px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+           style="border-radius:50%;border:2px solid #1a9e82;flex-shrink:0;height:52px;object-fit:cover;width:52px;"/>
+    </a>
+    <div>
+      <div style="color:#0a2342;font-size:14px;font-weight:800;">Captain Paul</div>
+      <div style="color:#4a6278;font-size:12px;line-height:1.6;margin-top:4px;">
+        Maritime cybersecurity professional specializing in IACS UR E26/E27 compliance, OT system architecture, and shipyard-level cyber resilience design. Writing for engineers, superintendents, and operators navigating Maritime 4.0.
+      </div>
+      <div style="display:flex;gap:12px;margin-top:10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"
+           style="color:#0077b5;font-size:12px;font-weight:700;text-decoration:none;">💼 LinkedIn ↗</a>
+        <a href="https://www.shippauljobs.com" rel="noopener" target="_blank"
+           style="color:#154f7a;font-size:12px;font-weight:700;text-decoration:none;">🌐 More Articles ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
