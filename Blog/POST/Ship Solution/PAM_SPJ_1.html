@@ -1,0 +1,280 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F6A2; Ship Solutions</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F512; Identity &amp; Access</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">PAM Series 1</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">Technical Guide</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">Privileged Access Management (PAM) for Ships: Complete Technical Guide</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">Controlling, monitoring, and auditing privileged access to shipboard OT/IT systems — IACS UR E26 requirements, architecture patterns, implementation constraints, and market trends for maritime PAM</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="color:white;font-size:13px;font-weight:700;line-height:1.3;">ShipPaulJobs Team</span>
+        <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;border:1px solid rgba(26,255,218,0.3);white-space:nowrap;">&#10003; Verified</span>
+      </div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Reviewed &amp; fact-checked by the ShipPaulJobs editorial team &middot; July 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 1: OVERVIEW -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 1</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">What is PAM and Why Ships Need It</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Privileged Access Management (PAM) is a cybersecurity discipline focused on securing, controlling, and auditing accounts with elevated rights — the "privileged" users who can configure systems, install software, access sensitive data, or override safety controls. On ships, privileged accounts include vessel IT administrators, chief engineers with OT system access, OEM vendor service accounts, and shore-based superintendents who remote-in for maintenance.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">The maritime sector has historically operated with loose privileged access controls — shared administrative passwords written on notepads, permanent vendor VPN credentials with no time limits, and OT workstations running with local administrator accounts as the default operating mode. These practices, acceptable when ships were isolated, are now significant liabilities as vessels connect to shoreside networks, vendor support portals, and fleet management platforms via VSAT and Starlink.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">IACS UR E26 4.3 explicitly requires that privileged access to safety-critical computer-based systems be identified, controlled, and logged. PAM is the technical implementation of this requirement — providing the vault, authentication enforcement, session recording, and audit trail that class societies and flag states increasingly expect to see demonstrated at cyber surveys.</p>
+
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;margin-bottom:20px;">
+    <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F6A2; Shipboard Privileged Account Types</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;font-family:Inter,sans-serif;">
+        <thead>
+          <tr style="background:#0a2342;color:white;">
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Account Type</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Examples</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Risk Level</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">PAM Control</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">OT System Admin</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">AMS, PMS, BMS console admin</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="color:#991b1b;font-weight:700;">Critical</span></td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Vault + MFA + Session Record</td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">OEM Vendor Account</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Wärtsilä, MAN, Kongsberg support</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="color:#991b1b;font-weight:700;">Critical</span></td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Time-limited + Approval Workflow</td></tr>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Navigation System Admin</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">ECDIS, AIS, GMDSS admin</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="color:#c2410c;font-weight:700;">High</span></td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Vault + MFA + Justification</td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">IT Administrator</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Ship server, network gear admin</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="color:#c2410c;font-weight:700;">High</span></td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Vault + MFA</td></tr>
+          <tr style="background:white;"><td style="padding:8px 12px;">Superintendent (Remote)</td><td style="padding:8px 12px;">Shore office remote access</td><td style="padding:8px 12px;"><span style="color:#d97706;font-weight:700;">Medium</span></td><td style="padding:8px 12px;">Jump Server + MFA + Recording</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2: REGULATORY REQUIREMENTS -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 2</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Regulatory Framework &amp; Compliance Requirements</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">PAM requirements in the maritime sector are derived from several overlapping regulatory instruments. IACS UR E26 is the most operationally specific, directly mandating privileged access controls with measurable requirements. IMO guidance and flag state requirements establish the higher-level obligation for cyber risk management, within which PAM is a key technical control.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #0a2342;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:8px;">IACS UR E26 4.3</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Requires that privileged user accounts on computer-based systems be identified, that access be granted on a least-privilege basis, and that all privileged access events be logged with sufficient detail to support forensic investigation. Applies to systems in all E26-defined functional categories (navigation, propulsion, safety, cargo).</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #154f7a;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#154f7a;text-transform:uppercase;margin-bottom:8px;">IACS UR E26 4.2 (Access Control)</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Mandates role-based access control (RBAC) for all computer-based systems, requiring that each user be granted only the access rights necessary for their defined role. PAM enforces RBAC for privileged accounts by controlling what systems and commands privileged users can access, and recording what they actually do.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #1a9e82;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#1a9e82;text-transform:uppercase;margin-bottom:8px;">IMO MSC-FAL.1/Circ.3</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">IMO Guidelines on Maritime Cyber Risk Management identify access management as one of five functional elements of cyber risk management. The guidelines require shipowners to identify who has access to what systems, limit access to authorised users, and maintain the ability to detect and respond to unauthorised access attempts — all of which PAM directly addresses.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #1d89cf;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#1d89cf;text-transform:uppercase;margin-bottom:8px;">MSC.428(98) ISM Code</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">MSC.428(98) requires cyber risk management to be incorporated into the ISM Safety Management System by 2021. Under the ISM Code, the Designated Person Ashore (DPA) is responsible for ensuring cyber controls — including PAM — are implemented, maintained, and audited as part of the SMS. PAM audit logs directly support DPA reporting obligations.</p>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:18px 20px;">
+    <div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:10px;">&#x2705; What Class Surveyors Look For — PAM Verification Checklist</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;">
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Privileged account inventory documented</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; No shared admin passwords (individual accounts)</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; MFA enforced on privileged access</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Session recording capability demonstrated</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Vendor access time-limited and approval-gated</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; 90-day log retention for privileged sessions</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Emergency break-glass procedure documented</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Access reviewed and certified periodically</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 3: TECHNICAL ARCHITECTURE -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 3</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Architecture &amp; Performance Standards</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Maritime PAM architecture must balance security with operational availability. Unlike enterprise PAM deployments where a brief authentication delay is acceptable, shipboard OT systems may have latency-sensitive operations where a 30-second PAM authentication workflow would be unacceptable during dynamic positioning or manoeuvring in confined waters. The architecture must support both secure routine access and fast emergency access under degraded conditions.</p>
+
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:18px;">
+    <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:14px;">Maritime PAM Core Components</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+      <div style="background:#f0f7ff;border-radius:8px;padding:14px;">
+        <div style="font-size:11px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Credential Vault</div>
+        <p style="font-size:12.5px;color:#2c3e50;line-height:1.65;margin:0;">Encrypted, locally-hosted vault storing all privileged credentials. Ships require an onboard vault instance to function without satellite connectivity. Syncs to shore master vault when connected.</p>
+      </div>
+      <div style="background:#f0fdf4;border-radius:8px;padding:14px;">
+        <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;margin-bottom:6px;">Session Manager</div>
+        <p style="font-size:12.5px;color:#2c3e50;line-height:1.65;margin:0;">Proxies all privileged sessions (RDP, SSH, web console) through a controlled gateway. Records session video and keystrokes. Terminates sessions on policy violation or time-out.</p>
+      </div>
+      <div style="background:#fefce8;border-radius:8px;padding:14px;">
+        <div style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Access Request Workflow</div>
+        <p style="font-size:12.5px;color:#2c3e50;line-height:1.65;margin:0;">Requires justification and approval before privileged credentials are released. Time-bounded: credentials issued for defined duration, auto-revoked on expiry. Supports emergency break-glass override.</p>
+      </div>
+      <div style="background:#fef2f2;border-radius:8px;padding:14px;">
+        <div style="font-size:11px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Audit &amp; Analytics</div>
+        <p style="font-size:12.5px;color:#2c3e50;line-height:1.65;margin:0;">Immutable log of all privileged access events — who, what, when, from where. Session recordings indexed and searchable. Anomaly detection flags unusual privileged behaviour patterns.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto;margin-bottom:18px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;font-family:Inter,sans-serif;">
+      <thead>
+        <tr style="background:#0a2342;color:white;">
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Performance Metric</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Minimum Standard</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Target</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Vault Availability</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">99.9% (local)</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">99.99% with HA</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">PAM outage = no privileged access</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Credential Retrieval Time</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">&lt;10 seconds</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">&lt;3 seconds</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">OT operational responsiveness</td></tr>
+        <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Session Log Retention</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">90 days</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">12 months</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">IACS E26 logging requirement</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Emergency Break-Glass Access</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">&lt;60 seconds</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">&lt;30 seconds</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Safety-critical incident response</td></tr>
+        <tr style="background:white;"><td style="padding:8px 12px;">Password Rotation Frequency</td><td style="padding:8px 12px;">90 days</td><td style="padding:8px 12px;font-weight:600;color:#0a2342;">30 days (auto)</td><td style="padding:8px 12px;">Limit credential exposure window</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PART 4: IMPLEMENTATION CONSTRAINTS -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 4</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Maritime Implementation Constraints</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 20px;">PAM deployment on ships faces constraints that do not exist in enterprise environments. Understanding these constraints is essential for selecting solutions and designing implementation plans that will actually work in the maritime operational context.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fef2f2;color:#991b1b;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Legacy OT System Incompatibility</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Many shipboard OT systems run proprietary software that does not support standard PAM integration protocols (LDAP, RADIUS, SAML). PLCs and SCADA HMIs from older generations have no API for credential management. PAM must often be implemented as a session proxy (at the network level) rather than natively integrated — meaning the OT system itself retains its own local credentials, but network access is controlled by the PAM gateway.</p>
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fef2f2;color:#991b1b;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Connectivity Dependency</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Cloud-hosted PAM vaults cannot function when ships are out of satellite range or during satellite outages. Maritime PAM must include a fully functional onboard vault instance that operates autonomously, with synchronisation to shore when connectivity is available. Selecting PAM solutions designed for enterprise IT environments — without an offline/local mode — will result in access failures at sea.</p>
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fefce8;color:#92400e;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Emergency Access Contradiction</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">In maritime emergencies — flooding, fire, collision — crew may need immediate access to critical OT systems. A PAM approval workflow requiring shore authorisation is incompatible with emergency response timescales. All maritime PAM deployments must include a documented, tested break-glass procedure that allows rapid privileged access with post-event audit, without requiring shore connectivity or multi-step approval.</p>
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fefce8;color:#92400e;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">OEM Vendor Resistance</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Major maritime equipment OEMs often resist having their remote access controlled through a third-party PAM solution, citing warranty obligations and support SLA concerns. Contractual negotiation is typically required, and OEM contracts may need to be updated to include requirements for PAM-compliant remote access. This is a programme management challenge as much as a technical one.</p>
+      </div>
+    </div>
+
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#f0f7ff;color:#1e40af;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Crew Adoption and Training</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Maritime PAM changes the daily workflow of officers and engineers who are accustomed to simple password-based access. Poor crew adoption — using break-glass accounts for routine access, sharing tokens, bypassing the session manager — will undermine the security value. Training, workflow design that minimises friction for routine tasks, and management commitment to enforcement are essential for PAM to function as intended.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PART 5: TRENDS -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 5</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Trends &amp; Market Developments</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F504;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Just-in-Time (JIT) Privileged Access</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Rather than maintaining standing privileged accounts, JIT PAM creates temporary privileged credentials on demand and removes them immediately after the session ends. This eliminates the attack surface of persistent admin accounts and is increasingly required by leading maritime cybersecurity frameworks for OEM vendor access.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F916;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">AI-Assisted Session Anomaly Detection</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">PAM platforms are integrating ML models that analyse recorded session behaviour to identify anomalies — an engineer executing commands outside their normal pattern, a vendor session accessing systems outside the approved scope, or credential sharing indicated by concurrent sessions from different locations. This transforms session recording from forensic archive to active detection.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F30D;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Maritime-Specific PAM Solutions</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Vendors including Claroty, Nozomi Networks, and dedicated maritime cybersecurity providers are offering PAM integration with OT asset inventory and network monitoring — creating unified platforms where privileged access is automatically scoped to discovered and classified assets rather than manually configured target lists.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x26F5;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Starlink-Enabled Shore PAM Oversight</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">The reduced cost and improved reliability of Starlink connectivity is enabling real-time shore-based oversight of shipboard PAM sessions. Shore SOC analysts can now monitor privileged sessions live rather than reviewing recordings retrospectively, and can terminate sessions in real-time if suspicious activity is detected — a significant operational security improvement.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F511;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Passwordless PAM with Hardware Keys</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">FIDO2 hardware security keys (YubiKey, SafeNet) are being adopted as the primary authentication factor for shipboard privileged access, replacing both passwords and SMS-based MFA. Hardware keys work offline, are phishing-resistant, and provide strong authentication even without network connectivity to a central identity provider — directly addressing maritime operational constraints.</p>
+    </div>
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px 30px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:13px;font-weight:700;color:#1affda;margin-bottom:18px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F3AF; Key Takeaways</div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">01</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">PAM is a direct IACS UR E26 4.3 compliance requirement for ships. It is not optional for vessels subject to class cyber notation or new construction delivered after E26 applicability dates. Class surveyors will verify privileged access controls as part of the cyber survey process.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">02</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Vendor access is the highest PAM priority. Uncontrolled OEM remote access via permanent VPN credentials is the most prevalent critical finding in maritime OT security assessments. Implementing time-limited, approval-gated, recorded vendor access should be the first PAM use case delivered.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">03</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Design for offline operation from the start. Maritime PAM without an onboard vault that functions without satellite connectivity will fail regularly at sea. Offline capability is a hard requirement, not an optional feature, for shipboard PAM deployment.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">04</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Break-glass procedures must be defined before deployment. The emergency access use case is not an edge case on ships — it is a foreseeable scenario that must be designed for explicitly. Break-glass accounts must be tested periodically and their use must trigger post-event reporting regardless of how they were used.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AUTHOR CTA -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px 26px;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+    <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;display:block;" />
+  </a>
+  <div style="flex:1;min-width:200px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+      <span style="font-size:15px;font-weight:800;color:#0a2342;">ShipPaulJobs Team</span>
+      <span style="background:#eef6f3;color:#0a7055;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;border:1px solid rgba(26,158,130,0.3);white-space:nowrap;">&#10003; Verified</span>
+    </div>
+    <div style="font-size:11px;color:#1a9e82;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Maritime Cybersecurity Editorial Team &mdash; Identity &amp; Access Security</div>
+    <p style="font-size:13px;color:#2c3e50;line-height:1.75;margin:0 0 8px;">Continue the Identity &amp; Access Security series with the MFA deep-dive, or explore the complete Ship Solutions guide for the full cybersecurity solution landscape.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="background:#0a2342;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Connect on LinkedIn</a>
+      <a href="https://www.shippauljobs.com/2026/02/maritime-cybersecurity-solutions.html" target="_blank" rel="noopener" style="background:#1a9e82;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Explore All Articles</a>
+    </div>
+  </div>
+</div>

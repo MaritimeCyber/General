@@ -1,0 +1,190 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F6A2; Ship Solutions</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F6E1; Network Security</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Firewall Series 1</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">Technical Guide</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">Maritime OT/IT Firewall: Complete Technical Guide</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">Enforcing network zone boundaries on ships — OT protocol inspection, IACS UR E26 segmentation requirements, deployment architecture, maritime constraints, and next-generation maritime firewall trends</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="color:white;font-size:13px;font-weight:700;line-height:1.3;">ShipPaulJobs Team</span>
+        <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;border:1px solid rgba(26,255,218,0.3);white-space:nowrap;">&#10003; Verified</span>
+      </div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Reviewed &amp; fact-checked by the ShipPaulJobs editorial team &middot; July 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 1: OVERVIEW -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 1</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Maritime Firewalls — OT/IT Boundary Enforcement</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">A firewall is a network security device that monitors and controls traffic between network zones based on a defined ruleset. On ships, firewalls enforce the critical boundary between OT (Operational Technology) networks — propulsion, navigation, machinery automation — and IT networks, crew networks, and external connections to shore. Without this boundary, a malware infection on the crew WiFi network can propagate directly to engine control systems.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Maritime firewalls face requirements that enterprise firewalls do not: they must understand OT communication protocols such as Modbus TCP, NMEA 0183/2000, Profibus, DNP3, and proprietary protocols used by vessel automation vendors. An enterprise firewall that blocks all non-standard traffic would disrupt legitimate OT communications and potentially cause operational failures. Maritime-grade firewalls apply deep packet inspection (DPI) at the OT application layer, permitting legitimate control traffic while blocking malicious commands or unexpected protocol usage.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">The network architecture on modern ships typically includes 4–6 distinct network zones — navigation, machinery OT, safety systems, cargo control, IT, and crew WiFi — each requiring boundary controls. A single "flat" network without zone separation is the most common critical finding in maritime OT security assessments and the primary gap that firewalls address.</p>
+
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;margin-bottom:20px;">
+    <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F6A2; Standard Shipboard Network Zones &amp; Firewall Boundaries</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;font-family:Inter,sans-serif;">
+        <thead>
+          <tr style="background:#0a2342;color:white;">
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Zone</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Systems</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Protocols</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Firewall Boundary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Navigation OT</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">ECDIS, AIS, GMDSS, Radar</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">NMEA 0183/2000, IEC 61162</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#991b1b;">Strictly Isolated</td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Machinery OT</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">AMS, PMS, ECS, BMS</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Modbus, Profibus, OPC-UA</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#991b1b;">Strictly Isolated</td></tr>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Safety Systems</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">FGSS, ESD, Lifeboat ctrl</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Proprietary, hardwired</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#991b1b;">Air-gapped preferred</td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Cargo Control</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">LCMS, ballast ctrl, gauges</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Modbus, proprietary</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#d97706;">Controlled boundary</td></tr>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Ship IT</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Admin PCs, servers, VSAT</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">TCP/IP, HTTP, SMTP</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#d97706;">IT firewall + DMZ</td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:8px 12px;">Crew WiFi</td><td style="padding:8px 12px;">Personal devices, BYOD</td><td style="padding:8px 12px;">All consumer protocols</td><td style="padding:8px 12px;font-weight:700;color:#166534;">Isolated guest network</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2: REGULATORY -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 2</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Regulatory Framework &amp; IACS E26 Requirements</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Network segmentation and firewall requirements are explicitly addressed in IACS UR E26, making firewall implementation a direct class compliance obligation. The segmentation requirements in E26 5.2 translate directly into specific firewall deployment requirements that class surveyors will verify during cyber surveys.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:18px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #0a2342;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:8px;">IACS UR E26 5.2 — Network Segmentation</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Requires that systems performing different functions (navigation, propulsion, safety, crew) be separated into distinct network zones with controlled communication boundaries. Firewalls are the primary technical control for implementing and enforcing these zone boundaries. The standard requires that the communication rules between zones be explicitly defined and documented.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #154f7a;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#154f7a;text-transform:uppercase;margin-bottom:8px;">IACS UR E26 5.4 — Security Logging</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Firewalls are required to log all traffic that crosses zone boundaries, particularly denied connections and rule violations. These logs must be retained for a minimum of 90 days and must be accessible for incident investigation. Firewall log forwarding to an onboard or shore-based SIEM is recommended to enable automated anomaly detection and alerting.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #1a9e82;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#1a9e82;text-transform:uppercase;margin-bottom:8px;">IACS UR E27 — Resilience (New Construction)</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">For new construction, E27 requires that cybersecurity controls — including network segmentation — be integrated into the vessel design rather than added post-delivery. This means firewalls must be specified in the network design documentation submitted to class for approval, with clearly defined zone topologies, firewall placement, and ruleset logic reviewed at the design stage.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #1d89cf;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#1d89cf;text-transform:uppercase;margin-bottom:8px;">IEC 62443 — Industrial Network Security</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">IEC 62443 is the international standard for industrial cybersecurity, and is referenced by IACS UR E26 as the framework for OT security controls. IEC 62443-3-3 defines Security Levels (SL 1–4) for zone protection — most maritime OT zones require SL 2 (protection against intentional attack). Firewalls implementing DPI and anomaly detection meet SL 2 boundary protection requirements.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PART 3: ARCHITECTURE & PERFORMANCE -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 3</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Firewall Types &amp; Performance Standards</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:18px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px;">
+      <div style="font-size:12px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:8px;">&#x1F6E1; OT/IT Boundary Firewall</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Positioned between OT and IT networks. Understands OT protocols (Modbus, NMEA, OPC-UA). Allows only explicitly permitted OT communications. Blocks all IT protocols (HTTP, SMTP) from reaching OT networks. Industrial-grade hardware rated for shipboard environments (temperature, vibration, humidity).</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px;">
+      <div style="font-size:12px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:8px;">&#x1F310; Internet Gateway Firewall</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Controls all traffic between the ship IT network and external connections (VSAT, Starlink, cellular). Includes URL filtering, application-layer inspection, and SSL/TLS inspection. Enforces acceptable use policies for crew internet access. Blocks C2 callback traffic and known-malicious destinations.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px;">
+      <div style="font-size:12px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:8px;">&#x1F4F6; Next-Generation Firewall (NGFW)</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Combines traditional stateful inspection with application awareness, user identity, and threat intelligence integration. NGFWs can identify and block OT-specific attack traffic (Modbus function code abuse, NMEA spoofing attempts) and feed threat detection events to the SIEM for correlation with other security signals.</p>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;font-family:Inter,sans-serif;">
+      <thead>
+        <tr style="background:#0a2342;color:white;">
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Performance Metric</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Minimum</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Target</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Added Latency (OT traffic)</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">&lt;5ms</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">&lt;1ms</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Must not affect OT polling cycles</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Availability</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">99.9%</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">99.99% with HA pair</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Firewall failure = network outage</td></tr>
+        <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Ruleset Size</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Documented allow-list</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">Default-deny all zones</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">Only explicitly permitted traffic passes</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Log Retention</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">90 days</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;color:#0a2342;">12 months with SIEM</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;">IACS E26 5.4 requirement</td></tr>
+        <tr style="background:white;"><td style="padding:8px 12px;">Operating Temperature</td><td style="padding:8px 12px;">0–50°C</td><td style="padding:8px 12px;font-weight:600;color:#0a2342;">-20–70°C (ER rated)</td><td style="padding:8px 12px;">Engine room deployment</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PART 4: CONSTRAINTS -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 4</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Maritime Implementation Constraints</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;">
+      <div style="background:#fef2f2;color:#991b1b;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Undocumented Legacy Network Topology</div><p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Many vessels in service were built without formal network documentation. Before a firewall can be deployed, the actual physical and logical network topology must be mapped — including undocumented cross-connections between OT and IT networks that may have been installed by OEM technicians for convenience. Unplanned firewall deployment without complete topology knowledge risks disrupting critical communications.</p></div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;">
+      <div style="background:#fef2f2;color:#991b1b;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">OT Protocol Diversity</div><p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">A single vessel may use 10 or more different OT protocols across its systems — NMEA 0183, NMEA 2000, Modbus RTU, Modbus TCP, DNP3, IEC 61850, CANbus, proprietary vendor protocols. The firewall must be configured with accurate deep packet inspection rules for each protocol. Incorrect rules can either permit malicious traffic or block legitimate communications.</p></div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;">
+      <div style="background:#fefce8;color:#92400e;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Change Management in Port Only</div><p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Firewall ruleset changes on safety-critical network boundaries should only be made in port, with the ship's systems in a non-operational state where possible, and with OEM representatives available if OT communications are affected. At sea, ruleset changes carry the risk of disrupting OT communications with no immediate technical support available — a risk management constraint that significantly slows security improvement velocity.</p></div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;">
+      <div style="background:#f0f7ff;color:#1e40af;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Fail-Open vs Fail-Safe Decision</div><p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">If a firewall fails on an OT network boundary, the system must either fail-open (all traffic passes, no protection) or fail-closed (all traffic blocked, possible OT disruption). Maritime OT environments require careful analysis of which failure mode is acceptable for each boundary — safety-critical OT systems may need fail-open to maintain operations, while this would be unacceptable on an internet-facing boundary.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 5: TRENDS -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 5</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Trends &amp; Market Developments</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;"><div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F916;</div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">AI-Powered Maritime OT Firewall Rules</div><p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Machine learning is being applied to automatically generate and optimise OT firewall rules based on observed traffic baselines, eliminating the manual effort of manually defining every permitted communication flow. Vendors including Claroty and Nozomi Networks are embedding rule generation into their OT visibility platforms, connected to firewall APIs for automated deployment.</p></div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;"><div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x26F5;</div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Maritime-Specific NGFW Vendors</div><p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Dedicated maritime cybersecurity vendors (Fortinet, Moxa, Radiflow, Cydome) now offer NGFW solutions pre-configured with maritime OT protocol packs, tested in shipboard environments, and certified for marine electrical standards (DNV, IEC 60945). Pre-configured appliances reduce the expertise barrier for smaller shipping companies without dedicated OT security teams.</p></div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;"><div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F30D;</div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Shore-Based Centralised Firewall Management</div><p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Fleet-wide firewall management platforms enable shore-based security teams to push ruleset updates, review logs, and respond to incidents across entire fleets from a single console. Starlink connectivity is enabling near-real-time management previously impossible with VSAT — reducing the operational dependence on shipboard personnel for security operations.</p></div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;"><div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F512;</div><div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Software-Defined Networking (SDN) for Ships</div><p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">SDN approaches are emerging for shipboard networks — separating the network control plane from the data plane, allowing dynamic security policy enforcement and micro-segmentation without dedicated physical firewalls between every OT device pair. SDN could significantly reduce the complexity and cost of achieving fine-grained OT zone separation on new-build vessels.</p></div>
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px 30px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:13px;font-weight:700;color:#1affda;margin-bottom:18px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F3AF; Key Takeaways</div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">01</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">A flat, unsegmented network is the single most common critical vulnerability in maritime OT security assessments. Firewalls are the primary control that transforms a flat ship network into a zone-segmented architecture meeting IACS UR E26 5.2 requirements.</p></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">02</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">OT-aware DPI is mandatory for maritime firewalls on OT zone boundaries. Enterprise firewalls that cannot inspect Modbus, NMEA, or OPC-UA traffic cannot apply meaningful security controls on OT communications and cannot detect OT-specific attacks.</p></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">03</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Map the network before deploying firewalls. An undocumented cross-connection between OT and IT networks, if blocked by a new firewall, can cause immediate operational disruption. Complete network topology documentation is a prerequisite for safe firewall deployment on existing vessels.</p></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">04</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">HA (high availability) firewall pairs are required for OT zone boundaries. A single firewall failure on a boundary protecting propulsion or navigation systems cannot result in a network outage. Redundant firewalls with automatic failover are an operational safety requirement, not just a security preference.</p></div>
+  </div>
+</div>
+
+<!-- AUTHOR CTA -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px 26px;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;"><img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;display:block;" /></a>
+  <div style="flex:1;min-width:200px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;"><span style="font-size:15px;font-weight:800;color:#0a2342;">ShipPaulJobs Team</span><span style="background:#eef6f3;color:#0a7055;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;border:1px solid rgba(26,158,130,0.3);white-space:nowrap;">&#10003; Verified</span></div>
+    <div style="font-size:11px;color:#1a9e82;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Maritime Cybersecurity Editorial Team &mdash; Network Security</div>
+    <p style="font-size:13px;color:#2c3e50;line-height:1.75;margin:0 0 8px;">Continue the Network Security series with Intrusion Detection System (IDS) and Network Detection &amp; Response (NDR) deep-dives.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;"><a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="background:#0a2342;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Connect on LinkedIn</a><a href="https://www.shippauljobs.com/2026/02/maritime-cybersecurity-solutions.html" target="_blank" rel="noopener" style="background:#1a9e82;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Explore All Articles</a></div>
+  </div>
+</div>

@@ -1,0 +1,261 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F6A2; Ship Solutions</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F512; Identity &amp; Access</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">MFA Series 1</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">Technical Guide</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">Multi-Factor Authentication (MFA) for Ships: Complete Technical Guide</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">Implementing phishing-resistant authentication on shipboard OT/IT systems — IACS UR E26 requirements, factor types, OT-safe deployment patterns, maritime constraints, and emerging trends</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="color:white;font-size:13px;font-weight:700;line-height:1.3;">ShipPaulJobs Team</span>
+        <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;border:1px solid rgba(26,255,218,0.3);white-space:nowrap;">&#10003; Verified</span>
+      </div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Reviewed &amp; fact-checked by the ShipPaulJobs editorial team &middot; July 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 1: OVERVIEW -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 1</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">What is MFA and Why Ships Need It</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Multi-Factor Authentication (MFA) requires users to verify their identity using two or more independent authentication factors before accessing a system. The three standard factor categories are: something you know (password, PIN), something you have (hardware token, smart card, mobile device), and something you are (fingerprint, iris scan). MFA significantly reduces account compromise risk because an attacker who obtains a password alone cannot authenticate without the second factor.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Shipboard systems have historically relied on single-factor authentication — passwords, often shared among crew members. This approach was tolerable when ships were isolated systems, but is now a critical vulnerability. Remote access to shipboard OT systems by OEM vendors, shore-based superintendents, and fleet management platforms creates attack paths through which compromised credentials can be used by threat actors to access navigation, propulsion, and cargo systems. Password-only authentication provides no protection against stolen, leaked, or phished credentials.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">The challenge for maritime MFA is that OT systems are safety-critical environments where authentication must not introduce latency that affects operational responsiveness. A 30-second MFA workflow is acceptable for shore-side email but may be inappropriate during manoeuvring or for emergency access to engine control systems. Maritime MFA deployments must be designed to meet both security and safety requirements simultaneously.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;">
+    <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:16px;text-align:center;">
+      <div style="font-size:28px;font-weight:800;color:#166534;margin-bottom:4px;">99.9%</div>
+      <div style="font-size:11px;color:#166534;font-weight:700;text-transform:uppercase;">Reduction in Account Compromise</div>
+      <div style="font-size:11px;color:#4a5568;margin-top:4px;">With MFA vs password-only (Microsoft/Google data)</div>
+    </div>
+    <div style="background:#f0f7ff;border:1px solid #93c5fd;border-radius:10px;padding:16px;text-align:center;">
+      <div style="font-size:28px;font-weight:800;color:#1e40af;margin-bottom:4px;">80%+</div>
+      <div style="font-size:11px;color:#1e40af;font-weight:700;text-transform:uppercase;">Maritime Breaches via Stolen Credentials</div>
+      <div style="font-size:11px;color:#4a5568;margin-top:4px;">Industry incident analysis, 2022–2025</div>
+    </div>
+    <div style="background:#fefce8;border:1px solid #fcd34d;border-radius:10px;padding:16px;text-align:center;">
+      <div style="font-size:28px;font-weight:800;color:#92400e;margin-bottom:4px;">E26</div>
+      <div style="font-size:11px;color:#92400e;font-weight:700;text-transform:uppercase;">4.2 Compliance Requirement</div>
+      <div style="font-size:11px;color:#4a5568;margin-top:4px;">IACS UR E26 mandates access control for all CBS</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2: REGULATORY -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 2</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Regulatory Framework &amp; Compliance Requirements</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">MFA requirements for ships derive from IACS UR E26 access control requirements, IMO cyber risk management guidelines, and flag state regulations. The degree to which MFA is explicitly mandated versus implied as a best practice varies by regulatory instrument — IACS UR E26 is the most specific.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #0a2342;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:8px;">IACS UR E26 4.2 — Access Control</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Requires that access to computer-based systems supporting ship operations be restricted to authorised users and authenticated by appropriate means. While MFA is not explicitly named, IACS interpretations consistently treat strong authentication (MFA or hardware token) as the "appropriate means" for privileged access to safety-critical systems. Class societies including DNV, Lloyd's Register, and Bureau Veritas include MFA in their cyber notation audit criteria.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #154f7a;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#154f7a;text-transform:uppercase;margin-bottom:8px;">IACS UR E26 6.3 — Remote Access</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Remote access to shipboard systems must be authenticated and authorised. Industry guidance from BIMCO, ICS, and major class societies explicitly requires MFA for all remote access connections — including OEM vendor access, shore superintendent connections, and shore SOC connections to onboard monitoring systems. This is the highest-priority MFA deployment scope for most vessel operators.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #1a9e82;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#1a9e82;text-transform:uppercase;margin-bottom:8px;">BIMCO Maritime Cyber Security Guidelines</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">The BIMCO/ICS Maritime Cyber Security Guidelines (4th edition) explicitly recommend MFA for all remote access, administrative access to shipboard systems, and access to systems deemed "critical" under the vessel's cyber risk assessment. The guidelines are referenced by most major flag states as the baseline for ISM Code cyber compliance.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-left:4px solid #1d89cf;border-radius:8px;padding:16px 18px;">
+      <div style="font-size:11px;font-weight:700;color:#1d89cf;text-transform:uppercase;margin-bottom:8px;">IMO MSC-FAL.1/Circ.3 — Identify &amp; Protect</div>
+      <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">The IMO guidelines' "Protect" functional element includes technical measures to defend against identified threats. Authentication controls — including MFA — are explicitly listed as protection measures for systems identified as critical in the ship's cyber risk assessment. Shore-connected systems (VSAT terminals, data sharing platforms) require particular attention to authentication strength.</p>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:18px 20px;">
+    <div style="font-size:12px;font-weight:700;color:#166534;margin-bottom:10px;">&#x2705; MFA Compliance Checklist — Class Survey Readiness</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;">
+      <div style="font-size:12.5px;color:#166534;">&#x2713; MFA on all remote access connections</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; MFA on administrative/privileged accounts</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Individual accounts (no shared credentials)</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Factor type documented per system</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Phishing-resistant factor for critical systems</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Emergency access procedure without MFA delay</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; Factor device lifecycle management process</div>
+      <div style="font-size:12.5px;color:#166534;">&#x2713; MFA bypass logs and alerts configured</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 3: ARCHITECTURE -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 3</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">MFA Factor Types &amp; Maritime Suitability</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Not all MFA factor types are equally suitable for shipboard environments. SMS-based OTP (one-time password) requires cellular connectivity — unavailable at sea. Authenticator app TOTP requires a mobile device and works offline, but relies on time synchronisation that can drift. Hardware security keys (FIDO2/WebAuthn) are phishing-resistant, offline-capable, and fast — making them the preferred solution for maritime applications.</p>
+  <div style="overflow-x:auto;margin-bottom:18px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;font-family:Inter,sans-serif;">
+      <thead>
+        <tr style="background:#0a2342;color:white;">
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Factor Type</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Works Offline</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Phishing-Resistant</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">OT Compatible</th>
+          <th style="padding:9px 12px;text-align:left;font-weight:700;">Maritime Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">FIDO2 Hardware Key</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#166534;font-weight:700;">&#x2713; Yes</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#166534;font-weight:700;">&#x2713; Yes</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#166534;font-weight:700;">&#x2713; High</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="background:#dcfce7;color:#166534;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">&#x2B50; Preferred</span></td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Smart Card / CAC</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#166534;font-weight:700;">&#x2713; Yes</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#166534;font-weight:700;">&#x2713; Yes</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#d97706;font-weight:700;">~ Medium</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="background:#fefce8;color:#92400e;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">&#x1F7E1; Suitable</span></td></tr>
+        <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">TOTP Authenticator App</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#166534;font-weight:700;">&#x2713; Yes*</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#991b1b;font-weight:700;">&#x2717; No</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#166534;font-weight:700;">&#x2713; High</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="background:#fefce8;color:#92400e;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">&#x1F7E1; Acceptable</span></td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">Push Notification (App)</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#991b1b;font-weight:700;">&#x2717; No</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#991b1b;font-weight:700;">&#x2717; No</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#d97706;font-weight:700;">~ Partial</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="background:#fef2f2;color:#991b1b;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">&#x1F534; Limited</span></td></tr>
+        <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;font-weight:600;">SMS OTP</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#991b1b;font-weight:700;">&#x2717; No</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#991b1b;font-weight:700;">&#x2717; No</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;color:#991b1b;font-weight:700;">&#x2717; No</td><td style="padding:8px 12px;border-bottom:1px solid #e2e8f0;"><span style="background:#fef2f2;color:#991b1b;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">&#x1F534; Not Recommended</span></td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 12px;">Biometric (Fingerprint)</td><td style="padding:8px 12px;color:#166534;font-weight:700;">&#x2713; Yes</td><td style="padding:8px 12px;color:#166534;font-weight:700;">&#x2713; Yes</td><td style="padding:8px 12px;color:#991b1b;font-weight:700;">&#x2717; Low*</td><td style="padding:8px 12px;"><span style="background:#fefce8;color:#92400e;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">&#x1F7E1; Supplementary</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:#64748b;margin:0 0 18px;font-style:italic;">*TOTP apps require time sync — verify NTP is reliable onboard. Biometrics may degrade with dirty or wet hands in engine room environments.</p>
+
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:18px;">
+    <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:14px;">MFA Deployment Zones — Shipboard Priority Matrix</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:#fef2f2;border-radius:8px;border-left:3px solid #991b1b;">
+        <div style="font-size:10px;font-weight:800;color:#991b1b;white-space:nowrap;min-width:60px;">P1 — Critical</div>
+        <div style="font-size:12.5px;color:#2c3e50;">All remote access (vendor, shore, SOC) &middot; Privileged/admin accounts on navigation &amp; propulsion systems</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:#fefce8;border-radius:8px;border-left:3px solid #d97706;">
+        <div style="font-size:10px;font-weight:800;color:#d97706;white-space:nowrap;min-width:60px;">P2 — High</div>
+        <div style="font-size:12.5px;color:#2c3e50;">OT workstation logins (AMS, PMS, ECDIS admin) &middot; Ship server and network device management</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:#f0fdf4;border-radius:8px;border-left:3px solid #166534;">
+        <div style="font-size:10px;font-weight:800;color:#166534;white-space:nowrap;min-width:60px;">P3 — Medium</div>
+        <div style="font-size:12.5px;color:#2c3e50;">Crew IT network access &middot; Cargo planning system logins &middot; Fleet management portal access</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 4: CONSTRAINTS -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 4</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Maritime Implementation Constraints</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fef2f2;color:#991b1b;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">OT Protocol Incompatibility</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Many OT HMIs and workstations run Windows XP or embedded OS versions that do not support FIDO2, smart card, or modern MFA client software. Legacy authentication infrastructure in these systems may limit MFA to network-level enforcement at the PAM session gateway rather than native integration at the OT application layer.</p>
+      </div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fef2f2;color:#991b1b;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">No Cellular Connectivity at Sea</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">SMS OTP and push notification MFA require mobile network connectivity. At sea, no cellular signal is available. Any MFA implementation relying on these methods will fail beyond port limits. Shipboard MFA must be based on offline-capable factors: hardware keys, TOTP apps, or smart cards that operate independently of network connectivity.</p>
+      </div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fefce8;color:#92400e;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Lost or Damaged Token at Sea</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">If a hardware token is lost, damaged, or accidentally left ashore, the affected crew member may be locked out of systems they need to operate. Unlike shore environments where IT can issue a replacement immediately, at sea there may be no spare token available. Maritime MFA deployments require a documented spare token management process, including backup tokens stored securely aboard each vessel.</p>
+      </div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#fefce8;color:#92400e;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">High Crew Turnover</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Maritime crew rotations create a continuous onboarding and offboarding cycle. MFA token issuance, enrolment, and revocation processes must be designed to handle crew changes at each port call — typically every 2–9 months. The shore-based IT team or vessel manager must have a defined process for provisioning and deprovisioning MFA factors that aligns with the crew change schedule.</p>
+      </div>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;">
+      <div style="background:#f0f7ff;color:#1e40af;font-size:18px;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&#x26A0;</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Engine Room Environmental Factors</div>
+        <p style="font-size:13px;color:#4a5568;line-height:1.75;margin:0;">Engine room environments involve heat, vibration, noise, grease, and wet hands — conditions that impair biometric readers (fingerprint), touchscreen-based authentication, and can damage mobile device screens. Hardware keys with physical button activation (USB-A or NFC) are more reliable than biometric or touchscreen-dependent factors in machinery space environments.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 5: TRENDS -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">PART 5</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Trends &amp; Market Developments</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F511;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">FIDO2 Becoming Maritime Standard</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">FIDO2/WebAuthn hardware security keys are emerging as the maritime MFA standard of choice among leading shipowners. They work offline, are phishing-resistant, fast (&lt;1 second authentication), and require no backend identity provider connectivity for local system access. DNV and Lloyd's Register have both indicated FIDO2 as an accepted strong authentication mechanism in their cyber notation guidance.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F9EC;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Seaman's Book as Identity Anchor</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Emerging concepts in maritime identity management use the seafarer's digital identity — linked to STCW certificates, flag state documents, and crew management systems — as the identity anchor for MFA. Instead of managing separate IT credentials for each vessel, the seafarer's professional digital identity is used to issue MFA credentials, reducing enrolment friction during crew changes.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F30D;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Zero Trust Network Access (ZTNA)</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">ZTNA extends MFA principles to every access request — not just the initial login. Continuous verification of identity, device health, and access context replaces the traditional VPN model. Maritime ZTNA is gaining traction for shore-to-ship connections, where it provides stronger access control than legacy VPN while enabling granular, per-application access rather than full network access.</p>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+      <div style="color:#1a9e82;font-size:20px;margin-bottom:8px;">&#x1F916;</div>
+      <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:6px;">Adaptive MFA with Risk-Based Step-Up</div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0;">Adaptive MFA adjusts authentication requirements based on risk context — requiring only a hardware key for routine access from a known device, but demanding additional factors if access is attempted from an unusual location, at an unusual time, or to a high-risk system. For ships, risk signals might include: remote access origin, time of day relative to port vs sea, and the sensitivity of the target system being accessed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px 30px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:13px;font-weight:700;color:#1affda;margin-bottom:18px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F3AF; Key Takeaways</div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">01</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">MFA eliminates the single greatest vulnerability in shipboard access control — password-only authentication. Given that over 80% of maritime cyber incidents involve stolen or reused credentials, MFA is the highest-value, lowest-complexity security improvement most vessel operators can deploy.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">02</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">FIDO2 hardware keys are the preferred maritime MFA factor. They satisfy offline operation, phishing resistance, speed, and durability requirements simultaneously. SMS OTP and push notification MFA are not viable at sea and should not be selected as the primary factor for shipboard deployments.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">03</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Spare token management is not optional. Every vessel should carry spare enrolled hardware keys for each critical role. The crew change process must include MFA token handover as a mandatory step — as routine as handover of bridge watch responsibilities.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">04</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Deploy MFA for remote access first. Shore-to-ship connections are the highest-risk access pathway and the most straightforward scope for initial MFA deployment — they can be controlled at the network boundary without requiring legacy OT system integration.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AUTHOR CTA -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px 26px;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+    <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;display:block;" />
+  </a>
+  <div style="flex:1;min-width:200px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+      <span style="font-size:15px;font-weight:800;color:#0a2342;">ShipPaulJobs Team</span>
+      <span style="background:#eef6f3;color:#0a7055;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;border:1px solid rgba(26,158,130,0.3);white-space:nowrap;">&#10003; Verified</span>
+    </div>
+    <div style="font-size:11px;color:#1a9e82;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Maritime Cybersecurity Editorial Team &mdash; Identity &amp; Access Security</div>
+    <p style="font-size:13px;color:#2c3e50;line-height:1.75;margin:0 0 8px;">Continue the Ship Solutions series with Network Security — Maritime OT/IT Firewall, IDS, and NDR deep-dives.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="background:#0a2342;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Connect on LinkedIn</a>
+      <a href="https://www.shippauljobs.com/2026/02/maritime-cybersecurity-solutions.html" target="_blank" rel="noopener" style="background:#1a9e82;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Explore All Articles</a>
+    </div>
+  </div>
+</div>

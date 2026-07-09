@@ -1,0 +1,429 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F6A2; Ship Solutions</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F4F6; Network Monitoring</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">NMS Series 1</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">Technical Guide</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">Ship Network Monitoring Systems (NMS): A Complete Technical Overview</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">Architecture &middot; Regulatory Requirements &middot; Performance Standards &middot; Constraints &middot; Market Trends &mdash; Everything maritime OT/IT professionals need to know about shipboard network monitoring</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="color:white;font-size:13px;font-weight:700;line-height:1.3;">ShipPaulJobs Team</span>
+        <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;border:1px solid rgba(26,255,218,0.3);white-space:nowrap;">&#10003; Verified</span>
+      </div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Reviewed &amp; fact-checked by the ShipPaulJobs editorial team &middot; July 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT THIS ARTICLE COVERS -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F9ED; What This Article Covers</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 1</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Introduction:</strong> Ship network architecture, OT/IT zone separation, what NMS monitors — traffic, device health, anomalies, bandwidth, protocol events — and how NMS differs from SIEM and IDS/IPS.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 2</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Regulatory Requirements:</strong> IACS UR E26/E27, IMO MSC-FAL.1/Circ.3, IMO MSC.428(98), ISM Code cyber obligations, and classification society cyber notations (DNV, LR, BV, ABS).</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 3</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Performance Standards:</strong> Network availability requirements, alert response times, log retention mandates (IACS E26: 90 days), asset inventory completeness, and monitoring coverage KPIs.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 4</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Constraints:</strong> OT protocol diversity (Modbus, NMEA 2000, Profibus), satellite bandwidth limitations, legacy device visibility gaps, crew expertise shortfall, and vendor access friction.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 5</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Market Trends:</strong> AI/ML anomaly detection, shore-based SOC monitoring via Starlink, maritime-specific NMS platforms (CyberOwl, Claroty, Nozomi), and digital twin network monitoring.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PART 1: INTRODUCTION -->
+<div style="margin-bottom:36px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:20px;font-weight:800;color:#0a2342;margin:0;">Part 1 &mdash; Introduction to Ship Network Monitoring</h2>
+  </div>
+
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">A modern merchant vessel is a floating network of networks. The bridge, engine room, cargo control room, and crew accommodation each host dedicated network segments carrying everything from propulsion control commands to crew Netflix streams. A <strong>Network Monitoring System (NMS)</strong> is the technology layer that provides continuous visibility into the health, availability, and security posture of these shipboard networks — detecting faults, anomalies, unauthorised devices, and potential cyber threats in real time.</p>
+
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Unlike shore-based enterprise environments, shipboard networks have unique characteristics: they mix safety-critical OT protocols (Modbus, NMEA 2000, Profibus, DNP3) with general-purpose IT infrastructure; they operate in physically hostile environments (vibration, humidity, electromagnetic interference); and they connect to the outside world through high-latency, bandwidth-limited satellite links. An effective ship NMS must accommodate all of these constraints while delivering the visibility required by IACS UR E26 and IMO cyber risk management guidelines.</p>
+
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 24px;">The scope of NMS on ships goes beyond simple ping-based device monitoring. It encompasses <strong>passive traffic analysis</strong> of OT protocols, <strong>asset discovery and inventory</strong>, <strong>security event logging</strong>, <strong>anomaly detection</strong> for both performance and security events, and <strong>bandwidth monitoring</strong> of satellite links. When integrated with a shore-based Security Operations Center (SOC), shipboard NMS data enables fleet-wide threat detection and response capability that no single vessel crew could maintain independently.</p>
+
+  <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:20px 22px;margin-bottom:24px;">
+    <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F4CB; Ship Network Zones &amp; NMS Monitoring Scope</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;font-family:Inter,sans-serif;">
+        <thead>
+          <tr style="background:#0a2342;color:white;">
+            <th style="padding:10px 14px;text-align:left;font-weight:700;">Network Zone</th>
+            <th style="padding:10px 14px;text-align:left;font-weight:700;">Typical Systems</th>
+            <th style="padding:10px 14px;text-align:left;font-weight:700;">Key Protocols</th>
+            <th style="padding:10px 14px;text-align:left;font-weight:700;">NMS Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:white;"><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#0a2342;">Navigation LAN</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">ECDIS, radar, AIS, autopilot, GNSS</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">NMEA 0183, NMEA 2000, IEC 61162</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;"><span style="background:#fef2f2;color:#991b1b;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Critical</span></td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#0a2342;">Machinery OT LAN</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">AMS, IAS, propulsion control, power management</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">Modbus TCP, Profibus, OPC-UA, EtherNet/IP</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;"><span style="background:#fef2f2;color:#991b1b;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Critical</span></td></tr>
+          <tr style="background:white;"><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#0a2342;">Safety Systems LAN</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">Fire detection, flooding sensors, CO2 control, EPIRB</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">Proprietary (Hochiki, Apollo), Modbus</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;"><span style="background:#fef2f2;color:#991b1b;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Critical</span></td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#0a2342;">Cargo Control LAN</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">Tank gauging, cargo pump control, BWMS, reefer monitoring</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">Modbus, proprietary, OPC-UA</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;"><span style="background:#fff8e1;color:#b45309;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">High</span></td></tr>
+          <tr style="background:white;"><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#0a2342;">Ship Management IT LAN</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">PMS, voyage planning, crew management, email servers</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#4a5568;">TCP/IP, HTTP/S, SMTP, SMB</td><td style="padding:9px 14px;border-bottom:1px solid #e2e8f0;"><span style="background:#fff8e1;color:#b45309;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">High</span></td></tr>
+          <tr style="background:#f8fafc;"><td style="padding:9px 14px;font-weight:700;color:#0a2342;">Crew / Passenger WiFi</td><td style="padding:9px 14px;color:#4a5568;">Personal devices, crew entertainment, guest networks</td><td style="padding:9px 14px;color:#4a5568;">802.11, TCP/IP, DHCP</td><td style="padding:9px 14px;"><span style="background:#f0fdf4;color:#166534;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">Standard</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 12px;">NMS vs. SIEM vs. IDS/IPS — Understanding the Difference</h3>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">These three technology categories are often confused in maritime discussions. Their distinct roles are critical to understanding what a shipboard network monitoring solution provides — and what it does not:</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:8px;">
+    <div style="background:#f0f7ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px;">
+      <div style="font-size:12px;font-weight:800;color:#1e40af;margin-bottom:8px;">&#x1F4F6; NMS — Network Monitoring System</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">Monitors <strong>availability and performance</strong> of network devices and links. Detects device outages, interface errors, bandwidth saturation, latency spikes, and configuration changes. Foundation of network operations management.</p>
+    </div>
+    <div style="background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:16px;">
+      <div style="font-size:12px;font-weight:800;color:#92400e;margin-bottom:8px;">&#x1F6E1;&#xFE0F; SIEM — Security Information &amp; Event Management</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">Aggregates and correlates <strong>security logs</strong> from multiple sources (firewalls, servers, NMS, OT devices) to detect attack patterns and generate security incidents. Requires a SOC analyst team for effective operation.</p>
+    </div>
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:16px;">
+      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:8px;">&#x1F6AB; IDS/IPS — Intrusion Detection / Prevention System</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">Inspects network <strong>packet content</strong> to identify known attack signatures or anomalous traffic behaviour. IDS alerts only; IPS can block traffic in-line. OT-aware IDS (Claroty, Nozomi) understands PLC commands.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2: REQUIREMENTS -->
+<div style="margin-bottom:36px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:20px;font-weight:800;color:#0a2342;margin:0;">Part 2 &mdash; Regulatory Requirements</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 16px;">Network monitoring on ships is no longer optional. IACS UR E26 (effective January 2024 for new builds) explicitly requires computer-based systems to maintain network logging, detect anomalies, and support incident response. For existing vessels, IMO MSC.428(98) requires cyber risk management to be incorporated into SMS documentation by January 2021 — making network visibility a flag state and PSC inspection concern.</p>
+
+  <div style="background:#fff8e1;border:1px solid #f59e0b;border-radius:10px;padding:18px 20px;margin-bottom:24px;">
+    <div style="font-size:12px;font-weight:700;color:#b45309;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em;">&#x2696;&#xFE0F; Key Regulatory Framework</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:Inter,sans-serif;">
+        <thead>
+          <tr style="background:#0a2342;color:white;">
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Regulation / Standard</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Issuing Body</th>
+            <th style="padding:8px 12px;text-align:left;font-weight:700;">Key Requirement for NMS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #fde68a;font-weight:600;">IACS UR E26</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">IACS</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">Mandates asset inventory, network segmentation verification, security event logging, anomaly detection, and incident response capability for all networked OT systems. Effective for new builds contracted from 1 Jan 2024.</td></tr>
+          <tr style="background:#fffbeb;"><td style="padding:8px 12px;border-bottom:1px solid #fde68a;font-weight:600;">IACS UR E27</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">IACS</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">Software integrity and update management for computer-based systems — requires logging of software changes, patch deployment tracking, and verification of update authenticity across ship systems.</td></tr>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #fde68a;font-weight:600;">IMO MSC-FAL.1/Circ.3</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">IMO</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">Guidelines on maritime cyber risk management — requires identification of systems that may be vulnerable to cyber risk (which implies network visibility) and implementation of protective measures and monitoring.</td></tr>
+          <tr style="background:#fffbeb;"><td style="padding:8px 12px;border-bottom:1px solid #fde68a;font-weight:600;">IMO MSC.428(98)</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">IMO</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">Requires cyber risk management to be addressed within ISM-compliant Safety Management Systems by the first DOC renewal after 1 January 2021. Network monitoring is a core technical control.</td></tr>
+          <tr style="background:white;"><td style="padding:8px 12px;border-bottom:1px solid #fde68a;font-weight:600;">ISM Code (SMS)</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">IMO</td><td style="padding:8px 12px;border-bottom:1px solid #fde68a;">Network monitoring procedures, incident response plans, and OT/IT asset registers must be documented in the vessel's SMS and subject to internal audit and flag state verification.</td></tr>
+          <tr style="background:#fffbeb;"><td style="padding:8px 12px;font-weight:600;">Class Cyber Notation (DNV, LR, BV, ABS)</td><td style="padding:8px 12px;">Classification Societies</td><td style="padding:8px 12px;">Cyber notations (DNV Cyber Secure, LR Cyber-ALM, BV Cyber notation) require verified asset inventory, network architecture documentation, firewall rules review, monitoring capability, and periodic penetration testing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 10px;">IACS UR E26 — What It Specifically Requires from NMS</h3>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 14px;">IACS UR E26 is the most technically prescriptive requirement for shipboard network monitoring. It establishes five functional requirements directly relevant to NMS deployment:</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:16px;">
+    <div style="background:#f0f7ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px;">
+      <div style="font-size:11px;font-weight:700;color:#1e40af;margin-bottom:8px;">1. Asset Identification</div>
+      <ul style="font-size:12px;color:#2c3e50;line-height:1.8;margin:0;padding-left:14px;">
+        <li>Complete inventory of all networked OT and IT assets</li>
+        <li>Asset register must include firmware versions</li>
+        <li>Change detection when new devices appear</li>
+        <li>Automated discovery preferred</li>
+      </ul>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px;">
+      <div style="font-size:11px;font-weight:700;color:#166534;margin-bottom:8px;">2. Network Segmentation</div>
+      <ul style="font-size:12px;color:#2c3e50;line-height:1.8;margin:0;padding-left:14px;">
+        <li>OT/IT zone separation enforced and monitored</li>
+        <li>Firewall rule compliance verification</li>
+        <li>Unauthorised cross-zone traffic detection</li>
+        <li>DMZ monitoring for gateway systems</li>
+      </ul>
+    </div>
+    <div style="background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:14px;">
+      <div style="font-size:11px;font-weight:700;color:#92400e;margin-bottom:8px;">3. Security Event Logging</div>
+      <ul style="font-size:12px;color:#2c3e50;line-height:1.8;margin:0;padding-left:14px;">
+        <li>Minimum 90-day retention of security logs</li>
+        <li>Log integrity protection (tamper-evident)</li>
+        <li>Login attempts and access events</li>
+        <li>Network connection establishment logs</li>
+      </ul>
+    </div>
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px;">
+      <div style="font-size:11px;font-weight:700;color:#991b1b;margin-bottom:8px;">4. Anomaly Detection</div>
+      <ul style="font-size:12px;color:#2c3e50;line-height:1.8;margin:0;padding-left:14px;">
+        <li>Detection of unusual traffic patterns</li>
+        <li>Unexpected outbound connections</li>
+        <li>Protocol anomalies on OT networks</li>
+        <li>Alert generation with defined severity levels</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 10px 10px 0;padding:16px 18px;">
+    <div style="font-size:11px;font-weight:700;color:#991b1b;margin-bottom:6px;text-transform:uppercase;">&#x26A0;&#xFE0F; PSC Inspection Risk — Network Monitoring Documentation</div>
+    <p style="font-size:13px;color:#2c3e50;line-height:1.75;margin:0;">Port State Control officers in Tokyo MOU, Paris MOU, and USCG jurisdictions are increasingly including cyber risk management in their inspection protocols, guided by IMO MSC-FAL.1/Circ.3. A vessel unable to demonstrate network visibility — including an up-to-date asset register, network diagrams, and evidence of security monitoring — may be subject to a deficiency notice or detention in jurisdictions with active cyber inspection programmes. Documentation of NMS deployment, monitoring procedures, and incident response capability should be maintained in the SMS and available for inspection on demand.</p>
+  </div>
+</div>
+
+<!-- PART 3: PERFORMANCE STANDARDS -->
+<div style="margin-bottom:36px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:20px;font-weight:800;color:#0a2342;margin:0;">Part 3 &mdash; Performance Standards</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 24px;">Shipboard NMS performance is measured across four dimensions: network availability, monitoring coverage, alert response time, and log retention. Classification societies and IACS define minimum thresholds; best-practice shipowners exceed these benchmarks to support fleet operations center integration and proactive maintenance.</p>
+
+  <h3 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 10px;">&#x23F1; Key Performance Parameters</h3>
+  <div style="overflow-x:auto;margin-bottom:24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;font-family:Inter,sans-serif;">
+      <thead>
+        <tr style="background:#0a2342;color:white;">
+          <th style="padding:9px 14px;text-align:left;font-weight:700;">Performance Parameter</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:700;">Minimum Requirement</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:700;">Best Practice</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:700;">Reference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:white;"><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;font-weight:600;">Safety network availability</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">99.9% (&lt;9 hrs/year downtime)</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">99.99% (&lt;1 hr/year)</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">IACS UR E26; IEC 60945</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;font-weight:600;">Security log retention</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">90 days (IACS E26 minimum)</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">12 months with offboard backup</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">IACS UR E26 5.4</td></tr>
+        <tr style="background:white;"><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;font-weight:600;">NMS polling interval (OT devices)</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">&#8804; 5 minutes for critical systems</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">&#8804; 30 seconds for navigation/machinery</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">Class guidance; OEM recommendation</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;font-weight:600;">Critical alert notification</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">&#8804; 2 minutes from detection to officer notification</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">Real-time push to bridge, ECR, and shore SOC</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">IACS UR E26; IEC 60092-504</td></tr>
+        <tr style="background:white;"><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;font-weight:600;">Asset inventory completeness</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">100% of networked OT assets identified</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">Automated discovery + manual verification quarterly</td><td style="padding:8px 14px;border-bottom:1px solid #e2e8f0;">IACS UR E26 4.1</td></tr>
+        <tr style="background:#f8fafc;"><td style="padding:8px 14px;font-weight:600;">Incident response time (critical)</td><td style="padding:8px 14px;">&#8804; 4 hours for critical network security events</td><td style="padding:8px 14px;">&#8804; 1 hour via shore SOC escalation</td><td style="padding:8px 14px;">IMO MSC-FAL.1/Circ.3; class cyber notation</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:700;color:#0a2342;margin:0 0 14px;">&#x1F4CA; NMS Monitoring Coverage Tiers</h3>
+  <p style="font-size:14px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">Not all shipboard devices can be monitored with equal depth. NMS deployment follows a tiered coverage model based on safety criticality and monitoring capability of each device class:</p>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:0;border-radius:8px;overflow:hidden;">
+      <div style="background:#7f1d1d;color:white;font-size:11px;font-weight:800;padding:10px 16px;min-width:140px;text-align:center;">TIER 1 — Full</div>
+      <div style="background:#fee2e2;color:#7f1d1d;font-size:12px;padding:10px 16px;flex:1;">Navigation and safety-critical OT systems. Full packet capture (passive), protocol-level anomaly detection, real-time alerting to bridge and shore SOC, continuous availability monitoring with &lt;30s polling.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:0;border-radius:8px;overflow:hidden;">
+      <div style="background:#b45309;color:white;font-size:11px;font-weight:800;padding:10px 16px;min-width:140px;text-align:center;">TIER 2 — Standard</div>
+      <div style="background:#fffbeb;color:#92400e;font-size:12px;padding:10px 16px;flex:1;">Machinery OT LAN and cargo control systems. SNMP/syslog collection, flow data monitoring, device availability polling (&lt;5 min), security event logging, and alert to ECR duty engineer.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:0;border-radius:8px;overflow:hidden;">
+      <div style="background:#1d4ed8;color:white;font-size:11px;font-weight:800;padding:10px 16px;min-width:140px;text-align:center;">TIER 3 — Basic</div>
+      <div style="background:#eff6ff;color:#1e40af;font-size:12px;padding:10px 16px;flex:1;">Ship management IT LAN and crew WiFi. Standard SNMP monitoring, bandwidth utilisation tracking, connection log collection, and weekly review cycle. Satellite link utilisation and QoS monitoring.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:0;border-radius:8px;overflow:hidden;">
+      <div style="background:#166534;color:white;font-size:11px;font-weight:800;padding:10px 16px;min-width:140px;text-align:center;">TIER 4 — Passive</div>
+      <div style="background:#f0fdf4;color:#166534;font-size:12px;padding:10px 16px;flex:1;">Legacy or proprietary OT devices not natively SNMP-capable. Monitoring via network tap or span port at switch level — external traffic visibility only; no device-level telemetry available without upgrade.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 4: CONSTRAINTS -->
+<div style="margin-bottom:36px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:20px;font-weight:800;color:#0a2342;margin:0;">Part 4 &mdash; Constraints &amp; Limitations</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 20px;">Deploying effective network monitoring on a ship is substantially harder than in a shore-based enterprise environment. The combination of protocol diversity, physical constraints, bandwidth limitations, and operational culture creates a set of challenges that must be addressed in any realistic NMS implementation plan.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px;">
+
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:20px;">&#x1F9E9;</span>
+        <div style="font-size:13px;font-weight:700;color:#991b1b;">OT Protocol Diversity</div>
+      </div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0 0 10px;">Shipboard OT networks carry dozens of protocols — Modbus TCP, NMEA 0183, NMEA 2000, Profibus, DNP3, OPC-UA, EtherNet/IP, IEC 61850, proprietary vendor protocols — many of which standard IT-focused NMS tools cannot parse or interpret. Without OT-aware protocol decoders, the NMS cannot distinguish normal PLC polling from malicious Modbus function code injection. Configuring protocol-specific baselines for each OT vendor's implementation is a labour-intensive and expertise-intensive task at commissioning.</p>
+      <p style="font-size:12px;color:#991b1b;font-weight:600;margin:0;">&#x26A0; Generic IT NMS tools are insufficient for OT network visibility on ships</p>
+    </div>
+
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:20px;">&#x1F6F0;&#xFE0F;</span>
+        <div style="font-size:13px;font-weight:700;color:#991b1b;">Satellite Bandwidth Limitations</div>
+      </div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0 0 10px;">Even with Starlink maritime terminals now providing 100–200 Mbps on some vessels, bandwidth remains a constraint for continuous NMS data offload to shore. Full packet capture from multiple network segments generates terabytes of data daily — impossible to stream continuously. NMS deployments must therefore implement intelligent data prioritisation: streaming alerts and log summaries to shore, retaining raw packet data locally for post-incident forensics, and only uploading forensic data on demand. Bandwidth contention between NMS telemetry, operational data, and crew communications requires careful QoS management.</p>
+      <p style="font-size:12px;color:#991b1b;font-weight:600;margin:0;">&#x26A0; NMS data offload architecture must be designed around satellite link constraints</p>
+    </div>
+
+    <div style="background:#fff8e1;border:1px solid #fde68a;border-radius:10px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:20px;">&#x1F9F3;</span>
+        <div style="font-size:13px;font-weight:700;color:#92400e;">Legacy Device Visibility Gaps</div>
+      </div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0 0 10px;">A significant proportion of shipboard OT devices — PLCs, field instruments, legacy HMI workstations — do not support standard monitoring interfaces (SNMP, syslog, REST API). Many run embedded operating systems with no agent installation capability. These devices are invisible to conventional NMS tools unless monitoring is done passively via network span ports. Passive monitoring provides traffic visibility but cannot report device CPU load, memory usage, or internal fault states. For vessels with 10–15 year design lives, the legacy device problem cannot be solved without capital-intensive hardware replacement programmes.</p>
+      <p style="font-size:12px;color:#b45309;font-weight:600;margin:0;">&#x26A0; Passive span-port monitoring is the only feasible option for legacy OT devices</p>
+    </div>
+
+    <div style="background:#fff8e1;border:1px solid #fde68a;border-radius:10px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:20px;">&#x1F464;</span>
+        <div style="font-size:13px;font-weight:700;color:#92400e;">Crew Expertise Gap</div>
+      </div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0 0 10px;">Shipboard crews are trained in seamanship, marine engineering, and cargo operations — not network security. An NMS generating hundreds of alerts daily requires someone with IT/OT security knowledge to triage and respond appropriately. Most vessels do not have a dedicated IT or cybersecurity role aboard. The practical result is that NMS alerts either go unreviewed or are handled by a deck or engineer officer without the skills to distinguish a genuine security incident from a configuration noise event. This expertise gap is the primary argument for shore-based SOC integration rather than vessel-only NMS operation.</p>
+      <p style="font-size:12px;color:#b45309;font-weight:600;margin:0;">&#x26A0; Onboard NMS without shore SOC support has limited operational value</p>
+    </div>
+
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:20px;">&#x1F527;</span>
+        <div style="font-size:13px;font-weight:700;color:#166534;">Vendor Access &amp; OT Maintenance Friction</div>
+      </div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0 0 10px;">OT vendors frequently resist network monitoring of their systems, citing concerns about performance impact from monitoring traffic, warranty voiding, and proprietary protocol confidentiality. Service agreements often specify that vendors must have unrestricted remote access to their equipment for maintenance — which conflicts with NMS-enforced access controls and segmentation. Negotiating monitoring rights into newbuild OT procurement contracts, and retrofitting monitoring on existing vessels over vendor objections, requires a structured change management process and senior management support from both shipowner and technical manager.</p>
+      <p style="font-size:12px;color:#166534;font-weight:600;margin:0;">&#x2705; Monitoring rights should be contractually specified in OT equipment procurement</p>
+    </div>
+
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:20px;">&#x1F4E1;</span>
+        <div style="font-size:13px;font-weight:700;color:#166534;">Physical Network Infrastructure Constraints</div>
+      </div>
+      <p style="font-size:12.5px;color:#4a5568;line-height:1.75;margin:0 0 10px;">Installing NMS probes or span ports on existing shipboard network switches requires physical access to equipment often located in machinery spaces, bridge consoles, or electrical panels — constrained areas during sea passage. Many older vessels use unmanaged switches that do not support span/mirror port configuration, requiring switch replacement as a prerequisite for traffic monitoring. Cable routing for monitoring sensors must comply with marine cable standards (IEC 60092 series) and may require class approval if modifying fire-rated cable penetrations. The physical installation scope for a comprehensive NMS retrofit can be substantial.</p>
+      <p style="font-size:12px;color:#166534;font-weight:600;margin:0;">&#x2705; NMS infrastructure upgrades best scheduled during dry-dock periods</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- PART 5: MARKET TRENDS -->
+<div style="margin-bottom:36px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:20px;font-weight:800;color:#0a2342;margin:0;">Part 5 &mdash; Market Trends</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.85;margin:0 0 20px;">The maritime NMS market is evolving rapidly, driven by IACS UR E26 compliance deadlines, improving satellite connectivity, and the maturation of OT-aware security tooling originally developed for the energy and industrial sectors. The convergence of network monitoring with cybersecurity and predictive maintenance is creating a new category of maritime operational intelligence platforms.</p>
+
+  <div style="border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:#0a2342;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:22px;">&#x1F9E0;</span>
+      <div>
+        <div style="color:white;font-size:14px;font-weight:700;">Trend 1 — AI/ML Anomaly Detection for OT Networks</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;">Moving from threshold alerts to behavioural baselines</div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;background:white;">
+      <p style="font-size:13.5px;color:#2c3e50;line-height:1.8;margin:0 0 10px;">Traditional NMS relies on static thresholds — alert when interface utilisation exceeds 80%, when a device stops responding to SNMP polling, or when a specific port number connects unexpectedly. AI/ML-powered NMS platforms build dynamic behavioural baselines from weeks of observed traffic — learning what normal Modbus polling from a PLC looks like, what the ECDIS update cycle traffic pattern is, how navigation LAN bandwidth fluctuates during pilotage — and detecting deviations from these learned baselines rather than relying on predefined rules. This approach is dramatically more effective at detecting novel attack techniques and slow-burn insider threats that evade signature-based detection. Maritime-focused vendors including <strong>CyberOwl (MARLIN)</strong>, <strong>Kongsberg Maritime Cyber Security</strong>, and <strong>Nozomi Networks</strong> are deploying these capabilities on commercial vessels.</p>
+      <p style="font-size:12px;color:#1e40af;font-weight:600;margin:0;">&#x1F4CA; AI-based NMS reduces false positive alert rates by 40–70% compared to threshold-based systems</p>
+    </div>
+  </div>
+
+  <div style="border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:#154f7a;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:22px;">&#x1F6F3;&#xFE0F;</span>
+      <div>
+        <div style="color:white;font-size:14px;font-weight:700;">Trend 2 — Shore-Based SOC Integration via Starlink</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;">24/7 expert oversight enabled by high-bandwidth satellite</div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;background:white;">
+      <p style="font-size:13.5px;color:#2c3e50;line-height:1.8;margin:0 0 10px;">Starlink maritime (and competing LEO satellite constellations from OneWeb and Amazon Kuiper) is transforming the economics of shore-based SOC integration. With flat-rate 100–200 Mbps connectivity now available on commercial vessels, shipowners can stream NMS telemetry, security alerts, and compressed log data to a shore SOC in near-real time — enabling trained analysts to monitor fleet-wide network posture without being aboard the vessel. Companies including <strong>Inmarsat Fleet Secure</strong>, <strong>CyberOwl</strong>, <strong>Thales Maritime Cyber</strong>, and <strong>Digital Ship</strong> offer managed maritime SOC services that receive NMS data from vessel installations and provide 24/7 alert triage, incident response support, and compliance reporting. This model resolves the crew expertise gap constraint and provides the continuous monitoring coverage that IACS E26 envisions but ships cannot deliver with onboard-only resources.</p>
+      <p style="font-size:12px;color:#1e40af;font-weight:600;margin:0;">&#x1F4CB; 78% of new maritime cyber contracts include shore SOC component (Inmarsat Fleet Report 2025)</p>
+    </div>
+  </div>
+
+  <div style="border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:#1a9e82;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:22px;">&#x1F4F1;</span>
+      <div>
+        <div style="color:white;font-size:14px;font-weight:700;">Trend 3 — OT-Specific Maritime NMS Platforms</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;">Industrial OT tools adapted for the maritime environment</div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;background:white;">
+      <p style="font-size:13.5px;color:#2c3e50;line-height:1.8;margin:0 0 10px;">The OT security tooling market — originally developed for oil &amp; gas, utilities, and manufacturing — is being adapted for maritime by both specialist maritime vendors and industrial OT security leaders. <strong>Claroty</strong> and <strong>Nozomi Networks</strong> offer passive OT network monitoring appliances that understand maritime protocols (NMEA, Modbus, DNP3) and can be deployed as network taps without interrupting OT communications. <strong>CyberOwl MARLIN</strong> and <strong>SeaProtect</strong> are purpose-built for vessel deployment with maritime-specific asset libraries and integration with class society reporting portals. These platforms automate the IACS UR E26 asset inventory requirement, generate compliance-ready reports for class surveys, and provide the anomaly detection baseline required by regulatory frameworks — reducing the manual effort of E26 compliance significantly.</p>
+      <p style="font-size:12px;color:#0a7055;font-weight:600;margin:0;">&#x2705; Maritime-specific OT NMS platforms support automated IACS E26 compliance reporting</p>
+    </div>
+  </div>
+
+  <div style="border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:#2d6a4f;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:22px;">&#x1F5A5;&#xFE0F;</span>
+      <div>
+        <div style="color:white;font-size:14px;font-weight:700;">Trend 4 — Digital Twin Network Monitoring</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;">Simulating network state for anomaly validation</div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;background:white;">
+      <p style="font-size:13.5px;color:#2c3e50;line-height:1.8;margin:0 0 10px;">Leading shipbuilders and system integrators are developing <strong>digital twin models</strong> of vessel network architectures that run in parallel with real-time NMS data. The digital twin represents the expected normal state of the ship's network — which devices should be communicating with which, on what protocols, at what frequencies — and compares this expected model against actual observed NMS data. Deviations between expected and observed network behaviour are flagged as potential anomalies, dramatically improving detection precision compared to purely statistical anomaly detection. DNV's Veracity platform and Wärtsilä's Voyage digital twin initiatives are incorporating network monitoring into their vessel digital twin frameworks, creating an integrated view of vessel performance, machinery health, and network security status.</p>
+      <p style="font-size:12px;color:#166534;font-weight:600;margin:0;">&#x2705; Digital twin NMS integration reduces false positives by validating alerts against expected system state</p>
+    </div>
+  </div>
+
+  <div style="border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:#374151;padding:14px 18px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:22px;">&#x1F512;</span>
+      <div>
+        <div style="color:white;font-size:14px;font-weight:700;">Trend 5 — NMS as IACS E26 Compliance Automation</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;">From manual audit to continuous compliance verification</div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;background:white;">
+      <p style="font-size:13.5px;color:#2c3e50;line-height:1.8;margin:0 0 10px;">IACS UR E26 requires evidence of continuous monitoring — not just a point-in-time assessment. NMS vendors are developing automated compliance reporting modules that continuously verify E26 control requirements (asset inventory completeness, network segmentation rule compliance, log retention sufficiency, anomaly detection coverage) and generate audit-ready reports for class surveys, flag state inspections, and internal management review. Integration with class society digital survey platforms (DNV Veracity, LR Nexus, BV MyPortfolio) allows NMS compliance data to flow directly into the vessel's survey record — eliminating the manual evidence collection burden during class surveys and providing a real-time compliance dashboard to technical managers and DPA officers ashore.</p>
+      <p style="font-size:12px;color:#374151;font-weight:600;margin:0;">&#x1F512; Automated E26 compliance reporting is a differentiating feature in maritime NMS procurement</p>
+    </div>
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px 30px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:13px;font-weight:700;color:#1affda;margin-bottom:18px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F3AF; Key Takeaways</div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">01</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">IACS UR E26 makes network monitoring a compliance requirement for new builds contracted from January 2024. Asset inventory, security logging (90-day minimum), anomaly detection, and incident response capability are all explicitly mandated — not optional best practices.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">02</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Ship networks are fundamentally different from enterprise IT networks. OT protocol diversity, legacy device constraints, and safety-critical availability requirements mean that generic IT NMS tools cannot deliver adequate coverage. Maritime-specific or OT-aware NMS platforms are required for meaningful compliance and security visibility.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">03</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Onboard NMS without shore SOC integration has limited operational value. The crew expertise gap means that NMS alerts require trained analysts for effective triage. Starlink-enabled shore SOC services are the practical solution — and are rapidly becoming standard expectation in fleet cyber risk management programmes.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">04</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Passive monitoring via network span ports is the only viable approach for legacy OT devices without SNMP or agent support. Planning NMS infrastructure — switch management capability, span port capacity, probe placement — must begin at vessel design stage for newbuilds, and at dry-dock planning stage for retrofit programmes.</p>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;">
+      <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">05</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">The maritime NMS market is converging with OT cybersecurity, predictive maintenance, and digital twin technology. The next generation of shipboard network monitoring will not simply report device status — it will correlate network anomalies with machinery performance, regulatory compliance posture, and cyber threat intelligence to deliver integrated operational risk awareness to technical managers ashore and duty officers aboard.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AUTHOR CTA -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px 26px;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+    <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" alt="ShipPaulJobs" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;display:block;" />
+  </a>
+  <div style="flex:1;min-width:200px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
+      <span style="font-size:15px;font-weight:800;color:#0a2342;">ShipPaulJobs Team</span>
+      <span style="background:#eef6f3;color:#0a7055;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;border:1px solid rgba(26,158,130,0.3);white-space:nowrap;">&#10003; Verified</span>
+    </div>
+    <div style="font-size:11px;color:#1a9e82;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Maritime Cybersecurity Editorial Team &mdash; Ship Solutions &amp; OT Security</div>
+    <p style="font-size:13px;color:#2c3e50;line-height:1.75;margin:0 0 8px;">Our editorial team specialises in OT cybersecurity, ship network architecture, and IACS UR E26/E27 compliance for the global shipping industry. We advise shipowners, operators, and classification societies on maritime network monitoring strategy, SOC integration, and vessel cyber risk management. Explore the full Ship Solutions series for practical guidance on implementing cybersecurity controls across shipboard systems.</p>
+    <p style="font-size:11.5px;color:#0a7055;line-height:1.6;margin:0 0 14px;font-style:italic;">&#10003; Reviewed &amp; fact-checked by the ShipPaulJobs editorial team for technical accuracy prior to publication.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="background:#0a2342;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Connect on LinkedIn</a>
+      <a href="https://www.shippauljobs.com/2026/02/maritime-cybersecurity-solutions.html" target="_blank" rel="noopener" style="background:#1a9e82;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Explore All Articles</a>
+    </div>
+  </div>
+</div>
