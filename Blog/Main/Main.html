@@ -3474,7 +3474,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     /* 모든 라벨을 태그 칩으로 표기 */
     var allLabels = p.labels || [];
     var tagHtml = allLabels.length
-      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px">'
+      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px;background:#ffffff">'
         + allLabels.map(function(l){
             var isPrimary = LABELS.indexOf(l) >= 0;
             return '<span data-label="'+esc(l)+'" onclick="event.stopPropagation();event.preventDefault();window.location.href=\'/search/label/\'+encodeURIComponent(this.getAttribute(\'data-label\'))" style="display:inline-block;background:'+(isPrimary ? 'rgba(29,137,207,0.15)' : 'rgba(26,158,130,0.12)')+';color:'+(isPrimary ? '#1d89cf' : '#1a9e82')+';font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid '+(isPrimary ? 'rgba(29,137,207,0.35)' : 'rgba(26,158,130,0.35)')+';cursor:pointer;white-space:nowrap;line-height:1.6">'+esc(l)+'</span>';
@@ -3494,7 +3494,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     var readBadge = isRead
       ? '<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>'
       : '';
-    var cardOpacity = isRead ? '0.78' : '1';
+    var cardOpacity = '1';
 
     /* 댓글 수 */
     var commentsHtml = '<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px;margin-top:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
@@ -3504,19 +3504,19 @@ if(!window.b1WC){window.b1WC=function(btn){
     var shareBtn = '<button data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
 
     return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
-      + 'style="display:block;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid rgba(255,255,255,0.28);box-shadow:0 1px 5px rgba(0,0,0,.18);transition:box-shadow .2s,transform .2s,opacity .2s;opacity:'+cardOpacity+'" '
-      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\'" '
-      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\'">'
+      + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
+      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\';this.style.borderColor=\'#64b4ff\'" '
+      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\';this.style.borderColor=\'#d8e6f0\'">'
       /* 1. 제목 (2줄) */
-      + '<div style="padding:8px 10px 6px">'
+      + '<div style="padding:8px 10px 6px;background:#ffffff">'
       + '<div style="font-size:12px;font-weight:700;color:#0a2342;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div>'
       + '</div>'
       /* 2. 이미지 */
-      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:1px solid rgba(0,0,0,0.07);border-bottom:1px solid rgba(0,0,0,0.07)">'+imgHtml+readBadge+'</div>'
+      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1d89cf;border-bottom:3px solid #1d89cf">'+imgHtml+readBadge+'</div>'
       /* 3. 태그 */
       + tagHtml
       /* 4. 날짜 + 댓글 + 공유 버튼 */
-      + '<div style="padding:5px 10px 8px;display:flex;align-items:center;justify-content:space-between;gap:6px">'
+      + '<div style="padding:5px 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
       + '<div><div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'+commentsHtml+'</div>'
       + shareBtn
       + '</div>'
@@ -3792,7 +3792,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   function cardHtml(p){
     var allLabels = p.labels || [];
     var tagHtml = allLabels.length
-      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px">'
+      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px;background:#ffffff">'
         + allLabels.map(function(l){
             var isPrimary = LABELS.indexOf(l) >= 0;
             return '<span data-label="'+esc(l)+'" onclick="event.stopPropagation();event.preventDefault();window.location.href=\'/search/label/\'+encodeURIComponent(this.getAttribute(\'data-label\'))" style="display:inline-block;background:'+(isPrimary ? 'rgba(29,137,207,0.15)' : 'rgba(26,158,130,0.12)')+';color:'+(isPrimary ? '#1d89cf' : '#1a9e82')+';font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid '+(isPrimary ? 'rgba(29,137,207,0.35)' : 'rgba(26,158,130,0.35)')+';cursor:pointer;white-space:nowrap;line-height:1.6">'+esc(l)+'</span>';
@@ -3808,20 +3808,20 @@ if(!window.b1WC){window.b1WC=function(btn){
     var readBadge = isRead
       ? '<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>'
       : '';
-    var cardOpacity = isRead ? '0.78' : '1';
+    var cardOpacity = '1';
     var commentsHtml = '<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px;margin-top:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
     var shareSvg = '<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
     var shareBtn = '<button data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
     return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
-      + 'style="display:block;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid rgba(255,255,255,0.28);box-shadow:0 1px 5px rgba(0,0,0,.18);transition:box-shadow .2s,transform .2s,opacity .2s;opacity:'+cardOpacity+'" '
-      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\'" '
-      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\'">'
-      + '<div style="padding:8px 10px 6px">'
+      + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
+      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\';this.style.borderColor=\'#64b4ff\'" '
+      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\';this.style.borderColor=\'#d8e6f0\'">'
+      + '<div style="padding:8px 10px 6px;background:#ffffff">'
       + '<div style="font-size:12px;font-weight:700;color:#0a2342;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div>'
       + '</div>'
-      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:1px solid rgba(0,0,0,0.07);border-bottom:1px solid rgba(0,0,0,0.07)">'+imgHtml+readBadge+'</div>'
+      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1d89cf;border-bottom:3px solid #1d89cf">'+imgHtml+readBadge+'</div>'
       + tagHtml
-      + '<div style="padding:5px 10px 8px;display:flex;align-items:center;justify-content:space-between;gap:6px">'
+      + '<div style="padding:5px 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
       + '<div><div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'+commentsHtml+'</div>'
       + shareBtn
       + '</div>'
@@ -4921,6 +4921,7 @@ if(!window.b1WC){window.b1WC=function(btn){
               </div>
               </b:if>
               </main>
+
             <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
               <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
                 <b:widget-settings>
@@ -5856,6 +5857,37 @@ if(!window.b1WC){window.b1WC=function(btn){
 //]]></script>
 </b:includable>
         </b:widget>
+
+        <!-- ── Brevo 뉴스레터 구독 위젯 ── -->
+        <b:widget id='HTML14' locked='false' title='📬 Newsletter' type='HTML' version='2' visible='true'>
+          <b:includable id='main'>
+  <b:include name='widget-title'/>
+  <div class='widget-content'>
+    <div style='border-radius:12px;font-family:Segoe UI,Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);'>
+      <div style='padding:14px 16px 16px;'>
+        <p style='color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0 0 12px;'>
+          해양 사이버 보안 최신 동향과 IACS 규정 업데이트를 이메일로 받아보세요.
+        </p>
+        <form method='POST'
+              action='https://f90cb6a5.sibforms.com/serve/MUIFAKyss0LAZbscunG_LBOWQa3HwvBBITLc84aoXg5TwI3f4ee0eX7uul8voCw9NiM7WG5_0EWWANANueZOLTyJNz3FmwUGyZqRSUgNfv7WXo3jBer2cHeSi0ZUufgNoyQ9zVfudMn4oxXxZpTB5xEMfRC1LOLryX8u3Dz4hLewL9WJesulRLV3Q4SwxPZE-btgW4kBk-insQXOFA=='
+              target='_blank'
+              style='display:flex;flex-direction:column;gap:8px;'>
+          <input type='text' name='EMAIL' placeholder='your@email.com' required='required'
+                 style='background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:6px;color:#fff;font-size:12px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;'/>
+          <input type='hidden' name='locale' value='en'/>
+          <input type='hidden' name='email_address_check' value=''/>
+          <button type='submit'
+                  style='align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;cursor:pointer;font-size:12px;font-weight:700;padding:9px 14px;width:100%;font-family:inherit;'>
+            📬 Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</b:includable>
+        </b:widget>
+        <!-- ── End 뉴스레터 구독 위젯 ── -->
+
       </b:section>
     </aside>
 
