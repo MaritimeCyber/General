@@ -1,335 +1,484 @@
-<div style="font-family:'Inter','Segoe UI',Arial,sans-serif;max-width:720px;margin:0 auto;color:#2c3e50;">
+<!--═══════════════════════════════════════════════════════
+     Maritime 4.0 | Cyber Insight
+     Topic : Starlink & Maritime Cybersecurity
+     Author: Captain Paul (In Sung Lee)
+     Updated: July 2026 — refreshed with 2025–2026 threat data
+     ═══════════════════════════════════════════════════════-->
 
-  <!-- ── Header ── -->
-  <div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 28px 28px;margin-bottom:28px;">
+<!--── HEADER ──-->
+<div style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 14px; font-family: Inter, sans-serif; margin-bottom: 28px; overflow: hidden; padding: 36px 32px 28px; position: relative;">
+  <div style="background: rgba(255, 255, 255, 0.04); border-radius: 50%; height: 220px; position: absolute; right: -40px; top: -40px; width: 220px;"></div>
+  <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 16px;">
+    <img alt="Captain Paul" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 44px; object-fit: cover; width: 44px;" />
+    <div>
+      <div style="color: #b8d4ea; font-family: Inter, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;">Maritime 4.0 · Cyber Insight</div>
+      <div style="color: #e8f4ff; font-family: Inter, sans-serif; font-size: 12px; margin-top: 2px;">Captain Paul</div>
+    </div>
+  </div>
+  <h1 style="color: white; font-family: Inter, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin: 0px 0px 8px;">
+    Starlink at Sea: Navigating the Cybersecurity Risks of High-Speed Maritime Connectivity
+  </h1>
+  <p style="color: #b8d4ea; font-family: Inter, sans-serif; font-size: 13px; font-style: italic; margin: 0px 0px 20px;">
+    How LEO satellite internet is transforming ships into fully connected digital platforms — and why cybersecurity investment can no longer be deferred
+  </p>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <span face="Inter,sans-serif" style="background: rgba(26, 158, 130, 0.25); border-radius: 20px; border: 1px solid rgba(26, 158, 130, 0.5); color: #7eecd8; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; padding: 4px 12px;">Starlink · LEO Satellite</span>
+    <span face="Inter,sans-serif" style="background: rgba(255, 255, 255, 0.1); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); color: #e8f4ff; font-size: 11px; font-weight: 600; padding: 4px 12px;">Maritime Cyber Risk</span>
+    <span face="Inter,sans-serif" style="background: rgba(255, 255, 255, 0.1); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); color: #e8f4ff; font-size: 11px; font-weight: 600; padding: 4px 12px;">OT Security</span>
+    <span face="Inter,sans-serif" style="background: rgba(255, 255, 255, 0.1); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); color: #e8f4ff; font-size: 11px; font-weight: 600; padding: 4px 12px;">IMO · IACS Compliance</span>
+  </div>
+</div>
 
-    <!-- Tags -->
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
-      <span style="background:rgba(26,158,130,0.35);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">💡 Insight</span>
-      <span style="background:rgba(255,193,7,0.3);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">Consulting Career</span>
-      <span style="background:rgba(255,255,255,0.15);border-radius:20px;color:rgba(255,255,255,0.85);font-size:9px;font-weight:800;letter-spacing:1.2px;padding:3px 10px;text-transform:uppercase;">Salary Negotiation · Big 4</span>
+<!--── LEAD PARAGRAPH ──-->
+<div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; font-family: Inter, sans-serif; margin-bottom: 28px; padding: 18px 20px;">
+  <p style="color: #1a2332; font-size: 15px; line-height: 1.75; margin: 0px;">
+    For decades, maritime vessels operated with <strong>limited and slow satellite communications</strong>, making them less attractive targets for cyberattacks. With the introduction of <strong>Starlink Maritime</strong>, ships now have access to <strong>high-speed, low-latency internet</strong>, transforming them into <strong>fully connected digital platforms</strong>. While this brings enormous operational benefits, it also expands the vessel's attack surface — and industry data through 2025–2026 shows the risk is no longer theoretical.
+  </p>
+</div>
+
+<!--── KEY ABBREVIATIONS ──-->
+<div style="background: rgb(248, 249, 250); border-radius: 10px; border: 1px solid rgb(222, 226, 230); font-family: Inter, sans-serif; margin-bottom: 28px; padding: 18px 20px;">
+  <div style="color: #6c757d; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">Key Abbreviations</div>
+  <div style="display: grid; gap: 6px 24px; grid-template-columns: 1fr 1fr;">
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">VSAT</strong> — Very Small Aperture Terminal (legacy satellite)</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">LEO</strong> — Low Earth Orbit (Starlink's satellite constellation)</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">OT</strong> — Operational Technology (navigation, engine, cargo systems)</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">IT</strong> — Information Technology (crew internet, business systems)</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">MFA</strong> — Multi-Factor Authentication</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">IDS/IPS</strong> — Intrusion Detection / Prevention System</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">VLAN</strong> — Virtual Local Area Network</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">IMO</strong> — International Maritime Organization</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">IACS</strong> — International Association of Classification Societies</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">USCG</strong> — United States Coast Guard</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">GPS</strong> — Global Positioning System</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">IoT</strong> — Internet of Things</div>
+    <div style="color: #333333; font-size: 13px;"><strong style="color: #154f7a;">NIST CSF</strong> — NIST Cybersecurity Framework</div>
+  </div>
+</div>
+
+<!--── SECTION Ⅰ ──-->
+<div style="font-family: Inter, sans-serif; margin-bottom: 32px;">
+  <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 16px;">
+    <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 36px; width: 4px;"></div>
+    <h2 style="color: #0a2342; font-family: Inter, sans-serif; font-size: 17px; font-weight: 800; margin: 0px;">Ⅰ. How Starlink Is Changing the Maritime Connectivity Landscape</h2>
+  </div>
+
+  <div style="margin-bottom: 20px; text-align: center;">
+    <img alt="Maritime Cybersecurity — Connected Ship" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgePGK7n9ILVsRfBspoqtfU7kXCSjvq4PPnXAyzaKM0HUteWDoJp55s8msBNHGmsgAOFNTrWmCVcKeIYq2DkSD3NJtRr5Nl0d4OV7Jt5oZ7L2pw9oE6Ntd7FZowsKKhH2UVkAgZm_C_Uy1UgsHc_2fuyGo3RRimcbl9NC8F8hCbk-7gZmeyGo3RRimcbl9NC8F8hCbk-7gZmYr5azteqF4p-c/w640-h366/DALL%C2%B7E%202025-03-09%2022.13.57%20-%20A%20futuristic%20cargo%20ship%20sailing%20through%20the%20ocean%20with%20digital%20cybersecurity%20symbols%20(like%20shields,%20locks,%20and%20network%20connections)%20hovering%20around%20it.webp" style="border-radius: 12px; border: 1px solid rgb(226, 236, 247); max-width: 560px; width: 100%;" />
+  </div>
+
+  <p style="color: #333333; font-size: 14px; line-height: 1.8; margin: 0px 0px 16px;">
+    Traditionally, ships relied on <strong>expensive and slow VSAT or Inmarsat satellite connections</strong>, which provided limited bandwidth and high latency. This meant ships were often effectively disconnected from the internet — reducing their attractiveness as cyberattack targets. <strong>Starlink Maritime's</strong> purpose-built Flat High Performance dish — IP56-rated against salt spray and rated for winds up to 140 mph — now delivers speeds up to <strong>220 Mbps</strong>, at a hardware cost that has fallen from roughly $10,000 at launch to about <strong>$2,500</strong> today, creating a paradigm shift in maritime communications.
+  </p>
+
+  <!--VSAT vs Starlink comparison-->
+  <div style="margin-bottom: 16px; overflow-x: auto;">
+    <table style="border-collapse: collapse; font-family: Inter, sans-serif; font-size: 13px; width: 100%;">
+      <thead>
+        <tr style="background: rgb(10, 35, 66); color: white;">
+          <th style="border: 1px solid rgb(21, 79, 122); padding: 10px 14px; text-align: left;">Category</th>
+          <th style="border: 1px solid rgb(21, 79, 122); padding: 10px 14px; text-align: center;">VSAT / Inmarsat (Legacy)</th>
+          <th style="border: 1px solid rgb(21, 79, 122); padding: 10px 14px; text-align: center;">Starlink Maritime (LEO)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: rgb(248, 249, 250);">
+          <td style="border: 1px solid rgb(222, 226, 230); color: #0a2342; font-weight: 600; padding: 9px 14px;">Speed</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #555555; padding: 9px 14px; text-align: center;">1–10 Mbps</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #1a9e82; font-weight: 700; padding: 9px 14px; text-align: center;">Up to 220 Mbps down / 8–25 Mbps up</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #0a2342; font-weight: 600; padding: 9px 14px;">Latency</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #555555; padding: 9px 14px; text-align: center;">600–800 ms</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #1a9e82; font-weight: 700; padding: 9px 14px; text-align: center;">20–40 ms</td>
+        </tr>
+        <tr style="background: rgb(248, 249, 250);">
+          <td style="border: 1px solid rgb(222, 226, 230); color: #0a2342; font-weight: 600; padding: 9px 14px;">Terminal Hardware</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #555555; padding: 9px 14px; text-align: center;">Bundled with service contract</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #1a9e82; font-weight: 700; padding: 9px 14px; text-align: center;">~$2,500 (Flat High Performance dish)</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #0a2342; font-weight: 600; padding: 9px 14px;">Monthly Cost</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #555555; padding: 9px 14px; text-align: center;">$5,000–$30,000+</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #1a9e82; font-weight: 700; padding: 9px 14px; text-align: center;">From ~$250/mo (50GB priority data) up to enterprise tiers</td>
+        </tr>
+        <tr style="background: rgb(248, 249, 250);">
+          <td style="border: 1px solid rgb(222, 226, 230); color: #0a2342; font-weight: 600; padding: 9px 14px;">Cyber Attack Surface</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #555555; padding: 9px 14px; text-align: center;">Low (limited exposure)</td>
+          <td style="border: 1px solid rgb(222, 226, 230); color: #e67e22; font-weight: 700; padding: 9px 14px; text-align: center;">High (always-on internet)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--Benefits grid-->
+  <div style="display: grid; gap: 12px; grid-template-columns: 1fr 1fr;">
+    <div style="background: rgb(255, 255, 255); border-radius: 10px; border: 1px solid rgb(226, 236, 247); padding: 14px 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 4px;">📡 Real-Time Data Exchange</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Between vessels and onshore headquarters, enabling operational visibility at sea</div>
+    </div>
+    <div style="background: rgb(255, 255, 255); border-radius: 10px; border: 1px solid rgb(226, 236, 247); padding: 14px 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 4px;">🔧 Remote Monitoring</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Predictive maintenance for smart ships via continuous sensor data streaming</div>
+    </div>
+    <div style="background: rgb(255, 255, 255); border-radius: 10px; border: 1px solid rgb(226, 236, 247); padding: 14px 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 4px;">🤖 IoT &amp; AI Automation</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Support for intelligent automation of navigation, cargo, and engine management</div>
+    </div>
+    <div style="background: rgb(255, 255, 255); border-radius: 10px; border: 1px solid rgb(226, 236, 247); padding: 14px 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 4px;">👥 Crew Welfare</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">High-speed internet access improves crew retention and mental wellbeing at sea</div>
+    </div>
+  </div>
+</div>
+
+<!--── SECTION Ⅱ ──-->
+<div style="font-family: Inter, sans-serif; margin-bottom: 32px;">
+  <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 16px;">
+    <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 36px; width: 4px;"></div>
+    <h2 style="color: #0a2342; font-family: Inter, sans-serif; font-size: 17px; font-weight: 800; margin: 0px;">Ⅱ. Four Critical Cyber Risks Ships Now Face</h2>
+  </div>
+
+  <p style="color: #333333; font-size: 14px; line-height: 1.8; margin: 0px 0px 16px;">
+    With high-speed, uninterrupted internet connectivity, vessels are now <strong>directly exposed to online threats</strong>. The following are the most critical security risks introduced by Starlink adoption:
+  </p>
+
+  <div style="display: grid; gap: 14px; grid-template-columns: 1fr 1fr;">
+
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; padding: 16px 18px;">
+      <div style="color: #b45309; font-size: 13px; font-weight: 700; margin-bottom: 6px;">🚢 1️⃣ Remote Hacking &amp; Unauthorized Access</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Starlink connects ships directly to the internet, making them accessible to hackers. Unauthorized access can lead to <strong>control of navigation, cargo management, and engine systems</strong>.</div>
     </div>
 
-    <!-- Title -->
-    <h1 style="color:#fff;font-size:23px;font-weight:800;letter-spacing:-0.3px;line-height:1.35;margin:0 0 14px;">
-      Consulting Salary Negotiation:<br />The Game Is Different at Every Level
-    </h1>
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; padding: 16px 18px;">
+      <div style="color: #b45309; font-size: 13px; font-weight: 700; margin-bottom: 6px;">📡 2️⃣ GPS Spoofing &amp; Navigation Manipulation</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">GPS spoofing now disrupts roughly <strong>1,000 vessel positions per day</strong>, affecting over <strong>40,000 ships worldwide</strong> — misleading a ship's course and potentially causing collisions, misdeliveries, or enabling hijacking.</div>
+    </div>
 
-    <!-- Lead -->
-    <p style="color:rgba(255,255,255,0.78);font-size:13px;line-height:1.75;margin:0;">
-      Most consultants negotiate the same way regardless of level. That is the single biggest mistake — and it costs them far more than they realise.
-    </p>
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; padding: 16px 18px;">
+      <div style="color: #b45309; font-size: 13px; font-weight: 700; margin-bottom: 6px;">💻 3️⃣ Ransomware &amp; Malware Infections</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Unrestricted crew internet access increases likelihood of <strong>malware, phishing, or ransomware</strong>. Maritime ransomware cases more than doubled year-over-year in 2025, and if critical ship systems are infected, operations halt while large ransom demands follow.</div>
+    </div>
 
-    <!-- Author -->
-    <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.18);display:flex;gap:12px;margin-top:22px;padding-top:18px;">
-      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
-           alt="Captain Paul"
-           style="border:2px solid rgba(26,255,218,0.5);border-radius:50%;flex-shrink:0;height:38px;object-fit:cover;width:38px;" />
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; padding: 16px 18px;">
+      <div style="color: #b45309; font-size: 13px; font-weight: 700; margin-bottom: 6px;">🔍 4️⃣ Data Breaches &amp; Espionage</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Ships now exchange real-time cargo and operational data via Starlink. <strong>Intercepted information</strong> can enable industrial espionage, cargo theft intelligence, or financial fraud.</div>
+    </div>
+
+  </div>
+
+  <!--Threat telemetry callout-->
+  <div style="background: rgb(240, 247, 255); border-radius: 10px; border: 1px solid rgb(21, 79, 122); margin-top: 16px; padding: 16px 18px;">
+    <div style="color: #0a2342; font-size: 12px; font-weight: 700; letter-spacing: 0.6px; margin-bottom: 8px; text-transform: uppercase;">📊 Where the Risk Actually Concentrates — 2026 Field Telemetry</div>
+    <div style="color: #333333; font-size: 13px; line-height: 1.75;">
+      Marlink's <em>Cyber Intelligence Report for Remote Operations 2026</em> (April 2026) found that <strong>82% of alerts across monitored vessels concentrate in crew-network zones</strong> — where crew browse, stream, and connect personal devices — confirming user-facing systems as the primary entry point. Compromised credentials accounted for <strong>69% of observed risk</strong>, versus just 12% from traditional technical vulnerabilities. On the OT side, roughly <strong>30–40% of operational technology assets</strong> were initially unknown or unmanaged at assessed sites, and over 70% had undocumented or poorly secured network connections.
+    </div>
+  </div>
+
+  <!--Geopolitical/regulatory emerging risk-->
+  <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; margin-top: 14px; padding: 16px 18px;">
+    <div style="color: #b45309; font-size: 13px; font-weight: 700; margin-bottom: 6px;">🌏 Emerging in 2026: Geopolitical Restrictions on Starlink Use</div>
+    <div style="color: #555555; font-size: 13px; line-height: 1.65;">China has intensified enforcement against unlicensed Starlink use within its waters, requiring digital communications to route through licensed gateways; violations can draw fines up to <strong>¥500,000 (~$72,000)</strong> or license suspension. China opened its first known investigation into a vessel's Starlink usage in December 2025. Operators are increasingly advised to disconnect Starlink terminals roughly 200 nautical miles before entering China's EEZ and log the shutdown — adding a compliance dimension to what was previously treated as a purely technical connectivity decision.</div>
+  </div>
+</div>
+
+<!--── SECTION Ⅲ ──-->
+<div style="font-family: Inter, sans-serif; margin-bottom: 32px;">
+  <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 16px;">
+    <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 36px; width: 4px;"></div>
+    <h2 style="color: #0a2342; font-family: Inter, sans-serif; font-size: 17px; font-weight: 800; margin: 0px;">Ⅲ. The Financial Case — Why Investment Is No Longer Optional</h2>
+  </div>
+
+  <p style="color: #333333; font-size: 14px; line-height: 1.8; margin: 0px 0px 16px;">
+    Cyberattacks on ships are no longer theoretical. They have already caused <strong>hundreds of millions of dollars in damages</strong> to shipping companies worldwide. Three landmark incidents illustrate the scale:
+  </p>
+
+  <div style="display: grid; gap: 14px; grid-template-columns: 1fr 1fr 1fr; margin-bottom: 16px;">
+
+    <div style="background: rgb(255, 255, 255); border-color: rgb(10, 35, 66) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #0a2342; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px;">
+      <div style="color: #0a2342; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">2017</div>
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 6px;">Maersk — NotPetya</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Ransomware crippled 45,000 PCs and 4,000 servers across the world's largest shipping company.</div>
+      <div style="color: #e67e22; font-size: 14px; font-weight: 800; margin-top: 8px;">$300M loss</div>
+    </div>
+
+    <div style="background: rgb(255, 255, 255); border-color: rgb(21, 79, 122) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #154f7a; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px;">
+      <div style="color: #154f7a; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">2018</div>
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 6px;">COSCO — Ransomware</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Malware attack disrupted US operations, forcing the company to isolate networks across multiple regions.</div>
+      <div style="color: #e67e22; font-size: 14px; font-weight: 800; margin-top: 8px;">Major disruption</div>
+    </div>
+
+    <div style="background: rgb(255, 255, 255); border-color: rgb(26, 158, 130) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #1a9e82; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px;">
+      <div style="color: #1a9e82; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">2020</div>
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 6px;">CMA CGM — Ragnar Locker</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Ransomware attack forced the shipping giant to shut down IT access globally. Customer data was also compromised.</div>
+      <div style="color: #e67e22; font-size: 14px; font-weight: 800; margin-top: 8px;">~$50M+ estimated</div>
+    </div>
+
+  </div>
+
+  <!--2025 industry snapshot-->
+  <div style="background: rgb(10, 35, 66); border-radius: 10px; margin-bottom: 16px; padding: 18px 20px;">
+    <div style="color: #7effd8; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">2025 at a Glance — Fleet-Wide Trend (CYTUR, 2026 Maritime Cyber Threat White Paper)</div>
+    <div style="display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr);">
       <div>
-        <div style="color:#fff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
-        <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">
-          Maritime 4.0 · Career Intelligence · May 2026
-        </div>
+        <div style="color: white; font-size: 20px; font-weight: 800;">828</div>
+        <div style="color: #b8d4ea; font-size: 11px; line-height: 1.5;">Reported incidents in 2025 — up 103% from 408 in 2024</div>
+      </div>
+      <div>
+        <div style="color: white; font-size: 20px; font-weight: 800;">372</div>
+        <div style="color: #b8d4ea; font-size: 11px; line-height: 1.5;">Ransomware cases — more than double 2024's count</div>
+      </div>
+      <div>
+        <div style="color: white; font-size: 20px; font-weight: 800;">~1,000/day</div>
+        <div style="color: #b8d4ea; font-size: 11px; line-height: 1.5;">GPS spoofing disruptions, affecting 40,000+ vessels</div>
+      </div>
+      <div>
+        <div style="color: white; font-size: 20px; font-weight: 800;">$550K+</div>
+        <div style="color: #b8d4ea; font-size: 11px; line-height: 1.5;">Average cost per maritime cyberattack, fleet-wide</div>
       </div>
     </div>
   </div>
 
-  <!-- ── Intro ── -->
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 18px;">
-    Every year, consultants go through salary negotiations. And every year, most of them use the same language — the same framing, the same approach — regardless of their level, their track record, or how much the firm depends on them.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 18px;">
-    Performance accumulates. Level increases. The language stays the same.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 24px;">
-    That is the mistake. And it is not just a personal one.
-  </p>
-
-  <!-- Core thesis card -->
-  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 28px;">
-    <p style="color:#0a2342;font-size:13px;font-weight:800;line-height:1.65;margin:0;">
-      The language of negotiation must change completely as performance and level change. That is how businesses grow — and how organisations retain the people who actually run them.
-    </p>
-  </div>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    When a high performer negotiates with average language, the organisation loses its ability to distinguish excellence from adequacy. In an environment where that distinction disappears, expecting the business to grow is optimistic at best.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 32px;">
-    This post is about how to speak at each level — and why the language matters as much as the numbers.
-  </p>
-
-  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
-
-  <!-- ── Section 1: Understanding Consulting Firms ── -->
-  <h2 style="border-left:4px solid #154f7a;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 16px;padding-left:14px;">
-    First: Understand How Consulting Firms Actually Work
-  </h2>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    Salary negotiation in a consulting firm is structurally different from negotiation in a general corporate environment. In most companies, the process is largely procedural — fixed bands, set increase percentages, internal grade policies. The room for individual input is structurally narrow.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    Consulting is different. Internal policies exist here too. But the fundamental premise of consulting is that people are the business. Capability and performance connect directly to revenue. When your numbers are clear and defensible, negotiation actually works as a mechanism — not as theatre.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    In consulting, salary negotiation is not an attempt to look good. It is the process of having your contribution recognised appropriately. If the capability and performance are there, the right to sit at the table is not the question. The question is how to translate that into language the organisation responds to.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 32px;">
-    That translation is entirely level-dependent.
-  </p>
-
-  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
-
-  <!-- ── Section 2: Consultant / SC ── -->
-  <h2 style="border-left:4px solid #154f7a;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 8px;padding-left:14px;">
-    Consultant / Senior Consultant
-  </h2>
-  <p style="color:#1a9e82;font-size:12px;font-weight:800;letter-spacing:0.3px;margin:0 0 16px;font-style:italic;">"How fast am I growing?"</p>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    At this level, your negotiation card is growth velocity. The number of engagements completed, client feedback received, expertise genuinely acquired. The framing is not "I worked hard" — it is "I have grown at this rate, and I am ready for the next level."
-  </p>
-
-  <!-- Info card -->
-  <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 22px;">
-    <div style="color:#0a6b55;font-size:10.5px;font-weight:800;letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase;">💡 What to negotiate at this level</div>
-    <p style="color:#1a3a2e;font-size:12.5px;line-height:1.75;margin:0;">
-      At Consultant and Senior Consultant level, the timeline to the next grade matters more than the current salary increment. Negotiating that timeline explicitly — with evidence of readiness — is more valuable than haggling over a percentage point.
-    </p>
-  </div>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 32px;">
-    Salary matters. But at this stage, the trajectory is the asset. A clear, agreed path to promotion — documented and understood by both sides — compounds in value over years in ways that a near-term salary bump cannot match.
-  </p>
-
-  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
-
-  <!-- ── Section 3: Manager / SM ── -->
-  <h2 style="border-left:4px solid #154f7a;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 8px;padding-left:14px;">
-    Manager / Senior Manager
-  </h2>
-  <p style="color:#1a9e82;font-size:12px;font-weight:800;letter-spacing:0.3px;margin:0 0 16px;font-style:italic;">"How much am I contributing to this firm?"</p>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    From Manager level upward, the language of negotiation changes completely. Revenue generated or directly contributed. Performance of the teams you managed. Client renewal rates. These numbers become the basis of the conversation — not effort, not tenure.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    The person who understands the firm's margin structure wins the negotiation. Before you sit at the table, run the calculation: your billings multiplied by the firm's average margin rate equals your contribution to firm profit. Knowing whether your current compensation is proportionate to that number — before the conversation starts — changes everything about how you walk in.
-  </p>
-
-  <!-- Warning card -->
-  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 22px;">
-    <div style="color:#b7500a;font-size:10.5px;font-weight:800;letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase;">⚠ The Most Overlooked Point at This Level</div>
-    <p style="color:#5c3a1e;font-size:12.5px;line-height:1.75;margin:0;">
-      Get bonus structures written into the contract. Verbal commitments disappear faster at Big 4 firms than almost anywhere else. If the performance incentive is not in writing, it does not exist — regardless of what was said in the room.
-    </p>
-  </div>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 32px;">
-    At Manager and Senior Manager level, your leverage is real and quantifiable. Use it precisely — not emotionally, not broadly. The numbers you bring to the table should be prepared in advance, sourced from actual engagement records, and tied directly to firm outcomes.
-  </p>
-
-  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
-
-  <!-- ── Section 4: Senior Manager+ ── -->
-  <h2 style="border-left:4px solid #1a9e82;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 8px;padding-left:14px;">
-    Senior Manager and Above
-  </h2>
-  <p style="color:#1a9e82;font-size:12px;font-weight:800;letter-spacing:0.3px;margin:0 0 16px;font-style:italic;">"What business can I build?"</p>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    At this stage, promotion negotiation is not salary negotiation. It is business negotiation. The framing shifts from "what will you pay me" to "I will build this vertical with you — here are my terms."
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    That single shift in framing changes the outcome completely. Decision-makers at this level have their own KPIs and their own legacy to protect. The moment the business you are proposing to build connects to what they are trying to accomplish, the temperature in the room changes.
-  </p>
-
-  <!-- Warning card -->
-  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 22px;">
-    <div style="color:#b7500a;font-size:10.5px;font-weight:800;letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase;">⚠ Timing: Before Promotion, Not After</div>
-    <p style="color:#5c3a1e;font-size:12.5px;line-height:1.75;margin:0;">
-      Negotiating leverage before a promotion announcement is categorically different from negotiating after it. Attempting to renegotiate after the decision is announced is the most common mistake at this level — and it almost never produces the same result.
-    </p>
-  </div>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    One more point worth naming directly. If the organisation does not initiate a compensation discussion before a significant promotion — for a person who has delivered exceptional results — that is a signal worth taking seriously. Proactively recognising high performers is a basic obligation of well-run organisations.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    When that does not happen, it is rarely because the organisation does not know your value. It is because they are waiting — waiting to see if you raise it, or whether you simply let it pass.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 24px;">
-    An organisation that operates this way may produce a negotiation win. But rarely a second one.
-  </p>
-
-  <!-- Quote card -->
-  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 32px;">
-    <p style="color:#2c4a6e;font-size:13px;font-weight:700;line-height:1.75;margin:0 0 10px;">On external market signals:</p>
-    <p style="color:#2c4a6e;font-size:12.5px;line-height:1.75;margin:0;">
-      A Senior Manager with a differentiated track record and a verified network — the market already knows that person. Offers arrive faster than expected, from competitors and sometimes entirely different sectors. This is not a job-change card. It is confirmation that your value is externally validated. That signal can be conveyed at the negotiating table — quietly, clearly, without threat: <em>"I want to build this here. I am also being straightforward with you that the market is aware of me."</em> That is not intimidation. It is a statement of fact. The distinction is what makes the negotiation credible.
-    </p>
-  </div>
-
-  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
-
-  <!-- ── Section 5: Universal Principle ── -->
-  <h2 style="border-left:4px solid #154f7a;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 16px;padding-left:14px;">
-    The Principle That Applies at Every Level
-  </h2>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    If you do not define your own market value, the firm's internal band defines it for you. Internal bands are built for average performers. Applying a band designed for average to someone who consistently exceeds it is, frankly, a loss for the firm as much as the individual — it eliminates the differentiation that drives performance.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 32px;">
-    Negotiation begins the moment you can articulate your value in numbers. Before that moment, there is no negotiation — there is only a request.
-  </p>
-
-  <div style="border-top:1px solid #e8eef5;margin:0 0 32px;"></div>
-
-  <!-- ── Section 6: Final Principle ── -->
-  <h2 style="border-left:4px solid #1a9e82;color:#0a2342;font-size:17px;font-weight:800;letter-spacing:-0.2px;line-height:1.35;margin:0 0 16px;padding-left:14px;">
-    And the Most Important Question of All
-  </h2>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    Salary matters. Level matters. Strategy matters. But before any of those, there is a question that deserves honest attention.
-  </p>
-
-  <!-- Info card with quote -->
-  <div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 22px;">
-    <p style="color:#0a6b55;font-size:13px;font-weight:800;line-height:1.65;margin:0;">"Am I working with people I can trust?"</p>
-  </div>
-
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    Numbers can be negotiated. Structures can be changed. But the people around you are not produced by negotiation. A manager you can trust. Colleagues who are looking in the same direction. Without those things, performance in that organisation eventually burns only one person — you.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 16px;">
-    Good compensation in an environment that exhausts you is not meaningful in the way you expect it to be. If those people are not around you right now, finding that environment is the higher-priority move — before any negotiation table.
-  </p>
-  <p style="color:#2c3e50;font-size:13.5px;line-height:1.9;margin:0 0 32px;">
-    Good compensation only realises its full value inside a good environment.
-  </p>
-
-  <!-- ── Conclusion ── -->
-  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px 24px;margin:0 0 28px;">
-    <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:1.2px;margin-bottom:16px;text-transform:uppercase;">Key Takeaways</div>
-    <div style="display:flex;flex-direction:column;gap:11px;">
-      <div style="align-items:flex-start;display:flex;gap:10px;">
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
-        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">Consultant/SC: negotiate growth trajectory and timeline to next level, not just the increment.</p>
-      </div>
-      <div style="align-items:flex-start;display:flex;gap:10px;">
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
-        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">Manager/SM: know your contribution margin before the conversation. Get bonus structures in writing — verbal commitments disappear.</p>
-      </div>
-      <div style="align-items:flex-start;display:flex;gap:10px;">
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
-        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">Senior Manager+: frame it as business negotiation. Negotiate before the promotion announcement, not after. Use external market signals — as fact, not threat.</p>
-      </div>
-      <div style="align-items:flex-start;display:flex;gap:10px;">
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;line-height:1.6;">→</span>
-        <p style="color:rgba(255,255,255,0.88);font-size:13px;line-height:1.7;margin:0;">At every level: define your value in numbers before sitting down. And ask whether the people around you make the negotiation worth having at all.</p>
-      </div>
+  <div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(21, 79, 122); border-radius: 0px 10px 10px 0px; padding: 14px 18px;">
+    <div style="color: #333333; font-size: 14px; line-height: 1.75;">
+      💡 <strong>Investing in cybersecurity is not an expense — it is an essential safeguard against massive financial losses.</strong> The $550,000 fleet-wide average is only the baseline; landmark incidents like Maersk's NotPetya breach show how much higher the ceiling can go when core systems are hit.
     </div>
   </div>
+</div>
 
-  <!-- Tags -->
-  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:0 0 28px;">
-    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#Consulting</span>
-    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#Big4</span>
-    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#CareerStrategy</span>
-    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#SalaryNegotiation</span>
-    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#ThoughtLeadership</span>
-    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#OrgCulture</span>
-    <span style="background:#e8f4ff;border-radius:20px;color:#1a6fa8;font-size:10px;font-weight:700;padding:3px 12px;">#Career</span>
+<!--── SECTION Ⅳ ──-->
+<div style="font-family: Inter, sans-serif; margin-bottom: 32px;">
+  <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 16px;">
+    <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 36px; width: 4px;"></div>
+    <h2 style="color: #0a2342; font-family: Inter, sans-serif; font-size: 17px; font-weight: 800; margin: 0px;">Ⅳ. Six Strategic Cybersecurity Investments for Starlink-Enabled Vessels</h2>
   </div>
 
-  <!-- ── Related Posts ── -->
-  <div style="border-top:1px solid #e8eef5;margin:0 0 20px;padding-top:24px;">
-    <div style="color:#8099b3;font-size:9.5px;font-weight:800;letter-spacing:0.8px;margin-bottom:14px;text-transform:uppercase;">📚 Related Reading</div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
+  <p style="color: #333333; font-size: 14px; line-height: 1.8; margin: 0px 0px 16px;">
+    To mitigate cyber risks, shipowners and maritime companies must <strong>prioritize cybersecurity investments</strong> across six critical domains:
+  </p>
 
-      <a href="https://www.shippauljobs.com/2025/11/the-psychology-of-leadership-crisis-and.html"
-         target="_blank" rel="noopener"
-         style="align-items:center;background:#f8fafe;border:1px solid #dde8f5;border-radius:10px;display:flex;gap:14px;padding:14px 16px;text-decoration:none;">
-        <span style="font-size:22px;flex-shrink:0;line-height:1;">🧠</span>
-        <div style="flex:1;min-width:0;">
-          <div style="color:#0a2342;font-size:12px;font-weight:800;line-height:1.4;margin-bottom:3px;">The Psychology of Leadership Crisis and Growth Created by Success</div>
-          <div style="color:#8099b3;font-size:10.5px;line-height:1.5;">How success paradoxically creates internal crises — and what principled leadership requires in response.</div>
-        </div>
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;">→</span>
-      </a>
+  <div style="display: grid; gap: 14px; grid-template-columns: 1fr 1fr;">
 
-      <a href="https://www.shippauljobs.com/2026/01/the-next-competitive-edge-in.html"
-         target="_blank" rel="noopener"
-         style="align-items:center;background:#f8fafe;border:1px solid #dde8f5;border-radius:10px;display:flex;gap:14px;padding:14px 16px;text-decoration:none;">
-        <span style="font-size:22px;flex-shrink:0;line-height:1;">🚢</span>
-        <div style="flex:1;min-width:0;">
-          <div style="color:#0a2342;font-size:12px;font-weight:800;line-height:1.4;margin-bottom:3px;">The Next Competitive Edge in Maritime 4.0 Is Cybersecurity, Data, and AI</div>
-          <div style="color:#8099b3;font-size:10.5px;line-height:1.5;">Why data security and AI capabilities — not traditional expertise alone — define competitive advantage in modern shipbuilding.</div>
-        </div>
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;">→</span>
-      </a>
+    <div style="background: rgb(255, 255, 255); border-color: rgb(10, 35, 66) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #0a2342; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px 18px;">
+      <div style="color: #0a2342; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">INVESTMENT 1</div>
+      <div style="color: #0a2342; font-size: 14px; font-weight: 700; margin-bottom: 6px;">🔹 IT / OT Network Segregation</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Keep crew internet (IT) completely separate from ship control systems (OT). Implement <strong>firewalls and VLANs</strong> to prevent lateral movement between networks.</div>
+    </div>
 
-      <a href="https://www.shippauljobs.com/2025/11/part-3.html"
-         target="_blank" rel="noopener"
-         style="align-items:center;background:#f8fafe;border:1px solid #dde8f5;border-radius:10px;display:flex;gap:14px;padding:14px 16px;text-decoration:none;">
-        <span style="font-size:22px;flex-shrink:0;line-height:1;">😈</span>
-        <div style="flex:1;min-width:0;">
-          <div style="color:#0a2342;font-size:12px;font-weight:800;line-height:1.4;margin-bottom:3px;">The Villain Effect: That One Guy Who Somehow Kept Getting Promoted</div>
-          <div style="color:#8099b3;font-size:10.5px;line-height:1.5;">Why organisations reward the wrong people — and what that tells you about where the real power sits.</div>
-        </div>
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;">→</span>
-      </a>
+    <div style="background: rgb(255, 255, 255); border-color: rgb(10, 35, 66) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #0a2342; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px 18px;">
+      <div style="color: #0a2342; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">INVESTMENT 2</div>
+      <div style="color: #0a2342; font-size: 14px; font-weight: 700; margin-bottom: 6px;">🔑 Strong Access Controls &amp; MFA</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Enforce <strong>multi-factor authentication</strong> for all system logins. With 69% of observed risk tied to compromised credentials, <strong>Zero Trust Architecture</strong> limiting access to verified, authorized personnel is a priority, not an option.</div>
+    </div>
 
-      <a href="https://www.shippauljobs.com/2025/11/2.html"
-         target="_blank" rel="noopener"
-         style="align-items:center;background:#f8fafe;border:1px solid #dde8f5;border-radius:10px;display:flex;gap:14px;padding:14px 16px;text-decoration:none;">
-        <span style="font-size:22px;flex-shrink:0;line-height:1;">🥚</span>
-        <div style="flex:1;min-width:0;">
-          <div style="color:#0a2342;font-size:12px;font-weight:800;line-height:1.4;margin-bottom:3px;">[Leadership] 성공이 만든 리더의 위기와 성장의 심리학 — Part 3</div>
-          <div style="color:#8099b3;font-size:10.5px;line-height:1.5;">황금알을 낳는 거위의 배를 가르지 마오 — 조직이 핵심 인재를 소진시키는 방식에 대하여.</div>
-        </div>
-        <span style="color:#1a9e82;flex-shrink:0;font-size:14px;">→</span>
-      </a>
+    <div style="background: rgb(255, 255, 255); border-color: rgb(21, 79, 122) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #154f7a; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px 18px;">
+      <div style="color: #154f7a; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">INVESTMENT 3</div>
+      <div style="color: #0a2342; font-size: 14px; font-weight: 700; margin-bottom: 6px;">🔍 Real-Time Threat Monitoring (IDS/IPS)</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Deploy <strong>AI-powered cybersecurity systems</strong> and Intrusion Detection/Prevention Systems to detect and prevent cyber threats in real time across ship networks.</div>
+    </div>
 
+    <div style="background: rgb(255, 255, 255); border-color: rgb(21, 79, 122) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #154f7a; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px 18px;">
+      <div style="color: #154f7a; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">INVESTMENT 4</div>
+      <div style="color: #0a2342; font-size: 14px; font-weight: 700; margin-bottom: 6px;">📡 End-to-End Encryption &amp; Patch Management</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Ensure <strong>end-to-end encryption</strong> for all ship-to-shore communications. Regularly update Starlink firmware and ship system software to close known vulnerabilities.</div>
+    </div>
+
+    <div style="background: rgb(255, 255, 255); border-color: rgb(26, 111, 168) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #1a6fa8; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px 18px;">
+      <div style="color: #1a6fa8; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">INVESTMENT 5</div>
+      <div style="color: #0a2342; font-size: 14px; font-weight: 700; margin-bottom: 6px;">🧑‍✈️ Crew Cybersecurity Training</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Conduct regular <strong>cyber hygiene training</strong> covering phishing, malware, and safe internet usage — phishing simulations show roughly 1 in 5 users still click malicious links, so this is a recurring, not one-time, investment. Enforce strict policies for unauthorized device connections onboard.</div>
+    </div>
+
+    <div style="background: rgb(255, 255, 255); border-color: rgb(26, 111, 168) rgb(222, 226, 230) rgb(222, 226, 230); border-image: none; border-radius: 10px; border-style: solid; border-top: 4px solid #1a6fa8; border-width: 4px 1px 1px; border: 1px solid #dee2e6; padding: 16px 18px;">
+      <div style="color: #1a6fa8; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">INVESTMENT 6</div>
+      <div style="color: #0a2342; font-size: 14px; font-weight: 700; margin-bottom: 6px;">⚖️ Regulatory Compliance (IMO / USCG / IACS / NIST)</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.65;">Implement measures aligned with <strong>IMO MSC-FAL.1/Circ.3</strong>, the <strong>USCG Cybersecurity Rule</strong>, and follow <strong>ISO 27001</strong> and <strong>NIST CSF</strong>. For newbuilds, ensure compliance with <strong>IACS UR E26/E27</strong>.</div>
+    </div>
+
+  </div>
+</div>
+
+<!--── SECTION Ⅴ ──-->
+<div style="font-family: Inter, sans-serif; margin-bottom: 32px;">
+  <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 16px;">
+    <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 36px; width: 4px;"></div>
+    <h2 style="color: #0a2342; font-family: Inter, sans-serif; font-size: 17px; font-weight: 800; margin: 0px;">Ⅴ. Regulatory Framework — What Compliance Requires</h2>
+  </div>
+
+  <p style="color: #333333; font-size: 14px; line-height: 1.8; margin: 0px 0px 16px;">
+    Starlink adoption does not exist in a regulatory vacuum. International and flag-state frameworks are now mandating baseline cybersecurity requirements across the fleet:
+  </p>
+
+  <div style="display: grid; gap: 14px; grid-template-columns: 1fr 1fr;">
+
+    <div style="background: rgb(240, 247, 255); border-radius: 10px; border: 1px solid rgb(21, 79, 122); padding: 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 6px;">IMO MSC-FAL.1/Circ.3/Rev.3</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Guidelines on maritime cyber risk management, integrated into the ISM Code since January 2021. The Rev.3 update (April 2025) aligns the guidance with <strong>NIST CSF 2.0</strong>, adding a new "Govern" function alongside Identify, Protect, Detect, Respond, and Recover.</div>
+    </div>
+
+    <div style="background: rgb(240, 247, 255); border-radius: 10px; border: 1px solid rgb(21, 79, 122); padding: 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 6px;">IACS UR E26 / E27</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Mandatory for newbuilds contracted from July 2024. E26 covers vessel-level resilience; E27 governs CBS (Computer-Based System) supplier documentation requirements.</div>
+    </div>
+
+    <div style="background: rgb(240, 247, 255); border-radius: 10px; border: 1px solid rgb(21, 79, 122); padding: 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 6px;">USCG Cybersecurity Rule</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Final rule published 17 January 2025, effective 16 July 2025, for U.S.-flagged vessels and OCS facilities. Requires a designated Cybersecurity Officer, a formal Cybersecurity Plan, and documented detection/recovery measures.</div>
+    </div>
+
+    <div style="background: rgb(240, 247, 255); border-radius: 10px; border: 1px solid rgb(21, 79, 122); padding: 16px;">
+      <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 6px;">ISO 27001 / NIST CSF</div>
+      <div style="color: #555555; font-size: 13px; line-height: 1.6;">Industry-standard frameworks for information security management and cybersecurity risk assessment. Increasingly referenced by classification societies and insurers.</div>
+    </div>
+
+  </div>
+
+  <div style="background: rgb(248, 249, 250); border-radius: 10px; border: 1px solid rgb(222, 226, 230); margin-top: 14px; padding: 14px 18px;">
+    <div style="color: #555555; font-size: 12.5px; line-height: 1.7;">
+      ℹ️ A compliance note worth flagging directly: as of April 2026, maritime cybersecurity vendors report that <strong>Starlink has not published a dedicated SOC 2, ISO 27001, or FedRAMP attestation specifically covering the Starlink Maritime product</strong>. Regulatory compliance for the vessel remains the operator's responsibility — a satellite terminal being fast does not make it certified.
     </div>
   </div>
+</div>
 
-  <!-- ── Post Navigation ── -->
-  <div style="display:flex;align-items:center;gap:6px;margin:0 0 20px;">
-    <a href="https://shippauljobs.com"
-       style="flex:1;align-items:center;background:#f0f5fb;border:1px solid #d1e0ee;border-radius:7px;color:#8099b3;display:flex;font-size:10.5px;font-weight:700;gap:5px;padding:8px 12px;text-decoration:none;">
-      <span>←</span>
-      <span>Prev Post</span>
-    </a>
-    <a href="https://shippauljobs.com"
-       style="align-items:center;background:#f0f5fb;border:1px solid #d1e0ee;border-radius:7px;color:#8099b3;display:flex;font-size:14px;justify-content:center;min-width:36px;padding:7px 10px;text-decoration:none;">
-      ⌂
-    </a>
-    <a href="https://shippauljobs.com"
-       style="flex:1;align-items:center;background:#f0f5fb;border:1px solid #d1e0ee;border-radius:7px;color:#8099b3;display:flex;font-size:10.5px;font-weight:700;gap:5px;justify-content:flex-end;padding:8px 12px;text-decoration:none;">
-      <span>Next Post</span>
-      <span>→</span>
-    </a>
+<!--── CONCLUSION ──-->
+<div style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 14px; font-family: Inter, sans-serif; margin-bottom: 28px; padding: 28px 32px;">
+  <div style="color: #1a9e82; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 10px; text-transform: uppercase;">⚓ Captain's Take</div>
+  <p style="color: #eef6ff; font-size: 15px; line-height: 1.75; margin: 0px 0px 16px;">
+    Starlink is revolutionizing maritime operations — offering ships unprecedented connectivity and efficiency. But with greater connectivity comes greater risk. Maritime cyber incidents jumped 103% in 2025 alone, and the three landmark incidents of 2017–2020 already demonstrated what is at stake. The question is no longer <em>whether</em> to invest in maritime cybersecurity, but <em>how fast</em>.
+  </p>
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <div style="align-items: flex-start; color: #b8d4ea; display: flex; font-size: 13px; gap: 10px; line-height: 1.6;">
+      <span style="color: #1a9e82; flex-shrink: 0; font-weight: 700;">✅</span>
+      <span>The shift from VSAT to Starlink is not just a bandwidth upgrade — it is a fundamental change in the threat surface every vessel now carries. IT/OT segregation is no longer optional; it is the first line of defense.</span>
+    </div>
+    <div style="align-items: flex-start; color: #b8d4ea; display: flex; font-size: 13px; gap: 10px; line-height: 1.6;">
+      <span style="color: #1a9e82; flex-shrink: 0; font-weight: 700;">✅</span>
+      <span>Financial losses from cyber incidents now rival the cost of physical maritime casualties. The Maersk NotPetya incident alone cost more than many vessels are worth — and that was before Starlink reached the fleet.</span>
+    </div>
+    <div style="align-items: flex-start; color: #b8d4ea; display: flex; font-size: 13px; gap: 10px; line-height: 1.6;">
+      <span style="color: #1a9e82; flex-shrink: 0; font-weight: 700;">✅</span>
+      <span>82% of maritime cyber alerts concentrate in the crew network, not the OT network. Segmentation matters, but crew cyber hygiene is where most incidents actually start.</span>
+    </div>
+    <div style="align-items: flex-start; color: #b8d4ea; display: flex; font-size: 13px; gap: 10px; line-height: 1.6;">
+      <span style="color: #1a9e82; flex-shrink: 0; font-weight: 700;">✅</span>
+      <span>IACS UR E26/E27, IMO's Rev.3 update, and the new USCG Cybersecurity Rule are creating a firmer regulatory floor — but the actual threat landscape, and now geopolitical restrictions on Starlink itself, demand far more than minimum compliance.</span>
+    </div>
+    <div style="align-items: flex-start; color: #b8d4ea; display: flex; font-size: 13px; gap: 10px; line-height: 1.6;">
+      <span style="color: #1a9e82; flex-shrink: 0; font-weight: 700;">✅</span>
+      <span>Building trust with cargo owners and charterers increasingly depends on demonstrable cybersecurity posture. Cyber resilience is becoming a commercial differentiator, not just a compliance checkbox.</span>
+    </div>
   </div>
+</div>
 
-  <!-- ── Author Card ── -->
-  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:14px;padding:24px 28px;display:flex;align-items:center;gap:18px;font-family:'Inter',sans-serif;flex-wrap:wrap;">
-    <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
-         alt="Captain Paul"
-         style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;flex-shrink:0;" />
-    <div style="flex:1;min-width:180px;">
-      <div style="font-size:15px;font-weight:800;color:#ffffff;line-height:1.3;">Captain Paul · In Sung Lee</div>
-      <div style="font-size:12px;color:#9ab5c9;margin-top:3px;">Maritime 4.0 · Career Intelligence · AI, Data &amp; Cyber</div>
-      <div style="font-size:12px;color:#7ec8f4;margin-top:2px;">
-        <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="color:#7ec8f4;text-decoration:none;">linkedin.com/in/shipjobs</a>
+<!--── TAGS ──-->
+<div style="display: flex; flex-wrap: wrap; font-family: Inter, sans-serif; gap: 8px; margin-bottom: 28px;">
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#Starlink</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#MaritimeCybersecurity</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#LEOSatellite</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#OTSecurity</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#GPSSpoofing</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#Ransomware</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#ZeroTrust</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#IACSURE27</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#USCG</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#IMO</span>
+  <span style="background: rgb(232, 244, 255); border-radius: 20px; color: #1a6fa8; font-size: 12px; font-weight: 600; padding: 5px 12px;">#Maritime4.0</span>
+</div>
+
+<!--── RELATED ARTICLES ──-->
+<div style="background: rgb(248, 249, 250); border-radius: 10px; border: 1px solid rgb(222, 226, 230); font-family: Inter, sans-serif; margin-bottom: 28px; padding: 18px 20px;">
+  <div style="color: #0a2342; font-size: 14px; font-weight: 700; margin-bottom: 14px;">🔗 Related Articles &amp; References</div>
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(10, 35, 66); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">1</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://safety4sea.com/maritime-cyber-incidents-jumped-103-in-2025/" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">Maritime Cyber Incidents Jumped 103% in 2025</a><br />
+        Safety4Sea, citing CYTUR's 2026 Maritime Cyber Threat White Paper · <span style="color: #6c757d;">safety4sea.com</span>
       </div>
-      <div style="font-size:11px;color:#6b8fa8;margin-top:4px;">Maritime Intelligence Platform · Cyber · AI · Data</div>
     </div>
-    <a href="https://shippauljobs.com" target="_blank" rel="noopener"
-       style="background:#1a9e82;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;text-decoration:none;white-space:nowrap;">
-      shippauljobs.com
-    </a>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(10, 35, 66); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">2</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://marlink.com/resources/knowledge-hub/marlink-report-reveals-evolving-cyber-risk-driven-by-user-credentials-and-human-error/" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">Marlink Report Reveals Evolving Cyber Risk Driven by User Credentials and Human Error</a><br />
+        Marlink, Cyber Intelligence Report for Remote Operations 2026 · April 2026 · <span style="color: #6c757d;">marlink.com</span>
+      </div>
+    </div>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(10, 35, 66); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">3</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://cydome.io/maritime-cybersecurity-bulletin-jan-15th-2026/" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">Maritime Cybersecurity Bulletin — China's Starlink Enforcement</a><br />
+        Cydome · January 15, 2026 · <span style="color: #6c757d;">cydome.io</span>
+      </div>
+    </div>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(10, 35, 66); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">4</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">The Untold Story of NotPetya — The Most Devastating Cyberattack in History</a><br />
+        Wired · 2018 · Maersk $300M incident detail · <span style="color: #6c757d;">wired.com</span>
+      </div>
+    </div>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(10, 35, 66); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">5</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://safety4sea.com/cm-cma-cgm-confirms-cyber-attack-on-its-network/" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">CMA CGM Confirms Cyber Attack on Its Network (Ragnar Locker, 2020)</a><br />
+        Safety4Sea · September 2020 · <span style="color: #6c757d;">safety4sea.com</span>
+      </div>
+    </div>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">6</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://www.marinepublic.com/blogs/marine-law/961326-ship-cybersecurity-2026-imo-uscg-iacs-compliance" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">Ship Cybersecurity 2026: IMO, USCG &amp; IACS Compliance</a><br />
+        Marine Public · 2026 · IMO MSC-FAL.1/Circ.3/Rev.3 and USCG Cybersecurity Rule summary · <span style="color: #6c757d;">marinepublic.com</span>
+      </div>
+    </div>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">7</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://www.imo.org/en/OurWork/Security/Pages/Cyber-security.aspx" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">IMO Maritime Cyber Risk Management — MSC-FAL.1/Circ.3</a><br />
+        International Maritime Organization · Rev.3 published April 2025 · <span style="color: #6c757d;">imo.org</span>
+      </div>
+    </div>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">8</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://www.bimco.org/about-shipping/shipping-guides/bimco-guidelines-on-cyber-security-onboard-ships" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">The Guidelines on Cyber Security Onboard Ships (v4)</a><br />
+        BIMCO / ICS / INTERCARGO / INTERTANKO · 2020 · <span style="color: #6c757d;">bimco.org</span>
+      </div>
+    </div>
+
+    <div style="align-items: flex-start; display: flex; gap: 12px;">
+      <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px;">9</span>
+      <div style="color: #333333; font-size: 13px; line-height: 1.65;">
+        <a href="https://iacs.org.uk/resolutions/unified-requirements/ur-e/" rel="noopener" style="color: #1d89cf; font-weight: 600;" target="_blank">IACS UR E26 / E27 — Cyber Resilience of Ships and On-board Systems</a><br />
+        IACS Unified Requirements · 2022 (mandatory from July 2024) · <span style="color: #6c757d;">iacs.org.uk</span>
+      </div>
+    </div>
+
   </div>
+</div>
 
-
+<!--── AUTHOR CARD (BOTTOM) ──-->
+<div style="align-items: center; background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 14px; display: flex; flex-wrap: wrap; font-family: Inter, sans-serif; gap: 18px; padding: 24px 28px;">
+  <img alt="Captain Paul" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 3px solid rgb(26, 158, 130); flex-shrink: 0; height: 60px; object-fit: cover; width: 60px;" />
+  <div style="flex: 1 1 0%; min-width: 180px;">
+    <div style="color: white; font-size: 15px; font-weight: 800; line-height: 1.3;">Captain Paul · In Sung Lee</div>
+    <div style="color: #9ab5c9; font-size: 12px; margin-top: 3px;">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+    <div style="color: #7ec8f4; font-size: 12px; margin-top: 2px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" style="color: #7ec8f4; text-decoration: none;" target="_blank">linkedin.com/in/shipjobs</a>
+    </div>
+    <div style="color: #6b8fa8; font-size: 11px; margin-top: 4px;">Collaborator: Lew, Julius, Jin, Morgan, Yeon</div>
+  </div>
+  <a href="https://shippauljobs.com" rel="noopener" style="background: rgb(26, 158, 130); border-radius: 8px; color: white; font-size: 12px; font-weight: 700; padding: 10px 20px; text-decoration: none; white-space: nowrap;" target="_blank">
+    shippauljobs.com
+  </a>
 </div>

@@ -121,7 +121,7 @@
           &quot;@type&quot;: &quot;WebSite&quot;,
           &quot;name&quot;: &quot;ShipPaulJobs&quot;,
           &quot;url&quot;: &quot;https://www.shippauljobs.com&quot;,
-          &quot;description&quot;: &quot;Maritime AI &amp; Cybersecurity &#8212; ShipPaulJobs &#8212; B2B maritime cybersecurity intelligence platform. IACS UR E26/E27 compliance, OT/ICS vessel security, and smart ship cybersecurity from real shipyard experience.&quot;,
+          &quot;description&quot;: &quot;Where maritime professionals share AI and cybersecurity insights for ships and ports &#8212; IACS UR E26/E27, OT/ICS security, and smart ship resilience.&quot;,
           &quot;keywords&quot;: &quot;maritime cybersecurity, IACS UR E26, ship cyber risk management, smart ship security, maritime cybersecurity framework, Maritime 4.0, OT security, ICS security&quot;,
           &quot;publisher&quot;: {
             &quot;@type&quot;: &quot;Organization&quot;,
@@ -201,7 +201,7 @@
   <meta expr:content='&quot;ShipPaulJobs — Maritime cybersecurity articles tagged: &quot; + data:blog.pageName' name='description'/>
 <b:else/>
   <!-- 홈 및 기타 -->
-  <meta content='ShipPaulJobs — B2B maritime cybersecurity intelligence platform. IACS UR E26/E27 compliance, OT/ICS vessel security, and smart ship cybersecurity from real shipyard experience.' name='description'/>
+  <meta content='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.' name='description'/>
 </b:if>
 
 <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
@@ -236,7 +236,7 @@
 <b:else/>
   <meta content='website' property='og:type'/>
   <meta content='ShipPaulJobs Maritime AI &amp; Cyber' property='og:title'/>
-  <meta content='ShipPaulJobs — B2B maritime cybersecurity intelligence platform. IACS UR E26/E27 compliance, OT/ICS vessel security, and smart ship cybersecurity from real shipyard experience.' property='og:description'/>
+  <meta content='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.' property='og:description'/>
   <meta expr:content='data:blog.homepageUrl' property='og:url'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
   <meta content='1200' property='og:image:width'/>
@@ -266,7 +266,7 @@
   </b:if>
 <b:else/>
   <meta content='ShipPaulJobs Maritime AI &amp; Cyber' name='twitter:title'/>
-  <meta content='ShipPaulJobs — B2B maritime cybersecurity intelligence platform. IACS UR E26/E27 compliance, OT/ICS vessel security, and smart ship cybersecurity from real shipyard experience.' name='twitter:description'/>
+  <meta content='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.' name='twitter:description'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
 </b:if>
 
@@ -1045,6 +1045,33 @@
       .Blog .b1-card-tag:hover{ background:#1d89cf; color:#fff }
       .Blog .b1-card-loc a{ color:inherit; text-decoration:none }
       .Blog .b1-card-byline{ display:block; font-size:11px; opacity:.65 }
+      .Blog .b1-card-author{ cursor:pointer; color:#444; font-weight:600; text-decoration:none; background:none; border:none; padding:1px 2px; font-size:11px; line-height:1.6; display:inline-block; }
+      .Blog .b1-card-author:hover{ color:#222; background:none; }
+      /* -- SPJ Verification Badge -- */
+      .Blog .b1-card-thumb{position:relative!important;}
+      .spj-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;overflow:hidden;z-index:5;flex-shrink:0;text-decoration:none;}
+      .spj-badge img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+      .spj-badge-post{width:auto!important;border-radius:12px!important;padding:2px 8px 2px 4px;gap:4px;}
+      .spj-badge-label{font-size:10px;font-weight:700;white-space:nowrap;}
+      .spj-badge-l1 .spj-badge-label{color:#00c97a;}.spj-badge-l2 .spj-badge-label{color:#1d89cf;}.spj-badge-l3 .spj-badge-label{color:#9b59b6;}
+      .spj-badge-l1{border:2.5px solid #00c97a;box-shadow:0 0 7px rgba(0,201,122,0.55),0 1px 3px rgba(0,0,0,0.2);}
+      .spj-badge-l2{border:2.5px solid #1d89cf;box-shadow:0 0 7px rgba(29,137,207,0.55),0 1px 3px rgba(0,0,0,0.2);}
+      .spj-badge-l3{border:2.5px solid #9b59b6;box-shadow:0 0 7px rgba(155,89,182,0.55),0 1px 3px rgba(0,0,0,0.2);}
+      /* Author Modal */
+      #am-overlay{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.55); z-index:9999; overflow-y:auto; }
+      #am-box{ background:#fff; max-width:580px; margin:48px auto 48px; border-radius:14px; padding:28px 24px 24px; position:relative; box-shadow:0 8px 32px rgba(0,0,0,.18); }
+      #am-close{ position:absolute; top:14px; right:16px; font-size:18px; cursor:pointer; background:none; border:none; color:#888; line-height:1; }
+      #am-close:hover{ color:#333; }
+      #am-author-info{ display:flex; align-items:center; gap:12px; margin-bottom:16px; padding-bottom:14px; border-bottom:2px solid rgba(29,137,207,0.2); }
+      #am-author-img{ width:100px; height:100px; border-radius:50%; object-fit:cover; border:2px solid #1a9e82; flex-shrink:0; }
+      #am-author-initials{ width:100px; height:100px; border-radius:50%; background:linear-gradient(135deg,#154f7a,#1d89cf); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; font-size:36px; font-weight:700; }
+      #am-title{ font-size:15px; font-weight:700; color:#0a2342; margin:0 0 2px; }
+      #am-sub{ font-size:12px; color:#888; margin:0; }
+      #am-list{ list-style:none; padding:0; margin:0; }
+      #am-list .pp-col-left{ width:auto; flex-shrink:0; }
+      #am-list .item-thumbnail{ width:140px; flex-shrink:0; border-radius:6px; overflow:hidden; }
+      #am-list .item-thumbnail img{ width:140px; height:auto; display:block; border-radius:6px; }
+      #am-loading{ text-align:center; padding:24px; color:#aaa; font-size:13px; }
       .Blog .b1-card-comment{ flex-shrink:0 }
       .Blog .b1-card-comment a{ font-size:11px; color:#1d89cf; text-decoration:none; font-weight:600; white-space:nowrap }
       .PopularPosts{ padding:16px 8px } .PopularPosts h3.title{ font-size:14px;
@@ -1128,7 +1155,8 @@
       .PopularPosts h3.title{ display:none }
       .PopularPosts .pp-header{ font-size:13px; font-weight:700; letter-spacing:0.4px; padding:0 0 8px; margin-bottom:4px; border-bottom:2px solid rgba(29,137,207,0.35) }
       .PopularPosts div[role=feed]{ counter-reset:pp-counter }
-      .PopularPosts article.post{ display:flex; align-items:center; counter-increment:pp-counter; padding:7px 0 }
+      .PopularPosts article.post{ display:flex; align-items:center; counter-increment:pp-counter; padding:8px 10px; background:#fff; border-radius:8px; box-shadow:0 1px 5px rgba(10,35,66,.08); margin-bottom:5px; transition:background .18s,box-shadow .18s }
+      .PopularPosts article.post:last-child{ margin-bottom:0 }
       .PopularPosts .pp-num{ width:5%; flex-shrink:0; text-align:center; font-size:15px; font-weight:800; opacity:.5; line-height:1; align-self:center }
       .PopularPosts .pp-num::before{ content:counter(pp-counter) }
       .PopularPosts .pp-col-left{ width:10%; flex-shrink:0; display:flex; align-items:center; justify-content:center }
@@ -1138,14 +1166,15 @@
       .PopularPosts .pp-col-right{ width:10%; flex-shrink:0; display:flex; align-items:center; justify-content:center }
       .PopularPosts .pp-col-mid h3.pp-title{ margin:0 0 3px; font-size:13px; line-height:17px }
       .PopularPosts .pp-labels{ margin-top:4px; display:flex; flex-wrap:wrap; gap:3px }
-      .PopularPosts .pp-tag{ font-size:10px; font-weight:600; padding:1px 6px; border-radius:4px; background:rgba(29,137,207,0.12); color:#1d89cf; text-decoration:none; line-height:1.6; display:inline-block }
+      .PopularPosts .pp-tag{ font-size:10px; font-weight:600; padding:1px 6px; border-radius:4px; background:rgba(29,137,207,0.10); color:#1d89cf; text-decoration:none; line-height:1.6; display:inline-block }
       .PopularPosts .pp-tag:hover{ background:#1d89cf; color:#fff }
       .PopularPosts .pp-col-bot{ display:flex; align-items:center; justify-content:space-between; margin-top:3px }
-      .PopularPosts .pp-byline{ font-size:11px; line-height:14px; opacity:.65 }
-      .PopularPosts .pp-count{ font-size:11px; font-weight:600; line-height:1.3; opacity:.75; white-space:nowrap }
-      .PopularPosts article.post{ transition:background .18s }
-      .PopularPosts article.post:hover{ background:rgba(29,137,207,0.06); border-radius:6px }
-      .PopularPosts .pp-col-mid h3.pp-title a{ color:$(popularposts.title.color); text-decoration:none; transition:color .18s; display:block; cursor:pointer }
+      .PopularPosts .pp-byline{ font-size:11px; line-height:14px; color:#999; opacity:1 }
+      .PopularPosts .pp-byline .b1-card-author{ color:#aaa; background:#f2f2f2; }
+      .PopularPosts .pp-byline .b1-card-author:hover{ color:#777; background:#e8e8e8; }
+      .PopularPosts .pp-count{ font-size:11px; font-weight:600; line-height:1.3; color:#aaa; white-space:nowrap }
+      .PopularPosts article.post:hover{ background:#f4f9ff; box-shadow:0 2px 8px rgba(29,137,207,.10) }
+      .PopularPosts .pp-col-mid h3.pp-title a{ color:#0a2342; text-decoration:none; transition:color .18s; display:block; cursor:pointer }
       .PopularPosts .pp-col-mid h3.pp-title a:hover{ color:#1d89cf; text-decoration:underline }
       .popular-posts-snippet .snippet-item{ line-height:24px } .PopularPosts
       .popular-posts-snippet .snippet-fade{ color:$(body.text.color);
@@ -1602,7 +1631,7 @@
       .FeaturedPost .fp-bot-comment{flex-shrink:0}
       .FeaturedPost .fp-bot-comment a{font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap}
       .Blog .blog-posts .post-outer-container{background:#f4f9ff !important;border-radius:10px !important;box-shadow:0 2px 8px rgba(10,35,66,.07) !important;margin-bottom:10px !important;position:relative !important;}
-      .b1-share-wrap{position:absolute;top:10px;right:10px;z-index:20}
+      .b1-share-wrap{position:absolute;top:10px;right:10px;z-index:20;display:flex;align-items:center;gap:6px}
       .b1-share-toggle{width:32px;height:32px;border-radius:50%;background:rgba(26,158,130,0.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .18s,background .18s}
       .b1-share-toggle:hover,.b1-share-toggle.active{background:#1a9e82;transform:scale(1.08)}
       @keyframes b1SmIn{from{opacity:0;transform:translateY(-6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -1614,6 +1643,7 @@
       .b1-post-share-section{padding:14px 0 6px;border-top:1px solid rgba(29,137,207,0.2);margin-top:10px;display:flex;align-items:center;gap:12px}
       .b1-post-share-label{font-size:12px;color:#8099b3;font-weight:700;letter-spacing:.3px;white-space:nowrap}
       .Blog .b1-latest-header{font-size:13px;font-weight:700;letter-spacing:0.4px;padding:0 0 8px;margin-bottom:8px;border-bottom:2px solid rgba(29,137,207,0.35);color:#fff}
+      .tls-section-header{background:linear-gradient(90deg,#00c97a 0%,#1eff9e 40%,#00e676 70%,#00b862 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;border-bottom:2px solid rgba(0,230,118,0.45)!important;text-shadow:none;filter:drop-shadow(0 0 6px rgba(0,255,140,0.55));letter-spacing:0.6px;}
       .post-title{margin:0 0 4px !important;}
       .post-body{margin:0.75em 0 1em !important;}
       .byline{margin-top:4px !important;}
@@ -1638,6 +1668,12 @@
         });
       });
     </script>
+<b:if cond='data:view.isPost'>
+<meta expr:content='data:post.snippet' name='description'/>
+<meta expr:content='data:post.title' property='og:title'/>
+<meta expr:content='data:post.snippet' property='og:description'/>
+<link expr:href='data:post.url' rel='canonical'/>
+</b:if>
   </head>
 
   <body>
@@ -1789,18 +1825,66 @@
       #mw-widget .mw-nomarine{color:rgba(200,228,248,0.45);font-size:12px;}
       #mw-widget b{color:#1affda;}
       /* &#9472;&#9472; Sidebar Label widgets &#8212; 통일 스타일 &#9472;&#9472; */
-      #Label1,#Label4{background:none!important;border:none!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
-      #Label1 .title,#Label4 .title{display:none!important;}
-      #Label1 .widget-content,#Label4 .widget-content{padding:2px 0;}
+      #Label1,#Label2,#Label4{background:none!important;border:none!important;border-radius:0!important;padding:0!important;box-shadow:none!important;}
+      #Label1 .title,#Label2 .title,#Label4 .title{display:none!important;}
+      #Label1 .widget-content,#Label2 .widget-content,#Label4 .widget-content{padding:2px 0;}
+      #Label1 .ranked-lbl-list,#Label2 .ranked-lbl-list,#Label4 .ranked-lbl-list{width:90%!important;}
       .spj-lbl-list{list-style:none!important;margin:0!important;padding:0!important;}
       .spj-lbl-item a{display:flex;align-items:center;justify-content:space-between;padding:5px 4px;color:#2c4a6b!important;text-decoration:none!important;font-size:13px;font-weight:500;border-left:2px solid transparent;transition:background .15s,border-color .15s,color .15s;}
       .spj-lbl-item a:hover{background:rgba(21,79,122,0.07);border-left-color:#1d89cf;color:#154f7a!important;}
       .spj-lbl-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
       .spj-lbl-count{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.25);border-radius:10px;color:#1d89cf;font-size:10px;font-weight:700;padding:1px 6px;margin-left:6px;flex-shrink:0;}
       .spj-lbl-item a:hover .spj-lbl-count{background:rgba(21,79,122,0.18);border-color:#1d89cf;color:#154f7a;}
+      /* &#9472;&#9472; Ranked label list (count-sorted, numbered) &#9472;&#9472; */
+      .ranked-lbl-list{list-style:none!important;margin:0!important;padding:0!important;counter-reset:lbl-rank;width:100%;}
+      .ranked-lbl-item{counter-increment:lbl-rank;display:block!important;width:100%!important;padding:0!important;margin:0 0 0 0!important;font-size:12.5px!important;background:none!important;border:none!important;border-radius:0!important;}
+      .ranked-lbl-item a{display:flex!important;align-items:baseline;width:100%!important;box-sizing:border-box!important;padding:4px 6px 4px 4px!important;color:#2c4a6b!important;text-decoration:none!important;font-size:12.5px!important;font-weight:500;border-left:2px solid transparent;transition:background .15s,border-color .15s,color .15s;}
+      .ranked-lbl-item a::before{content:counter(lbl-rank)&quot;.&quot;;display:inline-block;min-width:20px;font-size:10.5px;font-weight:800;color:#1d89cf;flex-shrink:0;}
+      .ranked-lbl-item a:hover{background:rgba(21,79,122,0.07);border-left-color:#1d89cf;color:#154f7a!important;}
+      .ranked-lbl-text{flex:1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+      .ranked-lbl-cnt{color:#888;font-size:10.5px;font-weight:600;margin-left:auto;padding-left:6px;flex-shrink:0;text-align:right;}
+      /* &#9472;&#9472; 📊 INTEL MENU (Label2) &#8212; Main nav: always-on bg + bold + blue pill count &#9472;&#9472; */
+      #Label2 .ranked-lbl-item a{background:rgba(21,79,122,0.06)!important;border-left:3px solid rgba(21,79,122,0.2)!important;font-size:13px!important;font-weight:600!important;padding:5px 6px 5px 4px!important;border-radius:3px;margin-bottom:2px;}
+      #Label2 .ranked-lbl-item a:hover{background:rgba(21,79,122,0.15)!important;border-left-color:#1d89cf!important;color:#0f2a47!important;}
+      #Label2 .ranked-lbl-item a::before{color:#154f7a!important;font-size:11px!important;font-weight:900!important;}
+      #Label2 .ranked-lbl-cnt{background:rgba(21,79,122,0.12);border:1px solid rgba(21,79,122,0.28);border-radius:10px;color:#1d89cf!important;font-size:10px!important;font-weight:700!important;padding:1px 6px;margin-left:6px;}
+      #Label2 .sb-head{border-bottom:2px solid #0d4275!important;}
+      #Label2 .sb-head-title{color:#0d4275!important;font-size:13px!important;}
+      /* &#9472;&#9472; 📌 Expert Insights (Label4) &#8212; Sub-menu: clean, standard blue &#9472;&#9472; */
+      #Label4 .ranked-lbl-item a{font-size:12.5px!important;font-weight:500!important;}
+      #Label4 .sb-head{border-bottom:2px solid #154f7a!important;}
+      #Label4 .sb-head-title{color:#154f7a!important;}
+      /* -- Label2 + Label4 + Label1 Main/Sub menu layout -- */
+      #Label2{padding-bottom:0!important;}
+      #Label4{padding-top:0!important;border-top:none!important;margin-top:0!important;padding-bottom:0!important;}
+      #Label1{padding-top:0!important;border-top:none!important;margin-top:0!important;}
+      #Label4 .sb-head{padding:5px 0 5px 10px!important;margin-top:8px!important;margin-bottom:4px!important;border-top:1px dashed rgba(21,79,122,0.3)!important;border-bottom:none!important;}
+      #Label4 .sb-head-title{font-size:11px!important;letter-spacing:0.04em!important;opacity:0.8;}
+      #Label4 .sb-btn{width:15px!important;height:15px!important;font-size:10px!important;}
+      #Label4 .widget-content{padding-left:10px!important;}
+      #Label4 .ranked-lbl-item a{font-size:12px!important;font-weight:400!important;background:none!important;border-left:2px solid transparent!important;padding:3px 4px!important;}
+      #Label4 .ranked-lbl-item a:hover{background:rgba(21,79,122,0.07)!important;border-left-color:#1d89cf!important;}
+      #Label4 .ranked-lbl-cnt{background:none!important;border:none!important;font-size:9.5px!important;color:#8099b3!important;padding:0!important;margin-left:4px!important;}
+      /* &#9472;&#9472; 🔖 Maritime Knowledge Hub (Label1) &#8212; Study: teal accent &#9472;&#9472; */
+      #Label1 .ranked-lbl-item a::before{color:#1a8a72!important;}
+      #Label1 .ranked-lbl-item a:hover{background:rgba(26,138,114,0.09)!important;border-left-color:#1a8a72!important;color:#0d5c4a!important;}
+      #Label1 .ranked-lbl-cnt{color:#1a8a72!important;}
+      #Label1 .sb-head{border-bottom:2px solid #1a8a72!important;}
+      #Label1 .sb-head-title{color:#1a8a72!important;}
+      /* -- Label1 sub-section sizing (same structure as Label4) -- */
+      #Label1 .sb-head{padding:5px 0 5px 10px!important;margin-top:8px!important;margin-bottom:4px!important;border-top:1px dashed rgba(26,138,114,0.3)!important;border-bottom:none!important;}
+      #Label1 .sb-head-title{font-size:11px!important;letter-spacing:0.04em!important;opacity:0.8;}
+      #Label1 .sb-btn{width:15px!important;height:15px!important;font-size:10px!important;}
+      #Label1 .widget-content{padding-left:10px!important;}
+      #Label1 .ranked-lbl-item a{font-size:12px!important;font-weight:400!important;background:none!important;border-left:2px solid transparent!important;padding:3px 4px!important;}
+      #Label1 .ranked-lbl-item a:hover{background:rgba(26,138,114,0.07)!important;border-left-color:#1a8a72!important;}
+      #Label1 .ranked-lbl-cnt{font-size:9.5px!important;padding:0!important;margin-left:4px!important;}
+      /* &#9472;&#9472; Expert Insights / Maritime Knowledge Hub / INTEL MENU hover 360&#176; flip &#9472;&#9472; */
+      @keyframes intel-flip{from{transform:perspective(600px) rotateX(0deg);}to{transform:perspective(600px) rotateX(180deg);}}
+      .flip-once{animation:intel-flip 1s linear 1 forwards;}
       /* &#9472;&#9472; Sidebar collapsible header &#9472;&#9472; */
       .sb-head{display:flex;justify-content:space-between;align-items:center;padding:6px 0 8px;margin-bottom:8px;border-bottom:2px solid #154f7a;}
-      .sb-head-title{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#154f7a;}
+      .sb-head-title{font-size:12.5px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#154f7a;}
       .sb-btn{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.35);border-radius:3px;color:#154f7a;font-family:monospace;font-size:14px;font-weight:700;width:20px;height:20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;transition:background 0.15s;}
       .sb-btn:hover{background:rgba(21,79,122,0.2);}
       .sb-collapsible.minimized .sb-body{display:none;}
@@ -1812,6 +1896,16 @@
         #right-panel.rp-mobile-open #rp-panel-body{display:block;max-height:80vh;overflow-y:auto;}
       }
       .rp-svc-link:hover{background:rgba(26,158,130,0.12)!important;}
+      /* -- Maritime Hub: Tools card style -- */
+      #rp-panel-body{border-color:rgba(80,160,240,0.25)!important;}
+      .rp-sep{background:rgba(80,160,240,0.12)!important;}
+      .rp-card{background:#071320!important;}
+      .rp-card::before{content:&#39;&#39;;display:block;height:3px;background:linear-gradient(90deg,#1a9e82 0%,#1d89cf 100%);}
+      .rp-head{background:rgba(7,19,32,0.8)!important;border-bottom-color:rgba(80,160,240,0.12)!important;font-family:&#39;Segoe UI&#39;,Arial,sans-serif!important;}
+      .rp-title{font-family:&#39;Segoe UI&#39;,Arial,sans-serif!important;background:linear-gradient(90deg,#00c97a 0%,#1eff9e 40%,#00e676 70%,#00b862 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 5px rgba(0,255,140,0.45));color:transparent!important;}
+      .rp-btn{border-color:rgba(80,160,240,0.35)!important;color:#7effd8!important;}
+      .rp-btn:hover{background:rgba(80,160,240,0.18)!important;}
+      #mw-widget{font-family:&#39;Segoe UI&#39;,Arial,sans-serif!important;color:rgba(180,210,234,0.72)!important;font-size:11px!important;}
       /* &#9472;&#9472; Main content collapsible (dark style) &#9472;&#9472; */
       .mc-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:4px;color:#fff;font-family:monospace;font-size:13px;font-weight:700;width:22px;height:22px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;flex-shrink:0;align-self:flex-start;margin-top:2px;transition:background 0.15s;}
       .mc-btn:hover{background:rgba(255,255,255,0.26);}
@@ -1934,7 +2028,7 @@
                         <p id='spj-desc-p'/>
                         <script>//<![CDATA[
                         (function(){
-                          var txt='ShipPaulJobs — B2B maritime cybersecurity intelligence platform. IACS UR E26/E27 compliance, OT/ICS vessel security, and smart ship cybersecurity from real shipyard experience.';
+                          var txt='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.';
                           var p=document.getElementById('spj-desc-p');
                           if(!p)return;
                           p.innerHTML=txt.split(' ').map(function(w){return '<span style="opacity:0;display:inline-block;transition:opacity 0.4s,transform 0.4s;transform:translateY(6px)">'+w+'</span>';}).join(' ');
@@ -1989,11 +2083,11 @@
     ['Label1','Label4'].forEach(function(id){
       var w = document.getElementById(id);
       if(!w) return;
-      w.querySelectorAll('.spj-lbl-item a').forEach(function(a){
-        var nEl = a.querySelector('.spj-lbl-name');
-        var cEl = a.querySelector('.spj-lbl-count');
+      w.querySelectorAll('.ranked-lbl-item a').forEach(function(a){
+        var nEl = a.querySelector('.ranked-lbl-text');
+        var cEl = a.querySelector('.ranked-lbl-cnt');
         if(!nEl || !cEl) return;
-        var cnt = parseInt(cEl.textContent, 10);
+        var cnt = parseInt(cEl.textContent.replace(/[()]/g,''), 10);
         if(!isNaN(cnt)) items.push({name: nEl.textContent.trim(), url: a.href, count: cnt});
       });
     });
@@ -2165,7 +2259,7 @@
                     <b:widget-settings>
                       <b:widget-setting name='showSnippet'>true</b:widget-setting>
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-                      <b:widget-setting name='postId'>1198051967570702136</b:widget-setting>
+                      <b:widget-setting name='postId'>7969949074503305198</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
                       <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
                     </b:widget-settings>
@@ -2412,6 +2506,7 @@
                     <b:includable id='snippetedPostContent'>
                       <!-- 우측 상단 공유 버튼 -->
                       <div class='b1-share-wrap'>
+                        <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                         <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                           <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg>
                         </button>
@@ -2452,7 +2547,7 @@
                             </b:if>
                           </div>
                           <div class='fp-bot-byline'>
-                            <data:post.author.name/> &#183; <data:post.date/>
+                            <button class='b1-card-author' expr:data-author='data:post.author.name' onclick='showAuthorPosts(this.dataset.author)'><data:post.author.name/></button> &#183; <data:post.date/>
                           </div>
                         </div>
                         <div class='fp-bot-comment'>
@@ -2836,6 +2931,7 @@
                         <b:if cond='data:view.isSingleItem'>
                           <!-- 단일 포스트 상단 우측 공유 버튼 -->
                           <div class='b1-share-wrap'>
+                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Industry Validated</span></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Expert Reviewed</span></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Verified</span></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg>
                             </button>
@@ -2932,6 +3028,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <!-- 상단: 제목 + 공유 버튼 -->
                           <!-- 우측 상단 공유 버튼 -->
                           <div class='b1-share-wrap'>
+                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg>
                             </button>
@@ -2995,12 +3092,13 @@ if(!window.b1WC){window.b1WC=function(btn){
                             });
                           }
                           if(!window.b1ShareHtml){
-                            window.b1ShareHtml=function(url){
+                            window.b1ShareHtml=function(url, prefix){
                               var eu=encodeURIComponent(url);
                               var du=url.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
                               var svgShare='<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
                               var cpOnclick="navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background='#1a9e82';s.querySelector('span').textContent='Copied!';setTimeout(function(){s.style.background=orig;s.querySelector('span').textContent='Copy Link'},1500);return false;";
                               return '<div class="b1-share-wrap">'
+                                +(prefix||'')
                                 +'<button class="b1-share-toggle" onclick="b1ShareToggle(this);return false;" title="Share">'+svgShare+'</button>'
                                 +'<div class="b1-share-panel">'
                                 +'<a class="b1-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url='+eu+'" target="_blank" rel="noopener" style="background:#0a66c2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span>LinkedIn</span></a>'
@@ -3058,7 +3156,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <!-- 하단: 작성자&#183;날짜 / 💬 댓글 -->
                           <div class='b1-card-bot'>
                             <div class='b1-card-byline'>
-                              <data:post.author.name/> &#183; <data:post.date/>
+                              <button class='b1-card-author' expr:data-author='data:post.author.name' onclick='showAuthorPosts(this.dataset.author)'><data:post.author.name/></button> &#183; <data:post.date/>
                             </div>
                             <div class='b1-card-comment'>
                               <b:if cond='data:post.allowComments'>
@@ -3278,6 +3376,253 @@ if(!window.b1WC){window.b1WC=function(btn){
           </b:if>
         </b:includable>
                     <b:includable id='postPagination'>
+                      <!-- &#9552;&#9552;&#9552; TOOLS SECTION &#9552;&#9552;&#9552; -->
+                      <b:if cond='data:view.isHomepage or data:view.isMultipleItems'>
+                      <style>
+                        #tls-outer{overflow:hidden}
+                        #tls-track{display:flex;gap:14px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+                        #tls-track&gt;div{flex:0 0 calc((100% - 28px)/3);min-width:0}
+                        @media(max-width:900px){#tls-track&gt;div{flex:0 0 calc((100% - 14px)/2)}}
+                        @media(max-width:580px){#tls-track&gt;div{flex:0 0 100%}}
+                        /* Tool card sections */
+                        .tc{border-radius:10px;font-family:&#39;Segoe UI&#39;,Arial,sans-serif;overflow:hidden;background:#071320;border:1px solid rgba(80,160,240,0.18);display:flex;flex-direction:column;position:relative;}
+                        .tc-accent{height:3px;background:linear-gradient(90deg,#1a9e82 0%,#1d89cf 100%);}
+                        .tc-head{padding:13px 15px 11px;border-bottom:1px solid rgba(80,160,240,0.12);display:flex;align-items:center;gap:10px;}
+                        .tc-icon{width:38px;height:38px;border-radius:8px;background:rgba(26,158,130,0.15);border:1px solid rgba(26,158,130,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;line-height:1;}
+                        .tc-title-wrap{flex:1;min-width:0;}
+                        .tc-label{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:3px;background:linear-gradient(90deg,#00c97a 0%,#1eff9e 50%,#00e676 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 4px rgba(0,255,140,0.45));}
+                        .tc-title{font-size:13px;font-weight:700;line-height:1.2;background:linear-gradient(90deg,#00c97a 0%,#1eff9e 40%,#00e676 70%,#00b862 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 6px rgba(0,255,140,0.55));}
+                        .tc-body{padding:10px 15px 11px;border-bottom:1px solid rgba(80,160,240,0.1);}
+                        .tc-body p{color:rgba(180,210,234,0.72);font-size:11px;line-height:1.65;margin:0;}
+                        .tc-tags{padding:9px 15px 10px;border-bottom:1px solid rgba(80,160,240,0.1);display:flex;flex-wrap:wrap;gap:4px;}
+                        .tc-tag{background:rgba(80,160,240,0.1);border:1px solid rgba(80,160,240,0.22);border-radius:4px;color:#90c4e8;font-size:8.5px;font-weight:800;padding:2px 7px;letter-spacing:0.5px;}
+                        .tc-tag-hi{background:rgba(26,158,130,0.15);border:1px solid rgba(26,158,130,0.35);border-radius:4px;color:#6ef0cc;font-size:8.5px;font-weight:800;padding:2px 7px;letter-spacing:0.5px;}
+                        .tc-menu{padding:10px 15px 13px;display:flex;flex-direction:column;gap:5px;margin-top:auto;}
+                        .tc-btn{align-items:center;background:rgba(26,158,130,0.14);border:1.5px solid rgba(26,158,130,0.45);border-radius:7px;color:#7effd8;display:flex;font-size:11px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;}
+                        .tc-btn-icon{font-size:14px;line-height:1;flex-shrink:0;}
+                        .tc-btn-label{flex:1;}
+                        .tc-btn-badge{background:rgba(26,255,210,0.12);border:1px solid rgba(26,255,210,0.2);border-radius:5px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;}
+                        .tc-live{align-items:center;display:flex;gap:4px;flex-shrink:0;}
+                        .tc-live-dot{background:#1a9e82;border-radius:50%;display:inline-block;height:7px;width:7px;box-shadow:0 0 6px rgba(26,158,130,0.8);}
+                        .tc-live-txt{color:#7effd8;font-size:8.5px;font-weight:800;}
+                      </style>
+                      <div id='tls-wrap' style='margin:0 0 2em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
+                        <div class='b1-latest-header tls-section-header'>🔧 Tools</div>
+                        <div style='position:relative;'>
+                          <button disabled='disabled' id='tls-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
+                          </button>
+                          <div id='tls-outer'>
+                            <div id='tls-track'>
+
+                          <!-- &#9312; Card: Class Type Approval Check -->
+                          <div class='tc'>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-class-approval-check.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c-.305-.8-.469-1.66-.469-2.559 0-3.619 3.256-6.553 7.276-6.553.254 0 .503.014.75.041C15.36 4.573 12.297 2.188 8.691 2.188zm-2.46 3.38a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zm4.918 0a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zM24 14.52c0-3.307-3.13-5.99-6.993-5.99-3.862 0-6.992 2.683-6.992 5.99 0 3.306 3.13 5.99 6.992 5.99.811 0 1.586-.123 2.306-.344a.61.61 0 0 1 .513.07l1.387.811a.235.235 0 0 0 .12.038.212.212 0 0 0 .21-.212c0-.051-.021-.101-.034-.153l-.284-1.075a.424.424 0 0 1 .152-.479C23.083 18.254 24 16.479 24 14.52zm-9.39-1.064a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788zm4.794 0a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788z'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-class-approval-check.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <!-- 제목 -->
+                            <div class='tc-head'>
+                              <div class='tc-icon'>🔍</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Type Approval</div>
+                                <div class='tc-title'>Class Type Approval Check</div>
+                              </div>
+                            </div>
+                            <!-- 소개 -->
+                            <div class='tc-body'>
+                              <p>Search official Type Approval databases across 9 major classification societies &#8212; all in one place.</p>
+                            </div>
+                            <!-- 태그 -->
+                            <div class='tc-tags'>
+                              <span class='tc-tag'>NK</span>
+                              <span class='tc-tag'>DNV</span>
+                              <span class='tc-tag'>LR</span>
+                              <span class='tc-tag'>ABS</span>
+                              <span class='tc-tag'>BV</span>
+                              <span class='tc-tag'>KR</span>
+                              <span class='tc-tag'>RINA</span>
+                              <span class='tc-tag'>CCS</span>
+                              <span class='tc-tag'>PRS</span>
+                            </div>
+                            <!-- 클릭 메뉴 -->
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/maritime-class-approval-check.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🔍</span>
+                                <span class='tc-btn-label'>Search Type Approvals</span>
+                                <span class='tc-btn-badge'>9 Societies</span>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- &#9313; Card: Maritime Cyber Compliance AI -->
+                          <div class='tc'>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c-.305-.8-.469-1.66-.469-2.559 0-3.619 3.256-6.553 7.276-6.553.254 0 .503.014.75.041C15.36 4.573 12.297 2.188 8.691 2.188zm-2.46 3.38a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zm4.918 0a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zM24 14.52c0-3.307-3.13-5.99-6.993-5.99-3.862 0-6.992 2.683-6.992 5.99 0 3.306 3.13 5.99 6.992 5.99.811 0 1.586-.123 2.306-.344a.61.61 0 0 1 .513.07l1.387.811a.235.235 0 0 0 .12.038.212.212 0 0 0 .21-.212c0-.051-.021-.101-.034-.153l-.284-1.075a.424.424 0 0 1 .152-.479C23.083 18.254 24 16.479 24 14.52zm-9.39-1.064a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788zm4.794 0a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788z'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <!-- 제목 -->
+                            <div class='tc-head'>
+                              <div class='tc-icon'>🤖</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Compliance AI</div>
+                                <div class='tc-title'>Maritime Cyber Compliance AI</div>
+                              </div>
+                              <div class='tc-live'>
+                                <span class='tc-live-dot' id='ci-dot'/>
+                                <span class='tc-live-txt'>LIVE</span>
+                              </div>
+                            </div>
+                            <!-- 소개 -->
+                            <div class='tc-body'>
+                              <p>Ask any question about maritime cyber regulations &#8212; get clause references, plain-English interpretations, and official PDF source links instantly.</p>
+                            </div>
+                            <!-- 태그 -->
+                            <div class='tc-tags'>
+                              <span class='tc-tag'>IACS E26/E27</span>
+                              <span class='tc-tag'>BIMCO v5</span>
+                              <span class='tc-tag'>IEC 62443</span>
+                              <span class='tc-tag'>NIS2</span>
+                              <span class='tc-tag'>EU CRA</span>
+                              <span class='tc-tag'>USCG</span>
+                              <span class='tc-tag'>IMO</span>
+                              <span class='tc-tag-hi'>+16 more</span>
+                            </div>
+                            <!-- 클릭 메뉴 -->
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🤖</span>
+                                <span class='tc-btn-label'>Open Compliance AI</span>
+                                <span class='tc-btn-badge'>23 Regs &#183; Free</span>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- &#9314; Card: Maritime Cybersecurity Docs -->
+                          <div class='tc'>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/international-association-compliance.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c-.305-.8-.469-1.66-.469-2.559 0-3.619 3.256-6.553 7.276-6.553.254 0 .503.014.75.041C15.36 4.573 12.297 2.188 8.691 2.188zm-2.46 3.38a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zm4.918 0a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zM24 14.52c0-3.307-3.13-5.99-6.993-5.99-3.862 0-6.992 2.683-6.992 5.99 0 3.306 3.13 5.99 6.992 5.99.811 0 1.586-.123 2.306-.344a.61.61 0 0 1 .513.07l1.387.811a.235.235 0 0 0 .12.038.212.212 0 0 0 .21-.212c0-.051-.021-.101-.034-.153l-.284-1.075a.424.424 0 0 1 .152-.479C23.083 18.254 24 16.479 24 14.52zm-9.39-1.064a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788zm4.794 0a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788z'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/international-association-compliance.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <!-- 제목 -->
+                            <div class='tc-head'>
+                              <div class='tc-icon'>📥</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Document Library</div>
+                                <div class='tc-title'>Maritime Cybersecurity Docs</div>
+                              </div>
+                            </div>
+                            <!-- 소개 -->
+                            <div class='tc-body'>
+                              <p>Download official maritime cybersecurity PDFs &#8212; IACS UR E26/E27, BIMCO, NIST SP 800, class society rules &amp; national port security regulations.</p>
+                            </div>
+                            <!-- 태그 -->
+                            <div class='tc-tags'>
+                              <span class='tc-tag'>IACS UR</span>
+                              <span class='tc-tag'>BIMCO</span>
+                              <span class='tc-tag'>NIST SP800</span>
+                              <span class='tc-tag'>IEC 62443</span>
+                              <span class='tc-tag'>USCG</span>
+                              <span class='tc-tag-hi'>43 PDFs</span>
+                            </div>
+                            <!-- 클릭 메뉴 -->
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/international-association-compliance.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🌐</span>
+                                <span class='tc-btn-label'>Intl. &#8212; IACS &#183; BIMCO &#183; NIST &#183; IEC</span>
+                                <span class='tc-btn-badge'>19 PDFs</span>
+                              </a>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🏛&#65039;</span>
+                                <span class='tc-btn-label'>Class Society &#8212; ABS &#183; DNV &#183; KR &#183; LR</span>
+                                <span class='tc-btn-badge'>16 PDFs</span>
+                              </a>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/national-and-port-security-compliance.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🛡&#65039;</span>
+                                <span class='tc-btn-label'>National &#8212; USCG &#183; KISA &#183; CSA</span>
+                                <span class='tc-btn-badge'>8 PDFs</span>
+                              </a>
+                            </div>
+                          </div>
+
+                            </div>
+                          </div>
+                          <button disabled='disabled' id='tls-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid #2a4060;transition:border-left-color .18s;'/>
+                          </button>
+                        </div>
+                        <div style='text-align:center;margin-top:10px;'>
+                          <span id='tls-indicator' style='font-size:10px;color:rgba(200,228,248,0.5)'/>
+                        </div>
+                      </div>
+                      <script type='text/javascript'>
+//<![CDATA[
+(function(){
+  var trackEl=document.getElementById('tls-track');
+  var outerEl=document.getElementById('tls-outer');
+  var prevBtn=document.getElementById('tls-prev');
+  var nextBtn=document.getElementById('tls-next');
+  var indEl=document.getElementById('tls-indicator');
+  if(!trackEl||!outerEl||!prevBtn||!nextBtn) return;
+  var total=trackEl.children.length;
+  var idx=0;
+  function visibleCount(){ return window.innerWidth<=580?1:window.innerWidth<=900?2:3; }
+  function getStep(){ var f=trackEl.children[0]; return f?f.offsetWidth+14:outerEl.offsetWidth; }
+  function maxIdx(){ return Math.max(0,total-visibleCount()); }
+  function update(animate){
+    if(idx>maxIdx()) idx=maxIdx();
+    trackEl.style.transition=animate?'transform .42s cubic-bezier(.25,.46,.45,.94)':'none';
+    trackEl.style.transform='translateX(-'+(idx*getStep())+'px)';
+    prevBtn.disabled=idx===0;
+    prevBtn.style.cursor=idx===0?'default':'pointer';
+    var pa=prevBtn.querySelector('span');
+    if(pa) pa.style.borderRightColor=idx===0?'#2a4060':'#7eaac8';
+    nextBtn.disabled=idx>=maxIdx();
+    nextBtn.style.cursor=idx>=maxIdx()?'default':'pointer';
+    var na=nextBtn.querySelector('span');
+    if(na) na.style.borderLeftColor=idx>=maxIdx()?'#2a4060':'#7eaac8';
+    if(indEl) indEl.textContent=total&gt;visibleCount()?((idx+1)+' / '+(maxIdx()+1)):'';
+  }
+  prevBtn.addEventListener('click',function(){ if(idx>0){ idx--; update(true); } });
+  nextBtn.addEventListener('click',function(){ if(idx<total-1){ idx++; update(true); } });
+  window.addEventListener('resize',function(){ update(false); });
+  var s=document.createElement('style');
+  s.textContent='@keyframes ci-pulse{0%,100%{opacity:.4}50%{opacity:1}}#ci-dot{animation:ci-pulse 2s ease-in-out infinite;}';
+  document.head.appendChild(s);
+  update(false);
+})();
+//]]></script>
+                      </b:if>
                       <!-- &#9552;&#9552;&#9552; SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
                       <style>
                         #scs-outer{overflow:hidden}
@@ -3325,6 +3670,25 @@ if(!window.b1WC){window.b1WC=function(btn){
   var nextBtn = document.getElementById('scs-next');
 
   function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  var SPJ_BADGE_LOGO_SCS = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
+  var SPJ_BADGES_SCS = [
+    { name: 'Industry Validated', cls: 'spj-badge-l3', title: 'Industry Validated — Shipyard / Class / Supplier Feedback' },
+    { name: 'Expert Reviewed',    cls: 'spj-badge-l2', title: 'Expert Reviewed — Technical Advisory Board' },
+    { name: 'Verified',           cls: 'spj-badge-l1', title: 'Verified — Editorial Team Review' }
+  ];
+  function spjBadgeScs(labels) {
+    for (var _i = 0; _i < SPJ_BADGES_SCS.length; _i++) {
+      if ((labels||[]).indexOf(SPJ_BADGES_SCS[_i].name) >= 0) {
+        var _b = SPJ_BADGES_SCS[_i];
+        return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
+          + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0">'
+          + '<img src="' + SPJ_BADGE_LOGO_SCS + '" alt="SPJ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></a>';
+      }
+    }
+    return '';
+  }
 
   /* 카드 하나의 이동 폭 (width + gap) */
   function getStep(){
@@ -3521,7 +3885,7 @@ if(!window.b1WC){window.b1WC=function(btn){
       /* 4. 날짜 + 댓글 + 공유 버튼 */
       + '<div style="padding:5px 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
       + '<div><div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'+commentsHtml+'</div>'
-      + shareBtn
+      + '<div style="display:flex;align-items:center;gap:6px">'+spjBadgeScs(p.labels)+shareBtn+'</div>'
       + '</div>'
       + '</a>';
   }
@@ -3990,7 +4354,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   // ── config ──────────────────────────────────────────────
   var PER_PAGE   = 9;
   var MAX_DEPTH  = 10;                  // 최대 ~500개 포스트
-  var CACHE_KEY  = 'apl_cache_v3';
+  var CACHE_KEY  = 'apl_cache_v5';
   var CACHE_TTL  = 6 * 60 * 60 * 1000; // 6시간 캐시
 
   // ── author → role 매핑 (필요 시 수정) ──────────────────
@@ -4007,6 +4371,24 @@ if(!window.b1WC){window.b1WC=function(btn){
 
   // ── 비노출 라벨 ──────────────────────────────────────
   var HIDDEN_LABELS = ['Career Journey', 'books', 'motivation', 'CBS', 'SYSTEM', 'SOLUTION'];
+  var SPJ_BADGE_LOGO = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
+  var SPJ_BADGES = [
+    { name: 'Industry Validated', cls: 'spj-badge-l3', title: 'Industry Validated — Shipyard / Class / Supplier Feedback' },
+    { name: 'Expert Reviewed',    cls: 'spj-badge-l2', title: 'Expert Reviewed — Technical Advisory Board' },
+    { name: 'Verified',           cls: 'spj-badge-l1', title: 'Verified — Editorial Team Review' }
+  ];
+  function spjBadge(labels) {
+    for (var _i = 0; _i < SPJ_BADGES.length; _i++) {
+      if (labels.indexOf(SPJ_BADGES[_i].name) >= 0) {
+        var _b = SPJ_BADGES[_i];
+        return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
+          + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0">'
+          + '<img src="' + SPJ_BADGE_LOGO + '" alt="SPJ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></a>';
+      }
+    }
+    return '';
+  }
 
 
   // ── 포스트 상세·아카이브·검색 페이지에서는 APL 비활성 (깜빡임 방지) ──
@@ -4127,6 +4509,7 @@ if(!window.b1WC){window.b1WC=function(btn){
             isVideo : isVideo,
             ytId    : ytId,
             author  : (function(content, a){ var html = content ? content.$t : ''; if(html){ var img = html.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/); if(img){ var alt = img[0].match(/alt="([^"]+)"/); if(alt && alt[1]) return alt[1]; } } var n = a && a.length ? (a[0].name.$t || '') : ''; return (n === 'Unknown' || n === 'unknown') ? '' : n; })(e.content || e.summary, e.author),
+            authorImg: (function(content){ var html = content ? content.$t : ''; if(html){ var img = html.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/i); if(img){ var src = img[0].match(/src=["']([^"']+)["']/i); if(src && src[1]) return src[1]; } } return ''; })(e.content || e.summary),
             authorUrl: (e.author && e.author[0] && e.author[0].uri && e.author[0].uri.$t) ? e.author[0].uri.$t : '',
             location: (e['georss$featurename'] && e['georss$featurename']['$t']) ? e['georss$featurename']['$t'] : '',
             comments: e.thr$total ? (e.thr$total.$t || '0') : '0'
@@ -4223,8 +4606,8 @@ if(!window.b1WC){window.b1WC=function(btn){
       }
 
       return '<div style="' + S_CARD + '" data-card>'
-        /* 우측 상단 공유 버튼 */
-        + (window.b1ShareHtml ? b1ShareHtml(p.url) : '')
+        /* 우측 상단 공유 버튼 + 배지 */
+        + (window.b1ShareHtml ? b1ShareHtml(p.url, spjBadge(p.labels)) : '')
         /* 상단: 이미지 영역 */
         + '<div style="padding:2px;background:rgba(255,255,255,0.6);border-radius:8px 8px 0 0;line-height:0;position:relative">'
         + '<span style="position:absolute;top:10px;left:10px;background:#0a2342;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;line-height:1;z-index:1">' + (gi+1) + '</span>'
@@ -4243,8 +4626,9 @@ if(!window.b1WC){window.b1WC=function(btn){
         + '</div>'
         /* 최하단 10%: 작성자·날짜(좌) / 댓글(우) */
         + '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 14px 10px;border-top:1px solid #e0eaf4">'
-        + '<div style="display:flex;gap:4px;align-items:center;font-size:10px;color:#8099b3;min-width:0;overflow:hidden">'
-        + (p.author ? '<span style="white-space:nowrap">' + (p.authorUrl ? '<a href="' + esc(p.authorUrl) + '" style="color:#8099b3;text-decoration:none;font-weight:600" target="_blank" rel="noopener">' + esc(displayAuthor(p.author)) + '</a>' : esc(displayAuthor(p.author))) + '</span><span>&#183;</span>' : '')
+        + '<div style="display:flex;gap:6px;align-items:center;font-size:10px;color:#8099b3;min-width:0;overflow:hidden">'
+        + (p.authorImg ? '<img src="' + esc(p.authorImg) + '" alt="' + esc(p.author) + '" style="width:22px;height:22px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid #d0e4f0" loading="lazy">' : '')
+        + (p.author ? '<button onclick="showAuthorPosts(\'' + esc(p.author).replace(/'/g,"\\'") + '\')" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#444;font-weight:600;background:none;border:none;padding:1px 2px;font-size:10px;cursor:pointer;text-decoration:none;max-width:90px;display:inline-block;line-height:1.6;">' + esc(displayAuthor(p.author)) + '</button><span style="flex-shrink:0">&#183;</span>' : '')
         + '<span style="white-space:nowrap">' + esc(p.date) + '</span>'
         + '</div>'
         + '<a href="' + esc(p.url) + '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap;flex-shrink:0">&#128172; ' + esc(p.comments) + '</a>'
@@ -4338,7 +4722,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     }
   };
 
-  // ── Global: Top Ranked DOM filter ───────────────────────
+  // ── Global: Top Ranked DOM filter + Pagination ───────────
   var SCS_LOWER = ['cbs','system','solution'];
   function hasSCSTag(art, tagSel){
     var tags = art.querySelectorAll(tagSel);
@@ -4346,27 +4730,81 @@ if(!window.b1WC){window.b1WC=function(btn){
       return SCS_LOWER.indexOf((t.textContent||'').trim().toLowerCase()) >= 0;
     });
   }
-  window.ppFilter = function(kw){
-    var articles = document.querySelectorAll('#PopularPosts1 article.post');
-    var q = kw ? kw.toLowerCase() : '';
-    var shown = 0;
-    articles.forEach(function(art){
-      if(hasSCSTag(art, '.pp-tag')){ art.style.display = 'none'; return; }
-      if(!q){ art.style.display = ''; shown++; return; }
-      var text = (art.textContent || art.innerText || '').toLowerCase();
-      if(text.indexOf(q) >= 0){ art.style.display = ''; shown++; }
-      else{ art.style.display = 'none'; }
+
+  var PP_PER_PAGE = 10;
+  var ppPage = 1;
+  var ppKw = '';
+
+  function getPPEligible(){
+    return Array.prototype.filter.call(
+      document.querySelectorAll('#PopularPosts1 article.post'),
+      function(a){ return !hasSCSTag(a, '.pp-tag'); }
+    );
+  }
+
+  function renderPPPager(total, current){
+    var pager = document.getElementById('pp-pager');
+    if(!pager) return;
+    var totalPages = Math.ceil(total / PP_PER_PAGE);
+    if(totalPages <= 1){ pager.innerHTML = ''; return; }
+    var s = 'border:none;border-radius:4px;padding:3px 10px;font-size:11px;cursor:pointer;font-weight:600;';
+    var sOn  = s + 'background:#1d89cf;color:#fff;';
+    var sOff = s + 'background:rgba(29,137,207,0.12);color:#1d89cf;';
+    var html = '<div style="display:flex;gap:4px;justify-content:center;padding:8px 0 2px;flex-wrap:wrap">';
+    if(current > 1)
+      html += '<button onclick="window.ppGoPage('+(current-1)+')" style="'+sOff+'">‹</button>';
+    for(var i=1;i<=totalPages;i++)
+      html += '<button onclick="window.ppGoPage('+i+')" style="'+(i===current?sOn:sOff)+'">'+i+'</button>';
+    if(current < totalPages)
+      html += '<button onclick="window.ppGoPage('+(current+1)+')" style="'+sOff+'">›</button>';
+    html += '</div>';
+    pager.innerHTML = html;
+  }
+
+  function renderPPPage(page){
+    ppPage = page;
+    var arts = getPPEligible();
+    var q = ppKw.toLowerCase();
+    var matched = q ? arts.filter(function(a){
+      return (a.textContent||a.innerText||'').toLowerCase().indexOf(q) >= 0;
+    }) : arts;
+    arts.forEach(function(a){ a.style.display = 'none'; });
+    var start = (page-1)*PP_PER_PAGE;
+    matched.forEach(function(a,i){
+      a.style.display = (i>=start && i<start+PP_PER_PAGE) ? '' : 'none';
     });
     var ppHdr = document.querySelector('#PopularPosts1 .pp-header');
     if(ppHdr){
       if(q){
         ppHdr.innerHTML = 'Top Ranked &middot; All Posts'
           + ' <span style="font-size:10px;font-weight:600;background:#1d89cf;color:#fff;'
-          + 'border-radius:10px;padding:1px 8px;margin-left:6px">' + shown + '</span>';
+          + 'border-radius:10px;padding:1px 8px;margin-left:6px">' + matched.length + '</span>';
       } else {
         ppHdr.textContent = 'Top Ranked · All Posts';
       }
     }
+    renderPPPager(matched.length, page);
+  }
+
+  window.ppGoPage = function(page){
+    ppPage = page;
+    renderPPPage(page);
+    var pp = document.getElementById('PopularPosts1');
+    if(pp) pp.scrollIntoView({behavior:'smooth', block:'nearest'});
+  };
+
+  window.ppFilter = function(kw){
+    ppKw = kw || '';
+    ppPage = 1;
+    if(!document.getElementById('pp-pager')){
+      var feed = document.querySelector('#PopularPosts1 div[role=feed]');
+      if(feed){
+        var pager = document.createElement('div');
+        pager.id = 'pp-pager';
+        feed.parentNode.insertBefore(pager, feed.nextSibling);
+      }
+    }
+    renderPPPage(1);
   };
 
   // ── Global: Search coordinator ───────────────────────────
@@ -4866,7 +5304,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           </div>
                         </b:if>
                         <div class='pp-col-bot'>
-                          <div class='pp-byline'><data:post.author.name/> &#183; <data:post.date/></div>
+                          <div class='pp-byline'><button class='b1-card-author' expr:data-author='data:post.author.name' onclick='showAuthorPosts(this.dataset.author)'><data:post.author.name/></button> &#183; <data:post.date/></div>
                           <span class='pp-count'>💬 <data:post.numberOfComments/></span>
                         </div>
                       </div>
@@ -4925,6 +5363,38 @@ if(!window.b1WC){window.b1WC=function(btn){
               </b:if>
               </main>
 
+            <div id='spj-verify-policy' style='background:#0a1a2e;border-top:1px solid rgba(29,137,207,0.25);padding:22px 20px;text-align:center;'>
+              <div style='max-width:680px;margin:0 auto;'>
+                <div style='font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,228,248,0.45);margin-bottom:14px;'>&#128204; Content Verification Policy</div>
+                <div style='display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;'>
+                  <div style='display:flex;align-items:center;gap:8px;'>
+                    <span style='width:11px;height:11px;background:#00c97a;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(0,201,122,0.6);display:inline-block;'></span>
+                    <div style='text-align:left;'>
+                      <div style='font-size:11px;font-weight:700;color:#c8e4f8;line-height:1.4;'>Verified</div>
+                      <div style='font-size:10px;color:rgba(200,228,248,0.55);'>Editorial Team Review</div>
+                    </div>
+                  </div>
+                  <div style='display:flex;align-items:center;gap:8px;'>
+                    <span style='width:11px;height:11px;background:#1d89cf;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(29,137,207,0.6);display:inline-block;'></span>
+                    <div style='text-align:left;'>
+                      <div style='font-size:11px;font-weight:700;color:#c8e4f8;line-height:1.4;'>Expert Reviewed</div>
+                      <div style='font-size:10px;color:rgba(200,228,248,0.55);'>Technical Advisory Board</div>
+                    </div>
+                  </div>
+                  <div style='display:flex;align-items:center;gap:8px;'>
+                    <span style='width:11px;height:11px;background:#9b59b6;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(155,89,182,0.6);display:inline-block;'></span>
+                    <div style='text-align:left;'>
+                      <div style='font-size:11px;font-weight:700;color:#c8e4f8;line-height:1.4;'>Industry Validated</div>
+                      <div style='font-size:10px;color:rgba(200,228,248,0.55);'>Shipyard / Class / Supplier Feedback</div>
+                    </div>
+                  </div>
+                </div>
+                <div style='font-size:10px;color:rgba(200,228,248,0.35);line-height:1.65;max-width:520px;margin:0 auto;'>
+                  All content on ShipPaulJobs reflects direct field experience and operational insight from maritime cybersecurity practice. Select posts carry additional verification badges indicating independent review by our editorial team, technical advisory board, or industry partners.
+                  <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='color:rgba(200,228,248,0.55);font-weight:600;text-decoration:underline;margin-left:5px;'>Learn More &#8594;</a>
+                </div>
+              </div>
+            </div>
             <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
               <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
                 <b:widget-settings>
@@ -5028,6 +5498,8 @@ if(!window.b1WC){window.b1WC=function(btn){
               <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='color:#ffffff;font-weight:700;text-decoration:none;margin:0 10px;'>Privacy Policy</a>
               <span style='color:rgba(255,255,255,0.35);'>|</span>
               <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='color:#ffffff;font-weight:700;text-decoration:none;margin:0 10px;'>Terms and Conditions</a>
+              <span style='color:rgba(255,255,255,0.35);'>|</span>
+              <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='color:#ffffff;font-weight:700;text-decoration:none;margin:0 10px;'>Editorial &amp; Verification Policy</a>
             </div>
           </div>
         </div>
@@ -5494,6 +5966,40 @@ if(!window.b1WC){window.b1WC=function(btn){
             </div>
           </b:includable>
         </b:widget>
+        <b:widget id='Label2' locked='false' title='INTEL MENU' type='Label' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
+            <b:widget-setting name='display'>LIST</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AI and Automation,Industry and Market,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks</b:widget-setting>
+            <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
+            <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+            <b:include name='content'/>
+          </b:includable>
+          <b:includable id='cloud'>
+            <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.labels,                               itemSet: &quot;labels&quot;,                               itemsMarkup: &quot;super.cloud&quot;                             }' name='extendableItems'/>
+          </b:includable>
+          <b:includable id='content'>
+            <div class='widget-content'>
+              <b:class expr:name='data:this.display + &quot;-label-widget-content&quot;'/>
+              <b:include cond='data:this.display == &quot;list&quot;' name='list'/>
+              <b:include cond='data:this.display == &quot;cloud&quot;' name='cloud'/>
+            </div>
+          </b:includable>
+          <b:includable id='list'>
+            <ul class='ranked-lbl-list'>
+              <b:loop values='data:this.labels' var='label'>
+                <li class='ranked-lbl-item'>
+                  <a expr:href='data:label.url'>
+                    <span class='ranked-lbl-text'><data:label.name/></span>
+                    <span class='ranked-lbl-cnt'>(<data:label.count/>)</span>
+                  </a>
+                </li>
+              </b:loop>
+            </ul>
+          </b:includable>
+        </b:widget>
         <b:widget id='Label4' locked='false' title='Expert Perspective' type='Label' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
@@ -5516,12 +6022,12 @@ if(!window.b1WC){window.b1WC=function(btn){
             </div>
           </b:includable>
           <b:includable id='list'>
-            <ul class='spj-lbl-list'>
+            <ul class='ranked-lbl-list'>
               <b:loop values='data:this.labels' var='label'>
-                <li class='spj-lbl-item'>
+                <li class='ranked-lbl-item'>
                   <a expr:href='data:label.url'>
-                    <span class='spj-lbl-name'><data:label.name/></span>
-                    <span class='spj-lbl-count'><data:label.count/></span>
+                    <span class='ranked-lbl-text'><data:label.name/></span>
+                    <span class='ranked-lbl-cnt'>(<data:label.count/>)</span>
                   </a>
                 </li>
               </b:loop>
@@ -5550,12 +6056,12 @@ if(!window.b1WC){window.b1WC=function(btn){
   </div>
 </b:includable>
           <b:includable id='list'>
-            <ul class='spj-lbl-list'>
+            <ul class='ranked-lbl-list'>
               <b:loop values='data:this.labels' var='label'>
-                <li class='spj-lbl-item'>
+                <li class='ranked-lbl-item'>
                   <a expr:href='data:label.url'>
-                    <span class='spj-lbl-name'><data:label.name/></span>
-                    <span class='spj-lbl-count'><data:label.count/></span>
+                    <span class='ranked-lbl-text'><data:label.name/></span>
+                    <span class='ranked-lbl-cnt'>(<data:label.count/>)</span>
                   </a>
                 </li>
               </b:loop>
@@ -5573,7 +6079,7 @@ if(!window.b1WC){window.b1WC=function(btn){
             </div>
           </b:includable>
         </b:widget>
-        <b:widget id='HTML13' locked='false' title='🤖 ShipPaul Intelligence' type='HTML' version='2' visible='true'>
+        <b:widget id='HTML13' locked='false' title='🤖 ShipPaul Intelligence' type='HTML' version='2' visible='false'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
      ComplianceInjection.html — Sidebar Preview Widget
@@ -5677,13 +6183,12 @@ if(!window.b1WC){window.b1WC=function(btn){
 </script>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
-            <b:include name='widget-title'/>
             <div class='widget-content'>
               <data:content/>
             </div>
           </b:includable>
         </b:widget>
-        <b:widget id='HTML2' locked='false' title='Class Type Approval Check' type='HTML' visible='true'>
+        <b:widget id='HTML2' locked='false' title='Class Type Approval Check' type='HTML' visible='false'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
      Maritime Class Approval Check — Sidebar Widget
@@ -5730,7 +6235,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   </div>
 </b:includable>
         </b:widget>
-        <b:widget id='HTML12' locked='false' title='📥 Maritime Cybersecurity Docs' type='HTML' version='2' visible='true'>
+        <b:widget id='HTML12' locked='false' title='📥 Maritime Cybersecurity Docs' type='HTML' version='2' visible='false'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<div style="border-radius:12px;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);">
   <div style="padding:14px 16px 13px;">
@@ -5805,39 +6310,43 @@ if(!window.b1WC){window.b1WC=function(btn){
   <b:include name='content'/>
 </b:includable>
           <b:includable id='content'>
-<div style='border-radius:12px;font-family:Segoe UI,Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);'>
-  <div style='padding:14px 16px 16px;'>
-
-    <p style='color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0 0 10px;'>
+<div style='font-family:Segoe UI,Arial,sans-serif;border-radius:10px;overflow:hidden;background:#fff;border:1px solid #dde6f0;'>
+  <!-- 상단 accent -->
+  <div style='height:3px;background:linear-gradient(90deg,#1a9e82,#1d89cf);'/>
+  <!-- 설명 -->
+  <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
+    <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
       Advertising, collaboration, crew opportunities &#8212; or any maritime cybersecurity inquiry.
     </p>
-    <!-- Example chips -->
-    <div style='display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;'>
-      <button onclick='spjFill(&apos;ad&apos;)' style='background:rgba(26,158,130,0.25);border:1px solid #1a9e82;border-radius:20px;color:#7effd8;cursor:pointer;font-size:9.5px;font-weight:700;padding:3px 10px;font-family:inherit;' type='button'>📢 Advertising</button>
-      <button onclick='spjFill(&apos;collab&apos;)' style='background:rgba(26,158,130,0.25);border:1px solid #1a9e82;border-radius:20px;color:#7effd8;cursor:pointer;font-size:9.5px;font-weight:700;padding:3px 10px;font-family:inherit;' type='button'>🤝 Collaboration</button>
-      <button onclick='spjFill(&apos;crew&apos;)' style='background:rgba(26,158,130,0.25);border:1px solid #1a9e82;border-radius:20px;color:#7effd8;cursor:pointer;font-size:9.5px;font-weight:700;padding:3px 10px;font-family:inherit;' type='button'>&#9875; Join Crew</button>
-      <button onclick='spjFill(&apos;cyber&apos;)' style='background:rgba(26,158,130,0.25);border:1px solid #1a9e82;border-radius:20px;color:#7effd8;cursor:pointer;font-size:9.5px;font-weight:700;padding:3px 10px;font-family:inherit;' type='button'>🔐 Compliance</button>
-    </div>
-    <!-- Contact form -->
+  </div>
+  <!-- 빠른 선택 chips -->
+  <div style='padding:10px 14px;border-bottom:1px solid #eaf0f7;display:flex;flex-wrap:wrap;gap:5px;'>
+    <button onclick='spjFill(&apos;ad&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>📢 Advertising</button>
+    <button onclick='spjFill(&apos;collab&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>🤝 Collaboration</button>
+    <button onclick='spjFill(&apos;crew&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>&#9875; Join Crew</button>
+    <button onclick='spjFill(&apos;cyber&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>🔐 Compliance</button>
+  </div>
+  <!-- 폼 -->
+  <div style='padding:12px 14px 14px;'>
     <div class='contact-form-widget'>
       <div class='form'>
-        <form name='contact-form' style='display:flex;flex-direction:column;gap:8px;'>
+        <form name='contact-form' style='display:flex;flex-direction:column;gap:9px;'>
           <div>
-            <label style='color:rgba(184,212,234,0.75);font-size:11px;font-weight:600;display:block;margin-bottom:3px;'><data:contactFormNameMsg/></label>
-            <input class='contact-form-name' expr:id='data:widget.instanceId + &quot;_contact-form-name&quot;' name='name' size='30' style='background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:6px;color:#fff;font-size:12px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;' type='text' value=''/>
+            <label style='color:#5a7090;font-size:11px;font-weight:700;display:block;margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase;'><data:contactFormNameMsg/></label>
+            <input class='contact-form-name' expr:id='data:widget.instanceId + &quot;_contact-form-name&quot;' name='name' size='30' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;transition:border-color .15s;' type='text' value=''/>
           </div>
           <div>
-            <label style='color:rgba(184,212,234,0.75);font-size:11px;font-weight:600;display:block;margin-bottom:3px;'><data:contactFormEmailMsg/> <span style='color:#1a9e82;'>*</span></label>
-            <input class='contact-form-email' expr:id='data:widget.instanceId + &quot;_contact-form-email&quot;' name='email' size='30' style='background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:6px;color:#fff;font-size:12px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;' type='text' value=''/>
+            <label style='color:#5a7090;font-size:11px;font-weight:700;display:block;margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase;'><data:contactFormEmailMsg/> <span style='color:#e05a5a;'>*</span></label>
+            <input class='contact-form-email' expr:id='data:widget.instanceId + &quot;_contact-form-email&quot;' name='email' size='30' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;transition:border-color .15s;' type='text' value=''/>
           </div>
           <div>
-            <label style='color:rgba(184,212,234,0.75);font-size:11px;font-weight:600;display:block;margin-bottom:3px;'><data:contactFormMessageMsg/> <span style='color:#1a9e82;'>*</span></label>
-            <textarea class='contact-form-email-message' cols='25' expr:id='data:widget.instanceId + &quot;_contact-form-email-message&quot;' name='email-message' rows='4' style='background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:6px;color:#fff;font-size:12px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;resize:vertical;'/>
+            <label style='color:#5a7090;font-size:11px;font-weight:700;display:block;margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase;'><data:contactFormMessageMsg/> <span style='color:#e05a5a;'>*</span></label>
+            <textarea class='contact-form-email-message' cols='25' expr:id='data:widget.instanceId + &quot;_contact-form-email-message&quot;' name='email-message' rows='4' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;resize:vertical;transition:border-color .15s;'/>
           </div>
-          <input class='contact-form-button contact-form-button-submit' expr:id='data:widget.instanceId + &quot;_contact-form-submit&quot;' expr:value='data:contactFormSendMsg' style='align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;cursor:pointer;font-size:12px;font-weight:700;padding:9px 14px;width:100%;font-family:inherit;' type='button'/>
+          <input class='contact-form-button contact-form-button-submit' expr:id='data:widget.instanceId + &quot;_contact-form-submit&quot;' expr:value='data:contactFormSendMsg' style='background:#154f7a;border:none;border-radius:7px;color:#fff;cursor:pointer;font-size:12.5px;font-weight:700;padding:9px 14px;width:100%;font-family:inherit;letter-spacing:0.3px;transition:background .15s;' type='button'/>
           <div style='width:100%;'>
-            <p class='contact-form-error-message' expr:id='data:widget.instanceId + &quot;_contact-form-error-message&quot;' style='color:#fca5a5;font-size:11px;margin:4px 0 0;text-align:center;'/>
-            <p class='contact-form-success-message' expr:id='data:widget.instanceId + &quot;_contact-form-success-message&quot;' style='color:#7effd8;font-size:11px;margin:4px 0 0;text-align:center;'/>
+            <p class='contact-form-error-message' expr:id='data:widget.instanceId + &quot;_contact-form-error-message&quot;' style='color:#e05a5a;font-size:11.5px;margin:4px 0 0;text-align:center;'/>
+            <p class='contact-form-success-message' expr:id='data:widget.instanceId + &quot;_contact-form-success-message&quot;' style='color:#1a9e82;font-size:11.5px;margin:4px 0 0;text-align:center;font-weight:600;'/>
           </div>
         </form>
       </div>
@@ -5867,17 +6376,20 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:includable id='main'>
   <b:include name='widget-title'/>
   <div class='widget-content'>
-    <div style='border-radius:12px;font-family:Segoe UI,Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);'>
-      <div style='padding:14px 16px 16px;'>
-        <p style='color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0 0 12px;'>
-          해양 사이버 보안 최신 동향과 IACS 규정 업데이트를 이메일로 받아보세요.
+    <div style='font-family:Segoe UI,Arial,sans-serif;border-radius:10px;overflow:hidden;background:#fff;border:1px solid #dde6f0;'>
+      <div style='height:3px;background:linear-gradient(90deg,#1a9e82,#1d89cf);'/>
+      <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
+        <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
+          Stay updated on maritime cybersecurity trends and IACS regulation changes &#8212; delivered to your inbox.
         </p>
+      </div>
+      <div style='padding:12px 14px 14px;'>
         <form action='https://f90cb6a5.sibforms.com/serve/MUIFAKyss0LAZbscunG_LBOWQa3HwvBBITLc84aoXg5TwI3f4ee0eX7uul8voCw9NiM7WG5_0EWWANANueZOLTyJNz3FmwUGyZqRSUgNfv7WXo3jBer2cHeSi0ZUufgNoyQ9zVfudMn4oxXxZpTB5xEMfRC1LOLryX8u3Dz4hLewL9WJesulRLV3Q4SwxPZE-btgW4kBk-insQXOFA==' method='POST' style='display:flex;flex-direction:column;gap:8px;' target='_blank'>
-          <input name='EMAIL' placeholder='your@email.com' required='required' style='background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:6px;color:#fff;font-size:12px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;' type='text'/>
+          <input name='EMAIL' placeholder='your@email.com' required='required' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:8px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;' type='text'/>
           <input name='locale' type='hidden' value='en'/>
           <input name='email_address_check' type='hidden' value=''/>
-          <button style='align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;cursor:pointer;font-size:12px;font-weight:700;padding:9px 14px;width:100%;font-family:inherit;' type='submit'>
-            📬 Subscribe
+          <button style='background:#154f7a;border:none;border-radius:7px;color:#fff;cursor:pointer;font-size:12.5px;font-weight:700;padding:9px 14px;width:100%;font-family:inherit;letter-spacing:0.3px;' type='submit'>
+            Subscribe to Newsletter
           </button>
         </form>
       </div>
@@ -6311,6 +6823,56 @@ if(!window.b1WC){window.b1WC=function(btn){
     });
   })();
 
+  /* ── Ranked label list: sort by count descending ── */
+  (function() {
+    function sortRankedList(widgetId) {
+      var widget = document.getElementById(widgetId);
+      if (!widget) return;
+      var ul = widget.querySelector('.ranked-lbl-list');
+      if (!ul) return;
+      var items = Array.prototype.slice.call(ul.querySelectorAll('.ranked-lbl-item'));
+      items.sort(function(a, b) {
+        var ca = parseInt((a.querySelector('.ranked-lbl-cnt') || {}).textContent.replace(/\D/g,'')) || 0;
+        var cb = parseInt((b.querySelector('.ranked-lbl-cnt') || {}).textContent.replace(/\D/g,'')) || 0;
+        return cb - ca;
+      });
+      items.forEach(function(li) { ul.appendChild(li); });
+    }
+    function run() {
+      sortRankedList('Label4');
+      sortRankedList('Label1');
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', run);
+    } else {
+      run();
+    }
+  })();
+
+  /* ── Flip-once on mouseenter ── */
+  (function(){
+    function initFlip(){
+      var sels='#Label2 .ranked-lbl-item a,#Label4 .ranked-lbl-item a,#Label1 .ranked-lbl-item a';
+      document.querySelectorAll(sels).forEach(function(el){
+        el.addEventListener('mouseenter',function(){
+          if(el.classList.contains('flip-once')) return;
+          el.classList.add('flip-once');
+          el.addEventListener('animationend',function h(){
+            el.classList.remove('flip-once');
+            el.removeEventListener('animationend',h);
+          });
+        });
+        var li=el.closest('li')||el.parentElement;
+        li.addEventListener('mouseleave',function(){
+          el.classList.remove('flip-once');
+          el.style.transform='';
+        });
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initFlip);}
+    else{initFlip();}
+  })();
+
   /* ── Sidebar widget 최소화 / 원래대로 ── */
   function sbToggle(widgetId, btn) {
     var widget = document.getElementById(widgetId);
@@ -6320,6 +6882,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   }
   (function() {
     var configs = [
+      { id: 'Label2', icon: '🗂️', title: 'INTEL MENU' },
       { id: 'Label1', icon: '🔖', title: 'Maritime Knowledge Hub' },
       { id: 'Label4', icon: '📌', title: 'Expert Insights' },
       { id: 'HTML10', icon: '🧭', title: 'MARITIME INTELLIGENCE' }
@@ -6569,7 +7132,7 @@ if(!window.b1WC){window.b1WC=function(btn){
               return '<a class="pp-tag" href="/search/label/'+encodeURIComponent(t)+'">'+esc(t)+'</a>';
             }).join('')+'</div>' : '') +
             '<div class="pp-col-bot">' +
-              '<div class="pp-byline">'+esc(author)+' &middot; '+esc(pubStr)+'</div>' +
+              '<div class="pp-byline"><button class="b1-card-author" data-author="'+esc(author)+'" onclick="showAuthorPosts(this.dataset.author)">'+esc(author)+'</button> &middot; '+esc(pubStr)+'</div>' +
               '<span class="pp-count">💬 '+comments+'</span>' +
             '</div>' +
           '</div>';
@@ -6597,6 +7160,179 @@ if(!window.b1WC){window.b1WC=function(btn){
         .catch(function(e){ console.warn('[PP label]', e); });
     });
   })();
+  //]]>
+  </script>
+
+  <!-- Author Posts Modal -->
+  <div id='am-overlay' onclick='if(event.target===this)closeAuthorModal()'>
+    <div id='am-box'>
+      <button id='am-close' onclick='closeAuthorModal()'>&#10005;</button>
+      <div id='am-author-info'>
+        <div id='am-author-img-wrap'/>
+        <div>
+          <div id='am-title'/>
+          <div id='am-sub'/>
+        </div>
+      </div>
+      <div id='am-loading'>불러오는 중...</div>
+      <div id='am-list'/>
+    </div>
+  </div>
+  <script type='text/javascript'>
+  //<![CDATA[
+  function showAuthorPosts(author) {
+    var overlay   = document.getElementById('am-overlay');
+    var listWrap  = document.getElementById('am-list');
+    var title     = document.getElementById('am-title');
+    var sub       = document.getElementById('am-sub');
+    var loading   = document.getElementById('am-loading');
+    var imgWrap   = document.getElementById('am-author-img-wrap');
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    title.textContent = author;
+    sub.textContent   = '불러오는 중...';
+    listWrap.innerHTML = '';
+    imgWrap.innerHTML  = '';
+    loading.style.display = 'block';
+
+    function amEsc(s){
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function matchAuthor(e, author) {
+      /* 1차: Feed API author name */
+      var a = (e.author && e.author[0] && e.author[0].name && e.author[0].name.$t) || '';
+      if (a === author) return true;
+      /* 2차: content/summary 내 member 이미지 alt */
+      var html = (e.content && e.content.$t) || (e.summary && e.summary.$t) || '';
+      if (html) {
+        var mi = html.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/);
+        if (mi) {
+          var alt = mi[0].match(/alt="([^"]+)"/);
+          if (alt && alt[1] === author) return true;
+        }
+      }
+      return false;
+    }
+
+    /* 페이지네이션으로 전체 포스트 수집 후 렌더링 */
+    var baseUrl = 'https://www.shippauljobs.com/feeds/posts/default?alt=json&max-results=500&v=2';
+    var allEntries = [];
+
+    function fetchPage(startIndex) {
+      var url = baseUrl + '&start-index=' + startIndex;
+      fetch(url)
+        .then(function(r){ return r.json(); })
+        .then(function(data) {
+          var entries = (data.feed && data.feed.entry) || [];
+          allEntries = allEntries.concat(entries);
+          var total = parseInt((data.feed && data.feed['openSearch$totalResults'] && data.feed['openSearch$totalResults'].$t) || '0');
+          /* 아직 더 있으면 다음 페이지 */
+          if (entries.length === 500 && allEntries.length < total) {
+            sub.textContent = '불러오는 중... (' + allEntries.length + ' / ' + total + ')';
+            fetchPage(startIndex + 500);
+          } else {
+            renderAuthorPosts(allEntries);
+          }
+        })
+        .catch(function() {
+          if (allEntries.length) {
+            renderAuthorPosts(allEntries);
+          } else {
+            loading.style.display = 'none';
+            listWrap.innerHTML = '<p style="color:#e74c3c;padding:16px 0;text-align:center;">불러오기 실패. 잠시 후 다시 시도해 주세요.</p>';
+          }
+        });
+    }
+
+    function renderAuthorPosts(entries) {
+        loading.style.display = 'none';
+        var filtered = entries.filter(function(e){ return matchAuthor(e, author); });
+
+        /* ── 작성자 사진 ── */
+        var authorPhoto = '';
+        if (filtered.length) {
+          var ai = filtered[0].author && filtered[0].author[0];
+          if (ai && ai['gd$image'] && ai['gd$image'].src &&
+              ai['gd$image'].src.indexOf('blank') < 0) {
+            authorPhoto = ai['gd$image'].src.replace(/\/s\d+\//, '/s200/');
+          }
+        }
+        if (authorPhoto) {
+          imgWrap.innerHTML = '<img id="am-author-img" src="'+amEsc(authorPhoto)+'" alt="'+amEsc(author)+'">';
+        } else {
+          var initials = author.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
+          imgWrap.innerHTML = '<div id="am-author-initials">'+amEsc(initials)+'</div>';
+        }
+
+        if (!filtered.length) {
+          listWrap.innerHTML = '<p style="color:#aaa;padding:16px 0;text-align:center;">작성한 글이 없습니다.</p>';
+          sub.textContent = '';
+          return;
+        }
+
+        sub.textContent = 'Recent Posts · ' + filtered.length;
+
+        /* pp 카드 래퍼 — 기존 PopularPosts CSS 재사용 */
+        var ppWrap = document.createElement('div');
+        ppWrap.className = 'PopularPosts';
+        var ppContent = document.createElement('div');
+        ppContent.className = 'widget-content';
+        ppContent.setAttribute('role', 'feed'); /* counter-reset:pp-counter 트리거 → 1부터 시작 */
+
+        filtered.forEach(function(e, i){
+          var link = (e.link || []).filter(function(l){ return l.rel === 'alternate'; })[0];
+          var href = link ? link.href : '#';
+          var t    = e.title ? e.title.$t : '(제목 없음)';
+          var d    = e.published ? e.published.$t.slice(0,10) : '';
+
+          /* 썸네일 */
+          var thumb = '';
+          if (e.media$thumbnail && e.media$thumbnail.url) {
+            thumb = e.media$thumbnail.url.replace(/\/s\d+(?:-[a-z]\d+)*\//g, '/s400/');
+          } else {
+            var raw = (e.content || e.summary || {}).$t || '';
+            var im  = raw.match(/<img[^>]+src=["']([^"']+)["']/);
+            if (im) thumb = im[1];
+          }
+
+          /* 태그 */
+          var tags = (e.category || []).map(function(c){ return c.term; }).slice(0,3);
+
+          var art = document.createElement('article');
+          art.className = 'post';
+          art.innerHTML =
+            '<div class="pp-num"></div>' +
+            '<div class="pp-col-left">' +
+              (thumb
+                ? '<div class="item-thumbnail"><a href="'+amEsc(href)+'" target="_blank"><img src="'+amEsc(thumb)+'" alt="'+amEsc(t)+'" loading="lazy"></a></div>'
+                : '<div class="item-thumbnail" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#154f7a,#1d89cf);"><span style="color:#fff;font-size:32px;">&#128196;</span></div>') +
+            '</div>' +
+            '<div class="pp-col-mid">' +
+              '<h3 class="pp-title"><a href="'+amEsc(href)+'" target="_blank">'+amEsc(t)+'</a></h3>' +
+              (tags.length
+                ? '<div class="pp-labels">'+tags.map(function(tag){
+                    return '<a class="pp-tag" href="/search/label/'+encodeURIComponent(tag)+'">'+amEsc(tag)+'</a>';
+                  }).join('')+'</div>'
+                : '') +
+              '<div class="pp-col-bot">' +
+                '<div class="pp-byline">' + amEsc(d) + '</div>' +
+              '</div>' +
+            '</div>';
+          ppContent.appendChild(art);
+        });
+
+        ppWrap.appendChild(ppContent);
+        listWrap.appendChild(ppWrap);
+    } /* end renderAuthorPosts */
+
+    fetchPage(1);
+  }
+  function closeAuthorModal() {
+    document.getElementById('am-overlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAuthorModal(); });
   //]]>
   </script>
   </body>

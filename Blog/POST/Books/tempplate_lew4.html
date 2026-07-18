@@ -1,438 +1,365 @@
-<div style="font-family:'Segoe UI',Arial,sans-serif;max-width:780px;margin:0 auto;padding:0 4px;color:#1a2535;line-height:1.7;">
+<!--════════════════════════════════════════════════════════════
+     Article: Ch.07 — Role of Shipyard and Supplier
+     Series : Why Maritime Cybersecurity Became a System Engineering Issue (7/9)
+     Author : Blue Horizonist (Lew)  |  Published: July 2026
+     Style  : Maritime 4.0 Design System — Blogger-compatible
+════════════════════════════════════════════════════════════-->
 
-  <!-- HEADER -->
-  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:40px 36px 32px;margin-bottom:36px;">
-    <div style="display:inline-block;background:rgba(26,158,130,0.25);border:1px solid rgba(26,158,130,0.5);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:700;color:#1a9e82;letter-spacing:0.8px;margin-bottom:18px;">📚 BOOK REVIEW · ICS SECURITY SERIES</div>
-    <h1 style="color:#ffffff;font-size:24px;font-weight:800;line-height:1.35;margin:0 0 8px;">Chapter 8 · OT Security Architecture &amp; Deployment Fundamentals</h1>
-    <p style="color:#9ab5c9;font-size:14px;margin:0 0 24px;">Pascal Ackerman — Industrial Control System Security (2019) · IACS UR E26/E27 Lens</p>
-    <div style="display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.12);">
-      <a href="https://www.shippauljobs.com/2026/01/202601-crew-behind-shipjobs.html" rel="noopener" target="_blank">
-        <img alt="Blue Horizonist" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/lew.jpeg?raw=true" style="border-radius:50%;border:2px solid #1a9e82;flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
-      </a>
-      <div>
-        <div style="color:#ffffff;font-size:13px;font-weight:700;line-height:1.3;">Blue Horizonist (Lew)</div>
-        <div style="color:#9ab5c9;font-size:10px;">Maritime &amp; Cyber Security Consultant · ISP Consultant</div>
-      </div>
-      <div style="margin-left:auto;text-align:right;">
-        <div style="color:#9ab5c9;font-size:11px;">May 29, 2026</div>
-        <div style="display:flex;gap:6px;margin-top:4px;justify-content:flex-end;flex-wrap:wrap;">
-          <span style="background:rgba(255,255,255,0.1);border-radius:10px;padding:2px 10px;font-size:10px;color:#cde0ec;">📚 Book Review</span>
-          <span style="background:rgba(255,255,255,0.1);border-radius:10px;padding:2px 10px;font-size:10px;color:#cde0ec;">IACS UR E26</span>
-          <span style="background:rgba(255,255,255,0.1);border-radius:10px;padding:2px 10px;font-size:10px;color:#cde0ec;">OT Architecture</span>
-          <span style="background:rgba(255,255,255,0.1);border-radius:10px;padding:2px 10px;font-size:10px;color:#cde0ec;">Defense in Depth</span>
+<div style="box-sizing: border-box; font-family: &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif; line-height: 1.75; margin: 0px auto; max-width: 780px;">
+
+  <!--══ HEADER ══-->
+  <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%); border-radius: 16px; margin-bottom: 36px; padding: 40px 36px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px;">
+      <span style="background: rgba(255, 193, 7, 0.35); border-radius: 20px; color: #ffe082; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">💡 Insight</span>
+      <span style="background: rgba(26, 158, 130, 0.4); border-radius: 20px; color: #7effd8; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Series 7 / 9</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">IACS UR E26/E27</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Shipyard &amp; Supplier</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">System Engineering</span>
+    </div>
+    <h1 style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin: 0px 0px 8px;">
+      Chapter 7. Role of Shipyard and Supplier
+    </h1>
+    <p style="color: #b8d4ea; font-size: 13px; font-style: italic; margin: 0px 0px 20px;">
+      Why Maritime Cybersecurity Became a System Engineering Issue (7/9)
+    </p>
+    <div style="align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 18px;">
+      <div style="align-items: center; display: flex; gap: 10px;">
+        <a href="https://www.shippauljobs.com/2026/01/202601-crew-behind-shipjobs.html" rel="noopener" target="_blank">
+          <img alt="Blue Horizonist (Lew)" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/lew.jpeg?raw=true" style="border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.4); flex-shrink: 0; height: 36px; object-fit: cover; width: 36px;" />
+        </a>
+        <div>
+          <div style="color: white; font-size: 13px; font-weight: 700; line-height: 1.3;">Blue Horizonist (Lew)</div>
+          <div style="color: #9ab5c9; font-size: 10px;">Maritime &amp; Cyber Security Consultant · ISP Consultant</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 1 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">1️⃣ Why Does Chapter 8 Appear as the Final Chapter?</h2>
-  </div>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">The flow of the previous chapters is as follows:</p>
-
-  <div style="overflow-x:auto;margin:16px 0;">
-    <table style="width:100%;border-collapse:collapse;font-size:13px;">
-      <thead>
-        <tr style="background:linear-gradient(135deg,#0a2342,#154f7a);">
-          <th style="color:#fff;padding:10px 14px;text-align:left;font-weight:700;width:90px;">Chapter</th>
-          <th style="color:#fff;padding:10px 14px;text-align:left;font-weight:700;">Meaning</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="background:#f7fafd;">
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">1</td>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;">Understanding OT Systems</td>
-        </tr>
-        <tr>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">2</td>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;">Network Security Architecture</td>
-        </tr>
-        <tr style="background:#f7fafd;">
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">3</td>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;">Host Security</td>
-        </tr>
-        <tr>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">4</td>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;">Attack Modeling</td>
-        </tr>
-        <tr style="background:#f7fafd;">
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">5</td>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;">Logging / Monitoring</td>
-        </tr>
-        <tr>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">6</td>
-          <td style="padding:9px 14px;border-bottom:1px solid #e3ecf4;">Documentation</td>
-        </tr>
-        <tr style="background:#f7fafd;">
-          <td style="padding:9px 14px;color:#154f7a;font-weight:700;">7</td>
-          <td style="padding:9px 14px;">Security Testing</td>
-        </tr>
-      </tbody>
-    </table>
+  <!--══ SERIES NAVIGATION ══-->
+  <div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(26, 158, 130); border-radius: 0px 14px 14px 0px; margin-bottom: 36px; padding: 18px 22px;">
+    <div style="color: #0a2342; font-size: 12px; font-weight: 800; letter-spacing: 1px; margin-bottom: 14px; text-transform: uppercase;">📚 Blue Horizonist Series — Why Maritime Cybersecurity Became a System Engineering Issue</div>
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <a href="https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became.html" rel="noopener" style="align-items: center; border-radius: 8px; color: #154f7a; display: flex; font-size: 12px; gap: 8px; padding: 5px 8px; text-decoration: none;" target="_blank">
+        <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.01</span>
+        <span>Why Does Cybersecurity Need to Be a System Engineering Issue?</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became_01937875339.html" rel="noopener" style="align-items: center; border-radius: 8px; color: #154f7a; display: flex; font-size: 12px; gap: 8px; padding: 5px 8px; text-decoration: none;" target="_blank">
+        <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.02</span>
+        <span>Ships Are Now Complex Systems</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became_0911737879.html" rel="noopener" style="align-items: center; border-radius: 8px; color: #154f7a; display: flex; font-size: 12px; gap: 8px; padding: 5px 8px; text-decoration: none;" target="_blank">
+        <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.03</span>
+        <span>Complexity Requires a Different Kind of Thinking</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2026/06/why-maritime-cybersecurity-became_0793122380.html" rel="noopener" style="align-items: center; border-radius: 8px; color: #154f7a; display: flex; font-size: 12px; gap: 8px; padding: 5px 8px; text-decoration: none;" target="_blank">
+        <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.04</span>
+        <span>The Purpose Behind IACS UR E26 and E27</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2026/07/why-maritime-cybersecurity-became.html" rel="noopener" style="align-items: center; border-radius: 8px; color: #154f7a; display: flex; font-size: 12px; gap: 8px; padding: 5px 8px; text-decoration: none;" target="_blank">
+        <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.05</span>
+        <span>From Functional Design to Explainable Design</span>
+      </a>
+      <a href="https://www.shippauljobs.com/2026/07/chapter-6-required-engineering-evidence.html" rel="noopener" style="align-items: center; border-radius: 8px; color: #154f7a; display: flex; font-size: 12px; gap: 8px; padding: 5px 8px; text-decoration: none;" target="_blank">
+        <span style="background: rgb(21, 79, 122); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.06</span>
+        <span>Required Engineering Evidence</span>
+      </a>
+      <div style="align-items: center; background: rgba(26, 158, 130, 0.08); border-radius: 8px; border: 1px solid rgba(26, 158, 130, 0.25); display: flex; font-size: 12px; font-weight: 700; gap: 8px; padding: 5px 8px;">
+        <span style="background: rgb(26, 158, 130); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.07</span>
+        <span style="color: #1a9e82;">Role of Shipyard and Supplier</span>
+        <span style="background: rgb(26, 158, 130); border-radius: 10px; color: white; font-size: 8px; font-weight: 800; margin-left: auto; padding: 2px 8px;">📍 You are here</span>
+      </div>
+      <div style="align-items: center; display: flex; font-size: 12px; gap: 8px; opacity: 0.4; padding: 5px 8px;">
+        <span style="background: rgb(180, 195, 210); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.08</span>
+        <span style="color: #8ba3b8;">The Compliance Gap: What Shipyards Deliver vs. What Class Requires</span>
+        <span style="color: #8ba3b8; font-size: 10px; margin-left: auto;">Coming Soon</span>
+      </div>
+      <div style="align-items: center; display: flex; font-size: 12px; gap: 8px; opacity: 0.4; padding: 5px 8px;">
+        <span style="background: rgb(180, 195, 210); border-radius: 4px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; padding: 1px 7px;">Ch.09</span>
+        <span style="color: #8ba3b8;">Maritime Cybersecurity as a Discipline</span>
+        <span style="color: #8ba3b8; font-size: 10px; margin-left: auto;">Coming Soon</span>
+      </div>
+    </div>
   </div>
 
-  <p style="font-size:14px;color:#2c3e52;margin:12px 0;">Up to this point, the book has focused on explaining individual security components.</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">However, when building a real OT system, the following question naturally arises:</p>
+  <!--══ LEAD ══-->
+  <p style="background: rgb(240, 247, 255); border-left: 4px solid rgb(26, 158, 130); border-radius: 12px; color: #354a5e; font-size: 15px; line-height: 1.85; margin: 0px 0px 32px; padding: 20px 22px;">
+    In the <a href="https://www.shippauljobs.com/2026/07/chapter-6-required-engineering-evidence.html" rel="noopener" style="color: #154f7a; font-weight: 700;" target="_blank">previous chapter</a>, we explored why Engineering Evidence is becoming increasingly important in modern Maritime Cybersecurity. We also discussed how Explainable Design is built upon the ability to clearly communicate design intent, operational assumptions, and verification results, and how Engineering Evidence provides the structured information needed to support that objective.
+  </p>
+  <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+    This naturally leads to the next question:
+  </p>
 
-  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;">
-    <p style="color:#7d4a1a;font-size:14px;font-weight:600;margin:0;font-style:italic;">"How should all of these security elements be deployed within an actual OT environment?"</p>
+  <!--══ KEY QUESTION ══-->
+  <div style="background: rgb(255, 248, 240); border-left: 4px solid #e67e22; border-radius: 0px 12px 12px 0px; margin-bottom: 24px; padding: 18px 22px;">
+    <div style="color: #e67e22; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 8px; text-transform: uppercase;">🔍 Key Question</div>
+    <p style="color: #7a4f10; font-size: 15px; font-weight: 700; line-height: 1.7; margin: 0px;">
+      "Who is responsible for preparing this Engineering Evidence?"
+    </p>
   </div>
 
-  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;">
-    <p style="color:#2c4a6e;font-size:13px;margin:0;line-height:1.7;">Chapter 8 answers this question by explaining <strong>Security Architecture Integration</strong> — how all individual security components come together into a cohesive, deployable OT security architecture.</p>
+  <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+    Many people tend to answer this question rather simply:
+  </p>
+  <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 16px; padding: 18px 22px;">
+    <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+      <li style="align-items: flex-start; display: flex; gap: 12px;">
+        <span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+        <span style="color: #354a5e; font-size: 14px;">The shipyard is responsible for E26.</span>
+      </li>
+      <li style="align-items: flex-start; display: flex; gap: 12px;">
+        <span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+        <span style="color: #354a5e; font-size: 14px;">The equipment supplier is responsible for E27.</span>
+      </li>
+    </ul>
+  </div>
+  <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; margin-bottom: 36px; padding: 14px 18px;">
+    While this distinction is generally correct, the reality of a project is far more collaborative. Modern ship systems have become too complex for a single organization to design, explain, and validate <strong>every aspect of Cybersecurity on its own.</strong>
   </div>
 
-  <!-- SECTION 2 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">2️⃣ Overall Structure of Chapter 8</h2>
+  <!--══ SECTION Ⅰ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅰ. Shipyards and Suppliers View the Same System Differently</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Shipyards and equipment suppliers often look at the same system from very different perspectives.
+    </p>
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+      <div style="background: rgb(238, 246, 243); border-radius: 10px; border: 1px solid rgb(178, 221, 212); padding: 14px 18px;">
+        <div style="align-items: center; color: #1a9e82; display: flex; font-size: 11px; font-weight: 800; gap: 8px; letter-spacing: 0.6px; margin-bottom: 10px; text-transform: uppercase;">🏗️ Shipyard Perspective</div>
+        <ul style="color: #1a4a40; font-size: 13.5px; line-height: 1.9; margin: 0px; padding-left: 20px;">
+          <li>What role does this CBS play within the overall system?</li>
+          <li>How does it interface with other CBSs?</li>
+          <li>What operational impact would result from its failure?</li>
+          <li>How is it integrated into the vessel as a whole?</li>
+        </ul>
+      </div>
+      <div style="background: rgb(240, 247, 255); border-radius: 10px; border: 1px solid rgb(195, 217, 240); padding: 14px 18px;">
+        <div style="align-items: center; color: #154f7a; display: flex; font-size: 11px; font-weight: 800; gap: 8px; letter-spacing: 0.6px; margin-bottom: 10px; text-transform: uppercase;">⚙️ Equipment Supplier Perspective</div>
+        <ul style="color: #2c4a6e; font-size: 13.5px; line-height: 1.9; margin: 0px; padding-left: 20px;">
+          <li>Does the product satisfy its required functions?</li>
+          <li>Do the internal CBS functions operate correctly?</li>
+          <li>Does the product meet its technical specifications and performance requirements?</li>
+          <li>Has the implementation been carried out appropriately?</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Both perspectives are equally valid. The difference lies not in who is right, but in <strong>the level at which each organization views the system.</strong>
+    </div>
   </div>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">The core flow of Chapter 8 is as follows:</p>
 
-  <div style="background:#0a2342;border-radius:10px;padding:24px 28px;margin:16px 0;font-size:13px;line-height:2.4;text-align:center;">
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Security Zone Design</div>
-    <div style="color:#4a7fa5;font-size:20px;">↓</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Security Boundary Definition</div>
-    <div style="color:#4a7fa5;font-size:20px;">↓</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Control Deployment</div>
-    <div style="color:#4a7fa5;font-size:20px;">↓</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Monitoring Architecture</div>
+  <!--══ SECTION Ⅱ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(192, 57, 43)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅱ. Cybersecurity Creates Shared Responsibilities</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      In traditional projects, each supplier was primarily responsible for its own equipment. Cybersecurity, however, is gradually changing this responsibility model.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      For example, an equipment supplier is expected not only to explain its own CBS, but also to describe how that CBS interacts with the surrounding systems. Similarly, the shipyard is responsible not only for system integration, but also for understanding the engineering intent behind the supplier's design.
+    </p>
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Cybersecurity therefore does not simply increase the responsibilities of individual organizations. Instead, it significantly <strong>increases the need for collaboration between them.</strong>
+    </div>
   </div>
 
-  <!-- SECTION 3 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">3️⃣ Security Zone Architecture</h2>
-  </div>
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
 
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:0 0 8px;">Fundamental Principle</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">The most important concept in OT security architecture is <strong>Zone &amp; Conduit</strong> — also a core concept in ISA/IEC 62443.</p>
-
-  <div style="display:flex;gap:16px;margin:16px 0;flex-wrap:wrap;">
-    <div style="flex:1;min-width:200px;background:#f0f7ff;border-radius:10px;padding:16px 18px;border-top:3px solid #154f7a;">
-      <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:8px;">🔷 ZONE</div>
-      <p style="color:#2c4a6e;font-size:13px;margin:0 0 8px;">A group of systems with the same security requirements.</p>
-      <ul style="color:#2c4a6e;font-size:13px;margin:0;padding-left:18px;line-height:1.9;">
-        <li>Enterprise IT Zone</li>
-        <li>IDMZ</li>
-        <li>Control Zone</li>
-        <li>Safety Zone</li>
+  <!--══ SECTION Ⅲ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅲ. Engineering Evidence Must Connect Across Organizations</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      Engineering Evidence should never remain isolated within a single organization. For example:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 16px; padding: 18px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Interface information prepared by a supplier should align with the shipyard's overall system design.</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Recovery information provided by the supplier should support the vessel's overall recovery strategy.</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Product-level test results should be traceable to integrated system testing.</span>
+        </li>
       </ul>
     </div>
-    <div style="flex:1;min-width:200px;background:#f0f7ff;border-radius:10px;padding:16px 18px;border-top:3px solid #1a9e82;">
-      <div style="color:#1a9e82;font-size:12px;font-weight:700;margin-bottom:8px;">🔗 CONDUIT</div>
-      <p style="color:#2c4a6e;font-size:13px;margin:0;">The communication path between Zones — controls and monitors data flow crossing zone boundaries.</p>
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Engineering Evidence is therefore not completed within the boundaries of one organization. It gradually takes shape by <strong>connecting information contributed by multiple stakeholders throughout the project.</strong>
     </div>
   </div>
 
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:16px 0 8px;">Key Implications from a Security Perspective</p>
-  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 14px;">
-    <p style="color:#2c4a6e;font-size:13px;margin:0;line-height:1.7;">The purpose of the Zone model is <strong>Attacking Surface Reduction</strong>. Even if an attacker compromises one system, it should be difficult to move laterally into other zones.</p>
-  </div>
-
-  <div style="background:#0a2342;border-radius:10px;padding:20px 24px;margin:14px 0;font-size:13px;line-height:2.2;text-align:center;">
-    <div style="color:#9ab5c9;font-size:11px;margin-bottom:6px;">Zone Segmentation Example</div>
-    <div style="color:#cde0ec;font-weight:600;">IT Network</div>
-    <div style="color:#1a9e82;">↓ firewall</div>
-    <div style="color:#cde0ec;font-weight:600;">IDMZ</div>
-    <div style="color:#1a9e82;">↓ firewall</div>
-    <div style="color:#cde0ec;font-weight:600;">Control Network</div>
-    <div style="color:#9ab5c9;font-size:11px;margin-top:8px;">Firewall-based segmentation contains attack propagation between zones</div>
-  </div>
-
-  <!-- SECTION 4 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">4️⃣ Industrial DMZ Architecture</h2>
-  </div>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:0 0 8px;">Fundamental Principle</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">The Industrial DMZ (IDMZ) acts as a <strong>Shock Absorber</strong> — a buffer zone between IT and OT that prevents direct cross-network communication.</p>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:0 0 8px;">Major Functions of the IDMZ</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 10px;">The following systems are typically located in the IDMZ:</p>
-
-  <div style="display:flex;gap:10px;margin:14px 0;flex-wrap:wrap;">
-    <div style="background:#f7fafd;border:1px solid #dde8f0;border-radius:8px;padding:12px 14px;text-align:center;min-width:100px;flex:1;">
-      <div style="font-size:20px;margin-bottom:4px;">🔄</div>
-      <div style="color:#154f7a;font-size:11px;font-weight:700;">Patch Server</div>
+  <!--══ SECTION Ⅳ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(26, 158, 130), rgb(39, 174, 143)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅳ. Early Collaboration Reduces Engineering Rework</h2>
     </div>
-    <div style="background:#f7fafd;border:1px solid #dde8f0;border-radius:8px;padding:12px 14px;text-align:center;min-width:100px;flex:1;">
-      <div style="font-size:20px;margin-bottom:4px;">📡</div>
-      <div style="color:#154f7a;font-size:11px;font-weight:700;">Update Relay</div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      In real-world projects, many Cybersecurity-related issues arise simply because discussions begin too late. Typical examples include:
+    </p>
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid #e67e22; border-radius: 0px 10px 10px 0px; margin-bottom: 16px; padding: 14px 18px;">
+      <ul style="color: #7a4f10; font-size: 13.5px; line-height: 1.9; margin: 0px; padding-left: 20px;">
+        <li>Modifying interfaces after the Zone architecture has already been finalized</li>
+        <li>Redesigning system functions due to newly introduced Remote Access policies</li>
+        <li>Discovering operational constraints only during the testing phase</li>
+      </ul>
     </div>
-    <div style="background:#f7fafd;border:1px solid #dde8f0;border-radius:8px;padding:12px 14px;text-align:center;min-width:100px;flex:1;">
-      <div style="font-size:20px;margin-bottom:4px;">📊</div>
-      <div style="color:#154f7a;font-size:11px;font-weight:700;">Historian Replica</div>
-    </div>
-    <div style="background:#f7fafd;border:1px solid #dde8f0;border-radius:8px;padding:12px 14px;text-align:center;min-width:100px;flex:1;">
-      <div style="font-size:20px;margin-bottom:4px;">🔐</div>
-      <div style="color:#154f7a;font-size:11px;font-weight:700;">Remote Access Gateway</div>
-    </div>
-    <div style="background:#f7fafd;border:1px solid #dde8f0;border-radius:8px;padding:12px 14px;text-align:center;min-width:100px;flex:1;">
-      <div style="font-size:20px;margin-bottom:4px;">📋</div>
-      <div style="color:#154f7a;font-size:11px;font-weight:700;">Log Collector</div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      These situations often lead to unnecessary engineering rework. By contrast, when shipyards and equipment suppliers begin collaborating from the early design stages and share a common engineering perspective, many of these changes can be avoided.
+    </p>
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Cybersecurity is not a feature to be added at the end of a project. It is <strong>an engineering consideration that should be incorporated from the very beginning.</strong>
     </div>
   </div>
 
-  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;">
-    <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:6px;">🔑 Key Implications from a Security Perspective</div>
-    <p style="color:#2c4a6e;font-size:13px;margin:0;line-height:1.7;">The primary purpose of the IDMZ is <strong>blocking direct communication between IT and OT</strong>. These IDMZ systems relay and mediate data exchange, significantly reducing attack propagation risk.</p>
-  </div>
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
 
-  <div style="background:#0a2342;border-radius:10px;padding:20px 24px;margin:14px 0;font-size:13px;line-height:2.2;text-align:center;">
-    <div style="color:#9ab5c9;font-size:11px;margin-bottom:6px;">IDMZ Data Flow</div>
-    <div style="color:#cde0ec;font-weight:600;">IT</div>
-    <div style="color:#1a9e82;font-size:18px;">↓</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">IDMZ Server</div>
-    <div style="color:#1a9e82;font-size:18px;">↓</div>
-    <div style="color:#cde0ec;font-weight:600;">OT</div>
-  </div>
-
-  <!-- SECTION 5 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">5️⃣ Security Gateway Deployment</h2>
-  </div>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:0 0 8px;">Fundamental Principle</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">Communication between Zones must always be controlled. The devices responsible for this are called <strong>Security Gateways</strong>.</p>
-
-  <div style="display:flex;gap:12px;margin:14px 0;flex-wrap:wrap;">
-    <div style="background:#f0f7ff;border:1px solid #c3d9f0;border-radius:8px;padding:14px 18px;flex:1;min-width:130px;">
-      <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:4px;">🛡️ Firewall</div>
-      <div style="color:#4a6a8a;font-size:12px;line-height:1.5;">IP / Port / Protocol</div>
+  <!--══ SECTION Ⅴ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅴ. The Role of the CRSI</h2>
     </div>
-    <div style="background:#f0f7ff;border:1px solid #c3d9f0;border-radius:8px;padding:14px 18px;flex:1;min-width:130px;">
-      <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:4px;">🏭 ICS Firewall</div>
-      <div style="color:#4a6a8a;font-size:12px;line-height:1.5;">OT-aware inspection</div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      IACS UR E26 defines the role of the <strong style="color: #0a2342;">Cyber Resilience System Integrator (CRSI)</strong>. However, this does not mean that the CRSI is responsible for producing all Cybersecurity information or designing every aspect of the system.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      In practice, the CRSI's most important responsibility is to connect the information provided by shipyards and suppliers while ensuring consistency at the system level. For example:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 16px; padding: 18px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Is the Zone architecture consistently defined?</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Are interface descriptions aligned across different systems?</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Does the overall Recovery strategy remain consistent throughout the vessel?</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Is the Engineering Evidence free from contradictions?</span>
+        </li>
+      </ul>
     </div>
-    <div style="background:#f0f7ff;border:1px solid #c3d9f0;border-radius:8px;padding:14px 18px;flex:1;min-width:130px;">
-      <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:4px;">🔬 DPI Gateway</div>
-      <div style="color:#4a6a8a;font-size:12px;line-height:1.5;">Deep packet inspection</div>
-    </div>
-  </div>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:16px 0 8px;">Key Implications from a Security Perspective</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 10px;">Traditional IT firewalls operate based on IP, Port, and Protocol. However, OT environments require visibility into <strong>Industrial Protocol Commands</strong>:</p>
-
-  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;">
-    <div style="color:#7d4a1a;font-size:12px;font-weight:700;margin-bottom:8px;">⚠️ OT-Specific Protocol Inspection Required</div>
-    <ul style="color:#5a3a1a;font-size:13px;margin:0;padding-left:18px;line-height:1.9;">
-      <li><strong>Modbus</strong> function code inspection</li>
-      <li><strong>EtherNet/IP</strong> command inspection</li>
-      <li><strong>DNP3</strong> operation inspection</li>
-    </ul>
-    <p style="color:#7d4a1a;font-size:13px;margin:8px 0 0;">Therefore, OT environments require <strong>ICS DPI Firewalls</strong> that understand industrial protocols at the command level.</p>
-  </div>
-
-  <!-- SECTION 6 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">6️⃣ Remote Access Architecture</h2>
-  </div>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:0 0 8px;">Fundamental Principle</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">OT systems often require remote connectivity for maintenance purposes. However, remote access is also one of the largest attack vectors. Therefore, a <strong>Secure Remote Access Architecture</strong> is essential.</p>
-
-  <div style="background:#0a2342;border-radius:10px;padding:24px 28px;margin:16px 0;font-size:13px;line-height:2.4;text-align:center;">
-    <div style="color:#9ab5c9;font-size:11px;margin-bottom:8px;">Secure Remote Access Flow</div>
-    <div style="color:#cde0ec;font-weight:600;">Vendor</div>
-    <div style="color:#1a9e82;">↓ VPN</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Jump Server</div>
-    <div style="color:#4a7fa5;font-size:18px;">↓</div>
-    <div style="color:#cde0ec;font-weight:600;">Engineering Workstation</div>
-    <div style="color:#4a7fa5;font-size:18px;">↓</div>
-    <div style="color:#cde0ec;font-weight:600;">Control Network</div>
-  </div>
-
-  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;">
-    <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:8px;">🎯 Objectives of This Architecture</div>
-    <ul style="color:#2c4a6e;font-size:13px;margin:0;padding-left:18px;line-height:1.9;">
-      <li>Prevent direct OT access from external networks</li>
-      <li>Enable session recording for auditability</li>
-      <li>Enforce privilege control at each access layer</li>
-    </ul>
-  </div>
-
-  <!-- SECTION 7 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">7️⃣ Monitoring Architecture</h2>
-  </div>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:0 0 8px;">Fundamental Principle</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">In OT environments, maintaining <strong>Operational Visibility</strong> is critical — system status and security events must be continuously monitored.</p>
-
-  <div style="background:#0a2342;border-radius:10px;padding:24px 28px;margin:16px 0;font-size:13px;line-height:2.4;text-align:center;">
-    <div style="color:#9ab5c9;font-size:11px;margin-bottom:8px;">OT Monitoring Architecture</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Network Sensors</div>
-    <div style="color:#4a7fa5;font-size:18px;">↓</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Log Collectors</div>
-    <div style="color:#4a7fa5;font-size:18px;">↓</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">SIEM</div>
-    <div style="color:#4a7fa5;font-size:18px;">↓</div>
-    <div style="color:#1a9e82;font-weight:700;font-size:14px;">Security Operations Center</div>
-  </div>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:16px 0 8px;">Key Implications from a Security Perspective</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 10px;">The following technologies are particularly important in OT environments:</p>
-
-  <div style="display:flex;gap:12px;margin:12px 0 16px;flex-wrap:wrap;">
-    <div style="background:#f0f7ff;border-radius:8px;padding:14px 16px;flex:1;min-width:150px;border-top:3px solid #154f7a;">
-      <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:6px;">📡 ICS Protocol Monitoring</div>
-      <p style="color:#4a6a8a;font-size:12px;margin:0;line-height:1.5;">Monitors industrial protocol communications at the command level</p>
-    </div>
-    <div style="background:#f0f7ff;border-radius:8px;padding:14px 16px;flex:1;min-width:150px;border-top:3px solid #1a9e82;">
-      <div style="color:#1a9e82;font-size:12px;font-weight:700;margin-bottom:6px;">🔍 Anomaly Detection</div>
-      <p style="color:#4a6a8a;font-size:12px;margin:0;line-height:1.5;">Identifies deviations from established operational baselines</p>
-    </div>
-    <div style="background:#f0f7ff;border-radius:8px;padding:14px 16px;flex:1;min-width:150px;border-top:3px solid #154f7a;">
-      <div style="color:#154f7a;font-size:12px;font-weight:700;margin-bottom:6px;">🗺️ Asset Discovery</div>
-      <p style="color:#4a6a8a;font-size:12px;margin:0;line-height:1.5;">Maintains complete OT asset inventory for full visibility</p>
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Coordinating these elements is often far more important than producing additional documentation. In this sense, the CRSI should not be viewed as the organization that creates all information. Rather, it is <strong>the organization that connects information into a coherent system.</strong>
     </div>
   </div>
 
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 8px;">These technologies are used to detect:</p>
-  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 14px;">
-    <ul style="color:#5a3a1a;font-size:13px;margin:0;padding-left:18px;line-height:1.9;">
-      <li>Abnormal PLC commands</li>
-      <li>Unexpected network traffic</li>
-      <li>Unauthorized engineering activity</li>
-    </ul>
+  <!--══ SECTION Ⅵ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅵ. Successful Projects Depend on Collaboration, Not Documentation</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      Successful Cybersecurity projects are not defined by the number of documents produced. Far more important is whether the right information is shared with the right stakeholders, at the right level of detail, and at the appropriate stage of the project. Even excellent Engineering Evidence has limited value if it is never shared or properly understood.
+    </p>
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      When an effective collaboration framework is established, the same Engineering Evidence can support a far more efficient project. Ultimately, successful Cybersecurity projects begin not with better documentation, but with <strong>better collaboration.</strong>
+    </div>
   </div>
 
-  <!-- SECTION 8 -->
-  <div style="display:flex;align-items:center;gap:10px;margin:32px 0 16px;padding-bottom:10px;border-bottom:2px solid #e8eef4;">
-    <div style="width:4px;height:24px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
-    <h2 style="color:#0a2342;font-size:17px;font-weight:800;margin:0;">8️⃣ Defense in Depth Architecture</h2>
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ CLOSING REMARKS ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(26, 158, 130), rgb(10, 35, 66)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Closing Remarks</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 14px;">
+      Today's Maritime Cybersecurity cannot be achieved by any single organization working independently.
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 18px; padding: 18px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Shipyards provide the perspective of overall system integration.</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Equipment suppliers contribute expertise related to individual CBSs.</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">The CRSI connects these contributions at the system level.</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span>
+          <span style="color: #354a5e; font-size: 14px;">Classification societies independently verify the final outcome.</span>
+        </li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      Although each stakeholder has a different role, they all share the same objective: <strong style="color: #0a2342;">to build digital ship systems that are secure, understandable, and verifiable.</strong>
+    </p>
   </div>
 
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:0 0 8px;">Fundamental Principle</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">A single layer of defense is not sufficient in OT security. Therefore, OT environments require a <strong>Defense in Depth</strong> strategy — multiple layers of security controls deployed throughout the architecture.</p>
-
-  <p style="font-size:13px;font-weight:700;color:#0a2342;margin:12px 0 8px;">Key Implications from a Security Perspective</p>
-  <p style="font-size:14px;color:#2c3e52;margin:0 0 12px;">A typical Defense in Depth architecture consists of the following layers:</p>
-
-  <div style="overflow-x:auto;margin:16px 0;">
-    <table style="width:100%;border-collapse:collapse;font-size:13px;">
-      <thead>
-        <tr style="background:linear-gradient(135deg,#0a2342,#154f7a);">
-          <th style="color:#fff;padding:10px 14px;text-align:left;font-weight:700;width:150px;">Layer</th>
-          <th style="color:#fff;padding:10px 14px;text-align:left;font-weight:700;">Security Control</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="background:#f7fafd;">
-          <td style="padding:10px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">🌐 Network</td>
-          <td style="padding:10px 14px;border-bottom:1px solid #e3ecf4;">Segmentation / Firewall</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">🖥️ Host</td>
-          <td style="padding:10px 14px;border-bottom:1px solid #e3ecf4;">Hardening / Allow-list</td>
-        </tr>
-        <tr style="background:#f7fafd;">
-          <td style="padding:10px 14px;border-bottom:1px solid #e3ecf4;color:#154f7a;font-weight:700;">⚙️ Application</td>
-          <td style="padding:10px 14px;border-bottom:1px solid #e3ecf4;">Authentication</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 14px;color:#154f7a;font-weight:700;">👁️ Monitoring</td>
-          <td style="padding:10px 14px;">Logging / SIEM</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;">
-    <p style="color:#2c4a6e;font-size:13px;margin:0;line-height:1.7;">This structure creates <strong>Multiple Attack Barriers</strong> — even if an attacker bypasses one control, additional layers remain in place to stop the attack.</p>
-  </div>
-
-  <!-- KEY TAKEAWAY -->
-  <div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:14px;padding:28px 32px;margin:36px 0;">
-    <div style="color:#1a9e82;font-size:12px;font-weight:800;letter-spacing:1px;margin-bottom:12px;">KEY TAKEAWAY</div>
-    <p style="color:#ffffff;font-size:18px;font-weight:800;margin:0 0 10px;line-height:1.4;">OT Security Architecture = Zone Isolation + Defense in Depth + Continuous Monitoring</p>
-    <p style="color:#9ab5c9;font-size:13px;margin:0;line-height:1.7;">Chapter 8 concludes the book by integrating all prior concepts into a deployable security architecture. Security Zones contain lateral movement, the IDMZ prevents direct IT/OT communication, Defense in Depth layers controls at every level, and continuous monitoring ensures operational visibility. Together, these form the blueprint for a certifiable OT security architecture under IACS UR E26/E27.</p>
-  </div>
-
-  <!-- RELATED ARTICLES -->
-  <div style="background:#f7fafd;border-radius:12px;padding:24px;margin:32px 0;border:1px solid #dde8f0;">
-    <div style="color:#0a2342;font-size:15px;font-weight:800;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #dde8f0;">📚 Related Articles — ICS Security Series</div>
-
-    <a href="https://www.shippauljobs.com/2026/03/book-industrial-control-system.html" rel="noopener" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#ffffff;border-radius:8px;border:1px solid #e8eef4;margin-bottom:8px;text-decoration:none;">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#ffffff;font-size:10px;font-weight:800;">1/8</div>
-      <div>
-        <div style="color:#154f7a;font-size:13px;font-weight:700;line-height:1.3;">[BOOK] Industrial Control System Security(1/8)</div>
-        <div style="color:#7a8fa8;font-size:11px;margin-top:2px;">Fundamental Understanding from an IACS UR E26 and E27 Certification Perspective</div>
-      </div>
-    </a>
-
-    <a href="https://www.shippauljobs.com/2026/03/book-industrial-control-system_1.html" rel="noopener" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#ffffff;border-radius:8px;border:1px solid #e8eef4;margin-bottom:8px;text-decoration:none;">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#ffffff;font-size:10px;font-weight:800;">2/8</div>
-      <div>
-        <div style="color:#154f7a;font-size:13px;font-weight:700;line-height:1.3;">[BOOK] Industrial Control System Security (2/8)</div>
-        <div style="color:#7a8fa8;font-size:11px;margin-top:2px;">Fundamental Understanding from an IACS UR E26 and E27 Certification Perspective</div>
-      </div>
-    </a>
-
-    <a href="https://www.shippauljobs.com/2026/03/book-industrial-control-system_0299562180.html" rel="noopener" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#ffffff;border-radius:8px;border:1px solid #e8eef4;margin-bottom:8px;text-decoration:none;">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#ffffff;font-size:10px;font-weight:800;">3/8</div>
-      <div>
-        <div style="color:#154f7a;font-size:13px;font-weight:700;line-height:1.3;">[BOOK] Industrial Control System Security(3/8)</div>
-        <div style="color:#7a8fa8;font-size:11px;margin-top:2px;">Fundamental Understanding from an IACS UR E26 and E27 Certification Perspective</div>
-      </div>
-    </a>
-
-    <a href="https://www.shippauljobs.com/2026/03/book-industrial-control-system_0168853238.html" rel="noopener" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#ffffff;border-radius:8px;border:1px solid #e8eef4;margin-bottom:8px;text-decoration:none;">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#ffffff;font-size:10px;font-weight:800;">4/8</div>
-      <div>
-        <div style="color:#154f7a;font-size:13px;font-weight:700;line-height:1.3;">[BOOK] Industrial Control System Security(4/8)</div>
-        <div style="color:#7a8fa8;font-size:11px;margin-top:2px;">Fundamental Understanding from an IACS UR E26 and E27 Certification Perspective</div>
-      </div>
-    </a>
-
-    <a href="https://www.shippauljobs.com/2026/03/book-industrial-control-system_29.html" rel="noopener" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#ffffff;border-radius:8px;border:1px solid #e8eef4;margin-bottom:8px;text-decoration:none;">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#ffffff;font-size:10px;font-weight:800;">5/8</div>
-      <div>
-        <div style="color:#154f7a;font-size:13px;font-weight:700;line-height:1.3;">[BOOK] Industrial Control System Security(5/8)</div>
-        <div style="color:#7a8fa8;font-size:11px;margin-top:2px;">Fundamental Understanding from an IACS UR E26 and E27 Certification Perspective</div>
-      </div>
-    </a>
-
-    <a href="https://www.shippauljobs.com/2026/05/book-industrial-control-system.html" rel="noopener" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#ffffff;border-radius:8px;border:1px solid #e8eef4;margin-bottom:8px;text-decoration:none;">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#ffffff;font-size:10px;font-weight:800;">6/8</div>
-      <div>
-        <div style="color:#154f7a;font-size:13px;font-weight:700;line-height:1.3;">[BOOK] Industrial Control System Security(6/8)</div>
-        <div style="color:#7a8fa8;font-size:11px;margin-top:2px;">Fundamental Understanding from an IACS UR E26 and E27 Certification Perspective</div>
-      </div>
-    </a>
-
-    <a href="https://www.shippauljobs.com/2026/05/book-industrial-control-system_01422978178.html" rel="noopener" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#ffffff;border-radius:8px;border:1px solid #e8eef4;margin-bottom:0;text-decoration:none;">
-      <div style="width:32px;height:32px;background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#ffffff;font-size:10px;font-weight:800;">7/8</div>
-      <div>
-        <div style="color:#154f7a;font-size:13px;font-weight:700;line-height:1.3;">[BOOK] Industrial Control System Security(7/8)</div>
-        <div style="color:#7a8fa8;font-size:11px;margin-top:2px;">Fundamental Understanding from an IACS UR E26 and E27 Certification Perspective</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- AUTHOR CARD -->
-  <div style="background:#f7fafd;border-radius:14px;padding:24px 28px;margin:32px 0;border:1px solid #dde8f0;">
-    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-      <a href="https://www.shippauljobs.com/2026/01/202601-crew-behind-shipjobs.html" rel="noopener" target="_blank">
-        <img alt="Blue Horizonist" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/lew.jpeg?raw=true" style="border-radius:50%;border:2px solid #1a9e82;flex-shrink:0;height:52px;object-fit:cover;width:52px;" />
-      </a>
-      <div style="flex:1;min-width:200px;">
-        <div style="color:#0a2342;font-size:14px;font-weight:800;">Blue Horizonist (Lew)</div>
-        <div style="color:#1a9e82;font-size:11px;font-weight:600;margin:2px 0 6px;">Maritime &amp; Cyber Security Consultant · ISP Consultant</div>
-        <p style="color:#4a6a8a;font-size:12px;margin:0;line-height:1.6;">Specializes in maritime cybersecurity, OT/ICS security architecture, and IACS UR E26/E27 compliance. Passionate about translating complex cyber standards into practical frameworks for the maritime industry.</p>
+  <!--══ KEY TAKEAWAY ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); border-radius: 14px; padding: 28px 30px;">
+      <div style="color: #7effd8; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; margin-bottom: 14px; text-transform: uppercase;">Key Takeaway</div>
+      <p style="color: white; font-size: 15px; line-height: 1.85; margin: 0px 0px 12px;">
+        E26 for the shipyard, E27 for the supplier — that split describes accountability, not collaboration. Real Cybersecurity engineering happens <strong style="color: #ffe082;">where those two perspectives connect</strong>, coordinated by the CRSI into one coherent, traceable system.
+      </p>
+      <p style="color: #9ab5c9; font-size: 13px; line-height: 1.75; margin: 0px 0px 14px;">
+        In the next chapter, we will explore how this collaborative approach is translated into practical documentation throughout real-world projects, and how Engineering Evidence evolves into a <strong style="color: #b8d4ea;">structured documentation framework</strong> that supports the entire system lifecycle.
+      </p>
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 14px;">
+        <a href="https://blog.naver.com/jiholew/224348847850" rel="noopener" style="color: #7effd8; font-size: 12px; font-weight: 700; text-decoration: none;" target="_blank">🇰🇷 한국어 버전 읽기 →</a>
       </div>
     </div>
-    <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
-      <a href="https://www.shippauljobs.com/2026/01/202601-crew-behind-shipjobs.html" rel="noopener" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#0a2342,#154f7a);color:#ffffff;font-size:12px;font-weight:700;padding:8px 16px;border-radius:20px;text-decoration:none;">More Articles</a>
-      <a href="https://www.linkedin.com/company/maritimecyber" rel="noopener" target="_blank" style="display:inline-block;background:#f0f7ff;color:#154f7a;font-size:12px;font-weight:700;padding:8px 16px;border-radius:20px;text-decoration:none;border:1px solid #c3d9f0;">LinkedIn</a>
-      <a href="https://shippauljobs.blogspot.com" rel="noopener" target="_blank" style="display:inline-block;background:#f0f7ff;color:#154f7a;font-size:12px;font-weight:700;padding:8px 16px;border-radius:20px;text-decoration:none;border:1px solid #c3d9f0;">Personal Blog</a>
+  </div>
+
+  <!--══ HASHTAGS ══-->
+  <div style="margin-bottom: 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px;">
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#MaritimeCybersecurity</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IACS</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#URE26</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#URE27</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#Shipyard</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#CRSI</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#EngineeringEvidence</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#Maritime40</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#BlueHorizonist</span>
+    </div>
+  </div>
+
+  <!--══ AUTHOR CARD ══-->
+  <div style="align-items: flex-start; border-top: 2px solid rgb(226, 234, 243); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 28px;">
+    <img alt="Blue Horizonist (Lew)" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/lew.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 52px; object-fit: cover; width: 52px;" />
+    <div style="flex: 1 1 0%; min-width: 220px;">
+      <div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 2px;">Blue Horizonist — Jiho (Jay, 智晧) Lew</div>
+      <div style="color: #6b8599; font-size: 11px; margin-bottom: 10px;">Maritime &amp; Cyber Security Consultant · ISP Consultant</div>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.7; margin: 0px 0px 14px;">
+        Practitioner at the intersection of maritime OT security and IACS UR E26/E27 compliance. Writing the Blue Horizonist series to bridge the gap between regulatory language and real-world engineering decisions at shipyards and aboard vessels.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <a href="https://kr.linkedin.com/in/jiho-jay-lew-1b5823364" rel="noopener" style="align-items: center; background: rgb(10, 35, 66); border-radius: 9px; border: 2px solid rgb(26, 158, 130); color: white; display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 9px 20px; text-decoration: none;" target="_blank">
+          💼 LinkedIn ↗
+        </a>
+        <a href="https://blog.naver.com/jiholew" rel="noopener" style="align-items: center; background: transparent; border-radius: 9px; border: 2px solid rgb(209, 224, 238); color: #354a5e; display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 9px 20px; text-decoration: none;" target="_blank">
+          🇰🇷 Korean Blog ↗
+        </a>
+      </div>
     </div>
   </div>
 
