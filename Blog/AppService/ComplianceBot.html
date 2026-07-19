@@ -48,6 +48,7 @@
 
   <!-- Quick chips -->
   <div id="cb-chips-row">
+    <button class="cb-chip" data-q="list recent posts">📚 Recent Posts</button>
     <button class="cb-chip" data-q="IACS UR E26">UR E26</button>
     <button class="cb-chip" data-q="IACS UR E27">UR E27</button>
     <button class="cb-chip" data-q="IACS Rec-194 existing ship">IACS Rec</button>
@@ -153,112 +154,205 @@
   ].join('');
   document.head.appendChild(s);
 
-  /* ── 2. Sitemap (weekly cache) ────────────────────────────── */
-  var SITEMAP = { urls: [], loaded: false };
-  var SM_CACHE_KEY = 'cb_sitemap_cache';
-  var SM_TTL = 7 * 24 * 60 * 60 * 1000; /* 7 days */
-  var SM_ROOT = 'https://www.shippauljobs.com/sitemap.xml';
+  /* ── 2. Blog Posts — Atom feed (weekly cache) ───────────────
+     Source: Blogger's own atom feed (same-origin, up to 500 posts).
+     Gives real titles, publish dates, and labels — used both for
+     "related posts" footers and for direct "list my posts" queries. */
+  var POSTS = { items: [], loaded: false };
+  var PF_CACHE_KEY = 'cb_posts_cache_v2';
+  var PF_TTL = 7 * 24 * 60 * 60 * 1000; /* 7 days */
+  var PF_ROOT = 'https://www.shippauljobs.com/atom.xml?redirect=false&start-index=1&max-results=500';
 
-  function parseLocs(xml) {
-    return (xml.match(/<loc>([^<]+)<\/loc>/g) || [])
-      .map(function (l) { return l.replace(/<\/?loc>/g, '').trim(); });
+  function pfStripHtml(raw) {
+    return (raw || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   }
 
-  function smSaveCache(urls) {
-    try { localStorage.setItem(SM_CACHE_KEY, JSON.stringify({ ts: Date.now(), urls: urls })); } catch (e) {}
-  }
-
-  function smFinish(urls) {
-    SITEMAP.urls = urls;
-    SITEMAP.loaded = true;
-    smSaveCache(urls);
-  }
-
-  function smFetchFresh() {
-    fetch(SM_ROOT, { cache: 'no-cache' })
-      .then(function (r) { return r.text(); })
-      .then(function (text) {
-        var urls = parseLocs(text);
-        if (text.indexOf('<sitemapindex') === -1) { smFinish(urls); return; }
-
-        /* sitemap index — collect sub-sitemap URLs then fetch each */
-        var subs = urls.filter(function (u) {
-          return u.indexOf('sitemap') !== -1 && u !== SM_ROOT;
-        }).slice(0, 6);
-        if (!subs.length) { smFinish(urls); return; }
-
-        var pending = subs.length;
-        subs.forEach(function (sub) {
-          fetch(sub, { cache: 'no-cache' })
-            .then(function (r) { return r.text(); })
-            .then(function (t) { parseLocs(t).forEach(function (u) { urls.push(u); }); })
-            .catch(function () {})
-            .then(function () { if (--pending === 0) smFinish(urls); });
+  function parseAtomEntries(xmlText) {
+    var items = [];
+    try {
+      var doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+      if (doc.getElementsByTagName('parsererror').length) return items;
+      var entries = doc.getElementsByTagName('entry');
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var titleEl = entry.getElementsByTagName('title')[0];
+        var publishedEl = entry.getElementsByTagName('published')[0];
+        var summaryEl = entry.getElementsByTagName('summary')[0];
+        var contentEl = entry.getElementsByTagName('content')[0];
+        var links = entry.getElementsByTagName('link');
+        var url = '';
+        for (var j = 0; j < links.length; j++) {
+          var rel = links[j].getAttribute('rel');
+          var type = links[j].getAttribute('type') || '';
+          if (rel === 'alternate' && type.indexOf('html') !== -1) { url = links[j].getAttribute('href'); break; }
+        }
+        if (!url) continue; /* skip non-post entries (comment feeds etc.) */
+        var cats = entry.getElementsByTagName('category');
+        var labels = [];
+        for (var k = 0; k < cats.length; k++) {
+          var term = cats[k].getAttribute('term');
+          if (term) labels.push(term);
+        }
+        var snippetSrc = summaryEl ? summaryEl.textContent : (contentEl ? contentEl.textContent : '');
+        items.push({
+          title: titleEl ? titleEl.textContent.trim() : '',
+          url: url,
+          published: publishedEl ? publishedEl.textContent.trim() : '',
+          labels: labels,
+          summary: pfStripHtml(snippetSrc).slice(0, 200)
         });
-      })
+      }
+    } catch (e) {}
+    return items;
+  }
+
+  function pfSaveCache(items) {
+    try { localStorage.setItem(PF_CACHE_KEY, JSON.stringify({ ts: Date.now(), items: items })); } catch (e) {}
+  }
+
+  function pfFinish(items) {
+    POSTS.items = items;
+    POSTS.loaded = true;
+    pfSaveCache(items);
+  }
+
+  function pfFetchFresh() {
+    fetch(PF_ROOT, { cache: 'no-cache' })
+      .then(function (r) { return r.text(); })
+      .then(function (text) { pfFinish(parseAtomEntries(text)); })
       .catch(function () {});
   }
 
-  function loadSitemap() {
+  function loadPosts() {
     try {
-      var raw = localStorage.getItem(SM_CACHE_KEY);
+      var raw = localStorage.getItem(PF_CACHE_KEY);
       if (raw) {
         var c = JSON.parse(raw);
-        if (c && c.ts && Array.isArray(c.urls) && (Date.now() - c.ts) < SM_TTL && c.urls.length) {
-          SITEMAP.urls = c.urls;
-          SITEMAP.loaded = true;
+        if (c && c.ts && Array.isArray(c.items) && (Date.now() - c.ts) < PF_TTL && c.items.length) {
+          POSTS.items = c.items;
+          POSTS.loaded = true;
           return; /* cache hit — skip fetch */
         }
       }
     } catch (e) {}
-    smFetchFresh(); /* cache miss or expired — fetch & update */
+    pfFetchFresh(); /* cache miss or expired — fetch & update */
   }
 
-  function slugToTitle(url) {
-    var slug = url.split('/').pop().replace(/\.html$/, '');
-    return slug.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+  function postDateLabel(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   }
 
-  /* Search sitemap by KB entry keywords */
-  function findRelatedPosts(entry) {
-    if (!SITEMAP.urls.length) return [];
-    var kwList = entry.keywords.slice(0, 6);
-    var scored = SITEMAP.urls.map(function (url) {
-      var slug = url.toLowerCase();
-      var alreadyLinked = entry.sources.some(function (src) { return src.url === url; });
-      if (alreadyLinked) return { url: url, score: 0 };
-      var score = 0;
-      kwList.forEach(function (kw) {
-        var kwH = kw.toLowerCase().replace(/\s+/g, '-');
-        if (slug.indexOf(kwH) !== -1) score += 3;
-        kw.toLowerCase().split(/\s+/).forEach(function (word) {
-          if (word.length > 3 && slug.indexOf(word) !== -1) score += 1;
-        });
+  /* Score a single post against a list of keyword phrases (title/labels/summary weighted higher than URL) */
+  function scorePostByKeywords(post, kwList) {
+    var hay = (post.title + ' ' + post.labels.join(' ') + ' ' + post.summary).toLowerCase();
+    var slug = post.url.toLowerCase();
+    var score = 0;
+    kwList.forEach(function (kw) {
+      var kwL = kw.toLowerCase();
+      if (!kwL) return;
+      if (hay.indexOf(kwL) !== -1) score += kwL.length * 2;
+      var kwH = kwL.replace(/\s+/g, '-');
+      if (slug.indexOf(kwH) !== -1) score += 3;
+      kwL.split(/\s+/).forEach(function (word) {
+        if (word.length > 3 && (hay.indexOf(word) !== -1 || slug.indexOf(word) !== -1)) score += 1;
       });
-      return { url: url, score: score };
+    });
+    return score;
+  }
+
+  /* Search posts by KB entry keywords — used for "Related Posts" footers under a KB answer */
+  function findRelatedPosts(entry) {
+    if (!POSTS.items.length) return [];
+    var kwList = entry.keywords.slice(0, 6);
+    var scored = POSTS.items.map(function (post) {
+      var alreadyLinked = entry.sources.some(function (src) { return src.url === post.url; });
+      return { post: post, score: alreadyLinked ? 0 : scorePostByKeywords(post, kwList) };
     }).filter(function (item) { return item.score > 1; });
     scored.sort(function (a, b) { return b.score - a.score; });
-    return scored.slice(0, 3).map(function (item) { return item.url; });
+    return scored.slice(0, 3).map(function (item) { return item.post; });
   }
 
-  /* Search sitemap directly by free-text query (used when no KB match) */
+  /* Search posts directly by free-text query (used when no KB match) */
   function findRelatedByQuery(query) {
-    if (!SITEMAP.urls.length) return [];
+    if (!POSTS.items.length) return [];
     var words = query.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 2; });
     if (!words.length) return [];
-    var scored = SITEMAP.urls.map(function (url) {
-      var slug = url.toLowerCase();
-      var score = 0;
-      words.forEach(function (word) {
-        /* Hyphenated slug match */
-        if (slug.indexOf(word) !== -1) score += word.length;
-        /* Partial prefix match */
-        if (word.length > 4 && slug.indexOf(word.slice(0, 4)) !== -1) score += 1;
-      });
-      return { url: url, score: score };
+    var scored = POSTS.items.map(function (post) {
+      return { post: post, score: scorePostByKeywords(post, words) };
     }).filter(function (item) { return item.score > 0; });
     scored.sort(function (a, b) { return b.score - a.score; });
-    return scored.slice(0, 4).map(function (item) { return item.url; });
+    return scored.slice(0, 4).map(function (item) { return item.post; });
+  }
+
+  /* ── 2b. Direct "list my posts" intent ──────────────────────
+     Lets users ask things like "list your posts about Starlink" or
+     "이 블로그 UR E26 관련 글 리스트 보여줘" and get real post titles,
+     dates, and links back — independent of the KB/AI answer path. */
+  var LIST_TRIGGERS = [
+    'list', 'show me', 'show all', 'what posts', 'which posts', 'all posts', 'all articles',
+    '목록', '리스트', '글 보여', '글 목록', '포스트 목록', '몇 개', '어떤 글', '글 있어', '글 있나'
+  ];
+
+  function isListIntent(q) {
+    var ql = q.toLowerCase();
+    return LIST_TRIGGERS.some(function (t) { return ql.indexOf(t) !== -1; });
+  }
+
+  function extractListTopic(q) {
+    var ql = ' ' + q.toLowerCase() + ' ';
+    var stop = [
+      'list', 'show me', 'show all', 'what posts', 'which posts', 'all posts', 'all articles',
+      'posts', 'articles', 'about', 'on', 'blog', 'your', 'the', 'me', 'of',
+      '목록', '리스트', '글', '보여줘', '보여', '포스트', '있어', '있나', '관련', '이', '블로그', '몇', '개'
+    ];
+    stop.forEach(function (w) { ql = ql.split(' ' + w + ' ').join(' '); });
+    return ql.replace(/[?!.]/g, '').trim();
+  }
+
+  function buildPostListAnswer(q) {
+    if (!POSTS.loaded) {
+      return '<span style="color:#8e8ea0;font-size:11px;">Post index is still loading — please try again in a moment, or ' +
+             '<a class="cb-doc-link" href="' + PF_ROOT + '" target="_blank" rel="noopener">browse all posts directly</a>.</span>';
+    }
+    var topic = extractListTopic(q);
+    var results;
+    if (topic) {
+      var words = topic.split(/\s+/).filter(function (w) { return w.length > 1; });
+      results = POSTS.items.map(function (post) {
+        return { post: post, score: scorePostByKeywords(post, words) };
+      }).filter(function (item) { return item.score > 0; })
+        .sort(function (a, b) { return b.score - a.score; })
+        .slice(0, 8)
+        .map(function (item) { return item.post; });
+    } else {
+      /* No topic given — return the most recent posts */
+      results = POSTS.items.slice().sort(function (a, b) {
+        return new Date(b.published) - new Date(a.published);
+      }).slice(0, 8);
+    }
+
+    if (!results.length) {
+      return '<span style="color:#ececec;font-size:12px;">No posts found' + (topic ? ' matching "' + topic + '"' : '') +
+             ' among the ' + POSTS.items.length + ' indexed posts on ShipPaulJobs. Try a broader keyword, ' +
+             'or ask the AI directly for a written answer instead.</span>';
+    }
+
+    var html = '<strong style="color:#ececec;font-size:11.5px;font-weight:700;">' +
+      '📚 ' + results.length + (topic ? ' post(s) matching "' + topic + '"' : ' most recent posts') +
+      '</strong>';
+    html += '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">';
+    results.forEach(function (post) {
+      var dateLbl = postDateLabel(post.published);
+      html += '<a href="' + post.url + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;display:block;border-left:2px solid #10a37f;padding-left:10px;">' +
+        '<span style="color:#ececec;font-size:11.5px;font-weight:600;line-height:1.5;">' + post.title + '</span>' +
+        (dateLbl ? '<span style="color:#6b6b7b;font-size:9.5px;display:block;margin-top:2px;">' + dateLbl + '</span>' : '') +
+        '</a>';
+    });
+    html += '</div>';
+    return html;
   }
 
   /* ── 3. Knowledge Base ───────────────────────────────────── */
@@ -1300,10 +1394,10 @@
     return html;
   }
 
-  function buildRelatedBlock(urls) {
+  function buildRelatedBlock(posts) {
     var block = '<div class="cb-related"><div class="cb-related-title">Related Posts on ShipPaulJobs</div>';
-    urls.forEach(function (url) {
-      block += '<a class="cb-related-link" href="' + url + '" target="_blank" rel="noopener">&#8594; ' + slugToTitle(url) + '</a>';
+    posts.forEach(function (post) {
+      block += '<a class="cb-related-link" href="' + post.url + '" target="_blank" rel="noopener">&#8594; ' + post.title + '</a>';
     });
     block += '</div>';
     return block;
@@ -1343,6 +1437,12 @@
 
     addMsg(q, 'user');
     document.getElementById('cb-input').value = '';
+
+    /* ── Direct post-listing intent short-circuits KB/AI routing ── */
+    if (isListIntent(q)) {
+      addMsg(buildPostListAnswer(q), 'bot');
+      return;
+    }
 
     if (ACTIVE_AI === 'gpt' || ACTIVE_AI === 'claude') {
       var callFn    = ACTIVE_AI === 'gpt' ? callGPT    : callClaude;
@@ -1514,7 +1614,7 @@
     }
   })();
 
-  loadSitemap();
+  loadPosts();
   refreshAIUI();
 
   addMsg(
@@ -1522,6 +1622,7 @@
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask about IACS UR E26/E27/Rec, BIMCO, NIS2, EU CRA, GDPR, IEC 62443, USCG, DNV, LR, BV, NK, CCS, RINA, KR, ABS, IMO, and more.<br>' +
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
+    'You can also ask me to <strong style="color:#6fcfb0;">list ShipPaulJobs posts</strong> on a topic — e.g. "list posts about Starlink" or "UR E26 관련 글 목록".<br>' +
     (ACTIVE_AI !== 'kb-only'
       ? '<span style="color:#19c37d;">✅ AI connected — any maritime cyber question will be answered.</span>'
       : '<span style="color:#5a5a6e;">23 built-in regulations · KB 외 질문은 무료 AI 자동 응답 · AI 키 연결 시 ChatGPT/Claude로 무제한 답변.</span>'

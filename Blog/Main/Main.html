@@ -1032,6 +1032,7 @@
       font-weight:700; line-height:20px } .PopularPosts,.PopularPosts h3.title
       a{ color:$(posts.text.color); font:$(posts.text.font) } .main
       .Blog .b1-card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px }
+      .Blog .b1-card-top > a[name]{ position:absolute; width:0; height:0; overflow:hidden }
       .Blog .b1-card-top .post-title{ flex:1; margin:0 }
       .Blog .b1-card-mid{ display:flex; gap:12px; margin-bottom:8px }
       .Blog .b1-card-thumb{ width:20%; flex-shrink:0 }
@@ -1045,18 +1046,19 @@
       .Blog .b1-card-tag:hover{ background:#1d89cf; color:#fff }
       .Blog .b1-card-loc a{ color:inherit; text-decoration:none }
       .Blog .b1-card-byline{ display:block; font-size:11px; opacity:.65 }
-      .Blog .b1-card-author{ cursor:pointer; color:#444; font-weight:600; text-decoration:none; background:none; border:none; padding:1px 2px; font-size:11px; line-height:1.6; display:inline-block; }
+      .b1-card-author{ border:none; background:none; padding:0 2px; margin:0; box-shadow:none; outline:none; -webkit-appearance:none; appearance:none; cursor:pointer; font-family:inherit; }
+      .Blog .b1-card-author{ cursor:pointer; color:#444; font-weight:600; text-decoration:none; background:none; border:none; padding:1px 2px; font-size:11px; line-height:1.6; display:inline-block; box-shadow:none; outline:none; -webkit-appearance:none; appearance:none; }
       .Blog .b1-card-author:hover{ color:#222; background:none; }
       /* -- SPJ Verification Badge -- */
       .Blog .b1-card-thumb{position:relative!important;}
-      .spj-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;overflow:hidden;z-index:5;flex-shrink:0;text-decoration:none;}
-      .spj-badge img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+      .spj-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;overflow:hidden;z-index:5;flex-shrink:0;text-decoration:none;border:none!important;}
+      .spj-badge img{width:26px!important;height:26px!important;min-width:26px!important;min-height:26px!important;max-width:26px!important;max-height:26px!important;object-fit:cover;border-radius:50%;display:block!important;border:none!important;padding:0!important;margin:0!important;}
       .spj-badge-post{width:auto!important;border-radius:12px!important;padding:2px 8px 2px 4px;gap:4px;}
       .spj-badge-label{font-size:10px;font-weight:700;white-space:nowrap;}
       .spj-badge-l1 .spj-badge-label{color:#00c97a;}.spj-badge-l2 .spj-badge-label{color:#1d89cf;}.spj-badge-l3 .spj-badge-label{color:#9b59b6;}
-      .spj-badge-l1{border:2.5px solid #00c97a;box-shadow:0 0 7px rgba(0,201,122,0.55),0 1px 3px rgba(0,0,0,0.2);}
-      .spj-badge-l2{border:2.5px solid #1d89cf;box-shadow:0 0 7px rgba(29,137,207,0.55),0 1px 3px rgba(0,0,0,0.2);}
-      .spj-badge-l3{border:2.5px solid #9b59b6;box-shadow:0 0 7px rgba(155,89,182,0.55),0 1px 3px rgba(0,0,0,0.2);}
+      .spj-badge-l1{box-shadow:0 0 0 2.5px #00c97a,0 0 7px rgba(0,201,122,0.55),0 1px 3px rgba(0,0,0,0.2);}
+      .spj-badge-l2{box-shadow:0 0 0 2.5px #1d89cf,0 0 7px rgba(29,137,207,0.55),0 1px 3px rgba(0,0,0,0.2);}
+      .spj-badge-l3{box-shadow:0 0 0 2.5px #9b59b6,0 0 7px rgba(155,89,182,0.55),0 1px 3px rgba(0,0,0,0.2);}
       /* Author Modal */
       #am-overlay{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.55); z-index:9999; overflow-y:auto; }
       #am-box{ background:#fff; max-width:580px; margin:48px auto 48px; border-radius:14px; padding:28px 24px 24px; position:relative; box-shadow:0 8px 32px rgba(0,0,0,.18); }
@@ -1155,7 +1157,7 @@
       .PopularPosts h3.title{ display:none }
       .PopularPosts .pp-header{ font-size:13px; font-weight:700; letter-spacing:0.4px; padding:0 0 8px; margin-bottom:4px; border-bottom:2px solid rgba(29,137,207,0.35) }
       .PopularPosts div[role=feed]{ counter-reset:pp-counter }
-      .PopularPosts article.post{ display:flex; align-items:center; counter-increment:pp-counter; padding:8px 10px; background:#fff; border-radius:8px; box-shadow:0 1px 5px rgba(10,35,66,.08); margin-bottom:5px; transition:background .18s,box-shadow .18s }
+      .PopularPosts article.post{ display:flex; align-items:center; counter-increment:pp-counter; padding:8px 10px; background:#fff; border-radius:8px; box-shadow:0 1px 5px rgba(10,35,66,.08); margin-bottom:5px; transition:background .18s,box-shadow .18s; position:relative }
       .PopularPosts article.post:last-child{ margin-bottom:0 }
       .PopularPosts .pp-num{ width:5%; flex-shrink:0; text-align:center; font-size:15px; font-weight:800; opacity:.5; line-height:1; align-self:center }
       .PopularPosts .pp-num::before{ content:counter(pp-counter) }
@@ -1170,8 +1172,8 @@
       .PopularPosts .pp-tag:hover{ background:#1d89cf; color:#fff }
       .PopularPosts .pp-col-bot{ display:flex; align-items:center; justify-content:space-between; margin-top:3px }
       .PopularPosts .pp-byline{ font-size:11px; line-height:14px; color:#999; opacity:1 }
-      .PopularPosts .pp-byline .b1-card-author{ color:#aaa; background:#f2f2f2; }
-      .PopularPosts .pp-byline .b1-card-author:hover{ color:#777; background:#e8e8e8; }
+      .PopularPosts .pp-byline .b1-card-author{ color:#999; background:none; box-shadow:none; outline:none; -webkit-appearance:none; appearance:none; }
+      .PopularPosts .pp-byline .b1-card-author:hover{ color:#666; background:none; box-shadow:none; }
       .PopularPosts .pp-count{ font-size:11px; font-weight:600; line-height:1.3; color:#aaa; white-space:nowrap }
       .PopularPosts article.post:hover{ background:#f4f9ff; box-shadow:0 2px 8px rgba(29,137,207,.10) }
       .PopularPosts .pp-col-mid h3.pp-title a{ color:#0a2342; text-decoration:none; transition:color .18s; display:block; cursor:pointer }
@@ -3556,20 +3558,20 @@ if(!window.b1WC){window.b1WC=function(btn){
                               <span class='tc-tag-hi'>43 PDFs</span>
                             </div>
                             <!-- 클릭 메뉴 -->
-                            <div class='tc-menu'>
-                              <a class='tc-btn' href='https://www.shippauljobs.com/p/international-association-compliance.html' rel='noopener noreferrer' target='_blank'>
+                            <div class='tc-menu' style='flex-direction:row;gap:6px;'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/international-association-compliance.html' rel='noopener noreferrer' style='flex:1;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;gap:3px;text-align:center;' target='_blank'>
                                 <span class='tc-btn-icon'>🌐</span>
-                                <span class='tc-btn-label'>Intl. &#8212; IACS &#183; BIMCO &#183; NIST &#183; IEC</span>
+                                <span class='tc-btn-label' style='flex:none;font-size:10px;'>Intl.</span>
                                 <span class='tc-btn-badge'>19 PDFs</span>
                               </a>
-                              <a class='tc-btn' href='https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' rel='noopener noreferrer' target='_blank'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' rel='noopener noreferrer' style='flex:1;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;gap:3px;text-align:center;' target='_blank'>
                                 <span class='tc-btn-icon'>🏛&#65039;</span>
-                                <span class='tc-btn-label'>Class Society &#8212; ABS &#183; DNV &#183; KR &#183; LR</span>
+                                <span class='tc-btn-label' style='flex:none;font-size:10px;'>Class</span>
                                 <span class='tc-btn-badge'>16 PDFs</span>
                               </a>
-                              <a class='tc-btn' href='https://www.shippauljobs.com/p/national-and-port-security-compliance.html' rel='noopener noreferrer' target='_blank'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/national-and-port-security-compliance.html' rel='noopener noreferrer' style='flex:1;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;gap:3px;text-align:center;' target='_blank'>
                                 <span class='tc-btn-icon'>🛡&#65039;</span>
-                                <span class='tc-btn-label'>National &#8212; USCG &#183; KISA &#183; CSA</span>
+                                <span class='tc-btn-label' style='flex:none;font-size:10px;'>National</span>
                                 <span class='tc-btn-badge'>8 PDFs</span>
                               </a>
                             </div>
@@ -4389,6 +4391,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     }
     return '';
   }
+  window.spjBadge = spjBadge;
 
 
   // ── 포스트 상세·아카이브·검색 페이지에서는 APL 비활성 (깜빡임 방지) ──
@@ -4850,6 +4853,39 @@ if(!window.b1WC){window.b1WC=function(btn){
     document.addEventListener('DOMContentLoaded', scsHideAll);
   } else {
     scsHideAll();
+  }
+
+  // ── Top Ranked 카드: 배지 + 공유 버튼 주입 ──────────────────
+  function injectPPBadges(){
+    var arts = document.querySelectorAll('#PopularPosts1 article.post:not([data-pp-badge])');
+    if(!arts.length) return;
+    arts.forEach(function(art){
+      art.setAttribute('data-pp-badge','1');
+      var titleA = art.querySelector('.pp-title a') || art.querySelector('a');
+      var url = titleA ? titleA.href : '';
+      if(!url || !window.b1ShareHtml) return;
+      var labels = [];
+      art.querySelectorAll('.pp-tag').forEach(function(t){ labels.push(t.textContent.trim()); });
+      var badge = spjBadge(labels);
+      var tmp = document.createElement('div');
+      tmp.innerHTML = window.b1ShareHtml(url, badge);
+      var el = tmp.firstChild;
+      if(el) art.appendChild(el);
+    });
+  }
+  function setupPPBadgeInjection(){
+    var pp = document.getElementById('PopularPosts1');
+    if(!pp) return;
+    /* 서버 렌더 포스트 즉시 주입 (DOMContentLoaded 후이므로 PP DOM 확보됨) */
+    injectPPBadges();
+    /* 라벨 페이지: load 이후 커스텀 JS가 article 교체 → Observer가 재주입 */
+    var obs = new MutationObserver(function(){ injectPPBadges(); });
+    obs.observe(pp, {childList:true, subtree:true});
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', setupPPBadgeInjection);
+  } else {
+    setupPPBadgeInjection();
   }
 
 })();
@@ -5341,20 +5377,20 @@ if(!window.b1WC){window.b1WC=function(btn){
                   <span>🧭 What We Cover</span>
                 </div>
                 <p style='font-size:12px;line-height:1.8;color:rgba(200,228,248,0.55);margin:0 0 16px;border-bottom:1px solid rgba(29,137,207,0.15);padding-bottom:14px;'>ShipPaulJobs is a practitioner-led maritime cybersecurity and compliance platform focused on IACS UR E26 and E27 implementation, OT system security, and AI-driven risk management for ships and offshore assets. Content is written by working consultants with direct experience in class approval, vessel commissioning, and flag state compliance &#8212; not academic theory. The platform covers network segmentation under IEC 62443, zone-and-conduit architecture for shipboard systems, and the practical gap between what classification societies require and what shipyards deliver.</p>
-                <div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;'>
-                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                <div style='display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;'>
+                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
                     <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>IACS UR E26 / E27</p>
                     <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>IACS Unified Requirements E26 and E27 mandate cyber resilience from contract signing after 1 July 2024. UR E26 defines minimum requirements for network architecture, access control, software update procedures, and incident response. UR E27 covers supply chain cyber security documentation per equipment supplier. Coverage includes clause-by-clause IEC 62443 cross-references and deliverable guidance for class surveyors and flag state inspectors.</p>
                   </div>
-                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
                     <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Maritime OT Security</p>
                     <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>Operational Technology on modern vessels &#8212; integrated bridge systems, propulsion control, ballast management, cargo handling automation, dynamic positioning &#8212; is increasingly networked and cyber-exposed. Unlike IT, maritime OT has long lifecycles and safety-critical real-time constraints. This platform provides OT-specific guidance on asset inventory, vulnerability analysis, and defence-in-depth strategy aligned with IMO MSC-FAL.1/Circ.3 and BIMCO recommendations.</p>
                   </div>
-                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
                     <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>AI in Maritime Operations</p>
                     <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>AI is reshaping fleet management, predictive maintenance, port logistics, and compliance monitoring. This platform examines how LLMs, autonomous agents, and structured maritime data &#8212; AIS feeds, class records, inspection histories &#8212; reduce compliance burden and increase operational visibility. Coverage targets ship operators, class surveyors, shipyard project managers, and flag state administrators who need AI insight without vendor-driven hype.</p>
                   </div>
-                  <div style='background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
                     <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Industry Trends, Talent &amp; Careers</p>
                     <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>The maritime industry is undergoing structural transformation driven by decarbonisation, digitalisation, and tightening cyber regulation. This platform discusses the evolving competency requirements for seafarers, shore-based engineers, compliance officers, and surveyors &#8212; and how the hiring market is responding. Topics include cross-disciplinary skills at the intersection of OT engineering and cyber security, the emergence of maritime cyber roles at flag states and classification societies, salary benchmarks, and practical pathways for professionals transitioning into this space. A community-oriented space where industry practitioners share insights and shape the conversation on maritime&#39;s digital future.</p>
                   </div>
@@ -5806,7 +5842,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   .spj-crew-inner {
     display: inline-block;
     white-space: nowrap;
-    animation: wwa-marquee 10s linear infinite;
+    animation: wwa-marquee 18s linear infinite;
     background: #ffffff;
     color: #0a2342;
     padding: 2px 8px;
@@ -5833,7 +5869,7 @@ if(!window.b1WC){window.b1WC=function(btn){
 <div style="text-align:center;margin-top:8px;">
   <a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html"
      target="_blank" rel="noopener" class="spj-crew-btn">
-    <span class="spj-crew-inner">&#x1F465; Would you like to join my crew?</span>
+    <span class="spj-crew-inner">&#x1F465; Join the maritime cybersecurity team &#34;<strong style="color:#7ec8f4;font-weight:700;">Crew</strong>&#34; or become a &#34;<strong style="color:#7ec8f4;font-weight:700;">Technical advisor</strong>&#34; &gt;&gt; Click here</span>
   </a>
 </div>
 <script>
@@ -5946,7 +5982,7 @@ if(!window.b1WC){window.b1WC=function(btn){
 
 <div id="wwa-wrap">
   <p class="wwa-desc">
-    Meet our crew of engineers, consultants, and operators leading the way in Maritime 4.0.
+    Maritime cyber engineers, consultants, researchers, and class society experts — open to Crew Members &amp; Technical Advisors. Apply via LinkedIn Club or email.
   </p>
   <a
     href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html"
@@ -5954,7 +5990,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     rel="noopener"
     class="wwa-btn"
   >
-    <span class="wwa-btn-inner">&#x1F465; Would you like to join my crew?</span>
+    <span class="wwa-btn-inner">&#x1F465; Join the maritime cybersecurity team &#34;<strong style="color:#7ec8f4;font-weight:700;">Crew</strong>&#34; or become a &#34;<strong style="color:#7ec8f4;font-weight:700;">Technical advisor</strong>&#34; &gt;&gt; Click here</span>
   
 </a
 ></div><!-- /#wwa-wrap -->]]></b:widget-setting>
@@ -6883,8 +6919,8 @@ if(!window.b1WC){window.b1WC=function(btn){
   (function() {
     var configs = [
       { id: 'Label2', icon: '🗂️', title: 'INTEL MENU' },
-      { id: 'Label1', icon: '🔖', title: 'Maritime Knowledge Hub' },
-      { id: 'Label4', icon: '📌', title: 'Expert Insights' },
+      { id: 'Label1', icon: '🔖', title: 'Maritime Knowledge Hub', defaultCollapsed: true },
+      { id: 'Label4', icon: '📌', title: 'Expert Insights', defaultCollapsed: true },
       { id: 'HTML10', icon: '🧭', title: 'MARITIME INTELLIGENCE' }
     ];
     function initCard(cfg) {
@@ -6902,9 +6938,13 @@ if(!window.b1WC){window.b1WC=function(btn){
       widget.appendChild(head);
       widget.appendChild(body);
       widget.classList.add('sb-collapsible');
-      /* 저장된 최소화 상태 복원 */
+      /* 저장된 최소화 상태 복원
+         defaultCollapsed=true: localStorage '0'(열었던 기록)이 없으면 접힘
+         defaultCollapsed 없음: localStorage '1'(닫았던 기록)이 있어야 접힘 */
       try {
-        if (localStorage.getItem('sb_min_' + cfg.id) === '1') {
+        var saved = localStorage.getItem('sb_min_' + cfg.id);
+        var shouldCollapse = cfg.defaultCollapsed ? (saved !== '0') : (saved === '1');
+        if (shouldCollapse) {
           widget.classList.add('minimized');
           head.querySelector('.sb-btn').textContent = '+';
         }
@@ -7200,19 +7240,18 @@ if(!window.b1WC){window.b1WC=function(btn){
     }
 
     function matchAuthor(e, author) {
-      /* 1차: Feed API author name */
-      var a = (e.author && e.author[0] && e.author[0].name && e.author[0].name.$t) || '';
-      if (a === author) return true;
-      /* 2차: content/summary 내 member 이미지 alt */
+      /* OR 방식: member 이미지 alt 일치 OR 시스템 계정명 일치
+         → PP 카드(시스템명)와 블로그 카드(member alt) 모두 정확히 매칭 */
       var html = (e.content && e.content.$t) || (e.summary && e.summary.$t) || '';
       if (html) {
         var mi = html.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/);
         if (mi) {
           var alt = mi[0].match(/alt="([^"]+)"/);
-          if (alt && alt[1] === author) return true;
+          if (alt && alt[1] && alt[1] === author) return true;
         }
       }
-      return false;
+      var a = (e.author && e.author[0] && e.author[0].name && e.author[0].name.$t) || '';
+      return a === author;
     }
 
     /* 페이지네이션으로 전체 포스트 수집 후 렌더링 */
