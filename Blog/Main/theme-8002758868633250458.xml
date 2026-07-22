@@ -228,8 +228,13 @@
 <!-- Blogger 기본 head -->
 <b:include data='blog' name='all-head-content'/>
 
-<!-- &#9989; 핵심: 동적 canonical -->
-<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+<!-- ✅ SEO: 포스트 meta/og/canonical — include 이후에 위치해야 Blogger 자동생성 태그를 덮어씀 -->
+<b:if cond='data:view.isSingleItem'>
+<meta expr:content='data:post.snippet' name='description'/>
+<meta expr:content='data:post.title' property='og:title'/>
+<meta expr:content='data:post.snippet' property='og:description'/>
+<link expr:href='data:post.url' rel='canonical'/>
+</b:if>
 
 
 
@@ -4609,6 +4614,9 @@
     });
   })();
   //]]></script>
+  <script>//<![CDATA[
+(function(){var h=document.head,s=['description','og:title','og:description'],r,i,el;for(i=0;i<s.length;i++){r=h.querySelectorAll('meta[name="'+s[i]+'"],meta[property="'+s[i]+'"]');for(var j=r.length-1;j>=0;j--){el=r[j];if(!(el.getAttribute('content')||'').trim())el.parentNode.removeChild(el);}}r=h.querySelectorAll('link[rel="canonical"]');for(i=r.length-1;i>=0;i--){el=r[i];if(!(el.getAttribute('href')||'').trim())el.parentNode.removeChild(el);}})();
+//]]></script>
 
   </body>
 </html>

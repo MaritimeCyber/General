@@ -171,10 +171,7 @@
 <!-- Blogger 기본 head &#8212; all-head-content 먼저 출력 후 커스텀 description으로 덮어씌움 -->
 <b:include data='blog' name='all-head-content'/>
 
-<!-- noindex: JS-only 툴 페이지 (thin content &#8212; AdSense 위험 방지) &#8212; data:view.title로 페이지 식별 (canonicalUrl은 head context에서 빈값 반환) -->
-<b:if cond='data:view.title == &quot;ShipPaul Intelligence-Maritime Cyber Compliance AI&quot; || data:view.title == &quot;Smart Vessel Tracking with AIS: Real-Time Ship Monitoring Explained&quot;'>
-  <meta content='noindex, follow' name='robots'/>
-</b:if>
+<!-- noindex 제거 (2026-07-19): 도구 페이지에 정적 콘텐츠 추가 완료 → AdSense 재심사를 위해 크롤링 허용 -->
 
 
 <!-- meta description &#8212; all-head-content 이후에 위치해야 Blogger 기본값을 override 함 -->
@@ -201,7 +198,7 @@
   <meta expr:content='&quot;ShipPaulJobs — Maritime cybersecurity articles tagged: &quot; + data:blog.pageName' name='description'/>
 <b:else/>
   <!-- 홈 및 기타 -->
-  <meta content='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.' name='description'/>
+  <meta content='Insights and validation from industry experts to lead the market: IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, smart ships, and cyber resilience.' name='description'/>
 </b:if>
 
 <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
@@ -236,7 +233,7 @@
 <b:else/>
   <meta content='website' property='og:type'/>
   <meta content='ShipPaulJobs Maritime AI &amp; Cyber' property='og:title'/>
-  <meta content='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.' property='og:description'/>
+  <meta content='Insights and validation from industry experts to lead the market: IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, smart ships, and cyber resilience.' property='og:description'/>
   <meta expr:content='data:blog.homepageUrl' property='og:url'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
   <meta content='1200' property='og:image:width'/>
@@ -266,7 +263,7 @@
   </b:if>
 <b:else/>
   <meta content='ShipPaulJobs Maritime AI &amp; Cyber' name='twitter:title'/>
-  <meta content='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.' name='twitter:description'/>
+  <meta content='Insights and validation from industry experts to lead the market: IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, smart ships, and cyber resilience.' name='twitter:description'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
 </b:if>
 
@@ -1629,7 +1626,8 @@
       .FeaturedPost .fp-bot-info{display:block;min-width:0}
       .FeaturedPost .fp-bot-loc{display:block;font-size:11px;opacity:.65;margin-bottom:3px}
       .FeaturedPost .fp-bot-loc a{color:inherit;text-decoration:none}
-      .FeaturedPost .fp-bot-byline{display:block;font-size:11px;opacity:.65}
+      .FeaturedPost .fp-bot-byline{display:block;font-size:11px;color:#555;opacity:1}
+      .FeaturedPost .fp-bot-byline .b1-card-author{color:#555 !important;background:none;border:none;padding:0;font-size:11px;font-weight:600;cursor:pointer;}
       .FeaturedPost .fp-bot-comment{flex-shrink:0}
       .FeaturedPost .fp-bot-comment a{font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap}
       .Blog .blog-posts .post-outer-container{background:#f4f9ff !important;border-radius:10px !important;box-shadow:0 2px 8px rgba(10,35,66,.07) !important;margin-bottom:10px !important;position:relative !important;}
@@ -1679,6 +1677,17 @@
   </head>
 
   <body>
+<svg id='spj-icons' style='display:none' xmlns='http://www.w3.org/2000/svg'>
+<symbol id='spj-ico-share' viewBox='0 0 24 24'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></symbol>
+<symbol id='spj-ico-li' viewBox='0 0 24 24'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></symbol>
+<symbol id='spj-ico-fb' viewBox='0 0 24 24'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></symbol>
+<symbol id='spj-ico-tw' viewBox='0 0 24 24'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></symbol>
+<symbol id='spj-ico-wa' viewBox='0 0 24 24'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></symbol>
+<symbol id='spj-ico-tg' viewBox='0 0 24 24'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></symbol>
+<symbol id='spj-ico-rd' viewBox='0 0 24 24'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></symbol>
+<symbol id='spj-ico-wc' viewBox='0 0 24 24'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></symbol>
+<symbol id='spj-ico-cp' viewBox='0 0 24 24'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></symbol>
+</svg>
     <b:if cond='data:view.isHomepage'><script>document.body.classList.add(&#39;is-homepage&#39;)</script></b:if>
     <canvas id='globe-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.95;'/>
     <canvas id='label-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;'/>
@@ -2030,7 +2039,7 @@
                         <p id='spj-desc-p'/>
                         <script>//<![CDATA[
                         (function(){
-                          var txt='From leading practitioners — IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, Smart Ships &amp; Cyber Resilience for shipowners, builders, and suppliers.';
+                          var txt='Insights and validation from industry experts to lead the market: IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, smart ships, and cyber resilience.';
                           var p=document.getElementById('spj-desc-p');
                           if(!p)return;
                           p.innerHTML=txt.split(' ').map(function(w){return '<span style="opacity:0;display:inline-block;transition:opacity 0.4s,transform 0.4s;transform:translateY(6px)">'+w+'</span>';}).join(' ');
@@ -2371,7 +2380,7 @@
                     <b:includable id='postAuthor'>
                       <span class='byline post-author vcard'>
                         <b:if cond='data:post.author.authorPhoto.url'>
-                          <img expr:alt='data:post.author.name' expr:src='data:post.author.authorPhoto.url'/>
+                          <img expr:alt='data:post.author.name' expr:src='data:post.author.authorPhoto.url' loading='lazy'/>
                         </b:if>
                         <span class='fn'>
                           <b:if cond='data:post.author.profileUrl'>
@@ -2508,19 +2517,19 @@
                     <b:includable id='snippetedPostContent'>
                       <!-- 우측 상단 공유 버튼 -->
                       <div class='b1-share-wrap'>
-                        <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
+                        <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if></b:loop></b:if>
                         <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
-                          <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg>
+                          <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                         </button>
                         <div class='b1-share-panel'>
-                          <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
-                          <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
-                          <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
-                          <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
-                          <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
-                          <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
-                          <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg><span>WeChat</span></a>
-                          <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                          <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                          <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                          <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
                         </div>
                       </div>
                       <b:include cond='data:this.postDisplay.showTitle' name='snippetedPostTitle'/>
@@ -2681,7 +2690,7 @@
                     </b:includable>
                     <b:includable id='commentAuthorAvatar'>
                       <div class='avatar-image-container'>
-                        <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35'/>
+                        <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35' loading='lazy'/>
                       </div>
                     </b:includable>
                     <b:includable id='commentDeleteIcon' var='comment'>
@@ -2692,7 +2701,7 @@
                           </div>
                           <b:else/>
                           <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
-                            <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+                            <img src='https://resources.blogblog.com/img/icon_delete13.gif' loading='lazy'/>
                           </a>
                         </b:if>
                       </span>
@@ -2933,41 +2942,41 @@
                         <b:if cond='data:view.isSingleItem'>
                           <!-- 단일 포스트 상단 우측 공유 버튼 -->
                           <div class='b1-share-wrap'>
-                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Industry Validated</span></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Expert Reviewed</span></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Verified</span></a></b:if></b:loop></b:if>
+                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/><span class='spj-badge-label'>Industry Validated</span></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/><span class='spj-badge-label'>Expert Reviewed</span></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/><span class='spj-badge-label'>Verified</span></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
-                              <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg>
+                              <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                             </button>
                             <div class='b1-share-panel'>
                               <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' rel='noopener' style='background:#0a66c2' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg>
                                 <span>LinkedIn</span>
                               </a>
                               <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='noopener' style='background:#1877f2' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg>
                                 <span>Facebook</span>
                               </a>
                               <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' rel='noopener' style='background:#111' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg>
                                 <span>X (Twitter)</span>
                               </a>
                               <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' rel='noopener' style='background:#25d366' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg>
                                 <span>WhatsApp</span>
                               </a>
                               <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' rel='noopener' style='background:#26a5e4' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg>
                                 <span>Telegram</span>
                               </a>
                               <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' rel='noopener' style='background:#ff4500' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg>
                                 <span>Reddit</span>
                               </a>
                               <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg>
                                 <span>WeChat</span>
                               </a>
                               <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'>
-                                <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>
+                                <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg>
                                 <span>Copy Link</span>
                               </a>
                             </div>
@@ -3030,49 +3039,49 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <!-- 상단: 제목 + 공유 버튼 -->
                           <!-- 우측 상단 공유 버튼 -->
                           <div class='b1-share-wrap'>
-                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
+                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
-                              <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg>
+                              <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                             </button>
                             <div class='b1-share-panel'>
                               <!-- LinkedIn -->
                               <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' rel='noopener' style='background:#0a66c2' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg>
                                 <span>LinkedIn</span>
                               </a>
                               <!-- Facebook -->
                               <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='noopener' style='background:#1877f2' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg>
                                 <span>Facebook</span>
                               </a>
                               <!-- X (Twitter) -->
                               <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' rel='noopener' style='background:#111' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg>
                                 <span>X (Twitter)</span>
                               </a>
                               <!-- WhatsApp -->
                               <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' rel='noopener' style='background:#25d366' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg>
                                 <span>WhatsApp</span>
                               </a>
                               <!-- Telegram -->
                               <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' rel='noopener' style='background:#26a5e4' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg>
                                 <span>Telegram</span>
                               </a>
                               <!-- Reddit -->
                               <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' rel='noopener' style='background:#ff4500' target='_blank'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg>
                                 <span>Reddit</span>
                               </a>
                               <!-- WeChat QR -->
                               <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'>
-                                <svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg>
+                                <svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg>
                                 <span>WeChat</span>
                               </a>
                               <!-- Copy Link -->
                               <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'>
-                                <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>
+                                <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg>
                                 <span>Copy Link</span>
                               </a>
                             </div>
@@ -3103,14 +3112,14 @@ if(!window.b1WC){window.b1WC=function(btn){
                                 +(prefix||'')
                                 +'<button class="b1-share-toggle" onclick="b1ShareToggle(this);return false;" title="Share">'+svgShare+'</button>'
                                 +'<div class="b1-share-panel">'
-                                +'<a class="b1-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url='+eu+'" target="_blank" rel="noopener" style="background:#0a66c2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span>LinkedIn</span></a>'
-                                +'<a class="b1-share-btn" href="https://www.facebook.com/sharer/sharer.php?u='+eu+'" target="_blank" rel="noopener" style="background:#1877f2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg><span>Facebook</span></a>'
-                                +'<a class="b1-share-btn" href="https://twitter.com/intent/tweet?url='+eu+'" target="_blank" rel="noopener" style="background:#111"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>X (Twitter)</span></a>'
-                                +'<a class="b1-share-btn" href="https://wa.me/?text='+eu+'" target="_blank" rel="noopener" style="background:#25d366"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>WhatsApp</span></a>'
-                                +'<a class="b1-share-btn" href="https://t.me/share/url?url='+eu+'" target="_blank" rel="noopener" style="background:#26a5e4"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg><span>Telegram</span></a>'
-                                +'<a class="b1-share-btn" href="https://www.reddit.com/submit?url='+eu+'" target="_blank" rel="noopener" style="background:#ff4500"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg><span>Reddit</span></a>'
-                                +'<a class="b1-share-btn" href="#" onclick="b1WC(this);return false;" data-u="'+du+'" style="background:#07c160"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg><span>WeChat</span></a>'
-                                +'<a class="b1-share-btn" href="#" onclick="'+cpOnclick+'" data-u="'+du+'" style="background:#607d8b"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Copy Link</span></a>'
+                                +'<a class="b1-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url='+eu+'" target="_blank" rel="noopener" style="background:#0a66c2"><svg fill="white" height="14" width="14"><use href="#spj-ico-li"/></svg><span>LinkedIn</span></a>'
+                                +'<a class="b1-share-btn" href="https://www.facebook.com/sharer/sharer.php?u='+eu+'" target="_blank" rel="noopener" style="background:#1877f2"><svg fill="white" height="14" width="14"><use href="#spj-ico-fb"/></svg><span>Facebook</span></a>'
+                                +'<a class="b1-share-btn" href="https://twitter.com/intent/tweet?url='+eu+'" target="_blank" rel="noopener" style="background:#111"><svg fill="white" height="14" width="14"><use href="#spj-ico-tw"/></svg><span>X (Twitter)</span></a>'
+                                +'<a class="b1-share-btn" href="https://wa.me/?text='+eu+'" target="_blank" rel="noopener" style="background:#25d366"><svg fill="white" height="14" width="14"><use href="#spj-ico-wa"/></svg><span>WhatsApp</span></a>'
+                                +'<a class="b1-share-btn" href="https://t.me/share/url?url='+eu+'" target="_blank" rel="noopener" style="background:#26a5e4"><svg fill="white" height="14" width="14"><use href="#spj-ico-tg"/></svg><span>Telegram</span></a>'
+                                +'<a class="b1-share-btn" href="https://www.reddit.com/submit?url='+eu+'" target="_blank" rel="noopener" style="background:#ff4500"><svg fill="white" height="14" width="14"><use href="#spj-ico-rd"/></svg><span>Reddit</span></a>'
+                                +'<a class="b1-share-btn" href="#" onclick="b1WC(this);return false;" data-u="'+du+'" style="background:#07c160"><svg fill="white" height="14" width="14"><use href="#spj-ico-wc"/></svg><span>WeChat</span></a>'
+                                +'<a class="b1-share-btn" href="#" onclick="'+cpOnclick+'" data-u="'+du+'" style="background:#607d8b"><svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" width="14"><use href="#spj-ico-cp"/></svg><span>Copy Link</span></a>'
                                 +'</div></div>';
                             };
                           }
@@ -3172,7 +3181,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                     <b:includable id='postAuthor'>
                       <span class='byline post-author vcard'>
                         <b:if cond='data:post.author.authorPhoto.url'>
-                          <img expr:alt='data:post.author.name' expr:src='data:post.author.authorPhoto.url'/>
+                          <img expr:alt='data:post.author.name' expr:src='data:post.author.authorPhoto.url' loading='lazy'/>
                         </b:if>
                         <span class='fn'>
                           <b:if cond='data:post.author.profileUrl'>
@@ -3195,7 +3204,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                         <div style='margin-top:32px;padding:16px;background:#f0f4ff;border-radius:8px;border-left:4px solid #1a237e;font-family:&apos;Roboto&apos;,sans-serif;'>
                           <p style='font-size:12px;font-weight:700;color:#1a237e;margin:0 0 10px 0;'>&#9875; Join the ShipPaulJobs Community</p>
                           <a href='https://www.linkedin.com/groups/21070066' style='display:inline-flex;align-items:center;gap:6px;background:#0077b5;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:4px;text-decoration:none;' target='_blank'>
-                            <svg fill='#fff' height='13' style='flex-shrink:0;' viewBox='0 0 24 24' width='13' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg>
+                            <svg fill='#fff' height='13' style='flex-shrink:0;' width='13'><use href='#spj-ico-li'/></svg>
                             Join &#8594;
                           </a>
                         </div>
@@ -3245,17 +3254,17 @@ if(!window.b1WC){window.b1WC=function(btn){
                             <span class='b1-post-share-label'>Share</span>
                             <div class='b1-post-share-wrap'>
                               <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
-                                <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg>
+                                <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                               </button>
                               <div class='b1-share-panel'>
-                                <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
-                                <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
-                                <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
-                                <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
-                                <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
-                                <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
-                                <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 2.499c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.868 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z'/></svg><span>WeChat</span></a>
-                                <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:post.url' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.url' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' expr:href='&quot;https://www.reddit.com/submit?url=&quot; + data:post.url' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='b1WC(this);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' expr:data-u='data:post.url' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
                               </div>
                             </div>
                           </div>
@@ -3281,7 +3290,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                       <b:if cond='data:post.author.aboutMe and data:view.isPost'>
                         <div class='author-profile'>
                           <b:if cond='data:post.author.authorPhoto.url'>
-                            <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px'/>
+                            <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px' loading='lazy'/>
                             <div class='author-about'>
                               <b:include data='post' name='aboutPostAuthor'/>
                             </div>
@@ -3381,25 +3390,24 @@ if(!window.b1WC){window.b1WC=function(btn){
                       <!-- &#9552;&#9552;&#9552; TOOLS SECTION &#9552;&#9552;&#9552; -->
                       <b:if cond='data:view.isHomepage or data:view.isMultipleItems'>
                       <style>
-                        #tls-outer{overflow:hidden}
+                        #tls-outer{overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;}
+                        #tls-outer:active{cursor:grabbing;}
                         #tls-track{display:flex;gap:14px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
                         #tls-track&gt;div{flex:0 0 calc((100% - 28px)/3);min-width:0}
                         @media(max-width:900px){#tls-track&gt;div{flex:0 0 calc((100% - 14px)/2)}}
                         @media(max-width:580px){#tls-track&gt;div{flex:0 0 100%}}
                         /* Tool card sections */
                         .tc{border-radius:10px;font-family:&#39;Segoe UI&#39;,Arial,sans-serif;overflow:hidden;background:#071320;border:1px solid rgba(80,160,240,0.18);display:flex;flex-direction:column;position:relative;}
+                        .tc-num{position:absolute;top:7px;left:7px;background:rgba(29,137,207,0.85);color:#fff;font-size:9px;font-weight:700;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:3;line-height:1;}
                         .tc-accent{height:3px;background:linear-gradient(90deg,#1a9e82 0%,#1d89cf 100%);}
-                        .tc-head{padding:13px 15px 11px;border-bottom:1px solid rgba(80,160,240,0.12);display:flex;align-items:center;gap:10px;}
+                        .tc-head{padding:13px 15px 11px;border-bottom:1px solid rgba(80,160,240,0.12);display:flex;align-items:center;gap:10px;background:#000;flex:1;}
                         .tc-icon{width:38px;height:38px;border-radius:8px;background:rgba(26,158,130,0.15);border:1px solid rgba(26,158,130,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;line-height:1;}
                         .tc-title-wrap{flex:1;min-width:0;}
                         .tc-label{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:3px;background:linear-gradient(90deg,#00c97a 0%,#1eff9e 50%,#00e676 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 4px rgba(0,255,140,0.45));}
                         .tc-title{font-size:13px;font-weight:700;line-height:1.2;background:linear-gradient(90deg,#00c97a 0%,#1eff9e 40%,#00e676 70%,#00b862 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 6px rgba(0,255,140,0.55));}
-                        .tc-body{padding:10px 15px 11px;border-bottom:1px solid rgba(80,160,240,0.1);}
+                        .tc-body{padding:10px 15px 11px;border-bottom:1px solid rgba(80,160,240,0.1);flex:1;display:flex;align-items:center;}
                         .tc-body p{color:rgba(180,210,234,0.72);font-size:11px;line-height:1.65;margin:0;}
-                        .tc-tags{padding:9px 15px 10px;border-bottom:1px solid rgba(80,160,240,0.1);display:flex;flex-wrap:wrap;gap:4px;}
-                        .tc-tag{background:rgba(80,160,240,0.1);border:1px solid rgba(80,160,240,0.22);border-radius:4px;color:#90c4e8;font-size:8.5px;font-weight:800;padding:2px 7px;letter-spacing:0.5px;}
-                        .tc-tag-hi{background:rgba(26,158,130,0.15);border:1px solid rgba(26,158,130,0.35);border-radius:4px;color:#6ef0cc;font-size:8.5px;font-weight:800;padding:2px 7px;letter-spacing:0.5px;}
-                        .tc-menu{padding:10px 15px 13px;display:flex;flex-direction:column;gap:5px;margin-top:auto;}
+                        .tc-menu{padding:10px 15px 13px;display:flex;flex-direction:column;gap:5px;flex:1;justify-content:center;}
                         .tc-btn{align-items:center;background:rgba(26,158,130,0.14);border:1.5px solid rgba(26,158,130,0.45);border-radius:7px;color:#7effd8;display:flex;font-size:11px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;}
                         .tc-btn-icon{font-size:14px;line-height:1;flex-shrink:0;}
                         .tc-btn-label{flex:1;}
@@ -3409,7 +3417,36 @@ if(!window.b1WC){window.b1WC=function(btn){
                         .tc-live-txt{color:#7effd8;font-size:8.5px;font-weight:800;}
                       </style>
                       <div id='tls-wrap' style='margin:0 0 2em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
-                        <div class='b1-latest-header tls-section-header'>🔧 Tools</div>
+                        <style>
+@keyframes tls-ticker{
+  0%     {transform:translateY(0)}
+  14.67% {transform:translateY(0)}
+  16.67% {transform:translateY(-20px)}
+  31.33% {transform:translateY(-20px)}
+  33.33% {transform:translateY(-40px)}
+  48%    {transform:translateY(-40px)}
+  50%    {transform:translateY(-60px)}
+  64.67% {transform:translateY(-60px)}
+  66.67% {transform:translateY(-80px)}
+  81.33% {transform:translateY(-80px)}
+  83.33% {transform:translateY(-100px)}
+  98%    {transform:translateY(-100px)}
+  100%   {transform:translateY(-120px)}
+}
+</style>
+                        <div class='b1-latest-header tls-section-header' style='display:flex;align-items:center;gap:0;overflow:hidden;'>
+                          <span style='white-space:nowrap;'>🔧 Free Tools (<span id='tls-tick-ct' style='-webkit-text-fill-color:#1eff9e;color:#1eff9e;'>1/6</span>):&#160;</span>
+                          <span style='overflow:hidden;height:20px;flex:1;min-width:0;'>
+                            <span id='tls-ticker-wrap' style='display:block;-webkit-text-fill-color:#1eff9e;color:#1eff9e;'>
+                              <a href='https://www.shippauljobs.com/p/maritime-class-approval-check.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Class Type Approval Check</a>
+                              <a href='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Maritime Cyber Compliance AI</a>
+                              <a href='https://www.shippauljobs.com/p/international-association-compliance.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Maritime Cybersecurity Docs</a>
+                              <a href='https://www.shippauljobs.com/p/global-newbuilding-orders.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Ship Order Trends</a>
+                              <a href='https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Maritime Cyber Threat Intel</a>
+                              <a href='https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Maritime Jobs Feed</a>
+                            </span>
+                          </span>
+                        </div>
                         <div style='position:relative;'>
                           <button disabled='disabled' id='tls-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
                             <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
@@ -3419,18 +3456,19 @@ if(!window.b1WC){window.b1WC=function(btn){
 
                           <!-- &#9312; Card: Class Type Approval Check -->
                           <div class='tc'>
+                            <div class='tc-num'>1</div>
                             <div class='tc-accent'/>
                             <div class='b1-share-wrap'>
-                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg></button>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
                               <div class='b1-share-panel'>
-                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
-                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
-                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
-                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
-                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
-                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
-                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-class-approval-check.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c-.305-.8-.469-1.66-.469-2.559 0-3.619 3.256-6.553 7.276-6.553.254 0 .503.014.75.041C15.36 4.573 12.297 2.188 8.691 2.188zm-2.46 3.38a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zm4.918 0a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zM24 14.52c0-3.307-3.13-5.99-6.993-5.99-3.862 0-6.992 2.683-6.992 5.99 0 3.306 3.13 5.99 6.992 5.99.811 0 1.586-.123 2.306-.344a.61.61 0 0 1 .513.07l1.387.811a.235.235 0 0 0 .12.038.212.212 0 0 0 .21-.212c0-.051-.021-.101-.034-.153l-.284-1.075a.424.424 0 0 1 .152-.479C23.083 18.254 24 16.479 24 14.52zm-9.39-1.064a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788zm4.794 0a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788z'/></svg><span>WeChat</span></a>
-                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-class-approval-check.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-class-approval-check.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-class-approval-check.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-class-approval-check.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
                               </div>
                             </div>
                             <!-- 제목 -->
@@ -3446,41 +3484,30 @@ if(!window.b1WC){window.b1WC=function(btn){
                               <p>Search official Type Approval databases across 9 major classification societies &#8212; all in one place.</p>
                             </div>
                             <!-- 태그 -->
-                            <div class='tc-tags'>
-                              <span class='tc-tag'>NK</span>
-                              <span class='tc-tag'>DNV</span>
-                              <span class='tc-tag'>LR</span>
-                              <span class='tc-tag'>ABS</span>
-                              <span class='tc-tag'>BV</span>
-                              <span class='tc-tag'>KR</span>
-                              <span class='tc-tag'>RINA</span>
-                              <span class='tc-tag'>CCS</span>
-                              <span class='tc-tag'>PRS</span>
-                            </div>
                             <!-- 클릭 메뉴 -->
                             <div class='tc-menu'>
                               <a class='tc-btn' href='https://www.shippauljobs.com/p/maritime-class-approval-check.html' rel='noopener noreferrer' target='_blank'>
                                 <span class='tc-btn-icon'>🔍</span>
                                 <span class='tc-btn-label'>Search Type Approvals</span>
-                                <span class='tc-btn-badge'>9 Societies</span>
                               </a>
                             </div>
                           </div>
 
                           <!-- &#9313; Card: Maritime Cyber Compliance AI -->
                           <div class='tc'>
+                            <div class='tc-num'>2</div>
                             <div class='tc-accent'/>
                             <div class='b1-share-wrap'>
-                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg></button>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
                               <div class='b1-share-panel'>
-                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
-                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
-                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
-                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
-                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
-                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
-                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c-.305-.8-.469-1.66-.469-2.559 0-3.619 3.256-6.553 7.276-6.553.254 0 .503.014.75.041C15.36 4.573 12.297 2.188 8.691 2.188zm-2.46 3.38a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zm4.918 0a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zM24 14.52c0-3.307-3.13-5.99-6.993-5.99-3.862 0-6.992 2.683-6.992 5.99 0 3.306 3.13 5.99 6.992 5.99.811 0 1.586-.123 2.306-.344a.61.61 0 0 1 .513.07l1.387.811a.235.235 0 0 0 .12.038.212.212 0 0 0 .21-.212c0-.051-.021-.101-.034-.153l-.284-1.075a.424.424 0 0 1 .152-.479C23.083 18.254 24 16.479 24 14.52zm-9.39-1.064a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788zm4.794 0a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788z'/></svg><span>WeChat</span></a>
-                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fshippaul-intelligence-maritime-cyber.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
                               </div>
                             </div>
                             <!-- 제목 -->
@@ -3500,40 +3527,30 @@ if(!window.b1WC){window.b1WC=function(btn){
                               <p>Ask any question about maritime cyber regulations &#8212; get clause references, plain-English interpretations, and official PDF source links instantly.</p>
                             </div>
                             <!-- 태그 -->
-                            <div class='tc-tags'>
-                              <span class='tc-tag'>IACS E26/E27</span>
-                              <span class='tc-tag'>BIMCO v5</span>
-                              <span class='tc-tag'>IEC 62443</span>
-                              <span class='tc-tag'>NIS2</span>
-                              <span class='tc-tag'>EU CRA</span>
-                              <span class='tc-tag'>USCG</span>
-                              <span class='tc-tag'>IMO</span>
-                              <span class='tc-tag-hi'>+16 more</span>
-                            </div>
                             <!-- 클릭 메뉴 -->
                             <div class='tc-menu'>
                               <a class='tc-btn' href='https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html' rel='noopener noreferrer' target='_blank'>
                                 <span class='tc-btn-icon'>🤖</span>
                                 <span class='tc-btn-label'>Open Compliance AI</span>
-                                <span class='tc-btn-badge'>23 Regs &#183; Free</span>
                               </a>
                             </div>
                           </div>
 
                           <!-- &#9314; Card: Maritime Cybersecurity Docs -->
                           <div class='tc'>
+                            <div class='tc-num'>3</div>
                             <div class='tc-accent'/>
                             <div class='b1-share-wrap'>
-                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' x2='15.42' y1='13.51' y2='17.49'/><line x1='15.41' x2='8.59' y1='6.51' y2='10.49'/></svg></button>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
                               <div class='b1-share-panel'>
-                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg><span>LinkedIn</span></a>
-                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'/></svg><span>Facebook</span></a>
-                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg><span>X (Twitter)</span></a>
-                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg><span>WhatsApp</span></a>
-                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'/></svg><span>Telegram</span></a>
-                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z'/></svg><span>Reddit</span></a>
-                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/international-association-compliance.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c-.305-.8-.469-1.66-.469-2.559 0-3.619 3.256-6.553 7.276-6.553.254 0 .503.014.75.041C15.36 4.573 12.297 2.188 8.691 2.188zm-2.46 3.38a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zm4.918 0a1.064 1.064 0 1 1 0 2.128 1.064 1.064 0 0 1 0-2.128zM24 14.52c0-3.307-3.13-5.99-6.993-5.99-3.862 0-6.992 2.683-6.992 5.99 0 3.306 3.13 5.99 6.992 5.99.811 0 1.586-.123 2.306-.344a.61.61 0 0 1 .513.07l1.387.811a.235.235 0 0 0 .12.038.212.212 0 0 0 .21-.212c0-.051-.021-.101-.034-.153l-.284-1.075a.424.424 0 0 1 .152-.479C23.083 18.254 24 16.479 24 14.52zm-9.39-1.064a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788zm4.794 0a.894.894 0 1 1 0-1.788.894.894 0 0 1 0 1.788z'/></svg><span>WeChat</span></a>
-                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/international-association-compliance.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg><span>Copy Link</span></a>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Finternational-association-compliance.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/international-association-compliance.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/international-association-compliance.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
                               </div>
                             </div>
                             <!-- 제목 -->
@@ -3546,33 +3563,127 @@ if(!window.b1WC){window.b1WC=function(btn){
                             </div>
                             <!-- 소개 -->
                             <div class='tc-body'>
-                              <p>Download official maritime cybersecurity PDFs &#8212; IACS UR E26/E27, BIMCO, NIST SP 800, class society rules &amp; national port security regulations.</p>
+                              <p>Access official maritime cybersecurity documents &#8212; IACS UR E26/E27, BIMCO, NIST SP 800, class society rules &amp; national port security regulations.</p>
                             </div>
                             <!-- 태그 -->
-                            <div class='tc-tags'>
-                              <span class='tc-tag'>IACS UR</span>
-                              <span class='tc-tag'>BIMCO</span>
-                              <span class='tc-tag'>NIST SP800</span>
-                              <span class='tc-tag'>IEC 62443</span>
-                              <span class='tc-tag'>USCG</span>
-                              <span class='tc-tag-hi'>43 PDFs</span>
-                            </div>
                             <!-- 클릭 메뉴 -->
                             <div class='tc-menu' style='flex-direction:row;gap:6px;'>
                               <a class='tc-btn' href='https://www.shippauljobs.com/p/international-association-compliance.html' rel='noopener noreferrer' style='flex:1;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;gap:3px;text-align:center;' target='_blank'>
                                 <span class='tc-btn-icon'>🌐</span>
                                 <span class='tc-btn-label' style='flex:none;font-size:10px;'>Intl.</span>
-                                <span class='tc-btn-badge'>19 PDFs</span>
                               </a>
                               <a class='tc-btn' href='https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html' rel='noopener noreferrer' style='flex:1;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;gap:3px;text-align:center;' target='_blank'>
                                 <span class='tc-btn-icon'>🏛&#65039;</span>
                                 <span class='tc-btn-label' style='flex:none;font-size:10px;'>Class</span>
-                                <span class='tc-btn-badge'>16 PDFs</span>
                               </a>
                               <a class='tc-btn' href='https://www.shippauljobs.com/p/national-and-port-security-compliance.html' rel='noopener noreferrer' style='flex:1;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;gap:3px;text-align:center;' target='_blank'>
                                 <span class='tc-btn-icon'>🛡&#65039;</span>
                                 <span class='tc-btn-label' style='flex:none;font-size:10px;'>National</span>
-                                <span class='tc-btn-badge'>8 PDFs</span>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- &#9315; Card: Ship Order Trends -->
+                          <div class='tc'>
+                            <div class='tc-num'>4</div>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fglobal-newbuilding-orders.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fglobal-newbuilding-orders.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fglobal-newbuilding-orders.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fglobal-newbuilding-orders.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fglobal-newbuilding-orders.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fglobal-newbuilding-orders.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/global-newbuilding-orders.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/global-newbuilding-orders.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <div class='tc-head'>
+                              <div class='tc-icon'>🚢</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Newbuilding Intel</div>
+                                <div class='tc-title'>Ship Order Trends</div>
+                              </div>
+                            </div>
+                            <div class='tc-body'>
+                              <p>Track global newbuilding orders by vessel type &#8212; container ships, LNG carriers, bulk carriers, tankers &amp; offshore units. Sourced from Clarksons &amp; industry data.</p>
+                            </div>
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/global-newbuilding-orders.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>📊</span>
+                                <span class='tc-btn-label'>View Order Trends</span>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- &#9316; Card: Maritime Cyber Threat Intel -->
+                          <div class='tc'>
+                            <div class='tc-num'>5</div>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-cyber-threat-intel-ransomware.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-cyber-threat-intel-ransomware.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-cyber-threat-intel-ransomware.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-cyber-threat-intel-ransomware.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-cyber-threat-intel-ransomware.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-cyber-threat-intel-ransomware.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <div class='tc-head'>
+                              <div class='tc-icon'>🛡️</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Cyber Threats</div>
+                                <div class='tc-title'>Maritime Cyber Threat Intel</div>
+                              </div>
+                            </div>
+                            <div class='tc-body'>
+                              <p>Maritime cybersecurity intelligence briefings &#8212; ransomware incidents at ports, GPS/AIS jamming, OT/IT breaches &amp; regulatory alerts curated for maritime security professionals.</p>
+                            </div>
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>📡</span>
+                                <span class='tc-btn-label'>View Threat Feed</span>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- &#9317; Card: Maritime Jobs Feed -->
+                          <div class='tc'>
+                            <div class='tc-num'>6</div>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Flive-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Flive-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Flive-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Flive-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Flive-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Flive-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <div class='tc-head'>
+                              <div class='tc-icon'>💼</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Career Intel</div>
+                                <div class='tc-title'>Maritime Jobs Feed</div>
+                              </div>
+                            </div>
+                            <div class='tc-body'>
+                              <p>Curated maritime cyber &amp; digital job listings &#8212; AI &amp; data, OT security, compliance, and executive positions at shipowners, ports, class societies &amp; tech vendors.</p>
+                            </div>
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🔍</span>
+                                <span class='tc-btn-label'>Browse Jobs</span>
                               </a>
                             </div>
                           </div>
@@ -3601,29 +3712,120 @@ if(!window.b1WC){window.b1WC=function(btn){
   function visibleCount(){ return window.innerWidth<=580?1:window.innerWidth<=900?2:3; }
   function getStep(){ var f=trackEl.children[0]; return f?f.offsetWidth+14:outerEl.offsetWidth; }
   function maxIdx(){ return Math.max(0,total-visibleCount()); }
+  function btnStyle(btn, active, isNext){
+    btn.disabled=!active;
+    btn.style.cursor=active?'pointer':'default';
+    btn.style.background=active?'rgba(29,137,207,0.28)':'rgba(4,10,24,0.5)';
+    btn.style.transition='background .18s';
+    var sp=btn.querySelector('span');
+    if(sp){
+      if(isNext) sp.style.borderLeftColor=active?'#7eaac8':'#2a4060';
+      else       sp.style.borderRightColor=active?'#7eaac8':'#2a4060';
+    }
+  }
   function update(animate){
     if(idx>maxIdx()) idx=maxIdx();
     trackEl.style.transition=animate?'transform .42s cubic-bezier(.25,.46,.45,.94)':'none';
     trackEl.style.transform='translateX(-'+(idx*getStep())+'px)';
-    prevBtn.disabled=idx===0;
-    prevBtn.style.cursor=idx===0?'default':'pointer';
-    var pa=prevBtn.querySelector('span');
-    if(pa) pa.style.borderRightColor=idx===0?'#2a4060':'#7eaac8';
-    nextBtn.disabled=idx>=maxIdx();
-    nextBtn.style.cursor=idx>=maxIdx()?'default':'pointer';
-    var na=nextBtn.querySelector('span');
-    if(na) na.style.borderLeftColor=idx>=maxIdx()?'#2a4060':'#7eaac8';
-    if(indEl) indEl.textContent=total&gt;visibleCount()?((idx+1)+' / '+(maxIdx()+1)):'';
+    btnStyle(prevBtn, idx>0, false);
+    btnStyle(nextBtn, idx<maxIdx(), true);
+    if(indEl) indEl.textContent=total>visibleCount()?((idx+1)+' / '+(maxIdx()+1)):'';
   }
   prevBtn.addEventListener('click',function(){ if(idx>0){ idx--; update(true); } });
-  nextBtn.addEventListener('click',function(){ if(idx<total-1){ idx++; update(true); } });
+  nextBtn.addEventListener('click',function(){ if(idx<maxIdx()){ idx++; update(true); } });
+  prevBtn.addEventListener('mouseover',function(){ if(!prevBtn.disabled) prevBtn.style.background='rgba(29,137,207,0.5)'; });
+  prevBtn.addEventListener('mouseout', function(){ if(!prevBtn.disabled) prevBtn.style.background='rgba(29,137,207,0.28)'; });
+  nextBtn.addEventListener('mouseover',function(){ if(!nextBtn.disabled) nextBtn.style.background='rgba(29,137,207,0.5)'; });
+  nextBtn.addEventListener('mouseout', function(){ if(!nextBtn.disabled) nextBtn.style.background='rgba(29,137,207,0.28)'; });
   window.addEventListener('resize',function(){ update(false); });
   var s=document.createElement('style');
   s.textContent='@keyframes ci-pulse{0%,100%{opacity:.4}50%{opacity:1}}#ci-dot{animation:ci-pulse 2s ease-in-out infinite;}';
   document.head.appendChild(s);
   update(false);
+  /* 마우스 드래그 — SCS 캐러셀과 동일한 패턴 */
+  (function(){
+    var dragStartX=0, dragBaseX=0, dragging=false, dragMoved=false;
+    var SNAP_RATIO=0.18;
+    function currentTx(){ return -(idx*getStep()); }
+    function setCanvasEvents(on){
+      document.querySelectorAll('canvas').forEach(function(c){ c.style.pointerEvents=on?'':'none'; });
+    }
+    function tlsDragStart(cx){
+      dragging=true; dragMoved=false;
+      dragStartX=cx; dragBaseX=currentTx();
+      trackEl.style.transition='none';
+      outerEl.style.cursor='grabbing';
+      setCanvasEvents(false); /* 지구본 canvas 이벤트 차단 */
+      window._tlsDragging=true;
+    }
+    function tlsDragMove(cx){
+      if(!dragging) return;
+      var d=cx-dragStartX;
+      if(Math.abs(d)>4) dragMoved=true;
+      var minTx=-(maxIdx()*getStep());
+      var tx=dragBaseX+d;
+      if(tx>0) tx=tx*0.25;
+      if(tx<minTx) tx=minTx+(tx-minTx)*0.25;
+      trackEl.style.transform='translateX('+tx+'px)';
+    }
+    function tlsDragEnd(cx){
+      if(!dragging) return;
+      dragging=false;
+      setCanvasEvents(true); /* 지구본 복원 */
+      window._tlsDragging=false;
+      outerEl.style.cursor='grab';
+      if(!dragMoved){ update(true); return; }
+      var d=cx-dragStartX, step=getStep();
+      if(Math.abs(d)>step*SNAP_RATIO){
+        if(d<0 && idx<maxIdx()) idx++;
+        else if(d>0 && idx>0) idx--;
+      }
+      update(true);
+    }
+    outerEl.addEventListener('mousedown',function(e){
+      if(e.button!==0) return;
+      tlsDragStart(e.clientX);
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    document.addEventListener('mousemove',function(e){
+      if(!dragging) return;
+      tlsDragMove(e.clientX);
+    });
+    document.addEventListener('mouseup',function(e){
+      if(!dragging) return;
+      tlsDragEnd(e.clientX);
+    });
+    document.addEventListener('mouseleave',function(){ if(dragging) tlsDragEnd(dragStartX); });
+    outerEl.addEventListener('click',function(e){
+      if(dragMoved) e.preventDefault();
+    },true);
+  })();
 })();
 //]]></script>
+<script type='text/javascript'>
+//<![CDATA[
+(function(){
+  function runTlsTicker(){
+    var wrap=document.getElementById('tls-ticker-wrap');
+    var ctEl=document.getElementById('tls-tick-ct');
+    if(!wrap||!wrap.children.length) return;
+    var n=wrap.children.length, cur=0;
+    function tick(i,anim){
+      wrap.style.transition=anim?'transform .35s cubic-bezier(.25,.46,.45,.94)':'none';
+      wrap.style.transform='translateY(-'+(i*20)+'px)';
+      if(ctEl) ctEl.textContent=(i+1)+'/'+n;
+      cur=i;
+    }
+    tick(0,false);
+    setInterval(function(){ tick((cur+1)%n,true); },3000);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',runTlsTicker);
+  } else { runTlsTicker(); }
+})();
+//]]>
+</script>
                       </b:if>
                       <!-- &#9552;&#9552;&#9552; SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
                       <style>
@@ -3786,14 +3988,14 @@ if(!window.b1WC){window.b1WC=function(btn){
     }
     function closePanel(){ var p=document.getElementById('scs-sp'); if(p) p.remove(); window._scsSPBtn=null; }
 
-    var LI  = '<svg fill="white" height="14" viewBox="0 0 24 24" width="14"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>';
-    var FB  = '<svg fill="white" height="14" viewBox="0 0 24 24" width="14"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
-    var XTW = '<svg fill="white" height="14" viewBox="0 0 24 24" width="14"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
-    var WA  = '<svg fill="white" height="14" viewBox="0 0 24 24" width="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
-    var TG  = '<svg fill="white" height="14" viewBox="0 0 24 24" width="14"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>';
-    var RD  = '<svg fill="white" height="14" viewBox="0 0 24 24" width="14"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>';
-    var WC_SVG = '<svg fill="white" height="14" viewBox="0 0 24 24" width="14"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.295.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.601-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.74 3.049c.495 0 .898.407.898.909a.9.9 0 0 1-.898.91.9.9 0 0 1-.898-.91c0-.502.403-.909.898-.909zm4.532 0c.495 0 .898.407.898.909a.9.9 0 0 1-.898.91.9.9 0 0 1-.898-.91c0-.502.403-.909.898-.909z"/></svg>';
-    var CP  = '<svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="14"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+    var LI  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-li"/></svg>';
+    var FB  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-fb"/></svg>';
+    var XTW = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tw"/></svg>';
+    var WA  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wa"/></svg>';
+    var TG  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tg"/></svg>';
+    var RD  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-rd"/></svg>';
+    var WC_SVG = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wc"/></svg>';
+    var CP  = '<svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" width="14"><use href="#spj-ico-cp"/></svg>';
 
     var liA = mkA('#0a66c2','https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url),LI,'LinkedIn');
     liA.onclick = function(){ setTimeout(closePanel,100); };
@@ -5189,7 +5391,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                     <b:includable id='postAuthor'>
                       <span class='byline post-author vcard'>
                         <b:if cond='data:post.author.authorPhoto.url'>
-                          <img expr:alt='data:post.author.name' expr:src='data:post.author.authorPhoto.url'/>
+                          <img expr:alt='data:post.author.name' expr:src='data:post.author.authorPhoto.url' loading='lazy'/>
                         </b:if>
                         <span class='fn'>
                           <b:if cond='data:post.author.profileUrl'>
@@ -5377,25 +5579,103 @@ if(!window.b1WC){window.b1WC=function(btn){
                   <span>🧭 What We Cover</span>
                 </div>
                 <p style='font-size:12px;line-height:1.8;color:rgba(200,228,248,0.55);margin:0 0 16px;border-bottom:1px solid rgba(29,137,207,0.15);padding-bottom:14px;'>ShipPaulJobs is a practitioner-led maritime cybersecurity and compliance platform focused on IACS UR E26 and E27 implementation, OT system security, and AI-driven risk management for ships and offshore assets. Content is written by working consultants with direct experience in class approval, vessel commissioning, and flag state compliance &#8212; not academic theory. The platform covers network segmentation under IEC 62443, zone-and-conduit architecture for shipboard systems, and the practical gap between what classification societies require and what shipyards deliver.</p>
-                <div style='display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;'>
-                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
-                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>IACS UR E26 / E27</p>
-                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>IACS Unified Requirements E26 and E27 mandate cyber resilience from contract signing after 1 July 2024. UR E26 defines minimum requirements for network architecture, access control, software update procedures, and incident response. UR E27 covers supply chain cyber security documentation per equipment supplier. Coverage includes clause-by-clause IEC 62443 cross-references and deliverable guidance for class surveyors and flag state inspectors.</p>
+                <div style='position:relative;'>
+                  <button disabled='disabled' id='wwc-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
+                    <span style='width:0;height:0;border-style:solid;border-width:6px 8px 6px 0;border-color:transparent #2a4060 transparent transparent;display:block;'/>
+                  </button>
+                  <div id='wwc-outer' style='overflow:hidden;cursor:grab;'>
+                    <div id='wwc-track' style='display:flex;gap:14px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);'>
+                      <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                        <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>IACS UR E26 / E27</p>
+                        <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>IACS Unified Requirements E26 and E27 mandate cyber resilience from contract signing after 1 July 2024. UR E26 defines minimum requirements for network architecture, access control, software update procedures, and incident response. UR E27 covers supply chain cyber security documentation per equipment supplier. Coverage includes clause-by-clause IEC 62443 cross-references and deliverable guidance for class surveyors and flag state inspectors.</p>
+                      </div>
+                      <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                        <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Maritime OT Security</p>
+                        <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>Operational Technology on modern vessels &#8212; integrated bridge systems, propulsion control, ballast management, cargo handling automation, dynamic positioning &#8212; is increasingly networked and cyber-exposed. Unlike IT, maritime OT has long lifecycles and safety-critical real-time constraints. This platform provides OT-specific guidance on asset inventory, vulnerability analysis, and defence-in-depth strategy aligned with IMO MSC-FAL.1/Circ.3 and BIMCO recommendations.</p>
+                      </div>
+                      <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                        <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>AI in Maritime Operations</p>
+                        <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>AI is reshaping fleet management, predictive maintenance, port logistics, and compliance monitoring. This platform examines how LLMs, autonomous agents, and structured maritime data &#8212; AIS feeds, class records, inspection histories &#8212; reduce compliance burden and increase operational visibility. Coverage targets ship operators, class surveyors, shipyard project managers, and flag state administrators who need AI insight without vendor-driven hype.</p>
+                      </div>
+                      <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);'>
+                        <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Industry Trends, Talent &amp; Careers</p>
+                        <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>The maritime industry is undergoing structural transformation driven by decarbonisation, digitalisation, and tightening cyber regulation. This platform discusses the evolving competency requirements for seafarers, shore-based engineers, compliance officers, and surveyors &#8212; and how the hiring market is responding. Topics include cross-disciplinary skills at the intersection of OT engineering and cyber security, the emergence of maritime cyber roles at flag states and classification societies, salary benchmarks, and practical pathways for professionals transitioning into this space. A community-oriented space where industry practitioners share insights and shape the conversation on maritime&#39;s digital future.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
-                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Maritime OT Security</p>
-                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>Operational Technology on modern vessels &#8212; integrated bridge systems, propulsion control, ballast management, cargo handling automation, dynamic positioning &#8212; is increasingly networked and cyber-exposed. Unlike IT, maritime OT has long lifecycles and safety-critical real-time constraints. This platform provides OT-specific guidance on asset inventory, vulnerability analysis, and defence-in-depth strategy aligned with IMO MSC-FAL.1/Circ.3 and BIMCO recommendations.</p>
-                  </div>
-                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
-                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>AI in Maritime Operations</p>
-                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>AI is reshaping fleet management, predictive maintenance, port logistics, and compliance monitoring. This platform examines how LLMs, autonomous agents, and structured maritime data &#8212; AIS feeds, class records, inspection histories &#8212; reduce compliance burden and increase operational visibility. Coverage targets ship operators, class surveyors, shipyard project managers, and flag state administrators who need AI insight without vendor-driven hype.</p>
-                  </div>
-                  <div style='flex:0 0 240px;background:rgba(10,35,66,0.45);border-radius:7px;padding:12px 14px;border-left:3px solid rgba(29,137,207,0.5);scroll-snap-align:start;'>
-                    <p style='font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7ec8f4;margin:0 0 6px;'>Industry Trends, Talent &amp; Careers</p>
-                    <p style='font-size:11px;line-height:1.75;color:rgba(200,228,248,0.45);margin:0;'>The maritime industry is undergoing structural transformation driven by decarbonisation, digitalisation, and tightening cyber regulation. This platform discusses the evolving competency requirements for seafarers, shore-based engineers, compliance officers, and surveyors &#8212; and how the hiring market is responding. Topics include cross-disciplinary skills at the intersection of OT engineering and cyber security, the emergence of maritime cyber roles at flag states and classification societies, salary benchmarks, and practical pathways for professionals transitioning into this space. A community-oriented space where industry practitioners share insights and shape the conversation on maritime&#39;s digital future.</p>
-                  </div>
+                  <button id='wwc-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(29,137,207,0.28);border:none;padding:0;cursor:pointer;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
+                    <span style='width:0;height:0;border-style:solid;border-width:6px 0 6px 8px;border-color:transparent transparent transparent #7eaac8;display:block;'/>
+                  </button>
                 </div>
               </div>
+              <script type='text/javascript'>
+//<![CDATA[
+(function(){
+  var track=document.getElementById('wwc-track');
+  var outer=document.getElementById('wwc-outer');
+  var prev=document.getElementById('wwc-prev');
+  var next=document.getElementById('wwc-next');
+  if(!track||!outer||!prev||!next) return;
+  var idx=0;
+  var total=track.children.length;
+  function cardW(){ var c=track.children[0]; return c?c.offsetWidth+14:254; }
+  function visible(){ return Math.max(1,Math.floor((outer.offsetWidth+14)/cardW())); }
+  function maxIdx(){ return Math.max(0,total-visible()); }
+  function btnStyle(btn,active,isNext){
+    btn.disabled=!active;
+    btn.style.cursor=active?'pointer':'default';
+    btn.style.background=active?'rgba(29,137,207,0.28)':'rgba(4,10,24,0.5)';
+    var sp=btn.querySelector('span');
+    if(sp){
+      if(isNext) sp.style.borderLeftColor=active?'#7eaac8':'#2a4060';
+      else       sp.style.borderRightColor=active?'#7eaac8':'#2a4060';
+    }
+  }
+  function update(anim){
+    if(idx>maxIdx()) idx=maxIdx();
+    track.style.transition=anim?'transform .42s cubic-bezier(.25,.46,.45,.94)':'none';
+    track.style.transform='translateX(-'+(idx*cardW())+'px)';
+    btnStyle(prev,idx>0,false);
+    btnStyle(next,idx<maxIdx(),true);
+  }
+  prev.addEventListener('click',function(){ if(idx>0){idx--;update(true);} });
+  next.addEventListener('click',function(){ if(idx<maxIdx()){idx++;update(true);} });
+  prev.addEventListener('mouseover',function(){ if(!prev.disabled) prev.style.background='rgba(29,137,207,0.5)'; });
+  prev.addEventListener('mouseout', function(){ if(!prev.disabled) prev.style.background='rgba(29,137,207,0.28)'; });
+  next.addEventListener('mouseover',function(){ if(!next.disabled) next.style.background='rgba(29,137,207,0.5)'; });
+  next.addEventListener('mouseout', function(){ if(!next.disabled) next.style.background='rgba(29,137,207,0.28)'; });
+  window.addEventListener('resize',function(){ update(false); });
+  /* 마우스 드래그 */
+  (function(){
+    var dx=0,delta=0,dragging=false;
+    outer.addEventListener('mousedown',function(e){
+      if(e.button!==0) return;
+      dragging=true; dx=e.clientX; delta=0;
+      track.style.transition='none';
+      outer.style.cursor='grabbing';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove',function(e){
+      if(!dragging) return;
+      delta=e.clientX-dx;
+      track.style.transform='translateX(-'+(idx*cardW()-delta)+'px)';
+    });
+    function end(){
+      if(!dragging) return;
+      dragging=false; outer.style.cursor='grab';
+      var th=cardW()*0.2;
+      if(delta<-th&&idx<maxIdx()) idx++;
+      else if(delta>th&&idx>0) idx--;
+      update(true); delta=0;
+    }
+    document.addEventListener('mouseup',end);
+    document.addEventListener('mouseleave',end);
+    outer.addEventListener('click',function(e){ if(Math.abs(delta)>5) e.preventDefault(); },true);
+  })();
+  update(false);
+})();
+//]]>
+</script>
               </b:if>
               </main>
 
@@ -5566,7 +5846,7 @@ if(!window.b1WC){window.b1WC=function(btn){
               </div>
             </b:includable>
             <b:includable id='authorProfileImage'>
-              <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/>
+              <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width' loading='lazy'/>
             </b:includable>
             <b:includable id='content'>
               <b:if cond='data:team'>
@@ -5853,11 +6133,11 @@ if(!window.b1WC){window.b1WC=function(btn){
   <div id="spj-logo-wrap">
     <img id="spj-logo"
          src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png"
-         alt="ShipPaulJobs"/>
+         alt="ShipPaulJobs" loading='lazy'/>
   </div>
   <div id="spj-social-row">
     <a id="spj-li-btn" href="https://www.linkedin.com/groups/21070066" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="#fff" width="16" height="16"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></path></svg>
+      <svg fill='#fff' height='16' width='16'><use href='#spj-ico-li'/></svg>
       <span id="spj-li-tooltip">&#x2693; The ShipPaulJobs Community</span>
     </a>
     <a id="spj-yt-btn" href="https://www.youtube.com/@ShipPaulJobs" target="_blank" rel="noopener">
@@ -6405,7 +6685,7 @@ if(!window.b1WC){window.b1WC=function(btn){
 //]]></script>
 </b:includable>
         </b:widget>
-        <b:widget id='HTML14' locked='false' title='📬 Newsletter' type='HTML' version='2' visible='true'>
+        <b:widget id='HTML14' locked='false' title='Newsletter' type='HTML' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'/>
           </b:widget-settings>
@@ -6667,7 +6947,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   /* ── Interactive drag rotation ── */
   var _drag = { on: false, x: 0, y: 0, moved: false };
 
-  function _ds(cx, cy) { _drag.on = true; _drag.x = cx; _drag.y = cy; _drag.moved = false; }
+  function _ds(cx, cy) { if(window._tlsDragging) return; _drag.on = true; _drag.x = cx; _drag.y = cy; _drag.moved = false; }
   function _dm(cx, cy) {
     if (!_drag.on) return;
     var dx = cx - _drag.x, dy = cy - _drag.y;
@@ -7255,7 +7535,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     }
 
     /* 페이지네이션으로 전체 포스트 수집 후 렌더링 */
-    var baseUrl = 'https://www.shippauljobs.com/feeds/posts/default?alt=json&max-results=500&v=2';
+    var baseUrl = 'https://www.shippauljobs.com/feeds/posts/default?alt=json&max-results=50&v=2';
     var allEntries = [];
 
     function fetchPage(startIndex) {
