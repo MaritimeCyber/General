@@ -171,7 +171,7 @@
 <!-- Blogger 기본 head &#8212; all-head-content 먼저 출력 후 커스텀 description으로 덮어씌움 -->
 <b:include data='blog' name='all-head-content'/>
 
-<!-- noindex 제거 (2026-07-19): 도구 페이지에 정적 콘텐츠 추가 완료 → AdSense 재심사를 위해 크롤링 허용 -->
+<!-- noindex 제거 (2026-07-19): 도구 페이지에 정적 콘텐츠 추가 완료 &#8594; AdSense 재심사를 위해 크롤링 허용 -->
 
 
 <!-- meta description &#8212; all-head-content 이후에 위치해야 Blogger 기본값을 override 함 -->
@@ -1104,21 +1104,24 @@
       background-color:$(sidebar.backgroundColorBottom) } .sidebar-container
       .navigation,.sidebar-container .sidebar_top_wrapper{
       background-color:$(sidebar.backgroundColorTop) } .sidebar-container
-      .sidebar_top{ overflow:auto } .sidebar-container .sidebar_bottom{
+      .sidebar_top{ overflow-x:hidden; overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none }
+      .sidebar_top::-webkit-scrollbar{ display:none; width:0 } .sidebar-container .sidebar_bottom{
       width:100%; padding-top:16px } .sidebar-container .widget:first-child{
       padding-top:0 } .no-sidebar-widget .sidebar-container,.preview
       .sidebar-container{ display:none } .sidebar_top .widget.Profile{
-      padding-bottom:16px } .widget.Profile{ margin:0; width:100% }
+      padding-bottom:4px } .widget.Profile{ margin:0; width:100% }
       .widget.Profile h2{ display:none } .widget.Profile h3.title{
-      color:$(profile.title.color); margin:16px 32px } .widget.Profile
+      color:$(profile.title.color); margin:4px 16px; font-size:11px } .widget.Profile
       .individual{ text-align:center } .widget.Profile .individual
-      .profile-link{ padding:1em } .widget.Profile .individual
+      .profile-link{ padding:0.3em } .widget.Profile .individual
       .default-avatar-wrapper .avatar-icon{ margin:auto } .widget.Profile .team{
-      margin-bottom:32px; margin-left:32px; margin-right:32px } .widget.Profile
-      ul{ list-style:none; padding:0 } .widget.Profile li{ margin:10px 0 }
-      .widget.Profile .profile-img{ border-radius:50%; float:none }
+      margin-bottom:6px; margin-left:16px; margin-right:16px } .widget.Profile
+      ul{ list-style:none; padding:0 } .widget.Profile li{ margin:3px 0 }
+      .widget.Profile .profile-img{ border-radius:50%; float:none; width:28px!important; height:28px!important }
+      .widget.Profile .default-avatar-wrapper{ width:28px; height:28px }
+      .widget.Profile .default-avatar-wrapper .avatar-icon{ width:28px; height:28px }
       .widget.Profile .profile-link{ color:$(profile.link.color);
-      font-size:.9em; margin-bottom:1em; opacity:.87; overflow:hidden }
+      font-size:.75em; margin-bottom:0.2em; opacity:.87; overflow:hidden }
       .widget.Profile .profile-link.visit-profile{ border-style:solid;
       border-width:1px; border-radius:12px; cursor:pointer; font-size:12px;
       font-weight:400; padding:5px 20px; display:inline-block;
@@ -1133,9 +1136,9 @@
       margin-top:$(body.background.height); min-height:calc(100% -
       $(body.background.height)) } .sidebar-container .sidebar_top_wrapper{
       background-color:$(sidebar.backgroundColorTopHD);
-      height:$(body.background.height); margin-top:$(body.background.height *
-      -1) } .sidebar-container .sidebar_top{ height:$(body.background.height);
-      max-height:$(body.background.height) } .sidebar-container .sidebar_bottom{
+      height:auto; min-height:$(body.background.height); margin-top:$(body.background.height *
+      -1) } .sidebar-container .sidebar_top{ height:auto;
+      max-height:none } .sidebar-container .sidebar_bottom{
       max-width:$(sidebar.width); width:$(sidebar.width) } body.collapsed-header
       .sidebar-container{ z-index:15 } .sidebar-container .sidebar_top:empty{
       display:none } .sidebar-container .sidebar_top>:only-child{
@@ -1668,12 +1671,6 @@
         });
       });
     </script>
-<b:if cond='data:view.isPost'>
-<meta expr:content='data:post.snippet' name='description'/>
-<meta expr:content='data:post.title' property='og:title'/>
-<meta expr:content='data:post.snippet' property='og:description'/>
-<link expr:href='data:post.url' rel='canonical'/>
-</b:if>
   </head>
 
   <body>
@@ -2270,7 +2267,7 @@
                     <b:widget-settings>
                       <b:widget-setting name='showSnippet'>true</b:widget-setting>
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-                      <b:widget-setting name='postId'>7969949074503305198</b:widget-setting>
+                      <b:widget-setting name='postId'>8823294117794793675</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
                       <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
                     </b:widget-settings>
@@ -2517,7 +2514,7 @@
                     <b:includable id='snippetedPostContent'>
                       <!-- 우측 상단 공유 버튼 -->
                       <div class='b1-share-wrap'>
-                        <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if></b:loop></b:if>
+                        <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                         <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                           <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                         </button>
@@ -2690,7 +2687,7 @@
                     </b:includable>
                     <b:includable id='commentAuthorAvatar'>
                       <div class='avatar-image-container'>
-                        <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35' loading='lazy'/>
+                        <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' loading='lazy' width='35'/>
                       </div>
                     </b:includable>
                     <b:includable id='commentDeleteIcon' var='comment'>
@@ -2701,7 +2698,7 @@
                           </div>
                           <b:else/>
                           <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
-                            <img src='https://resources.blogblog.com/img/icon_delete13.gif' loading='lazy'/>
+                            <img loading='lazy' src='https://resources.blogblog.com/img/icon_delete13.gif'/>
                           </a>
                         </b:if>
                       </span>
@@ -2942,7 +2939,7 @@
                         <b:if cond='data:view.isSingleItem'>
                           <!-- 단일 포스트 상단 우측 공유 버튼 -->
                           <div class='b1-share-wrap'>
-                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/><span class='spj-badge-label'>Industry Validated</span></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/><span class='spj-badge-label'>Expert Reviewed</span></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/><span class='spj-badge-label'>Verified</span></a></b:if></b:loop></b:if>
+                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Industry Validated</span></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Expert Reviewed</span></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Verified</span></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                             </button>
@@ -3039,7 +3036,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <!-- 상단: 제목 + 공유 버튼 -->
                           <!-- 우측 상단 공유 버튼 -->
                           <div class='b1-share-wrap'>
-                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated &#8212; Shipyard / Class / Supplier Feedback'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed &#8212; Technical Advisory Board'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified &#8212; Editorial Team Review'><img alt='SPJ' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' loading='lazy'/></a></b:if></b:loop></b:if>
+                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                             </button>
@@ -3290,7 +3287,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                       <b:if cond='data:post.author.aboutMe and data:view.isPost'>
                         <div class='author-profile'>
                           <b:if cond='data:post.author.authorPhoto.url'>
-                            <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px' loading='lazy'/>
+                            <img class='author-image' expr:src='data:post.author.authorPhoto.url' loading='lazy' width='50px'/>
                             <div class='author-about'>
                               <b:include data='post' name='aboutPostAuthor'/>
                             </div>
@@ -3636,7 +3633,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                               </div>
                             </div>
                             <div class='tc-head'>
-                              <div class='tc-icon'>🛡️</div>
+                              <div class='tc-icon'>🛡&#65039;</div>
                               <div class='tc-title-wrap'>
                                 <div class='tc-label'>Cyber Threats</div>
                                 <div class='tc-title'>Maritime Cyber Threat Intel</div>
@@ -5578,7 +5575,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                 <div style='display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#c8e4f8;margin-bottom:14px;letter-spacing:0.4px;'>
                   <span>🧭 What We Cover</span>
                 </div>
-                <p style='font-size:12px;line-height:1.8;color:rgba(200,228,248,0.55);margin:0 0 16px;border-bottom:1px solid rgba(29,137,207,0.15);padding-bottom:14px;'>ShipPaulJobs is a practitioner-led maritime cybersecurity and compliance platform focused on IACS UR E26 and E27 implementation, OT system security, and AI-driven risk management for ships and offshore assets. Content is written by working consultants with direct experience in class approval, vessel commissioning, and flag state compliance &#8212; not academic theory. The platform covers network segmentation under IEC 62443, zone-and-conduit architecture for shipboard systems, and the practical gap between what classification societies require and what shipyards deliver.</p>
+                <p style='font-size:12px;line-height:1.8;color:rgba(200,228,248,0.55);margin:0 0 16px;border-bottom:1px solid rgba(29,137,207,0.15);padding-bottom:14px;'>ShipPaulJobs is an independent, practitioner-led platform covering maritime cybersecurity, smart ship systems, and regulatory compliance. Content is based on field experience and ongoing research by maritime professionals.</p>
                 <div style='position:relative;'>
                   <button disabled='disabled' id='wwc-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
                     <span style='width:0;height:0;border-style:solid;border-width:6px 8px 6px 0;border-color:transparent #2a4060 transparent transparent;display:block;'/>
@@ -5681,24 +5678,24 @@ if(!window.b1WC){window.b1WC=function(btn){
 
             <div id='spj-verify-policy' style='background:#0a1a2e;border-top:1px solid rgba(29,137,207,0.25);padding:22px 20px;text-align:center;'>
               <div style='max-width:680px;margin:0 auto;'>
-                <div style='font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,228,248,0.45);margin-bottom:14px;'>&#128204; Content Verification Policy</div>
+                <div style='font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,228,248,0.45);margin-bottom:14px;'>📌 Content Verification Policy</div>
                 <div style='display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;'>
                   <div style='display:flex;align-items:center;gap:8px;'>
-                    <span style='width:11px;height:11px;background:#00c97a;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(0,201,122,0.6);display:inline-block;'></span>
+                    <span style='width:11px;height:11px;background:#00c97a;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(0,201,122,0.6);display:inline-block;'/>
                     <div style='text-align:left;'>
                       <div style='font-size:11px;font-weight:700;color:#c8e4f8;line-height:1.4;'>Verified</div>
                       <div style='font-size:10px;color:rgba(200,228,248,0.55);'>Editorial Team Review</div>
                     </div>
                   </div>
                   <div style='display:flex;align-items:center;gap:8px;'>
-                    <span style='width:11px;height:11px;background:#1d89cf;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(29,137,207,0.6);display:inline-block;'></span>
+                    <span style='width:11px;height:11px;background:#1d89cf;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(29,137,207,0.6);display:inline-block;'/>
                     <div style='text-align:left;'>
                       <div style='font-size:11px;font-weight:700;color:#c8e4f8;line-height:1.4;'>Expert Reviewed</div>
                       <div style='font-size:10px;color:rgba(200,228,248,0.55);'>Technical Advisory Board</div>
                     </div>
                   </div>
                   <div style='display:flex;align-items:center;gap:8px;'>
-                    <span style='width:11px;height:11px;background:#9b59b6;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(155,89,182,0.6);display:inline-block;'></span>
+                    <span style='width:11px;height:11px;background:#9b59b6;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(155,89,182,0.6);display:inline-block;'/>
                     <div style='text-align:left;'>
                       <div style='font-size:11px;font-weight:700;color:#c8e4f8;line-height:1.4;'>Industry Validated</div>
                       <div style='font-size:10px;color:rgba(200,228,248,0.55);'>Shipyard / Class / Supplier Feedback</div>
@@ -5829,7 +5826,56 @@ if(!window.b1WC){window.b1WC=function(btn){
       <div class='sidebar_top_wrapper'>
         <b:class cond='data:widgets none w =&gt; w.sectionId == &quot;sidebar_top&quot;' name='no-items'/>
         <b:section class='sidebar_top' id='sidebar_top' name='Sidebar (Top)'>
-          <b:widget id='Profile1' locked='true' title='About' type='Profile' version='2' visible='false'>
+          <b:widget id='Translate1' locked='false' title='Translate' type='Translate' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='displayMode'>VERTICAL</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+            <b:include name='widget-title'/>
+            <b:include name='content'/>
+          </b:includable>
+            <b:includable id='content'>
+            <div id='google_translate_element'/>
+            <script>
+              function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                  pageLanguage: &#39;<b:eval expr='data:blog.locale.language ?: &quot;auto&quot;'/>&#39;,
+                  autoDisplay: &#39;true&#39;,
+                  layout: google.translate.TranslateElement.InlineLayout.<data:layout/>
+                }, &#39;google_translate_element&#39;);
+              }
+            </script>
+            <script async='async' src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'/>
+          </b:includable>
+          </b:widget>
+          <b:widget id='Stats1' locked='false' title='Total Pageviews' type='Stats' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='showGraphicalCounter'>false</b:widget-setting>
+              <b:widget-setting name='showAnimatedCounter'>true</b:widget-setting>
+              <b:widget-setting name='showSparkline'>false</b:widget-setting>
+              <b:widget-setting name='sparklineStyle'>BLACK_TRANSPARENT</b:widget-setting>
+              <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+            <b:include name='widget-title'/>
+            <b:include name='content'/>
+          </b:includable>
+            <b:includable id='content'>
+            <div class='widget-content'>
+              <!-- Content is going to be visible when data will be fetched from server. -->
+              <div expr:id='data:widget.instanceId + &quot;_content&quot;' style='display: none'>
+                <!-- Counter and image will be injected later via AJAX call. -->
+                <b:if cond='data:showSparkline'>
+                  <script src='https://www.gstatic.com/charts/loader.js' type='text/javascript'/>
+                  <span expr:id='data:widget.instanceId + &quot;_sparklinespan&quot;' style='display: inline-block; width: 75px; height: 30px'/>
+                </b:if>
+                <span expr:class='&quot;counter-wrapper &quot; + (data:showGraphicalCounter ? &quot;graph-counter-wrapper&quot; : &quot;text-counter-wrapper&quot;)' expr:id='data:widget.instanceId + &quot;_totalCount&quot;'>
+                </span>
+              </div>
+            </div>
+          </b:includable>
+          </b:widget>
+          <b:widget id='Profile1' locked='true' title='Contributing Author' type='Profile' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='showaboutme'>false</b:widget-setting>
               <b:widget-setting name='showlocation'>false</b:widget-setting>
@@ -5934,273 +5980,297 @@ if(!window.b1WC){window.b1WC=function(btn){
               </a>
             </b:includable>
           </b:widget>
-        </b:section>
-      </div>
-      <b:section class='sidebar_bottom' id='sidebar_bottom' name='Sidebar (Bottom)' preferred='yes'>
-        <b:widget id='Translate1' locked='false' title='Translate' type='Translate' version='2' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='displayMode'>VERTICAL</b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <b:include name='content'/>
-          </b:includable>
-          <b:includable id='content'>
-            <div id='google_translate_element'/>
-            <script>
-              function googleTranslateElementInit() {
-                new google.translate.TranslateElement({
-                  pageLanguage: &#39;<b:eval expr='data:blog.locale.language ?: &quot;auto&quot;'/>&#39;,
-                  autoDisplay: &#39;true&#39;,
-                  layout: google.translate.TranslateElement.InlineLayout.<data:layout/>
-                }, &#39;google_translate_element&#39;);
-              }
-            </script>
-            <script async='async' src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'/>
-          </b:includable>
-        </b:widget>
-        <b:widget id='Stats1' locked='false' title='Total Pageviews' type='Stats' version='2' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='showGraphicalCounter'>false</b:widget-setting>
-            <b:widget-setting name='showAnimatedCounter'>true</b:widget-setting>
-            <b:widget-setting name='showSparkline'>false</b:widget-setting>
-            <b:widget-setting name='sparklineStyle'>BLACK_TRANSPARENT</b:widget-setting>
-            <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <b:include name='content'/>
-          </b:includable>
-          <b:includable id='content'>
-            <div class='widget-content'>
-              <!-- Content is going to be visible when data will be fetched from server. -->
-              <div expr:id='data:widget.instanceId + &quot;_content&quot;' style='display: none'>
-                <!-- Counter and image will be injected later via AJAX call. -->
-                <b:if cond='data:showSparkline'>
-                  <script src='https://www.gstatic.com/charts/loader.js' type='text/javascript'/>
-                  <span expr:id='data:widget.instanceId + &quot;_sparklinespan&quot;' style='display: inline-block; width: 75px; height: 30px'/>
-                </b:if>
-                <span expr:class='&quot;counter-wrapper &quot; + (data:showGraphicalCounter ? &quot;graph-counter-wrapper&quot; : &quot;text-counter-wrapper&quot;)' expr:id='data:widget.instanceId + &quot;_totalCount&quot;'>
-                </span>
-              </div>
-            </div>
-          </b:includable>
-        </b:widget>
-        <b:widget id='HTML11' locked='false' title='' type='HTML' version='2' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<style>
+          <b:widget id='HTML11' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[<style>
+  /* ── animations ── */
   @keyframes spj-shake {
-    0%   { transform: translateX(0);     }
+    0%   { transform: translateX(0); }
     15%  { transform: translateX(-24px); }
-    30%  { transform: translateX(24px);  }
+    30%  { transform: translateX(24px); }
     45%  { transform: translateX(-20px); }
-    60%  { transform: translateX(20px);  }
+    60%  { transform: translateX(20px); }
     75%  { transform: translateX(-10px); }
-    88%  { transform: translateX(10px);  }
-    100% { transform: translateX(0);     }
+    88%  { transform: translateX(10px); }
+    100% { transform: translateX(0); }
   }
   @keyframes spj-float {
     0%, 100% { transform: translateY(0px); }
     50%       { transform: translateY(-5px); }
   }
   @keyframes spj-flip360 {
-    0%   { transform: rotateY(0deg)   scale(1);    }
+    0%   { transform: rotateY(0deg) scale(1); }
     40%  { transform: rotateY(200deg) scale(1.08); }
     70%  { transform: rotateY(320deg) scale(1.04); }
-    100% { transform: rotateY(360deg) scale(1);    }
+    100% { transform: rotateY(360deg) scale(1); }
   }
+  /* ── SPJ logo ── */
   #spj-logo-wrap {
-    position: relative;
-    display: inline-block;
-    width: 70%;
-    perspective: 600px;
+    position: relative; display: inline-block;
+    width: 60%; perspective: 600px;
   }
   #spj-logo {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-    cursor: pointer;
+    width: 100%; aspect-ratio: 1/1; object-fit: contain;
+    display: block; margin: 0 auto; cursor: pointer;
     transform-origin: center bottom;
     animation: spj-float 3.5s ease-in-out infinite;
     transition: filter 0.2s;
   }
-  #spj-logo:hover {
-    filter: drop-shadow(0 6px 16px rgba(0,119,181,0.35));
-  }
-  #spj-logo.flipping {
-    animation: spj-flip360 0.65s ease-in-out;
-    transform-origin: center center;
-  }
-  #spj-logo.shaking-hard {
-    animation: spj-shake 0.5s ease-in-out 2;
-  }
+  #spj-logo:hover { filter: drop-shadow(0 6px 16px rgba(0,119,181,0.35)); }
+  #spj-logo.flipping { animation: spj-flip360 0.65s ease-in-out; transform-origin: center center; }
+  #spj-logo.shaking-hard { animation: spj-shake 0.5s ease-in-out 2; }
+  /* ── social row ── */
   #spj-social-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px;
+    display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px;
   }
   #spj-li-btn, #spj-yt-btn {
-    position: relative;
-    border-radius: 6px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    position: relative; border-radius: 6px; width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     transition: background 0.2s, transform 0.2s;
   }
-  #spj-li-btn {
-    background: #0077b5;
-  }
-  #spj-li-btn:hover {
-    background: #005a8e;
-    transform: scale(1.12);
-  }
-  #spj-yt-btn {
-    background: #ff0000;
-  }
-  #spj-yt-btn:hover {
-    background: #cc0000;
-    transform: scale(1.12);
-  }
+  #spj-li-btn { background: #0077b5; }
+  #spj-li-btn:hover { background: #005a8e; transform: scale(1.12); }
+  #spj-yt-btn { background: #ff0000; }
+  #spj-yt-btn:hover { background: #cc0000; transform: scale(1.12); }
   #spj-li-tooltip, #spj-yt-tooltip {
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
+    position: absolute; bottom: 34px; left: 50%;
     transform: translateX(-50%) translateY(4px);
-    background: #0a2342;
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 5px 9px;
-    border-radius: 5px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
+    background: #0a2342; color: #fff; font-size: 10px; font-weight: 700;
+    padding: 4px 8px; border-radius: 5px; white-space: nowrap;
+    opacity: 0; pointer-events: none;
     transition: opacity 0.18s, transform 0.18s;
-    letter-spacing: 0.3px;
-    font-family: Inter, sans-serif;
+    letter-spacing: 0.3px; font-family: Inter, sans-serif;
   }
   #spj-li-btn:hover #spj-li-tooltip,
   #spj-yt-btn:hover #spj-yt-tooltip {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    opacity: 1; transform: translateX(-50%) translateY(0);
   }
-  @keyframes wwa-marquee {
-    0%   { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+  /* ── section divider ── */
+  .spj-divider {
+    border: none; border-top: 1px solid rgba(0,0,0,0.08);
+    margin: 10px 0;
   }
-  .spj-crew-btn {
-    display: inline-flex;
-    align-items: center;
-    overflow: hidden;
-    width: 90%;
-    padding: 8px 15px;
-    background: #ffffff;
-    color: #0a2342;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    border: 2px solid #ffffff;
-    transition: background 0.18s, border-color 0.18s;
-    font-family: Inter, sans-serif;
+  /* ── Who am I ── */
+  #spj-wai {
+    display: flex; align-items: center; gap: 10px; padding: 6px 4px;
   }
-  .spj-crew-btn:hover {
-    background: #f0f7ff;
-    border-color: #d0dde8;
+  #spj-wai-photo {
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 2px solid #1a9e82; object-fit: cover; flex-shrink: 0;
   }
-  .spj-crew-btn:hover .spj-crew-inner {
-    animation-play-state: paused;
+  #spj-wai-info { flex: 1; min-width: 0; }
+  #spj-wai-name {
+    font-size: 12.5px; font-weight: 800; color: #0a2342;
+    font-family: Inter, sans-serif; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
   }
-  .spj-crew-inner {
-    display: inline-block;
-    white-space: nowrap;
-    animation: wwa-marquee 18s linear infinite;
-    background: #ffffff;
-    color: #0a2342;
-    padding: 2px 8px;
-    border-radius: 4px;
+  #spj-wai-title {
+    font-size: 10px; color: #5a7a99; margin-top: 2px;
+    font-family: Inter, sans-serif; line-height: 1.4;
+  }
+  #spj-wai-links {
+    display: flex; gap: 5px; margin-top: 5px;
+  }
+  .spj-wai-link {
+    font-size: 10px; font-weight: 700; padding: 2px 8px;
+    border-radius: 4px; text-decoration: none; font-family: Inter, sans-serif;
+    transition: opacity 0.18s;
+  }
+  .spj-wai-link:hover { opacity: 0.82; }
+  .spj-wai-link-li { background: #0077b5; color: #fff; }
+  .spj-wai-link-web { background: rgba(26,158,130,0.12); color: #0a7a60; border: 1px solid rgba(26,158,130,0.35); }
+  /* ── section label ── */
+  .spj-section-label {
+    font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #0a2342;
+    font-family: Inter, sans-serif; margin-bottom: 6px;
+  }
+  /* ── join CTA ── */
+  #spj-join-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; padding: 9px 12px;
+    background: #0a2342;
+    border: none;
+    border-radius: 8px; text-decoration: none;
+    color: #ffffff; font-size: 11.5px; font-weight: 700;
+    font-family: Inter, sans-serif; letter-spacing: 0.2px;
+    transition: background 0.18s;
+    box-sizing: border-box;
+  }
+  #spj-join-btn:hover {
+    background: #154f7a;
+  }
+  #spj-join-btn .spj-join-icon { font-size: 13px; flex-shrink: 0; }
+  #spj-join-btn .spj-join-text { text-align: left; line-height: 1.35; }
+  #spj-join-btn .spj-join-sub {
+    display: block; font-size: 9.5px; font-weight: 500;
+    color: rgba(255,255,255,0.65); margin-top: 1px;
   }
 </style>
-<div style="text-align:center;padding:8px 0;">
+
+<!-- ══════════════════════════════════════════
+     SPJ Logo + Social
+══════════════════════════════════════════ -->
+<div style="text-align:center;padding:6px 0;">
   <div id="spj-logo-wrap">
     <img id="spj-logo"
          src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png"
-         alt="ShipPaulJobs" loading='lazy'/>
+         alt="ShipPaulJobs" loading="lazy"/>
   </div>
   <div id="spj-social-row">
     <a id="spj-li-btn" href="https://www.linkedin.com/groups/21070066" target="_blank" rel="noopener">
-      <svg fill='#fff' height='16' width='16'><use href='#spj-ico-li'/></svg>
+      <svg fill="#fff" height="15" width="15"><use href="#spj-ico-li"/></svg>
       <span id="spj-li-tooltip">&#x2693; The ShipPaulJobs Community</span>
     </a>
     <a id="spj-yt-btn" href="https://www.youtube.com/@ShipPaulJobs" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="#fff" width="16" height="16"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" width="15" height="15"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
       <span id="spj-yt-tooltip">&#x25B6; ShipPaulJobs YouTube</span>
     </a>
   </div>
 </div>
-<div style="text-align:center;margin-top:8px;">
-  <a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html"
-     target="_blank" rel="noopener" class="spj-crew-btn">
-    <span class="spj-crew-inner">&#x1F465; Join the maritime cybersecurity team &#34;<strong style="color:#7ec8f4;font-weight:700;">Crew</strong>&#34; or become a &#34;<strong style="color:#7ec8f4;font-weight:700;">Technical advisor</strong>&#34; &gt;&gt; Click here</span>
-  </a>
+
+<hr class="spj-divider"/>
+
+<!-- ══════════════════════════════════════════
+     1. Who am I
+══════════════════════════════════════════ -->
+<div class="spj-section-label">Who am I</div>
+<a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" target="_blank" rel="noopener" style="text-decoration:none;display:block;">
+<div id="spj-wai" style="cursor:pointer;transition:opacity 0.18s;" onmouseover="this.style.opacity='0.82'" onmouseout="this.style.opacity='1'">
+  <img id="spj-wai-photo"
+       src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+       alt="Captain Paul" loading="lazy"/>
+  <div id="spj-wai-info">
+    <div id="spj-wai-name">Captain Paul</div>
+    <div id="spj-wai-title">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+    <div id="spj-wai-links">
+      <a class="spj-wai-link spj-wai-link-li"
+         href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="spj-wai-link spj-wai-link-web"
+         href="https://www.shippauljobs.com" target="_blank" rel="noopener">Website</a>
+    </div>
+  </div>
 </div>
+</a>
+
+<hr class="spj-divider"/>
+
+<!-- ══════════════════════════════════════════
+     2. Contributing Author
+══════════════════════════════════════════ -->
+<div id="spj-ca-wrap">
+  <div class="spj-section-label">
+    Contributing Author&nbsp;<span style="color:#8a9aaa;font-weight:500;">(<span id="spj-ca-pos">1</span>/<span id="spj-ca-total">0</span>)</span>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;padding:2px 0 6px;">
+    <button id="spj-ca-prev" style="background:rgba(0,35,66,0.06);border:1px solid rgba(0,35,66,0.15);border-radius:50%;cursor:pointer;color:#5a7a99;font-size:17px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;padding:0;">&#8249;</button>
+    <div id="spj-ca-slot" style="flex:1;text-align:center;display:flex;align-items:center;justify-content:center;min-height:58px;padding:0 2px;"></div>
+    <button id="spj-ca-next" style="background:rgba(0,35,66,0.06);border:1px solid rgba(0,35,66,0.15);border-radius:50%;cursor:pointer;color:#5a7a99;font-size:17px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;padding:0;">&#8250;</button>
+  </div>
+  <div id="spj-ca-name" style="text-align:center;font-size:10px;color:#6b8599;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 14px 4px;letter-spacing:0.02em;font-family:Inter,sans-serif;"></div>
+</div>
+
+<hr class="spj-divider"/>
+
+<!-- ══════════════════════════════════════════
+     3. Join CTA
+══════════════════════════════════════════ -->
+<a id="spj-join-btn"
+   href="https://www.shippauljobs.com/p/contact.html"
+   target="_blank" rel="noopener">
+  <span class="spj-join-icon">&#x1F465;</span>
+  <span class="spj-join-text">
+    Join as <strong>Crew</strong> or <strong>Technical Advisor</strong>
+    <span class="spj-join-sub">Maritime cybersecurity team &#x2192; Click here</span>
+  </span>
+</a>
+
 <script>
-  (function(){
-    var img = document.getElementById('spj-logo');
-    if(!img) return;
-    var clickTimer = null;
-
-    function startFlip() {
-      img.classList.remove('flipping', 'shaking-hard');
-      void img.offsetWidth;
-      img.classList.add('flipping');
-    }
-
-    function startShakeHard() {
-      img.classList.remove('flipping', 'shaking-hard');
-      void img.offsetWidth;
-      img.classList.add('shaking-hard');
-    }
-
-    img.addEventListener('click', function(){
-      if(clickTimer) return;
-      clickTimer = setTimeout(function(){
-        clickTimer = null;
-        startFlip();
-      }, 220);
+/* ── Contributing Author Carousel ── */
+(function(){
+  function initCA(){
+    var p=document.getElementById('Profile1');
+    if(!p) return;
+    var members=p.querySelectorAll('.team-member');
+    if(!members.length) return;
+    var authors=[];
+    members.forEach(function(m){
+      var link=m.querySelector('a.profile-link');
+      var img=m.querySelector('img.profile-img');
+      var nameEl=m.querySelector('.profile-name');
+      authors.push({href:link?link.href:'#',imgSrc:img?img.src:null,name:nameEl?nameEl.textContent.trim():'?'});
     });
-
-    img.addEventListener('dblclick', function(){
-      if(clickTimer){ clearTimeout(clickTimer); clickTimer = null; }
-      startShakeHard();
-    });
-
-    img.addEventListener('animationend', function(e){
-      if(e.animationName === 'spj-flip360'){
-        img.classList.remove('flipping');
+    p.style.display='none';
+    var n=authors.length;
+    var posEl=document.getElementById('spj-ca-pos'),totalEl=document.getElementById('spj-ca-total');
+    if(totalEl) totalEl.textContent=n;
+    var center=2,slot=document.getElementById('spj-ca-slot');
+    var sizes=[26,36,46,36,26],fsizes=[10,13,18,13,10],ops=[0.3,0.45,0.7,0.45,0.3],bgs=[0.1,0.18,0.28,0.18,0.1];
+    function render(){
+      var html='<div style="display:flex;justify-content:center;align-items:center;gap:4px;">';
+      for(var pos=0;pos<5;pos++){
+        var ai=(center-2+pos+n)%n,a=authors[ai];
+        var sz=sizes[pos],fsz=fsizes[pos],op=ops[pos],bg=bgs[pos],av;
+        if(a.imgSrc){
+          av='<img src="'+a.imgSrc+'" alt="'+a.name+'" style="width:'+sz+'px;height:'+sz+'px;border-radius:50%;object-fit:cover;border:2px solid rgba(168,208,240,'+op+');display:block;opacity:'+(0.5+op*0.7)+';">';
+        } else {
+          av='<div style="width:'+sz+'px;height:'+sz+'px;border-radius:50%;background:rgba(29,137,207,'+bg+');border:2px solid rgba(168,208,240,'+op+');display:flex;align-items:center;justify-content:center;font-size:'+fsz+'px;font-weight:800;color:rgba(168,208,240,'+(0.4+op*0.5)+');">'+a.name.charAt(0).toUpperCase()+'</div>';
+        }
+        html+='<a href="'+a.href+'" target="_blank" rel="noopener" title="'+a.name+'" style="display:flex;align-items:center;justify-content:center;text-decoration:none;flex-shrink:0;">'+av+'</a>';
       }
-      if(e.animationName === 'spj-shake'){
-        img.classList.remove('shaking-hard');
-      }
-    });
-  })();
+      html+='</div>';
+      if(slot) slot.innerHTML=html;
+      if(posEl) posEl.textContent=center+1;
+      var nameEl=document.getElementById('spj-ca-name');
+      if(nameEl) nameEl.textContent=authors[center].name;
+    }
+    render();
+    function goNext(){center=(center+1)%n;render();}
+    function goPrev(){center=(center-1+n)%n;render();}
+    var autoTimer=setInterval(goNext,2500);
+    function resetTimer(){clearInterval(autoTimer);autoTimer=setInterval(goNext,2500);}
+    var prev=document.getElementById('spj-ca-prev'),next=document.getElementById('spj-ca-next');
+    if(prev) prev.addEventListener('click',function(){goPrev();resetTimer();});
+    if(next) next.addEventListener('click',function(){goNext();resetTimer();});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initCA);
+  else initCA();
+})();
+</script>
+<script>
+/* ── Logo animation ── */
+(function(){
+  var img=document.getElementById('spj-logo');
+  if(!img) return;
+  var clickTimer=null;
+  function startFlip(){img.classList.remove('flipping','shaking-hard');void img.offsetWidth;img.classList.add('flipping');}
+  function startShakeHard(){img.classList.remove('flipping','shaking-hard');void img.offsetWidth;img.classList.add('shaking-hard');}
+  img.addEventListener('click',function(){
+    if(clickTimer) return;
+    clickTimer=setTimeout(function(){clickTimer=null;startFlip();},220);
+  });
+  img.addEventListener('dblclick',function(){
+    if(clickTimer){clearTimeout(clickTimer);clickTimer=null;}
+    startShakeHard();
+  });
+  img.addEventListener('animationend',function(e){
+    if(e.animationName==='spj-flip360') img.classList.remove('flipping');
+    if(e.animationName==='spj-shake') img.classList.remove('shaking-hard');
+  });
+})();
 </script>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
+            </b:widget-settings>
+            <b:includable id='main'>
             <b:include name='widget-title'/>
             <div class='widget-content'>
               <data:content/>
             </div>
           </b:includable>
-        </b:widget>
+          </b:widget>
+        </b:section>
+      </div>
+      <b:section class='sidebar_bottom' id='sidebar_bottom' name='Sidebar (Bottom)' preferred='yes'>
         <b:widget id='HTML1' locked='false' title='Who We Are?' type='HTML' version='2' visible='false'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
@@ -6708,6 +6778,19 @@ if(!window.b1WC){window.b1WC=function(btn){
             Subscribe to Newsletter
           </button>
         </form>
+      </div>
+      <div style='padding:10px 14px 12px;border-top:1px solid #eaf0f7;'>
+        <p style='margin:0;line-height:1.8;text-align:center;font-size:10.5px;color:#8a9bb0;font-family:Segoe UI,Arial,sans-serif;'>
+          <a href='https://www.shippauljobs.com/p/about.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>About</a>
+          <span style='margin:0 3px;opacity:0.5;'>|</span>
+          <a href='https://www.shippauljobs.com/p/contact.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Contact</a>
+          <span style='margin:0 3px;opacity:0.5;'>|</span>
+          <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Privacy Policy</a>
+          <span style='margin:0 3px;opacity:0.5;'>|</span>
+          <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Terms</a>
+          <span style='margin:0 3px;opacity:0.5;'>|</span>
+          <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Editorial Policy</a>
+        </p>
       </div>
     </div>
   </div>
