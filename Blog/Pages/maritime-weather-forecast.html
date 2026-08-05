@@ -1,0 +1,608 @@
+<!--════════════════════════════════════════════════════════════
+ Page   : Maritime Weather Forecast — Live Sea Conditions
+ Author : Captain Paul  |  ShipPaulJobs
+ URL    : https://www.shippauljobs.com/p/maritime-weather-forecast.html
+ NOTE   : Blogger HTML fragment — NO <head>, inline CSS only
+════════════════════════════════════════════════════════════-->
+
+<style>
+#mwf-wrap * { box-sizing: border-box; }
+#mwf-wrap {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #2c3e50;
+  max-width: 860px;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.mwf-hdr {
+  background: linear-gradient(135deg, #0a2342 0%, #154f7a 55%, #1a9e82 100%);
+  border-radius: 14px;
+  padding: 28px 28px 22px;
+  margin-bottom: 20px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.mwf-hdr::before {
+  content: '';
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.mwf-hdr-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.mwf-hdr-tag  {
+  background: rgba(26,158,130,0.35); color: #7effd8;
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  padding: 3px 11px; border-radius: 20px; text-transform: uppercase;
+}
+.mwf-hdr-tag.alt { background: rgba(255,255,255,0.13); color: #b8d4ea; }
+.mwf-hdr h1 { font-size: 22px; font-weight: 800; margin: 0 0 8px; line-height: 1.35; }
+.mwf-hdr p  { font-size: 13px; color: rgba(255,255,255,0.72); margin: 0 0 18px; }
+.mwf-author { display: flex; align-items: center; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; }
+.mwf-author img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #1a9e82; flex-shrink: 0; }
+.mwf-author-name { color: #fff; font-size: 13px; font-weight: 700; line-height: 1.3; }
+.mwf-author-sub  { color: #9ab5c9; font-size: 10px; }
+.mwf-live-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(26,255,218,0.12); border: 1px solid rgba(26,255,218,0.3);
+  border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 700;
+  color: #1affda; margin-left: auto;
+}
+.mwf-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #1affda;
+  animation: mwf-pulse 1.8s ease-in-out infinite;
+}
+@keyframes mwf-pulse { 0%,100%{opacity:.35} 50%{opacity:1} }
+
+/* ── LOCATION SEARCH ── */
+.mwf-search {
+  background: #f0f6fb; border: 1px solid #c3ddf0;
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+}
+.mwf-search-label { font-size: 12px; font-weight: 700; color: #2c3e50; white-space: nowrap; }
+.mwf-search input {
+  flex: 1; min-width: 160px; border: 1px solid #b0cce0;
+  border-radius: 6px; padding: 6px 10px; font-size: 13px; font-family: inherit;
+  background: #fff; color: #2c3e50; outline: none;
+}
+.mwf-search input:focus { border-color: #1a9e82; }
+.mwf-btn {
+  background: #1a9e82; color: #fff; border: none;
+  border-radius: 6px; padding: 7px 14px; font-size: 12px; font-weight: 700;
+  cursor: pointer; white-space: nowrap; transition: background 0.15s;
+}
+.mwf-btn:hover { background: #13806a; }
+.mwf-btn.alt { background: #154f7a; }
+.mwf-btn.alt:hover { background: #0d3656; }
+.mwf-search-note { font-size: 11px; color: #6a8aaa; width: 100%; }
+
+/* ── CURRENT CONDITIONS ── */
+.mwf-current {
+  background: #040c1c;
+  border: 1px solid rgba(26,158,130,0.35);
+  border-radius: 12px; margin-bottom: 16px; overflow: hidden;
+}
+.mwf-current-hdr {
+  background: rgba(26,158,130,0.12);
+  border-bottom: 1px solid rgba(26,158,130,0.25);
+  padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+.mwf-current-title { color: #1affda; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-family: monospace; }
+.mwf-loc-str { color: rgba(200,228,248,0.6); font-size: 11px; font-family: monospace; }
+
+.mwf-hero-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px 8px; flex-wrap: wrap;
+}
+.mwf-temp-icon { font-size: 48px; line-height: 1; flex-shrink: 0; }
+.mwf-temp-big  { font-size: 38px; font-weight: 900; color: #fff; font-family: monospace; line-height: 1; }
+.mwf-temp-unit { font-size: 20px; color: rgba(200,228,248,0.5); }
+.mwf-cond-desc { color: #9ab5c9; font-size: 13px; margin-top: 4px; }
+
+.mwf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: rgba(26,158,130,0.1);
+  margin: 0 18px 14px;
+  border: 1px solid rgba(26,158,130,0.15);
+  border-radius: 8px; overflow: hidden;
+}
+.mwf-cell {
+  background: #06111f; padding: 10px 14px;
+}
+.mwf-cell-lbl {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(200,228,248,0.4); font-family: monospace; margin-bottom: 4px;
+}
+.mwf-cell-val {
+  font-size: 13px; font-weight: 700; color: #c8e4f8; font-family: monospace; line-height: 1.4;
+}
+.mwf-cell-val.hi   { color: #1affda; }
+.mwf-cell-val.warn { color: #fcd34d; }
+.mwf-cell-val.danger { color: #f87171; }
+
+/* sea-state bar */
+.mwf-sea-bar {
+  margin: 0 18px 16px;
+  background: rgba(26,158,130,0.1);
+  border: 1px solid rgba(26,158,130,0.2);
+  border-radius: 8px; padding: 10px 14px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.mwf-sea-icon { font-size: 24px; flex-shrink: 0; }
+.mwf-sea-label { color: #1affda; font-size: 12px; font-weight: 800; font-family: monospace; }
+.mwf-sea-sub   { color: rgba(200,228,248,0.6); font-size: 11px; font-family: monospace; }
+
+/* ── 7-DAY FORECAST ── */
+.mwf-forecast {
+  background: #06111f;
+  border: 1px solid rgba(26,158,130,0.2);
+  border-radius: 12px; margin-bottom: 16px; overflow: hidden;
+}
+.mwf-forecast-hdr {
+  background: rgba(26,158,130,0.08);
+  border-bottom: 1px solid rgba(26,158,130,0.2);
+  padding: 10px 16px;
+  color: #1affda; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-family: monospace;
+}
+.mwf-forecast-row {
+  display: grid;
+  grid-template-columns: 52px 30px 1fr 1fr 1fr 1fr;
+  gap: 0 8px;
+  padding: 9px 16px;
+  border-bottom: 1px solid rgba(26,158,130,0.08);
+  align-items: center;
+}
+.mwf-forecast-row:last-child { border-bottom: none; }
+.mwf-fc-day  { font-size: 11px; font-weight: 700; color: #9ab5c9; font-family: monospace; }
+.mwf-fc-icon { font-size: 18px; text-align: center; }
+.mwf-fc-temp { font-size: 12px; font-family: monospace; color: #c8e4f8; }
+.mwf-fc-wind { font-size: 11px; font-family: monospace; color: #7effd8; }
+.mwf-fc-wave { font-size: 11px; font-family: monospace; color: #93c5fd; }
+.mwf-fc-rain { font-size: 11px; font-family: monospace; color: #d8b4fe; }
+
+/* Loading / error */
+.mwf-loading { padding: 36px 24px; text-align: center; color: rgba(200,228,248,0.5); font-family: monospace; font-size: 12px; }
+.mwf-err     { padding: 20px; color: #fca5a5; font-family: monospace; font-size: 11.5px; text-align: center; }
+
+/* ── EDITORIAL ── */
+.mwf-note {
+  background: #f0f4f8; border-left: 4px solid #1a9e82;
+  border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px;
+  font-size: 13px; color: #354a5e; line-height: 1.8;
+}
+.mwf-editorial h2 {
+  font-size: 18px; font-weight: 700; color: #0a2342;
+  margin: 24px 0 12px; padding-bottom: 8px;
+  border-bottom: 2px solid rgba(26,158,130,0.3);
+}
+.mwf-editorial p { font-size: 14px; margin: 0 0 16px; color: #2c3e50; }
+.mwf-editorial ul { margin: 0 0 16px; padding-left: 20px; }
+.mwf-editorial ul li { font-size: 14px; margin-bottom: 6px; color: #2c3e50; }
+
+/* Beaufort table */
+.mwf-table-wrap { overflow-x: auto; margin-bottom: 20px; }
+.mwf-table {
+  width: 100%; border-collapse: collapse; font-size: 12.5px;
+  border: 1px solid #d0e4f0; border-radius: 8px; overflow: hidden;
+}
+.mwf-table th {
+  background: #0a2342; color: #fff; padding: 9px 12px;
+  font-size: 11px; font-weight: 700; text-align: left;
+}
+.mwf-table td { padding: 8px 12px; border-bottom: 1px solid #e4eef6; color: #2c3e50; }
+.mwf-table tr:last-child td { border-bottom: none; }
+.mwf-table tr:nth-child(even) td { background: #f4f9fc; }
+.mwf-table .bft-num { font-weight: 800; color: #1a9e82; font-family: monospace; }
+
+/* Info cards */
+.mwf-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 10px; margin: 16px 0 20px; }
+.mwf-card {
+  background: #f4f7fb; border: 1px solid #dce8f5;
+  border-radius: 10px; padding: 14px 16px;
+}
+.mwf-card-icon  { font-size: 20px; margin-bottom: 6px; }
+.mwf-card-title { font-size: 12px; font-weight: 700; color: #0a2342; margin-bottom: 4px; }
+.mwf-card-desc  { font-size: 12px; color: #4a6080; line-height: 1.6; }
+</style>
+
+<div id="mwf-wrap">
+
+  <!-- ══ HEADER ══ -->
+  <div class="mwf-hdr">
+    <div class="mwf-hdr-tags">
+      <span class="mwf-hdr-tag">🌤 Maritime Weather</span>
+      <span class="mwf-hdr-tag alt">Sea State</span>
+      <span class="mwf-hdr-tag alt">Beaufort Scale</span>
+      <span class="mwf-hdr-tag alt">Swell Forecast</span>
+      <span class="mwf-hdr-tag alt">🔴 LIVE</span>
+    </div>
+    <h1>Maritime Weather Forecast</h1>
+    <p>Live atmospheric and marine conditions for any global position — current wind Beaufort, sea state, wave height, swell period, and a 7-day outlook from open-source meteorological APIs.</p>
+    <div class="mwf-author">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/member/insung.jpeg" alt="Captain Paul" />
+      <div>
+        <div class="mwf-author-name">Captain Paul</div>
+        <div class="mwf-author-sub">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+      </div>
+      <div class="mwf-live-badge"><span class="mwf-dot"></span>LIVE</div>
+    </div>
+  </div>
+
+  <!-- ══ LOCATION SEARCH ══ -->
+  <div class="mwf-search">
+    <span class="mwf-search-label">📍 Location</span>
+    <input id="mwf-city" type="text" placeholder="City or port name  (e.g. Busan, Rotterdam, Singapore)" autocomplete="off" />
+    <button class="mwf-btn" onclick="mwfSearchCity()">Search</button>
+    <button class="mwf-btn alt" onclick="mwfGPS()">📡 Use GPS</button>
+    <div class="mwf-search-note">
+      Leave blank to auto-detect from your IP location. Data: <a href="https://open-meteo.com" target="_blank" rel="noopener" style="color:#1a9e82;font-weight:700;">Open-Meteo</a> (free, no API key).
+    </div>
+  </div>
+
+  <!-- ══ CURRENT CONDITIONS ══ -->
+  <div class="mwf-current" id="mwf-current">
+    <div class="mwf-current-hdr">
+      <span class="mwf-current-title">⬡ Current Sea Conditions</span>
+      <span class="mwf-loc-str" id="mwf-locstr">Detecting location…</span>
+    </div>
+    <div id="mwf-cur-body"><div class="mwf-loading">⌛ Fetching weather data…</div></div>
+  </div>
+
+  <!-- ══ 7-DAY FORECAST ══ -->
+  <div class="mwf-forecast" id="mwf-forecast" style="display:none">
+    <div class="mwf-forecast-hdr">⬡ 7-Day Outlook</div>
+    <div id="mwf-fc-body"></div>
+  </div>
+
+  <!-- ══ BEAUFORT NOTE ══ -->
+  <div class="mwf-note">
+    <strong>📌 Data Source Notice:</strong> Weather data is sourced from <strong>Open-Meteo</strong> (ECMWF / ERA5 reanalysis + GFS models). Marine wave data is sourced from the <strong>Open-Meteo Marine API</strong>. Both are freely licensed for non-commercial use. Data latency is typically 1–3 hours from model run time. Always cross-check with official NAVTEX, WMO, or flag state meteorological services before making operational decisions.
+  </div>
+
+  <!-- ══ EDITORIAL ══ -->
+  <div class="mwf-editorial">
+
+    <h2>Understanding Maritime Weather Data for Vessel Operations</h2>
+    <p>Weather data in the context of vessel operations is not merely a forecasting convenience — it is a safety-critical input that informs cargo securing, passage planning, crew scheduling, and — increasingly — cybersecurity risk assessment. The convergence of real-time meteorological APIs with vessel management systems means that the same data pipelines that drive a bridge display can, if inadequately secured, become an attack surface for adversaries seeking to manipulate navigational situational awareness.</p>
+    <p>This page draws on the same open-meteo atmospheric and marine APIs used in commercial maritime planning tools, but presents the data in a transparent, accessible format. Understanding what your bridge weather system is fetching — and from where — is the first step in assessing whether that data channel meets IACS UR E26 requirements for network segmentation and data integrity verification.</p>
+
+    <div class="mwf-cards">
+      <div class="mwf-card">
+        <div class="mwf-card-icon">💨</div>
+        <div class="mwf-card-title">Wind &amp; Beaufort</div>
+        <div class="mwf-card-desc">Wind speed is expressed on the Beaufort scale (0–12) for immediate operational relevance. Force 6 or above is the typical threshold for increasing sea caution on most cargo vessels.</div>
+      </div>
+      <div class="mwf-card">
+        <div class="mwf-card-icon">🌊</div>
+        <div class="mwf-card-title">Significant Wave Height</div>
+        <div class="mwf-card-desc">The average of the highest one-third of wave heights — the standard metric used in ship stability documentation. Determines Douglas sea state classification.</div>
+      </div>
+      <div class="mwf-card">
+        <div class="mwf-card-icon">⏱</div>
+        <div class="mwf-card-title">Swell Period</div>
+        <div class="mwf-card-desc">Long-period swell (12–20 seconds) can cause dangerous rolling even in calm wind conditions. Critically important for car carriers, RoRo, and passenger vessels.</div>
+      </div>
+      <div class="mwf-card">
+        <div class="mwf-card-icon">📡</div>
+        <div class="mwf-card-title">API Data Integrity</div>
+        <div class="mwf-card-desc">IACS UR E26 requires verification of data integrity for weather feeds used in navigation. Un-authenticated HTTP weather APIs may be spoofed in a man-in-the-middle attack.</div>
+      </div>
+    </div>
+
+    <h2>The Beaufort Scale — Operational Reference</h2>
+    <p>The Beaufort scale, developed by Admiral Sir Francis Beaufort in 1805, remains the primary wind classification system referenced in SOLAS, COLREGS, and flag state weather routing requirements. Every deck officer should be able to read a Beaufort number and immediately infer expected wave height, spray conditions, and vessel motion characteristics without referencing additional tables.</p>
+
+    <div class="mwf-table-wrap">
+      <table class="mwf-table">
+        <thead>
+          <tr><th>BFT</th><th>Description</th><th>km/h</th><th>Knots</th><th>Approx. Wave Ht.</th><th>Vessel Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="bft-num">0</td><td>Calm</td><td>&lt;1</td><td>&lt;1</td><td>Glassy</td><td>Ideal conditions</td></tr>
+          <tr><td class="bft-num">1–2</td><td>Light air / breeze</td><td>1–11</td><td>1–6</td><td>0.1–0.3 m</td><td>Ripples; no significant sea</td></tr>
+          <tr><td class="bft-num">3</td><td>Gentle breeze</td><td>12–19</td><td>7–10</td><td>0.6–1.0 m</td><td>Slight sea; comfortable</td></tr>
+          <tr><td class="bft-num">4</td><td>Moderate breeze</td><td>20–28</td><td>11–16</td><td>1.0–1.5 m</td><td>Moderate sea; some spray</td></tr>
+          <tr><td class="bft-num">5</td><td>Fresh breeze</td><td>29–38</td><td>17–21</td><td>1.5–2.5 m</td><td>Small waves forming crests</td></tr>
+          <tr><td class="bft-num">6</td><td>Strong breeze</td><td>39–49</td><td>22–27</td><td>2.5–4.0 m</td><td>Larger waves; foam crests; increased motion</td></tr>
+          <tr><td class="bft-num">7</td><td>Near gale</td><td>50–61</td><td>28–33</td><td>4.0–5.5 m</td><td>Sea heaps up; heavy spray; cargo securing review</td></tr>
+          <tr><td class="bft-num">8</td><td>Gale</td><td>62–74</td><td>34–40</td><td>5.5–7.5 m</td><td>High waves; restricted visibility; course alteration likely</td></tr>
+          <tr><td class="bft-num">9</td><td>Severe gale</td><td>75–88</td><td>41–47</td><td>7.0–10.0 m</td><td>High rolling; possible cargo shift; master's discretion</td></tr>
+          <tr><td class="bft-num">10</td><td>Storm</td><td>89–102</td><td>48–55</td><td>9.0–12.5 m</td><td>Very high waves; survival conditions</td></tr>
+          <tr><td class="bft-num">11–12</td><td>Violent storm / Hurricane</td><td>&gt;103</td><td>&gt;56</td><td>&gt;14 m</td><td>Exceptional conditions; heave-to or seek shelter</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Douglas Sea Scale — Significant Wave Height Classification</h2>
+    <p>While Beaufort describes wind conditions, the Douglas sea state scale classifies the actual state of the sea surface in terms of wave height. Both are reported in the standard IMO ship reporting format and are routinely used in P&amp;I club incident investigations to determine whether a vessel was operating within the parameters of its stability documentation and weather routing agreement.</p>
+    <ul>
+      <li><strong>State 0 (Glassy):</strong> Under 0.1 m — negligible swell, no sea state impact on operations.</li>
+      <li><strong>State 1–2 (Rippled to Wavelets):</strong> 0.1–0.5 m — no operational impact for ocean-going vessels.</li>
+      <li><strong>State 3 (Slight):</strong> 0.5–1.25 m — small-craft advisory level; ferry and high-speed craft watch.</li>
+      <li><strong>State 4 (Moderate):</strong> 1.25–2.5 m — increased motion; open hatch assessment recommended.</li>
+      <li><strong>State 5 (Rough):</strong> 2.5–4.0 m — heavy weather procedures; deck watch conditions apply.</li>
+      <li><strong>State 6–7 (Very Rough to High):</strong> 4.0–9.0 m — reduced speed likely; master's weather diversion decision window.</li>
+      <li><strong>State 8 (Very High):</strong> &gt;9.0 m — exceptional sea state; survival mode; MAYDAY readiness.</li>
+    </ul>
+
+    <h2>Weather Data in Maritime Cybersecurity Context</h2>
+    <p>Weather API calls from bridge systems represent one of the most frequently overlooked vectors in maritime network security audits. A modern ECDIS or voyage management system may make dozens of API calls per hour to external meteorological services — each call traversing the vessel's satellite uplink without inspection or authentication verification. Under IACS UR E26.3, all external data feeds interfacing with navigation systems are classified as remote access connections and must be subject to access control review.</p>
+    <p>The practical implication is that a threat actor positioned as a man-in-the-middle between a vessel's satellite terminal and a weather API endpoint could substitute fabricated meteorological data — presenting calm conditions when a storm is approaching, or false routing recommendations that place a vessel in piracy-risk waters. While this type of attack is currently theoretical rather than documented in the IMO cyber incident database, the technical prerequisites are identical to those used in GPS spoofing incidents, which have been confirmed in the Black Sea region as early as 2017.</p>
+    <p>Operators should verify that their weather data feeds use HTTPS with certificate validation, and that the source IPs are consistent with known provider infrastructure. This page uses open-meteo.com directly over HTTPS — a practice consistent with IACS UR E26 data integrity requirements for non-safety-critical display systems.</p>
+
+  </div>
+
+</div>
+
+<script>
+(function(){
+  /* ── Utility functions ── */
+  var BFT_THRESHOLDS = [1,6,12,20,29,39,50,62,75,89,103,118];
+  function bft(kmh) {
+    for (var i = 0; i < BFT_THRESHOLDS.length; i++) if (kmh < BFT_THRESHOLDS[i]) return i;
+    return 12;
+  }
+  function cmp(deg) {
+    var dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+    return dirs[Math.round(deg / 22.5) % 16];
+  }
+  function wicon(code) {
+    if (code === 0) return '☀️';
+    if (code <= 2) return '⛅';
+    if (code === 3) return '☁️';
+    if (code <= 48) return '🌫️';
+    if (code <= 67) return '🌧️';
+    if (code <= 77) return '🌨️';
+    if (code <= 82) return '🌦️';
+    if (code <= 86) return '🌨️';
+    return '⛈️';
+  }
+  function wcond(code) {
+    if (code === 0) return 'Clear sky';
+    if (code <= 2) return 'Partly cloudy';
+    if (code === 3) return 'Overcast';
+    if (code <= 48) return 'Fog';
+    if (code <= 67) return 'Rain';
+    if (code <= 77) return 'Snow';
+    if (code <= 82) return 'Rain showers';
+    if (code <= 86) return 'Snow showers';
+    return 'Thunderstorm';
+  }
+  function seaState(h) {
+    if (h == null || isNaN(h)) return '— (no data)';
+    if (h < 0.1) return 'Glassy (0)';
+    if (h < 0.5) return 'Rippled (1–2)';
+    if (h < 1.25) return 'Slight (3)';
+    if (h < 2.5) return 'Moderate (4)';
+    if (h < 4.0) return 'Rough (5)';
+    if (h < 6.0) return 'Very Rough (6)';
+    if (h < 9.0) return 'High (7)';
+    return 'Very High (8)';
+  }
+  function seaClass(h) {
+    if (h == null || isNaN(h)) return '';
+    if (h < 2.5) return 'hi';
+    if (h < 4.0) return 'warn';
+    return 'danger';
+  }
+  function bftClass(f) {
+    if (f <= 5) return 'hi';
+    if (f <= 7) return 'warn';
+    return 'danger';
+  }
+  function dayLabel(iso) {
+    var d = new Date(iso);
+    return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
+  }
+  function round1(v) { return v != null ? Math.round(v * 10) / 10 : '—'; }
+  function pct(v)    { return v != null ? Math.round(v) + '%' : '—'; }
+
+  /* ── Render current conditions ── */
+  function renderCurrent(atm, mar, locName) {
+    var c   = atm.current;
+    var m   = mar && mar.current ? mar.current : {};
+    var tmp = c.temperature_2m != null ? Math.round(c.temperature_2m) : '—';
+    var wnd = c.wind_speed_10m  != null ? Math.round(c.wind_speed_10m) : 0;
+    var wdir= c.wind_direction_10m != null ? cmp(c.wind_direction_10m) : '—';
+    var prs = c.surface_pressure  != null ? Math.round(c.surface_pressure) : '—';
+    var vis = c.visibility        != null ? (c.visibility / 1000).toFixed(1) + ' km' : '—';
+    var prc = c.precipitation     != null ? c.precipitation.toFixed(1) + ' mm' : '—';
+    var code= c.weather_code || 0;
+    var f   = bft(wnd);
+
+    var wh  = m.wave_height   != null ? m.wave_height   : null;
+    var wd  = m.wave_direction != null ? cmp(m.wave_direction) : '—';
+    var wp  = m.wave_period   != null ? m.wave_period.toFixed(1) + ' s' : '—';
+    var swh = m.swell_wave_height   != null ? m.swell_wave_height   : null;
+    var swd = m.swell_wave_direction!= null ? cmp(m.swell_wave_direction) : '—';
+    var swp = m.swell_wave_period   != null ? m.swell_wave_period.toFixed(1) + ' s' : '—';
+
+    var html = '<div class="mwf-hero-row">'
+      + '<span class="mwf-temp-icon">' + wicon(code) + '</span>'
+      + '<div>'
+        + '<div><span class="mwf-temp-big">' + tmp + '</span><span class="mwf-temp-unit"> °C</span></div>'
+        + '<div class="mwf-cond-desc">' + wcond(code) + '</div>'
+      + '</div>'
+      + '</div>';
+
+    html += '<div class="mwf-grid">'
+      + cell('Wind Speed',  wnd + ' km/h',          bftClass(f))
+      + cell('Beaufort',    'Force ' + f,            bftClass(f))
+      + cell('Wind Dir.',   wdir,                   '')
+      + cell('Pressure',    prs + ' hPa',            '')
+      + cell('Visibility',  vis,                    '')
+      + cell('Precip.',     prc,                    '')
+      + cell('Wave Height', wh != null ? wh.toFixed(2) + ' m' : '—', seaClass(wh))
+      + cell('Wave Dir.',   wd,                     '')
+      + cell('Wave Period', wp,                     '')
+      + cell('Swell Ht.',   swh != null ? swh.toFixed(2) + ' m' : '—', seaClass(swh))
+      + cell('Swell Dir.',  swd,                    '')
+      + cell('Swell Period',swp,                    '')
+      + '</div>';
+
+    var primaryH = wh != null ? wh : swh;
+    var seaLabel = seaState(primaryH);
+    var seaIcon  = primaryH == null ? '🌐' : primaryH < 2.5 ? '🟢' : primaryH < 4.0 ? '🟡' : '🔴';
+
+    html += '<div class="mwf-sea-bar">'
+      + '<span class="mwf-sea-icon">' + seaIcon + '</span>'
+      + '<div>'
+        + '<div class="mwf-sea-label">Douglas Sea State: ' + seaLabel + '</div>'
+        + (wh != null ? '<div class="mwf-sea-sub">Significant wave height: ' + wh.toFixed(2) + ' m' + (swh != null ? ' · Swell: ' + swh.toFixed(2) + ' m' : '') + '</div>' : '<div class="mwf-sea-sub">Marine data not available for this location</div>')
+      + '</div>'
+      + '</div>';
+
+    document.getElementById('mwf-cur-body').innerHTML = html;
+    document.getElementById('mwf-locstr').textContent = locName;
+  }
+
+  function cell(lbl, val, cls) {
+    return '<div class="mwf-cell">'
+      + '<div class="mwf-cell-lbl">' + lbl + '</div>'
+      + '<div class="mwf-cell-val' + (cls ? ' ' + cls : '') + '">' + val + '</div>'
+      + '</div>';
+  }
+
+  /* ── Render 7-day forecast ── */
+  function renderForecast(atm) {
+    var d = atm.daily;
+    if (!d || !d.time) return;
+    var html = '';
+    for (var i = 0; i < Math.min(d.time.length, 7); i++) {
+      var wnd  = d.wind_speed_10m_max    ? d.wind_speed_10m_max[i]    : null;
+      var code = d.weather_code          ? d.weather_code[i]          : 0;
+      var tmax = d.temperature_2m_max    ? d.temperature_2m_max[i]    : null;
+      var tmin = d.temperature_2m_min    ? d.temperature_2m_min[i]    : null;
+      var prec = d.precipitation_sum     ? d.precipitation_sum[i]     : null;
+      var f    = wnd != null ? bft(wnd) : 0;
+      html += '<div class="mwf-forecast-row">'
+        + '<span class="mwf-fc-day">' + dayLabel(d.time[i]) + '</span>'
+        + '<span class="mwf-fc-icon">' + wicon(code) + '</span>'
+        + '<span class="mwf-fc-temp">' + (tmax != null ? Math.round(tmax) : '—') + '° / ' + (tmin != null ? Math.round(tmin) : '—') + '°</span>'
+        + '<span class="mwf-fc-wind">BFT ' + f + ' · ' + (wnd != null ? Math.round(wnd) : '—') + ' km/h</span>'
+        + '<span class="mwf-fc-wave">—</span>'
+        + '<span class="mwf-fc-rain">' + (prec != null ? prec.toFixed(1) + ' mm' : '—') + '</span>'
+        + '</div>';
+    }
+    document.getElementById('mwf-fc-body').innerHTML = html;
+    document.getElementById('mwf-forecast').style.display = '';
+  }
+
+  /* ── Fetch weather from open-meteo ── */
+  function fetchWeather(lat, lng, locName) {
+    document.getElementById('mwf-cur-body').innerHTML = '<div class="mwf-loading">⌛ Fetching weather data…</div>';
+    document.getElementById('mwf-locstr').textContent = 'Loading…';
+    document.getElementById('mwf-forecast').style.display = 'none';
+
+    var atmURL = 'https://api.open-meteo.com/v1/forecast'
+      + '?latitude=' + lat + '&longitude=' + lng
+      + '&current=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m,surface_pressure,visibility,precipitation'
+      + '&daily=temperature_2m_max,temperature_2m_min,weather_code,wind_speed_10m_max,precipitation_sum'
+      + '&wind_speed_unit=kmh&timezone=auto';
+
+    var marURL = 'https://marine-api.open-meteo.com/v1/marine'
+      + '?latitude=' + lat + '&longitude=' + lng
+      + '&current=wave_height,wave_direction,wave_period,swell_wave_height,swell_wave_direction,swell_wave_period';
+
+    Promise.all([
+      fetch(atmURL).then(function(r){ return r.json(); }),
+      fetch(marURL).then(function(r){ return r.json(); }).catch(function(){ return null; })
+    ]).then(function(results) {
+      renderCurrent(results[0], results[1], locName);
+      renderForecast(results[0]);
+    }).catch(function() {
+      document.getElementById('mwf-cur-body').innerHTML = '<div class="mwf-err">⚠ Unable to fetch weather data. Check your connection and try again.</div>';
+    });
+  }
+
+  /* ── Geocoding via Open-Meteo Geocoding API ── */
+  function mwfSearchCity() {
+    var q = (document.getElementById('mwf-city').value || '').trim();
+    if (!q) return;
+    document.getElementById('mwf-cur-body').innerHTML = '<div class="mwf-loading">🔍 Searching for ' + q + '…</div>';
+    fetch('https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(q) + '&count=1&language=en&format=json')
+      .then(function(r){ return r.json(); })
+      .then(function(d) {
+        if (!d.results || !d.results.length) {
+          document.getElementById('mwf-cur-body').innerHTML = '<div class="mwf-err">Location not found. Try a larger nearby city.</div>';
+          return;
+        }
+        var r = d.results[0];
+        var name = [r.name, r.country_code].filter(Boolean).join(', ');
+        fetchWeather(r.latitude, r.longitude, name);
+      })
+      .catch(function() {
+        document.getElementById('mwf-cur-body').innerHTML = '<div class="mwf-err">⚠ Geocoding failed. Try again.</div>';
+      });
+  }
+
+  /* ── GPS ── */
+  function mwfGPS() {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not available in your browser.');
+      return;
+    }
+    document.getElementById('mwf-cur-body').innerHTML = '<div class="mwf-loading">📡 Getting GPS position…</div>';
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      var lat = pos.coords.latitude.toFixed(4);
+      var lng = pos.coords.longitude.toFixed(4);
+      fetchWeather(lat, lng, 'GPS · ' + lat + ', ' + lng);
+    }, function() {
+      document.getElementById('mwf-cur-body').innerHTML = '<div class="mwf-err">⚠ GPS permission denied or unavailable. Try searching by city name.</div>';
+    });
+  }
+
+  /* ── Auto-detect from hg_ip_cache or ipapi ── */
+  function autoDetect() {
+    /* Try localStorage from Hello Guest widget first */
+    try {
+      var cache = localStorage.getItem('hg_ip_cache');
+      if (cache) {
+        var obj = JSON.parse(cache);
+        if (obj.latitude && obj.longitude) {
+          var name = [obj.city, obj.country_code].filter(Boolean).join(', ') || 'Auto-detected';
+          fetchWeather(parseFloat(obj.latitude).toFixed(4), parseFloat(obj.longitude).toFixed(4), name);
+          return;
+        }
+      }
+    } catch(e){}
+
+    /* Fallback: ipapi.co */
+    fetch('https://ipapi.co/json/')
+      .then(function(r){ return r.json(); })
+      .then(function(d) {
+        if (d.latitude && d.longitude) {
+          var name = [d.city, d.country_code].filter(Boolean).join(', ') || 'IP location';
+          fetchWeather(d.latitude.toFixed(4), d.longitude.toFixed(4), name);
+        } else {
+          /* Final fallback: Seoul */
+          fetchWeather('37.5665', '126.9780', 'Seoul, KR (default)');
+        }
+      })
+      .catch(function() {
+        fetchWeather('37.5665', '126.9780', 'Seoul, KR (default)');
+      });
+  }
+
+  /* ── Keyboard search ── */
+  var inp = document.getElementById('mwf-city');
+  if (inp) inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') mwfSearchCity(); });
+
+  /* ── Expose for buttons ── */
+  window.mwfSearchCity = mwfSearchCity;
+  window.mwfGPS = mwfGPS;
+
+  /* ── Auto-run ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoDetect);
+  } else {
+    autoDetect();
+  }
+})();
+</script>

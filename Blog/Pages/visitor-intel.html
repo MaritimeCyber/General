@@ -1,0 +1,358 @@
+<!--════════════════════════════════════════════════════════════
+ Page   : Visitor Intel — Maritime Connection Intelligence
+ Author : Captain Paul  |  ShipPaulJobs
+ URL    : https://www.shippauljobs.com/p/visitor-intel.html
+ NOTE   : Blogger HTML fragment — NO <head>, inline CSS only
+════════════════════════════════════════════════════════════-->
+
+<style>
+#vi-wrap * { box-sizing: border-box; }
+#vi-wrap {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #2c3e50;
+  max-width: 860px;
+  line-height: 1.7;
+}
+
+/* Header */
+.vi-hdr {
+  background: linear-gradient(135deg, #0a2342 0%, #154f7a 55%, #0d6e5a 100%);
+  border-radius: 14px;
+  padding: 28px 28px 22px;
+  margin-bottom: 20px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.vi-hdr::before {
+  content: '';
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.vi-hdr-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.vi-hdr-tag {
+  background: rgba(26,158,130,0.35); color: #7effd8;
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  padding: 3px 11px; border-radius: 20px; text-transform: uppercase;
+}
+.vi-hdr-tag.alt { background: rgba(255,255,255,0.13); color: #b8d4ea; }
+.vi-hdr h1 { font-size: 22px; font-weight: 800; margin: 0 0 8px; line-height: 1.35; }
+.vi-hdr p  { font-size: 13px; color: rgba(255,255,255,0.72); margin: 0 0 18px; }
+.vi-author { display: flex; align-items: center; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; }
+.vi-author img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #1a9e82; flex-shrink: 0; }
+.vi-author-name { color: #fff; font-size: 13px; font-weight: 700; line-height: 1.3; }
+.vi-author-sub  { color: #9ab5c9; font-size: 10px; }
+
+/* LIVE badge */
+.vi-live-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(26,255,218,0.12); border: 1px solid rgba(26,255,218,0.3);
+  border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 700;
+  color: #1affda; margin-left: auto;
+}
+.vi-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #1affda;
+  animation: vi-pulse 1.8s ease-in-out infinite;
+}
+@keyframes vi-pulse { 0%,100%{opacity:.35} 50%{opacity:1} }
+
+/* Main panel */
+.vi-panel {
+  background: #040c1c;
+  border: 1px solid rgba(26,158,130,0.35);
+  border-radius: 12px;
+  padding: 0;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.vi-panel-hdr {
+  background: rgba(26,158,130,0.12);
+  border-bottom: 1px solid rgba(26,158,130,0.25);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+.vi-panel-title { color: #1affda; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-family: monospace; }
+.vi-refresh-btn {
+  background: rgba(26,158,130,0.2); border: 1px solid rgba(26,158,130,0.4);
+  color: #7effd8; font-size: 10px; font-weight: 700; padding: 3px 10px;
+  border-radius: 5px; cursor: pointer; font-family: monospace;
+  transition: background 0.15s;
+}
+.vi-refresh-btn:hover { background: rgba(26,158,130,0.35); }
+
+.vi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  background: rgba(26,158,130,0.1);
+}
+.vi-cell {
+  background: #040c1c;
+  padding: 14px 18px;
+}
+.vi-cell-lbl {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(200,228,248,0.45);
+  font-family: monospace; margin-bottom: 5px;
+}
+.vi-cell-val {
+  font-size: 14px; font-weight: 700; color: #c8e4f8;
+  font-family: monospace; word-break: break-all; line-height: 1.4;
+}
+.vi-cell-val.hi { color: #1affda; }
+.vi-cell-val.flag { font-size: 22px; line-height: 1; }
+
+/* Maritime region strip */
+.vi-maritime {
+  background: rgba(13,110,90,0.2);
+  border-top: 1px solid rgba(26,158,130,0.25);
+  padding: 12px 18px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.vi-maritime-icon { font-size: 18px; flex-shrink: 0; }
+.vi-maritime-text { color: #7effd8; font-size: 12px; font-weight: 700; font-family: monospace; flex: 1; }
+.vi-maritime-sub  { color: rgba(200,228,248,0.6); font-size: 10.5px; font-family: monospace; }
+
+/* Map hint */
+.vi-map-link {
+  background: rgba(26,158,130,0.1);
+  border-top: 1px solid rgba(26,158,130,0.18);
+  padding: 9px 18px;
+  display: flex; align-items: center; gap: 8px; font-size: 11px;
+}
+.vi-map-link a { color: #1affda; font-weight: 700; text-decoration: none; }
+.vi-map-link span { color: rgba(200,228,248,0.5); }
+
+/* Loading / error */
+.vi-loading { padding: 36px 24px; text-align: center; color: rgba(200,228,248,0.5); font-family: monospace; font-size: 12px; }
+.vi-err { padding: 24px; color: #fca5a5; font-family: monospace; font-size: 11.5px; text-align: center; }
+
+/* Security note */
+.vi-note {
+  background: #f0f4f8; border-left: 4px solid #1a9e82;
+  border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px;
+  font-size: 13px; color: #354a5e; line-height: 1.8;
+}
+
+/* Editorial */
+.vi-editorial h2 {
+  font-size: 18px; font-weight: 700; color: #0a2342;
+  margin: 24px 0 12px; padding-bottom: 8px;
+  border-bottom: 2px solid rgba(26,158,130,0.3);
+}
+.vi-editorial p { font-size: 14px; margin: 0 0 16px; color: #2c3e50; }
+.vi-editorial ul { margin: 0 0 16px; padding-left: 20px; }
+.vi-editorial ul li { font-size: 14px; margin-bottom: 6px; color: #2c3e50; }
+
+/* Info cards */
+.vi-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 10px; margin: 16px 0 20px; }
+.vi-card {
+  background: #f4f7fb; border: 1px solid #dce8f5;
+  border-radius: 10px; padding: 14px 16px;
+}
+.vi-card-icon { font-size: 20px; margin-bottom: 6px; }
+.vi-card-title { font-size: 12px; font-weight: 700; color: #0a2342; margin-bottom: 4px; }
+.vi-card-desc  { font-size: 12px; color: #4a6080; line-height: 1.6; }
+</style>
+
+<div id="vi-wrap">
+
+  <!-- ══ HEADER ══ -->
+  <div class="vi-hdr">
+    <div class="vi-hdr-tags">
+      <span class="vi-hdr-tag">📡 Visitor Intel</span>
+      <span class="vi-hdr-tag alt">Connection Intelligence</span>
+      <span class="vi-hdr-tag alt">Maritime Region</span>
+      <span class="vi-hdr-tag alt">🔴 LIVE</span>
+    </div>
+    <h1>Maritime Visitor Intelligence</h1>
+    <p>Your real-time connection profile — IP geolocation, network origin, timezone and maritime region context, displayed as if you were on a ship's bridge intelligence console.</p>
+    <div class="vi-author">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/member/insung.jpeg" alt="Captain Paul" />
+      <div>
+        <div class="vi-author-name">Captain Paul</div>
+        <div class="vi-author-sub">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
+      </div>
+      <div class="vi-live-badge"><span class="vi-dot"></span>LIVE</div>
+    </div>
+  </div>
+
+  <!-- ══ LIVE TOOL ══ -->
+  <div class="vi-panel" id="vi-panel">
+    <div class="vi-panel-hdr">
+      <span class="vi-panel-title">⬡ Connection Intelligence Feed</span>
+      <button class="vi-refresh-btn" onclick="viFetch()">↻ Refresh</button>
+    </div>
+    <div id="vi-body"><div class="vi-loading">⌛ Fetching your connection profile…</div></div>
+  </div>
+
+  <!-- ══ SECURITY NOTE ══ -->
+  <div class="vi-note">
+    <strong>🔒 Privacy Notice:</strong> This tool reads only your publicly routable IP address and open-meteo compatible geolocation data — the same information visible to any web server you contact. No personal data is stored. The display is for educational purposes, illustrating what metadata is exposed during any internet connection.
+  </div>
+
+  <!-- ══ EDITORIAL CONTENT ══ -->
+  <div class="vi-editorial">
+
+    <h2>What Is Visitor Intelligence — and Why Does It Matter in Maritime?</h2>
+    <p>Every internet-connected device broadcasts a package of metadata with every request it makes: the originating IP address, the autonomous system number (ASN) of the network carrier, a geographic approximation derived from IP registration records, and timing information that can be used to infer timezone and therefore approximate local operational context. This is not a vulnerability — it is the intended design of the public internet. The question is not whether this information is exposed, but whether it is understood.</p>
+    <p>In maritime cybersecurity, this matters for several intersecting reasons. Shore-to-ship connectivity, satellite uplinks, VSAT terminals, and port-based Wi-Fi all produce connection metadata that is visible to every server the vessel communicates with. An attacker conducting reconnaissance on a shipping company's network infrastructure can use this metadata to map vessel positions, identify communication windows, and infer network architecture — before writing a single line of exploit code.</p>
+
+    <div class="vi-cards">
+      <div class="vi-card">
+        <div class="vi-card-icon">🌐</div>
+        <div class="vi-card-title">IP Geolocation</div>
+        <div class="vi-card-desc">Public IP address and approximate geographic coordinates based on ISP registration records. Accuracy varies from city-level to country-level.</div>
+      </div>
+      <div class="vi-card">
+        <div class="vi-card-icon">🏢</div>
+        <div class="vi-card-title">ASN / Organisation</div>
+        <div class="vi-card-desc">The Autonomous System Number identifies your internet service provider or network operator. On vessels, this often reveals satellite providers like Inmarsat, Starlink, or Marlink.</div>
+      </div>
+      <div class="vi-card">
+        <div class="vi-card-icon">🕐</div>
+        <div class="vi-card-title">Timezone Inference</div>
+        <div class="vi-card-desc">Timezone data derived from IP geolocation can indicate operational region — useful for understanding crew watch cycles and maintenance windows from an attacker's perspective.</div>
+      </div>
+      <div class="vi-card">
+        <div class="vi-card-icon">⚓</div>
+        <div class="vi-card-title">Maritime Region</div>
+        <div class="vi-card-desc">Based on your coordinates, this tool estimates proximity to major maritime corridors including the North Sea, Strait of Malacca, Persian Gulf, and East China Sea.</div>
+      </div>
+    </div>
+
+    <h2>How Attackers Use Connection Metadata Against Maritime Targets</h2>
+    <p>The 2023 BIMCO Guidelines on Cyber Security Onboard Ships note that passive reconnaissance — gathering information without interacting with a target — is the most common first phase of a maritime cyber attack. Connection metadata provides attackers with several actionable data points without triggering any intrusion detection system, because the data is publicly broadcast rather than extracted.</p>
+    <p>A threat actor monitoring traffic to a public maritime service — a ship reporting portal, a port authority website, or a classification society's online system — can aggregate IP addresses over time to identify patterns: which satellite IP ranges are used by which fleets, which connection windows correspond to crew communication periods, and which IP addresses repeatedly access sensitive port scheduling or cargo documentation systems. This metadata portrait, built entirely from passive observation, is often sufficient to identify high-value targets before any active attack phase begins.</p>
+    <p>Under IACS UR E26 and IMO MSC-FAL.1/Circ.3/Rev.3, shipowners are required to implement monitoring procedures that include network traffic logging and anomaly detection. Part of this obligation is understanding what information your vessel's connections are broadcasting — which is precisely what this Visitor Intel tool demonstrates in a controlled, transparent context.</p>
+
+    <h2>Maritime Network Identifiers: What to Look For</h2>
+    <p>When reviewing the connection metadata displayed above, several elements are particularly relevant from a maritime operational security perspective:</p>
+    <ul>
+      <li><strong>ISP / Organisation field:</strong> If this reads Inmarsat, Marlink, Vizada, Intellian, or OneWeb, your connection is routing through maritime satellite infrastructure. This is visible to every server you contact.</li>
+      <li><strong>IP range (CIDR):</strong> Maritime satellite providers allocate IP ranges to vessels or regions. An ASN lookup on any publicly listed maritime IP reveals the carrier and sometimes the vessel type or route.</li>
+      <li><strong>Timezone offset:</strong> A timezone offset inconsistent with the registered IP geography suggests a VPN, proxy, or satellite connection routing through a ground station in a different region — a pattern that threat intelligence feeds actively monitor.</li>
+      <li><strong>Coordinates vs. physical location:</strong> IP geolocation coordinates are rarely exact. At sea, they typically resolve to the satellite ground station location — in many cases this is in a major port city like Houston, Rotterdam, or Singapore, regardless of actual vessel position.</li>
+    </ul>
+
+    <h2>Defensive Implications for Vessel Operators</h2>
+    <p>Understanding what your connections broadcast is the first step in controlling the information you expose. Maritime cybersecurity professionals working on IACS UR E26 compliance should consider the following when designing network architecture for newbuildings or retrofits:</p>
+    <ul>
+      <li>Use separate VLAN segments for crew internet access and operational technology communications, so that crew browsing metadata does not comingle with OT system connections.</li>
+      <li>Route all OT-related internet traffic — software update servers, class society portals, flag state reporting systems — through a monitored, logged channel with defined egress filtering.</li>
+      <li>Implement a VPN tunnel for shore-side remote access that presents a single managed IP rather than the vessel's direct satellite uplink address to external services.</li>
+      <li>Audit what third-party services the vessel's OT systems phone home to — weather APIs, AIS data feeds, chart update servers — and verify that the connection metadata exposed to these services is consistent with your threat model.</li>
+    </ul>
+    <p>The metadata displayed by this tool is a simplified subset of what is technically available. In practice, network-layer metadata includes far more: TCP timing fingerprints, HTTP header ordering, TLS cipher suite negotiation patterns, and browser or client application fingerprints. Each of these can be used to narrow down device type and software version — information that directly informs vulnerability targeting.</p>
+
+  </div>
+
+</div>
+
+<script>
+(function(){
+  /* ── Maritime region lookup ── */
+  function maritimeRegion(lat, lng) {
+    if (!lat || !lng) return null;
+    var regions = [
+      { name:'North Sea / Baltic Approach', icon:'🌊', desc:'Major European shipping hub — SOLAS / Paris MOU jurisdiction', lat:[50,65], lng:[-5,20] },
+      { name:'English Channel', icon:'⚓', desc:'World\'s busiest shipping lane — heavy VTS monitoring', lat:[49,52], lng:[-5,2] },
+      { name:'Strait of Malacca', icon:'🛳', desc:'Critical chokepoint — Singapore MPA, IMO IMDGs apply', lat:[1,7], lng:[98,105] },
+      { name:'Persian Gulf / Arabian Sea', icon:'🛢', desc:'Major tanker route — UKMTO security zone', lat:[20,30], lng:[50,65] },
+      { name:'East China Sea / Yellow Sea', icon:'🚢', desc:'High-density traffic — Korean Register, ClassNK zone', lat:[25,40], lng:[118,132] },
+      { name:'South China Sea', icon:'🗺', desc:'Contested waters — heightened cyber threat level', lat:[5,25], lng:[105,122] },
+      { name:'Gulf of Mexico / Caribbean', icon:'⛽', desc:'USCG jurisdiction — MSC-FAL cyber compliance zone', lat:[15,30], lng:[-98,-60] },
+      { name:'Mediterranean Sea', icon:'🌍', desc:'EMSA oversight — EU NIS2 applicable for port operations', lat:[30,46], lng:[-6,37] },
+      { name:'West Africa / Gulf of Guinea', icon:'🚨', desc:'High piracy risk — IMB / MDAT-GoG monitoring area', lat:[-5,15], lng:[-20,15] },
+      { name:'North Pacific', icon:'🌏', desc:'Trans-Pacific routes — US Coast Guard MTSA jurisdiction', lat:[30,65], lng:[130,180] },
+      { name:'Indian Ocean', icon:'🌐', desc:'IRTC / MSCHOA anti-piracy corridor zone', lat:[-30,20], lng:[40,100] }
+    ];
+    for (var i = 0; i < regions.length; i++) {
+      var r = regions[i];
+      if (lat >= r.lat[0] && lat <= r.lat[1] && lng >= r.lng[0] && lng <= r.lng[1]) return r;
+    }
+    return { name:'Open Ocean / Inland', icon:'🌍', desc:'No specific maritime corridor — general internet connection', lat:[], lng:[] };
+  }
+
+  function row(lbl, val, cls) {
+    return '<div class="vi-cell">'
+      + '<div class="vi-cell-lbl">' + lbl + '</div>'
+      + '<div class="vi-cell-val' + (cls ? ' ' + cls : '') + '">' + val + '</div>'
+      + '</div>';
+  }
+
+  function viFetch() {
+    var body = document.getElementById('vi-body');
+    if (!body) return;
+    body.innerHTML = '<div class="vi-loading">⌛ Fetching your connection profile…</div>';
+
+    fetch('https://ipapi.co/json/')
+      .then(function(r){ return r.json(); })
+      .then(function(d) {
+        var lat = d.latitude, lng = d.longitude;
+        var region = maritimeRegion(lat, lng);
+
+        var html = '<div class="vi-grid">'
+          + row('IP Address',   d.ip || '—',           'hi')
+          + row('Country',      (d.country_name || '—') + (d.country_code ? ' (' + d.country_code + ')' : ''), '')
+          + row('Flag',         d.country_code ? '<span class="flag">' + countryFlag(d.country_code) + '</span>' : '—', 'flag')
+          + row('City / Region', [d.city, d.region].filter(Boolean).join(', ') || '—', '')
+          + row('Timezone',     d.timezone || '—', '')
+          + row('UTC Offset',   d.utc_offset ? d.utc_offset.replace(/(\+|-)(\d{2})(\d{2})/, '$1$2h$3m') : '—', '')
+          + row('ISP / Org',    d.org || d.asn || '—', '')
+          + row('ASN',          d.asn || '—', 'hi')
+          + row('Postal',       d.postal || '—', '')
+          + row('Currency',     d.currency ? d.currency + ' (' + (d.currency_name || '') + ')' : '—', '')
+          + row('Lat / Long',   lat && lng ? lat.toFixed(4) + ', ' + lng.toFixed(4) : '—', 'hi')
+          + row('Languages',    d.languages || '—', '')
+          + '</div>';
+
+        if (region) {
+          html += '<div class="vi-maritime">'
+            + '<span class="vi-maritime-icon">' + region.icon + '</span>'
+            + '<div><div class="vi-maritime-text">Maritime Region: ' + region.name + '</div>'
+            + '<div class="vi-maritime-sub">' + region.desc + '</div></div>'
+            + '</div>';
+        }
+
+        if (lat && lng) {
+          html += '<div class="vi-map-link">'
+            + '<span>🗺</span>'
+            + '<a href="https://www.vesselfinder.com/?lat=' + lat + '&lng=' + lng + '&zoom=6" target="_blank" rel="noopener">View nearest vessel traffic →</a>'
+            + '<span>· MarineTraffic · VesselFinder</span>'
+            + '</div>';
+        }
+
+        body.innerHTML = html;
+      })
+      .catch(function() {
+        body.innerHTML = '<div class="vi-err">⚠ Unable to fetch connection data. Check your network or try refreshing.</div>';
+      });
+  }
+
+  /* Convert ISO country code to flag emoji */
+  function countryFlag(code) {
+    if (!code || code.length !== 2) return '';
+    try {
+      return Array.from(code.toUpperCase()).map(function(c){
+        return String.fromCodePoint(c.charCodeAt(0) + 127397);
+      }).join('');
+    } catch(e) { return ''; }
+  }
+
+  /* Expose for refresh button */
+  window.viFetch = viFetch;
+
+  /* Auto-run */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', viFetch);
+  } else {
+    viFetch();
+  }
+})();
+</script>

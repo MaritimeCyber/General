@@ -1,0 +1,396 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F916; Agent AI</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F9EC; Tech Deep Dive</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Part 3 of the Series</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Multi-Agent</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">Tech Landscape</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">[Part 3] How Far Has Agent AI Technology Come?</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">From Single Agents to Multi-Agent Systems &mdash; a complete rundown of ReAct, MCP, CrewAI, LangGraph, and Agent OS</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Maritime 4.0 &#xB7; AI &amp; Cyber Intelligence &#xB7; June 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIES INTRO -->
+<div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F4DA; About This Series</div>
+  <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 14px;">Since ChatGPT's arrival, generative AI has been evolving rapidly. Lately, <strong>'Agent AI'</strong> &mdash; AI that goes beyond simply answering questions to plan for itself, use multiple tools, and carry out goals &mdash; has emerged as a new paradigm. This series walks through why Agent AI appeared, the core technologies behind it, real corporate use cases, and how it will reshape business in the future.</p>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 1</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-15-ai-agent-ai.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">Why Did Agent AI Emerge? &mdash; The reasons generative AI evolved into Agent AI</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 2</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-25-llmplanningmemorytool-use.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">How Does Agent AI Work? &mdash; An AI that thinks, plans, and executes</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 3 ▶</span>
+      <p style="font-size:12.5px;color:#0a2342;font-weight:700;margin:0;">How Far Has Agent AI Technology Come? &mdash; From single agents to multi-agent systems</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 4</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-45-llmplanningmemorytool-use.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">How Can Companies Use Agent AI? &mdash; Real business application cases</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 5</span>
+      <a href="https://www.shippauljobs.com/2026/06/agent-ai-55-llmplanningmemorytool-use.html" target="_blank" rel="noopener" style="font-size:12.5px;color:#1a6fa8;text-decoration:none;">The Future of the Agent AI Era &mdash; AI employees and human collaboration</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT THIS ARTICLE COVERS -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F9ED; What This Article Covers</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 1</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Foundational Technology (ReAct · Tool Calling · MCP)</strong> — A plain-language explanation of the core technical standards that make Agent AI possible.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 2</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Leading Frameworks (AutoGPT · CrewAI · LangGraph)</strong> — Comparing today's most widely used tools for building Agent AI.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 3</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Multi-Agent &amp; Agent OS</strong> — Introducing the concept of systems where multiple agents collaborate, and of AI operating systems.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROLOGUE -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">Prologue</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;font-style:italic;font-family:Georgia,serif;">On a modern ship, no single captain does everything alone. The navigator, chief engineer, radio officer, and cargo officer each hold a role, working together organically.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">Agent AI technology has evolved in the same direction. From an era when a single AI did everything, to a multi-agent era where several specialized AIs collaborate. Let's trace that technological trajectory.</p>
+</div>
+
+<!-- ═══ PART 1 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:0 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 1 &mdash; Foundational Technology</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">ReAct · Tool Calling · MCP: The Standards That Make Agent AI Possible</div>
+</div>
+
+<!-- SECTION 1 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">1. ReAct &mdash; How Agent AI Thinks</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;"><strong>ReAct</strong> is a pattern proposed in a 2022 paper from Princeton and Google that defines the most basic way Agent AI operates. It's short for <strong>Re</strong>asoning + <strong>Act</strong>ing.</p>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:18px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:8px;">&#x1F4A1; The Core Idea of ReAct</div>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 10px;">Traditional LLMs only reasoned ("here's what should be done"). ReAct makes it alternate between reasoning and acting.</p>
+    <div style="font-family:monospace;background:#e8f4ff;border-radius:6px;padding:12px;font-size:12.5px;color:#0a2342;line-height:1.9;">
+      <span style="color:#1a9e82;font-weight:700;">Thought:</span> I need to check this vessel's ECDIS version<br/>
+      <span style="color:#154f7a;font-weight:700;">Action:</span> [DB lookup] Search vessel A's ECDIS version<br/>
+      <span style="color:#e67e22;font-weight:700;">Observation:</span> ECDIS v2.1, last updated 2023.06<br/>
+      <span style="color:#1a9e82;font-weight:700;">Thought:</span> No update for over two years. Need to compare against IACS E27 requirements<br/>
+      <span style="color:#154f7a;font-weight:700;">Action:</span> [Search] IACS E27 ECDIS update requirements<br/>
+      <span style="color:#e67e22;font-weight:700;">Observation:</span> Annual patch review required; core navigation systems recommended to update within 6 months<br/>
+      <span style="color:#1a9e82;font-weight:700;">Thought:</span> Non-compliant status. Classify as an immediate-action item<br/>
+      <span style="color:#dc2626;font-weight:700;">Result:</span> Log it in the risk report as a High Priority item
+    </div>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">ReAct is still used as the default pattern in most Agent AI systems today. Simple yet powerful, and it has the advantage of letting humans easily trace the intermediate steps.</p>
+</div>
+
+<!-- SECTION 2 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">2. Tool Calling &mdash; The Standard Way LLMs Use Tools</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;"><strong>Tool Calling</strong> (or Function Calling) is a standardized method for an LLM to call external functions (tools). Since OpenAI introduced it with GPT-4 in 2023, it has become an industry standard.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;text-align:center;">How Tool Calling Works</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">①</div>
+        <div><p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;"><span style="color:#1affda;font-weight:700;">The developer defines a tool:</span> tells the LLM about a function called "vessel_db_search(vessel_id, query)"</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">②</div>
+        <div><p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;"><span style="color:#1affda;font-weight:700;">The LLM decides to call it when needed:</span> "I need vessel data → I should use vessel_db_search"</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="background:#154f7a;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">③</div>
+        <div><p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;"><span style="color:#7effd8;font-weight:700;">The function executes:</span> the actual system queries the DB and returns a result</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="background:#154f7a;color:white;font-size:11px;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">④</div>
+        <div><p style="color:rgba(255,255,255,0.8);font-size:12.5px;line-height:1.6;margin:0;"><span style="color:#7effd8;font-weight:700;">Interpret the result:</span> the LLM understands the returned data and decides the next action</p></div>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,0.4);font-size:10.5px;text-align:center;margin:14px 0 0;">The LLM doesn't execute code directly. It requests "please run this function with these arguments," and a separate system carries it out.</p>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">3. MCP (Model Context Protocol) &mdash; The 2024 Game-Changer</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">In November 2024, Anthropic released <strong>MCP (Model Context Protocol)</strong>, a standard that changed the Agent AI ecosystem. While Tool Calling had each company connecting tools its own way, MCP is <strong>a USB-like standard</strong> that lets every AI connect to every tool in the same way.</p>
+  <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:18px;">
+    <div style="font-size:13px;font-weight:800;color:#c0520a;margin-bottom:8px;">&#x1F4A1; Before MCP vs. After MCP</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#c0520a;margin-bottom:6px;">Before MCP</div>
+        <ul style="font-size:12.5px;color:#4a4a4a;line-height:1.7;margin:0;padding-left:16px;">
+          <li>Each company connects AI to tools its own way</li>
+          <li>Code has to be rewritten every time a new tool is added</li>
+          <li>Locked into a specific AI model</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#1a9e82;margin-bottom:6px;">After MCP</div>
+        <ul style="font-size:12.5px;color:#4a4a4a;line-height:1.7;margin:0;padding-left:16px;">
+          <li>Any AI connects to tools the same way</li>
+          <li>Adding a new tool is as simple as installing an MCP server</li>
+          <li>No need to reconfigure tools when switching AI models</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">As of 2025, MCP servers already exist for Slack, GitHub, Google Drive, and various ERP systems. In the maritime industry too, momentum is building to connect AIS data, class society portals, and vessel monitoring systems via MCP.</p>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 18px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">&#x1F6A2; What MCP Means for the Maritime Industry</div>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0;">Build an MCP server for the IACS regulation database just once, and Claude, GPT, Gemini — any AI — can query the latest regulations in the same way. Just like standardized parts in shipbuilding, the AI ecosystem is becoming standardized too.</p>
+  </div>
+</div>
+
+<!-- ═══ PART 2 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:36px 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 2 &mdash; Leading Frameworks</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">AutoGPT · CrewAI · LangGraph: Comparing Agent-Building Tools</div>
+</div>
+
+<!-- SECTION 4 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">4. AutoGPT &mdash; The Pioneer of the Agent AI Era</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;"><strong>AutoGPT</strong>, which appeared in March 2023, was the first project to show the public the idea that "give GPT-4 a single goal, and it does the rest on its own." It hit 100,000 GitHub stars within a week of release.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px;">
+    <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:14px 18px;">
+      <div style="font-size:12.5px;font-weight:700;color:#154f7a;margin-bottom:4px;">✅ What Was Innovative</div>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.7;margin:0;">The first implementation of the "fully autonomous" concept, where AI decides and executes the next action without human intervention. Combines internet search, file management, and code execution to perform complex tasks.</p>
+    </div>
+    <div style="background:#fff8f0;border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:14px 18px;">
+      <div style="font-size:12.5px;font-weight:700;color:#c0520a;margin-bottom:4px;">⚠️ The Limits</div>
+      <p style="font-size:13px;color:#4a4a4a;line-height:1.7;margin:0;">It often lost direction and fell into loops, or burned through excessive, unnecessary cost. It showed that a "fully self-sufficient AI" wasn't a finished concept yet — but it kicked off explosive growth in Agent AI research.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">5. CrewAI &mdash; AI That Works as a Team</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;"><strong>CrewAI</strong> was the fastest-growing agent framework of 2024. The core idea is simple: <strong>"Several AIs with clear roles working as a team beats one all-purpose AI."</strong></p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;text-align:center;">CrewAI Example: A Vessel Cybersecurity Audit Team</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:20px;flex-shrink:0;">&#x1F4CB;</span>
+        <div><div style="color:#1affda;font-size:12px;font-weight:700;margin-bottom:4px;">Regulation Analyst Agent</div><p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.5;margin:0;">Dedicated to analyzing the latest IACS, DNV, and LR regulations. Specialized to this role alone.</p></div>
+      </div>
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:20px;flex-shrink:0;">&#x1F6A2;</span>
+        <div><div style="color:#1affda;font-size:12px;font-weight:700;margin-bottom:4px;">Vessel System Inspection Agent</div><p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.5;margin:0;">Dedicated to querying the vessel CBS database and assessing the current state.</p></div>
+      </div>
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:20px;flex-shrink:0;">&#x26A0;&#xFE0F;</span>
+        <div><div style="color:#1affda;font-size:12px;font-weight:700;margin-bottom:4px;">Risk Assessment Agent</div><p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.5;margin:0;">Takes the outputs of the previous two agents and dedicates itself to gap analysis and risk rating.</p></div>
+      </div>
+      <div style="background:rgba(26,158,130,0.12);border:1px solid rgba(26,158,130,0.3);border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:20px;flex-shrink:0;">&#x1F4C4;</span>
+        <div><div style="color:#1affda;font-size:12px;font-weight:700;margin-bottom:4px;">Report Writer Agent</div><p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.5;margin:0;">Dedicated to compiling all results into a professional audit report.</p></div>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,0.4);font-size:10.5px;text-align:center;margin:14px 0 0;">Because each agent focuses on its own specialty, result quality improves dramatically over a single agent.</p>
+  </div>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 18px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">&#x1F4A1; A Maritime Industry Analogy</div>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0;">Just as a navigator, chief engineer, and cargo officer each hold a specialized role on a ship, CrewAI has each AI take a specialized role and collaborate as a team. A team with a division of labor beats a jack-of-all-trades working alone.</p>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">6. LangGraph &mdash; Precisely Controlling Complex Flows</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;"><strong>LangGraph</strong> is a framework built by the LangChain team that lets you precisely control an Agent AI's execution flow as a graph structure. It's well suited to building advanced agents that need complex branching, loops, and parallel execution.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;text-align:center;">Framework Comparison</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(26,158,130,0.4);">
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;">Framework</th>
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;">Characteristics</th>
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;">Best Suited For</th>
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;">Difficulty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:white;font-weight:600;">AutoGPT</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.7);">Fully autonomous, minimal setup</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.7);">Exploring simple autonomous tasks</td>
+            <td style="padding:10px 12px;"><span style="background:rgba(26,158,130,0.2);color:#6ee7b7;padding:2px 8px;border-radius:20px;font-size:10px;">Low</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:white;font-weight:600;">CrewAI</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.7);">Role-based multi-agent</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.7);">Simulating team collaboration</td>
+            <td style="padding:10px 12px;"><span style="background:rgba(245,158,11,0.2);color:#fcd34d;padding:2px 8px;border-radius:20px;font-size:10px;">Medium</span></td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:white;font-weight:600;">LangGraph</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.7);">Graph-based precise control</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.7);">Complex business workflows</td>
+            <td style="padding:10px 12px;"><span style="background:rgba(220,38,38,0.2);color:#fca5a5;padding:2px 8px;border-radius:20px;font-size:10px;">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PART 3 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:36px 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 3 &mdash; Multi-Agent &amp; Agent OS</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">Systems Where Multiple AIs Collaborate: The Future of Agents</div>
+</div>
+
+<!-- SECTION 7 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">7. Multi-Agent Architecture &mdash; A Team Beats a Loner</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">A <strong>Multi-Agent system</strong> is a structure in which several AI agents communicate and collaborate to achieve a complex goal. Each agent holds a specific role, exchanges information with the others, and divides labor toward the overall goal.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;text-align:center;">Multi-Agent Architecture &mdash; A Maritime Cybersecurity Platform</div>
+    <div style="background:rgba(26,158,130,0.1);border:1.5px solid rgba(26,158,130,0.4);border-radius:10px;padding:14px;margin-bottom:14px;text-align:center;">
+      <div style="color:#1affda;font-size:12px;font-weight:800;">&#x1F451; Orchestrator Agent (Conductor)</div>
+      <div style="color:rgba(255,255,255,0.6);font-size:11px;margin-top:4px;">Grasps the overall goal and distributes tasks to sub-agents</div>
+    </div>
+    <div style="display:flex;justify-content:center;color:rgba(255,255,255,0.3);font-size:18px;margin-bottom:10px;">↓ ↓ ↓</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;text-align:center;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:4px;">&#x1F50D; Threat Detection Agent</div>
+        <div style="color:rgba(255,255,255,0.55);font-size:10.5px;">Real-time network monitoring</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;text-align:center;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:4px;">&#x1F4CB; Compliance Agent</div>
+        <div style="color:rgba(255,255,255,0.55);font-size:10.5px;">Checks IACS/IMO regulations</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:12px;text-align:center;">
+        <div style="color:#7effd8;font-size:11px;font-weight:700;margin-bottom:4px;">&#x1F4E7; Reporting Agent</div>
+        <div style="color:rgba(255,255,255,0.55);font-size:10.5px;">Automated stakeholder reporting</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;color:rgba(255,255,255,0.3);font-size:18px;margin-bottom:10px;">↓</div>
+    <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:12px;text-align:center;">
+      <div style="color:#fcd34d;font-size:11px;font-weight:700;">&#x1F6E1; Response Agent</div>
+      <div style="color:rgba(255,255,255,0.55);font-size:10.5px;margin-top:3px;">Automated isolation and response upon threat detection</div>
+    </div>
+    <p style="color:rgba(255,255,255,0.4);font-size:10.5px;text-align:center;margin:14px 0 0;">Each agent runs in parallel, autonomously managing vessel cybersecurity around the clock.</p>
+  </div>
+</div>
+
+<!-- SECTION 8 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">8. Agent OS &mdash; The Operating Infrastructure for AI</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">For multiple agents to run reliably, communicate with each other, share resources, and recover from errors, management infrastructure is needed. This is called an <strong>Agent OS</strong>.</p>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:18px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:8px;">&#x1F4A1; What an Agent OS Does</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:flex;gap:10px;"><span style="color:#1a9e82;font-weight:700;flex-shrink:0;">→</span><p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Agent Scheduling:</strong> Manages which agent runs when</p></div>
+      <div style="display:flex;gap:10px;"><span style="color:#1a9e82;font-weight:700;flex-shrink:0;">→</span><p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Memory Management:</strong> Manages shared memory across agents versus each agent's individual memory</p></div>
+      <div style="display:flex;gap:10px;"><span style="color:#1a9e82;font-weight:700;flex-shrink:0;">→</span><p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Tool Access Control:</strong> Manages permissions on which agent may use which tool</p></div>
+      <div style="display:flex;gap:10px;"><span style="color:#1a9e82;font-weight:700;flex-shrink:0;">→</span><p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Monitoring &amp; Logging:</strong> Records agent actions, detects errors, escalates to a human</p></div>
+      <div style="display:flex;gap:10px;"><span style="color:#1a9e82;font-weight:700;flex-shrink:0;">→</span><p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Cost Optimization:</strong> Coordinates agent execution to minimize API call costs</p></div>
+    </div>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">Currently, Anthropic's Claude Agent SDK, Microsoft's AutoGen, and Vertex AI Agent Builder all serve the role of an Agent OS. 2025–2026 is the period when competition over this infrastructure is fiercest.</p>
+</div>
+
+<!-- EPILOGUE -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">Epilogue</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;font-style:italic;font-family:Georgia,serif;">Just as maritime work evolved from a single navigator, to a specialized crew, to a full vessel operating system.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">Agent AI technology began with the simple ReAct pattern, became standardized through Tool Calling and MCP, was implemented in frameworks like AutoGPT, CrewAI, and LangGraph, and is now being industrialized through Multi-Agent systems and Agent OS. <strong>In the next part, we'll look at concrete cases of how this technology is applied in real companies — especially in the maritime industry.</strong></p>
+</div>
+
+<!-- CAPTAIN PAUL'S TAKE -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="color:#7effd8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:16px;text-transform:uppercase;">&#x1F9ED; Captain Paul&rsquo;s Take</div>
+  <p style="color:rgba(255,255,255,0.92);font-size:15px;line-height:1.85;margin:0 0 16px;font-style:italic;font-family:Georgia,serif;">&ldquo;Watching MCP emerge reminded me of the maritime industry's own history of standardization. SOLAS, MARPOL, ISM Code — the moment a standard appeared, safety and efficiency improved together. The AI ecosystem, with MCP as its standard, is now ready to scale to an industrial level. In maritime cybersecurity, building an MCP server on top of the IACS E26/E27 regulation database will be one of the most strategic infrastructure investments going forward.&rdquo;</p>
+  <p style="color:rgba(255,255,255,0.7);font-size:13px;line-height:1.7;margin:0;">Technical standardization is the beginning of industrialization.</p>
+</div>
+
+<!-- NEXT EPISODE -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x27A1; Coming Up Next</div>
+  <div style="display:flex;gap:12px;align-items:flex-start;">
+    <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 4</span>
+    <div>
+      <p style="font-size:14px;font-weight:700;color:#0a2342;margin:0 0 6px;">How Can Companies Use Agent AI? &mdash; Real business application cases</p>
+      <p style="font-size:13px;color:#6b8599;line-height:1.6;margin:0;">Customer service, data analysis, software development, cybersecurity, and applications specific to the maritime and shipbuilding industry — plus a practical implementation guide featuring the Digital Worker concept.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAGS -->
+<div style="display:flex;flex-wrap:wrap;gap:8px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#AgentAI</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#ReAct</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#MCP</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#CrewAI</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#LangGraph</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#MultiAgent</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#AgentOS</span>
+  <span style="background:#e8f4ff;color:#1a6fa8;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:20px;">#Maritime40</span>
+</div>
+
+<!-- AUTHOR CARD -->
+<div style="background:linear-gradient(135deg,#0a1929,#0d2137);border:1px solid rgba(26,158,130,0.3);border-radius:12px;padding:22px;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:16px;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+    <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #1a9e82;display:block;" />
+  </a>
+  <div>
+    <div style="color:white;font-size:16px;font-weight:800;line-height:1.3;margin-bottom:4px;">Captain Paul</div>
+    <div style="color:#1affda;font-size:11px;font-weight:600;margin-bottom:10px;">Maritime 4.0 &#xB7; AI &amp; Cyber Intelligence &#xB7; ShipPaulJobs</div>
+    <p style="color:rgba(255,255,255,0.7);font-size:13px;line-height:1.7;margin:0 0 10px;">An innovation leader connecting data, AI, and cybersecurity to the maritime industry. Writing in plain language so every maritime professional can understand and use AI.</p>
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="color:#1affda;font-size:11px;font-weight:600;text-decoration:none;">LinkedIn &#x2197;</a>
+  </div>
+</div>

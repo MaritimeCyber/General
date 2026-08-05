@@ -1,0 +1,355 @@
+<!--════════════════════════════════════════════════════════════
+ Article: DID System Autonomous Operation — Remote & Offline-Ready Management Platform
+ Author : Captain Paul
+ Label  : AICyberLab
+ URL    : https://www.shippauljobs.com/2020/04/1-diddigital-information-display.html
+ Date   : 2020-04-08 (backdated)
+ NOTE   : Blogger HTML fragment — NO <head>, inline CSS only
+════════════════════════════════════════════════════════════-->
+
+<!-- ══ HERO HEADER ══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#1a4055,#0d6e5a);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(13,110,90,0.4);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F52C; R&amp;D Note</span>
+    <span style="background:rgba(13,110,90,0.4);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F4F6; IoT &middot; Edge Computing</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Remote Management</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Autonomous Operation</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">AICyberLab</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">DID System Autonomous Operation<br>Remote &amp; Offline-Ready Management Platform</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">인터넷 연결 없이도 스스로 작동하고, 원격으로 관리·제어되는 DID 시스템을 직접 기획·개발·운영한 R&amp;D 기록</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Maritime 4.0 &middot; IoT &amp; Edge Computing for Offshore &amp; Industrial Systems</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WHAT THIS ARTICLE COVERS ══ -->
+<div style="background:#f0faf7;border:1px solid #a7f3d0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">&#x1F9ED; 이 글에서 다루는 내용</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 1</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>왜 DID에 자율 운영이 필요한가</strong> &mdash; 현장 방문 인력 없이 시스템을 운영해야 했던 현실적 이유</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 2</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>시스템 핵심 구성 요소 4가지</strong> &mdash; 센서 감지 → 원격 관리 → 자율 장애 대응 → 대시보드까지</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Part 3</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>4-Tier 시스템 아키텍처 &amp; 확장 가능성</strong> &mdash; DID에서 선박·이동형 로봇까지</p>
+    </div>
+  </div>
+  <p style="font-size:12px;color:#6b8599;line-height:1.6;margin:12px 0 0;">IoT/Edge Computing 배경지식이 없어도 읽을 수 있습니다. 실제 개발·운영 경험을 기반으로 쉽게 설명합니다.</p>
+</div>
+
+<!-- ══ PROLOGUE ══ -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#0d6e5a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">프롤로그</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;font-style:italic;font-family:Georgia,serif;">"현장에 사람을 보낼 수 없다면, 시스템이 스스로 판단해야 한다."</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">도심 한복판의 LED 전광판(DID) 하나가 꺼졌습니다. 광고주는 즉각 항의했고, 현장팀은 이미 다른 현장에 나가 있었습니다. 원인도 모른 채 한 시간을 기다렸다가 가보니 — 원인은 단순한 프로세스 크래시였습니다. 재시작 한 번이면 됐습니다.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">이 반복되는 상황이 이 프로젝트의 출발점이었습니다. <strong>"DID가 스스로 자기 상태를 알고, 스스로 복구하며, 인터넷이 없어도 계속 작동한다면?"</strong> &mdash; 이 질문 하나에서 시작해 센서 레이어부터 관리 대시보드까지 전 스택을 직접 설계했습니다.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">그리고 이 경험은 이후 <strong>선박·원격지 인프라·이동형 로봇</strong>의 자율 운영 아키텍처를 설계하는 데 직접적인 기반이 되었습니다.</p>
+</div>
+
+<!-- ══ PART 1 DIVIDER ══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#0d6e5a);border-radius:10px;padding:16px 22px;margin:0 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 1 &mdash; Research Context</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">왜 DID 시스템에 자율 운영이 필요한가</div>
+</div>
+
+<!-- PART 1 CONTENT -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 16px;">2010년 이후 모바일을 통한 디지털 미디어 소비가 급증했음에도, 도심 곳곳의 LED 전광판(DID: Digital Information Display)은 여전히 중요한 정보 전달 매체입니다. 그러나 현장 운영 현실은 생각보다 훨씬 복잡합니다.</p>
+
+  <!-- Numbered Cards -->
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
+    <div style="background:#f0faf7;border-left:4px solid #0d6e5a;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="background:#0d6e5a;color:white;font-size:11px;font-weight:800;padding:2px 9px;border-radius:12px;">01</span>
+        <span style="font-size:14px;font-weight:700;color:#0a2342;">현장 방문 없이 상태를 파악할 수 있어야 한다</span>
+      </div>
+      <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">불량 픽셀 체크, 온도·습도 등 환경 이상 감지, 화면 표시 오류 등을 원격으로 파악하지 못하면 장애 대응이 지연되고 운영 비용이 급증합니다. 실제로 현장 엔지니어의 출동 비용과 대기 시간을 합산하면, 단순 재시작 1회의 비용이 수십만 원에 달하는 경우도 있습니다.</p>
+    </div>
+    <div style="background:#f0faf7;border-left:4px solid #0d6e5a;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="background:#0d6e5a;color:white;font-size:11px;font-weight:800;padding:2px 9px;border-radius:12px;">02</span>
+        <span style="font-size:14px;font-weight:700;color:#0a2342;">인터넷이 없어도 콘텐츠 제어·스케줄 관리가 가능해야 한다</span>
+      </div>
+      <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">클라우드 의존형 시스템은 네트워크 장애 시 완전히 멈춥니다. 오프라인에서도 로컬 스케줄러가 독립 작동하고, 네트워크 복구 시 서버와 자동 동기화되는 구조 &mdash; 이것이 <strong>Offline-First 아키텍처</strong>의 핵심입니다.</p>
+    </div>
+    <div style="background:#f0faf7;border-left:4px solid #0d6e5a;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="background:#0d6e5a;color:white;font-size:11px;font-weight:800;padding:2px 9px;border-radius:12px;">03</span>
+        <span style="font-size:14px;font-weight:700;color:#0a2342;">이 기술은 DID를 넘어 선박·이동형 로봇까지 확장 가능하다</span>
+      </div>
+      <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">원거리 해상, 통신 음영 지역, 이동형 로봇 등 열악한 통신 환경의 시스템 관리에도 동일한 아키텍처가 적용됩니다. DID는 이 아키텍처를 검증한 <strong>첫 번째 도메인</strong>이었습니다.</p>
+    </div>
+  </div>
+
+  <!-- Dark Data Cards -->
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;text-align:center;">&#x1F4CA; 이 프로젝트의 주요 성과 지표</div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(26,255,218,0.2);border-radius:10px;padding:16px 20px;text-align:center;min-width:130px;">
+        <div style="color:#1affda;font-size:26px;font-weight:900;line-height:1;">90%+</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;margin-top:6px;line-height:1.4;">현장 출동 감소율<br>(장애 자동 복구)</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(26,255,218,0.2);border-radius:10px;padding:16px 20px;text-align:center;min-width:130px;">
+        <div style="color:#1affda;font-size:26px;font-weight:900;line-height:1;">15km</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;margin-top:6px;line-height:1.4;">LoRa 통신 최대 도달 거리<br>(인터넷 없는 환경)</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(26,255,218,0.2);border-radius:10px;padding:16px 20px;text-align:center;min-width:130px;">
+        <div style="color:#1affda;font-size:26px;font-weight:900;line-height:1;">5s</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;margin-top:6px;line-height:1.4;">프로세스 크래시 후<br>자동 재시작 시간</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(26,255,218,0.2);border-radius:10px;padding:16px 20px;text-align:center;min-width:130px;">
+        <div style="color:#1affda;font-size:26px;font-weight:900;line-height:1;">4-Tier</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:11px;margin-top:6px;line-height:1.4;">Edge Node → Comm →<br>Server → Dashboard</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PART 2 DIVIDER ══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#0d6e5a);border-radius:10px;padding:16px 22px;margin:0 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 2 &mdash; Core Components</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">시스템 핵심 구성 요소 4가지</div>
+</div>
+
+<!-- FEATURE 01 -->
+<div style="margin-bottom:26px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#0d6e5a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">FEATURE 01 &mdash; 센서 기반 상태 감지 및 이상 상황 파악</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">온도·습도 센서, 카메라 모듈, 조도 센서 등을 활용해 DID 기기의 환경 상태와 화면 이상(불량 픽셀, 블랙아웃 등)을 실시간으로 감지합니다. 센서 데이터는 로컬 Edge 프로세서에서 1차 분석되어 임계값 초과 시 즉각 알림을 발생시킵니다. 클라우드에 의존하지 않고 현장에서 판단을 완결하는 것이 핵심입니다.</p>
+
+  <!-- Tech Note Box -->
+  <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:16px 18px;margin-bottom:16px;">
+    <div style="font-size:11px;font-weight:700;color:#0a7055;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">&#x2699;&#xFE0F; Technical Note &mdash; Sensor Layer</div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Temperature / Humidity:</strong> DHT22 또는 BME280 센서 &mdash; 패널 과열(70°C+) 및 결로 감지</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Ambient Light:</strong> BH1750 조도 센서 &mdash; 주변 밝기에 따른 화면 밝기 자동 조절</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Pixel Defect Check:</strong> 카메라 모듈(OV5647) + OpenCV 기반 불량 픽셀 패턴 감지</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Edge Processing:</strong> Raspberry Pi / NVIDIA Jetson Nano 기반 로컬 실시간 분석</div>
+    </div>
+  </div>
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4A8IKfiMJaz4kn6udFuFqszcvcGDalpYx0CQDUG7zcBDCxrk5EmFlbYX88oQyBFo-_OSbddoB_bxvdhTeoDyiVz5Xp-MvMiJEth2Y10RrGvUDTQNg2oJEg5zB0eoEY0zSe-jlL3V6lE0/s789-rw/5.png" alt="센서 기반 상태 감지" style="width:100%;border-radius:8px;margin-bottom:6px;" loading="lazy" />
+  <p style="font-size:12px;color:#6b7280;text-align:center;margin:0;">▲ 다양한 센서 정보를 통한 상태 감지 및 이상 상황 파악</p>
+</div>
+
+<!-- FEATURE 02 -->
+<div style="margin-bottom:26px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#0d6e5a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">FEATURE 02 &mdash; 원격 데이터 분할 조작 및 원격 관리</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">콘텐츠 업데이트, 재생 스케줄 변경, 시스템 설정 등을 현장 방문 없이 원격으로 처리합니다. 인터넷이 없는 경우에도 로컬 스케줄러가 독립적으로 작동하며, 네트워크 복구 시 서버와 자동 동기화됩니다. 저대역 환경에서도 안정적인 통신을 보장하기 위해 MQTT + LoRa 이중 통신 전략을 채택했습니다.</p>
+
+  <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:16px 18px;margin-bottom:16px;">
+    <div style="font-size:11px;font-weight:700;color:#0a7055;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">&#x2699;&#xFE0F; Technical Note &mdash; Communication &amp; Sync Layer</div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">MQTT:</strong> 저대역 환경에 최적화된 경량 메시징 프로토콜 &mdash; QoS 1/2로 메시지 전달 보장</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">LoRa / LoRaWAN:</strong> 인터넷 불가 환경에서 장거리 저전력 통신 (도달 거리 최대 15km)</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Local Scheduler:</strong> SQLite 기반 오프라인 스케줄 DB &mdash; 서버와 Diff-Sync 방식 동기화</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">OTA Update:</strong> Delta Patch 방식 &mdash; 저대역에서도 펌웨어·콘텐츠 업데이트 가능</div>
+    </div>
+  </div>
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfmIOcuesJSYWSlz8ueWIEP33Rf6unsLGLfwCM-q4PFN-E14VSdoQb_4Lv-oEgfgLPPCE_76unsLGLfwCM-q4PFN-E14VSdoQb_4Lv-oEgfgLPPCE_fl2qrVewp5IPR8nBbzFnAYLSbL7AL26sKEPw/s731-rw/4.png" alt="원격 관리 시스템" style="width:100%;border-radius:8px;margin-bottom:6px;" loading="lazy" />
+  <p style="font-size:12px;color:#6b7280;text-align:center;margin:0;">▲ 원거리(또는 자동화된) 이미지 분할 조작 및 원격 관리</p>
+</div>
+
+<!-- FEATURE 03 -->
+<div style="margin-bottom:26px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#0d6e5a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">FEATURE 03 &mdash; 자체 감시 시스템 및 자율 장애 대응</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">시스템 스스로 프로세스 상태를 모니터링하고, 이상 감지 시 자동으로 재시작하거나 장애 내용을 로그로 기록합니다. 사람이 개입하기 전까지 서비스를 최대한 유지하는 <strong>Self-healing</strong> 구조가 핵심입니다. 이 아키텍처는 이후 선박 시스템의 무인 운영 설계에 직접 적용되었습니다.</p>
+
+  <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:16px 18px;margin-bottom:16px;">
+    <div style="font-size:11px;font-weight:700;color:#0a7055;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">&#x2699;&#xFE0F; Technical Note &mdash; Watchdog &amp; Self-Healing</div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Hardware Watchdog Timer:</strong> 프로세스 무응답 감지 → 자동 강제 재부팅 (heartbeat 방식)</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Systemd Service:</strong> 프로세스 크래시 즉시 자동 재시작 (Restart=always, RestartSec=5s)</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Structured Logging:</strong> JSON 포맷 장애 로그 → 네트워크 복구 시 서버 자동 전송</div>
+      <div style="font-size:13px;color:#374151;line-height:1.6;"><strong style="color:#0a2342;">Health Check API:</strong> 내부 HTTP 엔드포인트로 Watchdog 및 외부 모니터링 동시 지원</div>
+    </div>
+  </div>
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGV54vn-8eTHjsxhupFTlCjmRoGxou-ByArjMB2qpVHX6BXx04ux_hMN1GsTqPMdiwqmgLcpU-DnU-Mbmfls9eS4Yr4jwn-9FcCqmNah_e_iz8vJHNc99RAVcrlgrc/s622-rw/3.png" alt="자체 감시 및 장애 대응" style="width:100%;border-radius:8px;margin-bottom:6px;" loading="lazy" />
+  <p style="font-size:12px;color:#6b7280;text-align:center;margin:0;">▲ 자체 감시 시스템 및 장애 대응 흐름</p>
+</div>
+
+<!-- FEATURE 04 -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#0d6e5a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">FEATURE 04 &mdash; 사용자 편의 웹 대시보드</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">기술적 배경이 없는 운영자도 직관적으로 사용할 수 있도록 웹 기반 대시보드를 설계했습니다. 콘텐츠 등록, 재생 스케줄 편집, 기기 상태 확인, 알림 설정까지 하나의 화면에서 처리 가능합니다. 대시보드는 반응형으로 설계되어 모바일에서도 현장 인력이 즉시 접근할 수 있습니다.</p>
+
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:20px;margin-bottom:14px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;">Dashboard Key Functions</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(26,255,218,0.15);border-radius:8px;padding:10px 14px;flex:1;min-width:140px;">
+        <div style="color:#7effd8;font-size:12px;font-weight:700;margin-bottom:4px;">&#x1F4CB; Content CMS</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;">콘텐츠 등록·편집·삭제 / 기기별 배포</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(26,255,218,0.15);border-radius:8px;padding:10px 14px;flex:1;min-width:140px;">
+        <div style="color:#7effd8;font-size:12px;font-weight:700;margin-bottom:4px;">&#x23F0; Schedule Manager</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;">시간대별 재생 스케줄 / 반복 설정</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(26,255,218,0.15);border-radius:8px;padding:10px 14px;flex:1;min-width:140px;">
+        <div style="color:#7effd8;font-size:12px;font-weight:700;margin-bottom:4px;">&#x1F4F1; Device Monitor</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;">실시간 상태 / 센서 데이터 / 알림</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(26,255,218,0.15);border-radius:8px;padding:10px 14px;flex:1;min-width:140px;">
+        <div style="color:#7effd8;font-size:12px;font-weight:700;margin-bottom:4px;">&#x1F4E6; OTA Manager</div>
+        <div style="color:rgba(255,255,255,0.65);font-size:11.5px;line-height:1.5;">Delta Patch 배포 / 버전 관리</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PART 3 DIVIDER ══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#0d6e5a);border-radius:10px;padding:16px 22px;margin:0 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Part 3 &mdash; Architecture &amp; Scalability</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">4-Tier 아키텍처와 확장 가능성</div>
+</div>
+
+<!-- ARCHITECTURE -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 16px;">앞서 설명한 4개의 핵심 구성 요소는 아래 아키텍처에서 하나의 시스템으로 통합됩니다. <strong>Edge Node ↔ 통신 레이어 ↔ 관리 서버 ↔ 웹 대시보드</strong>의 4-Tier 구조가 핵심이며, 각 Tier는 독립적으로 동작할 수 있도록 설계되어 있습니다.</p>
+
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEixrfsqUkqs0gBx68S_CLolebVfIdIagdjcjSNe6mcUz70-dLtVuSmloY9XOCinMSY-HccNDECOkH1nYezfLOX4fp7lL0-TFyC3q43OQk1ewsPujMGJ4LW5xYp738cfNuOcYtcu_edV7UY/s859-rw/1.png" alt="전체 시스템 아키텍처" style="width:100%;border-radius:8px;margin-bottom:16px;" loading="lazy" />
+
+  <!-- Architecture Tier Cards -->
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+    <div style="display:flex;gap:0;align-items:stretch;">
+      <div style="background:#0d6e5a;color:white;font-size:11px;font-weight:800;padding:12px 10px;border-radius:8px 0 0 8px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:0.1em;text-align:center;min-width:36px;">TIER 1</div>
+      <div style="background:#f0faf7;border:1px solid #a7f3d0;border-left:none;border-radius:0 8px 8px 0;padding:12px 16px;flex:1;">
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:4px;">Edge Node (DID Device)</div>
+        <div style="font-size:12.5px;color:#374151;line-height:1.6;">센서 수집, 로컬 스케줄 실행, Watchdog, 오프라인 캐시 관리 — 클라우드 없이 완전 자율 운영</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0;align-items:stretch;">
+      <div style="background:#0a7055;color:white;font-size:11px;font-weight:800;padding:12px 10px;border-radius:8px 0 0 8px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:0.1em;text-align:center;min-width:36px;">TIER 2</div>
+      <div style="background:#f0faf7;border:1px solid #a7f3d0;border-left:none;border-radius:0 8px 8px 0;padding:12px 16px;flex:1;">
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:4px;">Communication Layer</div>
+        <div style="font-size:12.5px;color:#374151;line-height:1.6;">MQTT Broker / LoRaWAN Gateway / LTE Failover &mdash; 다중 통신 전략으로 연결 안정성 보장</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0;align-items:stretch;">
+      <div style="background:#0a5f4a;color:white;font-size:11px;font-weight:800;padding:12px 10px;border-radius:8px 0 0 8px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:0.1em;text-align:center;min-width:36px;">TIER 3</div>
+      <div style="background:#f0faf7;border:1px solid #a7f3d0;border-left:none;border-radius:0 8px 8px 0;padding:12px 16px;flex:1;">
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:4px;">Management Server</div>
+        <div style="font-size:12.5px;color:#374151;line-height:1.6;">콘텐츠 CMS, 기기 상태 DB, 알림 엔진, REST API &mdash; 모든 기기 정보의 중앙 관리 허브</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0;align-items:stretch;">
+      <div style="background:#095040;color:white;font-size:11px;font-weight:800;padding:12px 10px;border-radius:8px 0 0 8px;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:0.1em;text-align:center;min-width:36px;">TIER 4</div>
+      <div style="background:#f0faf7;border:1px solid #a7f3d0;border-left:none;border-radius:0 8px 8px 0;padding:12px 16px;flex:1;">
+        <div style="font-size:13px;font-weight:700;color:#0a2342;margin-bottom:4px;">Web Dashboard</div>
+        <div style="font-size:12.5px;color:#374151;line-height:1.6;">콘텐츠 편집, 스케줄 관리, 실시간 상태 모니터링, 알림 설정 &mdash; 모바일에서도 접근 가능</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scalability Note -->
+  <div style="background:#f0f7ff;border-left:4px solid #0a2342;border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:14px;">
+    <div style="font-size:12px;font-weight:700;color:#0a2342;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">&#x1F680; 확장 가능성 — DID에서 해양 산업까지</div>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 10px;">이 4-Tier 아키텍처는 DID 시스템을 넘어 열악한 통신 환경의 모든 분야에 적용 가능합니다.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <span style="background:#e0f2fe;color:#0369a1;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">&#x26F3; 선박 항법·기관 시스템</span>
+      <span style="background:#e0f2fe;color:#0369a1;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">&#x1F6F0; 원격지 CCTV·감시 인프라</span>
+      <span style="background:#e0f2fe;color:#0369a1;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">&#x1F916; 자율 이동 로봇 (AMR)</span>
+      <span style="background:#e0f2fe;color:#0369a1;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">&#x1F3ED; 스마트 공장 OT 시스템</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROJECT INSIGHT ══ -->
+<div style="background:#fffbeb;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:12px;font-weight:700;color:#92400e;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">&#x1F4A1; Project Insight</div>
+  <p style="font-size:14px;color:#374151;line-height:1.8;margin:0 0 12px;">이 프로젝트에서 가장 어려웠던 부분은 기술 자체가 아니라, <strong>오프라인 환경에서의 신뢰성을 어떻게 설계하느냐</strong>였습니다.</p>
+  <p style="font-size:14px;color:#374151;line-height:1.8;margin:0;">클라우드 없이 시스템이 스스로 판단하고, 기록하고, 복구해야 한다는 요구사항은 단순한 IoT 연동을 넘어 <strong>Edge Intelligence</strong>의 영역입니다. 이 경험은 이후 선박 시스템, 원격지 인프라, 통신 음영 환경의 자율 운영 아키텍처를 설계하는 데 직접적인 기반이 되었습니다.</p>
+</div>
+
+<!-- ══ CAPTAIN PAUL'S TAKE ══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#1a4055,#0d6e5a);border-radius:14px;padding:28px 28px 24px;font-family:Inter,sans-serif;margin-bottom:30px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-30px;bottom:-30px;width:180px;height:180px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="color:#7effd8;font-size:11px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">&#x2693; Captain Paul's Take</div>
+  <p style="color:white;font-size:16px;font-weight:700;line-height:1.5;margin:0 0 14px;">"연결되지 않아도 작동해야 한다 — 이것이 진정한 자율 시스템의 기준이다."</p>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.8;margin:0 0 12px;">선박은 대양 한복판에서 위성 통신이 끊길 수 있습니다. 도심 DID는 ISP 장애로 인터넷이 단절될 수 있습니다. 통신 음영 지역의 CCTV는 며칠씩 오프라인 상태가 될 수 있습니다. 이 모든 상황에서 "연결이 없으면 멈춘다"는 시스템은 미션 크리티컬 환경에 맞지 않습니다.</p>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.8;margin:0;">DID 자율 운영 프로젝트는 작은 도메인에서 시작했지만, 그 핵심 원칙 — <strong>Offline-First, Self-Healing, Low-Bandwidth Sync</strong> — 은 어떤 열악한 환경의 시스템에도 동일하게 적용됩니다. 이것이 이 R&amp;D를 단순한 광고판 관리를 넘어 해양·산업 자율화의 원형(prototype)으로 바라보는 이유입니다.</p>
+</div>
+
+<!-- ══ CONCLUSION ══ -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#0d6e5a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">Conclusion</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">DID 시스템 자율 운영 플랫폼은 단순한 디지털 사이니지 관리 도구가 아닙니다. <strong>인터넷이 없는 환경에서의 자율 운영</strong>이라는 어려운 문제를 DID라는 구체적인 도메인에서 직접 검증한 프로젝트입니다.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">센서 모니터링 → Edge 처리 → 저대역 통신 → 자율 장애 대응 → 원격 관리 대시보드로 이어지는 이 아키텍처는, 향후 선박 항법 시스템, 원격지 CCTV, 자율 이동 로봇 등 다양한 분야로 확장될 수 있는 기술적 토대를 제공합니다.</p>
+</div>
+
+<!-- ══ RELATED POSTS ══ -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;">&#x1F517; Related Posts</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <a href="https://www.shippauljobs.com/2025/03/comprehensive-list-of-shipboard-systems.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;text-decoration:none;">
+      <span style="background:#0d6e5a;color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;">Ship Systems</span>
+      <span style="font-size:13px;color:#0a2342;font-weight:600;line-height:1.4;">[Security Assessment] Comprehensive List of Shipboard Systems in Commercial Vessels — With Security Assessment Criteria and Cyber Risk Guide</span>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/06/securing-maritime-ot-operating.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;text-decoration:none;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;">OT Security</span>
+      <span style="font-size:13px;color:#0a2342;font-weight:600;line-height:1.4;">Securing Maritime OT Systems: A Practical Cyber Security Strategy</span>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/04/efficient-way-to-classify-system-types.html" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;text-decoration:none;">
+      <span style="background:#7c3aed;color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;">Compliance</span>
+      <span style="font-size:13px;color:#0a2342;font-weight:600;line-height:1.4;">[CRSI] IACS UR E26/E27 System Classification Guide — Efficient Way to Classify System Types</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══ TAGS ══ -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;flex-wrap:wrap;gap:7px;">
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#DIDSystem</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#IoT</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#EdgeComputing</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#RemoteManagement</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#OfflineOperation</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#AutonomousSystem</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#MQTT</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#LoRa</span>
+    <span style="background:#e0f7f1;color:#065f46;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#SelfHealing</span>
+    <span style="background:#dbeafe;color:#1e40af;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#Maritime40</span>
+    <span style="background:#dbeafe;color:#1e40af;font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:20px;">#AICyberLab</span>
+  </div>
+</div>
+
+<!-- ══ AUTHOR CARD ══ -->
+<div style="background:linear-gradient(135deg,#f0faf7,#e8f5f0);border:1px solid #a7f3d0;border-radius:14px;padding:22px;font-family:Inter,sans-serif;display:flex;gap:16px;align-items:flex-start;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;">
+    <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #0d6e5a;display:block;" />
+  </a>
+  <div>
+    <div style="font-size:15px;font-weight:800;color:#0a2342;line-height:1.3;margin-bottom:4px;">Captain Paul</div>
+    <div style="font-size:11px;color:#0a7055;font-weight:600;margin-bottom:8px;">Maritime 4.0 · IoT &amp; Edge Computing for Offshore &amp; Industrial Systems</div>
+    <p style="font-size:13px;color:#374151;line-height:1.7;margin:0 0 10px;">해양 사이버 보안 컨설턴트 &amp; R&amp;D 엔지니어. DID 자율 운영 플랫폼을 시작으로 선박 시스템의 Offline-First 자율화 아키텍처를 연구하고 있습니다. IoT · Edge Computing · Maritime Cyber Security 분야의 실전 경험을 공유합니다.</p>
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="display:inline-block;background:#0a2342;color:#1affda;font-size:11px;font-weight:700;padding:5px 14px;border-radius:6px;text-decoration:none;">LinkedIn →</a>
+  </div>
+</div>

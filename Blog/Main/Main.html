@@ -96,6 +96,9 @@
 <b:if cond='data:view.isArchive || data:view.isSearch'>
   <meta content='noindex, follow' name='robots'/>
 </b:if>
+<b:if cond='data:view.url == &quot;https://www.shippauljobs.com/2025/02/reconnecting-with-my-shipbuilding.html&quot; or data:view.url == &quot;https://www.shippauljobs.com/2024/05/have-you-tried-journey-of-challenge-and.html&quot; or data:view.url == &quot;https://www.shippauljobs.com/2025/02/a-new-chapter-from-curiosity-to-action.html&quot; or data:view.url == &quot;https://www.shippauljobs.com/2025/10/kormarin-2025-back-on-that-sea-again.html&quot;'>
+  <meta content='noindex, follow' name='robots'/>
+</b:if>
 
     <!-- &#9552;&#9552; SEO: JSON-LD 구조화 데이터 &#9552;&#9552; -->
     <!-- BlogPosting JSON-LD: Blogger 위젯(body)에서 자동 생성 &#8212; head에서 data:post.* 변수 사용 불가하므로 제거 -->
@@ -170,6 +173,11 @@
 
 <!-- Blogger 기본 head &#8212; all-head-content 먼저 출력 후 커스텀 description으로 덮어씌움 -->
 <b:include data='blog' name='all-head-content'/>
+
+<!-- ?m=1 모바일 URL noindex: GSC 중복 페이지(사용자가 선택한 표준이 없는 중복) 해소 (2026-08-04) -->
+<b:if cond='data:blog.url CONTAINS &quot;?m=1&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
 
 <!-- noindex 제거 (2026-07-19): 도구 페이지에 정적 콘텐츠 추가 완료 &#8594; AdSense 재심사를 위해 크롤링 허용 -->
 
@@ -1048,8 +1056,8 @@
       .Blog .b1-card-author:hover{ color:#222; background:none; }
       /* -- SPJ Verification Badge -- */
       .Blog .b1-card-thumb{position:relative!important;}
-      .spj-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;overflow:hidden;z-index:5;flex-shrink:0;text-decoration:none;border:none!important;}
-      .spj-badge img{width:26px!important;height:26px!important;min-width:26px!important;min-height:26px!important;max-width:26px!important;max-height:26px!important;object-fit:cover;border-radius:50%;display:block!important;border:none!important;padding:0!important;margin:0!important;}
+      .spj-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff url('https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png') center/cover no-repeat;overflow:hidden;z-index:5;flex-shrink:0;text-decoration:none;border:none!important;}
+      .spj-badge img{display:none!important;}
       .spj-badge-post{width:auto!important;border-radius:12px!important;padding:2px 8px 2px 4px;gap:4px;}
       .spj-badge-label{font-size:10px;font-weight:700;white-space:nowrap;}
       .spj-badge-l1 .spj-badge-label{color:#00c97a;}.spj-badge-l2 .spj-badge-label{color:#1d89cf;}.spj-badge-l3 .spj-badge-label{color:#9b59b6;}
@@ -1635,8 +1643,20 @@
       .FeaturedPost .fp-bot-comment a{font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap}
       .Blog .blog-posts .post-outer-container{background:#f4f9ff !important;border-radius:10px !important;box-shadow:0 2px 8px rgba(10,35,66,.07) !important;margin-bottom:10px !important;position:relative !important;}
       .b1-share-wrap{position:absolute;top:10px;right:10px;z-index:20;display:flex;align-items:center;gap:6px}
-      .b1-share-toggle{width:32px;height:32px;border-radius:50%;background:rgba(26,158,130,0.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .18s,background .18s}
+      .b1-share-toggle{width:32px;height:32px;border-radius:50%;background:rgba(26,158,130,0.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .18s,background .18s,opacity .18s;opacity:0;pointer-events:none}
       .b1-share-toggle:hover,.b1-share-toggle.active{background:#1a9e82;transform:scale(1.08)}
+      /* 카드 hover 또는 패널 열림 시 공유 버튼 표시 */
+      .b1-share-toggle.active,
+      .b1-single-share .b1-share-toggle,
+      .b1-share-wrap:hover .b1-share-toggle,
+      .post-outer-container:hover .b1-share-toggle,
+      #scs-track>a:hover .b1-share-toggle,
+      #scs-track>div:hover .b1-share-toggle,
+      #ms-track>a:hover .b1-share-toggle,
+      #ms-track>div:hover .b1-share-toggle,
+      #fps-track>div:hover .b1-share-toggle,
+      #apl-cards>div:hover .b1-share-toggle,
+      #tls-track>div:hover .b1-share-toggle{opacity:1;pointer-events:auto}
       @keyframes b1SmIn{from{opacity:0;transform:translateY(-6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
       .b1-share-panel{display:none;position:absolute;top:calc(100% + 7px);right:0;flex-direction:column;gap:2px;background:#fff;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:6px;min-width:152px}
       .b1-share-panel.open{display:flex;animation:b1SmIn .16s ease}
@@ -1688,9 +1708,9 @@
     <b:if cond='data:view.isHomepage'><script>document.body.classList.add(&#39;is-homepage&#39;)</script></b:if>
     <canvas id='globe-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.95;'/>
     <canvas id='label-canvas' style='position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;'/>
-    <div id='right-panel'>
+    <div id='right-panel' style='display:none'>
       <div id='rp-panel-hdr'>
-        <span id='rp-panel-label'>&#9875; Maritime Hub</span>
+        <span id='rp-panel-label'>&#9875; Maritime Intelligence Center</span>
         <button id='rp-master-btn' onclick='rpMasterToggle()'>&#9776;</button>
       </div>
       <div id='rp-panel-body'>
@@ -2938,7 +2958,7 @@
                         <b:include data='post' name='postMeta'/>
                         <b:if cond='data:view.isSingleItem'>
                           <!-- 단일 포스트 상단 우측 공유 버튼 -->
-                          <div class='b1-share-wrap'>
+                          <div class='b1-share-wrap b1-single-share'>
                             <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Industry Validated</span></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Expert Reviewed</span></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Verified</span></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
@@ -3390,7 +3410,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                         #tls-outer{overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;}
                         #tls-outer:active{cursor:grabbing;}
                         #tls-track{display:flex;gap:14px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
-                        #tls-track&gt;div{flex:0 0 calc((100% - 28px)/3);min-width:0}
+                        #tls-track&gt;div{flex:0 0 calc((100% - 35px)/3.5);min-width:0}
                         @media(max-width:900px){#tls-track&gt;div{flex:0 0 calc((100% - 14px)/2)}}
                         @media(max-width:580px){#tls-track&gt;div{flex:0 0 100%}}
                         /* Tool card sections */
@@ -3413,6 +3433,212 @@ if(!window.b1WC){window.b1WC=function(btn){
                         .tc-live-dot{background:#1a9e82;border-radius:50%;display:inline-block;height:7px;width:7px;box-shadow:0 0 6px rgba(26,158,130,0.8);}
                         .tc-live-txt{color:#7effd8;font-size:8.5px;font-weight:800;}
                       </style>
+                      <!-- ════ SPJ GLOBAL UTILITIES (shared across all feed sections) ════ -->
+                      <script>
+//<![CDATA[
+(function(){
+  // 전역 XSS 이스케이프 (중복 정의 방지)
+  window.esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+  // 전역 base URL
+  window.SPJ_BASE = window.SPJ_BASE || 'https://www.shippauljobs.com';
+  // 배지 정의 (3개 섹션 공용)
+  window.SPJ_BADGES_DEF = window.SPJ_BADGES_DEF || [
+    { name: 'Industry Validated', cls: 'spj-badge-l3', title: 'Industry Validated — Shipyard / Class / Supplier Feedback' },
+    { name: 'Expert Reviewed',    cls: 'spj-badge-l2', title: 'Expert Reviewed — Technical Advisory Board' },
+    { name: 'Verified',           cls: 'spj-badge-l1', title: 'Verified — Editorial Team Review' }
+  ];
+  // 배지 HTML 생성 함수 (img 태그 없음 — CSS background-image로 처리)
+  window.spjBadgeHtml = window.spjBadgeHtml || function(labels) {
+    var arr = labels || [];
+    for (var i = 0; i < window.SPJ_BADGES_DEF.length; i++) {
+      if (arr.indexOf(window.SPJ_BADGES_DEF[i].name) >= 0) {
+        var b = window.SPJ_BADGES_DEF[i];
+        return '<a href="' + window.SPJ_BASE + '/p/editorial-verification-policy.html"'
+          + ' class="spj-badge ' + b.cls + '" title="' + b.title + '"'
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
+      }
+    }
+    return '';
+  };
+  // 피드 응답 메모리 캐시 (섹션별 중복 fetch 방지)
+  window._feedCache = window._feedCache || {};
+  window.fetchFeed = window.fetchFeed || function(url, parseFn) {
+    if (window._feedCache[url]) return Promise.resolve(window._feedCache[url]);
+    return fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var result = parseFn ? parseFn(d) : d;
+        window._feedCache[url] = result;
+        return result;
+      })
+      .catch(function(){ return []; });
+  };
+})();
+//]]>
+                      </script>
+                      <!-- ════ 완결된 시리즈 포스트 CAROUSEL ════ -->
+                      <style>
+                        #fps-outer{overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;}
+                        #fps-outer:active{cursor:grabbing;}
+                        #fps-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+                        #fps-track>a,#fps-track>div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
+                        @media(max-width:900px){#fps-track>a,#fps-track>div{flex:0 0 calc((100% - 10px)/2)}}
+                        @media(max-width:580px){#fps-track>a,#fps-track>div{flex:0 0 100%}}
+                      </style>
+                      <div id='fps-wrap' style='margin:0 0 2em;border-top:2px solid rgba(26,158,130,0.5);padding:1.2em 14px 14px;background:#fff;border-radius:10px;border:1px solid #e0eaf2;'>
+                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
+                          <span style='font-size:13px;font-weight:700;color:#0a2342;letter-spacing:0.4px'>Completed Series</span>
+                          <span id='fps-count' style='background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
+                        </div>
+                        <div style='font-size:11px;color:#7a9ab0;margin-bottom:10px;'>Fully completed multi-part posts — read the full story from start to finish.</div>
+                        <div style='position:relative;'>
+                          <button disabled='disabled' id='fps-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(224,234,242,0.7);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #b0c4d8;transition:border-right-color .18s;'/>
+                          </button>
+                          <div id='fps-outer'>
+                            <div id='fps-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
+                            <div id='fps-track'/>
+                          </div>
+                          <button disabled='disabled' id='fps-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(224,234,242,0.7);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid #b0c4d8;transition:border-left-color .18s;'/>
+                          </button>
+                        </div>
+                        <div style='text-align:center;margin-top:10px;'>
+                          <span id='fps-indicator' style='font-size:10px;color:#9ab4c8'/>
+                        </div>
+                      </div>
+                      <script type='text/javascript'>
+//<![CDATA[
+(function(){
+  /* ── 완결된 시리즈 포스트에 사용하는 Blogger 라벨을 입력하세요 ── */
+  var LABELS    = ['SERIES'];
+  var posts     = [];
+  var cardIndex = 0;
+  var animating = false;
+  var base      = 'https://www.shippauljobs.com';
+
+  var loadEl  = document.getElementById('fps-loading');
+  var trackEl = document.getElementById('fps-track');
+  var outerEl = document.getElementById('fps-outer');
+  var indEl   = document.getElementById('fps-indicator');
+  var prevBtn = document.getElementById('fps-prev');
+  var nextBtn = document.getElementById('fps-next');
+
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  var SPJ_BADGE_LOGO_FPS = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
+  var SPJ_BADGES_FPS = [
+    { name: 'Industry Validated', cls: 'spj-badge-l3', title: 'Industry Validated' },
+    { name: 'Expert Reviewed',    cls: 'spj-badge-l2', title: 'Expert Reviewed' },
+    { name: 'Verified',           cls: 'spj-badge-l1', title: 'Verified' }
+  ];
+  function spjBadgeFps(labels) {
+    for (var i = 0; i < SPJ_BADGES_FPS.length; i++) {
+      if ((labels||[]).indexOf(SPJ_BADGES_FPS[i].name) >= 0) {
+        var b = SPJ_BADGES_FPS[i];
+        return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" class="spj-badge '+b.cls+'" title="'+b.title+'" onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
+      }
+    }
+    return '';
+  }
+
+  function getStep(){ var f=trackEl&&trackEl.children[0]; return f?f.offsetWidth+10:0; }
+  function getMaxIndex(){ if(!outerEl||!posts.length) return 0; var s=getStep(); if(!s) return 0; return Math.max(0,posts.length-Math.max(1,Math.round((outerEl.offsetWidth+10)/s))); }
+  function applyPosition(animate){ if(!trackEl) return; trackEl.style.transition=animate?'transform .42s cubic-bezier(.25,.46,.45,.94)':'none'; trackEl.style.transform='translateX(-'+(cardIndex*getStep())+'px)'; }
+  function updateIndicator(){ if(indEl) indEl.textContent=(cardIndex+1)+' / '+posts.length; }
+
+  function parseEntries(data){
+    return ((data.feed&&data.feed.entry)||[]).map(function(e){
+      var link=(e.link||[]).filter(function(l){ return l.rel==='alternate'; })[0];
+      var thumb=e.media$thumbnail;
+      var img=thumb?thumb.url.replace(/\/s\d+[^\/]*\//g,'/s0/').replace(/\/w\d+-h\d+[^\/]*\//g,'/s0/').replace(/=s\d+[^&]*/g,'=s0'):'';
+      var auth=e.author&&e.author[0]?e.author[0]:{};
+      var authorName=auth.name?auth.name.$t:'';
+      var authorImg=auth['gd$image']?auth['gd$image'].src:'';
+      if(authorImg&&authorImg.indexOf('//')==0) authorImg='https:'+authorImg;
+      return { url:link?link.href:'#', title:e.title.$t, image:img, date:e.published.$t.slice(0,10), labels:(e.category||[]).map(function(c){ return c.term; }), comments:e['thr$total']?parseInt(e['thr$total']['$t'],10):0, authorName:authorName, authorImg:authorImg };
+    });
+  }
+
+  Promise.all(LABELS.map(function(label){
+    var url = base+'/feeds/posts/default/-/'+encodeURIComponent(label)+'?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
+  })).then(function(results){
+    var seen={},merged=[];
+    results.forEach(function(arr){ arr.forEach(function(p){ if(!seen[p.url]){ seen[p.url]=true; merged.push(p); } }); });
+    merged.sort(function(a,b){ return b.date>a.date?1:b.date<a.date?-1:0; });
+    posts=merged;
+    if(loadEl) loadEl.style.display='none';
+    var cntEl=document.getElementById('fps-count');
+    if(cntEl){ cntEl.textContent=posts.length; cntEl.style.display=''; }
+    if(!posts.length){ if(trackEl) trackEl.innerHTML='<p style="color:#7eaac8;font-size:12px;padding:8px 0">No posts found.</p>'; return; }
+    renderAll();
+  }).catch(function(){ if(loadEl) loadEl.style.display='none'; });
+
+  window.fpsShareCard = function(btn,e){
+    e.stopPropagation(); e.preventDefault();
+    var prev=document.getElementById('fps-sp');
+    if(prev){ prev.remove(); if(window._fpsSPBtn===btn){ window._fpsSPBtn=null; return; } }
+    window._fpsSPBtn=btn;
+    var url=btn.getAttribute('data-url');
+    var r=btn.getBoundingClientRect();
+    var panel=document.createElement('div');
+    panel.id='fps-sp'; panel.className='b1-share-panel open';
+    panel.style.cssText='position:fixed;top:auto;bottom:'+(window.innerHeight-r.top+6)+'px;right:'+(window.innerWidth-r.right)+'px;z-index:99999';
+    function mkA(bg,href,sv,lbl){ var a=document.createElement('a'); a.className='b1-share-btn'; a.style.background=bg; if(href){ a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; } else a.href='#'; a.innerHTML=sv+'<span>'+lbl+'</span>'; return a; }
+    function closePanel(){ var p=document.getElementById('fps-sp'); if(p) p.remove(); window._fpsSPBtn=null; }
+    var ic=function(n){ return '<svg fill="white" height="14" width="14"><use href="#spj-ico-'+n+'"/></svg>'; };
+    var links=[['#0a66c2','https://www.linkedin.com/sharing/share-offsite/?url=',ic('li'),'LinkedIn'],['#1877f2','https://www.facebook.com/sharer/sharer.php?u=',ic('fb'),'Facebook'],['#111','https://twitter.com/intent/tweet?url=',ic('tw'),'X (Twitter)'],['#25d366','https://wa.me/?text=',ic('wa'),'WhatsApp'],['#26a5e4','https://t.me/share/url?url=',ic('tg'),'Telegram'],['#ff4500','https://www.reddit.com/submit?url=',ic('rd'),'Reddit']];
+    links.forEach(function(l){ var a=mkA(l[0],l[1]+encodeURIComponent(url),l[2],l[3]); a.onclick=function(){ setTimeout(closePanel,100); }; panel.appendChild(a); });
+    var cpA=mkA('#607d8b',null,'<svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" width="14"><use href="#spj-ico-cp"/></svg>','Copy Link');
+    cpA.onclick=function(ev){ ev.preventDefault(); ev.stopPropagation(); if(navigator.clipboard) navigator.clipboard.writeText(url); cpA.querySelector('span').textContent='Copied!'; setTimeout(closePanel,1200); return false; };
+    panel.appendChild(cpA);
+    document.body.appendChild(panel);
+    setTimeout(function(){ document.addEventListener('click',function h(ev){ if(!panel.contains(ev.target)&&ev.target!==btn){ closePanel(); document.removeEventListener('click',h); } }); },50);
+  };
+
+  function cardHtml(p){
+    var imgHtml=p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.title)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">':'<div style="width:100%;height:100%;background:linear-gradient(135deg,#0e4028,#1a9e82);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
+    var readKey='fps_r_'+p.url.split('/').pop().slice(0,20);
+    var isRead=false; try{ isRead=!!localStorage.getItem(readKey); }catch(ex){}
+    var readBadge=isRead?'<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>':'';
+    var finBadge='<span style="position:absolute;top:7px;right:7px;background:rgba(26,158,130,0.92);color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.06em;line-height:1.6">✓ Complete</span>';
+    var authorImgHtml=p.authorImg?'<img src="'+esc(p.authorImg)+'" alt="'+esc(p.authorName)+'" style="width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid #d0dde8;">':'<div style="width:26px;height:26px;border-radius:50%;background:#e0eaf2;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;">👤</div>';
+    var badgeAndShare='<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">'+(spjBadgeFps(p.labels||[])||'')+(window.b1ShareHtml?b1ShareHtml(p.url,''):'')+'</div>';
+    var authorName=esc(p.authorName||'ShipPaulJobs');
+    var authorHtml='<div style="padding:7px 10px 9px;display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff;border-top:1px solid #edf2f7;margin-top:auto"><div style="display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden">'+authorImgHtml+'<button onclick="event.stopPropagation();if(window.showAuthorPosts)showAuthorPosts(\''+esc(p.authorName||'ShipPaulJobs').replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')" style="font-size:11px;color:#0a2342;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:none;border:none;padding:0;cursor:pointer;max-width:100px;display:inline-block;line-height:1.4">'+authorName+'</button></div>'+badgeAndShare+'</div>';
+    return '<div data-rk="'+readKey+'" onclick="if(event.target.closest(\'a,button\'))return;try{localStorage.setItem(\''+readKey+'\',\'1\')}catch(ex){}location.href=\''+esc(p.url)+'\';" style="position:relative;cursor:pointer;display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.12);transition:box-shadow .2s,transform .2s,border-color .2s" onmouseover="this.style.boxShadow=\'0 4px 16px rgba(26,158,130,.25)\';this.style.transform=\'translateY(-2px)\';this.style.borderColor=\'#1a9e82\'" onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.12)\';this.style.transform=\'\';this.style.borderColor=\'#d8e6f0\'">'
+      +'<div style="padding:8px 10px 6px;background:#0a2342"><div style="font-size:12px;font-weight:700;color:#fff;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div></div>'
+      +'<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1a9e82;border-bottom:3px solid #1a9e82">'+imgHtml+readBadge+finBadge+'</div>'
+      +authorHtml
+      +'</div>';
+  }
+
+  function renderAll(){ if(!trackEl) return; cardIndex=0; trackEl.style.transition='none'; trackEl.style.transform='translateX(0)'; trackEl.innerHTML=posts.map(cardHtml).join(''); updateBtns(); updateIndicator(); }
+
+  function updateBtns(){
+    var max=getMaxIndex(),prevOn=cardIndex>0,nextOn=cardIndex<max;
+    if(prevBtn){ prevBtn.disabled=!prevOn; prevBtn.style.background=prevOn?'rgba(10,35,66,0.12)':'rgba(224,234,242,0.7)'; prevBtn.style.cursor=prevOn?'pointer':'default'; var ps=prevBtn.querySelector('span'); if(ps) ps.style.borderRightColor=prevOn?'#1d89cf':'#b0c4d8'; }
+    if(nextBtn){ nextBtn.disabled=!nextOn; nextBtn.style.background=nextOn?'rgba(10,35,66,0.12)':'rgba(224,234,242,0.7)'; nextBtn.style.cursor=nextOn?'pointer':'default'; var ns=nextBtn.querySelector('span'); if(ns) ns.style.borderLeftColor=nextOn?'#1d89cf':'#b0c4d8'; }
+  }
+
+  if(prevBtn) prevBtn.addEventListener('click',function(){ if(animating||cardIndex<=0) return; cardIndex--; animating=true; applyPosition(true); updateBtns(); updateIndicator(); setTimeout(function(){ animating=false; },450); });
+  if(nextBtn) nextBtn.addEventListener('click',function(){ if(animating||cardIndex>=getMaxIndex()) return; cardIndex++; animating=true; applyPosition(true); updateBtns(); updateIndicator(); setTimeout(function(){ animating=false; },450); });
+  window.addEventListener('resize',function(){ if(cardIndex>getMaxIndex()) cardIndex=getMaxIndex(); applyPosition(false); updateBtns(); });
+
+  var dragStartX=0,dragBaseX=0,dragging=false,dragMoved=false,SNAP_RATIO=0.18;
+  function setGlobePointerEvents(on){ document.querySelectorAll('canvas').forEach(function(c){ c.style.pointerEvents=on?'':'none'; }); }
+  function onDragStart(cx){ if(animating) return; dragging=true; dragMoved=false; dragStartX=cx; dragBaseX=-(cardIndex*getStep()); if(trackEl) trackEl.style.transition='none'; setGlobePointerEvents(false); }
+  function onDragMove(cx){ if(!dragging||!trackEl) return; var d=cx-dragStartX; if(Math.abs(d)>4) dragMoved=true; var max=getMaxIndex(),minTx=-(max*getStep()),tx=dragBaseX+d; if(tx>0) tx*=0.25; if(tx<minTx) tx=minTx+(tx-minTx)*0.25; trackEl.style.transform='translateX('+tx+'px)'; }
+  function onDragEnd(cx){ if(!dragging) return; dragging=false; setGlobePointerEvents(true); if(!dragMoved){ applyPosition(true); return; } var d=cx-dragStartX,s=getStep(),max=getMaxIndex(); if(Math.abs(d)>s*SNAP_RATIO){ if(d<0&&cardIndex<max) cardIndex++; else if(d>0&&cardIndex>0) cardIndex--; } animating=true; applyPosition(true); updateBtns(); updateIndicator(); setTimeout(function(){ animating=false; },450); }
+  if(outerEl){ outerEl.addEventListener('mousedown',function(e){ onDragStart(e.clientX); e.preventDefault(); e.stopPropagation(); }); outerEl.addEventListener('click',function(e){ if(dragMoved) e.preventDefault(); },true); }
+  document.addEventListener('mousemove',function(e){ if(!dragging) return; e.stopPropagation(); onDragMove(e.clientX); });
+  document.addEventListener('mouseup',function(e){ if(!dragging) return; e.stopPropagation(); onDragEnd(e.clientX); });
+  if(outerEl){ outerEl.addEventListener('touchstart',function(e){ onDragStart(e.touches[0].clientX); e.stopPropagation(); },{passive:true}); outerEl.addEventListener('touchmove',function(e){ onDragMove(e.touches[0].clientX); e.stopPropagation(); },{passive:true}); outerEl.addEventListener('touchend',function(e){ onDragEnd(e.changedTouches[0].clientX); e.stopPropagation(); },{passive:true}); }
+})();
+//]]>
+                      </script>
+                      <!-- ════ END 완결된 시리즈 포스트 CAROUSEL ════ -->
                       <div id='tls-wrap' style='margin:0 0 2em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
                         <style>
 @keyframes tls-ticker{
@@ -3432,7 +3658,7 @@ if(!window.b1WC){window.b1WC=function(btn){
 }
 </style>
                         <div class='b1-latest-header tls-section-header' style='display:flex;align-items:center;gap:0;overflow:hidden;'>
-                          <span style='white-space:nowrap;'>🔧 Free Tools (<span id='tls-tick-ct' style='-webkit-text-fill-color:#1eff9e;color:#1eff9e;'>1/6</span>):&#160;</span>
+                          <span style='white-space:nowrap;'>Professional maritime tools developed by ShipPaulJobs. (<span id='tls-tick-ct' style='-webkit-text-fill-color:#1eff9e;color:#1eff9e;'>1/9</span>):&#160;</span>
                           <span style='overflow:hidden;height:20px;flex:1;min-width:0;'>
                             <span id='tls-ticker-wrap' style='display:block;-webkit-text-fill-color:#1eff9e;color:#1eff9e;'>
                               <a href='https://www.shippauljobs.com/p/maritime-class-approval-check.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Class Type Approval Check</a>
@@ -3441,6 +3667,9 @@ if(!window.b1WC){window.b1WC=function(btn){
                               <a href='https://www.shippauljobs.com/p/global-newbuilding-orders.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Ship Order Trends</a>
                               <a href='https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Maritime Cyber Threat Intel</a>
                               <a href='https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Maritime Jobs Feed</a>
+                              <a href='https://www.shippauljobs.com/p/maritime-weather-forecast.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Maritime Weather</a>
+                              <a href='https://www.shippauljobs.com/p/visitor-intel.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Visitor Intel</a>
+                              <a href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' rel='noopener' style='display:block;height:20px;line-height:20px;white-space:nowrap;text-decoration:none;-webkit-text-fill-color:#1eff9e;color:#1eff9e;' target='_blank'>Vessel &amp; Fleet Analysis</a>
                             </span>
                           </span>
                         </div>
@@ -3685,6 +3914,123 @@ if(!window.b1WC){window.b1WC=function(btn){
                             </div>
                           </div>
 
+                          <!-- &#9318; Card: Maritime Weather -->
+                          <div class='tc'>
+                            <div class='tc-num'>7</div>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-weather-forecast.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-weather-forecast.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-weather-forecast.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-weather-forecast.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-weather-forecast.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fmaritime-weather-forecast.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-weather-forecast.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/maritime-weather-forecast.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <div class='tc-head'>
+                              <div class='tc-icon'>🌤</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Weather &amp; Sea State</div>
+                                <div class='tc-title'>Maritime Weather</div>
+                              </div>
+                              <div class='tc-live'>
+                                <span class='tc-live-dot'/>
+                                <span class='tc-live-txt'>LIVE</span>
+                              </div>
+                            </div>
+                            <div class='tc-body'>
+                              <p>Real-time maritime weather &#8212; wind speed, wave height, barometric pressure and sea state updated for the vessel&#39;s current position via open-meteo API.</p>
+                            </div>
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/maritime-weather-forecast.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🌤</span>
+                                <span class='tc-btn-label'>Check Weather</span>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- &#9319; Card: Visitor Intel -->
+                          <div class='tc'>
+                            <div class='tc-num'>8</div>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fvisitor-intel.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fvisitor-intel.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fvisitor-intel.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fvisitor-intel.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fvisitor-intel.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fvisitor-intel.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/visitor-intel.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/visitor-intel.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <div class='tc-head'>
+                              <div class='tc-icon'>📡</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>Connection Intel</div>
+                                <div class='tc-title'>Visitor Intel</div>
+                              </div>
+                              <div class='tc-live'>
+                                <span class='tc-live-dot'/>
+                                <span class='tc-live-txt'>LIVE</span>
+                              </div>
+                            </div>
+                            <div class='tc-body'>
+                              <p>Visitor intelligence panel &#8212; displays your connection origin, IP geolocation, language, timezone and maritime region context in real time.</p>
+                            </div>
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/visitor-intel.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>📡</span>
+                                <span class='tc-btn-label'>Check Your Intel</span>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- &#9320; Card: Vessel &amp; Fleet Analysis -->
+                          <div class='tc'>
+                            <div class='tc-num'>9</div>
+                            <div class='tc-accent'/>
+                            <div class='b1-share-wrap'>
+                              <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg></button>
+                              <div class='b1-share-panel'>
+                                <a class='b1-share-btn' href='https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fsmart-vessel-tracking-with-ais.html' rel='noopener' style='background:#0a66c2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-li'/></svg><span>LinkedIn</span></a>
+                                <a class='b1-share-btn' href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fsmart-vessel-tracking-with-ais.html' rel='noopener' style='background:#1877f2' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-fb'/></svg><span>Facebook</span></a>
+                                <a class='b1-share-btn' href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fsmart-vessel-tracking-with-ais.html' rel='noopener' style='background:#111' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tw'/></svg><span>X (Twitter)</span></a>
+                                <a class='b1-share-btn' href='https://wa.me/?text=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fsmart-vessel-tracking-with-ais.html' rel='noopener' style='background:#25d366' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-wa'/></svg><span>WhatsApp</span></a>
+                                <a class='b1-share-btn' href='https://t.me/share/url?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fsmart-vessel-tracking-with-ais.html' rel='noopener' style='background:#26a5e4' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-tg'/></svg><span>Telegram</span></a>
+                                <a class='b1-share-btn' href='https://www.reddit.com/submit?url=https%3A%2F%2Fwww.shippauljobs.com%2Fp%2Fsmart-vessel-tracking-with-ais.html' rel='noopener' style='background:#ff4500' target='_blank'><svg fill='white' height='14' width='14'><use href='#spj-ico-rd'/></svg><span>Reddit</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#07c160&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;링크 복사됨&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;WeChat&quot;},1500);return false;' style='background:#07c160'><svg fill='white' height='14' width='14'><use href='#spj-ico-wc'/></svg><span>WeChat</span></a>
+                                <a class='b1-share-btn' data-u='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' href='#' onclick='navigator.clipboard.writeText(this.dataset.u);var s=this,orig=s.style.background;s.style.background=&quot;#1a9e82&quot;;s.querySelector(&quot;span&quot;).textContent=&quot;Copied!&quot;;setTimeout(function(){s.style.background=orig;s.querySelector(&quot;span&quot;).textContent=&quot;Copy Link&quot;},1500);return false;' style='background:#607d8b'><svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-cp'/></svg><span>Copy Link</span></a>
+                              </div>
+                            </div>
+                            <div class='tc-head'>
+                              <div class='tc-icon'>🛰</div>
+                              <div class='tc-title-wrap'>
+                                <div class='tc-label'>AIS Tracking</div>
+                                <div class='tc-title'>Vessel &amp; Fleet Analysis</div>
+                              </div>
+                              <div class='tc-live'>
+                                <span class='tc-live-dot'/>
+                                <span class='tc-live-txt'>LIVE</span>
+                              </div>
+                            </div>
+                            <div class='tc-body'>
+                              <p>Live AIS vessel tracking map &#8212; real-time positions of cargo ships, tankers and bulk carriers in Korean and East Asian waters. Powered by VesselFinder.</p>
+                            </div>
+                            <div class='tc-menu'>
+                              <a class='tc-btn' href='https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html' rel='noopener noreferrer' target='_blank'>
+                                <span class='tc-btn-icon'>🗺</span>
+                                <span class='tc-btn-label'>Open Vessel Map</span>
+                              </a>
+                            </div>
+                          </div>
+
                             </div>
                           </div>
                           <button disabled='disabled' id='tls-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
@@ -3828,15 +4174,16 @@ if(!window.b1WC){window.b1WC=function(btn){
                       <style>
                         #scs-outer{overflow:hidden}
                         #scs-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
-                        #scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 40px)/5);min-width:0}
+                        #scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
                         @media(max-width:900px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
                         @media(max-width:580px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
                       </style>
-                      <div id='scs-wrap' style='margin:0 0 2em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
-                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:10px'>
+                      <div id='scs-wrap' style='margin:0 0 0;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px 10px 0 0;'>
+                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
                           <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Ship Systems</span>
                           <span id='scs-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
                         </div>
+                        <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Learn the fundamentals of modern ship systems and digital vessel technologies.</div>
                         <div style='position:relative;'>
                           <button disabled='disabled' id='scs-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
                             <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
@@ -3870,7 +4217,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   var prevBtn = document.getElementById('scs-prev');
   var nextBtn = document.getElementById('scs-next');
 
-  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
 
   var SPJ_BADGE_LOGO_SCS = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
   var SPJ_BADGES_SCS = [
@@ -3884,8 +4231,7 @@ if(!window.b1WC){window.b1WC=function(btn){
         var _b = SPJ_BADGES_SCS[_i];
         return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
           + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
-          + ' onclick="event.stopPropagation()" style="flex-shrink:0">'
-          + '<img src="' + SPJ_BADGE_LOGO_SCS + '" alt="SPJ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></a>';
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
       }
     }
     return '';
@@ -3932,10 +4278,8 @@ if(!window.b1WC){window.b1WC=function(btn){
   }
 
   function fetchLabel(label){
-    return fetch(base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100')
-      .then(function(r){ return r.json(); })
-      .then(parseEntries)
-      .catch(function(){ return []; });
+    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
   }
 
   Promise.all(LABELS.map(fetchLabel)).then(function(results){
@@ -4256,15 +4600,16 @@ if(!window.b1WC){window.b1WC=function(btn){
                       <style>
                         #ms-outer{overflow:hidden}
                         #ms-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
-                        #ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 40px)/5);min-width:0}
+                        #ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
                         @media(max-width:900px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
                         @media(max-width:580px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
                       </style>
-                      <div id='ms-wrap' style='margin:0 0 2em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
-                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:10px'>
+                      <div id='ms-wrap' style='margin:0 0 2em;border-top:1px solid rgba(29,137,207,0.18);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:0 0 10px 10px;'>
+                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
                           <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Marine Solutions</span>
                           <span id='ms-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
                         </div>
+                        <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Explore practical maritime AI, cybersecurity and digital transformation solutions.</div>
                         <div style='position:relative;'>
                           <button disabled='disabled' id='ms-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
                             <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
@@ -4297,7 +4642,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   var prevBtn = document.getElementById('ms-prev');
   var nextBtn = document.getElementById('ms-next');
 
-  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
 
   function getStep(){
     var first = trackEl && trackEl.children[0];
@@ -4334,10 +4679,8 @@ if(!window.b1WC){window.b1WC=function(btn){
   }
 
   function fetchLabel(label){
-    return fetch(base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100')
-      .then(function(r){ return r.json(); })
-      .then(parseEntries)
-      .catch(function(){ return []; });
+    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
   }
 
   Promise.all(LABELS.map(fetchLabel)).then(function(results){
@@ -4497,10 +4840,11 @@ if(!window.b1WC){window.b1WC=function(btn){
                       <!-- &#9552;&#9552;&#9552; END MARINE SOLUTIONS CAROUSEL &#9552;&#9552;&#9552; -->
 
                       <div style='margin:1.8em 0 0'>
-                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px'>
-                          <span id='apl-title' style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>All Blog Posts</span>
+                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
+                          <span id='apl-title' style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Explore All Posts</span>
                           <span id='apl-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'/>
                         </div>
+                        <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:6px;'>Browse our complete collection of maritime technology, cybersecurity, AI and digital shipping articles.</div>
                         <div style='border-top:1px solid rgba(255,255,255,0.35)'/>
                       </div>
                       <div id='apl-wrap' style='display:block;margin:1em 0 1em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
@@ -4584,8 +4928,7 @@ if(!window.b1WC){window.b1WC=function(btn){
         var _b = SPJ_BADGES[_i];
         return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
           + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
-          + ' onclick="event.stopPropagation()" style="flex-shrink:0">'
-          + '<img src="' + SPJ_BADGE_LOGO + '" alt="SPJ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></a>';
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
       }
     }
     return '';
@@ -6120,11 +6463,11 @@ if(!window.b1WC){window.b1WC=function(btn){
   </div>
   <div id="spj-social-row">
     <a id="spj-li-btn" href="https://www.linkedin.com/groups/21070066" target="_blank" rel="noopener">
-      <svg fill="#fff" height="15" width="15"><use href="#spj-ico-li"/></svg>
+      <svg fill="#fff" height="15" width="15"><use href="#spj-ico-li"/></use></svg>
       <span id="spj-li-tooltip">&#x2693; The ShipPaulJobs Community</span>
     </a>
     <a id="spj-yt-btn" href="https://www.youtube.com/@ShipPaulJobs" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" width="15" height="15"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="#fff" width="15" height="15"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></path></svg>
       <span id="spj-yt-tooltip">&#x25B6; ShipPaulJobs YouTube</span>
     </a>
   </div>
@@ -6133,35 +6476,24 @@ if(!window.b1WC){window.b1WC=function(btn){
 <hr class="spj-divider"/>
 
 <!-- ══════════════════════════════════════════
-     1. Who am I
-══════════════════════════════════════════ -->
-<div class="spj-section-label">Who am I</div>
-<a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" target="_blank" rel="noopener" style="text-decoration:none;display:block;">
-<div id="spj-wai" style="cursor:pointer;transition:opacity 0.18s;" onmouseover="this.style.opacity='0.82'" onmouseout="this.style.opacity='1'">
-  <img id="spj-wai-photo"
-       src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
-       alt="Captain Paul" loading="lazy"/>
-  <div id="spj-wai-info">
-    <div id="spj-wai-name">Captain Paul</div>
-    <div id="spj-wai-title">Maritime 4.0 · AI, Data &amp; Cyber Security</div>
-    <div id="spj-wai-links">
-      <a class="spj-wai-link spj-wai-link-li"
-         href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="spj-wai-link spj-wai-link-web"
-         href="https://www.shippauljobs.com" target="_blank" rel="noopener">Website</a>
-    </div>
-  </div>
-</div>
-</a>
-
-<hr class="spj-divider"/>
-
-<!-- ══════════════════════════════════════════
-     2. Contributing Author
+     1+2. Who we are + Contributing Authors (merged)
 ══════════════════════════════════════════ -->
 <div id="spj-ca-wrap">
-  <div class="spj-section-label">
-    Contributing Author&nbsp;<span style="color:#8a9aaa;font-weight:500;">(<span id="spj-ca-pos">1</span>/<span id="spj-ca-total">0</span>)</span>
+  <div class="spj-section-label" style="margin-bottom:8px;">Who we are</div>
+  <a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html"
+     target="_blank" rel="noopener"
+     style="text-decoration:none;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:#f0f5fa;border:1px solid #d1e0ee;margin-bottom:10px;transition:opacity 0.18s;"
+     onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+    <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png"
+         alt="ShipPaulJobs" loading="lazy"
+         style="width:36px;height:36px;object-fit:contain;flex-shrink:0;"/>
+    <div style="min-width:0;">
+      <div style="font-size:12px;font-weight:700;color:#0a2342;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Crew &amp; Technical Advisors</div>
+      <div style="font-size:10px;color:#5a7a99;margin-top:2px;">Meet the team behind the platform →</div>
+    </div>
+  </a>
+  <div class="spj-section-label" style="margin-bottom:6px;">
+    Contributing Authors&nbsp;<span style="color:#8a9aaa;font-weight:500;">(<span id="spj-ca-pos">1</span>/<span id="spj-ca-total">0</span>)</span>
   </div>
   <div style="display:flex;align-items:center;justify-content:center;padding:2px 0 6px;">
     <button id="spj-ca-prev" style="background:rgba(0,35,66,0.06);border:1px solid rgba(0,35,66,0.15);border-radius:50%;cursor:pointer;color:#5a7a99;font-size:17px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;padding:0;">&#8249;</button>
@@ -6171,20 +6503,6 @@ if(!window.b1WC){window.b1WC=function(btn){
   <div id="spj-ca-name" style="text-align:center;font-size:10px;color:#6b8599;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 14px 4px;letter-spacing:0.02em;font-family:Inter,sans-serif;"></div>
 </div>
 
-<hr class="spj-divider"/>
-
-<!-- ══════════════════════════════════════════
-     3. Join CTA
-══════════════════════════════════════════ -->
-<a id="spj-join-btn"
-   href="https://www.shippauljobs.com/p/contact.html"
-   target="_blank" rel="noopener">
-  <span class="spj-join-icon">&#x1F465;</span>
-  <span class="spj-join-text">
-    Join as <strong>Crew</strong> or <strong>Technical Advisor</strong>
-    <span class="spj-join-sub">Maritime cybersecurity team &#x2192; Click here</span>
-  </span>
-</a>
 
 <script>
 /* ── Contributing Author Carousel ── */

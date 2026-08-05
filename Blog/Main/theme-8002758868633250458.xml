@@ -65,7 +65,11 @@
   <meta content='noindex, follow' name='robots'/>
 
 <b:else/>
-  <meta content='index, follow' name='robots'/>
+  <b:if cond='data:blog.metaRobotsTag'>
+    <meta expr:content='data:blog.metaRobotsTag' name='robots'/>
+  <b:else/>
+    <meta content='index, follow' name='robots'/>
+  </b:if>
 </b:if>
 
     <!-- &#9552;&#9552; SEO: Meta Description (동적 &#8212; 포스트/홈 분기) &#9552;&#9552; -->
