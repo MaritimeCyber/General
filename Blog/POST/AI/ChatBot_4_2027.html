@@ -1,0 +1,328 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a4060);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">🧠 LLM Architecture</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">⚖️ AI Ethics</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Part 4 of 5</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">2027 Revised Edition</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">EU AI Act · Hallucination · Bias</span>
+  </div>
+  <h1 style="color:white;font-size:26px;font-weight:800;line-height:1.35;margin:0 0 12px;letter-spacing:-0.4px;">[2027 Revised Series · Part 4] LLM Architecture &amp; AI Ethics<br>— How It Works and How to Manage Performance</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">Transformer basics for non-engineers · Why LLMs fail · Performance metrics · EU AI Act · AI governance for enterprises · Maritime compliance</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">Maritime 4.0 &middot; AI &amp; Cyber Intelligence &middot; 2027</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIES INTRO -->
+<div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em;">📚 About This Series</div>
+  <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 14px;">This series is a complete 2027 revision of the "Enterprise Chatbot Strategy" originally written in 2021. Part 4 covers the two topics the original Part 3 and 4 addressed — LLM architecture and performance measurement — updated for the era of Transformer-based models, the EU AI Act, and enterprise governance.</p>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 1</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/building-org-wide-consensus-in-llm-era.html" style="color:#4a6080;text-decoration:underline;" target="_blank">Building Org-Wide Consensus in the LLM Era</a></p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 2</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/from-messenger-to-autonomous-agent.html" style="color:#4a6080;text-decoration:underline;" target="_blank">Channel Strategy in the AI Agent Era</a></p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 3</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/activating-intelligent-service.html" style="color:#4a6080;text-decoration:underline;" target="_blank">RAG and AI Agents — Activating Intelligent Service</a></p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 4 ▶</span>
+      <p style="font-size:12.5px;color:#0a2342;font-weight:700;margin:0;">LLM Architecture &amp; AI Ethics (this article)</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.2);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">Part 5</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/enterprise-ai-in-agent-era-2027-revised.html" style="color:#4a6080;text-decoration:underline;" target="_blank">Finale — Enterprise AI in the Agent Era: Making the Right Choice</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT THIS ARTICLE COVERS -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">🧭 What This Article Covers</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Section 1</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>How LLMs Work</strong> — Transformer architecture in plain language; what "training" and "inference" actually mean</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Section 2</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Why LLMs Fail</strong> — Hallucination, bias, prompt injection, context limits; causes and mitigations</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Section 3</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>Performance Metrics</strong> — Updated 2027 evaluation framework for enterprise AI</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;">Section 4</span>
+      <p style="font-size:13px;color:#2c3e50;line-height:1.6;margin:0;"><strong>AI Ethics &amp; Regulation</strong> — EU AI Act, Korean AI Basic Act, and what enterprise compliance requires</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROLOGUE -->
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">Prologue</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;font-style:italic;font-family:Georgia,serif;">The original 2021 Part 3 covered NLU engines — intent classification, slot filling, entity extraction. Part 4 covered chatbot performance measurement: comprehension rate, engagement rate, response speed, functionality coverage, interoperability, and scalability.</p>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;">In 2027, those frameworks remain relevant for rule-based systems. But LLM-powered AI systems require a different understanding of both architecture and evaluation. The shift from "does this bot understand the right intent?" to "does this AI reason correctly, and is it safe to act on?" is the theme of this article.</p>
+</div>
+
+<!-- ═══ SECTION 1 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:0 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Section 1 — Architecture</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">How LLMs Work — Transformer Architecture in Plain Language</div>
+</div>
+
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">1. What LLMs Actually Do</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">At its core, a Large Language Model is a statistical function trained to predict the next token (roughly: word or word-piece) given all previous tokens. GPT-4o, Claude 3.5, and Gemini 2.0 are all variations of the <strong>Transformer architecture</strong>, introduced by Google researchers in 2017.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:18px;text-align:center;">How a Transformer Processes Your Message</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:rgba(26,158,130,0.3);color:#1affda;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0;">①</span>
+        <div>
+          <div style="color:#7effd8;font-size:12.5px;font-weight:700;margin-bottom:3px;">Tokenization</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">Your text is split into tokens. "Shipbuilding" might become ["Ship", "building"]. GPT-4o uses roughly 100,000 unique tokens.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:rgba(26,158,130,0.3);color:#1affda;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0;">②</span>
+        <div>
+          <div style="color:#7effd8;font-size:12.5px;font-weight:700;margin-bottom:3px;">Embedding</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">Each token is converted to a high-dimensional vector (thousands of numbers). Similar concepts cluster in this vector space — "vessel" and "ship" are nearby.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:rgba(26,158,130,0.3);color:#1affda;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0;">③</span>
+        <div>
+          <div style="color:#7effd8;font-size:12.5px;font-weight:700;margin-bottom:3px;">Attention</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">The "attention mechanism" lets each token weigh how much it should attend to every other token. This is how the model understands context: "bank" means different things near "river" versus "interest rate."</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="background:rgba(26,158,130,0.3);color:#1affda;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;white-space:nowrap;flex-shrink:0;">④</span>
+        <div>
+          <div style="color:#7effd8;font-size:12.5px;font-weight:700;margin-bottom:3px;">Next-Token Prediction</div>
+          <p style="color:rgba(255,255,255,0.7);font-size:12px;line-height:1.6;margin:0;">After many layers of attention, the model outputs a probability distribution over all possible next tokens. The highest-probability token is selected (or sampled). This process repeats until the model generates a complete response.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:18px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">💡 Training vs Inference — Two Very Different Operations</div>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 8px;"><strong>Training</strong>: Exposing the model to hundreds of billions of text tokens and adjusting billions of internal parameters to minimize prediction error. Costs tens of millions of dollars. Done once (or rarely) by model providers. Enterprises do not train frontier LLMs from scratch.</p>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0;"><strong>Fine-tuning</strong>: Additional training on a smaller, task-specific dataset to specialize the model's behavior. Feasible for enterprises with sufficient data and budget. <strong>Inference</strong>: Running a trained model to generate a response for a given input. This is what happens on every user query. Cost-per-query has dropped 97% since 2021.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:36px 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Section 2 — Failure Modes</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">Why LLMs Fail — The Four Core Risks</div>
+</div>
+
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">2. The Four Core LLM Failure Modes</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 18px;">Enterprise AI programs that fail to understand these risks build systems that appear to work in demos but fail in production. Each failure mode requires specific mitigation strategies.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(26,158,130,0.4);">
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;width:22%;">Failure Mode</th>
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;width:38%;">Description</th>
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;width:40%;">Enterprise Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#fca5a5;font-weight:700;">Hallucination</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">LLM generates plausible-sounding but factually wrong content. Most dangerous when it involves specific numbers, names, or regulations.</td>
+            <td style="padding:10px 12px;color:#6ee7b7;">RAG with citation; human review layer; guardrails that restrict responses to retrieved content only</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#fca5a5;font-weight:700;">Bias</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">Models trained on internet text inherit cultural, gender, and racial biases of that text. Output may be systematically unfair for certain user groups.</td>
+            <td style="padding:10px 12px;color:#6ee7b7;">Bias testing pre-deployment; diverse test set; ongoing monitoring; explicit fairness constraints in system prompt</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#fca5a5;font-weight:700;">Prompt Injection</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">Malicious user input overrides system instructions. Example: hidden text in a pasted document instructs the AI to reveal confidential data. The Samsung ChatGPT leak (2023) is an adjacent risk.</td>
+            <td style="padding:10px 12px;color:#6ee7b7;">Input sanitization; instruction hardening in system prompt; no sensitive data in prompts; output filtering</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:#fca5a5;font-weight:700;">Context Limit</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">LLMs have a maximum context window (tokens). Long conversations or large documents may exceed the window; early context gets truncated, causing coherence failures.</td>
+            <td style="padding:10px 12px;color:#6ee7b7;">Context management strategy: summarize older turns; selective retrieval; track window usage in production</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:36px 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Section 3 — Evaluation</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">2027 Performance Metrics for Enterprise AI</div>
+</div>
+
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">3. From 2021 Metrics to 2027 Metrics</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">The 2021 series defined six chatbot performance metrics: comprehension rate, user engagement, speed, functionality coverage, interoperability, and scalability. These remain relevant — but the 2027 framework extends them significantly to account for LLM-specific behaviors.</p>
+  <div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:24px;margin-bottom:18px;">
+    <div style="color:#1affda;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;text-align:center;">2027 Enterprise AI Evaluation Framework</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(26,158,130,0.4);">
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;">Metric</th>
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;">What to Measure</th>
+            <th style="text-align:left;padding:10px 12px;color:#1affda;font-weight:700;">2021 → 2027</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#6ee7b7;font-weight:700;">Accuracy / Groundedness</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">% of responses factually correct; hallucination rate in RAG systems</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.55);">Extended from intent accuracy to factual accuracy</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#6ee7b7;font-weight:700;">Task Completion Rate</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">% of sessions where the user's goal was fully achieved</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.55);">Renamed from "comprehension" — now end-to-end</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#6ee7b7;font-weight:700;">Latency (P95)</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">95th percentile response time; streaming latency for first token</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.55);">Now split into TTFT (time to first token) and total latency</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#6ee7b7;font-weight:700;">Containment Rate</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">% of queries resolved without escalation to human agent</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.55);">Same as 2021; more meaningful now with better AI capability</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#6ee7b7;font-weight:700;">Safety Rate</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">% of responses free from harmful, biased, or inappropriate content</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.55);">New in 2027; required for EU AI Act high-risk systems</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;color:#6ee7b7;font-weight:700;">Cost per Conversation</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">Total LLM API + infrastructure cost divided by conversation count</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.55);">New in 2027; LLM token pricing is now a budget variable</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;color:#6ee7b7;font-weight:700;">Audit Coverage</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.65);">% of AI decisions traceable to a source document or logic rule</td>
+            <td style="padding:10px 12px;color:rgba(255,255,255,0.55);">New in 2027; required for regulated industries and AI Act compliance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4 DIVIDER ═══ -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:10px;padding:16px 22px;margin:36px 0 24px;font-family:Inter,sans-serif;">
+  <div style="color:#7effd8;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">Section 4 — Regulation &amp; Ethics</div>
+  <div style="color:white;font-size:18px;font-weight:800;line-height:1.3;">The EU AI Act and What It Means for Enterprise AI</div>
+</div>
+
+<div style="margin-bottom:28px;font-family:Inter,sans-serif;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <div style="width:4px;height:28px;background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;"></div>
+    <h2 style="font-size:19px;font-weight:800;color:#0a2342;margin:0;">4. The EU AI Act — Risk Classification Framework</h2>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0 0 14px;">The EU AI Act, phased in from August 2026, is the world's first comprehensive AI regulation. It applies to any AI system used in the EU — regardless of where the vendor is headquartered. It classifies AI systems into four risk tiers.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px;">
+    <div style="background:#1a0a0a;border-left:4px solid #ef4444;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="font-size:13px;font-weight:800;color:#fca5a5;margin-bottom:6px;">🚫 Unacceptable Risk — Prohibited</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.75);line-height:1.75;margin:0;">AI systems that manipulate human behavior subconsciously, use real-time biometric surveillance in public spaces, or perform social scoring. These are banned entirely.</p>
+    </div>
+    <div style="background:#1a1000;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="font-size:13px;font-weight:800;color:#fcd34d;margin-bottom:6px;">⚠️ High Risk — Regulated</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.75);line-height:1.75;margin:0;">AI used in critical infrastructure, employment decisions, credit scoring, legal proceedings, medical devices, education assessments, and border control. Requires mandatory registration, risk assessment, human oversight, and high-quality training data documentation. <strong>Enterprise HR bots, insurance AI, and logistics decision systems typically fall here.</strong></p>
+    </div>
+    <div style="background:#0a0f1a;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="font-size:13px;font-weight:800;color:#7effd8;margin-bottom:6px;">ℹ️ Limited Risk — Transparency Obligations</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.75);line-height:1.75;margin:0;">Chatbots, AI-generated content, emotion recognition systems. Must disclose AI nature to users ("you are interacting with an AI"). GPAI (General Purpose AI) models like GPT-4 and Claude must publish technical documentation and comply with copyright law.</p>
+    </div>
+    <div style="background:#0a1a0a;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="font-size:13px;font-weight:800;color:#6ee7b7;margin-bottom:6px;">✅ Minimal Risk — No Specific Obligations</div>
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.75);line-height:1.75;margin:0;">Spam filters, AI in games, simple chatbots for non-critical tasks. Voluntary codes of conduct encouraged.</p>
+    </div>
+  </div>
+  <div style="background:#f0f7ff;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:13px;font-weight:800;color:#154f7a;margin-bottom:6px;">🇰🇷 Korean AI Basic Act (2025)</div>
+    <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0;">South Korea enacted its AI Basic Act in 2025, establishing a national AI governance framework with risk-tiered compliance similar to the EU AI Act. For Korean enterprises, this adds domestic compliance obligations on top of EU Act requirements for internationally operating companies. The Korea AI Safety Institute (KAISI) is the primary regulatory body.</p>
+  </div>
+  <p style="font-size:14.5px;color:#2c3e50;line-height:1.8;margin:0;"><strong>Practical 2027 compliance steps</strong>: Audit every AI use case against the EU AI Act risk tiers. For High Risk systems, build technical documentation, risk registers, and human oversight mechanisms. All customer-facing AI must disclose its AI nature. Designate an AI compliance owner — in many enterprises this now sits in Legal, Risk, or the CTO's office.</p>
+</div>
+
+<!-- Maritime Callout -->
+<div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:20px 22px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em;">⚓ Maritime AI Compliance — A High-Risk Domain</div>
+  <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 10px;"><strong>Classification society AI</strong>: AI systems used in vessel classification decisions, safety assessments, or inspector recommendations are likely High Risk under the EU AI Act — consequential decisions affecting human safety. DNV and Bureau Veritas must document training data, testing procedures, and human oversight mechanisms.</p>
+  <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0 0 10px;"><strong>SOLAS & ISM implications</strong>: The ISM Code's requirement for a Safety Management System (SMS) and documented risk assessments maps naturally onto AI Act compliance documentation. Companies with mature SMS processes have a structural advantage in AI governance — the frameworks are analogous.</p>
+  <p style="font-size:13.5px;color:#2c3e50;line-height:1.75;margin:0;"><strong>IMO's AI guidance</strong>: The International Maritime Organization published its first AI guidelines for the maritime sector in 2024. While not yet mandatory, they signal the direction of future SOLAS amendments. Proactive compliance is advisable.</p>
+</div>
+
+<!-- CONCLUSION -->
+<div style="background:linear-gradient(135deg,#0a1929,#0d2137);border-radius:12px;padding:28px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="color:#1affda;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;text-align:center;">Conclusion — Understanding Is the Foundation of Trust</div>
+  <p style="font-size:14.5px;color:rgba(255,255,255,0.85);line-height:1.8;margin:0 0 14px;font-style:italic;font-family:Georgia,serif;">In 2021, the question "how does the AI decide that?" was often answered with "it's a black box." That answer is no longer acceptable — legally or organizationally. The EU AI Act, the Korean AI Basic Act, and the accountability standards of enterprise governance all demand explainability.</p>
+  <p style="font-size:13.5px;color:rgba(255,255,255,0.7);line-height:1.75;margin:0;">Understanding how LLMs work — not at a research level, but at a practitioner level — is what allows teams to build guardrails, measure performance honestly, and explain AI decisions to regulators, customers, and boards. Part 5 brings the full series to a close: given everything we now know about consensus, channels, RAG, agents, architecture, and ethics — how do we make the right enterprise AI choice?</p>
+</div>
+
+<!-- SERIES FOOTER -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;font-family:Inter,sans-serif;">
+  <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;">📎 Full Series Navigation</div>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.15);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;">Part 1</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/building-org-wide-consensus-in-llm-era.html" style="color:#4a6080;text-decoration:underline;" target="_blank">Building Org-Wide Consensus in the LLM Era</a></p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.15);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;">Part 2</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/from-messenger-to-autonomous-agent.html" style="color:#4a6080;text-decoration:underline;" target="_blank">Channel Strategy in the AI Agent Era</a></p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.15);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;">Part 3</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/activating-intelligent-service.html" style="color:#4a6080;text-decoration:underline;" target="_blank">RAG and AI Agents — Activating Intelligent Service</a></p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:#0a2342;color:#1affda;font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap;">Part 4 ▶</span>
+      <p style="font-size:12.5px;color:#0a2342;font-weight:700;margin:0;">LLM Architecture &amp; AI Ethics (this article)</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="background:rgba(10,35,66,0.15);color:#4a6080;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap;">Part 5</span>
+      <p style="font-size:12.5px;color:#4a6080;margin:0;"><a href="https://www.shippauljobs.com/2026/08/enterprise-ai-in-agent-era-2027-revised.html" style="color:#4a6080;text-decoration:underline;" target="_blank">Finale — Enterprise AI in the Agent Era: Making the Right Choice</a></p>
+    </div>
+  </div>
+</div>

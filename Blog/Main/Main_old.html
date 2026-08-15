@@ -1056,8 +1056,8 @@
       .Blog .b1-card-author:hover{ color:#222; background:none; }
       /* -- SPJ Verification Badge -- */
       .Blog .b1-card-thumb{position:relative!important;}
-      .spj-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;overflow:hidden;z-index:5;flex-shrink:0;text-decoration:none;border:none!important;}
-      .spj-badge img{width:26px!important;height:26px!important;min-width:26px!important;min-height:26px!important;max-width:26px!important;max-height:26px!important;object-fit:cover;border-radius:50%;display:block!important;border:none!important;padding:0!important;margin:0!important;}
+      .spj-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff url('https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png') center/cover no-repeat;overflow:hidden;z-index:5;flex-shrink:0;text-decoration:none;border:none!important;}
+      .spj-badge img{display:none!important;}
       .spj-badge-post{width:auto!important;border-radius:12px!important;padding:2px 8px 2px 4px;gap:4px;}
       .spj-badge-label{font-size:10px;font-weight:700;white-space:nowrap;}
       .spj-badge-l1 .spj-badge-label{color:#00c97a;}.spj-badge-l2 .spj-badge-label{color:#1d89cf;}.spj-badge-l3 .spj-badge-label{color:#9b59b6;}
@@ -1643,8 +1643,26 @@
       .FeaturedPost .fp-bot-comment a{font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap}
       .Blog .blog-posts .post-outer-container{background:#f4f9ff !important;border-radius:10px !important;box-shadow:0 2px 8px rgba(10,35,66,.07) !important;margin-bottom:10px !important;position:relative !important;}
       .b1-share-wrap{position:absolute;top:10px;right:10px;z-index:20;display:flex;align-items:center;gap:6px}
-      .b1-share-toggle{width:32px;height:32px;border-radius:50%;background:rgba(26,158,130,0.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .18s,background .18s}
+      .b1-share-toggle{width:32px;height:32px;border-radius:50%;background:rgba(26,158,130,0.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:transform .18s,background .18s,opacity .18s;opacity:0;pointer-events:none}
       .b1-share-toggle:hover,.b1-share-toggle.active{background:#1a9e82;transform:scale(1.08)}
+      /* 카드 hover 또는 패널 열림 시 공유 버튼 표시 */
+      .b1-share-toggle.active,
+      .b1-single-share .b1-share-toggle,
+      .b1-share-wrap:hover .b1-share-toggle,
+      .post-outer-container:hover .b1-share-toggle,
+      #scs-track&gt;a:hover .b1-share-toggle,
+      #scs-track&gt;div:hover .b1-share-toggle,
+      #ms-track&gt;a:hover .b1-share-toggle,
+      #ms-track&gt;div:hover .b1-share-toggle,
+      #fps-track&gt;div:hover .b1-share-toggle,
+      #apl-cards&gt;div:hover .b1-share-toggle,
+      #tls-track&gt;div:hover .b1-share-toggle{opacity:1;pointer-events:auto}
+      /* scs/ms 카드 전용 공유 버튼 hover 표시 */
+      .spj-card-share{opacity:0;pointer-events:none}
+      #scs-track&gt;a:hover .spj-card-share,
+      #scs-track&gt;div:hover .spj-card-share,
+      #ms-track&gt;a:hover .spj-card-share,
+      #ms-track&gt;div:hover .spj-card-share{opacity:1;pointer-events:auto}
       @keyframes b1SmIn{from{opacity:0;transform:translateY(-6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
       .b1-share-panel{display:none;position:absolute;top:calc(100% + 7px);right:0;flex-direction:column;gap:2px;background:#fff;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:6px;min-width:152px}
       .b1-share-panel.open{display:flex;animation:b1SmIn .16s ease}
@@ -2275,7 +2293,7 @@
                     <b:widget-settings>
                       <b:widget-setting name='showSnippet'>true</b:widget-setting>
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-                      <b:widget-setting name='postId'>8823294117794793675</b:widget-setting>
+                      <b:widget-setting name='postId'>4847925970199323097</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
                       <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
                     </b:widget-settings>
@@ -2522,7 +2540,6 @@
                     <b:includable id='snippetedPostContent'>
                       <!-- 우측 상단 공유 버튼 -->
                       <div class='b1-share-wrap'>
-                        <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                         <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                           <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                         </button>
@@ -2566,7 +2583,8 @@
                             <button class='b1-card-author' expr:data-author='data:post.author.name' onclick='showAuthorPosts(this.dataset.author)'><data:post.author.name/></button> &#183; <data:post.date/>
                           </div>
                         </div>
-                        <div class='fp-bot-comment'>
+                        <div class='fp-bot-comment' style='display:flex;align-items:center;gap:5px;flex-shrink:0'>
+                          <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                           <b:if cond='data:post.allowComments'>
                             <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>💬 <b:if cond='data:post.numberOfComments &gt; 0'><data:post.numberOfComments/></b:if></a>
                           </b:if>
@@ -2946,7 +2964,7 @@
                         <b:include data='post' name='postMeta'/>
                         <b:if cond='data:view.isSingleItem'>
                           <!-- 단일 포스트 상단 우측 공유 버튼 -->
-                          <div class='b1-share-wrap'>
+                          <div class='b1-share-wrap b1-single-share'>
                             <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Industry Validated</span></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Expert Reviewed</span></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1 spj-badge-post' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/><span class='spj-badge-label'>Verified</span></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
@@ -3044,7 +3062,6 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <!-- 상단: 제목 + 공유 버튼 -->
                           <!-- 우측 상단 공유 버튼 -->
                           <div class='b1-share-wrap'>
-                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                             </button>
@@ -3174,7 +3191,8 @@ if(!window.b1WC){window.b1WC=function(btn){
                             <div class='b1-card-byline'>
                               <button class='b1-card-author' expr:data-author='data:post.author.name' onclick='showAuthorPosts(this.dataset.author)'><data:post.author.name/></button> &#183; <data:post.date/>
                             </div>
-                            <div class='b1-card-comment'>
+                            <div class='b1-card-comment' style='display:flex;align-items:center;gap:5px;flex-shrink:0'>
+                              <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                               <b:if cond='data:post.allowComments'>
                                 <a class='b1-comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>💬 <b:if cond='data:post.numberOfComments &gt; 0'><data:post.numberOfComments/></b:if></a>
                               </b:if>
@@ -3421,21 +3439,64 @@ if(!window.b1WC){window.b1WC=function(btn){
                         .tc-live-dot{background:#1a9e82;border-radius:50%;display:inline-block;height:7px;width:7px;box-shadow:0 0 6px rgba(26,158,130,0.8);}
                         .tc-live-txt{color:#7effd8;font-size:8.5px;font-weight:800;}
                       </style>
-                      <!-- ════ 완결된 시리즈 포스트 CAROUSEL ════ -->
+                      <!-- &#9552;&#9552;&#9552;&#9552; SPJ GLOBAL UTILITIES (shared across all feed sections) &#9552;&#9552;&#9552;&#9552; -->
+                      <script>
+//<![CDATA[
+(function(){
+  // 전역 XSS 이스케이프 (중복 정의 방지)
+  window.esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+  // 전역 base URL
+  window.SPJ_BASE = window.SPJ_BASE || 'https://www.shippauljobs.com';
+  // 배지 정의 (3개 섹션 공용)
+  window.SPJ_BADGES_DEF = window.SPJ_BADGES_DEF || [
+    { name: 'Industry Validated', cls: 'spj-badge-l3', title: 'Industry Validated — Shipyard / Class / Supplier Feedback' },
+    { name: 'Expert Reviewed',    cls: 'spj-badge-l2', title: 'Expert Reviewed — Technical Advisory Board' },
+    { name: 'Verified',           cls: 'spj-badge-l1', title: 'Verified — Editorial Team Review' }
+  ];
+  // 배지 HTML 생성 함수 (img 태그 없음 — CSS background-image로 처리)
+  window.spjBadgeHtml = window.spjBadgeHtml || function(labels) {
+    var arr = labels || [];
+    for (var i = 0; i < window.SPJ_BADGES_DEF.length; i++) {
+      if (arr.indexOf(window.SPJ_BADGES_DEF[i].name) >= 0) {
+        var b = window.SPJ_BADGES_DEF[i];
+        return '<a href="' + window.SPJ_BASE + '/p/editorial-verification-policy.html"'
+          + ' class="spj-badge ' + b.cls + '" title="' + b.title + '"'
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
+      }
+    }
+    return '';
+  };
+  // 피드 응답 메모리 캐시 (섹션별 중복 fetch 방지)
+  window._feedCache = window._feedCache || {};
+  window.fetchFeed = window.fetchFeed || function(url, parseFn) {
+    if (window._feedCache[url]) return Promise.resolve(window._feedCache[url]);
+    return fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var result = parseFn ? parseFn(d) : d;
+        window._feedCache[url] = result;
+        return result;
+      })
+      .catch(function(){ return []; });
+  };
+})();
+//]]>
+                      </script>
+                      <!-- &#9552;&#9552;&#9552;&#9552; 완결된 시리즈 포스트 CAROUSEL &#9552;&#9552;&#9552;&#9552; -->
                       <style>
                         #fps-outer{overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;}
                         #fps-outer:active{cursor:grabbing;}
                         #fps-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
-                        #fps-track>a,#fps-track>div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
-                        @media(max-width:900px){#fps-track>a,#fps-track>div{flex:0 0 calc((100% - 10px)/2)}}
-                        @media(max-width:580px){#fps-track>a,#fps-track>div{flex:0 0 100%}}
+                        #fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
+                        @media(max-width:900px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
+                        @media(max-width:580px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 100%}}
                       </style>
                       <div id='fps-wrap' style='margin:0 0 2em;border-top:2px solid rgba(26,158,130,0.5);padding:1.2em 14px 14px;background:#fff;border-radius:10px;border:1px solid #e0eaf2;'>
                         <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
                           <span style='font-size:13px;font-weight:700;color:#0a2342;letter-spacing:0.4px'>Completed Series</span>
                           <span id='fps-count' style='background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
                         </div>
-                        <div style='font-size:11px;color:#7a9ab0;margin-bottom:10px;'>Fully completed multi-part posts — read the full story from start to finish.</div>
+                        <div style='font-size:11px;color:#7a9ab0;margin-bottom:10px;'>Fully completed multi-part posts &#8212; read the full story from start to finish.</div>
                         <div style='position:relative;'>
                           <button disabled='disabled' id='fps-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(224,234,242,0.7);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
                             <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #b0c4d8;transition:border-right-color .18s;'/>
@@ -3469,7 +3530,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   var prevBtn = document.getElementById('fps-prev');
   var nextBtn = document.getElementById('fps-next');
 
-  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
 
   var SPJ_BADGE_LOGO_FPS = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
   var SPJ_BADGES_FPS = [
@@ -3481,7 +3542,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     for (var i = 0; i < SPJ_BADGES_FPS.length; i++) {
       if ((labels||[]).indexOf(SPJ_BADGES_FPS[i].name) >= 0) {
         var b = SPJ_BADGES_FPS[i];
-        return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" class="spj-badge '+b.cls+'" title="'+b.title+'" onclick="event.stopPropagation()" style="flex-shrink:0"><img src="'+SPJ_BADGE_LOGO_FPS+'" alt="SPJ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></a>';
+        return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" class="spj-badge '+b.cls+'" title="'+b.title+'" onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
       }
     }
     return '';
@@ -3506,8 +3567,8 @@ if(!window.b1WC){window.b1WC=function(btn){
   }
 
   Promise.all(LABELS.map(function(label){
-    return fetch(base+'/feeds/posts/default/-/'+encodeURIComponent(label)+'?alt=json&max-results=100')
-      .then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
+    var url = base+'/feeds/posts/default/-/'+encodeURIComponent(label)+'?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
   })).then(function(results){
     var seen={},merged=[];
     results.forEach(function(arr){ arr.forEach(function(p){ if(!seen[p.url]){ seen[p.url]=true; merged.push(p); } }); });
@@ -3549,9 +3610,11 @@ if(!window.b1WC){window.b1WC=function(btn){
     var readBadge=isRead?'<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>':'';
     var finBadge='<span style="position:absolute;top:7px;right:7px;background:rgba(26,158,130,0.92);color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.06em;line-height:1.6">✓ Complete</span>';
     var authorImgHtml=p.authorImg?'<img src="'+esc(p.authorImg)+'" alt="'+esc(p.authorName)+'" style="width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid #d0dde8;">':'<div style="width:26px;height:26px;border-radius:50%;background:#e0eaf2;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;">👤</div>';
-    var badgeAndShare='<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">'+(spjBadgeFps(p.labels||[])||'')+(window.b1ShareHtml?b1ShareHtml(p.url,''):'')+'</div>';
-    var authorHtml='<div style="padding:7px 10px 9px;display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff;border-top:1px solid #edf2f7;margin-top:auto"><div style="display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden">'+authorImgHtml+'<span style="font-size:11px;color:#0a2342;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+esc(p.authorName||'ShipPaulJobs')+'</span></div>'+badgeAndShare+'</div>';
-    return '<div data-rk="'+readKey+'" onclick="if(event.target.closest(\'a,button\'))return;try{localStorage.setItem(\''+readKey+'\',\'1\')}catch(ex){}location.href=\''+esc(p.url)+'\';" style="cursor:pointer;display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.12);transition:box-shadow .2s,transform .2s,border-color .2s" onmouseover="this.style.boxShadow=\'0 4px 16px rgba(26,158,130,.25)\';this.style.transform=\'translateY(-2px)\';this.style.borderColor=\'#1a9e82\'" onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.12)\';this.style.transform=\'\';this.style.borderColor=\'#d8e6f0\'">'
+    var shareWrap=(window.b1ShareHtml?b1ShareHtml(p.url,''):'');
+    var fpsCommentsHtml='<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
+    var authorName=esc(p.authorName||'ShipPaulJobs');
+    var authorHtml='<div style="padding:7px 10px 9px;display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff;border-top:1px solid #edf2f7;margin-top:auto"><div style="display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden">'+authorImgHtml+'<button onclick="event.stopPropagation();if(window.showAuthorPosts)showAuthorPosts(\''+esc(p.authorName||'ShipPaulJobs').replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')" style="font-size:11px;color:#0a2342;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:none;border:none;padding:0;cursor:pointer;max-width:100px;display:inline-block;line-height:1.4">'+authorName+'</button></div>'+'<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">'+(spjBadgeFps(p.labels||[])||'')+fpsCommentsHtml+'</div>'+shareWrap+'</div>';
+    return '<div data-rk="'+readKey+'" onclick="if(event.target.closest(\'a,button\'))return;try{localStorage.setItem(\''+readKey+'\',\'1\')}catch(ex){}location.href=\''+esc(p.url)+'\';" style="position:relative;cursor:pointer;display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.12);transition:box-shadow .2s,transform .2s,border-color .2s" onmouseover="this.style.boxShadow=\'0 4px 16px rgba(26,158,130,.25)\';this.style.transform=\'translateY(-2px)\';this.style.borderColor=\'#1a9e82\'" onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.12)\';this.style.transform=\'\';this.style.borderColor=\'#d8e6f0\'">'
       +'<div style="padding:8px 10px 6px;background:#0a2342"><div style="font-size:12px;font-weight:700;color:#fff;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div></div>'
       +'<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1a9e82;border-bottom:3px solid #1a9e82">'+imgHtml+readBadge+finBadge+'</div>'
       +authorHtml
@@ -3582,7 +3645,7 @@ if(!window.b1WC){window.b1WC=function(btn){
 })();
 //]]>
                       </script>
-                      <!-- ════ END 완결된 시리즈 포스트 CAROUSEL ════ -->
+                      <!-- &#9552;&#9552;&#9552;&#9552; END 완결된 시리즈 포스트 CAROUSEL &#9552;&#9552;&#9552;&#9552; -->
                       <div id='tls-wrap' style='margin:0 0 2em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
                         <style>
 @keyframes tls-ticker{
@@ -4161,7 +4224,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   var prevBtn = document.getElementById('scs-prev');
   var nextBtn = document.getElementById('scs-next');
 
-  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
 
   var SPJ_BADGE_LOGO_SCS = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
   var SPJ_BADGES_SCS = [
@@ -4175,8 +4238,7 @@ if(!window.b1WC){window.b1WC=function(btn){
         var _b = SPJ_BADGES_SCS[_i];
         return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
           + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
-          + ' onclick="event.stopPropagation()" style="flex-shrink:0">'
-          + '<img src="' + SPJ_BADGE_LOGO_SCS + '" alt="SPJ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></a>';
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
       }
     }
     return '';
@@ -4223,10 +4285,8 @@ if(!window.b1WC){window.b1WC=function(btn){
   }
 
   function fetchLabel(label){
-    return fetch(base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100')
-      .then(function(r){ return r.json(); })
-      .then(parseEntries)
-      .catch(function(){ return []; });
+    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
   }
 
   Promise.all(LABELS.map(fetchLabel)).then(function(results){
@@ -4360,7 +4420,7 @@ if(!window.b1WC){window.b1WC=function(btn){
 
     /* 공유 버튼 (b1 동일 스타일 - 녹색 원형) */
     var shareSvg = '<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
-    var shareBtn = '<button data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
+    var shareBtn = '<button class="spj-card-share" data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s,opacity .18s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
 
     return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
       + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
@@ -4375,9 +4435,9 @@ if(!window.b1WC){window.b1WC=function(btn){
       /* 3. 태그 */
       + tagHtml
       /* 4. 날짜 + 댓글 + 공유 버튼 */
-      + '<div style="padding:5px 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
-      + '<div><div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'+commentsHtml+'</div>'
-      + '<div style="display:flex;align-items:center;gap:6px">'+spjBadgeScs(p.labels)+shareBtn+'</div>'
+      + '<div style="padding:5px 10px 8px;display:flex;align-items:center;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
+      + '<div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'
+      + '<div style="display:flex;align-items:center;gap:5px">'+spjBadgeScs(p.labels)+commentsHtml+shareBtn+'</div>'
       + '</div>'
       + '</a>';
   }
@@ -4589,7 +4649,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   var prevBtn = document.getElementById('ms-prev');
   var nextBtn = document.getElementById('ms-next');
 
-  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
 
   function getStep(){
     var first = trackEl && trackEl.children[0];
@@ -4626,10 +4686,8 @@ if(!window.b1WC){window.b1WC=function(btn){
   }
 
   function fetchLabel(label){
-    return fetch(base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100')
-      .then(function(r){ return r.json(); })
-      .then(parseEntries)
-      .catch(function(){ return []; });
+    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
   }
 
   Promise.all(LABELS.map(fetchLabel)).then(function(results){
@@ -4671,7 +4729,7 @@ if(!window.b1WC){window.b1WC=function(btn){
     var cardOpacity = '1';
     var commentsHtml = '<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px;margin-top:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
     var shareSvg = '<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
-    var shareBtn = '<button data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
+    var shareBtn = '<button class="spj-card-share" data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s,opacity .18s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
     return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
       + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
       + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\';this.style.borderColor=\'#64b4ff\'" '
@@ -4877,8 +4935,7 @@ if(!window.b1WC){window.b1WC=function(btn){
         var _b = SPJ_BADGES[_i];
         return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
           + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
-          + ' onclick="event.stopPropagation()" style="flex-shrink:0">'
-          + '<img src="' + SPJ_BADGE_LOGO + '" alt="SPJ" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></a>';
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
       }
     }
     return '';
@@ -5101,8 +5158,8 @@ if(!window.b1WC){window.b1WC=function(btn){
       }
 
       return '<div style="' + S_CARD + '" data-card>'
-        /* 우측 상단 공유 버튼 + 배지 */
-        + (window.b1ShareHtml ? b1ShareHtml(p.url, spjBadge(p.labels)) : '')
+        /* 우측 상단 공유 버튼 (배지는 하단 댓글 좌측으로 이동) */
+        + (window.b1ShareHtml ? b1ShareHtml(p.url, '') : '')
         /* 상단: 이미지 영역 */
         + '<div style="padding:2px;background:rgba(255,255,255,0.6);border-radius:8px 8px 0 0;line-height:0;position:relative">'
         + '<span style="position:absolute;top:10px;left:10px;background:#0a2342;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;line-height:1;z-index:1">' + (gi+1) + '</span>'
@@ -5126,7 +5183,7 @@ if(!window.b1WC){window.b1WC=function(btn){
         + (p.author ? '<button onclick="showAuthorPosts(\'' + esc(p.author).replace(/'/g,"\\'") + '\')" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#444;font-weight:600;background:none;border:none;padding:1px 2px;font-size:10px;cursor:pointer;text-decoration:none;max-width:90px;display:inline-block;line-height:1.6;">' + esc(displayAuthor(p.author)) + '</button><span style="flex-shrink:0">&#183;</span>' : '')
         + '<span style="white-space:nowrap">' + esc(p.date) + '</span>'
         + '</div>'
-        + '<a href="' + esc(p.url) + '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap;flex-shrink:0">&#128172; ' + esc(p.comments) + '</a>'
+        + '<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">' + spjBadge(p.labels) + '<a href="' + esc(p.url) + '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap">&#128172; ' + esc(p.comments) + '</a>' + '</div>'
         + '</div>'
         + '</div>';
     }).join('');
@@ -6539,92 +6596,11 @@ if(!window.b1WC){window.b1WC=function(btn){
         </b:section>
       </div>
       <b:section class='sidebar_bottom' id='sidebar_bottom' name='Sidebar (Bottom)' preferred='yes'>
-        <b:widget id='HTML1' locked='false' title='Who We Are?' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     Who We Are — sidebar widget
-════════════════════════════════════════════════════════════ -->
-
-<style>
-  #wwa-wrap * {
-    box-sizing: border-box;
-    font-family: Inter, sans-serif;
-  }
-  #wwa-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .wwa-desc {
-    font-size: 11.5px;
-    color: #6b8599;
-    line-height: 1.6;
-  }
-  @keyframes wwa-marquee {
-    0%   { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-  .wwa-btn {
-    display: inline-flex;
-    align-items: center;
-    overflow: hidden;
-    width: 90%;
-    padding: 8px 15px;
-    background: #ffffff;
-    color: #0a2342;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    border: 2px solid #ffffff;
-    transition: background 0.18s, border-color 0.18s;
-  }
-  .wwa-btn:hover {
-    background: #f0f7ff;
-    border-color: #d0dde8;
-  }
-  .wwa-btn:hover .wwa-btn-inner {
-    animation-play-state: paused;
-  }
-  .wwa-btn-inner {
-    display: inline-block;
-    white-space: nowrap;
-    animation: wwa-marquee 10s linear infinite;
-    background: #ffffff;
-    color: #0a2342;
-    padding: 2px 8px;
-    border-radius: 4px;
-  }
-</style>
-
-<div id="wwa-wrap">
-  <p class="wwa-desc">
-    Maritime cyber engineers, consultants, researchers, and class society experts — open to Crew Members &amp; Technical Advisors. Apply via LinkedIn Club or email.
-  </p>
-  <a
-    href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html"
-    target="_blank"
-    rel="noopener"
-    class="wwa-btn"
-  >
-    <span class="wwa-btn-inner">&#x1F465; Join the maritime cybersecurity team &#34;<strong style="color:#7ec8f4;font-weight:700;">Crew</strong>&#34; or become a &#34;<strong style="color:#7ec8f4;font-weight:700;">Technical advisor</strong>&#34; &gt;&gt; Click here</span>
-  
-</a
-></div><!-- /#wwa-wrap -->]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
         <b:widget id='Label2' locked='false' title='INTEL MENU' type='Label' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'>AI and Automation,Industry and Market,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AI and Automation,Industry and Market,JOBS,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6656,9 +6632,9 @@ if(!window.b1WC){window.b1WC=function(btn){
         </b:widget>
         <b:widget id='Label4' locked='false' title='Expert Perspective' type='Label' version='2' visible='true'>
           <b:widget-settings>
-            <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+            <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR E26 E27,JOBS,Maritime Industry Events,Maritime Leadership & Strategy,Maritime OT Systems,Risk Management,Ship OT Cybersecurity]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR E26,IACS UR E26 E27,IACS UR E27,IEC 62443,Maritime Industry Events,Maritime Leadership & Strategy,Maritime OT Systems,Risk Management,Ship OT Cybersecurity]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6690,9 +6666,9 @@ if(!window.b1WC){window.b1WC=function(btn){
         </b:widget>
         <b:widget id='Label1' locked='false' title='Maritime Knowledge Hub' type='Label' version='2' visible='true'>
           <b:widget-settings>
-            <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+            <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[Cyber Security,IACS UR E26,ISO 23806,Knowledge Resources,Maritime Solution,MaritimeData,Research Papers & Studies,SFICode,Security Assessment]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[Cyber Security,ISO 23806,Knowledge Resources,Maritime Solution,MaritimeData,Research Papers & Studies,SFICode,Security Assessment]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6725,231 +6701,6 @@ if(!window.b1WC){window.b1WC=function(btn){
         <b:widget id='HTML4' locked='false' title='Secure Connectivity Information' type='HTML' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<div id="Hello_GuestInfo.html"></div><script>(function(){var GITHUB_RAW_URL="https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/Hello_GuestInfo.html";var target=document.getElementById("Hello_GuestInfo.html");var s=document.createElement("style");s.textContent="#hg-right #hg-wrap{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;width:100%!important;max-width:100%!important;margin:0!important;padding:10px 14px!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;line-height:1.7!important;}#hg-right #hg-greeting{font-size:15px!important;font-weight:700!important;color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.55)!important;}#hg-right #hg-flag{font-size:22px!important;}#hg-right #hg-lang{font-size:10.5px!important;color:rgba(200,228,248,0.62)!important;margin-bottom:8px!important;}#hg-right #hg-body{font-size:11.5px!important;color:#c8e4f8!important;line-height:1.65!important;}#hg-right #hg-extra{font-size:11px!important;color:rgba(200,228,248,0.78)!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:8px!important;padding-top:8px!important;}#hg-right #hg-confirm{font-size:11px!important;color:#1a9e82!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:6px!important;padding-top:6px!important;}#hg-right a{color:#1affda!important;text-decoration:none!important;}#hg-right #hg-loading{color:rgba(200,228,248,0.45)!important;}#hg-right .hg-pill,#hg-right .hg-badge{background:rgba(26,158,130,0.18)!important;border:1px solid rgba(26,158,130,0.4)!important;color:#1affda!important;border-radius:4px!important;}";document.head.appendChild(s);fetch(GITHUB_RAW_URL).then(function(res){if(!res.ok)throw new Error("HTTP "+res.status);return res.text()}).then(function(html){target.innerHTML=html;var scripts=target.querySelectorAll("script");scripts.forEach(function(oldScript){var newScript=document.createElement("script");Array.prototype.forEach.call(oldScript.attributes,function(attr){newScript.setAttribute(attr.name,attr.value)});newScript.textContent=oldScript.textContent;oldScript.parentNode.replaceChild(newScript,oldScript)})}).catch(function(err){console.warn("[gh-inject] Failed to load:",err)})})();</script>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
-        <b:widget id='HTML13' locked='false' title='🤖 ShipPaul Intelligence' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     ComplianceInjection.html — Sidebar Preview Widget
-     대상: Blog/Pages/CyberComplianceAI.html
-     기능: ShipPaul Intelligence 서비스 미리보기 카드
-     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
-════════════════════════════════════════════════════════════ -->
-
-<div style="font-family:'Segoe UI',Arial,sans-serif;">
-
-  <!-- ── Header ── -->
-  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:12px 12px 0 0;padding:14px 15px 12px;">
-
-    <!-- Status row -->
-    <div style="align-items:center;display:flex;gap:7px;margin-bottom:10px;">
-      <span style="font-size:18px;flex-shrink:0;line-height:1;">🤖</span>
-      <div style="flex:1;">
- 
-        <div style="color:#7effd8;font-size:9px;font-weight:700;letter-spacing:0.3px;margin-top:2px;">Maritime Cyber Compliance AI</div>
-      </div>
-      <!-- Online indicator -->
-      <div style="align-items:center;display:flex;gap:4px;">
-        <span id="ci-dot" style="background:#1a9e82;border-radius:50%;display:inline-block;height:7px;width:7px;box-shadow:0 0 6px rgba(26,158,130,0.8);"></span>
-        <span style="color:#7effd8;font-size:8.5px;font-weight:700;">LIVE</span>
-      </div>
-    </div>
-
-    <!-- Tags -->
-    <div style="display:flex;flex-wrap:wrap;gap:4px;">
-      <span style="background:rgba(26,158,130,0.3);border-radius:20px;color:#7effd8;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">IACS · BIMCO · NIS2 · CRA</span>
-      <span style="background:rgba(255,193,7,0.25);border-radius:20px;color:#ffe082;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">IEC · USCG · IMO · GDPR</span>
-      <span style="background:rgba(255,255,255,0.12);border-radius:20px;color:#b8d4ea;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">23 Regulations</span>
-    </div>
-
-  </div>
-
-  <!-- ── Body ── -->
-  <div style="background:#fff;border:1.5px solid #d1e0ee;border-top:none;padding:12px 14px 13px;">
-
-    <!-- Description -->
-    <p style="color:#354a5e;font-size:11.5px;line-height:1.7;margin:0 0 11px;">
-      Ask any question about maritime cyber regulations — get <strong style="color:#0a2342;">clause references</strong>, plain-English <strong style="color:#0a2342;">interpretations</strong>, and <strong style="color:#0a2342;">official PDF source links</strong> instantly.
-    </p>
-
-    <!-- Regulation chips -->
-    <div style="margin-bottom:12px;">
-      <div style="color:#154f7a;font-size:8.5px;font-weight:800;letter-spacing:0.8px;margin-bottom:6px;text-transform:uppercase;">Covered Regulations</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px;">
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS UR E26</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS UR E27</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS Rec-194</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">BIMCO v5</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IEC 62443</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">NIS2</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">EU CRA</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">GDPR</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">NIST SP 800</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">USCG MTSA</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IMO MSC-FAL</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">DNV · KR · ABS</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">LR · BV · NK</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">CCS · RINA · CR</span>
-        <span style="background:#f0fff8;border-radius:5px;color:#1a7a60;font-size:9.5px;font-weight:700;padding:2px 7px;">+3 more</span>
-      </div>
-    </div>
-
-    <!-- CTA button -->
-    <a href="https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html"
-       target="_blank" rel="noopener noreferrer"
-       style="align-items:center;background:rgba(26,158,130,0.15);border:1.5px solid #1a9e82;border-radius:8px;color:#0a7060;display:flex;font-size:12px;font-weight:800;gap:8px;justify-content:center;padding:10px 14px;text-decoration:none;transition:background .15s;">
-      <span style="font-size:14px;line-height:1;">🤖</span>
-      <span>Open Compliance AI</span>
-      <span style="color:#1a9e82;font-size:14px;margin-left:auto;">&#8594;</span>
-    </a>
-
-  </div>
-
-  <!-- ── Footer ── -->
-  <div style="background:#f0f5fb;border:1.5px solid #d1e0ee;border-radius:0 0 12px 12px;border-top:none;padding:7px 14px;">
-    <div style="align-items:center;display:flex;gap:5px;justify-content:center;">
-      <span style="color:#8099b3;font-size:9px;">23 regulations</span>
-      <span style="color:#c8d9e8;font-size:9px;">·</span>
-      <span style="color:#8099b3;font-size:9px;">Free</span>
-      <span style="color:#c8d9e8;font-size:9px;">·</span>
-      <span style="color:#8099b3;font-size:9px;">No login required</span>
-      <span style="color:#c8d9e8;font-size:9px;">·</span>
-      <span style="background:#1a9e82;border-radius:3px;color:#fff;font-size:7.5px;font-weight:800;padding:1px 5px;">AI</span>
-    </div>
-  </div>
-
-</div>
-
-<script>
-/* Pulse animation for LIVE dot */
-(function () {
-  var s = document.createElement('style');
-  s.textContent = '@keyframes ci-pulse{0%,100%{opacity:.4}50%{opacity:1}}' +
-    '#ci-dot{animation:ci-pulse 2s ease-in-out infinite;}';
-  document.head.appendChild(s);
-})();
-</script>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
-        <b:widget id='HTML2' locked='false' title='Class Type Approval Check' type='HTML' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     Maritime Class Approval Check — Sidebar Widget
-     Style: Download.html pattern (navy gradient + teal CTA)
-════════════════════════════════════════════════════════════ -->
-
-<div style="border-radius:12px;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);">
-  <div style="padding:14px 16px 13px;">
-
-    <p style="color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0 0 11px;">
-      Search official Type Approval (TA) databases across 9 major classification societies — all in one place.
-    </p>
-
-    <!-- Society chips -->
-    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;">
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">NK</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">DNV</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">LR</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">ABS</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">BV</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">KR</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">RINA</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">CCS</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">PRS</span>
-    </div>
-
-    <!-- CTA -->
-    <a href="https://www.shippauljobs.com/p/maritime-class-approval-check.html"
-       title="Search Type Approval databases — ClassNK, DNV, Lloyd's Register, ABS, Bureau Veritas, Korean Register, RINA, CCS, PRS"
-       target="_blank" rel="noopener noreferrer"
-       style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;">
-      <span style="font-size:15px;line-height:1;" aria-hidden="true">🔍</span>
-      <span style="flex:1;">Search Type Approvals</span>
-      <span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">9 Societies</span>
-    </a>
-
-  </div>
-</div>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-  <b:include name='widget-title'/>
-  <div class='widget-content'>
-    <data:content/>
-  </div>
-</b:includable>
-        </b:widget>
-        <b:widget id='HTML12' locked='false' title='📥 Maritime Cybersecurity Docs' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<div style="border-radius:12px;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);">
-  <div style="padding:14px 16px 13px;">
-    <p style="color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0 0 12px;">Download official maritime cybersecurity PDFs — IACS UR E26/E27, BIMCO, NIST SP 800, class society rules &amp; national port security regulations.</p>
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      <a href="https://www.shippauljobs.com/p/international-association-compliance.html" title="Download IACS UR E26/E27, BIMCO Guideline v5, NIST SP 800, IEC 62443, NIS2 Directive — maritime cybersecurity compliance PDFs" target="_blank" rel="noopener noreferrer" style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;"><span style="font-size:15px;line-height:1;">🌐</span><span style="flex:1;">Intl. — IACS · BIMCO · NIST · IEC</span><span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">19 PDFs</span></a>
-      <a href="https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html" title="Download ABS, BV, DNV, Korean Register, Lloyd's Register, NK, RINA class society maritime cybersecurity rules and guidelines" target="_blank" rel="noopener noreferrer" style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;"><span style="font-size:15px;line-height:1;">🏛️</span><span style="flex:1;">Class Society — ABS · DNV · KR · LR</span><span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">16 PDFs</span></a>
-      <a href="https://www.shippauljobs.com/p/national-and-port-security-compliance.html" title="Download USCG MTSA, Singapore CSA CCoP, South Korea KISA smart ship guidelines, African Ports CRIMSON report" target="_blank" rel="noopener noreferrer" style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;"><span style="font-size:15px;line-height:1;">🛡️</span><span style="flex:1;">National — USCG · KISA · CSA</span><span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">8 PDFs</span></a>
-    </div>
-  </div>
-</div>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
-        <b:widget id='HTML10' locked='false' title='' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     Maritime Cyber Intelligence 위젯 인젝션 — www.shippauljobs.com
-     기능: Maritime Cyber ​​Intelligence.html
-     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
-════════════════════════════════════════════════════════════ -->
-<div id="MaritimeCyberIntelligence-widget"></div>
-
-<script>
-  (function () {
-    var GITHUB_RAW_URL =
-      "https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Main/SideBar/Maritime%20Cyber%20%E2%80%8B%E2%80%8BIntelligence.html";
-
-    var target = document.getElementById("MaritimeCyberIntelligence-widget");
-
-    fetch(GITHUB_RAW_URL)
-      .then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.text();
-      })
-      .then(function (html) {
-        target.innerHTML = html;
-
-        // innerHTML로 삽입된 <script>는 브라우저가 자동 실행하지 않으므로
-        // 새 <script> 엘리먼트로 교체하여 강제 실행
-        var scripts = target.querySelectorAll("script");
-        scripts.forEach(function (oldScript) {
-          var newScript = document.createElement("script");
-          Array.prototype.forEach.call(oldScript.attributes, function (attr) {
-            newScript.setAttribute(attr.name, attr.value);
-          });
-          newScript.textContent = oldScript.textContent;
-          oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-      })
-      .catch(function (err) {
-        console.warn("[gh-inject] Failed to load:", err);
-      });
-  })();
-</script>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
             <b:include name='widget-title'/>
@@ -8005,5 +7756,40 @@ if(!window.b1WC){window.b1WC=function(btn){
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAuthorModal(); });
   //]]>
   </script>
+  <!-- &#9552;&#9552; Cookie Consent Banner (AdSense / GDPR) &#9552;&#9552; -->
+  <div id='spj-cookie-banner' style='display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;background:rgba(6,14,30,0.97);border-top:2px solid rgba(29,137,207,0.5);padding:14px 20px;box-shadow:0 -4px 24px rgba(0,0,0,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);'>
+    <div style='max-width:960px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;'>
+      <div style='flex:1;min-width:240px;font-size:13px;color:#b8d4ea;line-height:1.6;'>
+        🍪 이 사이트는 <strong style='color:#fff;'>Google Analytics</strong> 및 <strong style='color:#fff;'>Google AdSense</strong> 쿠키를 사용하여 사이트 이용 통계를 수집하고 맞춤형 광고를 제공합니다.
+        <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='color:#5bc8f5;text-decoration:underline;white-space:nowrap;' target='_blank'>개인정보 처리방침</a>에서 자세한 내용을 확인하세요.
+      </div>
+      <div style='display:flex;gap:10px;flex-shrink:0;'>
+        <button id='spj-cookie-decline' style='padding:8px 18px;border-radius:6px;border:1px solid rgba(29,137,207,0.5);background:transparent;color:#7ab8d4;font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;'>거부</button>
+        <button id='spj-cookie-accept' style='padding:8px 22px;border-radius:6px;border:none;background:linear-gradient(90deg,#1a9e82,#1d89cf);color:#fff;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:all .18s;'>동의</button>
+      </div>
+    </div>
+  </div>
+  <script type='text/javascript'>
+  //<![CDATA[
+  (function(){
+    var KEY = 'spj_cookie_consent';
+    var banner = document.getElementById('spj-cookie-banner');
+    if (!banner) return;
+    // 이미 동의/거부한 경우 표시 안 함
+    if (localStorage.getItem(KEY)) return;
+    // 500ms 후 표시 (페이지 렌더링 우선)
+    setTimeout(function(){ banner.style.display = 'block'; }, 500);
+    document.getElementById('spj-cookie-accept').addEventListener('click', function(){
+      localStorage.setItem(KEY, 'accepted');
+      banner.style.display = 'none';
+    });
+    document.getElementById('spj-cookie-decline').addEventListener('click', function(){
+      localStorage.setItem(KEY, 'declined');
+      banner.style.display = 'none';
+    });
+  })();
+  //]]>
+  </script>
+  <!-- &#9552;&#9552; /Cookie Consent Banner &#9552;&#9552; -->
   </body>
 </html>

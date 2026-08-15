@@ -167,22 +167,47 @@
   <title><data:view.title.escaped/></title>
   <b:else/>
   <title>ShipPaulJobs
-  Maritime AI &amp; Cyber</title>
+  Maritime AI &amp; Cybersecurity Intelligence</title>
 </b:if>
 
 
 <!-- Blogger 기본 head &#8212; all-head-content 먼저 출력 후 커스텀 description으로 덮어씌움 -->
 <b:include data='blog' name='all-head-content'/>
 
-<!-- ?m=1 모바일 URL noindex: GSC 중복 페이지(사용자가 선택한 표준이 없는 중복) 해소 (2026-08-04) -->
-<b:if cond='data:blog.url CONTAINS &quot;?m=1&quot;'>
-  <meta content='noindex,follow' name='robots'/>
-</b:if>
-
+<!-- ?m=1 noindex 제거 (2026-08-15): Blogger 모바일 설정을 &quot;데스크톱&quot;으로 변경하여 GSC 색인 허용 -->
 <!-- noindex 제거 (2026-07-19): 도구 페이지에 정적 콘텐츠 추가 완료 &#8594; AdSense 재심사를 위해 크롤링 허용 -->
 
 
 <!-- meta description &#8212; all-head-content 이후에 위치해야 Blogger 기본값을 override 함 -->
+
+<!-- 크롤링됨-품질문제 9개 포스트 noindex (2026-08-15): thin content 판단 포스트 색인 제외 -->
+<b:if cond='data:blog.url CONTAINS &quot;ur-e27-supplier-readiness-series-from&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;book-industrial-control-system&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;maritime-ai-data-foundations-series_13&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;maritime-cyber-security-jobs-22&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;2025/12/cyber-regulatory-landscape-and-industry.html&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;he-8-global-cybersecurity-institutions&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;must-read-for-maritime-industry-review&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;have-you-tried-journey-of-challenge-and&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
+<b:if cond='data:blog.url CONTAINS &quot;deep-learning-deep-learning-preview&quot;'>
+  <meta content='noindex,follow' name='robots'/>
+</b:if>
 <b:if cond='data:view.isPost'>
   <!-- 포스트 페이지: 편집기 검색설명 우선, 없으면 generic -->
   <b:if cond='data:blog.metaDescription'>
@@ -238,9 +263,12 @@
   <b:else/>
     <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' property='og:description'/>
   </b:if>
+  <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
+  <meta content='1200' property='og:image:width'/>
+  <meta content='630' property='og:image:height'/>
 <b:else/>
   <meta content='website' property='og:type'/>
-  <meta content='ShipPaulJobs Maritime AI &amp; Cyber' property='og:title'/>
+  <meta content='ShipPaulJobs Maritime AI &amp; Cybersecurity Intelligence' property='og:title'/>
   <meta content='Insights and validation from industry experts to lead the market: IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, smart ships, and cyber resilience.' property='og:description'/>
   <meta expr:content='data:blog.homepageUrl' property='og:url'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' property='og:image'/>
@@ -269,8 +297,9 @@
   <b:else/>
     <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' name='twitter:description'/>
   </b:if>
+  <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
 <b:else/>
-  <meta content='ShipPaulJobs Maritime AI &amp; Cyber' name='twitter:title'/>
+  <meta content='ShipPaulJobs Maritime AI &amp; Cybersecurity Intelligence' name='twitter:title'/>
   <meta content='Insights and validation from industry experts to lead the market: IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, smart ships, and cyber resilience.' name='twitter:description'/>
   <meta content='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png' name='twitter:image'/>
 </b:if>
@@ -1650,13 +1679,19 @@
       .b1-single-share .b1-share-toggle,
       .b1-share-wrap:hover .b1-share-toggle,
       .post-outer-container:hover .b1-share-toggle,
-      #scs-track>a:hover .b1-share-toggle,
-      #scs-track>div:hover .b1-share-toggle,
-      #ms-track>a:hover .b1-share-toggle,
-      #ms-track>div:hover .b1-share-toggle,
-      #fps-track>div:hover .b1-share-toggle,
-      #apl-cards>div:hover .b1-share-toggle,
-      #tls-track>div:hover .b1-share-toggle{opacity:1;pointer-events:auto}
+      #scs-track&gt;a:hover .b1-share-toggle,
+      #scs-track&gt;div:hover .b1-share-toggle,
+      #ms-track&gt;a:hover .b1-share-toggle,
+      #ms-track&gt;div:hover .b1-share-toggle,
+      #fps-track&gt;div:hover .b1-share-toggle,
+      #apl-cards&gt;div:hover .b1-share-toggle,
+      #tls-track&gt;div:hover .b1-share-toggle{opacity:1;pointer-events:auto}
+      /* scs/ms 카드 전용 공유 버튼 hover 표시 */
+      .spj-card-share{opacity:0;pointer-events:none}
+      #scs-track&gt;a:hover .spj-card-share,
+      #scs-track&gt;div:hover .spj-card-share,
+      #ms-track&gt;a:hover .spj-card-share,
+      #ms-track&gt;div:hover .spj-card-share{opacity:1;pointer-events:auto}
       @keyframes b1SmIn{from{opacity:0;transform:translateY(-6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
       .b1-share-panel{display:none;position:absolute;top:calc(100% + 7px);right:0;flex-direction:column;gap:2px;background:#fff;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:6px;min-width:152px}
       .b1-share-panel.open{display:flex;animation:b1SmIn .16s ease}
@@ -2022,7 +2057,7 @@
 
                 <div class='blog-name container'>
                   <b:section class='container' id='header' name='Header' showaddelement='false'>
-                    <b:widget id='Header1' locked='true' title='ShipPaulJobs | Maritime AI &amp;amp; Cybersecurity (Header)' type='Header' version='2' visible='true'>
+                    <b:widget id='Header1' locked='true' title='ShipPaulJobs | Maritime AI &amp;amp; Cybersecurity Intelligence (Header)' type='Header' version='2' visible='true'>
                       <b:widget-settings>
                         <b:widget-setting name='displayUrl'/>
                         <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -2076,7 +2111,7 @@
                           <h1 class='title'>
                             <a expr:href='data:blog.homepageUrl' expr:title='data:blog.title'>
                               ShipPaulJobs<br/>
-                              <span style='font-size:0.68em;font-weight:500;letter-spacing:0.2px;'>Maritime AI &amp; Cybersecurity</span>
+                              <span style='font-size:0.68em;font-weight:500;letter-spacing:0.2px;'>Maritime AI &amp; Cybersecurity Intelligence</span>
                             </a>
                           </h1>
                         </div>
@@ -2287,7 +2322,7 @@
                     <b:widget-settings>
                       <b:widget-setting name='showSnippet'>true</b:widget-setting>
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-                      <b:widget-setting name='postId'>8823294117794793675</b:widget-setting>
+                      <b:widget-setting name='postId'>3794105873621270878</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
                       <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
                     </b:widget-settings>
@@ -2534,7 +2569,6 @@
                     <b:includable id='snippetedPostContent'>
                       <!-- 우측 상단 공유 버튼 -->
                       <div class='b1-share-wrap'>
-                        <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                         <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                           <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                         </button>
@@ -2578,7 +2612,8 @@
                             <button class='b1-card-author' expr:data-author='data:post.author.name' onclick='showAuthorPosts(this.dataset.author)'><data:post.author.name/></button> &#183; <data:post.date/>
                           </div>
                         </div>
-                        <div class='fp-bot-comment'>
+                        <div class='fp-bot-comment' style='display:flex;align-items:center;gap:5px;flex-shrink:0'>
+                          <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                           <b:if cond='data:post.allowComments'>
                             <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>💬 <b:if cond='data:post.numberOfComments &gt; 0'><data:post.numberOfComments/></b:if></a>
                           </b:if>
@@ -3056,7 +3091,6 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <!-- 상단: 제목 + 공유 버튼 -->
                           <!-- 우측 상단 공유 버튼 -->
                           <div class='b1-share-wrap'>
-                            <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                             <button class='b1-share-toggle' onclick='b1ShareToggle(this);return false;' title='Share'>
                               <svg fill='none' height='14' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' width='14'><use href='#spj-ico-share'/></svg>
                             </button>
@@ -3186,7 +3220,8 @@ if(!window.b1WC){window.b1WC=function(btn){
                             <div class='b1-card-byline'>
                               <button class='b1-card-author' expr:data-author='data:post.author.name' onclick='showAuthorPosts(this.dataset.author)'><data:post.author.name/></button> &#183; <data:post.date/>
                             </div>
-                            <div class='b1-card-comment'>
+                            <div class='b1-card-comment' style='display:flex;align-items:center;gap:5px;flex-shrink:0'>
+                              <b:if cond='data:post.labels'><b:loop values='data:post.labels' var='lbl'><b:if cond='data:lbl.name == &quot;Industry Validated&quot;'><a class='spj-badge spj-badge-l3' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Industry Validated — Shipyard / Class / Supplier Feedback'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Expert Reviewed&quot;'><a class='spj-badge spj-badge-l2' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Expert Reviewed — Technical Advisory Board'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if><b:if cond='data:lbl.name == &quot;Verified&quot;'><a class='spj-badge spj-badge-l1' href='https://www.shippauljobs.com/p/editorial-verification-policy.html' onclick='event.stopPropagation()' title='Verified — Editorial Team Review'><img alt='SPJ' loading='lazy' src='https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png'/></a></b:if></b:loop></b:if>
                               <b:if cond='data:post.allowComments'>
                                 <a class='b1-comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>💬 <b:if cond='data:post.numberOfComments &gt; 0'><data:post.numberOfComments/></b:if></a>
                               </b:if>
@@ -3366,7 +3401,13 @@ if(!window.b1WC){window.b1WC=function(btn){
                         &quot;dateModified&quot;: &quot;<data:post.lastUpdated.iso8601/>&quot;,
                         <b:include name='postMetadataJSONImage'/>
                         <b:include name='postMetadataJSONPublisher'/>
-                        &quot;author&quot;: { &quot;@type&quot;: &quot;Person&quot;, &quot;name&quot;: &quot;<data:post.author.name/>&quot; }
+                        &quot;author&quot;: {
+                          &quot;@type&quot;: &quot;Person&quot;,
+                          &quot;name&quot;: &quot;Captain Paul&quot;,
+                          &quot;jobTitle&quot;: &quot;Maritime Cyber Security Analyst&quot;,
+                          &quot;url&quot;: &quot;https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html&quot;,
+                          &quot;sameAs&quot;: [&quot;https://github.com/MaritimeCyber&quot;]
+                        }
                       }
                       </script>
                     </b:includable>
@@ -3433,7 +3474,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                         .tc-live-dot{background:#1a9e82;border-radius:50%;display:inline-block;height:7px;width:7px;box-shadow:0 0 6px rgba(26,158,130,0.8);}
                         .tc-live-txt{color:#7effd8;font-size:8.5px;font-weight:800;}
                       </style>
-                      <!-- ════ SPJ GLOBAL UTILITIES (shared across all feed sections) ════ -->
+                      <!-- &#9552;&#9552;&#9552;&#9552; SPJ GLOBAL UTILITIES (shared across all feed sections) &#9552;&#9552;&#9552;&#9552; -->
                       <script>
 //<![CDATA[
 (function(){
@@ -3476,21 +3517,21 @@ if(!window.b1WC){window.b1WC=function(btn){
 })();
 //]]>
                       </script>
-                      <!-- ════ 완결된 시리즈 포스트 CAROUSEL ════ -->
+                      <!-- &#9552;&#9552;&#9552;&#9552; 완결된 시리즈 포스트 CAROUSEL &#9552;&#9552;&#9552;&#9552; -->
                       <style>
                         #fps-outer{overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;}
                         #fps-outer:active{cursor:grabbing;}
                         #fps-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
-                        #fps-track>a,#fps-track>div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
-                        @media(max-width:900px){#fps-track>a,#fps-track>div{flex:0 0 calc((100% - 10px)/2)}}
-                        @media(max-width:580px){#fps-track>a,#fps-track>div{flex:0 0 100%}}
+                        #fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
+                        @media(max-width:900px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
+                        @media(max-width:580px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 100%}}
                       </style>
                       <div id='fps-wrap' style='margin:0 0 2em;border-top:2px solid rgba(26,158,130,0.5);padding:1.2em 14px 14px;background:#fff;border-radius:10px;border:1px solid #e0eaf2;'>
                         <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
                           <span style='font-size:13px;font-weight:700;color:#0a2342;letter-spacing:0.4px'>Completed Series</span>
                           <span id='fps-count' style='background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
                         </div>
-                        <div style='font-size:11px;color:#7a9ab0;margin-bottom:10px;'>Fully completed multi-part posts — read the full story from start to finish.</div>
+                        <div style='font-size:11px;color:#7a9ab0;margin-bottom:10px;'>Fully completed multi-part posts &#8212; read the full story from start to finish.</div>
                         <div style='position:relative;'>
                           <button disabled='disabled' id='fps-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(224,234,242,0.7);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
                             <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #b0c4d8;transition:border-right-color .18s;'/>
@@ -3604,9 +3645,10 @@ if(!window.b1WC){window.b1WC=function(btn){
     var readBadge=isRead?'<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>':'';
     var finBadge='<span style="position:absolute;top:7px;right:7px;background:rgba(26,158,130,0.92);color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.06em;line-height:1.6">✓ Complete</span>';
     var authorImgHtml=p.authorImg?'<img src="'+esc(p.authorImg)+'" alt="'+esc(p.authorName)+'" style="width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid #d0dde8;">':'<div style="width:26px;height:26px;border-radius:50%;background:#e0eaf2;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;">👤</div>';
-    var badgeAndShare='<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">'+(spjBadgeFps(p.labels||[])||'')+(window.b1ShareHtml?b1ShareHtml(p.url,''):'')+'</div>';
+    var shareWrap=(window.b1ShareHtml?b1ShareHtml(p.url,''):'');
+    var fpsCommentsHtml='<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
     var authorName=esc(p.authorName||'ShipPaulJobs');
-    var authorHtml='<div style="padding:7px 10px 9px;display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff;border-top:1px solid #edf2f7;margin-top:auto"><div style="display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden">'+authorImgHtml+'<button onclick="event.stopPropagation();if(window.showAuthorPosts)showAuthorPosts(\''+esc(p.authorName||'ShipPaulJobs').replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')" style="font-size:11px;color:#0a2342;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:none;border:none;padding:0;cursor:pointer;max-width:100px;display:inline-block;line-height:1.4">'+authorName+'</button></div>'+badgeAndShare+'</div>';
+    var authorHtml='<div style="padding:7px 10px 9px;display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff;border-top:1px solid #edf2f7;margin-top:auto"><div style="display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden">'+authorImgHtml+'<button onclick="event.stopPropagation();if(window.showAuthorPosts)showAuthorPosts(\''+esc(p.authorName||'ShipPaulJobs').replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')" style="font-size:11px;color:#0a2342;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:none;border:none;padding:0;cursor:pointer;max-width:100px;display:inline-block;line-height:1.4">'+authorName+'</button></div>'+'<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">'+(spjBadgeFps(p.labels||[])||'')+fpsCommentsHtml+'</div>'+shareWrap+'</div>';
     return '<div data-rk="'+readKey+'" onclick="if(event.target.closest(\'a,button\'))return;try{localStorage.setItem(\''+readKey+'\',\'1\')}catch(ex){}location.href=\''+esc(p.url)+'\';" style="position:relative;cursor:pointer;display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.12);transition:box-shadow .2s,transform .2s,border-color .2s" onmouseover="this.style.boxShadow=\'0 4px 16px rgba(26,158,130,.25)\';this.style.transform=\'translateY(-2px)\';this.style.borderColor=\'#1a9e82\'" onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.12)\';this.style.transform=\'\';this.style.borderColor=\'#d8e6f0\'">'
       +'<div style="padding:8px 10px 6px;background:#0a2342"><div style="font-size:12px;font-weight:700;color:#fff;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div></div>'
       +'<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1a9e82;border-bottom:3px solid #1a9e82">'+imgHtml+readBadge+finBadge+'</div>'
@@ -3638,7 +3680,676 @@ if(!window.b1WC){window.b1WC=function(btn){
 })();
 //]]>
                       </script>
-                      <!-- ════ END 완결된 시리즈 포스트 CAROUSEL ════ -->
+                      <!-- &#9552;&#9552;&#9552;&#9552; END 완결된 시리즈 포스트 CAROUSEL &#9552;&#9552;&#9552;&#9552; -->
+                      <!-- &#9552;&#9552;&#9552; SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
+                      <style>
+                        #scs-outer{overflow:hidden}
+                        #scs-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+                        #scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
+                        @media(max-width:900px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
+                        @media(max-width:580px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
+                      </style>
+                      <div id='scs-wrap' style='margin:0 0 0;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px 10px 0 0;'>
+                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
+                          <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Ship Systems</span>
+                          <span id='scs-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
+                        </div>
+                        <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Learn the fundamentals of modern ship systems and digital vessel technologies.</div>
+                        <div style='position:relative;'>
+                          <button disabled='disabled' id='scs-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
+                          </button>
+                          <div id='scs-outer'>
+                            <div id='scs-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
+                            <div id='scs-track'/>
+                          </div>
+                          <button disabled='disabled' id='scs-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid #2a4060;transition:border-left-color .18s;'/>
+                          </button>
+                        </div>
+                        <div style='text-align:center;margin-top:10px;'>
+                          <span id='scs-indicator' style='font-size:10px;color:rgba(200,228,248,0.5)'/>
+                        </div>
+                      </div>
+                      <script type='text/javascript'>
+//<![CDATA[
+(function(){
+  var LABELS    = ['CBS','SYSTEM'];
+  var PAGE_SIZE = 5;
+  var posts     = [];
+  var cardIndex = 0;
+  var animating = false;
+  var base      = 'https://www.shippauljobs.com';
+
+  var loadEl  = document.getElementById('scs-loading');
+  var trackEl = document.getElementById('scs-track');
+  var outerEl = document.getElementById('scs-outer');
+  var indEl   = document.getElementById('scs-indicator');
+  var prevBtn = document.getElementById('scs-prev');
+  var nextBtn = document.getElementById('scs-next');
+
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  var SPJ_BADGE_LOGO_SCS = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
+  var SPJ_BADGES_SCS = [
+    { name: 'Industry Validated', cls: 'spj-badge-l3', title: 'Industry Validated — Shipyard / Class / Supplier Feedback' },
+    { name: 'Expert Reviewed',    cls: 'spj-badge-l2', title: 'Expert Reviewed — Technical Advisory Board' },
+    { name: 'Verified',           cls: 'spj-badge-l1', title: 'Verified — Editorial Team Review' }
+  ];
+  function spjBadgeScs(labels) {
+    for (var _i = 0; _i < SPJ_BADGES_SCS.length; _i++) {
+      if ((labels||[]).indexOf(SPJ_BADGES_SCS[_i].name) >= 0) {
+        var _b = SPJ_BADGES_SCS[_i];
+        return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
+          + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
+          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
+      }
+    }
+    return '';
+  }
+
+  /* 카드 하나의 이동 폭 (width + gap) */
+  function getStep(){
+    var first = trackEl && trackEl.children[0];
+    return first ? first.offsetWidth + 10 : 0;
+  }
+
+  /* 현재 뷰포트에서 보이는 카드 수 → 최대 이동 가능 인덱스 */
+  function getMaxIndex(){
+    if(!outerEl || !posts.length) return 0;
+    var step = getStep();
+    if(!step) return 0;
+    var visible = Math.max(1, Math.round((outerEl.offsetWidth + 10) / step));
+    return Math.max(0, posts.length - visible);
+  }
+
+  /* translateX 적용 */
+  function applyPosition(animate){
+    if(!trackEl) return;
+    trackEl.style.transition = animate
+      ? 'transform .42s cubic-bezier(.25,.46,.45,.94)'
+      : 'none';
+    trackEl.style.transform = 'translateX(-' + (cardIndex * getStep()) + 'px)';
+  }
+
+  /* 인디케이터 업데이트 */
+  function updateIndicator(){
+    if(indEl) indEl.textContent = (cardIndex + 1) + ' / ' + posts.length;
+  }
+
+  function parseEntries(data){
+    var entries = (data.feed && data.feed.entry) || [];
+    return entries.map(function(e){
+      var link  = (e.link||[]).filter(function(l){ return l.rel==='alternate'; })[0];
+      var thumb = e.media$thumbnail;
+      var img   = thumb ? thumb.url.replace(/\/s\d+[^\/]*\//g,'/s0/').replace(/\/w\d+-h\d+[^\/]*\//g,'/s0/').replace(/=s\d+[^&]*/g,'=s0') : '';
+      var cats  = (e.category||[]).map(function(c){ return c.term; });
+      return { url: link ? link.href : '#', title: e.title.$t, image: img, date: e.published.$t.slice(0,10), labels: cats, comments: e['thr$total'] ? parseInt(e['thr$total']['$t'], 10) : 0 };
+    });
+  }
+
+  function fetchLabel(label){
+    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
+  }
+
+  Promise.all(LABELS.map(fetchLabel)).then(function(results){
+    var seen = {}, merged = [];
+    results.forEach(function(arr){
+      arr.forEach(function(p){ if(!seen[p.url]){ seen[p.url]=true; merged.push(p); } });
+    });
+    merged.sort(function(a,b){ return b.date > a.date ? 1 : b.date < a.date ? -1 : 0; });
+    posts = merged;
+    if(loadEl) loadEl.style.display = 'none';
+    /* 포스트 개수 뱃지 */
+    var cntEl = document.getElementById('scs-count');
+    if(cntEl){ cntEl.textContent = posts.length; cntEl.style.display = ''; }
+    if(!posts.length){
+      if(trackEl) trackEl.innerHTML = '<p style="color:#7eaac8;font-size:12px;padding:8px 0">No posts found for these tags.</p>';
+      return;
+    }
+    renderAll();
+  }).catch(function(){ if(loadEl) loadEl.style.display='none'; });
+
+  /* 공유 버튼 핸들러 — fixed-position SNS 패널 (overflow:hidden 탈출) */
+  window.scsShareCard = function(btn, e){
+    e.stopPropagation(); e.preventDefault();
+    var prev = document.getElementById('scs-sp');
+    if(prev){ prev.remove(); if(window._scsSPBtn===btn){ window._scsSPBtn=null; return; } }
+    window._scsSPBtn = btn;
+    var url = btn.getAttribute('data-url');
+    var r   = btn.getBoundingClientRect();
+
+    var panel = document.createElement('div');
+    panel.id = 'scs-sp';
+    panel.className = 'b1-share-panel open';
+    /* inline style 로 position:fixed 로 전환 (overflow:hidden 탈출) */
+    panel.style.position = 'fixed';
+    panel.style.top      = 'auto';
+    panel.style.bottom   = (window.innerHeight - r.top + 6) + 'px';
+    panel.style.right    = (window.innerWidth  - r.right)  + 'px';
+    panel.style.zIndex   = '99999';
+
+    function mkA(bg, href, svgHtml, label){
+      var a = document.createElement('a');
+      a.className = 'b1-share-btn'; a.style.background = bg;
+      if(href){ a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      else { a.href = '#'; }
+      a.innerHTML = svgHtml + '<span>' + label + '</span>';
+      return a;
+    }
+    function closePanel(){ var p=document.getElementById('scs-sp'); if(p) p.remove(); window._scsSPBtn=null; }
+
+    var LI  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-li"/></svg>';
+    var FB  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-fb"/></svg>';
+    var XTW = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tw"/></svg>';
+    var WA  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wa"/></svg>';
+    var TG  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tg"/></svg>';
+    var RD  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-rd"/></svg>';
+    var WC_SVG = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wc"/></svg>';
+    var CP  = '<svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" width="14"><use href="#spj-ico-cp"/></svg>';
+
+    var liA = mkA('#0a66c2','https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url),LI,'LinkedIn');
+    liA.onclick = function(){ setTimeout(closePanel,100); };
+    panel.appendChild(liA);
+    var fbA = mkA('#1877f2','https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),FB,'Facebook');
+    fbA.onclick = function(){ setTimeout(closePanel,100); };
+    panel.appendChild(fbA);
+    var xA = mkA('#111','https://twitter.com/intent/tweet?url='+encodeURIComponent(url),XTW,'X (Twitter)');
+    xA.onclick = function(){ setTimeout(closePanel,100); };
+    panel.appendChild(xA);
+    var waA = mkA('#25d366','https://wa.me/?text='+encodeURIComponent(url),WA,'WhatsApp');
+    waA.onclick = function(){ setTimeout(closePanel,100); };
+    panel.appendChild(waA);
+    var tgA = mkA('#26a5e4','https://t.me/share/url?url='+encodeURIComponent(url),TG,'Telegram');
+    tgA.onclick = function(){ setTimeout(closePanel,100); };
+    panel.appendChild(tgA);
+    var rdA = mkA('#ff4500','https://www.reddit.com/submit?url='+encodeURIComponent(url),RD,'Reddit');
+    rdA.onclick = function(){ setTimeout(closePanel,100); };
+    panel.appendChild(rdA);
+    var wcA = mkA('#07c160',null,WC_SVG,'WeChat');
+    wcA.setAttribute('data-u', url);
+    wcA.onclick = function(ev){ ev.preventDefault(); ev.stopPropagation(); if(window.b1WC) window.b1WC(this); return false; };
+    panel.appendChild(wcA);
+    var cpA = mkA('#607d8b',null,CP,'Copy Link');
+    cpA.onclick = function(ev){
+      ev.preventDefault(); ev.stopPropagation();
+      if(navigator.clipboard){ navigator.clipboard.writeText(url); }
+      else { try{ var t=document.createElement('textarea');t.value=url;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t); }catch(err){} }
+      cpA.querySelector('span').textContent = 'Copied!';
+      setTimeout(closePanel, 1200);
+      return false;
+    };
+    panel.appendChild(cpA);
+
+    document.body.appendChild(panel);
+    setTimeout(function(){
+      function handler(ev){
+        if(!panel.contains(ev.target) && ev.target !== btn){
+          closePanel(); document.removeEventListener('click', handler);
+        }
+      }
+      document.addEventListener('click', handler);
+    }, 50);
+  };
+
+  function cardHtml(p){
+    /* 모든 라벨을 태그 칩으로 표기 */
+    var allLabels = p.labels || [];
+    var tagHtml = allLabels.length
+      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px;background:#ffffff">'
+        + allLabels.map(function(l){
+            var isPrimary = LABELS.indexOf(l) >= 0;
+            return '<span data-label="'+esc(l)+'" onclick="event.stopPropagation();event.preventDefault();window.location.href=\'/search/label/\'+encodeURIComponent(this.getAttribute(\'data-label\'))" style="display:inline-block;background:'+(isPrimary ? 'rgba(29,137,207,0.15)' : 'rgba(26,158,130,0.12)')+';color:'+(isPrimary ? '#1d89cf' : '#1a9e82')+';font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid '+(isPrimary ? 'rgba(29,137,207,0.35)' : 'rgba(26,158,130,0.35)')+';cursor:pointer;white-space:nowrap;line-height:1.6">'+esc(l)+'</span>';
+          }).join('')
+        + '</div>'
+      : '';
+
+    /* 이미지 */
+    var imgHtml = p.image
+      ? '<img src="'+esc(p.image)+'" alt="'+esc(p.title)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">'
+      : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
+
+    /* Read 효과 */
+    var readKey = 'scs_r_' + p.url.split('/').pop().slice(0,20);
+    var isRead = false;
+    try { isRead = !!localStorage.getItem(readKey); } catch(e){}
+    var readBadge = isRead
+      ? '<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>'
+      : '';
+    var cardOpacity = '1';
+
+    /* 댓글 수 */
+    var commentsHtml = '<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px;margin-top:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
+
+    /* 공유 버튼 (b1 동일 스타일 - 녹색 원형) */
+    var shareSvg = '<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
+    var shareBtn = '<button class="spj-card-share" data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s,opacity .18s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
+
+    return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
+      + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
+      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\';this.style.borderColor=\'#64b4ff\'" '
+      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\';this.style.borderColor=\'#d8e6f0\'">'
+      /* 1. 제목 (2줄) */
+      + '<div style="padding:8px 10px 6px;background:#0a2342">'
+      + '<div style="font-size:12px;font-weight:700;color:#ffffff;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div>'
+      + '</div>'
+      /* 2. 이미지 */
+      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1d89cf;border-bottom:3px solid #1d89cf">'+imgHtml+readBadge+'</div>'
+      /* 3. 태그 */
+      + tagHtml
+      /* 4. 날짜 + 댓글 + 공유 버튼 */
+      + '<div style="padding:5px 10px 8px;display:flex;align-items:center;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
+      + '<div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'
+      + '<div style="display:flex;align-items:center;gap:5px">'+spjBadgeScs(p.labels)+commentsHtml+shareBtn+'</div>'
+      + '</div>'
+      + '</a>';
+  }
+
+  /* 전체 카드를 한 번에 렌더링 (슬라이드 방식) */
+  function renderAll(){
+    if(!trackEl) return;
+    cardIndex = 0;
+    trackEl.style.transition = 'none';
+    trackEl.style.transform  = 'translateX(0)';
+    trackEl.innerHTML = posts.map(cardHtml).join('');
+    updateBtns();
+    updateIndicator();
+  }
+
+  function updateBtns(){
+    var max    = getMaxIndex();
+    var prevOn = cardIndex > 0;
+    var nextOn = cardIndex < max;
+    if(prevBtn){
+      prevBtn.disabled             = !prevOn;
+      prevBtn.style.background     = prevOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
+      prevBtn.style.cursor         = prevOn ? 'pointer' : 'default';
+      var pSpan = prevBtn.querySelector('span');
+      if(pSpan) pSpan.style.borderRightColor = prevOn ? '#7ec8f4' : '#2a4060';
+    }
+    if(nextBtn){
+      nextBtn.disabled             = !nextOn;
+      nextBtn.style.background     = nextOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
+      nextBtn.style.cursor         = nextOn ? 'pointer' : 'default';
+      var nSpan = nextBtn.querySelector('span');
+      if(nSpan) nSpan.style.borderLeftColor = nextOn ? '#7ec8f4' : '#2a4060';
+    }
+  }
+
+  if(prevBtn) prevBtn.addEventListener('click', function(){
+    if(animating || cardIndex <= 0) return;
+    cardIndex--;
+    animating = true;
+    applyPosition(true);
+    updateBtns();
+    updateIndicator();
+    setTimeout(function(){ animating = false; }, 450);
+  });
+
+  if(nextBtn) nextBtn.addEventListener('click', function(){
+    if(animating || cardIndex >= getMaxIndex()) return;
+    cardIndex++;
+    animating = true;
+    applyPosition(true);
+    updateBtns();
+    updateIndicator();
+    setTimeout(function(){ animating = false; }, 450);
+  });
+
+  /* 창 크기 변경 시 위치 재계산 */
+  window.addEventListener('resize', function(){
+    if(cardIndex > getMaxIndex()) cardIndex = getMaxIndex();
+    applyPosition(false);
+    updateBtns();
+  });
+
+  /* ── 드래그 슬라이드 (마우스 + 터치) ── */
+  var dragStartX   = 0;
+  var dragBaseX    = 0;   /* 드래그 시작 시점의 translateX 값 */
+  var dragging     = false;
+  var dragMoved    = false;
+  var SNAP_RATIO   = 0.18; /* 카드 폭의 18% 이상 드래그 시 이동 */
+
+  function currentTranslate(){
+    return -(cardIndex * getStep());
+  }
+
+  /* 드래그 중 지구본 캔버스 마우스 이벤트 차단 */
+  function setGlobePointerEvents(on){
+    document.querySelectorAll('canvas').forEach(function(c){
+      c.style.pointerEvents = on ? '' : 'none';
+    });
+  }
+
+  function onDragStart(clientX){
+    if(animating) return;
+    dragging  = true;
+    dragMoved = false;
+    dragStartX = clientX;
+    dragBaseX  = currentTranslate();
+    if(trackEl){ trackEl.style.transition = 'none'; }
+    setGlobePointerEvents(false); /* 지구본 차단 시작 */
+  }
+
+  function onDragMove(clientX){
+    if(!dragging || !trackEl) return;
+    var delta = clientX - dragStartX;
+    if(Math.abs(delta) > 4) dragMoved = true;
+    var max   = getMaxIndex();
+    var minTx = -(max * getStep());
+    /* 끝에서 당길 때 저항감 (rubber-band) */
+    var tx = dragBaseX + delta;
+    if(tx > 0)     tx = tx * 0.25;
+    if(tx < minTx) tx = minTx + (tx - minTx) * 0.25;
+    trackEl.style.transform = 'translateX(' + tx + 'px)';
+  }
+
+  function onDragEnd(clientX){
+    if(!dragging) return;
+    dragging = false;
+    setGlobePointerEvents(true); /* 지구본 복원 */
+    if(!dragMoved){ applyPosition(true); return; }
+    var delta = clientX - dragStartX;
+    var step  = getStep();
+    var max   = getMaxIndex();
+    if(Math.abs(delta) > step * SNAP_RATIO){
+      if(delta < 0 && cardIndex < max) cardIndex++;
+      else if(delta > 0 && cardIndex > 0) cardIndex--;
+    }
+    animating = true;
+    applyPosition(true);
+    updateBtns();
+    updateIndicator();
+    setTimeout(function(){ animating = false; }, 450);
+  }
+
+  /* 마우스 이벤트 */
+  if(outerEl){
+    outerEl.addEventListener('mousedown', function(e){
+      onDragStart(e.clientX);
+      e.preventDefault();    /* 텍스트 선택 방지 */
+      e.stopPropagation();   /* 지구본 등 부모 요소로 이벤트 전파 차단 */
+    });
+    /* 드래그 중 링크 클릭 방지 */
+    outerEl.addEventListener('click', function(e){
+      if(dragMoved) e.preventDefault();
+    }, true);
+  }
+  document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    e.stopPropagation();   /* 드래그 중 부모 mousemove 차단 */
+    onDragMove(e.clientX);
+  });
+  document.addEventListener('mouseup', function(e){
+    if(!dragging) return;
+    e.stopPropagation();
+    onDragEnd(e.clientX);
+  });
+
+  /* 터치 이벤트 */
+  if(outerEl){
+    outerEl.addEventListener('touchstart', function(e){
+      onDragStart(e.touches[0].clientX);
+      e.stopPropagation();
+    }, {passive:true});
+    outerEl.addEventListener('touchmove', function(e){
+      onDragMove(e.touches[0].clientX);
+      e.stopPropagation();
+    }, {passive:true});
+    outerEl.addEventListener('touchend', function(e){
+      onDragEnd(e.changedTouches[0].clientX);
+      e.stopPropagation();
+    }, {passive:true});
+  }
+})();
+//]]>
+                      </script>
+                      <!-- &#9552;&#9552;&#9552; END SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
+
+                      <!-- &#9552;&#9552;&#9552; MARINE SOLUTIONS CAROUSEL &#9552;&#9552;&#9552; -->
+                      <style>
+                        #ms-outer{overflow:hidden}
+                        #ms-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+                        #ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
+                        @media(max-width:900px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
+                        @media(max-width:580px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
+                      </style>
+                      <div id='ms-wrap' style='margin:0 0 2em;border-top:1px solid rgba(29,137,207,0.18);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:0 0 10px 10px;'>
+                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
+                          <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Marine Solutions</span>
+                          <span id='ms-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
+                        </div>
+                        <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Explore practical maritime AI, cybersecurity and digital transformation solutions.</div>
+                        <div style='position:relative;'>
+                          <button disabled='disabled' id='ms-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
+                          </button>
+                          <div id='ms-outer'>
+                            <div id='ms-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
+                            <div id='ms-track'/>
+                          </div>
+                          <button disabled='disabled' id='ms-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid #2a4060;transition:border-left-color .18s;'/>
+                          </button>
+                        </div>
+                        <div style='text-align:center;margin-top:10px;'>
+                          <span id='ms-indicator' style='font-size:10px;color:rgba(200,228,248,0.5)'/>
+                        </div>
+                      </div>
+                      <script type='text/javascript'>
+//<![CDATA[
+(function(){
+  var LABELS    = ['SOLUTION'];
+  var posts     = [];
+  var cardIndex = 0;
+  var animating = false;
+  var base      = 'https://www.shippauljobs.com';
+
+  var loadEl  = document.getElementById('ms-loading');
+  var trackEl = document.getElementById('ms-track');
+  var outerEl = document.getElementById('ms-outer');
+  var indEl   = document.getElementById('ms-indicator');
+  var prevBtn = document.getElementById('ms-prev');
+  var nextBtn = document.getElementById('ms-next');
+
+  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  function getStep(){
+    var first = trackEl && trackEl.children[0];
+    return first ? first.offsetWidth + 10 : 0;
+  }
+
+  function getMaxIndex(){
+    if(!outerEl || !posts.length) return 0;
+    var step = getStep();
+    if(!step) return 0;
+    var visible = Math.max(1, Math.round((outerEl.offsetWidth + 10) / step));
+    return Math.max(0, posts.length - visible);
+  }
+
+  function applyPosition(animate){
+    if(!trackEl) return;
+    trackEl.style.transition = animate ? 'transform .42s cubic-bezier(.25,.46,.45,.94)' : 'none';
+    trackEl.style.transform  = 'translateX(-' + (cardIndex * getStep()) + 'px)';
+  }
+
+  function updateIndicator(){
+    if(indEl) indEl.textContent = (cardIndex + 1) + ' / ' + posts.length;
+  }
+
+  function parseEntries(data){
+    var entries = (data.feed && data.feed.entry) || [];
+    return entries.map(function(e){
+      var link  = (e.link||[]).filter(function(l){ return l.rel==='alternate'; })[0];
+      var thumb = e.media$thumbnail;
+      var img   = thumb ? thumb.url.replace(/\/s\d+[^\/]*\//g,'/s0/').replace(/\/w\d+-h\d+[^\/]*\//g,'/s0/').replace(/=s\d+[^&]*/g,'=s0') : '';
+      var cats  = (e.category||[]).map(function(c){ return c.term; });
+      return { url: link ? link.href : '#', title: e.title.$t, image: img, date: e.published.$t.slice(0,10), labels: cats, comments: e['thr$total'] ? parseInt(e['thr$total']['$t'], 10) : 0 };
+    });
+  }
+
+  function fetchLabel(label){
+    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
+    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
+  }
+
+  Promise.all(LABELS.map(fetchLabel)).then(function(results){
+    var seen = {}, merged = [];
+    results.forEach(function(arr){
+      arr.forEach(function(p){ if(!seen[p.url]){ seen[p.url]=true; merged.push(p); } });
+    });
+    merged.sort(function(a,b){ return b.date > a.date ? 1 : b.date < a.date ? -1 : 0; });
+    posts = merged;
+    if(loadEl) loadEl.style.display = 'none';
+    var cntEl = document.getElementById('ms-count');
+    if(cntEl){ cntEl.textContent = posts.length; cntEl.style.display = ''; }
+    if(!posts.length){
+      if(trackEl) trackEl.innerHTML = '<p style="color:#7eaac8;font-size:12px;padding:8px 0">No posts found.</p>';
+      return;
+    }
+    renderAll();
+  }).catch(function(){ if(loadEl) loadEl.style.display='none'; });
+
+  function cardHtml(p){
+    var allLabels = p.labels || [];
+    var tagHtml = allLabels.length
+      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px;background:#ffffff">'
+        + allLabels.map(function(l){
+            var isPrimary = LABELS.indexOf(l) >= 0;
+            return '<span data-label="'+esc(l)+'" onclick="event.stopPropagation();event.preventDefault();window.location.href=\'/search/label/\'+encodeURIComponent(this.getAttribute(\'data-label\'))" style="display:inline-block;background:'+(isPrimary ? 'rgba(29,137,207,0.15)' : 'rgba(26,158,130,0.12)')+';color:'+(isPrimary ? '#1d89cf' : '#1a9e82')+';font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid '+(isPrimary ? 'rgba(29,137,207,0.35)' : 'rgba(26,158,130,0.35)')+';cursor:pointer;white-space:nowrap;line-height:1.6">'+esc(l)+'</span>';
+          }).join('')
+        + '</div>'
+      : '';
+    var imgHtml = p.image
+      ? '<img src="'+esc(p.image)+'" alt="'+esc(p.title)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">'
+      : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
+    var readKey = 'ms_r_' + p.url.split('/').pop().slice(0,20);
+    var isRead = false;
+    try { isRead = !!localStorage.getItem(readKey); } catch(e){}
+    var readBadge = isRead
+      ? '<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>'
+      : '';
+    var cardOpacity = '1';
+    var commentsHtml = '<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px;margin-top:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
+    var shareSvg = '<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
+    var shareBtn = '<button class="spj-card-share" data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s,opacity .18s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
+    return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
+      + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
+      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\';this.style.borderColor=\'#64b4ff\'" '
+      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\';this.style.borderColor=\'#d8e6f0\'">'
+      + '<div style="padding:8px 10px 6px;background:#0a2342">'
+      + '<div style="font-size:12px;font-weight:700;color:#ffffff;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div>'
+      + '</div>'
+      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1d89cf;border-bottom:3px solid #1d89cf">'+imgHtml+readBadge+'</div>'
+      + tagHtml
+      + '<div style="padding:5px 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
+      + '<div><div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'+commentsHtml+'</div>'
+      + shareBtn
+      + '</div>'
+      + '</a>';
+  }
+
+  function renderAll(){
+    if(!trackEl) return;
+    cardIndex = 0;
+    trackEl.style.transition = 'none';
+    trackEl.style.transform  = 'translateX(0)';
+    trackEl.innerHTML = posts.map(cardHtml).join('');
+    updateBtns();
+    updateIndicator();
+  }
+
+  function updateBtns(){
+    var max    = getMaxIndex();
+    var prevOn = cardIndex > 0;
+    var nextOn = cardIndex < max;
+    if(prevBtn){
+      prevBtn.disabled         = !prevOn;
+      prevBtn.style.background = prevOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
+      prevBtn.style.cursor     = prevOn ? 'pointer' : 'default';
+      var pSpan = prevBtn.querySelector('span');
+      if(pSpan) pSpan.style.borderRightColor = prevOn ? '#7ec8f4' : '#2a4060';
+    }
+    if(nextBtn){
+      nextBtn.disabled         = !nextOn;
+      nextBtn.style.background = nextOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
+      nextBtn.style.cursor     = nextOn ? 'pointer' : 'default';
+      var nSpan = nextBtn.querySelector('span');
+      if(nSpan) nSpan.style.borderLeftColor = nextOn ? '#7ec8f4' : '#2a4060';
+    }
+  }
+
+  if(prevBtn) prevBtn.addEventListener('click', function(){
+    if(animating || cardIndex <= 0) return;
+    cardIndex--; animating = true;
+    applyPosition(true); updateBtns(); updateIndicator();
+    setTimeout(function(){ animating = false; }, 450);
+  });
+
+  if(nextBtn) nextBtn.addEventListener('click', function(){
+    if(animating || cardIndex >= getMaxIndex()) return;
+    cardIndex++; animating = true;
+    applyPosition(true); updateBtns(); updateIndicator();
+    setTimeout(function(){ animating = false; }, 450);
+  });
+
+  window.addEventListener('resize', function(){
+    if(cardIndex > getMaxIndex()) cardIndex = getMaxIndex();
+    applyPosition(false); updateBtns();
+  });
+
+  var dragStartX = 0, dragBaseX = 0, dragging = false, dragMoved = false;
+  var SNAP_RATIO = 0.18;
+
+  function currentTranslate(){ return -(cardIndex * getStep()); }
+  function setGlobePointerEvents(on){
+    document.querySelectorAll('canvas').forEach(function(c){ c.style.pointerEvents = on ? '' : 'none'; });
+  }
+  function onDragStart(clientX){
+    if(animating) return;
+    dragging = true; dragMoved = false;
+    dragStartX = clientX; dragBaseX = currentTranslate();
+    if(trackEl) trackEl.style.transition = 'none';
+    setGlobePointerEvents(false);
+  }
+  function onDragMove(clientX){
+    if(!dragging || !trackEl) return;
+    var delta = clientX - dragStartX;
+    if(Math.abs(delta) > 4) dragMoved = true;
+    var max = getMaxIndex(), minTx = -(max * getStep());
+    var tx = dragBaseX + delta;
+    if(tx > 0) tx = tx * 0.25;
+    if(tx < minTx) tx = minTx + (tx - minTx) * 0.25;
+    trackEl.style.transform = 'translateX(' + tx + 'px)';
+  }
+  function onDragEnd(clientX){
+    if(!dragging) return;
+    dragging = false; setGlobePointerEvents(true);
+    if(!dragMoved){ applyPosition(true); return; }
+    var delta = clientX - dragStartX, step = getStep(), max = getMaxIndex();
+    if(Math.abs(delta) > step * SNAP_RATIO){
+      if(delta < 0 && cardIndex < max) cardIndex++;
+      else if(delta > 0 && cardIndex > 0) cardIndex--;
+    }
+    animating = true; applyPosition(true); updateBtns(); updateIndicator();
+    setTimeout(function(){ animating = false; }, 450);
+  }
+
+  if(outerEl){
+    outerEl.addEventListener('mousedown', function(e){ onDragStart(e.clientX); e.preventDefault(); e.stopPropagation(); });
+    outerEl.addEventListener('click', function(e){ if(dragMoved) e.preventDefault(); }, true);
+    outerEl.addEventListener('touchstart', function(e){ onDragStart(e.touches[0].clientX); e.stopPropagation(); }, {passive:true});
+    outerEl.addEventListener('touchmove',  function(e){ onDragMove(e.touches[0].clientX); e.stopPropagation(); }, {passive:true});
+    outerEl.addEventListener('touchend',   function(e){ onDragEnd(e.changedTouches[0].clientX); e.stopPropagation(); }, {passive:true});
+  }
+  document.addEventListener('mousemove', function(e){ if(!dragging) return; e.stopPropagation(); onDragMove(e.clientX); });
+  document.addEventListener('mouseup',   function(e){ if(!dragging) return; e.stopPropagation(); onDragEnd(e.clientX); });
+})();
+//]]>
+                      </script>
+                      <!-- &#9552;&#9552;&#9552; END MARINE SOLUTIONS CAROUSEL &#9552;&#9552;&#9552; -->
+
                       <div id='tls-wrap' style='margin:0 0 2em;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px;'>
                         <style>
 @keyframes tls-ticker{
@@ -4170,674 +4881,6 @@ if(!window.b1WC){window.b1WC=function(btn){
 //]]>
 </script>
                       </b:if>
-                      <!-- &#9552;&#9552;&#9552; SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
-                      <style>
-                        #scs-outer{overflow:hidden}
-                        #scs-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
-                        #scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
-                        @media(max-width:900px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
-                        @media(max-width:580px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
-                      </style>
-                      <div id='scs-wrap' style='margin:0 0 0;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px 10px 0 0;'>
-                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
-                          <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Ship Systems</span>
-                          <span id='scs-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                        </div>
-                        <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Learn the fundamentals of modern ship systems and digital vessel technologies.</div>
-                        <div style='position:relative;'>
-                          <button disabled='disabled' id='scs-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
-                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
-                          </button>
-                          <div id='scs-outer'>
-                            <div id='scs-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
-                            <div id='scs-track'/>
-                          </div>
-                          <button disabled='disabled' id='scs-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
-                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid #2a4060;transition:border-left-color .18s;'/>
-                          </button>
-                        </div>
-                        <div style='text-align:center;margin-top:10px;'>
-                          <span id='scs-indicator' style='font-size:10px;color:rgba(200,228,248,0.5)'/>
-                        </div>
-                      </div>
-                      <script type='text/javascript'>
-//<![CDATA[
-(function(){
-  var LABELS    = ['CBS','SYSTEM'];
-  var PAGE_SIZE = 5;
-  var posts     = [];
-  var cardIndex = 0;
-  var animating = false;
-  var base      = 'https://www.shippauljobs.com';
-
-  var loadEl  = document.getElementById('scs-loading');
-  var trackEl = document.getElementById('scs-track');
-  var outerEl = document.getElementById('scs-outer');
-  var indEl   = document.getElementById('scs-indicator');
-  var prevBtn = document.getElementById('scs-prev');
-  var nextBtn = document.getElementById('scs-next');
-
-  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
-
-  var SPJ_BADGE_LOGO_SCS = 'https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png';
-  var SPJ_BADGES_SCS = [
-    { name: 'Industry Validated', cls: 'spj-badge-l3', title: 'Industry Validated — Shipyard / Class / Supplier Feedback' },
-    { name: 'Expert Reviewed',    cls: 'spj-badge-l2', title: 'Expert Reviewed — Technical Advisory Board' },
-    { name: 'Verified',           cls: 'spj-badge-l1', title: 'Verified — Editorial Team Review' }
-  ];
-  function spjBadgeScs(labels) {
-    for (var _i = 0; _i < SPJ_BADGES_SCS.length; _i++) {
-      if ((labels||[]).indexOf(SPJ_BADGES_SCS[_i].name) >= 0) {
-        var _b = SPJ_BADGES_SCS[_i];
-        return '<a href="https://www.shippauljobs.com/p/editorial-verification-policy.html"'
-          + ' class="spj-badge ' + _b.cls + '" title="' + _b.title + '"'
-          + ' onclick="event.stopPropagation()" style="flex-shrink:0"></a>';
-      }
-    }
-    return '';
-  }
-
-  /* 카드 하나의 이동 폭 (width + gap) */
-  function getStep(){
-    var first = trackEl && trackEl.children[0];
-    return first ? first.offsetWidth + 10 : 0;
-  }
-
-  /* 현재 뷰포트에서 보이는 카드 수 → 최대 이동 가능 인덱스 */
-  function getMaxIndex(){
-    if(!outerEl || !posts.length) return 0;
-    var step = getStep();
-    if(!step) return 0;
-    var visible = Math.max(1, Math.round((outerEl.offsetWidth + 10) / step));
-    return Math.max(0, posts.length - visible);
-  }
-
-  /* translateX 적용 */
-  function applyPosition(animate){
-    if(!trackEl) return;
-    trackEl.style.transition = animate
-      ? 'transform .42s cubic-bezier(.25,.46,.45,.94)'
-      : 'none';
-    trackEl.style.transform = 'translateX(-' + (cardIndex * getStep()) + 'px)';
-  }
-
-  /* 인디케이터 업데이트 */
-  function updateIndicator(){
-    if(indEl) indEl.textContent = (cardIndex + 1) + ' / ' + posts.length;
-  }
-
-  function parseEntries(data){
-    var entries = (data.feed && data.feed.entry) || [];
-    return entries.map(function(e){
-      var link  = (e.link||[]).filter(function(l){ return l.rel==='alternate'; })[0];
-      var thumb = e.media$thumbnail;
-      var img   = thumb ? thumb.url.replace(/\/s\d+[^\/]*\//g,'/s0/').replace(/\/w\d+-h\d+[^\/]*\//g,'/s0/').replace(/=s\d+[^&]*/g,'=s0') : '';
-      var cats  = (e.category||[]).map(function(c){ return c.term; });
-      return { url: link ? link.href : '#', title: e.title.$t, image: img, date: e.published.$t.slice(0,10), labels: cats, comments: e['thr$total'] ? parseInt(e['thr$total']['$t'], 10) : 0 };
-    });
-  }
-
-  function fetchLabel(label){
-    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
-    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
-  }
-
-  Promise.all(LABELS.map(fetchLabel)).then(function(results){
-    var seen = {}, merged = [];
-    results.forEach(function(arr){
-      arr.forEach(function(p){ if(!seen[p.url]){ seen[p.url]=true; merged.push(p); } });
-    });
-    merged.sort(function(a,b){ return b.date > a.date ? 1 : b.date < a.date ? -1 : 0; });
-    posts = merged;
-    if(loadEl) loadEl.style.display = 'none';
-    /* 포스트 개수 뱃지 */
-    var cntEl = document.getElementById('scs-count');
-    if(cntEl){ cntEl.textContent = posts.length; cntEl.style.display = ''; }
-    if(!posts.length){
-      if(trackEl) trackEl.innerHTML = '<p style="color:#7eaac8;font-size:12px;padding:8px 0">No posts found for these tags.</p>';
-      return;
-    }
-    renderAll();
-  }).catch(function(){ if(loadEl) loadEl.style.display='none'; });
-
-  /* 공유 버튼 핸들러 — fixed-position SNS 패널 (overflow:hidden 탈출) */
-  window.scsShareCard = function(btn, e){
-    e.stopPropagation(); e.preventDefault();
-    var prev = document.getElementById('scs-sp');
-    if(prev){ prev.remove(); if(window._scsSPBtn===btn){ window._scsSPBtn=null; return; } }
-    window._scsSPBtn = btn;
-    var url = btn.getAttribute('data-url');
-    var r   = btn.getBoundingClientRect();
-
-    var panel = document.createElement('div');
-    panel.id = 'scs-sp';
-    panel.className = 'b1-share-panel open';
-    /* inline style 로 position:fixed 로 전환 (overflow:hidden 탈출) */
-    panel.style.position = 'fixed';
-    panel.style.top      = 'auto';
-    panel.style.bottom   = (window.innerHeight - r.top + 6) + 'px';
-    panel.style.right    = (window.innerWidth  - r.right)  + 'px';
-    panel.style.zIndex   = '99999';
-
-    function mkA(bg, href, svgHtml, label){
-      var a = document.createElement('a');
-      a.className = 'b1-share-btn'; a.style.background = bg;
-      if(href){ a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
-      else { a.href = '#'; }
-      a.innerHTML = svgHtml + '<span>' + label + '</span>';
-      return a;
-    }
-    function closePanel(){ var p=document.getElementById('scs-sp'); if(p) p.remove(); window._scsSPBtn=null; }
-
-    var LI  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-li"/></svg>';
-    var FB  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-fb"/></svg>';
-    var XTW = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tw"/></svg>';
-    var WA  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wa"/></svg>';
-    var TG  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tg"/></svg>';
-    var RD  = '<svg fill="white" height="14" width="14"><use href="#spj-ico-rd"/></svg>';
-    var WC_SVG = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wc"/></svg>';
-    var CP  = '<svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" width="14"><use href="#spj-ico-cp"/></svg>';
-
-    var liA = mkA('#0a66c2','https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url),LI,'LinkedIn');
-    liA.onclick = function(){ setTimeout(closePanel,100); };
-    panel.appendChild(liA);
-    var fbA = mkA('#1877f2','https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),FB,'Facebook');
-    fbA.onclick = function(){ setTimeout(closePanel,100); };
-    panel.appendChild(fbA);
-    var xA = mkA('#111','https://twitter.com/intent/tweet?url='+encodeURIComponent(url),XTW,'X (Twitter)');
-    xA.onclick = function(){ setTimeout(closePanel,100); };
-    panel.appendChild(xA);
-    var waA = mkA('#25d366','https://wa.me/?text='+encodeURIComponent(url),WA,'WhatsApp');
-    waA.onclick = function(){ setTimeout(closePanel,100); };
-    panel.appendChild(waA);
-    var tgA = mkA('#26a5e4','https://t.me/share/url?url='+encodeURIComponent(url),TG,'Telegram');
-    tgA.onclick = function(){ setTimeout(closePanel,100); };
-    panel.appendChild(tgA);
-    var rdA = mkA('#ff4500','https://www.reddit.com/submit?url='+encodeURIComponent(url),RD,'Reddit');
-    rdA.onclick = function(){ setTimeout(closePanel,100); };
-    panel.appendChild(rdA);
-    var wcA = mkA('#07c160',null,WC_SVG,'WeChat');
-    wcA.setAttribute('data-u', url);
-    wcA.onclick = function(ev){ ev.preventDefault(); ev.stopPropagation(); if(window.b1WC) window.b1WC(this); return false; };
-    panel.appendChild(wcA);
-    var cpA = mkA('#607d8b',null,CP,'Copy Link');
-    cpA.onclick = function(ev){
-      ev.preventDefault(); ev.stopPropagation();
-      if(navigator.clipboard){ navigator.clipboard.writeText(url); }
-      else { try{ var t=document.createElement('textarea');t.value=url;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t); }catch(err){} }
-      cpA.querySelector('span').textContent = 'Copied!';
-      setTimeout(closePanel, 1200);
-      return false;
-    };
-    panel.appendChild(cpA);
-
-    document.body.appendChild(panel);
-    setTimeout(function(){
-      function handler(ev){
-        if(!panel.contains(ev.target) && ev.target !== btn){
-          closePanel(); document.removeEventListener('click', handler);
-        }
-      }
-      document.addEventListener('click', handler);
-    }, 50);
-  };
-
-  function cardHtml(p){
-    /* 모든 라벨을 태그 칩으로 표기 */
-    var allLabels = p.labels || [];
-    var tagHtml = allLabels.length
-      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px;background:#ffffff">'
-        + allLabels.map(function(l){
-            var isPrimary = LABELS.indexOf(l) >= 0;
-            return '<span data-label="'+esc(l)+'" onclick="event.stopPropagation();event.preventDefault();window.location.href=\'/search/label/\'+encodeURIComponent(this.getAttribute(\'data-label\'))" style="display:inline-block;background:'+(isPrimary ? 'rgba(29,137,207,0.15)' : 'rgba(26,158,130,0.12)')+';color:'+(isPrimary ? '#1d89cf' : '#1a9e82')+';font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid '+(isPrimary ? 'rgba(29,137,207,0.35)' : 'rgba(26,158,130,0.35)')+';cursor:pointer;white-space:nowrap;line-height:1.6">'+esc(l)+'</span>';
-          }).join('')
-        + '</div>'
-      : '';
-
-    /* 이미지 */
-    var imgHtml = p.image
-      ? '<img src="'+esc(p.image)+'" alt="'+esc(p.title)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">'
-      : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
-
-    /* Read 효과 */
-    var readKey = 'scs_r_' + p.url.split('/').pop().slice(0,20);
-    var isRead = false;
-    try { isRead = !!localStorage.getItem(readKey); } catch(e){}
-    var readBadge = isRead
-      ? '<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>'
-      : '';
-    var cardOpacity = '1';
-
-    /* 댓글 수 */
-    var commentsHtml = '<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px;margin-top:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
-
-    /* 공유 버튼 (b1 동일 스타일 - 녹색 원형) */
-    var shareSvg = '<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
-    var shareBtn = '<button data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
-
-    return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
-      + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
-      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\';this.style.borderColor=\'#64b4ff\'" '
-      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\';this.style.borderColor=\'#d8e6f0\'">'
-      /* 1. 제목 (2줄) */
-      + '<div style="padding:8px 10px 6px;background:#0a2342">'
-      + '<div style="font-size:12px;font-weight:700;color:#ffffff;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div>'
-      + '</div>'
-      /* 2. 이미지 */
-      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1d89cf;border-bottom:3px solid #1d89cf">'+imgHtml+readBadge+'</div>'
-      /* 3. 태그 */
-      + tagHtml
-      /* 4. 날짜 + 댓글 + 공유 버튼 */
-      + '<div style="padding:5px 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
-      + '<div><div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'+commentsHtml+'</div>'
-      + '<div style="display:flex;align-items:center;gap:6px">'+spjBadgeScs(p.labels)+shareBtn+'</div>'
-      + '</div>'
-      + '</a>';
-  }
-
-  /* 전체 카드를 한 번에 렌더링 (슬라이드 방식) */
-  function renderAll(){
-    if(!trackEl) return;
-    cardIndex = 0;
-    trackEl.style.transition = 'none';
-    trackEl.style.transform  = 'translateX(0)';
-    trackEl.innerHTML = posts.map(cardHtml).join('');
-    updateBtns();
-    updateIndicator();
-  }
-
-  function updateBtns(){
-    var max    = getMaxIndex();
-    var prevOn = cardIndex > 0;
-    var nextOn = cardIndex < max;
-    if(prevBtn){
-      prevBtn.disabled             = !prevOn;
-      prevBtn.style.background     = prevOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
-      prevBtn.style.cursor         = prevOn ? 'pointer' : 'default';
-      var pSpan = prevBtn.querySelector('span');
-      if(pSpan) pSpan.style.borderRightColor = prevOn ? '#7ec8f4' : '#2a4060';
-    }
-    if(nextBtn){
-      nextBtn.disabled             = !nextOn;
-      nextBtn.style.background     = nextOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
-      nextBtn.style.cursor         = nextOn ? 'pointer' : 'default';
-      var nSpan = nextBtn.querySelector('span');
-      if(nSpan) nSpan.style.borderLeftColor = nextOn ? '#7ec8f4' : '#2a4060';
-    }
-  }
-
-  if(prevBtn) prevBtn.addEventListener('click', function(){
-    if(animating || cardIndex <= 0) return;
-    cardIndex--;
-    animating = true;
-    applyPosition(true);
-    updateBtns();
-    updateIndicator();
-    setTimeout(function(){ animating = false; }, 450);
-  });
-
-  if(nextBtn) nextBtn.addEventListener('click', function(){
-    if(animating || cardIndex >= getMaxIndex()) return;
-    cardIndex++;
-    animating = true;
-    applyPosition(true);
-    updateBtns();
-    updateIndicator();
-    setTimeout(function(){ animating = false; }, 450);
-  });
-
-  /* 창 크기 변경 시 위치 재계산 */
-  window.addEventListener('resize', function(){
-    if(cardIndex > getMaxIndex()) cardIndex = getMaxIndex();
-    applyPosition(false);
-    updateBtns();
-  });
-
-  /* ── 드래그 슬라이드 (마우스 + 터치) ── */
-  var dragStartX   = 0;
-  var dragBaseX    = 0;   /* 드래그 시작 시점의 translateX 값 */
-  var dragging     = false;
-  var dragMoved    = false;
-  var SNAP_RATIO   = 0.18; /* 카드 폭의 18% 이상 드래그 시 이동 */
-
-  function currentTranslate(){
-    return -(cardIndex * getStep());
-  }
-
-  /* 드래그 중 지구본 캔버스 마우스 이벤트 차단 */
-  function setGlobePointerEvents(on){
-    document.querySelectorAll('canvas').forEach(function(c){
-      c.style.pointerEvents = on ? '' : 'none';
-    });
-  }
-
-  function onDragStart(clientX){
-    if(animating) return;
-    dragging  = true;
-    dragMoved = false;
-    dragStartX = clientX;
-    dragBaseX  = currentTranslate();
-    if(trackEl){ trackEl.style.transition = 'none'; }
-    setGlobePointerEvents(false); /* 지구본 차단 시작 */
-  }
-
-  function onDragMove(clientX){
-    if(!dragging || !trackEl) return;
-    var delta = clientX - dragStartX;
-    if(Math.abs(delta) > 4) dragMoved = true;
-    var max   = getMaxIndex();
-    var minTx = -(max * getStep());
-    /* 끝에서 당길 때 저항감 (rubber-band) */
-    var tx = dragBaseX + delta;
-    if(tx > 0)     tx = tx * 0.25;
-    if(tx < minTx) tx = minTx + (tx - minTx) * 0.25;
-    trackEl.style.transform = 'translateX(' + tx + 'px)';
-  }
-
-  function onDragEnd(clientX){
-    if(!dragging) return;
-    dragging = false;
-    setGlobePointerEvents(true); /* 지구본 복원 */
-    if(!dragMoved){ applyPosition(true); return; }
-    var delta = clientX - dragStartX;
-    var step  = getStep();
-    var max   = getMaxIndex();
-    if(Math.abs(delta) > step * SNAP_RATIO){
-      if(delta < 0 && cardIndex < max) cardIndex++;
-      else if(delta > 0 && cardIndex > 0) cardIndex--;
-    }
-    animating = true;
-    applyPosition(true);
-    updateBtns();
-    updateIndicator();
-    setTimeout(function(){ animating = false; }, 450);
-  }
-
-  /* 마우스 이벤트 */
-  if(outerEl){
-    outerEl.addEventListener('mousedown', function(e){
-      onDragStart(e.clientX);
-      e.preventDefault();    /* 텍스트 선택 방지 */
-      e.stopPropagation();   /* 지구본 등 부모 요소로 이벤트 전파 차단 */
-    });
-    /* 드래그 중 링크 클릭 방지 */
-    outerEl.addEventListener('click', function(e){
-      if(dragMoved) e.preventDefault();
-    }, true);
-  }
-  document.addEventListener('mousemove', function(e){
-    if(!dragging) return;
-    e.stopPropagation();   /* 드래그 중 부모 mousemove 차단 */
-    onDragMove(e.clientX);
-  });
-  document.addEventListener('mouseup', function(e){
-    if(!dragging) return;
-    e.stopPropagation();
-    onDragEnd(e.clientX);
-  });
-
-  /* 터치 이벤트 */
-  if(outerEl){
-    outerEl.addEventListener('touchstart', function(e){
-      onDragStart(e.touches[0].clientX);
-      e.stopPropagation();
-    }, {passive:true});
-    outerEl.addEventListener('touchmove', function(e){
-      onDragMove(e.touches[0].clientX);
-      e.stopPropagation();
-    }, {passive:true});
-    outerEl.addEventListener('touchend', function(e){
-      onDragEnd(e.changedTouches[0].clientX);
-      e.stopPropagation();
-    }, {passive:true});
-  }
-})();
-//]]>
-                      </script>
-                      <!-- &#9552;&#9552;&#9552; END SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
-
-                      <!-- &#9552;&#9552;&#9552; MARINE SOLUTIONS CAROUSEL &#9552;&#9552;&#9552; -->
-                      <style>
-                        #ms-outer{overflow:hidden}
-                        #ms-track{display:flex;gap:10px;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
-                        #ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
-                        @media(max-width:900px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
-                        @media(max-width:580px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
-                      </style>
-                      <div id='ms-wrap' style='margin:0 0 2em;border-top:1px solid rgba(29,137,207,0.18);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:0 0 10px 10px;'>
-                        <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
-                          <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Marine Solutions</span>
-                          <span id='ms-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                        </div>
-                        <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Explore practical maritime AI, cybersecurity and digital transformation solutions.</div>
-                        <div style='position:relative;'>
-                          <button disabled='disabled' id='ms-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
-                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #2a4060;transition:border-right-color .18s;'/>
-                          </button>
-                          <div id='ms-outer'>
-                            <div id='ms-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
-                            <div id='ms-track'/>
-                          </div>
-                          <button disabled='disabled' id='ms-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(4,10,24,0.5);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
-                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid #2a4060;transition:border-left-color .18s;'/>
-                          </button>
-                        </div>
-                        <div style='text-align:center;margin-top:10px;'>
-                          <span id='ms-indicator' style='font-size:10px;color:rgba(200,228,248,0.5)'/>
-                        </div>
-                      </div>
-                      <script type='text/javascript'>
-//<![CDATA[
-(function(){
-  var LABELS    = ['SOLUTION'];
-  var posts     = [];
-  var cardIndex = 0;
-  var animating = false;
-  var base      = 'https://www.shippauljobs.com';
-
-  var loadEl  = document.getElementById('ms-loading');
-  var trackEl = document.getElementById('ms-track');
-  var outerEl = document.getElementById('ms-outer');
-  var indEl   = document.getElementById('ms-indicator');
-  var prevBtn = document.getElementById('ms-prev');
-  var nextBtn = document.getElementById('ms-next');
-
-  var esc = window.esc || function(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
-
-  function getStep(){
-    var first = trackEl && trackEl.children[0];
-    return first ? first.offsetWidth + 10 : 0;
-  }
-
-  function getMaxIndex(){
-    if(!outerEl || !posts.length) return 0;
-    var step = getStep();
-    if(!step) return 0;
-    var visible = Math.max(1, Math.round((outerEl.offsetWidth + 10) / step));
-    return Math.max(0, posts.length - visible);
-  }
-
-  function applyPosition(animate){
-    if(!trackEl) return;
-    trackEl.style.transition = animate ? 'transform .42s cubic-bezier(.25,.46,.45,.94)' : 'none';
-    trackEl.style.transform  = 'translateX(-' + (cardIndex * getStep()) + 'px)';
-  }
-
-  function updateIndicator(){
-    if(indEl) indEl.textContent = (cardIndex + 1) + ' / ' + posts.length;
-  }
-
-  function parseEntries(data){
-    var entries = (data.feed && data.feed.entry) || [];
-    return entries.map(function(e){
-      var link  = (e.link||[]).filter(function(l){ return l.rel==='alternate'; })[0];
-      var thumb = e.media$thumbnail;
-      var img   = thumb ? thumb.url.replace(/\/s\d+[^\/]*\//g,'/s0/').replace(/\/w\d+-h\d+[^\/]*\//g,'/s0/').replace(/=s\d+[^&]*/g,'=s0') : '';
-      var cats  = (e.category||[]).map(function(c){ return c.term; });
-      return { url: link ? link.href : '#', title: e.title.$t, image: img, date: e.published.$t.slice(0,10), labels: cats, comments: e['thr$total'] ? parseInt(e['thr$total']['$t'], 10) : 0 };
-    });
-  }
-
-  function fetchLabel(label){
-    var url = base + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=100';
-    return window.fetchFeed ? window.fetchFeed(url, parseEntries) : fetch(url).then(function(r){ return r.json(); }).then(parseEntries).catch(function(){ return []; });
-  }
-
-  Promise.all(LABELS.map(fetchLabel)).then(function(results){
-    var seen = {}, merged = [];
-    results.forEach(function(arr){
-      arr.forEach(function(p){ if(!seen[p.url]){ seen[p.url]=true; merged.push(p); } });
-    });
-    merged.sort(function(a,b){ return b.date > a.date ? 1 : b.date < a.date ? -1 : 0; });
-    posts = merged;
-    if(loadEl) loadEl.style.display = 'none';
-    var cntEl = document.getElementById('ms-count');
-    if(cntEl){ cntEl.textContent = posts.length; cntEl.style.display = ''; }
-    if(!posts.length){
-      if(trackEl) trackEl.innerHTML = '<p style="color:#7eaac8;font-size:12px;padding:8px 0">No posts found.</p>';
-      return;
-    }
-    renderAll();
-  }).catch(function(){ if(loadEl) loadEl.style.display='none'; });
-
-  function cardHtml(p){
-    var allLabels = p.labels || [];
-    var tagHtml = allLabels.length
-      ? '<div style="display:flex;flex-wrap:wrap;gap:3px;padding:4px 10px 2px;background:#ffffff">'
-        + allLabels.map(function(l){
-            var isPrimary = LABELS.indexOf(l) >= 0;
-            return '<span data-label="'+esc(l)+'" onclick="event.stopPropagation();event.preventDefault();window.location.href=\'/search/label/\'+encodeURIComponent(this.getAttribute(\'data-label\'))" style="display:inline-block;background:'+(isPrimary ? 'rgba(29,137,207,0.15)' : 'rgba(26,158,130,0.12)')+';color:'+(isPrimary ? '#1d89cf' : '#1a9e82')+';font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;border:1px solid '+(isPrimary ? 'rgba(29,137,207,0.35)' : 'rgba(26,158,130,0.35)')+';cursor:pointer;white-space:nowrap;line-height:1.6">'+esc(l)+'</span>';
-          }).join('')
-        + '</div>'
-      : '';
-    var imgHtml = p.image
-      ? '<img src="'+esc(p.image)+'" alt="'+esc(p.title)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">'
-      : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#154f7a,#1d89cf);display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:22px">&#128196;</span></div>';
-    var readKey = 'ms_r_' + p.url.split('/').pop().slice(0,20);
-    var isRead = false;
-    try { isRead = !!localStorage.getItem(readKey); } catch(e){}
-    var readBadge = isRead
-      ? '<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>'
-      : '';
-    var cardOpacity = '1';
-    var commentsHtml = '<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px;margin-top:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
-    var shareSvg = '<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
-    var shareBtn = '<button data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="scsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+shareSvg+'</button>';
-    return '<a href="'+esc(p.url)+'" data-rk="'+readKey+'" onclick="try{localStorage.setItem(this.getAttribute(\'data-rk\'),\'1\')}catch(e){}" '
-      + 'style="display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;text-decoration:none;border:1px solid #d8e6f0;box-shadow:0 1px 5px rgba(0,0,0,.14);transition:box-shadow .2s,transform .2s,opacity .2s,border-color .2s;opacity:'+cardOpacity+'" '
-      + 'onmouseover="this.style.boxShadow=\'0 4px 16px rgba(29,137,207,.3)\';this.style.transform=\'translateY(-2px)\';this.style.opacity=\'1\';this.style.borderColor=\'#64b4ff\'" '
-      + 'onmouseout="this.style.boxShadow=\'0 1px 5px rgba(0,0,0,.18)\';this.style.transform=\'\';this.style.opacity=\''+cardOpacity+'\';this.style.borderColor=\'#d8e6f0\'">'
-      + '<div style="padding:8px 10px 6px;background:#0a2342">'
-      + '<div style="font-size:12px;font-weight:700;color:#ffffff;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px">'+esc(p.title)+'</div>'
-      + '</div>'
-      + '<div style="aspect-ratio:3/2;overflow:hidden;background:#edf1f5;line-height:0;position:relative;border-top:3px solid #1d89cf;border-bottom:3px solid #1d89cf">'+imgHtml+readBadge+'</div>'
-      + tagHtml
-      + '<div style="padding:5px 10px 8px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;background:#ffffff;margin-top:auto">'
-      + '<div><div style="font-size:10px;color:#8099b3">'+esc(p.date)+'</div>'+commentsHtml+'</div>'
-      + shareBtn
-      + '</div>'
-      + '</a>';
-  }
-
-  function renderAll(){
-    if(!trackEl) return;
-    cardIndex = 0;
-    trackEl.style.transition = 'none';
-    trackEl.style.transform  = 'translateX(0)';
-    trackEl.innerHTML = posts.map(cardHtml).join('');
-    updateBtns();
-    updateIndicator();
-  }
-
-  function updateBtns(){
-    var max    = getMaxIndex();
-    var prevOn = cardIndex > 0;
-    var nextOn = cardIndex < max;
-    if(prevBtn){
-      prevBtn.disabled         = !prevOn;
-      prevBtn.style.background = prevOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
-      prevBtn.style.cursor     = prevOn ? 'pointer' : 'default';
-      var pSpan = prevBtn.querySelector('span');
-      if(pSpan) pSpan.style.borderRightColor = prevOn ? '#7ec8f4' : '#2a4060';
-    }
-    if(nextBtn){
-      nextBtn.disabled         = !nextOn;
-      nextBtn.style.background = nextOn ? 'rgba(20,55,110,0.88)' : 'rgba(4,10,24,0.5)';
-      nextBtn.style.cursor     = nextOn ? 'pointer' : 'default';
-      var nSpan = nextBtn.querySelector('span');
-      if(nSpan) nSpan.style.borderLeftColor = nextOn ? '#7ec8f4' : '#2a4060';
-    }
-  }
-
-  if(prevBtn) prevBtn.addEventListener('click', function(){
-    if(animating || cardIndex <= 0) return;
-    cardIndex--; animating = true;
-    applyPosition(true); updateBtns(); updateIndicator();
-    setTimeout(function(){ animating = false; }, 450);
-  });
-
-  if(nextBtn) nextBtn.addEventListener('click', function(){
-    if(animating || cardIndex >= getMaxIndex()) return;
-    cardIndex++; animating = true;
-    applyPosition(true); updateBtns(); updateIndicator();
-    setTimeout(function(){ animating = false; }, 450);
-  });
-
-  window.addEventListener('resize', function(){
-    if(cardIndex > getMaxIndex()) cardIndex = getMaxIndex();
-    applyPosition(false); updateBtns();
-  });
-
-  var dragStartX = 0, dragBaseX = 0, dragging = false, dragMoved = false;
-  var SNAP_RATIO = 0.18;
-
-  function currentTranslate(){ return -(cardIndex * getStep()); }
-  function setGlobePointerEvents(on){
-    document.querySelectorAll('canvas').forEach(function(c){ c.style.pointerEvents = on ? '' : 'none'; });
-  }
-  function onDragStart(clientX){
-    if(animating) return;
-    dragging = true; dragMoved = false;
-    dragStartX = clientX; dragBaseX = currentTranslate();
-    if(trackEl) trackEl.style.transition = 'none';
-    setGlobePointerEvents(false);
-  }
-  function onDragMove(clientX){
-    if(!dragging || !trackEl) return;
-    var delta = clientX - dragStartX;
-    if(Math.abs(delta) > 4) dragMoved = true;
-    var max = getMaxIndex(), minTx = -(max * getStep());
-    var tx = dragBaseX + delta;
-    if(tx > 0) tx = tx * 0.25;
-    if(tx < minTx) tx = minTx + (tx - minTx) * 0.25;
-    trackEl.style.transform = 'translateX(' + tx + 'px)';
-  }
-  function onDragEnd(clientX){
-    if(!dragging) return;
-    dragging = false; setGlobePointerEvents(true);
-    if(!dragMoved){ applyPosition(true); return; }
-    var delta = clientX - dragStartX, step = getStep(), max = getMaxIndex();
-    if(Math.abs(delta) > step * SNAP_RATIO){
-      if(delta < 0 && cardIndex < max) cardIndex++;
-      else if(delta > 0 && cardIndex > 0) cardIndex--;
-    }
-    animating = true; applyPosition(true); updateBtns(); updateIndicator();
-    setTimeout(function(){ animating = false; }, 450);
-  }
-
-  if(outerEl){
-    outerEl.addEventListener('mousedown', function(e){ onDragStart(e.clientX); e.preventDefault(); e.stopPropagation(); });
-    outerEl.addEventListener('click', function(e){ if(dragMoved) e.preventDefault(); }, true);
-    outerEl.addEventListener('touchstart', function(e){ onDragStart(e.touches[0].clientX); e.stopPropagation(); }, {passive:true});
-    outerEl.addEventListener('touchmove',  function(e){ onDragMove(e.touches[0].clientX); e.stopPropagation(); }, {passive:true});
-    outerEl.addEventListener('touchend',   function(e){ onDragEnd(e.changedTouches[0].clientX); e.stopPropagation(); }, {passive:true});
-  }
-  document.addEventListener('mousemove', function(e){ if(!dragging) return; e.stopPropagation(); onDragMove(e.clientX); });
-  document.addEventListener('mouseup',   function(e){ if(!dragging) return; e.stopPropagation(); onDragEnd(e.clientX); });
-})();
-//]]>
-                      </script>
-                      <!-- &#9552;&#9552;&#9552; END MARINE SOLUTIONS CAROUSEL &#9552;&#9552;&#9552; -->
 
                       <div style='margin:1.8em 0 0'>
                         <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
@@ -4853,6 +4896,54 @@ if(!window.b1WC){window.b1WC=function(btn){
                         <div id='apl-content' style='display:block'>
                         <!-- SEO/크롤러용 정적 링크 목록 &#8212; JS가 전체 포스트로 업데이트 -->
                         <div aria-hidden='true' id='apl-static' style='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden'><div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/08/enterprise-ai-in-agent-era-2027-revised.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[2027 Revised Series &#183; Part 5 &#183; Finale] Enterprise AI in the Agent Era: Making the Right Choice</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-08-07 &#8212; 🤖 Enterprise AI &#183; SERIES ChatBot 2027 Series Finale &#183; Decision Framework &#183; 2027 AI Playbook &#183; AI Governance &#183; Maritime AI</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/08/llm-architecture-ai-ethics-2027-revised.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[2027 Revised Series &#183; Part 4] LLM Architecture &amp; AI Ethics in 2027: How It Works and How to Govern It</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-08-07 &#8212; 🤖 Enterprise AI &#183; SERIES Transformer &#183; Hallucination &#183; EU AI Act &#183; Korean AI Basic Act &#183; LLM Architecture &#183; AI Ethics 2027</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/08/activating-intelligent-service.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[2027 Revised Series &#183; Part 3] Activating Intelligent Service: RAG, AI Agents, and the Architecture Behind Them</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-08-07 &#8212; 🤖 Enterprise AI &#183; SERIES RAG &#183; AI Agent &#183; Function Calling &#183; MCP &#183; Human-in-the-Loop &#183; Chatbot vs Agent</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/08/from-messenger-to-autonomous-agent.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[2027 Revised Series &#183; Part 2] From Messenger to Autonomous Agent: Channel Strategy in the AI Agent Era</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-08-07 &#8212; 🤖 Enterprise AI &#183; SERIES AI Agent Hub &#183; MCP &#183; Omnichannel &#183; Voice AI &#183; Super App &#183; Channel Strategy 2027</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/08/building-org-wide-consensus-in-llm-era.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[2027 Revised Series &#183; Part 1] Building Org-Wide Consensus in the LLM Era: Why Enterprise ChatBot Still Fails in 2027</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-08-07 &#8212; 🤖 Enterprise AI &#183; SERIES LLM &#183; Change Management &#183; AI Adoption &#183; Stakeholder Alignment &#183; ChatBot Strategy 2027</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/07/chapter-3-do-not-kill-goose-that-lays.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[Leadership Series &#183; Part 3] Do Not Kill the Goose That Lays the Golden Eggs</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-07 &#8212; &#9875; Leadership Series &#183; Organizational Psychology &#183; Maritime Leadership &#183; Trust &#183; Axelrod &#183; Covey</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/05/chapter-7-negotiation-game-is-different.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[Leadership Series &#183; Part 7] Negotiation: The Game Is Different at Every Level</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-05 &#8212; &#9875; Leadership Series &#183; Consulting Career &#183; Salary Negotiation &#183; Big 4 &#183; Career Intelligence</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/02/chapter-6-villain-effect-story-of-how.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[Leadership Series &#183; Part 6] The Villain Effect: How Organizations Lose Themselves</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-02 &#8212; &#9875; Leadership Series &#183; Org Culture &#183; People &amp; Governance &#183; Workplace Dynamics &#183; Maritime Leadership</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2026/01/chapter-5-reflecting-on-my-past-career.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[Leadership Series &#183; Part 5] Reflecting on My Career: The Taboos of Organizational Life</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-01 &#8212; &#9875; Leadership Series &#183; Followership &#183; Three Kingdoms &#183; Career Reflection &#183; Organizational Taboos</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2025/11/chapter-4-why-do-i-clash-with-my-boss.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[Leadership Series &#183; Part 4] Why Do I Keep Clashing With My Boss?</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2025-11 &#8212; &#9875; Leadership Series &#183; Workplace Conflict &#183; Organizational Psychology &#183; Personality Type &#183; Maritime Leadership</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2025/11/a-leaders-crisis-and-power-of-growth-2.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[Leadership Series &#183; Part 2] In the End, It Was Myself Who Led Me</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2025-11 &#8212; &#9875; Leadership Series &#183; Self-Leadership &#183; Viktor Frankl &#183; Brené Brown &#183; Maritime Leadership</div>
+</div>
+<div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
+  <a href='https://www.shippauljobs.com/2025/11/a-leaders-crisis-and-power-of-growth-1.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>[Leadership Series &#183; Part 1] Must Yi Sun-sin Disappear from the Organization?</a>
+  <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2025-11 &#8212; &#9875; Leadership Series &#183; Power Threat Theory &#183; Organizational Psychology &#183; Jeffrey Pfeffer &#183; Maritime Leadership</div>
+</div>
 <div style='padding:8px 0;border-bottom:1px solid rgba(29,137,207,0.18);'>
   <a href='https://www.shippauljobs.com/2026/06/e26-deliverable-quality-low-medium-and.html' style='color:#c8e4f8;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;display:block;'>E26 Deliverable Quality &#8212; The Low, Medium, and High Tiers</a>
   <div style='color:rgba(200,228,248,0.55);font-size:11px;margin-top:3px;'>2026-06-26 &#8212; 💡 Insight Deliverable Quality UR E26 Cyber Resilience E26 Deliverable Quality: The Low, Medium, and High Tiers The same E26 docume...</div>
@@ -5151,8 +5242,8 @@ if(!window.b1WC){window.b1WC=function(btn){
       }
 
       return '<div style="' + S_CARD + '" data-card>'
-        /* 우측 상단 공유 버튼 + 배지 */
-        + (window.b1ShareHtml ? b1ShareHtml(p.url, spjBadge(p.labels)) : '')
+        /* 우측 상단 공유 버튼 (배지는 하단 댓글 좌측으로 이동) */
+        + (window.b1ShareHtml ? b1ShareHtml(p.url, '') : '')
         /* 상단: 이미지 영역 */
         + '<div style="padding:2px;background:rgba(255,255,255,0.6);border-radius:8px 8px 0 0;line-height:0;position:relative">'
         + '<span style="position:absolute;top:10px;left:10px;background:#0a2342;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;line-height:1;z-index:1">' + (gi+1) + '</span>'
@@ -5176,7 +5267,7 @@ if(!window.b1WC){window.b1WC=function(btn){
         + (p.author ? '<button onclick="showAuthorPosts(\'' + esc(p.author).replace(/'/g,"\\'") + '\')" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#444;font-weight:600;background:none;border:none;padding:1px 2px;font-size:10px;cursor:pointer;text-decoration:none;max-width:90px;display:inline-block;line-height:1.6;">' + esc(displayAuthor(p.author)) + '</button><span style="flex-shrink:0">&#183;</span>' : '')
         + '<span style="white-space:nowrap">' + esc(p.date) + '</span>'
         + '</div>'
-        + '<a href="' + esc(p.url) + '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap;flex-shrink:0">&#128172; ' + esc(p.comments) + '</a>'
+        + '<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">' + spjBadge(p.labels) + '<a href="' + esc(p.url) + '#comment-form" style="font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;white-space:nowrap">&#128172; ' + esc(p.comments) + '</a>' + '</div>'
         + '</div>'
         + '</div>';
     }).join('');
@@ -6589,92 +6680,11 @@ if(!window.b1WC){window.b1WC=function(btn){
         </b:section>
       </div>
       <b:section class='sidebar_bottom' id='sidebar_bottom' name='Sidebar (Bottom)' preferred='yes'>
-        <b:widget id='HTML1' locked='false' title='Who We Are?' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     Who We Are — sidebar widget
-════════════════════════════════════════════════════════════ -->
-
-<style>
-  #wwa-wrap * {
-    box-sizing: border-box;
-    font-family: Inter, sans-serif;
-  }
-  #wwa-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .wwa-desc {
-    font-size: 11.5px;
-    color: #6b8599;
-    line-height: 1.6;
-  }
-  @keyframes wwa-marquee {
-    0%   { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-  .wwa-btn {
-    display: inline-flex;
-    align-items: center;
-    overflow: hidden;
-    width: 90%;
-    padding: 8px 15px;
-    background: #ffffff;
-    color: #0a2342;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    border: 2px solid #ffffff;
-    transition: background 0.18s, border-color 0.18s;
-  }
-  .wwa-btn:hover {
-    background: #f0f7ff;
-    border-color: #d0dde8;
-  }
-  .wwa-btn:hover .wwa-btn-inner {
-    animation-play-state: paused;
-  }
-  .wwa-btn-inner {
-    display: inline-block;
-    white-space: nowrap;
-    animation: wwa-marquee 10s linear infinite;
-    background: #ffffff;
-    color: #0a2342;
-    padding: 2px 8px;
-    border-radius: 4px;
-  }
-</style>
-
-<div id="wwa-wrap">
-  <p class="wwa-desc">
-    Maritime cyber engineers, consultants, researchers, and class society experts — open to Crew Members &amp; Technical Advisors. Apply via LinkedIn Club or email.
-  </p>
-  <a
-    href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html"
-    target="_blank"
-    rel="noopener"
-    class="wwa-btn"
-  >
-    <span class="wwa-btn-inner">&#x1F465; Join the maritime cybersecurity team &#34;<strong style="color:#7ec8f4;font-weight:700;">Crew</strong>&#34; or become a &#34;<strong style="color:#7ec8f4;font-weight:700;">Technical advisor</strong>&#34; &gt;&gt; Click here</span>
-  
-</a
-></div><!-- /#wwa-wrap -->]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
         <b:widget id='Label2' locked='false' title='INTEL MENU' type='Label' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'>AI and Automation,Industry and Market,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AI and Automation,Industry and Market,JOBS,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6708,7 +6718,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR E26 E27,JOBS,Maritime Industry Events,Maritime Leadership & Strategy,Maritime OT Systems,Risk Management,Ship OT Cybersecurity]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR E26 E27,Maritime Industry Events,Maritime Leadership & Strategy,Maritime OT Systems,Risk Management,Ship OT Cybersecurity]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6742,7 +6752,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[Cyber Security,IACS UR E26,ISO 23806,Knowledge Resources,Maritime Solution,MaritimeData,Research Papers & Studies,SFICode,Security Assessment]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[Cyber Security,IACS UR E26,IACS UR E27,ISO 23806,Knowledge Resources,Maritime Solution,MaritimeData,Research Papers & Studies,SFICode,Security Assessment]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6775,231 +6785,6 @@ if(!window.b1WC){window.b1WC=function(btn){
         <b:widget id='HTML4' locked='false' title='Secure Connectivity Information' type='HTML' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<div id="Hello_GuestInfo.html"></div><script>(function(){var GITHUB_RAW_URL="https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/Hello_GuestInfo.html";var target=document.getElementById("Hello_GuestInfo.html");var s=document.createElement("style");s.textContent="#hg-right #hg-wrap{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;width:100%!important;max-width:100%!important;margin:0!important;padding:10px 14px!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;line-height:1.7!important;}#hg-right #hg-greeting{font-size:15px!important;font-weight:700!important;color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.55)!important;}#hg-right #hg-flag{font-size:22px!important;}#hg-right #hg-lang{font-size:10.5px!important;color:rgba(200,228,248,0.62)!important;margin-bottom:8px!important;}#hg-right #hg-body{font-size:11.5px!important;color:#c8e4f8!important;line-height:1.65!important;}#hg-right #hg-extra{font-size:11px!important;color:rgba(200,228,248,0.78)!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:8px!important;padding-top:8px!important;}#hg-right #hg-confirm{font-size:11px!important;color:#1a9e82!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:6px!important;padding-top:6px!important;}#hg-right a{color:#1affda!important;text-decoration:none!important;}#hg-right #hg-loading{color:rgba(200,228,248,0.45)!important;}#hg-right .hg-pill,#hg-right .hg-badge{background:rgba(26,158,130,0.18)!important;border:1px solid rgba(26,158,130,0.4)!important;color:#1affda!important;border-radius:4px!important;}";document.head.appendChild(s);fetch(GITHUB_RAW_URL).then(function(res){if(!res.ok)throw new Error("HTTP "+res.status);return res.text()}).then(function(html){target.innerHTML=html;var scripts=target.querySelectorAll("script");scripts.forEach(function(oldScript){var newScript=document.createElement("script");Array.prototype.forEach.call(oldScript.attributes,function(attr){newScript.setAttribute(attr.name,attr.value)});newScript.textContent=oldScript.textContent;oldScript.parentNode.replaceChild(newScript,oldScript)})}).catch(function(err){console.warn("[gh-inject] Failed to load:",err)})})();</script>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
-        <b:widget id='HTML13' locked='false' title='🤖 ShipPaul Intelligence' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     ComplianceInjection.html — Sidebar Preview Widget
-     대상: Blog/Pages/CyberComplianceAI.html
-     기능: ShipPaul Intelligence 서비스 미리보기 카드
-     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
-════════════════════════════════════════════════════════════ -->
-
-<div style="font-family:'Segoe UI',Arial,sans-serif;">
-
-  <!-- ── Header ── -->
-  <div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:12px 12px 0 0;padding:14px 15px 12px;">
-
-    <!-- Status row -->
-    <div style="align-items:center;display:flex;gap:7px;margin-bottom:10px;">
-      <span style="font-size:18px;flex-shrink:0;line-height:1;">🤖</span>
-      <div style="flex:1;">
- 
-        <div style="color:#7effd8;font-size:9px;font-weight:700;letter-spacing:0.3px;margin-top:2px;">Maritime Cyber Compliance AI</div>
-      </div>
-      <!-- Online indicator -->
-      <div style="align-items:center;display:flex;gap:4px;">
-        <span id="ci-dot" style="background:#1a9e82;border-radius:50%;display:inline-block;height:7px;width:7px;box-shadow:0 0 6px rgba(26,158,130,0.8);"></span>
-        <span style="color:#7effd8;font-size:8.5px;font-weight:700;">LIVE</span>
-      </div>
-    </div>
-
-    <!-- Tags -->
-    <div style="display:flex;flex-wrap:wrap;gap:4px;">
-      <span style="background:rgba(26,158,130,0.3);border-radius:20px;color:#7effd8;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">IACS · BIMCO · NIS2 · CRA</span>
-      <span style="background:rgba(255,193,7,0.25);border-radius:20px;color:#ffe082;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">IEC · USCG · IMO · GDPR</span>
-      <span style="background:rgba(255,255,255,0.12);border-radius:20px;color:#b8d4ea;font-size:8.5px;font-weight:800;letter-spacing:1px;padding:2px 9px;text-transform:uppercase;">23 Regulations</span>
-    </div>
-
-  </div>
-
-  <!-- ── Body ── -->
-  <div style="background:#fff;border:1.5px solid #d1e0ee;border-top:none;padding:12px 14px 13px;">
-
-    <!-- Description -->
-    <p style="color:#354a5e;font-size:11.5px;line-height:1.7;margin:0 0 11px;">
-      Ask any question about maritime cyber regulations — get <strong style="color:#0a2342;">clause references</strong>, plain-English <strong style="color:#0a2342;">interpretations</strong>, and <strong style="color:#0a2342;">official PDF source links</strong> instantly.
-    </p>
-
-    <!-- Regulation chips -->
-    <div style="margin-bottom:12px;">
-      <div style="color:#154f7a;font-size:8.5px;font-weight:800;letter-spacing:0.8px;margin-bottom:6px;text-transform:uppercase;">Covered Regulations</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px;">
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS UR E26</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS UR E27</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IACS Rec-194</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">BIMCO v5</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IEC 62443</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">NIS2</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">EU CRA</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">GDPR</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">NIST SP 800</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">USCG MTSA</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">IMO MSC-FAL</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">DNV · KR · ABS</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">LR · BV · NK</span>
-        <span style="background:#e8f4ff;border-radius:5px;color:#1a6fa8;font-size:9.5px;font-weight:700;padding:2px 7px;">CCS · RINA · CR</span>
-        <span style="background:#f0fff8;border-radius:5px;color:#1a7a60;font-size:9.5px;font-weight:700;padding:2px 7px;">+3 more</span>
-      </div>
-    </div>
-
-    <!-- CTA button -->
-    <a href="https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html"
-       target="_blank" rel="noopener noreferrer"
-       style="align-items:center;background:rgba(26,158,130,0.15);border:1.5px solid #1a9e82;border-radius:8px;color:#0a7060;display:flex;font-size:12px;font-weight:800;gap:8px;justify-content:center;padding:10px 14px;text-decoration:none;transition:background .15s;">
-      <span style="font-size:14px;line-height:1;">🤖</span>
-      <span>Open Compliance AI</span>
-      <span style="color:#1a9e82;font-size:14px;margin-left:auto;">&#8594;</span>
-    </a>
-
-  </div>
-
-  <!-- ── Footer ── -->
-  <div style="background:#f0f5fb;border:1.5px solid #d1e0ee;border-radius:0 0 12px 12px;border-top:none;padding:7px 14px;">
-    <div style="align-items:center;display:flex;gap:5px;justify-content:center;">
-      <span style="color:#8099b3;font-size:9px;">23 regulations</span>
-      <span style="color:#c8d9e8;font-size:9px;">·</span>
-      <span style="color:#8099b3;font-size:9px;">Free</span>
-      <span style="color:#c8d9e8;font-size:9px;">·</span>
-      <span style="color:#8099b3;font-size:9px;">No login required</span>
-      <span style="color:#c8d9e8;font-size:9px;">·</span>
-      <span style="background:#1a9e82;border-radius:3px;color:#fff;font-size:7.5px;font-weight:800;padding:1px 5px;">AI</span>
-    </div>
-  </div>
-
-</div>
-
-<script>
-/* Pulse animation for LIVE dot */
-(function () {
-  var s = document.createElement('style');
-  s.textContent = '@keyframes ci-pulse{0%,100%{opacity:.4}50%{opacity:1}}' +
-    '#ci-dot{animation:ci-pulse 2s ease-in-out infinite;}';
-  document.head.appendChild(s);
-})();
-</script>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
-        <b:widget id='HTML2' locked='false' title='Class Type Approval Check' type='HTML' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     Maritime Class Approval Check — Sidebar Widget
-     Style: Download.html pattern (navy gradient + teal CTA)
-════════════════════════════════════════════════════════════ -->
-
-<div style="border-radius:12px;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);">
-  <div style="padding:14px 16px 13px;">
-
-    <p style="color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0 0 11px;">
-      Search official Type Approval (TA) databases across 9 major classification societies — all in one place.
-    </p>
-
-    <!-- Society chips -->
-    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;">
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">NK</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">DNV</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">LR</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">ABS</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">BV</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">KR</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">RINA</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">CCS</span>
-      <span style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:#b8d4ea;font-size:9.5px;font-weight:700;letter-spacing:0.03em;padding:3px 8px;">PRS</span>
-    </div>
-
-    <!-- CTA -->
-    <a href="https://www.shippauljobs.com/p/maritime-class-approval-check.html"
-       title="Search Type Approval databases — ClassNK, DNV, Lloyd's Register, ABS, Bureau Veritas, Korean Register, RINA, CCS, PRS"
-       target="_blank" rel="noopener noreferrer"
-       style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;">
-      <span style="font-size:15px;line-height:1;" aria-hidden="true">🔍</span>
-      <span style="flex:1;">Search Type Approvals</span>
-      <span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">9 Societies</span>
-    </a>
-
-  </div>
-</div>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-  <b:include name='widget-title'/>
-  <div class='widget-content'>
-    <data:content/>
-  </div>
-</b:includable>
-        </b:widget>
-        <b:widget id='HTML12' locked='false' title='📥 Maritime Cybersecurity Docs' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<div style="border-radius:12px;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#0a2342,#154f7a);">
-  <div style="padding:14px 16px 13px;">
-    <p style="color:rgba(184,212,234,0.85);font-size:11.5px;line-height:1.65;margin:0 0 12px;">Download official maritime cybersecurity PDFs — IACS UR E26/E27, BIMCO, NIST SP 800, class society rules &amp; national port security regulations.</p>
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      <a href="https://www.shippauljobs.com/p/international-association-compliance.html" title="Download IACS UR E26/E27, BIMCO Guideline v5, NIST SP 800, IEC 62443, NIS2 Directive — maritime cybersecurity compliance PDFs" target="_blank" rel="noopener noreferrer" style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;"><span style="font-size:15px;line-height:1;">🌐</span><span style="flex:1;">Intl. — IACS · BIMCO · NIST · IEC</span><span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">19 PDFs</span></a>
-      <a href="https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html" title="Download ABS, BV, DNV, Korean Register, Lloyd's Register, NK, RINA class society maritime cybersecurity rules and guidelines" target="_blank" rel="noopener noreferrer" style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;"><span style="font-size:15px;line-height:1;">🏛️</span><span style="flex:1;">Class Society — ABS · DNV · KR · LR</span><span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">16 PDFs</span></a>
-      <a href="https://www.shippauljobs.com/p/national-and-port-security-compliance.html" title="Download USCG MTSA, Singapore CSA CCoP, South Korea KISA smart ship guidelines, African Ports CRIMSON report" target="_blank" rel="noopener noreferrer" style="align-items:center;background:rgba(26,158,130,0.25);border:1.5px solid #1a9e82;border-radius:8px;color:#7effd8;display:flex;font-size:11.5px;font-weight:700;gap:8px;padding:8px 12px;text-decoration:none;"><span style="font-size:15px;line-height:1;">🛡️</span><span style="flex:1;">National — USCG · KISA · CSA</span><span style="background:rgba(26,255,210,0.18);border-radius:8px;font-size:8px;font-weight:800;padding:2px 6px;white-space:nowrap;">8 PDFs</span></a>
-    </div>
-  </div>
-</div>]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <b:include name='widget-title'/>
-            <div class='widget-content'>
-              <data:content/>
-            </div>
-          </b:includable>
-        </b:widget>
-        <b:widget id='HTML10' locked='false' title='' type='HTML' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<!-- ════════════════════════════════════════════════════════════
-     Maritime Cyber Intelligence 위젯 인젝션 — www.shippauljobs.com
-     기능: Maritime Cyber ​​Intelligence.html
-     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 붙여넣기
-════════════════════════════════════════════════════════════ -->
-<div id="MaritimeCyberIntelligence-widget"></div>
-
-<script>
-  (function () {
-    var GITHUB_RAW_URL =
-      "https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Main/SideBar/Maritime%20Cyber%20%E2%80%8B%E2%80%8BIntelligence.html";
-
-    var target = document.getElementById("MaritimeCyberIntelligence-widget");
-
-    fetch(GITHUB_RAW_URL)
-      .then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.text();
-      })
-      .then(function (html) {
-        target.innerHTML = html;
-
-        // innerHTML로 삽입된 <script>는 브라우저가 자동 실행하지 않으므로
-        // 새 <script> 엘리먼트로 교체하여 강제 실행
-        var scripts = target.querySelectorAll("script");
-        scripts.forEach(function (oldScript) {
-          var newScript = document.createElement("script");
-          Array.prototype.forEach.call(oldScript.attributes, function (attr) {
-            newScript.setAttribute(attr.name, attr.value);
-          });
-          newScript.textContent = oldScript.textContent;
-          oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-      })
-      .catch(function (err) {
-        console.warn("[gh-inject] Failed to load:", err);
-      });
-  })();
-</script>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
             <b:include name='widget-title'/>
@@ -8055,5 +7840,40 @@ if(!window.b1WC){window.b1WC=function(btn){
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAuthorModal(); });
   //]]>
   </script>
+  <!-- &#9552;&#9552; Cookie Consent Banner (AdSense / GDPR) &#9552;&#9552; -->
+  <div id='spj-cookie-banner' style='display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;background:rgba(6,14,30,0.97);border-top:2px solid rgba(29,137,207,0.5);padding:14px 20px;box-shadow:0 -4px 24px rgba(0,0,0,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);'>
+    <div style='max-width:960px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;'>
+      <div style='flex:1;min-width:240px;font-size:13px;color:#b8d4ea;line-height:1.6;'>
+        🍪 이 사이트는 <strong style='color:#fff;'>Google Analytics</strong> 및 <strong style='color:#fff;'>Google AdSense</strong> 쿠키를 사용하여 사이트 이용 통계를 수집하고 맞춤형 광고를 제공합니다.
+        <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='color:#5bc8f5;text-decoration:underline;white-space:nowrap;' target='_blank'>개인정보 처리방침</a>에서 자세한 내용을 확인하세요.
+      </div>
+      <div style='display:flex;gap:10px;flex-shrink:0;'>
+        <button id='spj-cookie-decline' style='padding:8px 18px;border-radius:6px;border:1px solid rgba(29,137,207,0.5);background:transparent;color:#7ab8d4;font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;'>거부</button>
+        <button id='spj-cookie-accept' style='padding:8px 22px;border-radius:6px;border:none;background:linear-gradient(90deg,#1a9e82,#1d89cf);color:#fff;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:all .18s;'>동의</button>
+      </div>
+    </div>
+  </div>
+  <script type='text/javascript'>
+  //<![CDATA[
+  (function(){
+    var KEY = 'spj_cookie_consent';
+    var banner = document.getElementById('spj-cookie-banner');
+    if (!banner) return;
+    // 이미 동의/거부한 경우 표시 안 함
+    if (localStorage.getItem(KEY)) return;
+    // 500ms 후 표시 (페이지 렌더링 우선)
+    setTimeout(function(){ banner.style.display = 'block'; }, 500);
+    document.getElementById('spj-cookie-accept').addEventListener('click', function(){
+      localStorage.setItem(KEY, 'accepted');
+      banner.style.display = 'none';
+    });
+    document.getElementById('spj-cookie-decline').addEventListener('click', function(){
+      localStorage.setItem(KEY, 'declined');
+      banner.style.display = 'none';
+    });
+  })();
+  //]]>
+  </script>
+  <!-- &#9552;&#9552; /Cookie Consent Banner &#9552;&#9552; -->
   </body>
 </html>

@@ -1146,7 +1146,7 @@
       extras.push({
         label: "📍 GPS",
         value:
-          '<span id="hg-gps-val" style="font-style:italic;font-weight:400;color:#b0c4ce;">위치 권한 요청 중…</span>',
+          '<span id="hg-gps-val"><button id="hg-gps-btn" onclick="hgRequestGPS()" style="background:none;border:1px solid #b0c4ce;border-radius:3px;color:#1d89cf;font-size:10px;cursor:pointer;padding:1px 7px;line-height:1.5;font-family:inherit;">📍 위치 확인</button></span>',
       });
 
       try {
@@ -1247,8 +1247,8 @@
       exHTML += "</div>";
       document.getElementById("hg-extra").innerHTML = exHTML;
 
-      /* 단말기 GPS (Geolocation API) — 세션 중 1회만 수집 */
-      (function (fallbackD) {
+      /* 단말기 GPS (Geolocation API) — 버튼 클릭 시에만 요청 */
+      window.hgRequestGPS = (function (fallbackD) {
         var GPS_KEY = "hg_gps_cache";
 
         function showGPS(lat, lon, isIPBased) {
@@ -1259,7 +1259,6 @@
           var latDir = parseFloat(lat) >= 0 ? "N" : "S";
           var lonDir = parseFloat(lon) >= 0 ? "E" : "W";
           var mapsUrl = "https://www.google.com/maps?q=" + lat + "," + lon;
-          gEl.removeAttribute("style");
           gEl.innerHTML =
             latF +
             "° " +
@@ -1291,39 +1290,50 @@
           } catch (e) {}
         }
 
-        /* 세션 내 이미 수집된 좌표가 있으면 즉시 표시하고 종료 */
-        try {
-          var cached = JSON.parse(
-            sessionStorage.getItem(GPS_KEY) || "null",
-          );
-          if (cached) {
-            showGPS(cached.lat, cached.lon, cached.ip);
-            return;
-          }
-        } catch (e) {}
-
-        /* navigator 자체가 없는 환경(헤드리스 크롤러 등) 방어 */
-        var hasGeo = typeof navigator !== 'undefined' && navigator.geolocation;
-        if (!hasGeo) {
-          if (fallbackD && fallbackD.latitude != null) {
-            saveGPS(fallbackD.latitude, fallbackD.longitude, true);
-            showGPS(fallbackD.latitude, fallbackD.longitude, true);
-          } else showMsg("지원 안 됨");
-          return;
+        /* 세션 캐시가 있으면 팝업 없이 바로 표시 (자동 표시용) */
+        function loadCached() {
+          try {
+            var cached = JSON.parse(sessionStorage.getItem(GPS_KEY) || "null");
+            if (cached) { showGPS(cached.lat, cached.lon, cached.ip); return true; }
+          } catch (e) {}
+          return false;
         }
-        navigator.geolocation.getCurrentPosition(
-          function (pos) {
-            saveGPS(pos.coords.latitude, pos.coords.longitude, false);
-            showGPS(pos.coords.latitude, pos.coords.longitude, false);
-          },
-          function () {
+
+        /* 버튼 클릭 시 실행되는 함수 */
+        function requestGPS() {
+          /* 세션 캐시 있으면 팝업 없이 즉시 표시 */
+          if (loadCached()) return;
+
+          showMsg("요청 중…");
+
+          /* 헤드리스/구형 환경 방어 */
+          var hasGeo = typeof navigator !== "undefined" && navigator.geolocation;
+          if (!hasGeo) {
             if (fallbackD && fallbackD.latitude != null) {
               saveGPS(fallbackD.latitude, fallbackD.longitude, true);
               showGPS(fallbackD.latitude, fallbackD.longitude, true);
-            } else showMsg("권한 거부됨");
-          },
-          { timeout: 5000, maximumAge: 60000 },
-        );
+            } else showMsg("지원 안 됨");
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(
+            function (pos) {
+              saveGPS(pos.coords.latitude, pos.coords.longitude, false);
+              showGPS(pos.coords.latitude, pos.coords.longitude, false);
+            },
+            function () {
+              if (fallbackD && fallbackD.latitude != null) {
+                saveGPS(fallbackD.latitude, fallbackD.longitude, true);
+                showGPS(fallbackD.latitude, fallbackD.longitude, true);
+              } else showMsg("권한 거부됨");
+            },
+            { timeout: 5000, maximumAge: 60000 },
+          );
+        }
+
+        /* 세션 캐시가 이미 있으면 버튼 없이 바로 표시 */
+        loadCached();
+
+        return requestGPS;
       })(d);
 
       /* 표시 */
