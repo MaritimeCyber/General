@@ -118,9 +118,9 @@
         {
           &quot;@context&quot;: &quot;https://schema.org&quot;,
           &quot;@type&quot;: &quot;WebPage&quot;,
-          &quot;name&quot;: &quot;<data:post.title.escaped/>&quot;,
+          &quot;name&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
           &quot;url&quot;: &quot;<data:post.url/>&quot;,
-          &quot;description&quot;: &quot;ShipPaulJobs &#8212; Maritime 4.0 platform focused on AI, cybersecurity and data.&quot;,
+          &quot;description&quot;: &quot;ShipPaulJobs — Maritime 4.0 platform focused on AI, cybersecurity and data.&quot;,
           &quot;isPartOf&quot;: {
             &quot;@type&quot;: &quot;WebSite&quot;,
             &quot;name&quot;: &quot;ShipPaulJobs&quot;,
@@ -3419,8 +3419,8 @@ if(!window.b1WC){window.b1WC=function(btn){
                         &quot;@context&quot;: &quot;https://schema.org&quot;,
                         &quot;@type&quot;: &quot;BlogPosting&quot;,
                         &quot;mainEntityOfPage&quot;: { &quot;@type&quot;: &quot;WebPage&quot;, &quot;@id&quot;: &quot;<data:post.url/>&quot; },
-                        &quot;headline&quot;: &quot;<data:post.title.escaped/>&quot;,
-                        &quot;description&quot;: &quot;<data:blog.metaDescription/>&quot;,
+                        &quot;headline&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
+                        &quot;description&quot;: &quot;<data:blog.metaDescription.jsonEscaped/>&quot;,
                         &quot;datePublished&quot;: &quot;<data:post.date.iso8601/>&quot;,
                         &quot;dateModified&quot;: &quot;<data:post.lastUpdated.iso8601/>&quot;,
                         <b:include name='postMetadataJSONImage'/>
@@ -3436,15 +3436,11 @@ if(!window.b1WC){window.b1WC=function(btn){
                       </script>
                     </b:includable>
                     <b:includable id='postMetadataJSONImage'>
-                      &quot;image&quot;: { &quot;@type&quot;:
-                      &quot;ImageObject&quot;,
+                      &quot;image&quot;: { &quot;@type&quot;: &quot;ImageObject&quot;,
                       <b:if cond='data:post.featuredImage.isResizable'>
-                        &quot;url&quot;: &quot;<b:eval expr='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)'/>&quot;, &quot;height&quot;: 630, &quot;width&quot;:
-                        1200
+                        &quot;url&quot;: &quot;<b:eval expr='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)'/>&quot;, &quot;height&quot;: 630, &quot;width&quot;: 1200
                         <b:else/>
-                        &quot;url&quot;:
-                        &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/w1200/&quot;,
-                        &quot;height&quot;: 348, &quot;width&quot;: 1200
+                        &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/w1200/&quot;, &quot;height&quot;: 348, &quot;width&quot;: 1200
                       </b:if>
                       },
                     </b:includable>
@@ -6522,6 +6518,9 @@ if(!window.b1WC){window.b1WC=function(btn){
   #spj-contact-card .spj-tab-panel.active{display:block;}
   #spj-contact-card .spj-perk{align-items:center;color:#5a7090;display:flex;font-size:10.5px;gap:6px;margin-top:8px;}
   #spj-contact-card .spj-perk-dot{background:#1a9e82;border-radius:50%;flex-shrink:0;height:5px;width:5px;}
+  #spj-contact-card .spj-qt-grid,#spj-contact-card #spj-quick-labels{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;}
+  #spj-contact-card .spj-qt-btn{background:#f0f5fb;border:1px solid #ccdaeb;border-radius:6px;color:#1d6fa8;cursor:pointer;display:block;font-family:inherit;font-size:10px;font-weight:700;line-height:1.2;padding:7px 2px;text-align:center;transition:background .15s,border-color .15s,color .15s;white-space:nowrap;overflow:hidden;width:100%;}
+  #spj-contact-card .spj-qt-btn:hover{background:#1a9e82;border-color:#1a9e82;color:#fff;}
 </style>
 <div id='spj-contact-card'>
   <!-- 헤더 -->
@@ -6546,11 +6545,12 @@ if(!window.b1WC){window.b1WC=function(btn){
     <!-- 빠른 선택 chips -->
     <div style='padding:10px 14px;border-bottom:1px solid #eaf0f7;'>
       <div style='color:#8a9bb0;font-size:9.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;'>Quick Topics</div>
-      <div style='display:flex;flex-wrap:wrap;gap:6px;'>
-        <button class='spj-chip' onclick='spjFill(&apos;ad&apos;)' type='button'>📢 Advertising</button>
-        <button class='spj-chip' onclick='spjFill(&apos;collab&apos;)' type='button'>🤝 Collaboration</button>
-        <button class='spj-chip' onclick='spjFill(&apos;crew&apos;)' type='button'>&#9875; Join Crew</button>
-        <button class='spj-chip' onclick='spjFill(&apos;cyber&apos;)' type='button'>🔐 Compliance</button>
+      <div class='spj-qt-grid'>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;ad&apos;)' type='button'>Advertising</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;collab&apos;)' type='button'>Collaboration</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;crew&apos;)' type='button'>Join Crew</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;cyber&apos;)' type='button'>Compliance</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;qa&apos;)' type='button'>Q&amp;A</button>
       </div>
     </div>
     <!-- 폼 -->
@@ -6622,7 +6622,8 @@ if(!window.b1WC){window.b1WC=function(btn){
     ad:'📢 Advertising Inquiry\n\nI would like to discuss advertising opportunities on ShipPaulJobs.\n\n',
     collab:'🤝 Collaboration Inquiry\n\nI would like to explore a collaboration with ShipPaulJobs.\n\n',
     crew:'⚓ Join Crew\n\nI am interested in joining the ShipPaulJobs contributor team as a maritime professional.\n\n',
-    cyber:'🔐 Compliance \n\nI have a question about maritime cybersecurity or IACS UR E26/E27 compliance.\n\n'
+    cyber:'🔐 Compliance \n\nI have a question about maritime cybersecurity or IACS UR E26/E27 compliance.\n\n',
+    qa:'❓ Q&A\n\nI have a general question about maritime industry topics or ShipPaulJobs content.\n\n'
   };
   window.spjFill=function(k){
     var el=document.querySelector('.contact-form-email-message');
