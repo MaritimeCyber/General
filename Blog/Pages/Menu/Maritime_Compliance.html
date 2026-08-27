@@ -487,16 +487,14 @@
        global maritime regulation keywords (IACS, IMO, USCG, NIS2/ISPS, etc.).
        Tags from other MAIN MENU pages (Maritime Industry Insights, Publications …)
        and generic market/trend tags are intentionally excluded. */
-    var GROUP_WHITELIST = [
-      "IACS UR E26 E27", "IACS UR E26", "IACS UR E27", "IACS E26", "IACS E27",
-      "Cyber Security", "Maritime Cybersecurity", "OT Security",
-      "CRSI",
-      "IMO MSC", "IMO",
-      "ISO 23806",
-      "Maritime OT Systems",
-      "Rules and Compliance", "Regulatory Compliance",
-      "SOLAS", "USCG", "NIS2", "ISPS", "ISM",
-      "Port Security", "Flag State", "Classification"
+    var GROUP_MAP = [
+      { name: "IACS UR E26/E27",       labels: ["IACS UR E26 E27"] },
+      { name: "IACS E26",              labels: ["IACS UR E26", "IACS E26"] },
+      { name: "IACS E27",              labels: ["IACS UR E27", "IACS E27"] },
+      { name: "Regulatory Compliance", labels: ["Regulatory Compliance","Rules and Compliance","Cyber Security","Maritime Cybersecurity","OT Security","ISO 23806","Maritime OT Systems","SOLAS","USCG","NIS2","ISPS","ISM","Port Security","Flag State","Classification","IMO MSC","IMO"] },
+      { name: "CRSI",                  labels: ["CRSI"] },
+      { name: "Type Approval",         labels: ["Type Approval"] },
+      { name: "관련 Posts",             labels: [] }
     ];
 
     var allItems = [];
@@ -619,22 +617,29 @@
       page(1);
     }
 
-    /*── Grouping: by topic tag, restricted to GROUP_WHITELIST.
-         Only tags matching global maritime regulation keywords (IACS, IMO,
-         USCG, NIS2/ISPS, etc.) become carousel groups — cross-page labels
-         and generic market/trend tags are excluded. A post with more than one
-         whitelisted tag appears under each of them. Posts with no whitelisted
-         tag are not shown in the archive (they can still surface in Top Ranked). ──*/
+    /*── Grouping: fixed semantic order defined by GROUP_MAP.
+         Each post is placed in every group whose labels[] intersects the post's
+         own labels. Posts matching no group go to the catch-all entry (empty labels[]).
+         Group display order follows GROUP_MAP — A-Z / Count sort buttons are removed. ──*/
     function buildGroups(items) {
+      var labelToGroup = {};
+      var catchAll = null;
+      GROUP_MAP.forEach(function(g) {
+        if (!g.labels.length) { catchAll = g.name; return; }
+        g.labels.forEach(function(l) { labelToGroup[l] = g.name; });
+      });
       var groups = {};
-      items.forEach(function (p) {
-        var topics = (p.labels || []).filter(function (l) {
-          return l !== LABEL && GROUP_WHITELIST.indexOf(l) !== -1;
+      GROUP_MAP.forEach(function(g) { groups[g.name] = []; });
+      items.forEach(function(p) {
+        var matched = {};
+        (p.labels || []).forEach(function(l) {
+          if (l === LABEL) return;
+          var gname = labelToGroup[l];
+          if (gname && !matched[gname]) { matched[gname] = true; groups[gname].push(p); }
         });
-        topics.forEach(function (t) {
-          groups[t] = groups[t] || [];
-          groups[t].push(p);
-        });
+        if (!Object.keys(matched).length && catchAll !== null) {
+          groups[catchAll].push(p);
+        }
       });
       return groups;
     }
@@ -900,21 +905,12 @@
       }
 
       var groups = buildGroups(items);
-      var tagsByCount = Object.keys(groups).sort(function (a, b) {
-        var d = groups[b].length - groups[a].length;
-        return d !== 0 ? d : a.localeCompare(b);
-      });
-      var tagsAlpha = tagsByCount.slice().sort(function (a, b) { return a.localeCompare(b); });
-      var tagsSorted = mcpSortMode === "count" ? tagsByCount : tagsAlpha;
-
-      var btnAlpha = document.getElementById("mcp-sort-alpha");
-      var btnCount = document.getElementById("mcp-sort-count");
-      if (btnAlpha) btnAlpha.className = "mcp-sort-btn" + (mcpSortMode === "alpha" ? " active" : "");
-      if (btnCount) btnCount.className = "mcp-sort-btn" + (mcpSortMode === "count" ? " active" : "");
+      var tagsSorted = GROUP_MAP.map(function(g){ return g.name; })
+        .filter(function(n){ return groups[n] && groups[n].length; });
 
       var MAX_PILLS = 5;
-      var pillTags = tagsByCount.slice(0, MAX_PILLS);
-      var morePills = tagsByCount.slice(MAX_PILLS);
+      var pillTags = tagsSorted.slice(0, MAX_PILLS);
+      var morePills = tagsSorted.slice(MAX_PILLS);
       var pillsHTML = pillTags
         .map(function (t) {
           return '<a class="mcp-tag-pill" data-tag="' + escAttr(t) + '" href="#mcp-tag-' + slugTag(t) + '">' + escHTML(t) + ' <span class="mcp-cnt">' + groups[t].length + "</span></a>";
@@ -940,7 +936,7 @@
         .join("");
 
       archiveEl.style.display = "block";
-      if (sortBarEl) sortBarEl.style.display = "flex";
+      if (sortBarEl) sortBarEl.style.display = "none";
       emptyEl.style.display = "none";
       initAllCarousels();
     }

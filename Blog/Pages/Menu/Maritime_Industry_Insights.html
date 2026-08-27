@@ -456,6 +456,15 @@
     var RANK_CANDIDATE_POOL = 40; /* Compare view counts only among the N most recent posts (limits API call volume) */
     var RANK_SHOW = 6;
     var FALLBACK_GROUP = "General"; /* posts tagged only "Maritime Industry Insights" with no other topic tag */
+    var GROUP_MAP = [
+      { name: "Maritime News Analysis", labels: ["Maritime News Analysis","Maritime Trend","Maritime","Maritime Solution"] },
+      { name: "Maritime Market",        labels: ["Maritime Market","Industry and Market","Marine Insurance","claims management","loss prevention","Marine","shipowner"] },
+      { name: "Industry Trends",        labels: ["A.I in Marine","AI Product","AI and Automation","AICyberLab","CRSI","Cyber Security","Security Assessment","Threats and Attacks","risk assessment","JOBS","Maritime Jobs & Careers","IACS UR E26 E27","IACS UR E26","IACS UR E27","IACS E26","IACS E27","Compliances","Regulatory Compliance","Rules and Compliance","Compliance","Classification"] },
+      { name: "USCG",                   labels: ["USCG"] },
+      { name: "IMO",                    labels: ["IMO","IMO MSC"] },
+      { name: "Shipbuilding Market",    labels: ["Shipbuilding","Shipbuilding Market"] },
+      { name: "General",                labels: [] }
+    ];
     var miiSortMode = "alpha"; /* 'alpha' = A-Z (default) | 'count' = most posts first */
 
     var allItems = [];
@@ -578,19 +587,28 @@
       page(1);
     }
 
-    /*── Grouping: by topic tag (every label on the post except LABEL itself).
-         A post with more than one other tag appears in more than one group —
-         matches how tag browsing normally works. Posts with no other tag
-         land in FALLBACK_GROUP. ──*/
+    /*── Grouping: fixed semantic order defined by GROUP_MAP.
+         Each post is placed in every group whose labels[] intersects the post's
+         own labels. Posts matching no group go to the catch-all "General" entry. ──*/
     function buildGroups(items) {
+      var labelToGroup = {};
+      var catchAll = null;
+      GROUP_MAP.forEach(function(g) {
+        if (!g.labels.length) { catchAll = g.name; return; }
+        g.labels.forEach(function(l) { labelToGroup[l] = g.name; });
+      });
       var groups = {};
-      items.forEach(function (p) {
-        var topics = (p.labels || []).filter(function (l) { return l !== LABEL; });
-        if (!topics.length) topics = [FALLBACK_GROUP];
-        topics.forEach(function (t) {
-          groups[t] = groups[t] || [];
-          groups[t].push(p);
+      GROUP_MAP.forEach(function(g) { groups[g.name] = []; });
+      items.forEach(function(p) {
+        var matched = {};
+        (p.labels || []).forEach(function(l) {
+          if (l === LABEL) return;
+          var gname = labelToGroup[l];
+          if (gname && !matched[gname]) { matched[gname] = true; groups[gname].push(p); }
         });
+        if (!Object.keys(matched).length && catchAll !== null) {
+          groups[catchAll].push(p);
+        }
       });
       return groups;
     }
@@ -856,25 +874,12 @@
       }
 
       var groups = buildGroups(items);
-      /* Pills (under the search box): most populated topics first */
-      var tagsByCount = Object.keys(groups).sort(function (a, b) {
-        var d = groups[b].length - groups[a].length;
-        return d !== 0 ? d : a.localeCompare(b);
-      });
-      /* Alphabetical order */
-      var tagsAlpha = tagsByCount.slice().sort(function (a, b) { return a.localeCompare(b); });
-      /* Active order — controlled by miiSortMode */
-      var tagsSorted = miiSortMode === "count" ? tagsByCount : tagsAlpha;
-
-      /* Update sort button states */
-      var btnAlpha = document.getElementById("mii-sort-alpha");
-      var btnCount = document.getElementById("mii-sort-count");
-      if (btnAlpha) btnAlpha.className = "mii-sort-btn" + (miiSortMode === "alpha" ? " active" : "");
-      if (btnCount) btnCount.className = "mii-sort-btn" + (miiSortMode === "count" ? " active" : "");
+      var tagsSorted = GROUP_MAP.map(function(g){ return g.name; })
+        .filter(function(n){ return groups[n] && groups[n].length; });
 
       var MAX_PILLS = 5;
-      var pillTags = tagsByCount.slice(0, MAX_PILLS);
-      var morePills = tagsByCount.slice(MAX_PILLS);
+      var pillTags = tagsSorted.slice(0, MAX_PILLS);
+      var morePills = tagsSorted.slice(MAX_PILLS);
       var pillsHTML = pillTags
         .map(function (t) {
           return '<a class="mii-tag-pill" data-tag="' + escAttr(t) + '" href="#mii-tag-' + slugTag(t) + '">' + escHTML(t) + ' <span class="mii-cnt">' + groups[t].length + "</span></a>";
@@ -900,7 +905,7 @@
         .join("");
 
       archiveEl.style.display = "block";
-      if (sortBarEl) sortBarEl.style.display = "flex";
+      if (sortBarEl) sortBarEl.style.display = "none";
       emptyEl.style.display = "none";
       initAllCarousels();
     }

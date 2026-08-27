@@ -434,6 +434,11 @@ IMO (2021): MSC-FAL.1/Circ.3/Rev.2 — Guidelines on Maritime Cyber Risk Managem
 
     var LABEL = "Publications";
     var FEED_BASE = "https://www.shippauljobs.com/feeds/posts/summary/-/" + encodeURIComponent(LABEL) + "?alt=json";
+    /* Additional labels whose posts are merged in (deduplicated by URL).
+       "SERIES" posts that don't also carry the "Publications" label would
+       otherwise never be fetched — they must be pulled separately so
+       buildGroups() can place them in the "Completed Series" bucket. */
+    var EXTRA_FEED_LABELS = ["SERIES"];
     /* Versioned so that adding fields to mapEntry() (author/comments/labels)
        automatically invalidates any visitor's stale cached items instead of
        rendering "undefined" for the new fields — same pattern as apl_cache_v5
@@ -536,34 +541,47 @@ IMO (2021): MSC-FAL.1/Circ.3/Rev.2 — Guidelines on Maritime Cyber Risk Managem
       };
     }
 
-    function fetchAllPosts(cb) {
+    function fetchLabel(feedUrl, cb) {
       var collected = [];
       function page(start) {
-        fetch(FEED_BASE + "&max-results=150&start-index=" + start)
-          .then(function (r) {
-            return r.json();
-          })
+        fetch(feedUrl + "&max-results=150&start-index=" + start)
+          .then(function (r) { return r.json(); })
           .then(function (d) {
             var entries = (d.feed && d.feed.entry) || [];
-            entries.forEach(function (e) {
-              collected.push(mapEntry(e));
-            });
-            /* Blogger's public summary feed silently caps each response at
-               ~45 entries regardless of max-results=150, so
-               entries.length===150 is never true and this always stopped
-               after page 1. Advance by however many entries actually came
-               back instead; start<1500 stays as a sane runaway ceiling. */
+            entries.forEach(function (e) { collected.push(mapEntry(e)); });
             if (entries.length > 0 && start < 1500) {
               page(start + entries.length);
             } else {
               cb(collected);
             }
           })
-          .catch(function () {
-            cb(collected);
-          });
+          .catch(function () { cb(collected); });
       }
       page(1);
+    }
+
+    function fetchAllPosts(cb) {
+      /* Fetch the primary label + each extra label, then merge & deduplicate
+         by post URL so the same post is never shown twice. */
+      var feeds = [FEED_BASE].concat(EXTRA_FEED_LABELS.map(function (l) {
+        return "https://www.shippauljobs.com/feeds/posts/summary/-/" + encodeURIComponent(l) + "?alt=json";
+      }));
+      var results = [];
+      var done = 0;
+      feeds.forEach(function (url) {
+        fetchLabel(url, function (items) {
+          results = results.concat(items);
+          done++;
+          if (done === feeds.length) {
+            var seen = {};
+            var merged = [];
+            results.forEach(function (p) {
+              if (!seen[p.link]) { seen[p.link] = true; merged.push(p); }
+            });
+            cb(merged);
+          }
+        });
+      });
     }
 
     /*── Grouping: only these two topic tags form groups — every other label
@@ -572,14 +590,24 @@ IMO (2021): MSC-FAL.1/Circ.3/Rev.2 — Guidelines on Maritime Cyber Risk Managem
          neither tag doesn't appear in the archive section at all (it can
          still surface in Top Ranked, which reads allItems directly). A post
          with both appears in both groups. ──*/
-    var GROUP_WHITELIST = ["Knowledge Resources", "Research Papers & Studies"];
+    var GROUP_MAP = [
+      { name: "Book Reviews",      labels: ["Knowledge Resources"] },
+      { name: "Paper Reviews",     labels: ["Research Papers & Studies"] },
+      { name: "Completed Series",  labels: ["SERIES","Completed Series"] },
+      { name: "Leadership Series", labels: ["Leadership","Leadership Series"] }
+    ];
     function buildGroups(items) {
+      var labelToGroup = {};
+      GROUP_MAP.forEach(function(g) {
+        g.labels.forEach(function(l) { labelToGroup[l] = g.name; });
+      });
       var groups = {};
-      items.forEach(function (p) {
-        var topics = (p.labels || []).filter(function (l) { return GROUP_WHITELIST.indexOf(l) !== -1; });
-        topics.forEach(function (t) {
-          groups[t] = groups[t] || [];
-          groups[t].push(p);
+      GROUP_MAP.forEach(function(g) { groups[g.name] = []; });
+      items.forEach(function(p) {
+        var matched = {};
+        (p.labels || []).forEach(function(l) {
+          var gname = labelToGroup[l];
+          if (gname && !matched[gname]) { matched[gname] = true; groups[gname].push(p); }
         });
       });
       return groups;
@@ -839,21 +867,12 @@ IMO (2021): MSC-FAL.1/Circ.3/Rev.2 — Guidelines on Maritime Cyber Risk Managem
       }
 
       var groups = buildGroups(items);
-      var tagsByCount = Object.keys(groups).sort(function (a, b) {
-        var d = groups[b].length - groups[a].length;
-        return d !== 0 ? d : a.localeCompare(b);
-      });
-      var tagsAlpha = tagsByCount.slice().sort(function (a, b) { return a.localeCompare(b); });
-      var tagsSorted = pubSortMode === "count" ? tagsByCount : tagsAlpha;
-
-      var btnAlpha = document.getElementById("pub-sort-alpha");
-      var btnCount = document.getElementById("pub-sort-count");
-      if (btnAlpha) btnAlpha.className = "pub-sort-btn" + (pubSortMode === "alpha" ? " active" : "");
-      if (btnCount) btnCount.className = "pub-sort-btn" + (pubSortMode === "count" ? " active" : "");
+      var tagsSorted = GROUP_MAP.map(function(g){ return g.name; })
+        .filter(function(n){ return groups[n] && groups[n].length; });
 
       var MAX_PILLS = 5;
-      var pillTags = tagsByCount.slice(0, MAX_PILLS);
-      var morePills = tagsByCount.slice(MAX_PILLS);
+      var pillTags = tagsSorted.slice(0, MAX_PILLS);
+      var morePills = tagsSorted.slice(MAX_PILLS);
       var pillsHTML = pillTags
         .map(function (t) {
           return '<a class="pub-tag-pill" data-tag="' + escAttr(t) + '" href="#pub-tag-' + slugTag(t) + '">' + escHTML(t) + ' <span class="pub-cnt">' + groups[t].length + "</span></a>";
@@ -879,7 +898,7 @@ IMO (2021): MSC-FAL.1/Circ.3/Rev.2 — Guidelines on Maritime Cyber Risk Managem
         .join("");
 
       archiveEl.style.display = "block";
-      if (sortBarEl) sortBarEl.style.display = "flex";
+      if (sortBarEl) sortBarEl.style.display = "none";
       emptyEl.style.display = "none";
     }
 
