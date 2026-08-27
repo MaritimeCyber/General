@@ -1,148 +1,139 @@
-# Blog — Maritime 4.0 Blog Assets
+# ShipPaulJobs Blog — 폴더 구조
 
-This directory contains HTML widgets, gadgets, and article templates used in the
-[Maritime 4.0: Innovation Driven by AI, Data, and Cyber Security](https://shippauljobs.blogspot.com/) blog.
+> Last updated: 2026-08-23
 
-## Structure
+## 최상위 구조
 
 ```
 Blog/
-├── Backend/                                                # Live widgets hosted on GitHub
-│   ├── Hello_GuestInfo.html                               # Hello Guest widget (main logic)
-│   ├── InjectionCode_Hello.html                           # Blogger gadget: fetches & injects Hello Guest
-│   ├── ShipOrderTrends.html                               # [Live Feed] Ship order news (RSS aggregator)
-│   ├── MaritimeCyberNews.html                             # [Live Feed] Maritime cyber threat intel
-│   ├── InjectionCode_MaritimeCyberIntelligence.html       # Blogger gadget: injects MaritimeCyberNews
-│   └── MaritimeJobsFeed.html                              # [Live Feed] Maritime AI/Data/Cyber jobs feed
-├── Main/                                                   # Blog theme & layout widgets
-│   ├── Main.html                                          # Full Blogger theme XML backup (live theme)
-│   ├── theme-8002758868633250458.xml                      # Theme backup file
-│   ├── Top/
-│   │   ├── Header.html                                    # Blog header widget
-│   │   └── InjectionCode_Header.html                      # Blogger gadget: fetches & injects Header
-│   └── SideBar/
-│       ├── Find Us on GitHub.html                         # GitHub repository link widget
-│       ├── Maritime Cyber ​​Intelligence.html              # Blog intro widget
-│       ├── Who We Are.html                                # Team introduction widget
-│       ├── shipjobsIcon.html                              # Blog icon/logo widget
-│       ├── InjectionCode_Temp.html                        # Generic injection code template
-│       └── tempplate_Who_am_I.html                        # Author intro article template
-└── POST/                                                   # Blog article templates by category
-    ├── Books/
-    │   ├── tempplate_lew1.html
-    │   ├── tempplate_lew2.html
-    │   └── tempplate_lew3.html
-    ├── Compliances/
-    │   ├── CPMPLIANCE_lew.html
-    │   └── README.md
-    ├── Crew/
-    │   └── theCrew.html
-    ├── InsightTrend/
-    │   ├── tempplate_Blue Horizonist.html
-    │   ├── tempplate_Ethan_Insight.html
-    │   ├── tempplate_Ethan_Life_story,.html
-    │   └── tempplate_Yeon_1.html
-    ├── Paper/
-    │   ├── review/
-    │   │   └── PAPER tempplate_insung1.html
-    │   └── README.md
-    └── RND/
-        └── tempplate_Ethan_RnD.html
+├── Main/           # 블로그 테마 XML + Main.html (Blogger 직접 적용)
+├── Layout/         # UI 컴포넌트 (사이드바, 헤더)
+│   ├── Header/     # 상단 헤더 위젯
+│   └── SideBar/    # 사이드바 위젯 모음
+├── Pages/          # Blogger 정적 페이지 + 서비스 페이지
+│   ├── Menu/       # 메인 메뉴 네비게이션 페이지
+│   └── AppService/ # 앱 서비스 (ComplianceBot 등)
+├── POST/           # 블로그 포스트 (주제별 분류)
+├── Authors/        # 저자별 HTML 템플릿
+├── Backend/        # 인젝션 코드, 백엔드 위젯
+└── Tools/          # Python 자동화 스크립트
 ```
 
-## Widget Architecture
+---
 
-### Backend Widgets (`Backend/`)
+## POST/ 주제별 폴더
 
-Backend widgets follow a two-file pattern:
+| 폴더 | 내용 | 주요 저자 |
+|------|------|-----------|
+| `AI/` | AI 에이전트, ChatBot 시리즈 | Paul |
+| `Books/` | ICS 시리즈 내비게이션, 시리즈 박스 | Lew |
+| `Compliance/` | IACS 규정 준수 시리즈 | Paul, Blue Horizonist |
+| `Compliance/IACS_E26/` | IACS UR E26 조항별 포스트 | Paul |
+| `Compliance/IACS_E27/` | IACS UR E27 시리즈 | Blue Horizonist |
+| `Compliance/OT_Cyber_Series/` | OT 사이버 시리즈 (5편) | Paul |
+| `Compliance/Vessel_Operators_Series/` | 선박 운항자 시리즈 (4편) | Paul |
+| `Cybersecurity/` | 선박 사이버 솔루션 (Firewall, IDS, SIEM 등) | SPJ |
+| `Cybersecurity/Jump_Server/` | Jump Server 시리즈 (4편) | CaptainPaul |
+| `Insight/` | 인사이트 & 트렌드 분석 | Paul |
+| `Jobs/` | 해양 취업 정보 | Paul |
+| `Leadership/` | 리더십 시리즈 Ch1~Ch7 | Paul |
+| `News/` | 해사 뉴스 리뷰 | Paul |
+| `Paper/` | 논문 리뷰 | Paul |
+| `Pillar/` | Pillar 콘텐츠 (IACS UR E26, E27 종합 가이드) | Paul |
+| `RND/` | R&D 관련 포스트 | Paul |
+| `Ship_Systems/` | 선박 시스템 소개 (항법, 추진, 화재감지 등) | SPJ |
+| `Type_Approval/` | 형식 승인 관련 포스트 | Iris, Richard, Sheep |
 
-| File | Role |
+---
+
+## Authors/ 저자별 템플릿
+
+| 폴더 | 저자 |
 |------|------|
-| `*.html` (e.g. `Hello_GuestInfo.html`) | Full widget logic — HTML + CSS + JS. Hosted as a raw GitHub file. |
-| `InjectionCode_*.html` | Blogger gadget pasted into Layout. Fetches the raw file via `fetch()` and injects it into the DOM, re-executing `<script>` tags manually (required because `innerHTML` blocks script execution). |
+| `Paul/` | Captain Paul (InSung Lee) — 블로그 운영자 |
+| `Blue_Horizonist/` | Blue Horizonist — E27 기고자 |
+| `Changmin/` | Changmin — OT Security 기고자 |
+| `Yeon/` | Yeon — IACS/Compliance 기고자 |
+| `Richard/` | Richard — Type Approval 기고자 |
+| `Brandon/` | Brandon — Insight 기고자 |
+| `Gaber_Esmail/` | Gaber Esmail — Survey/Insight 기고자 |
+| `Shin/` | Shin — Insight 기고자 |
+| `Lew/` | Lew — Books/ICS 시리즈 기고자 |
+| `SPJ/` | ShipPaulJobs 공식 계정 |
 
-#### Live Feed Widgets
+---
 
-| Widget | Service URL | Theme |
-|--------|-------------|-------|
-| **ShipOrderTrends** | [Ship Order Trends](https://www.shippauljobs.com/2026/04/ship-order-trends-provided-by-shipjobs.html) | Teal `#1a9e82` |
-| **MaritimeCyberNews** | [Maritime Cyber Threat Intel](https://www.shippauljobs.com/2026/04/live-feed-maritime-cyber-threat-intel.html) | Red `#ef4444` |
-| **MaritimeJobsFeed** | [Maritime Jobs Feed](https://www.shippauljobs.com/2026/04/live-feed-maritime-jobs-feed-ai-data.html) | Amber `#f59e0b` |
+## 파일명 규칙
 
-All Live Feed widgets share the same architecture:
-- RSS aggregation via `rss2json` ∥ `allorigins` parallel race pattern
-- 30-minute `localStorage` cache
-- Period filter (1W / 1M / 3M / 6M / All) — default **6M**
-- Category tabs with keyword-based filtering
-- shipjobs2.png logo + `<h1>` title flex layout in gradient header
+```
+형식: [Subject]_[AuthorName]_[N].html
+예시: E26_4_2_1_Zones_Paul.html
+      Jump_Server_CaptainPaul_1.html
+      Alarm_Monitoring_System_SPJ_1.html
+```
 
-#### Other Backend Widgets
+규칙:
+- 단어 구분: 언더스코어(`_`) 사용 (공백 금지)
+- 저자명: `_Paul` / `_SPJ` / `_BlueHorizonist` / `_Changmin` 등
+- 시리즈 번호: `_1`, `_2`, `_3` 필수
+- 대소문자: PascalCase 또는 UPPERCASE 일관 적용
+- 템플릿 파일: `template_` 접두어 (`tempplate` 오타 사용 금지)
 
-**Hello_GuestInfo** (`Backend/Hello_GuestInfo.html`)
-- Greets visitors in their native language (19 languages supported)
-- Displays IP geo-info: country flag, ISP, local time, currency, dial code, network type
-- Shows device info (OS, browser, resolution) and referrer source
-- Renders a full OSI 7-layer / PDU stack view using client-side detection
-- Uses `ipapi.co` API with 30-minute `localStorage` cache
+---
 
-### Blog Theme & Layout Widgets (`Main/`)
+## Layout/ 위젯 목록
 
-| File | Description |
-|------|-------------|
-| `Main.html` | Full Blogger theme XML backup — the current live theme for shippauljobs.blogspot.com |
-| `theme-8002758868633250458.xml` | Alternative theme backup format |
-| `Top/Header.html` | Blog header widget |
-| `SideBar/*.html` | Sidebar widgets (GitHub link, team intro, logo icon, Maritime Cyber Intelligence) |
+| 파일 | 용도 |
+|------|------|
+| `Header/Header.html` | 블로그 상단 헤더 |
+| `Header/InjectionCode_Header.html` | 헤더 인젝션 코드 |
+| `SideBar/Advertising_Guide.html` | 광고 가이드 위젯 |
+| `SideBar/ClassApprovalCheck.html` | 선급 승인 조회 위젯 |
+| `SideBar/Compliance_AI_Injection.html` | Compliance AI 위젯 |
+| `SideBar/Download.html` | 다운로드 위젯 |
+| `SideBar/Free_Maritime_Tools_Suite.html` | 무료 도구 모음 위젯 |
+| `SideBar/Maritime_Cyber_Intelligence.html` | 사이버 인텔리전스 위젯 |
+| `SideBar/VesselTracking.html` | 선박 추적 위젯 |
+| `SideBar/Who_We_Are.html` | 소개 위젯 |
+| `SideBar/shipjobsIcon.html` | 아이콘 위젯 |
 
-#### Main.html — Custom CSS Sections (key modifications)
+---
 
-**Popular Posts (`#PopularPosts1`) — lines ~1126–1150**
-- Custom flex card layout: `pp-num` (번호) + `pp-col-left` (썸네일 44×44 + 댓글수) + `pp-col-mid` (제목 + 작성자/날짜 + 라벨)
-- CSS counter for rank numbers (`counter-increment:pp-counter`)
-- `$(popularposts.title.color)` Blogger skin variable used for title link color
+## Pages/ 정적 & 서비스 페이지
 
-**Popular Posts 배치 규칙 — lines ~1203–1205**
-- 데스크탑 (≥960px) 홈페이지: `position:absolute; top:360px; right:12px; width:252px` — Maritime Hub 자리에 우측 고정 위젯으로 표시
-- 모바일/가로회전 (≤960px) 홈페이지: `position:static; width:100%` — Post List 하단에 일반 흐름으로 표시
-- 단일 포스트(`item-view`): 위 규칙 미적용, Post List 하단에 자연스럽게 렌더링
+### Pages/Menu/ — 메인 메뉴 네비게이션 페이지
 
-**Popular Posts 모바일 겹침 방지 — Blogger 기본 800px 블록 직후 삽입**
-- Blogger 기본 CSS가 `@media(max-width:800px)`에서 `.widget.PopularPosts div.item-thumbnail img{ height:20vw; width:20vw }`로 이미지를 강제 확대 → 겹침 원인
-- 재정의: `@media screen and (max-width:960px)` 블록으로 이미지 44×44 고정, flex 열 너비 px 고정 (`pp-num:24px`, `pp-col-left:50px`, `pp-col-mid:flex:1 1 0`)
+Blogger 메인 메뉴에 연결되는 동적 페이지들:
 
-### Article Templates (`POST/`)
+| 파일 | 메뉴 |
+|------|------|
+| `Completed_Series.html` | Completed Series |
+| `Explore_All_Posts.html` | Explore All Posts |
+| `Marine_Solutions.html` | Marine Solutions |
+| `Maritime_Compliance.html` | Compliance |
+| `Maritime_Industry_Insights.html` | Insight |
+| `Maritime_Weekly.html` | Maritime Weekly |
+| `Publications.html` | Publications |
+| `Ship_Systems.html` | Ship Systems |
+| `Smart_Maritime_Jobs.html` | Smart Jobs |
 
-Templates follow the **Maritime 4.0 Design System** — full inline styles only (no `<style>` block; Blogger strips CSS blocks).
+### Pages/AppService/ — 앱 서비스 페이지
 
-| Directory | Description |
-|-----------|-------------|
-| `Books/` | Book review templates by Lew (lew1–lew3) |
-| `Compliances/` | Cyber compliance article templates |
-| `Crew/` | Team introduction article |
-| `InsightTrend/` | Insight & trend analysis (Ethan, Yeon, Blue Horizonist) |
-| `Paper/` | Research paper summary templates |
-| `RND/` | R&D / applied research articles (Edge AI, Jetson Nano, etc.) |
+| 파일 | 설명 |
+|------|------|
+| `ComplianceBot` 등 | 규정 준수 체크봇 등 인터랙티브 서비스 |
 
-**Two style variants:**
-- 💡 **Insight** → `POST/InsightTrend/tempplate_Ethan_Insight.html`
-- 🔬 **R&D** → `POST/RND/tempplate_Ethan_RnD.html`
+---
 
-## Usage
+## Tools/ 자동화 스크립트
 
-### Backend widgets (`Backend/`)
-1. The `InjectionCode_*.html` gadget is pasted into Blogger → **Layout → Add a Gadget → HTML/JavaScript**.
-2. It fetches the corresponding `*.html` from the GitHub raw URL at runtime.
-3. No manual copy-paste needed for the main widget file — push to GitHub and it updates live.
-
-### Layout / Sidebar widgets (`Main/`)
-1. Open the target `.html` file.
-2. Copy the full content.
-3. In Blogger, navigate to **Layout → Add a Gadget → HTML/JavaScript**.
-4. Paste and save.
-
-### Article templates (`POST/`)
-1. Open the template `.html` file.
-2. Copy the content and paste into the Blogger post editor in **HTML view**.
-3. Fill in the article-specific fields and publish.
-
-> Back to [Repository Root](../README.md)
+| 파일 | 기능 |
+|------|------|
+| `add_internal_links.py` | 내부 링크 자동 추가 |
+| `add_naver_verification.py` | 네이버 인증 태그 추가 |
+| `append_field_notes.py` | Field Notes 추가 |
+| `blogger_label_classifier.py` | 레이블 분류기 |
+| `fix_alt_blogger.py` | ALT 텍스트 수정 |
+| `fix_descriptions.py` | 메타 설명 수정 |
+| `move_series_nav.py` | 시리즈 내비게이션 이동 |
+| `update_all_posts.py` | 전체 포스트 일괄 업데이트 |

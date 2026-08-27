@@ -1,0 +1,1359 @@
+<!--════════════════════════════════════════════════════════════
+     Page   : Maritime Compliance — Sub-menu hub page
+     URL    : https://www.shippauljobs.com/p/maritime-compliance.html
+     Label  : "Compliances" (nav tab text = "Maritime Compliance")
+     Role   : Auto-lists posts tagged "Compliances" — global shipbuilding
+              and maritime regulatory/compliance content (IACS UR E26/E27,
+              IMO, classification societies, flag state, cybersecurity
+              standards, etc.) — grouped by each post's OTHER tags (its
+              "topic"), as card carousels, plus a Top Ranked list based on
+              real view counts. Same build as Maritime Industry Insights.html
+              / Maritime Weekly.html (Blog/POST/MAIN MENU/) with only the
+              label and copy swapped. The comments section is force-hidden
+              (this is a sub-menu / archive page, so comment UI is
+              unnecessary).
+     Grouping: Each post's labels minus "Compliances" itself become its
+              topic group(s) — a post with multiple other tags appears
+              under each of them (matches how tag browsing normally
+              works). Posts with no other tag fall into a "General" group.
+              Quick-jump pills (under the search box) show the top 5
+              topics by post count; the topic list in the page body below
+              is sorted alphabetically for a scannable index.
+     Nav    : No hardcoded top menu here on purpose — the theme already
+              renders the real "Page List (Top)" nav (nav#page_list_top)
+              above every Page/Post automatically (and, since the earlier
+              Main.html fix, PageList/PopularPosts/spj-post-nav visibility
+              is already handled correctly for Page views sitewide — no
+              per-page work needed here).
+     Cards  : Each topic group's row is a Marine-Solutions-style carousel —
+              3.5 cards per line, prev/next arrow buttons, mouse/touch
+              drag-to-scroll, and a share button per card. The theme's own
+              window.scsShareCard() only gets defined inside a
+              "data:view.isHomepage or data:view.isMultipleItems" block in
+              Main.html, which never runs on a static Page — so the share
+              panel (mcpShareCard) is reimplemented locally here, reusing
+              the theme's global .b1-share-panel/.b1-share-btn CSS and
+              #spj-ico-* SVG sprite (both already present sitewide via the
+              post's own header share row) for an identical look. It calls
+              window.scsShareCard instead if the theme ever makes it
+              available on this page.
+     Style  : Matches the site's actual content-page background — a single
+              Blogger Page/Post renders inside an OPAQUE light card
+              (.post-body sits in .post-outer-container, background
+              #f4f9ff), so this page uses the same "Maritime 4.0" system
+              every article template uses: opaque navy→teal gradient
+              header (self-contained, not reliant on a dark backdrop) +
+              white cards + navy/gray text + a translucent blue outer
+              panel — same recipe as the other MAIN MENU hub pages for
+              visual consistency.
+
+     ── Blogger Page settings ──
+     Page title (this is the actual <title> tag / SERP headline — content
+     pasted into the page body can't set it, only the Page's own title
+     field in the Blogger dashboard can): recommend
+     "Maritime Compliance — IACS UR E26/E27, IMO & Class Society Rules | ShipPaulJobs"
+     over a bare "Maritime Compliance".
+     Search description (≤150 chars, paste into Page → Search Description):
+     "Global shipbuilding and maritime compliance guidance — IACS UR
+     E26/E27, IMO rules, classification society requirements, and
+     cybersecurity, by topic." (148 chars)
+     Reader comments: set to "Don't allow" in Page options — the CSS/JS
+     below only hides the widget visually, it does not disable Blogger's
+     comment collection itself.
+════════════════════════════════════════════════════════════-->
+
+<!--══ Hide comments section immediately (prevents flash — blocked via CSS before JS runs) ══-->
+<style>
+  #comments,
+  .comments,
+  #comment-holder,
+  .comments-widget-container {
+    display: none !important;
+  }
+</style>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&amp;family=Inter:wght@400;600;700&amp;display=swap"
+  rel="stylesheet"
+/>
+
+<div id="mcp-post-wrap" style="background: rgba(200, 228, 248, 0.35); border-radius: 22px; box-sizing: border-box; color: #2c3e50; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; margin: 0px auto; max-width: 900px; padding: 18px;">
+
+  <style>
+    #mcp-post-wrap,
+    #mcp-post-wrap * {
+      box-sizing: border-box;
+    }
+    @keyframes mcp-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    /*── Header — opaque navy→teal gradient card (same system every article template uses) ──*/
+    #mcp-header {
+      background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%);
+      border-radius: 16px;
+      box-sizing: border-box;
+      font-family: 'Roboto', Arial, sans-serif;
+      padding: 36px 24px 26px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #mcp-eyebrow {
+      color: #7ec8f4;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    #mcp-h1 {
+      color: #eef6ff;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin: 0px 0px 12px;
+    }
+    #mcp-sub {
+      color: #c8e4f8;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      margin: 0px auto 20px;
+      max-width: 560px;
+      opacity: 0.95;
+    }
+
+    /*── Search bar — nested inside the (opaque) dark header, keeps translucent-on-dark tokens ──*/
+    #mcp-search-bar { margin: 0px auto; max-width: 560px; }
+    #mcp-search-panel { background: rgba(255, 255, 255, 0.10); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 12px; padding: 10px 16px 12px; }
+    #mcp-search-input-wrap { align-items: center; background: rgba(255, 255, 255, 0.15); border: 1.5px solid rgba(255, 255, 255, 0.30); border-radius: 8px; display: flex; gap: 8px; padding: 0px 12px; transition: border-color 0.2s; }
+    #mcp-search-input-wrap:focus-within { border-color: #1d89cf; }
+    #mcp-search-input { background: transparent; border: 0px; color: #e8f4fd; font-family: 'Inter', Arial, sans-serif; font-size: 13px; height: 38px; outline: none; width: 100%; }
+    #mcp-search-input::placeholder { color: rgba(232, 244, 253, 0.55); }
+    #mcp-tag-jump { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; min-height: 22px; }
+    .mcp-tag-pill { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 20px; color: #e8f4fd; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 2px 11px; text-decoration: none; transition: background 0.15s; white-space: nowrap; }
+    .mcp-tag-pill:hover { background: rgba(29, 137, 207, 0.55); }
+    .mcp-tag-pill .mcp-cnt { background: rgba(29, 137, 207, 0.75); border-radius: 10px; font-size: 9px; font-weight: 700; line-height: 17px; padding: 0px 5px; }
+    .mcp-tag-pill-more { color: rgba(232, 244, 253, 0.55); cursor: default; display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 2px 6px; white-space: nowrap; }
+
+    /*── Loading (sits directly on the page's light background) ──*/
+    /*── Sort toggle ──*/
+    #mcp-sort-bar { align-items: center; display: flex; gap: 8px; margin-bottom: 10px; }
+    #mcp-sort-label { color: #6b8aad; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .mcp-sort-btn { background: rgba(21,79,122,0.07); border: 1px solid rgba(21,79,122,0.25); border-radius: 16px; color: #154f7a; cursor: pointer; font-family: 'Inter', Arial, sans-serif; font-size: 11px; font-weight: 700; padding: 3px 12px; transition: background 0.15s, border-color 0.15s; }
+    .mcp-sort-btn:hover { background: rgba(21,79,122,0.15); }
+    .mcp-sort-btn.active { background: #154f7a; border-color: #154f7a; color: #fff; }
+
+    #mcp-loading { color: #154f7a; padding: 40px 10px; text-align: center; }
+    #mcp-loading-text { animation: mcp-pulse 1.6s ease-in-out infinite; font-size: 13.5px; font-weight: 600; letter-spacing: 0.3px; }
+
+    /*── Topic groups — light Maritime 4.0 cards ──*/
+    #mcp-archive { display: none; }
+    .mcp-tag-block { background: #fff; border: 1px solid #d1e0ee; border-radius: 14px; box-shadow: 0 1px 5px rgba(10, 35, 66, 0.05); margin-bottom: 14px; overflow: hidden; }
+    .mcp-tag-summary { align-items: center; cursor: pointer; display: flex; gap: 10px; list-style: none; padding: 16px 20px; }
+    .mcp-tag-summary::-webkit-details-marker { display: none; }
+    .mcp-tag-title { color: #0a2342; flex: 1 1 auto; font-size: 17px; font-weight: 800; line-height: 1.3; margin: 0px; }
+    .mcp-tag-badge { background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 10.5px; font-weight: 700; padding: 3px 11px; }
+    .mcp-tag-chevron { color: #154f7a; font-size: 12px; transition: transform 0.2s; }
+    details[open] > .mcp-tag-summary .mcp-tag-chevron { transform: rotate(90deg); }
+    .mcp-tag-body { border-top: 1px solid #e8f0f7; padding: 14px 20px 18px; }
+
+    /*── Card carousel — same mechanism as the main page's "Introduction to
+         Marine Solutions" widget: 3.5 cards per line, flex track, prev/next
+         arrow buttons, drag-to-scroll (colors adapted to this page's light
+         card theme instead of that widget's dark panel) ──*/
+    .mcp-carousel-wrap { margin: 0px 4px 4px; position: relative; }
+    .mcp-car-outer { overflow: hidden; }
+    .mcp-car-track { display: flex; gap: 10px; transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
+    .mcp-car-track > a { flex: 0 0 calc((100% - 25px) / 3.5); min-width: 0px; }
+    @media (max-width: 900px) { .mcp-car-track > a { flex: 0 0 calc((100% - 20px) / 3); } }
+    @media (max-width: 580px) { .mcp-car-track > a { flex: 0 0 calc((100% - 10px) / 2); } }
+    .mcp-car-btn { align-items: center; background: #fff; border-radius: 50%; border: 1px solid #d1e0ee; box-shadow: 0 1px 6px rgba(10, 35, 66, 0.15); cursor: pointer; display: flex; height: 30px; justify-content: center; position: absolute; top: 50%; transform: translateY(-50%); transition: background 0.18s, box-shadow 0.18s; width: 30px; z-index: 5; }
+    .mcp-car-btn:disabled { cursor: default; opacity: 0.4; }
+    .mcp-car-btn:not(:disabled):hover { background: rgb(238, 246, 243); }
+    .mcp-car-prev { left: -14px; }
+    .mcp-car-next { right: -14px; }
+    .mcp-car-arrow { border-style: solid; border-width: 5px 7px; display: inline-block; height: 0px; width: 0px; }
+    .mcp-car-prev .mcp-car-arrow { border-color: transparent #154f7a transparent transparent; margin-right: 2px; }
+    .mcp-car-next .mcp-car-arrow { border-color: transparent transparent transparent #154f7a; margin-left: 2px; }
+    .mcp-car-btn:disabled .mcp-car-arrow { border-left-color: #c8d8e4; border-right-color: #c8d8e4; }
+    .mcp-car-indicator { color: #9fb5c2; font-size: 10px; margin: 6px 0px 2px; text-align: center; }
+
+    /* Card design matches the main page's "Explore All Posts" (#apl-cards)
+       card — same elements in the same order: thumbnail w/ Read badge,
+       title, label chips, then a footer with author photo+name+date on the
+       left and comments+share on the right. */
+    .mcp-card { background: #fff; border-radius: 10px; border: 1px solid #e8f0f8; box-shadow: 0 1px 5px rgba(10, 35, 66, 0.05); display: flex; flex-direction: column; overflow: hidden; text-decoration: none; transition: box-shadow 0.18s, border-color 0.18s, transform 0.18s; }
+    .mcp-card:hover { border-color: #154f7a; box-shadow: 0 4px 18px rgba(10, 35, 66, 0.12); transform: translateY(-2px); }
+    .mcp-card-thumb-wrap { position: relative; }
+    .mcp-card-thumb { background: linear-gradient(135deg, rgba(21, 79, 122, 0.85), rgba(26, 158, 130, 0.75)); background-position: center; background-repeat: no-repeat; background-size: contain; height: 120px; width: 100%; }
+    .mcp-card-noimg { align-items: center; color: rgba(255, 255, 255, 0.85); display: flex; font-size: 26px; justify-content: center; }
+    /* ✓ Read badge — reads the same site-wide "spj_read" localStorage set
+       that Main.html's global read-tracker script already writes to on
+       every post visit; this card only needs to read it, not write it. */
+    .mcp-card-read-badge { background: #16a34a; border-radius: 10px; bottom: 7px; color: #fff; font-size: 9px; font-weight: 700; left: 7px; line-height: 1.6; padding: 2px 8px; position: absolute; z-index: 2; }
+    /* Verification badge — same visual system + policy link as the theme's
+       own .spj-badge (Main.html), reused here so post cards and Top Ranked
+       rows show it identically to every other listing on the site. Only
+       one badge shows per post: Industry Validated > Expert Reviewed >
+       Verified, matching the theme's own priority order. Defined locally
+       too (not just relying on Main.html's global stylesheet) so it still
+       renders correctly even if that global rule is ever scoped away from
+       this page. */
+    .spj-badge { align-items: center; background: #fff url('https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png') center / cover no-repeat; border-radius: 50%; border: none !important; display: inline-flex; flex-shrink: 0; height: 26px; justify-content: center; overflow: hidden; text-decoration: none; width: 26px; z-index: 5; }
+    .spj-badge img { display: none !important; }
+    .spj-badge-l1 { box-shadow: 0 0 0 2.5px #00c97a, 0 0 7px rgba(0, 201, 122, 0.55), 0 1px 3px rgba(0, 0, 0, 0.2); }
+    .spj-badge-l2 { box-shadow: 0 0 0 2.5px #1d89cf, 0 0 7px rgba(29, 137, 207, 0.55), 0 1px 3px rgba(0, 0, 0, 0.2); }
+    .spj-badge-l3 { box-shadow: 0 0 0 2.5px #9b59b6, 0 0 7px rgba(155, 89, 182, 0.55), 0 1px 3px rgba(0, 0, 0, 0.2); }
+    .mcp-card-verify-badge { position: absolute; right: 7px; top: 7px; z-index: 2; }
+    .mcp-rank-verify-badge { height: 18px; width: 18px; }
+    .mcp-card-body { display: flex; flex: 1 1 auto; flex-direction: column; padding: 12px 14px 12px; }
+    .mcp-card-title { color: #0a2342; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: 13.5px; font-weight: 700; line-height: 1.5; margin: 0px 0px 5px; overflow: hidden; }
+    .mcp-card-desc { color: #6b8599; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: 11.5px; line-height: 1.55; overflow: hidden; }
+    /* Single line only — extra tags beyond MAX_TAGS (see cardHTML) collapse
+       into a trailing "…" chip instead of wrapping to a second line. */
+    .mcp-card-tags { display: flex; flex-wrap: nowrap; gap: 3px; margin-top: 7px; overflow: hidden; }
+    .mcp-card-tag { background: rgba(29, 137, 207, 0.1); border-radius: 4px; color: #1d89cf; cursor: pointer; flex-shrink: 0; font-size: 9px; font-weight: 600; line-height: 1.7; overflow: hidden; padding: 1px 6px; text-overflow: ellipsis; white-space: nowrap; }
+    .mcp-card-tag-more { background: transparent; color: #9fb5c2; cursor: default; flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 1px 2px; }
+    .mcp-card-footer { align-items: center; border-top: 1px solid #e8f0f7; display: flex; justify-content: space-between; margin-top: 9px; padding-top: 8px; }
+    .mcp-card-author-row { align-items: center; display: flex; gap: 5px; min-width: 0px; overflow: hidden; }
+    .mcp-card-avatar { border-radius: 50%; border: 1px solid #d0e4f0; flex-shrink: 0; height: 18px; object-fit: cover; width: 18px; }
+    .mcp-card-author-name { color: #4a6278; font-size: 10px; font-weight: 600; max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mcp-card-date { color: #9fb5c2; flex-shrink: 0; font-size: 10px; }
+    .mcp-card-footer-right { align-items: center; display: flex; flex-shrink: 0; gap: 6px; }
+    .mcp-card-comments { color: #1d89cf; cursor: pointer; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+    /* Hidden until the card is hovered — same reveal-on-hover behavior as the
+       main page's card share button (.spj-card-share on #ms-track/#scs-track). */
+    .mcp-card-share { align-items: center; background: rgba(26, 158, 130, 0.88); border-radius: 50%; border: none; box-shadow: 0 2px 7px rgba(0, 0, 0, 0.22); cursor: pointer; display: flex; flex-shrink: 0; height: 26px; justify-content: center; opacity: 0; pointer-events: none; transition: background 0.16s, transform 0.16s, opacity 0.18s; width: 26px; }
+    .mcp-car-track > a:hover .mcp-card-share { opacity: 1; pointer-events: auto; }
+    .mcp-card-share:hover { background: #1a9e82; transform: scale(1.1); }
+
+    #mcp-empty { color: #6b8599; display: none; font-size: 13.5px; line-height: 1.9; padding: 30px 10px; text-align: center; }
+
+    /*── Top Ranked — light card ──*/
+    #mcp-ranked-wrap { background: #fff; border: 1.5px solid #d1e0ee; border-radius: 14px; box-shadow: 0 2px 12px rgba(10, 35, 66, 0.07); margin-top: 24px; padding: 20px 22px 8px; }
+    #mcp-ranked-header { align-items: center; display: flex; gap: 8px; margin-bottom: 4px; }
+    #mcp-ranked-title { color: #0a2342; flex-shrink: 0; font-size: 15px; font-weight: 800; }
+    /* "📌 Content Verification Policy" badge — same label used in the site's
+       global verify-policy footer strip (#spj-verify-policy), linked to the
+       same policy page, pinned to the top-right of this box. */
+    #mcp-verify-badge { color: #9fb5c2; font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; margin-left: auto; text-decoration: none; text-transform: uppercase; transition: color 0.15s; white-space: nowrap; }
+    #mcp-verify-badge:hover { color: #154f7a; }
+    #mcp-ranked-note { color: #9fb5c2; font-size: 10.5px; }
+    .mcp-rank-row { align-items: center; border-top: 1px solid #e8f0f8; display: flex; gap: 12px; padding: 12px 0px; text-decoration: none; }
+    .mcp-rank-row:hover .mcp-rank-title { color: #1a9e82; }
+    .mcp-rank-num { background: #154f7a; border-radius: 50%; color: #fff; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 22px; line-height: 22px; text-align: center; width: 22px; }
+    .mcp-rank-row:nth-child(1) .mcp-rank-num { background: #ffc107; color: #1a1200; }
+    .mcp-rank-row:nth-child(2) .mcp-rank-num { background: #b0bac2; color: #1a1200; }
+    .mcp-rank-row:nth-child(3) .mcp-rank-num { background: #e67e22; color: #fff; }
+    .mcp-rank-thumb { background: linear-gradient(135deg, rgba(21, 79, 122, 0.85), rgba(26, 158, 130, 0.75)); background-position: center; background-size: cover; border-radius: 8px; flex-shrink: 0; height: 44px; width: 44px; }
+    .mcp-rank-noimg { align-items: center; color: rgba(255, 255, 255, 0.85); display: flex; font-size: 16px; justify-content: center; }
+    .mcp-rank-body { flex: 1 1 auto; min-width: 0px; }
+    .mcp-rank-title-row { align-items: center; display: flex; gap: 6px; }
+    .mcp-rank-title { color: #0a2342; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; flex: 1 1 auto; font-size: 13px; font-weight: 700; line-height: 1.5; margin: 0px; min-width: 0px; overflow: hidden; transition: color 0.15s; }
+    .mcp-rank-meta { align-items: center; color: #9fb5c2; display: flex; font-size: 10.5px; gap: 5px; margin-top: 3px; }
+    .mcp-rank-avatar { background-color: #e8f0f7; background-position: center; background-size: cover; border-radius: 50%; flex-shrink: 0; height: 15px; width: 15px; }
+    .mcp-rank-author { color: #6b8599; font-weight: 600; }
+    .mcp-rank-date { flex-shrink: 0; }
+    .mcp-rank-comments { align-items: center; color: #9fb5c2; display: flex; flex-shrink: 0; gap: 3px; margin-left: auto; }
+    #mcp-ranked-loading { color: #9fb5c2; font-size: 12.5px; padding: 14px 0px; text-align: center; }
+
+    #mcp-footer-note { color: #9fb5c2; font-size: 11px; line-height: 1.8; margin: 18px 4px 4px; text-align: center; }
+
+    /* ── Regulatory Overview (static SEO section) ── */
+    #mcp-reg-overview { background: #fff; border: 1.5px solid #d1e0ee; border-radius: 14px; box-shadow: 0 2px 12px rgba(10,35,66,0.07); margin-bottom: 20px; padding: 22px 22px 16px; }
+    .mcp-reg-intro { border-bottom: 1px solid #e8f0f8; margin-bottom: 16px; padding-bottom: 12px; }
+    .mcp-reg-intro-text { color: #4a6478; font-size: 13.5px; line-height: 1.7; margin: 0 0 6px; }
+    .mcp-reg-updated { color: #9fb5c2; font-size: 11.5px; margin: 0; }
+    .mcp-reg-updated a { color: #1a9e82; text-decoration: none; }
+    .mcp-reg-title { color: #0a2342; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 14px; }
+    .mcp-reg-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    .mcp-reg-card { background: #f4f9ff; border: 1.5px solid #d1e0ee; border-radius: 10px; display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; }
+    .mcp-reg-card strong { color: #0a2342; font-size: 13px; line-height: 1.45; }
+    .mcp-reg-card p { color: #4a6478; font-size: 12px; line-height: 1.6; margin: 0; }
+    .mcp-reg-badge { border-radius: 4px; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; padding: 2px 8px; width: fit-content; }
+    .mcp-badge-iacs { background: #e8f0f7; color: #154f7a; }
+    .mcp-badge-imo { background: #e6f4f0; color: #0e7c62; }
+    .mcp-badge-uscg { background: #fef3e2; color: #b45309; }
+    .mcp-badge-eu { background: #ede9fe; color: #5b21b6; }
+    .mcp-reg-link { color: #1a9e82; font-size: 11.5px; font-weight: 700; text-decoration: none; }
+    .mcp-reg-link:hover { text-decoration: underline; }
+    .mcp-compare-table { border-collapse: collapse; font-size: 12.5px; margin-top: 10px; width: 100%; }
+    .mcp-compare-table th { background: #154f7a; color: #fff; font-size: 12px; font-weight: 700; padding: 9px 12px; text-align: left; }
+    .mcp-compare-table td { border-bottom: 1px solid #e8f0f8; color: #2c3e50; padding: 9px 12px; vertical-align: top; }
+    .mcp-compare-table tr:nth-child(even) td { background: #f4f9ff; }
+    .mcp-compare-table td:first-child { color: #154f7a; font-weight: 700; white-space: nowrap; }
+
+    /* ── FAQ section ── */
+    #mcp-faq { background: #fff; border: 1.5px solid #d1e0ee; border-radius: 14px; box-shadow: 0 2px 12px rgba(10,35,66,0.07); margin-top: 20px; padding: 22px 22px 16px; }
+    #mcp-faq h2 { color: #0a2342; font-size: 16px; font-weight: 800; margin: 0 0 16px; }
+    .mcp-faq-item { border-top: 1px solid #e8f0f8; padding: 14px 0; }
+    .mcp-faq-item:first-of-type { border-top: none; padding-top: 0; }
+    .mcp-faq-q { color: #0a2342; font-size: 13.5px; font-weight: 700; line-height: 1.5; margin: 0 0 7px; }
+    .mcp-faq-a { color: #4a6478; font-size: 13px; line-height: 1.7; margin: 0; }
+    .mcp-faq-a a { color: #1a9e82; font-weight: 600; text-decoration: none; }
+    .mcp-faq-a a:hover { text-decoration: underline; }
+  </style>
+
+  <!--══ Header ══-->
+  <div id="mcp-header">
+    <div id="mcp-eyebrow">Maritime Compliance · Global Shipbuilding &amp; Maritime Regulation</div>
+    <h1 id="mcp-h1">Maritime Compliance</h1>
+    <p id="mcp-sub">Guidance on IACS UR E26/E27, IMO regulations, classification society requirements, and cybersecurity standards shaping global shipbuilding and vessel operations — organized by topic.</p>
+    <div id="mcp-search-bar">
+      <div id="mcp-search-panel">
+        <div id="mcp-search-input-wrap">
+          <svg fill="none" height="15" stroke="rgba(200,228,248,0.8)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" style="flex-shrink: 0;" viewBox="0 0 24 24" width="15"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+          <input autocomplete="off" id="mcp-search-input" placeholder="Search Maritime Compliance…" type="text" />
+        </div>
+        <div id="mcp-tag-jump"></div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ Regulatory Framework Overview (static SEO section) ══-->
+  <div id="mcp-reg-overview">
+    <div class="mcp-reg-intro">
+      <p class="mcp-reg-intro-text">This hub tracks the key international and regional frameworks governing maritime cybersecurity and vessel compliance. Content is reviewed by credentialed maritime cyber professionals and aligned with primary regulatory sources.</p>
+      <p class="mcp-reg-updated"> Last reviewed: August 2026 &nbsp;|&nbsp; <a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" rel="noopener">Editorial &amp; Verification Policy</a></p>
+    </div>
+
+    <h2 class="mcp-reg-title">Regulatory Framework at a Glance</h2>
+    <div class="mcp-reg-grid">
+      <div class="mcp-reg-card">
+        <div class="mcp-reg-badge mcp-badge-iacs">IACS</div>
+        <strong>UR E26 — Cyber Resilience of Ships</strong>
+        <p>Mandatory for newbuildings contracted on or after 1 July 2024. Covers shipboard OT/IT system requirements, network segmentation, and supplier cyber obligations.</p>
+        <a class="mcp-reg-link" href="https://www.iacs.org.uk/publications/unified-requirements/e/" rel="noopener" target="_blank">→ Official IACS UR E26 ↗</a>
+      </div>
+      <div class="mcp-reg-card">
+        <div class="mcp-reg-badge mcp-badge-iacs">IACS</div>
+        <strong>UR E27 — Cyber Resilience of On-board Systems</strong>
+        <p>Companion to E26. Sets security requirements for software, hardware, and system integrators supplying equipment to class-surveyed vessels.</p>
+        <a class="mcp-reg-link" href="https://www.iacs.org.uk/publications/unified-requirements/e/" rel="noopener" target="_blank">→ Official IACS UR E27 ↗</a>
+      </div>
+      <div class="mcp-reg-card">
+        <div class="mcp-reg-badge mcp-badge-imo">IMO</div>
+        <strong>MSC-FAL.1/Circ.3/Rev.2 — Maritime Cyber Risk Management</strong>
+        <p>IMO guidelines requiring cyber risk to be addressed in Safety Management Systems (SMS) under ISM Code by 1 January 2021. Foundation for flag-state enforcement.</p>
+        <a class="mcp-reg-link" href="https://www.imo.org/en/OurWork/Security/Pages/Cybersecurity.aspx" rel="noopener" target="_blank">→ IMO Cybersecurity ↗</a>
+      </div>
+      <div class="mcp-reg-card">
+        <div class="mcp-reg-badge mcp-badge-uscg">USCG</div>
+        <strong>NVIC 01-20 — Cyber Strategies for Marine Transportation</strong>
+        <p>U.S. Coast Guard navigation circular establishing cyber risk assessment and response expectations for vessels operating in U.S. waters and ports.</p>
+        <a class="mcp-reg-link" href="https://www.dco.uscg.mil/Our-Organization/Assistant-Commandant-for-Prevention-Policy-CG-5P/Marine-Safety-Seamanship/Office-of-Operating-and-Environmental-Standards/NVIC/" rel="noopener" target="_blank">→ USCG NVIC ↗</a>
+      </div>
+      <div class="mcp-reg-card">
+        <div class="mcp-reg-badge mcp-badge-eu">EU</div>
+        <strong>NIS2 Directive (2022/2555) — Network &amp; Information Security</strong>
+        <p>EU-wide cybersecurity regulation effective October 2024. Applies to maritime transport operators in EU member states as a critical infrastructure sector.</p>
+        <a class="mcp-reg-link" href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022L2555" rel="noopener" target="_blank">→ NIS2 Official Text ↗</a>
+      </div>
+      <div class="mcp-reg-card">
+        <div class="mcp-reg-badge mcp-badge-imo">IMO / SOLAS</div>
+        <strong>ISPS Code — International Ship &amp; Port Facility Security</strong>
+        <p>Mandatory since 2004 under SOLAS Chapter XI-2. Requires Ship Security Plans (SSP), Ship Security Officers (SSO), and port facility assessments.</p>
+        <a class="mcp-reg-link" href="https://www.imo.org/en/OurWork/Security/Pages/SOLAS-XI-2%20ISPS%20Code.aspx" rel="noopener" target="_blank">→ IMO ISPS ↗</a>
+      </div>
+    </div>
+
+    <h2 class="mcp-reg-title" style="margin-top:22px;">IACS UR E26 vs UR E27 — Key Differences</h2>
+    <div style="overflow-x:auto;">
+      <table class="mcp-compare-table">
+        <thead><tr><th>Aspect</th><th>UR E26 (Ships)</th><th>UR E27 (Systems &amp; Equipment)</th></tr></thead>
+        <tbody>
+          <tr><td>Who it targets</td><td>Shipowners, shipyards, class societies</td><td>Equipment manufacturers, system integrators</td></tr>
+          <tr><td>Scope</td><td>Vessel-level cyber resilience requirements</td><td>Component/system-level security requirements</td></tr>
+          <tr><td>Effective date</td><td>Newbuilds contracted ≥ 1 Jul 2024</td><td>Same — aligned with E26</td></tr>
+          <tr><td>Key obligation</td><td>Cyber Risk Assessment, network segmentation, access control</td><td>Secure software development, vulnerability disclosure, patch management</td></tr>
+          <tr><td>Linked standard</td><td>IEC 62443-2-1, ISM Code</td><td>IEC 62443-4-1, IEC 62443-4-2</td></tr>
+          <tr><td>Class survey impact</td><td>Required for plan approval &amp; survey</td><td>Type approval of equipment</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--══ Loading ══-->
+  <div id="mcp-loading">
+    <div id="mcp-loading-text">📡 Loading Maritime Compliance…</div>
+  </div>
+
+  <!--══ Sort bar ══-->
+  <div id="mcp-sort-bar" style="display:none;">
+    <span id="mcp-sort-label">Sort:</span>
+    <button class="mcp-sort-btn active" data-sort="alpha" id="mcp-sort-alpha">A – Z</button>
+    <button class="mcp-sort-btn" data-sort="count" id="mcp-sort-count">Count ▼</button>
+  </div>
+
+  <!--══ Topic groups ══-->
+  <div id="mcp-archive"></div>
+  <div id="mcp-empty">No posts tagged "Compliances" yet.</div>
+
+  <!--══ Top Ranked (by real view count) ══-->
+  <div id="mcp-ranked-wrap">
+    <div id="mcp-ranked-header">
+      <span id="mcp-ranked-title">🏆 Top Ranked</span>
+      <a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" id="mcp-verify-badge" rel="noopener" target="_blank">📌 Content Verification Policy</a>
+    </div>
+    <div id="mcp-ranked-note">Most-viewed Maritime Compliance posts, ranked among recent articles</div>
+    <div id="mcp-ranked-loading">Counting views…</div>
+    <div id="mcp-ranked-list"></div>
+  </div>
+
+  <div id="mcp-footer-note">Source: shippauljobs.com · Label "Compliances" · Grouped by topic tag · Views tracked from page-visit counter (site-wide, live since deployment)</div>
+
+  <!--══ FAQ ══-->
+  <div id="mcp-faq">
+    <h2>Frequently Asked Questions — Maritime Compliance &amp; Cybersecurity Regulations</h2>
+
+    <div class="mcp-faq-item">
+      <p class="mcp-faq-q">What is IACS UR E26 and why does it matter for shipbuilding?</p>
+      <p class="mcp-faq-a">IACS Unified Requirement E26 establishes mandatory cyber resilience standards for ships contracted on or after 1 July 2024. It requires shipowners and yards to implement risk assessments, network segmentation, access controls, and incident response plans as a condition of class. Non-compliance means a vessel cannot receive class approval from any of the 12 IACS member societies — effectively blocking market entry. See the <a href="https://www.iacs.org.uk/publications/unified-requirements/e/" rel="noopener" target="_blank">official IACS UR E26 text ↗</a>.</p>
+    </div>
+
+    <div class="mcp-faq-item">
+      <p class="mcp-faq-q">How does IACS UR E27 differ from UR E26?</p>
+      <p class="mcp-faq-a">While UR E26 addresses vessel-level cyber resilience (the shipowner/shipyard perspective), UR E27 targets equipment manufacturers and system integrators. UR E27 requires suppliers to follow a secure-by-design approach aligned with IEC 62443-4-1/4-2, provide vulnerability disclosure processes, and support patch management throughout the product lifecycle. A vessel's UR E26 compliance depends directly on its suppliers meeting UR E27 — the two requirements are architecturally linked.</p>
+    </div>
+
+    <div class="mcp-faq-item">
+      <p class="mcp-faq-q">Is IMO MSC-FAL.1/Circ.3 still in force, or has it been superseded?</p>
+      <p class="mcp-faq-a">IMO MSC-FAL.1/Circ.3/Rev.2 (2017, amended 2021) remains the primary IMO guidance instrument for maritime cyber risk management. It is not a convention, so it does not replace SOLAS; instead, it specifies that cyber risks must be addressed within a ship's Safety Management System (SMS) under the ISM Code by 1 January 2021. Flag states and port state control (PSC) officers increasingly reference it during inspections. As of 2026 no new revision has been formally adopted, though IMO has consulted on further regulatory development.</p>
+    </div>
+
+    <div class="mcp-faq-item">
+      <p class="mcp-faq-q">Does the EU NIS2 Directive apply to ships and shipping companies?</p>
+      <p class="mcp-faq-a">Yes — NIS2 (Directive 2022/2555, effective October 2024) classifies maritime transport as a critical infrastructure sector. EU-based shipping companies operating ferry services, cargo routes, or port facilities meeting the size thresholds (≥50 employees or €10M annual turnover) are "essential entities" subject to mandatory incident reporting, risk management obligations, and executive liability. Companies operating outside the EU but serving EU ports may be indirectly affected through their EU-based subsidiaries or contractual partners.</p>
+    </div>
+
+    <div class="mcp-faq-item">
+      <p class="mcp-faq-q">What does the USCG NVIC 01-20 require for vessels in U.S. waters?</p>
+      <p class="mcp-faq-a">USCG Navigation and Vessel Inspection Circular 01-20 provides a voluntary but expected framework for cyber risk management for vessels and facilities regulated under 33 CFR Parts 104–106. It aligns with the NIST Cybersecurity Framework and requires operators to identify OT/IT assets, assess cyber risks, develop and test cyber incident response plans, and report significant cyber incidents to the National Response Center. USCG marine inspectors use it as a benchmark during facility safety audits.</p>
+    </div>
+
+    <div class="mcp-faq-item">
+      <p class="mcp-faq-q">How do IACS, IMO, and flag state requirements interact?</p>
+      <p class="mcp-faq-a">IACS URs apply through classification — they are private-sector technical standards that all 12 major class societies have agreed to enforce uniformly. IMO instruments (including SOLAS and the ISM Code) are international law ratified by flag states. Flag states translate IMO obligations into domestic law and enforce them during surveys; class societies often act as Recognized Organizations (ROs) on behalf of flag states. In practice, a modern vessel must satisfy all three layers: class requirements (IACS), flag state law (IMO-derived), and — for vessels calling specific ports — coastal state regulations (USCG, NIS2, etc.).</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    /* Blogger's public summary feed does NOT return a clean auto-summary —
+       e.summary.$t is just the first ~400 raw characters of the post's
+       HTML source, truncated mid-tag or mid comment-marker. Every article
+       in this repo opens with a long boxed "Article: ..." HTML comment
+       header, so that raw slice is usually mostly (or entirely) that
+       header, sometimes cut off partway through it. Strip fully-closed
+       comment blocks, then any comment left open by the truncation, then
+       any remaining tags. Each pattern spells the comment open/close
+       markers with an escaped hyphen between the two dashes so the
+       literal marker text never appears contiguously in this inline
+       script block's source (that text appearing in script data can push
+       an HTML parser into its "script data escaped" state per HTML5). */
+    function cleanSummary(s) {
+      return (s || "")
+        .replace(/<!\-\-[\s\S]*?\-\->/g, " ")
+        .replace(/<!\-\-[\s\S]*$/, " ")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/&nbsp;/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    var LABEL = "Compliances";
+    var FEED_BASE = "https://www.shippauljobs.com/feeds/posts/summary/-/" + encodeURIComponent(LABEL) + "?alt=json";
+    /* Versioned so that adding fields to mapEntry() (author/comments/labels)
+       automatically invalidates any visitor's stale cached items instead of
+       rendering "undefined" for the new fields — same pattern as apl_cache_v5
+       in Main.html's Explore All Posts widget. */
+    var CACHE_KEY = "mcp_cache_v2"; /* bumped: v1 could have cached a truncated (45-post) result from the pagination bug */
+    var CACHE_TTL = 30 * 60 * 1000;
+    var VIEW_NS = "shippauljobs-views"; /* shared sitewide counter — same namespace the other MAIN MENU hub pages use */
+    var MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var RANK_CANDIDATE_POOL = 40; /* Compare view counts only among the N most recent posts (limits API call volume) */
+    var RANK_SHOW = 6;
+    var FALLBACK_GROUP = "General"; /* posts tagged only "Compliances" with no other topic tag */
+    var mcpSortMode = "alpha"; /* 'alpha' = A-Z (default) | 'count' = most posts first */
+    /* Only these topic-tags become carousel groups — keeps the archive focused on
+       global maritime regulation keywords (IACS, IMO, USCG, NIS2/ISPS, etc.).
+       Tags from other MAIN MENU pages (Maritime Industry Insights, Publications …)
+       and generic market/trend tags are intentionally excluded. */
+    var GROUP_WHITELIST = [
+      "IACS UR E26 E27", "IACS UR E26", "IACS UR E27", "IACS E26", "IACS E27",
+      "Cyber Security", "Maritime Cybersecurity", "OT Security",
+      "CRSI",
+      "IMO MSC", "IMO",
+      "ISO 23806",
+      "Maritime OT Systems",
+      "Rules and Compliance", "Regulatory Compliance",
+      "SOLAS", "USCG", "NIS2", "ISPS", "ISM",
+      "Port Security", "Flag State", "Classification"
+    ];
+
+    var allItems = [];
+
+    /* "✓ Read" badge state — reads the same site-wide "spj_read" localStorage
+       set that Main.html's global read-tracker script writes to on every
+       post visit (matching #apl-cards' own readSet/normUrl pattern). This
+       card only reads it, never writes it. */
+    var readSet = {};
+    function normUrl(u) {
+      return (u || "").split("?")[0].split("#")[0].replace(/\/+$/, "");
+    }
+    function refreshReadSet() {
+      try {
+        readSet = JSON.parse(localStorage.getItem("spj_read") || "{}");
+      } catch (e) {
+        readSet = {};
+      }
+    }
+
+    /*── Cache ──*/
+    function loadCache() {
+      try {
+        var r = localStorage.getItem(CACHE_KEY);
+        if (!r) return null;
+        var o = JSON.parse(r);
+        if (!o || !o.items || Date.now() - o.ts > CACHE_TTL) return null;
+        return o.items;
+      } catch (e) {
+        return null;
+      }
+    }
+    function saveCache(items) {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items: items }));
+      } catch (e) {}
+    }
+
+    /*── Feed fetch (paginated) ──*/
+    /* Blogger serves images (post thumbnails, author avatars) in two different
+       URL shapes, and the size token needs to be swapped differently for each:
+         1) path-segment: .../s72-w629-h285-c/filename.png  (older blogspot host)
+         2) query-suffix: ...AVvXsE...=s72-c                (blogger.googleusercontent.com/img/a/…)
+       A naive "/s72-c/" regex matches neither real-world shape above — images
+       would silently stay at their original tiny size (hence the blur).
+       background-size:cover on the target box handles the final crop-to-box
+       regardless of the exact source ratio, so any wide/tall token works. */
+    function upsizeGoogleImg(url, token) {
+      if (!url) return url;
+      if (/\/s\d+(-w\d+-h\d+)?(-c)?\//.test(url)) {
+        return url.replace(/\/s\d+(-w\d+-h\d+)?(-c)?\//, "/" + token + "/");
+      }
+      if (/=s\d+(-w\d+-h\d+)?(-c)?$/.test(url)) {
+        return url.replace(/=s\d+(-w\d+-h\d+)?(-c)?$/, "=" + token);
+      }
+      return url;
+    }
+
+    function mapEntry(e) {
+      var link = "#";
+      (e.link || []).forEach(function (l) {
+        if (l.rel === "alternate") link = l.href;
+      });
+      var thumb = null;
+      if (e.media$thumbnail && e.media$thumbnail.url) {
+        /* ~3x the card's rendered box (260–440px wide × 120px tall) so it
+           stays sharp even on 3x-density retina displays. */
+        thumb = upsizeGoogleImg(e.media$thumbnail.url, "w1080-h500");
+      }
+      var summary = "";
+      if (e.summary && e.summary.$t) {
+        summary = cleanSummary(e.summary.$t).slice(0, 130);
+      }
+      var authorEntry = e.author && e.author[0];
+      var author = (authorEntry && authorEntry.name && authorEntry.name.$t) || "";
+      var authorImgRaw = (authorEntry && authorEntry["gd$image"] && authorEntry["gd$image"].src) || "";
+      var authorImg = authorImgRaw ? upsizeGoogleImg(authorImgRaw, "s80-c") : "";
+      var comments = e["thr$total"] ? parseInt(e["thr$total"].$t, 10) || 0 : 0;
+      var labels = (e.category || []).map(function (c) { return c.term; });
+      return {
+        title: (e.title && e.title.$t) || "(untitled)",
+        link: link,
+        published: (e.published && e.published.$t) || "",
+        summary: summary,
+        thumb: thumb,
+        author: author,
+        authorImg: authorImg,
+        comments: comments,
+        labels: labels,
+      };
+    }
+
+    function fetchAllPosts(cb) {
+      var collected = [];
+      function page(start) {
+        fetch(FEED_BASE + "&max-results=150&start-index=" + start)
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function (d) {
+            var entries = (d.feed && d.feed.entry) || [];
+            entries.forEach(function (e) {
+              collected.push(mapEntry(e));
+            });
+            /* Blogger's public summary feed silently caps each response at
+               ~45 entries regardless of max-results=150, so
+               entries.length===150 is never true and this always stopped
+               after page 1. Advance by however many entries actually came
+               back instead; start<1500 stays as a sane runaway ceiling. */
+            if (entries.length > 0 && start < 1500) {
+              page(start + entries.length);
+            } else {
+              cb(collected);
+            }
+          })
+          .catch(function () {
+            cb(collected);
+          });
+      }
+      page(1);
+    }
+
+    /*── Grouping: by topic tag, restricted to GROUP_WHITELIST.
+         Only tags matching global maritime regulation keywords (IACS, IMO,
+         USCG, NIS2/ISPS, etc.) become carousel groups — cross-page labels
+         and generic market/trend tags are excluded. A post with more than one
+         whitelisted tag appears under each of them. Posts with no whitelisted
+         tag are not shown in the archive (they can still surface in Top Ranked). ──*/
+    function buildGroups(items) {
+      var groups = {};
+      items.forEach(function (p) {
+        var topics = (p.labels || []).filter(function (l) {
+          return l !== LABEL && GROUP_WHITELIST.indexOf(l) !== -1;
+        });
+        topics.forEach(function (t) {
+          groups[t] = groups[t] || [];
+          groups[t].push(p);
+        });
+      });
+      return groups;
+    }
+
+    function slugTag(t) {
+      return (t || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "tag";
+    }
+
+    function fmtCardDate(ds) {
+      var d = new Date(ds);
+      if (isNaN(d.getTime())) return "—";
+      return MONTHS_SHORT[d.getMonth()] + " " + d.getDate();
+    }
+
+    function escAttr(s) {
+      return (s || "").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+    }
+    function escHTML(s) {
+      return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    /*── Verification badge (Verified / Expert Reviewed / Industry Validated),
+         same priority order and policy link as the theme's own spjBadge()
+         helpers in Main.html. ──*/
+    var VERIFY_BADGES = [
+      { name: "Industry Validated", cls: "spj-badge-l3", title: "Industry Validated — Shipyard / Class / Supplier Feedback" },
+      { name: "Expert Reviewed", cls: "spj-badge-l2", title: "Expert Reviewed — Technical Advisory Board" },
+      { name: "Verified", cls: "spj-badge-l1", title: "Verified — Editorial Team Review" },
+    ];
+    /* Rendered as a span element (not an anchor) because every call site
+       nests this inside an outer card/row link — a real nested anchor
+       would be invalid HTML and browsers would mangle the outer link's
+       clickable area.
+       Clicking still opens the policy page, just via JS instead of a
+       native href, with stopPropagation so it doesn't also trigger the
+       outer card's own navigation. */
+    function verifyBadgeHTML(labels, extraClass) {
+      if (!labels || !labels.length) return "";
+      var POLICY_URL = "https://www.shippauljobs.com/p/editorial-verification-policy.html";
+      for (var i = 0; i < VERIFY_BADGES.length; i++) {
+        var b = VERIFY_BADGES[i];
+        if (labels.indexOf(b.name) !== -1) {
+          return (
+            '<span class="spj-badge ' + b.cls + (extraClass ? " " + extraClass : "") + '" ' +
+            'onclick="event.preventDefault();event.stopPropagation();window.open(\'' + POLICY_URL + '\',\'_blank\',\'noopener\');" ' +
+            'role="link" style="cursor:pointer" tabindex="0" title="' + escAttr(b.title) + '">' +
+            '<img alt="SPJ Verified" loading="lazy" src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png" />' +
+            "</span>"
+          );
+        }
+      }
+      return "";
+    }
+
+    /*── Card markup — thumb + title/desc + footer (date · share button) ──*/
+    var SHARE_SVG =
+      '<svg fill="none" height="12" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="12">' +
+      '<circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle>' +
+      '<line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>';
+
+    /*── Share panel — same visual/behavior as the main page's card share
+         button (scsShareCard/ms-track), reimplemented locally because the
+         theme only defines window.scsShareCard inside a
+         "data:view.isHomepage or data:view.isMultipleItems" block, which
+         never runs on a static Page. Reuses the theme's own global
+         .b1-share-panel / .b1-share-btn CSS and #spj-ico-* SVG sprite (both
+         confirmed present on every page via the post's own header share
+         row), so the resulting panel looks identical. Falls back to
+         window.scsShareCard if the theme ever makes it available here. ──*/
+    function mcpShareCard(btn, e) {
+      if (window.scsShareCard) { window.scsShareCard(btn, e); return; }
+      e.stopPropagation();
+      e.preventDefault();
+      var prev = document.getElementById("mcp-sp");
+      if (prev) {
+        prev.remove();
+        if (window._mcpSPBtn === btn) { window._mcpSPBtn = null; return; }
+      }
+      window._mcpSPBtn = btn;
+      var url = btn.getAttribute("data-url");
+      var r = btn.getBoundingClientRect();
+
+      var panel = document.createElement("div");
+      panel.id = "mcp-sp";
+      panel.className = "b1-share-panel open";
+      panel.style.position = "fixed";
+      panel.style.top = "auto";
+      panel.style.bottom = window.innerHeight - r.top + 6 + "px";
+      panel.style.right = window.innerWidth - r.right + "px";
+      panel.style.zIndex = "99999";
+
+      function mkA(bg, href, svgHtml, label) {
+        var a = document.createElement("a");
+        a.className = "b1-share-btn";
+        a.style.background = bg;
+        if (href) { a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; } else { a.href = "#"; }
+        a.innerHTML = svgHtml + "<span>" + label + "</span>";
+        return a;
+      }
+      function closePanel() {
+        var p = document.getElementById("mcp-sp");
+        if (p) p.remove();
+        window._mcpSPBtn = null;
+      }
+
+      var LI = '<svg fill="white" height="14" width="14"><use href="#spj-ico-li"></use></svg>';
+      var FB = '<svg fill="white" height="14" width="14"><use href="#spj-ico-fb"></use></svg>';
+      var XTW = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tw"></use></svg>';
+      var WA = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wa"></use></svg>';
+      var TG = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tg"></use></svg>';
+      var RD = '<svg fill="white" height="14" width="14"><use href="#spj-ico-rd"></use></svg>';
+      var WC_SVG = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wc"></use></svg>';
+      var CP = '<svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" width="14"><use href="#spj-ico-cp"></use></svg>';
+
+      var liA = mkA("#0a66c2", "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(url), LI, "LinkedIn");
+      liA.onclick = function () { setTimeout(closePanel, 100); };
+      panel.appendChild(liA);
+      var fbA = mkA("#1877f2", "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url), FB, "Facebook");
+      fbA.onclick = function () { setTimeout(closePanel, 100); };
+      panel.appendChild(fbA);
+      var xA = mkA("#111", "https://twitter.com/intent/tweet?url=" + encodeURIComponent(url), XTW, "X (Twitter)");
+      xA.onclick = function () { setTimeout(closePanel, 100); };
+      panel.appendChild(xA);
+      var waA = mkA("#25d366", "https://wa.me/?text=" + encodeURIComponent(url), WA, "WhatsApp");
+      waA.onclick = function () { setTimeout(closePanel, 100); };
+      panel.appendChild(waA);
+      var tgA = mkA("#26a5e4", "https://t.me/share/url?url=" + encodeURIComponent(url), TG, "Telegram");
+      tgA.onclick = function () { setTimeout(closePanel, 100); };
+      panel.appendChild(tgA);
+      var rdA = mkA("#ff4500", "https://www.reddit.com/submit?url=" + encodeURIComponent(url), RD, "Reddit");
+      rdA.onclick = function () { setTimeout(closePanel, 100); };
+      panel.appendChild(rdA);
+      var wcA = mkA("#07c160", null, WC_SVG, "WeChat");
+      wcA.setAttribute("data-u", url);
+      wcA.onclick = function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (window.b1WC) window.b1WC(this);
+        return false;
+      };
+      panel.appendChild(wcA);
+      var cpA = mkA("#607d8b", null, CP, "Copy Link");
+      cpA.onclick = function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url);
+        } else {
+          try {
+            var t = document.createElement("textarea");
+            t.value = url;
+            document.body.appendChild(t);
+            t.select();
+            document.execCommand("copy");
+            document.body.removeChild(t);
+          } catch (err) {}
+        }
+        cpA.querySelector("span").textContent = "Copied!";
+        setTimeout(closePanel, 1200);
+        return false;
+      };
+      panel.appendChild(cpA);
+
+      document.body.appendChild(panel);
+      setTimeout(function () {
+        function handler(ev) {
+          if (!panel.contains(ev.target) && ev.target !== btn) {
+            closePanel();
+            document.removeEventListener("click", handler);
+          }
+        }
+        document.addEventListener("click", handler);
+      }, 50);
+    }
+    window.mcpShareCard = mcpShareCard;
+
+    function cardHTML(p) {
+      var thumbInner = p.thumb
+        ? '<div aria-label="' + escAttr(p.title) + '" class="mcp-card-thumb" role="img" style="background-image:url(\'' + escAttr(p.thumb) + "');\"></div>"
+        : '<div class="mcp-card-thumb mcp-card-noimg"></div>';
+      var readBadge = readSet[normUrl(p.link)] ? '<span class="mcp-card-read-badge">✓ Read</span>' : "";
+      var verifyHTML = verifyBadgeHTML(p.labels, "mcp-card-verify-badge");
+      var thumbHTML = '<div class="mcp-card-thumb-wrap">' + thumbInner + readBadge + verifyHTML + "</div>";
+
+      var descHTML = p.summary ? '<div class="mcp-card-desc">' + escHTML(p.summary) + "…</div>" : "";
+
+      var tagsHTML = "";
+      if (p.labels && p.labels.length) {
+        var MAX_TAGS = 3; /* keeps the row on a single line at typical card widths */
+        var visibleLabels = p.labels.slice(0, MAX_TAGS);
+        var moreHTML = p.labels.length > MAX_TAGS ? '<span class="mcp-card-tag-more" title="' + escAttr(p.labels.slice(MAX_TAGS).join(", ")) + '">…</span>' : "";
+        tagsHTML =
+          '<div class="mcp-card-tags">' +
+          visibleLabels
+            .map(function (l) {
+              return (
+                '<span class="mcp-card-tag" data-label="' + escAttr(l) + '" ' +
+                'onclick="event.preventDefault();event.stopPropagation();location.href=\'/search/label/\'+encodeURIComponent(this.getAttribute(\'data-label\'));">' +
+                escHTML(l) +
+                "</span>"
+              );
+            })
+            .join("") +
+          moreHTML +
+          "</div>";
+      }
+
+      var authorHTML = "";
+      if (p.authorImg) authorHTML += '<img alt="' + escAttr(p.author) + '" class="mcp-card-avatar" loading="lazy" src="' + escAttr(p.authorImg) + '" />';
+      if (p.author) authorHTML += '<span class="mcp-card-author-name">' + escHTML(p.author) + "</span>";
+
+      var commentsHTML =
+        '<span class="mcp-card-comments" onclick="event.preventDefault();event.stopPropagation();location.href=this.closest(\'a\').href+\'#comment-form\';">💬 ' +
+        (p.comments || 0) +
+        "</span>";
+
+      var shareHTML =
+        '<button class="mcp-card-share spj-card-share" data-url="' + escAttr(p.link) + '" data-title="' + escAttr(p.title) + '" ' +
+        'onclick="mcpShareCard(this,event)" type="button">' +
+        SHARE_SVG +
+        "</button>";
+
+      return (
+        '<a class="mcp-card" href="' + escAttr(p.link) + '" rel="noopener" target="_blank">' +
+        thumbHTML +
+        '<div class="mcp-card-body">' +
+        '<h4 class="mcp-card-title">' + escHTML(p.title) + "</h4>" +
+        descHTML +
+        tagsHTML +
+        '<div class="mcp-card-footer">' +
+        '<div class="mcp-card-author-row">' + authorHTML + '<span class="mcp-card-date">' + fmtCardDate(p.published) + "</span></div>" +
+        '<div class="mcp-card-footer-right">' + commentsHTML + shareHTML + "</div>" +
+        "</div></div></a>"
+      );
+    }
+
+    /*── Carousel row markup (one per topic group — 3.5 cards per line,
+         matching the main page's "Introduction to Marine Solutions" widget) ──*/
+    function carouselHTML(posts) {
+      var indicator = posts.length > 1 ? "1 / " + posts.length : "";
+      return (
+        '<div class="mcp-carousel-wrap">' +
+        '<button class="mcp-car-btn mcp-car-prev" disabled type="button" aria-label="Previous"><span class="mcp-car-arrow"></span></button>' +
+        '<div class="mcp-car-outer"><div class="mcp-car-track">' + posts.map(cardHTML).join("") + "</div></div>" +
+        '<button class="mcp-car-btn mcp-car-next" disabled type="button" aria-label="Next"><span class="mcp-car-arrow"></span></button>' +
+        "</div>" +
+        '<div class="mcp-car-indicator">' + indicator + "</div>"
+      );
+    }
+
+    function renderArchive(items) {
+      refreshReadSet();
+      var archiveEl = document.getElementById("mcp-archive");
+      var emptyEl = document.getElementById("mcp-empty");
+      var sortBarEl = document.getElementById("mcp-sort-bar");
+      var tagJumpEl = document.getElementById("mcp-tag-jump");
+
+      if (!items.length) {
+        archiveEl.style.display = "none";
+        if (sortBarEl) sortBarEl.style.display = "none";
+        emptyEl.style.display = "block";
+        return;
+      }
+
+      var groups = buildGroups(items);
+      var tagsByCount = Object.keys(groups).sort(function (a, b) {
+        var d = groups[b].length - groups[a].length;
+        return d !== 0 ? d : a.localeCompare(b);
+      });
+      var tagsAlpha = tagsByCount.slice().sort(function (a, b) { return a.localeCompare(b); });
+      var tagsSorted = mcpSortMode === "count" ? tagsByCount : tagsAlpha;
+
+      var btnAlpha = document.getElementById("mcp-sort-alpha");
+      var btnCount = document.getElementById("mcp-sort-count");
+      if (btnAlpha) btnAlpha.className = "mcp-sort-btn" + (mcpSortMode === "alpha" ? " active" : "");
+      if (btnCount) btnCount.className = "mcp-sort-btn" + (mcpSortMode === "count" ? " active" : "");
+
+      var MAX_PILLS = 5;
+      var pillTags = tagsByCount.slice(0, MAX_PILLS);
+      var morePills = tagsByCount.slice(MAX_PILLS);
+      var pillsHTML = pillTags
+        .map(function (t) {
+          return '<a class="mcp-tag-pill" data-tag="' + escAttr(t) + '" href="#mcp-tag-' + slugTag(t) + '">' + escHTML(t) + ' <span class="mcp-cnt">' + groups[t].length + "</span></a>";
+        })
+        .join("");
+      if (morePills.length) {
+        pillsHTML += '<span class="mcp-tag-pill-more" title="' + escAttr(morePills.join(", ")) + '">… +' + morePills.length + "</span>";
+      }
+      tagJumpEl.innerHTML = pillsHTML;
+
+      archiveEl.innerHTML = tagsSorted
+        .map(function (t, idx) {
+          var posts = groups[t].slice().sort(function (a, b) {
+            return new Date(b.published).getTime() - new Date(a.published).getTime();
+          });
+          return (
+            '<details class="mcp-tag-block" id="mcp-tag-' + slugTag(t) + '"' + (idx === 0 ? " open" : "") + '>' +
+            '<summary class="mcp-tag-summary"><span class="mcp-tag-chevron">▶</span><h2 class="mcp-tag-title">' + escHTML(t) + '</h2><span class="mcp-tag-badge">' + posts.length + " posts</span></summary>" +
+            '<div class="mcp-tag-body">' + carouselHTML(posts) + "</div>" +
+            "</details>"
+          );
+        })
+        .join("");
+
+      archiveEl.style.display = "block";
+      if (sortBarEl) sortBarEl.style.display = "flex";
+      emptyEl.style.display = "none";
+      initAllCarousels();
+    }
+
+    /*── Live search filter (client-side, over already-loaded data) ──*/
+    function applySearch(q) {
+      q = (q || "").trim().toLowerCase();
+      if (!q) {
+        renderArchive(allItems);
+        return;
+      }
+      var filtered = allItems.filter(function (p) {
+        return (p.title + " " + p.summary).toLowerCase().indexOf(q) !== -1;
+      });
+      renderArchive(filtered);
+    }
+
+    /*══════════════════════════════════════════════════════════
+       Carousel engine — generalized version of the main page's
+       "Introduction to Marine Solutions" (#ms-*) carousel, supporting
+       many simultaneous instances (one per topic row) with a single
+       shared drag/resize dispatcher.
+    ══════════════════════════════════════════════════════════*/
+    var carousels = [];
+    var drag = { active: false, inst: null, startX: 0, baseX: 0, moved: false };
+    var SNAP_RATIO = 0.18;
+
+    function carStep(inst) {
+      var first = inst.track.children[0];
+      return first ? first.offsetWidth + 10 : 0;
+    }
+    function carMaxIndex(inst) {
+      var step = carStep(inst);
+      if (!step) return 0;
+      var visible = Math.max(1, Math.round((inst.outer.offsetWidth + 10) / step));
+      return Math.max(0, inst.track.children.length - visible);
+    }
+    function carApply(inst, animate) {
+      inst.track.style.transition = animate ? "transform .42s cubic-bezier(.25,.46,.45,.94)" : "none";
+      inst.track.style.transform = "translateX(-" + inst.index * carStep(inst) + "px)";
+    }
+    function carUpdateBtns(inst) {
+      var max = carMaxIndex(inst);
+      inst.prevBtn.disabled = inst.index <= 0;
+      inst.nextBtn.disabled = inst.index >= max;
+    }
+    function carUpdateIndicator(inst) {
+      var total = inst.track.children.length;
+      if (inst.indEl) inst.indEl.textContent = total > 1 ? inst.index + 1 + " / " + total : "";
+    }
+    function carGoTo(inst, idx, animate) {
+      inst.index = Math.max(0, Math.min(idx, carMaxIndex(inst)));
+      carApply(inst, animate);
+      carUpdateBtns(inst);
+      carUpdateIndicator(inst);
+    }
+
+    function initAllCarousels() {
+      carousels = [];
+      document.querySelectorAll("#mcp-archive .mcp-carousel-wrap").forEach(function (wrap) {
+        var track = wrap.querySelector(".mcp-car-track");
+        var outer = wrap.querySelector(".mcp-car-outer");
+        var prevBtn = wrap.querySelector(".mcp-car-prev");
+        var nextBtn = wrap.querySelector(".mcp-car-next");
+        var indEl = wrap.nextElementSibling && wrap.nextElementSibling.classList.contains("mcp-car-indicator") ? wrap.nextElementSibling : null;
+        var inst = { wrap: wrap, track: track, outer: outer, prevBtn: prevBtn, nextBtn: nextBtn, indEl: indEl, index: 0, animating: false };
+        carousels.push(inst);
+
+        prevBtn.addEventListener("click", function () {
+          if (inst.animating || inst.index <= 0) return;
+          inst.animating = true;
+          carGoTo(inst, inst.index - 1, true);
+          setTimeout(function () { inst.animating = false; }, 450);
+        });
+        nextBtn.addEventListener("click", function () {
+          if (inst.animating || inst.index >= carMaxIndex(inst)) return;
+          inst.animating = true;
+          carGoTo(inst, inst.index + 1, true);
+          setTimeout(function () { inst.animating = false; }, 450);
+        });
+
+        outer.addEventListener("mousedown", function (e) {
+          if (inst.animating) return;
+          drag = { active: true, inst: inst, startX: e.clientX, baseX: -(inst.index * carStep(inst)), moved: false };
+          track.style.transition = "none";
+          e.preventDefault();
+        });
+        outer.addEventListener("touchstart", function (e) {
+          if (inst.animating) return;
+          drag = { active: true, inst: inst, startX: e.touches[0].clientX, baseX: -(inst.index * carStep(inst)), moved: false };
+          track.style.transition = "none";
+        }, { passive: true });
+        wrap.addEventListener("click", function (e) { if (drag.moved) e.preventDefault(); }, true);
+
+        carUpdateBtns(inst);
+        carUpdateIndicator(inst);
+      });
+
+      /* Collapsed <details> topics render their content at 0 width (the
+         browser doesn't lay out hidden content), so any carousel measured
+         at init time inside a closed group got carStep()=0 → carMaxIndex()=0
+         → both prev/next buttons stuck permanently disabled, even after the
+         user opens that group. Recompute every carousel inside a group the
+         moment it's expanded so the buttons/track catch up to their real
+         width. */
+      document.querySelectorAll("#mcp-archive .mcp-tag-block").forEach(function (details) {
+        details.addEventListener("toggle", function () {
+          if (!details.open) return;
+          carousels.forEach(function (inst) {
+            if (details.contains(inst.wrap)) {
+              carApply(inst, false);
+              carUpdateBtns(inst);
+              carUpdateIndicator(inst);
+            }
+          });
+        });
+      });
+    }
+
+    function dragMove(clientX) {
+      if (!drag.active) return;
+      var inst = drag.inst;
+      var delta = clientX - drag.startX;
+      if (Math.abs(delta) > 4) drag.moved = true;
+      var max = carMaxIndex(inst), minTx = -(max * carStep(inst));
+      var tx = drag.baseX + delta;
+      if (tx > 0) tx = tx * 0.25;
+      if (tx < minTx) tx = minTx + (tx - minTx) * 0.25;
+      inst.track.style.transform = "translateX(" + tx + "px)";
+    }
+    function dragEnd(clientX) {
+      if (!drag.active) return;
+      var inst = drag.inst;
+      drag.active = false;
+      if (!drag.moved) { carApply(inst, true); return; }
+      var delta = clientX - drag.startX;
+      var step = carStep(inst), max = carMaxIndex(inst);
+      if (Math.abs(delta) > step * SNAP_RATIO) {
+        if (delta < 0 && inst.index < max) inst.index++;
+        else if (delta > 0 && inst.index > 0) inst.index--;
+      }
+      inst.animating = true;
+      carGoTo(inst, inst.index, true);
+      setTimeout(function () { inst.animating = false; }, 450);
+    }
+    document.addEventListener("mousemove", function (e) { if (drag.active) { e.preventDefault(); dragMove(e.clientX); } });
+    document.addEventListener("mouseup", function (e) { if (drag.active) dragEnd(e.clientX); });
+    document.addEventListener("touchmove", function (e) { if (drag.active) dragMove(e.touches[0].clientX); }, { passive: true });
+    document.addEventListener("touchend", function (e) { if (drag.active) dragEnd(e.changedTouches[0].clientX); }, { passive: true });
+    window.addEventListener("resize", function () {
+      carousels.forEach(function (inst) {
+        if (inst.index > carMaxIndex(inst)) inst.index = carMaxIndex(inst);
+        carApply(inst, false);
+        carUpdateBtns(inst);
+      });
+    });
+
+    /*── Top Ranked (real view counts via abacus, read-only) ──*/
+    function keyFor(url) {
+      try {
+        var u = new URL(url);
+        return u.pathname.replace(/\/+$/, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      } catch (e) {
+        return (url || "").replace(/[^a-zA-Z0-9]+/g, "-");
+      }
+    }
+
+    function fetchViewCount(url, cb) {
+      var key = keyFor(url);
+      if (!key) { cb(0); return; }
+      fetch("https://abacus.jasoncameron.dev/get/" + VIEW_NS + "/" + key)
+        .then(function (r) { return r.json(); })
+        .then(function (d) { cb(d && typeof d.value === "number" ? d.value : 0); })
+        .catch(function () { cb(null); });
+    }
+
+    function loadTopRanked(items) {
+      var loadingEl = document.getElementById("mcp-ranked-loading");
+      var listEl = document.getElementById("mcp-ranked-list");
+      if (!items.length) {
+        loadingEl.textContent = "No posts to display.";
+        return;
+      }
+
+      var candidates = items
+        .slice()
+        .sort(function (a, b) { return new Date(b.published).getTime() - new Date(a.published).getTime(); })
+        .slice(0, RANK_CANDIDATE_POOL);
+
+      var results = [];
+      var pending = candidates.length;
+      var failed = 0;
+      var CONCURRENCY = 6;
+      var idx = 0;
+
+      function next() {
+        if (idx >= candidates.length) return;
+        var p = candidates[idx++];
+        fetchViewCount(p.link, function (views) {
+          if (views === null) failed++;
+          results.push({ post: p, views: views || 0 });
+          pending--;
+          if (pending === 0) done();
+          else next();
+        });
+      }
+      function done() {
+        if (failed === candidates.length) {
+          loadingEl.textContent = "Couldn't load view-count data. Please try again shortly.";
+          return;
+        }
+        results.sort(function (a, b) { return b.views - a.views; });
+        var top = results.slice(0, RANK_SHOW);
+        listEl.innerHTML = top
+          .map(function (r, i) {
+            var thumbHTML = r.post.thumb
+              ? '<span class="mcp-rank-thumb" style="background-image:url(\'' + escAttr(r.post.thumb) + "');\"></span>"
+              : '<span class="mcp-rank-thumb mcp-rank-noimg"></span>';
+            var avatarHTML = r.post.authorImg
+              ? '<span class="mcp-rank-avatar" style="background-image:url(\'' + escAttr(r.post.authorImg) + "');\"></span>"
+              : "";
+            var authorHTML = r.post.author ? avatarHTML + '<span class="mcp-rank-author">' + escHTML(r.post.author) + "</span>" : "";
+            var metaHTML =
+              authorHTML +
+              '<span class="mcp-rank-date">' + fmtCardDate(r.post.published) + "</span>" +
+              '<span class="mcp-rank-comments">💬 ' + r.post.comments + "</span>";
+            var verifyHTML = verifyBadgeHTML(r.post.labels, "mcp-rank-verify-badge");
+            return (
+              '<a class="mcp-rank-row" href="' + escAttr(r.post.link) + '" rel="noopener" target="_blank">' +
+              '<span class="mcp-rank-num">' + (i + 1) + "</span>" +
+              thumbHTML +
+              '<span class="mcp-rank-body"><div class="mcp-rank-title-row"><h4 class="mcp-rank-title">' + escHTML(r.post.title) + "</h4>" + verifyHTML + '</div><div class="mcp-rank-meta">' + metaHTML + "</div></span>" +
+              "</a>"
+            );
+          })
+          .join("");
+        loadingEl.style.display = "none";
+      }
+
+      for (var c = 0; c < Math.min(CONCURRENCY, candidates.length); c++) next();
+    }
+
+    /*── Init ──*/
+    function onData(items) {
+      items.sort(function (a, b) { return new Date(b.published).getTime() - new Date(a.published).getTime(); });
+      allItems = items;
+      document.getElementById("mcp-loading").style.display = "none";
+      renderArchive(allItems);
+      loadTopRanked(allItems);
+    }
+
+    var cached = loadCache();
+    if (cached) {
+      onData(cached);
+      fetchAllPosts(function (fresh) { if (fresh.length) saveCache(fresh); }); /* Background refresh (applied on next visit) */
+    } else {
+      fetchAllPosts(function (fresh) {
+        if (fresh.length) saveCache(fresh);
+        onData(fresh);
+      });
+    }
+
+    document.getElementById("mcp-search-input").addEventListener("input", function () {
+      applySearch(this.value);
+    });
+
+    /*── Sort toggle buttons ──*/
+    document.getElementById("mcp-sort-bar").addEventListener("click", function (e) {
+      var btn = e.target.closest(".mcp-sort-btn");
+      if (!btn) return;
+      var mode = btn.getAttribute("data-sort");
+      if (mode && mode !== mcpSortMode) {
+        mcpSortMode = mode;
+        renderArchive(allItems);
+      }
+    });
+
+    /*── Topic pills (under the search box): clicking one opens only that
+         topic's <details> and collapses every other topic, then scrolls to
+         it. Delegated on the wrapper (not the pills themselves) since
+         #mcp-tag-jump's innerHTML is regenerated on every renderArchive
+         call — a listener bound directly to a pill would be lost on the
+         next re-render. ──*/
+    document.getElementById("mcp-tag-jump").addEventListener("click", function (e) {
+      var pill = e.target.closest(".mcp-tag-pill");
+      if (!pill) return;
+      e.preventDefault();
+      var tag = pill.getAttribute("data-tag");
+      var targetId = "mcp-tag-" + slugTag(tag);
+      document.querySelectorAll("#mcp-archive .mcp-tag-block").forEach(function (details) {
+        details.open = details.id === targetId;
+      });
+      var target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    /*── Force-hide comments section (theme's #comments renders outside this page's content, so handle via JS) ──*/
+    document.addEventListener("DOMContentLoaded", function () {
+      ["comments", "comment-holder"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = "none";
+      });
+      document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) {
+        el.style.display = "none";
+      });
+    });
+  })();
+</script>
+
+<!-- FAQPage structured data (Google Rich Results) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is IACS UR E26 and why does it matter for shipbuilding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "IACS Unified Requirement E26 establishes mandatory cyber resilience standards for ships contracted on or after 1 July 2024. It requires shipowners and yards to implement risk assessments, network segmentation, access controls, and incident response plans as a condition of class. Non-compliance means a vessel cannot receive class approval from any of the 12 IACS member societies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does IACS UR E27 differ from UR E26?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UR E26 addresses vessel-level cyber resilience (shipowner/shipyard perspective), while UR E27 targets equipment manufacturers and system integrators, requiring secure-by-design approaches aligned with IEC 62443-4-1/4-2, vulnerability disclosure processes, and patch management throughout the product lifecycle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is IMO MSC-FAL.1/Circ.3 still in force, or has it been superseded?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "IMO MSC-FAL.1/Circ.3/Rev.2 (2017, amended 2021) remains the primary IMO guidance instrument for maritime cyber risk management. It specifies that cyber risks must be addressed within a ship's Safety Management System (SMS) under the ISM Code by 1 January 2021. As of 2026 no new revision has been formally adopted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the EU NIS2 Directive apply to ships and shipping companies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — NIS2 (Directive 2022/2555, effective October 2024) classifies maritime transport as a critical infrastructure sector. EU-based shipping companies meeting the size thresholds (50+ employees or €10M annual turnover) are 'essential entities' subject to mandatory incident reporting, risk management obligations, and executive liability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the USCG NVIC 01-20 require for vessels in U.S. waters?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "USCG NVIC 01-20 provides a framework aligned with the NIST Cybersecurity Framework, requiring operators to identify OT/IT assets, assess cyber risks, develop and test cyber incident response plans, and report significant cyber incidents to the National Response Center."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do IACS, IMO, and flag state requirements interact?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "IACS URs apply through classification (private-sector technical standards). IMO instruments are international law ratified by flag states. A vessel must satisfy all three layers: class requirements (IACS), flag state law (IMO-derived), and coastal state regulations (USCG, NIS2, etc.) for ports it calls."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- WebPage structured data (E-E-A-T signals) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Maritime Compliance — IACS UR E26/E27, IMO & Class Society Rules",
+  "url": "https://www.shippauljobs.com/p/maritime-compliance.html",
+  "description": "Global shipbuilding and maritime compliance guidance covering IACS UR E26/E27, IMO MSC-FAL.1/Circ.3/Rev.2, USCG NVIC 01-20, NIS2 Directive, and ISPS Code — organized by topic.",
+  "inLanguage": "en",
+  "dateModified": "2026-08-22",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ShipPaulJobs",
+    "url": "https://www.shippauljobs.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.shippauljobs.com/favicon.ico"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "ShipPaulJobs Editorial Team",
+    "url": "https://www.shippauljobs.com",
+    "knowsAbout": [
+      "Maritime Cybersecurity",
+      "IACS UR E26",
+      "IACS UR E27",
+      "IMO Regulations",
+      "Ship Classification",
+      "OT Security",
+      "NIS2 Directive",
+      "ISPS Code"
+    ]
+  },
+  "about": [
+    { "@type": "Thing", "name": "IACS UR E26", "sameAs": "https://www.iacs.org.uk/publications/unified-requirements/e/" },
+    { "@type": "Thing", "name": "IACS UR E27", "sameAs": "https://www.iacs.org.uk/publications/unified-requirements/e/" },
+    { "@type": "Thing", "name": "IMO Maritime Cyber Risk Management", "sameAs": "https://www.imo.org/en/OurWork/Security/Pages/Cybersecurity.aspx" },
+    { "@type": "Thing", "name": "NIS2 Directive", "sameAs": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022L2555" },
+    { "@type": "Thing", "name": "ISPS Code", "sameAs": "https://www.imo.org/en/OurWork/Security/Pages/SOLAS-XI-2%20ISPS%20Code.aspx" }
+  ],
+  "citation": [
+    { "@type": "CreativeWork", "name": "IACS UR E26 — Cyber Resilience of Ships", "url": "https://www.iacs.org.uk/publications/unified-requirements/e/" },
+    { "@type": "CreativeWork", "name": "IMO MSC-FAL.1/Circ.3/Rev.2", "url": "https://www.imo.org/en/OurWork/Security/Pages/Cybersecurity.aspx" },
+    { "@type": "CreativeWork", "name": "USCG NVIC 01-20", "url": "https://www.dco.uscg.mil/Our-Organization/Assistant-Commandant-for-Prevention-Policy-CG-5P/Marine-Safety-Seamanship/Office-of-Operating-and-Environmental-Standards/NVIC/" },
+    { "@type": "CreativeWork", "name": "EU NIS2 Directive 2022/2555", "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022L2555" }
+  ]
+}
+</script>

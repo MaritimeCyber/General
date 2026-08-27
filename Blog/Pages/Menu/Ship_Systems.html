@@ -1,0 +1,613 @@
+<!--════════════════════════════════════════════════════════════
+     Page : Introduction to Ship Systems — Ship Technology & Digital Vessel Archive | ShipPaulJobs
+     URL  : https://www.shippauljobs.com/p/ship-systems.html
+════════════════════════════════════════════════════════════-->
+
+<!--══ Hide comments ══-->
+<style>
+  #comments,.comments,#comment-holder,.comments-widget-container{display:none!important}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+<div id="ss-wrap" style="background:rgba(200,228,248,0.35);border-radius:22px;box-sizing:border-box;color:#2c3e50;font-family:'Inter','Segoe UI',Arial,sans-serif;margin:0 auto;max-width:900px;padding:18px">
+
+<style>
+#ss-wrap,#ss-wrap *{box-sizing:border-box}
+@keyframes ss-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+#ss-header{background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:36px 24px 26px;text-align:center;margin-bottom:20px}
+#ss-eyebrow{color:#7ec8f4;font-size:11px;font-weight:700;letter-spacing:2.5px;margin-bottom:14px;text-transform:uppercase}
+#ss-h1{color:#eef6ff;font-family:'Roboto',Arial,sans-serif;font-size:38px;font-weight:900;letter-spacing:-.5px;line-height:1.2;margin:0 0 8px}
+#ss-count-badge{background:rgba(29,137,207,.55);border-radius:20px;color:#e8f4fd;display:none;font-size:11.5px;font-weight:700;padding:2px 14px;margin-bottom:14px}
+#ss-sub{color:#c8e4f8;font-size:14px;font-weight:300;line-height:1.7;margin:0 auto 20px;max-width:560px;opacity:.95}
+
+#ss-search-bar{margin:0 auto;max-width:560px}
+#ss-search-panel{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:10px 16px 14px}
+#ss-search-input-wrap{align-items:center;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.30);border-radius:8px;display:flex;gap:8px;padding:0 12px;transition:border-color .2s}
+#ss-search-input-wrap:focus-within{border-color:#1d89cf}
+#ss-search-input{background:transparent;border:0;color:#e8f4fd;font-family:'Inter',Arial,sans-serif;font-size:13px;height:38px;outline:none;width:100%}
+#ss-search-input::placeholder{color:rgba(232,244,253,.55)}
+#ss-tag-bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:22px}
+.ss-tag-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:20px;color:#e8f4fd;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:600;padding:4px 13px;transition:background .15s,border-color .15s;white-space:nowrap}
+.ss-tag-btn:hover{background:rgba(29,137,207,.45)}
+.ss-tag-btn.active{background:#1d89cf;border-color:#1d89cf;color:#fff}
+
+#ss-controls{align-items:center;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+#ss-sort-wrap{display:flex;border:1.5px solid #d1e0ee;border-radius:20px;overflow:hidden}
+.ss-sort-btn{background:#fff;border:0;color:#154f7a;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;padding:5px 13px;transition:background .15s,color .15s}
+.ss-sort-btn.active{background:#154f7a;color:#fff}
+#ss-stats{color:#6b8599;font-size:11.5px;margin-bottom:10px;display:none}
+#ss-showing-count{font-weight:700;color:#154f7a}
+
+#ss-loading{color:#154f7a;padding:40px 10px;text-align:center;display:none}
+#ss-loading-text{animation:ss-pulse 1.6s ease-in-out infinite;font-size:13.5px;font-weight:600}
+
+#ss-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));margin-bottom:20px}
+@media(max-width:580px){#ss-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:360px){#ss-grid{grid-template-columns:1fr}}
+
+.ss-card{background:#fff;border-radius:10px;border:1px solid #e8f0f8;box-shadow:0 1px 5px rgba(10,35,66,.05);display:flex;flex-direction:column;overflow:hidden;text-decoration:none;transition:box-shadow .18s,border-color .18s,transform .18s}
+.ss-card:hover{border-color:#154f7a;box-shadow:0 4px 18px rgba(10,35,66,.12);transform:translateY(-2px)}
+.ss-card-thumb-wrap{position:relative}
+.ss-card-thumb{background:linear-gradient(135deg,rgba(21,79,122,.85),rgba(26,158,130,.75));background-position:center;background-repeat:no-repeat;background-size:cover;height:120px;width:100%}
+.ss-card-noimg{align-items:center;color:rgba(255,255,255,.85);display:flex;font-size:26px;justify-content:center}
+.ss-card-read-badge{background:#16a34a;border-radius:10px;bottom:7px;color:#fff;font-size:9px;font-weight:700;left:7px;line-height:1.6;padding:2px 8px;position:absolute;z-index:2}
+.spj-badge{align-items:center;background:#fff url('https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png') center/cover no-repeat;border-radius:50%;border:none!important;display:inline-flex;flex-shrink:0;height:26px;justify-content:center;overflow:hidden;text-decoration:none;width:26px;z-index:5}
+.spj-badge img{display:none!important}
+.spj-badge-l1{box-shadow:0 0 0 2.5px #00c97a,0 0 7px rgba(0,201,122,.55),0 1px 3px rgba(0,0,0,.2)}
+.spj-badge-l2{box-shadow:0 0 0 2.5px #1d89cf,0 0 7px rgba(29,137,207,.55),0 1px 3px rgba(0,0,0,.2)}
+.spj-badge-l3{box-shadow:0 0 0 2.5px #9b59b6,0 0 7px rgba(155,89,182,.55),0 1px 3px rgba(0,0,0,.2)}
+.ss-card-verify-badge{position:absolute;right:7px;top:7px;z-index:2}
+.ss-card-body{display:flex;flex:1 1 auto;flex-direction:column;padding:12px 14px}
+.ss-card-title{color:#0a2342;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;font-size:13.5px;font-weight:700;line-height:1.5;margin:0 0 5px;overflow:hidden}
+.ss-card-desc{color:#6b8599;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;font-size:11.5px;line-height:1.55;overflow:hidden}
+.ss-card-tags{display:flex;flex-wrap:nowrap;gap:3px;margin-top:7px;overflow:hidden}
+.ss-card-tag{background:rgba(29,137,207,.1);border-radius:4px;color:#1d89cf;cursor:pointer;flex-shrink:0;font-size:9px;font-weight:600;line-height:1.7;padding:1px 6px;white-space:nowrap}
+.ss-card-tag-more{background:transparent;color:#9fb5c2;cursor:default;flex-shrink:0;font-size:10px;font-weight:700;padding:1px 2px}
+.ss-card-footer{align-items:center;border-top:1px solid #e8f0f7;display:flex;justify-content:space-between;margin-top:9px;padding-top:8px}
+.ss-card-author-row{align-items:center;display:flex;gap:5px;min-width:0;overflow:hidden}
+.ss-card-avatar{border-radius:50%;border:1px solid #d0e4f0;flex-shrink:0;height:18px;object-fit:cover;width:18px}
+.ss-card-author-name{color:#4a6278;font-size:10px;font-weight:600;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ss-card-date{color:#9fb5c2;flex-shrink:0;font-size:10px}
+#ss-empty{color:#6b8599;display:none;font-size:13.5px;line-height:1.9;padding:30px 10px;text-align:center;background:#fff;border:1px solid #e8f0f8;border-radius:14px;margin-bottom:20px}
+#ss-load-more-wrap{text-align:center;margin-bottom:20px;display:none}
+#ss-load-more{background:#154f7a;border:0;border-radius:20px;color:#fff;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:700;padding:10px 28px;transition:background .18s}
+#ss-load-more:hover{background:#1a9e82}
+
+#ss-ranked-wrap{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-bottom:24px;padding:20px 22px 8px}
+#ss-ranked-header{align-items:center;display:flex;gap:8px;margin-bottom:4px}
+#ss-ranked-title{color:#0a2342;flex-shrink:0;font-size:15px;font-weight:800}
+#ss-verify-badge{color:#9fb5c2;font-size:9.5px;font-weight:800;letter-spacing:.1em;margin-left:auto;text-decoration:none;text-transform:uppercase;transition:color .15s;white-space:nowrap}
+#ss-verify-badge:hover{color:#154f7a}
+#ss-ranked-note{color:#9fb5c2;font-size:10.5px}
+.ss-rank-row{align-items:center;border-top:1px solid #e8f0f8;display:flex;gap:12px;padding:12px 0;text-decoration:none}
+.ss-rank-row:hover .ss-rank-title{color:#1a9e82}
+.ss-rank-num{background:#154f7a;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px}
+.ss-rank-row:nth-child(1) .ss-rank-num{background:#ffc107;color:#1a1200}
+.ss-rank-row:nth-child(2) .ss-rank-num{background:#b0bac2;color:#1a1200}
+.ss-rank-row:nth-child(3) .ss-rank-num{background:#e67e22;color:#fff}
+.ss-rank-thumb{background:linear-gradient(135deg,rgba(21,79,122,.85),rgba(26,158,130,.75));background-position:center;background-size:cover;border-radius:8px;flex-shrink:0;height:44px;width:44px}
+.ss-rank-noimg{align-items:center;color:rgba(255,255,255,.85);display:flex;font-size:16px;justify-content:center}
+.ss-rank-body{flex:1 1 auto;min-width:0}
+.ss-rank-title{color:#0a2342;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;flex:1 1 auto;font-size:13px;font-weight:700;line-height:1.5;margin:0;min-width:0;overflow:hidden;transition:color .15s}
+.ss-rank-meta{align-items:center;color:#9fb5c2;display:flex;font-size:10.5px;gap:5px;margin-top:3px}
+.ss-rank-avatar{background-color:#e8f0f7;background-position:center;background-size:cover;border-radius:50%;flex-shrink:0;height:15px;width:15px}
+.ss-rank-author{color:#6b8599;font-weight:600}
+.ss-rank-date{flex-shrink:0}
+#ss-ranked-loading{color:#9fb5c2;font-size:12.5px;padding:14px 0;text-align:center}
+
+#ss-context{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-bottom:20px;padding:22px 22px 16px}
+.ss-ctx-intro{border-bottom:1px solid #e8f0f8;margin-bottom:16px;padding-bottom:12px}
+.ss-ctx-intro-text{color:#4a6478;font-size:13.5px;line-height:1.7;margin:0 0 6px}
+.ss-ctx-updated{color:#9fb5c2;font-size:11.5px;margin:0}
+.ss-ctx-updated a{color:#1a9e82;text-decoration:none}
+.ss-ctx-title{color:#0a2342;font-size:16px;font-weight:800;letter-spacing:-.01em;margin:0 0 14px}
+.ss-role-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));margin-bottom:18px}
+.ss-role-card{background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:10px;display:flex;flex-direction:column;gap:6px;padding:14px 16px}
+.ss-role-badge{border-radius:4px;display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 8px;width:fit-content}
+.ss-badge-cyber{background:#e8f0f7;color:#154f7a}
+.ss-badge-ai{background:#e6f4f0;color:#0e7c62}
+.ss-badge-auto{background:#ede9fe;color:#5b21b6}
+.ss-badge-eng{background:#fef3e2;color:#b45309}
+.ss-role-card strong{color:#0a2342;font-size:13px;line-height:1.45}
+.ss-role-card p{color:#4a6478;font-size:12px;line-height:1.6;margin:0}
+#ss-faq{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-top:20px;padding:22px 22px 16px}
+#ss-faq h2{color:#0a2342;font-size:16px;font-weight:800;margin:0 0 16px}
+.ss-faq-item{border-top:1px solid #e8f0f8;padding:14px 0}
+.ss-faq-item:first-of-type{border-top:none;padding-top:0}
+.ss-faq-q{color:#0a2342;font-size:13.5px;font-weight:700;line-height:1.5;margin:0 0 7px}
+.ss-faq-a{color:#4a6478;font-size:13px;line-height:1.7;margin:0}
+.ss-faq-a a{color:#1a9e82;font-weight:600;text-decoration:none}
+#ss-footer-note{color:#9fb5c2;font-size:11px;line-height:1.8;margin:18px 4px 4px;text-align:center}
+
+/* ── Grouped List Layout ── */
+#ss-list{margin-bottom:20px}
+.ss-group{margin-bottom:22px}
+.ss-group-hdr{align-items:center;border-bottom:2px solid #d1e0ee;display:flex;gap:10px;margin-bottom:6px;padding-bottom:8px}
+.ss-group-name{color:#0a2342;font-size:13px;font-weight:800}
+.ss-group-count{background:rgba(21,79,122,.12);border-radius:10px;color:#154f7a;font-size:10.5px;font-weight:700;padding:1px 8px}
+.ss-list-ul{list-style:none;margin:0;padding:0}
+.ss-list-row{align-items:flex-start;border-bottom:1px solid #f0f5fa;border-radius:6px;display:flex;gap:12px;padding:10px 6px;text-decoration:none;transition:background .12s}
+.ss-list-row:hover{background:#f4f9ff}
+.ss-list-row:hover .ss-list-title{color:#1a9e82}
+.ss-list-thumb{background:linear-gradient(135deg,rgba(21,79,122,.7),rgba(26,158,130,.6));background-position:center;background-size:cover;border-radius:6px;flex-shrink:0;height:64px;width:84px}
+.ss-list-nothumb{align-items:center;color:rgba(255,255,255,.75);display:flex;font-size:20px;justify-content:center}
+@media(max-width:480px){.ss-list-thumb{display:none}}
+.ss-list-body{flex:1 1 auto;min-width:0}
+.ss-list-title{color:#0a2342;display:block;font-size:13px;font-weight:600;line-height:1.45;overflow:hidden;text-overflow:ellipsis;transition:color .12s;white-space:nowrap}
+.ss-list-desc{color:#6b8599;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;font-size:11.5px;line-height:1.55;margin-top:3px;overflow:hidden}
+.ss-list-tags{display:flex;flex-wrap:nowrap;gap:4px;margin-top:5px;overflow:hidden}
+.ss-list-tag{background:rgba(29,137,207,.1);border-radius:4px;color:#1d89cf;flex-shrink:0;font-size:9px;font-weight:600;padding:1px 5px;white-space:nowrap}
+.ss-list-date{color:#9fb5c2;flex-shrink:0;font-size:10px;margin-top:2px;white-space:nowrap}
+</style>
+
+<!--══ Header ══-->
+<div id="ss-header">
+  <div id="ss-eyebrow">ShipPaulJobs · Ship Systems & Digital Vessel Technology</div>
+  <h1 id="ss-h1">Introduction to Ship Systems</h1>
+  <div id="ss-count-badge" style="display:none"></div>
+  <p id="ss-sub">Learn the fundamentals of modern ship systems — integrated bridge systems, ECDIS, engine automation, onboard networks, CBS, and IACS E26-compliant architectures.</p>
+  <div id="ss-search-bar">
+    <div id="ss-search-panel">
+      <div id="ss-search-input-wrap">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;opacity:.6"><circle cx="9" cy="9" r="6" stroke="#e8f4fd" stroke-width="2"/><path d="M15 15l3 3" stroke="#e8f4fd" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="ss-search-input" placeholder="Search ship systems archive…" autocomplete="off" spellcheck="false"/>
+      </div>
+      <div id="ss-tag-bar">
+        <button class="ss-tag-btn active" data-tag="">All</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ Controls ══-->
+<div id="ss-controls">
+  <div id="ss-sort-wrap">
+    <button class="ss-sort-btn active" data-sort="latest">Latest</button>
+    <button class="ss-sort-btn" data-sort="oldest">Oldest</button>
+    <button class="ss-sort-btn" data-sort="az">A–Z</button>
+  </div>
+</div>
+<div id="ss-stats" style="display:none">Showing <span id="ss-showing-count">0</span> articles</div>
+
+<!--══ Loading ══-->
+<div id="ss-loading" style="display:none">
+  <div id="ss-loading-text">📡 Loading Ship Systems archive…</div>
+</div>
+
+<!--══ List ══-->
+<div id="ss-list"></div>
+<div id="ss-empty" style="display:none">No ship systems posts found.</div>
+
+<!--══ Top Ranked ══-->
+<div id="ss-ranked-wrap">
+  <div id="ss-ranked-header">
+    <div id="ss-ranked-title">🏆 Top Ranked Ship Systems</div>
+    <a id="ss-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener">📌 Verification Policy</a>
+  </div>
+  <div id="ss-ranked-note">Most-viewed ship systems posts, ranked by reader traffic</div>
+  <div id="ss-ranked-loading">Loading top posts…</div>
+</div>
+
+<!--══ Context ══-->
+<div id="ss-context">
+  <div class="ss-ctx-intro">
+    <p class="ss-ctx-intro-text">Ship Systems covers the full technology stack of modern commercial vessels — from integrated bridge systems and ECDIS to engine automation, cargo management, CBS (computer-based systems), and onboard IT/OT networks. Posts are written by maritime engineers and cybersecurity professionals with hands-on shipboard experience.</p>
+    <p class="ss-ctx-updated">Last reviewed: August 2026 &nbsp;|&nbsp; <a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" rel="noopener">Editorial &amp; Verification Policy</a></p>
+  </div>
+  <h2 class="ss-ctx-title">Key Ship System Categories</h2>
+  <div class="ss-role-grid">
+    <div class="ss-role-card">
+      <div class="ss-role-badge ss-badge-cyber">Navigation</div>
+      <strong>Integrated Bridge Systems &amp; ECDIS</strong>
+      <p>Electronic chart display, conning displays, AIS/ARPA integration, voyage planning. Mandatory under SOLAS. Subject to IACS UR E26 cyber requirements.</p>
+    </div>
+    <div class="ss-role-card">
+      <div class="ss-role-badge ss-badge-eng">Propulsion</div>
+      <strong>Engine &amp; Propulsion Automation</strong>
+      <p>Integrated automation systems (IAS), engine monitoring, remote control, shaft power monitoring, fuel consumption optimization, IEC 62443-aligned OT security.</p>
+    </div>
+    <div class="ss-role-card">
+      <div class="ss-role-badge ss-badge-ai">CBS</div>
+      <strong>Computer-Based Systems (CBS)</strong>
+      <p>IACS UR E26 defines CBS as any onboard computer-based system affecting safety, propulsion, or cargo. All CBS must be inventoried, assessed, and protected under the cyber resilience plan.</p>
+    </div>
+    <div class="ss-role-card">
+      <div class="ss-role-badge ss-badge-auto">Networks</div>
+      <strong>Onboard IT/OT Networks</strong>
+      <p>Ship LAN/VLAN design, OT network segmentation, firewall architecture per IACS UR E26, NMEA 0183/2000 data buses, satellite connectivity (VSAT, 5G).</p>
+    </div>
+    <div class="ss-role-card">
+      <div class="ss-role-badge ss-badge-cyber">Safety</div>
+      <strong>Safety &amp; Fire Detection</strong>
+      <p>Fire detection, public address, general alarm, fixed gas/fire suppression systems, and GMDSS communications — all within IACS E26 cyber scope for newbuildings.</p>
+    </div>
+    <div class="ss-role-card">
+      <div class="ss-role-badge ss-badge-ai">Cargo</div>
+      <strong>Cargo &amp; Ballast Management</strong>
+      <p>Cargo control and monitoring systems, ballast water management (BWMS per IMO D-2), loading computer systems, and tank gauging automation.</p>
+    </div>
+  </div>
+</div>
+
+<!--══ FAQ ══-->
+<div id="ss-faq">
+  <h2>Frequently Asked Questions — Ship Systems</h2>
+  <div class="ss-faq-item">
+    <p class="ss-faq-q">What does IACS UR E26 require for ship systems?</p>
+    <p class="ss-faq-a">IACS UR E26 (effective 1 July 2024) requires all newbuilding contracts to include cyber resilience measures across shipboard systems. This covers asset inventory and classification, network segmentation, security zones and conduits, access control, software patch management, and security incident response procedures.</p>
+  </div>
+  <div class="ss-faq-item">
+    <p class="ss-faq-q">What is a CBS (Computer-Based System) in maritime?</p>
+    <p class="ss-faq-a">CBS is the IACS UR E26 term for any onboard system using computer hardware and software — navigation displays, engine management systems, ballast control, cargo systems, and more. All CBS must be inventoried, risk-assessed, and protected as part of the vessel's cyber resilience plan.</p>
+  </div>
+  <div class="ss-faq-item">
+    <p class="ss-faq-q">What is NMEA 2000 and why does it matter for ship cybersecurity?</p>
+    <p class="ss-faq-a">NMEA 2000 (IEC 61162-3) is the CAN-bus based navigation data network used by bridge instruments. Without proper network segmentation, a compromised NMEA 2000 node could inject false navigation data. IACS UR E26 specifically addresses protection of navigation-critical data buses.</p>
+  </div>
+</div>
+
+<div id="ss-footer-note">Source: shippauljobs.com · Labels "CBS" + "SYSTEM" · Views tracked from page-visit counter (site-wide, live since deployment)</div>
+
+<!--══ Structured Data ══-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Introduction to Ship Systems — Digital Vessel Technology | ShipPaulJobs",
+  "url": "https://www.shippauljobs.com/p/ship-systems.html",
+  "description": "Comprehensive archive of ship systems articles — integrated bridge systems, ECDIS, engine automation, onboard networks, CBS, and IACS UR E26 cyber compliance.",
+  "publisher": {"@type":"Organization","name":"ShipPaulJobs","url":"https://www.shippauljobs.com"},
+  "about": [{"@type":"Thing","name":"Integrated Bridge Systems"},
+    {"@type":"Thing","name":"ECDIS Navigation"},
+    {"@type":"Thing","name":"IACS UR E26 Ship Systems"},
+    {"@type":"Thing","name":"CBS Ship Systems"},
+    {"@type":"Thing","name":"Marine Engine Automation"}],
+  "mainEntity": [{"@type":"Question","name":"What does IACS UR E26 require for ship systems?","acceptedAnswer":{"@type":"Answer","text":"IACS UR E26 (effective 1 July 2024) requires cyber resilience measures across all shipboard computer-based systems: asset inventory, network segmentation, access control, patch management, and incident response."}},
+    {"@type":"Question","name":"What is a CBS in maritime context?","acceptedAnswer":{"@type":"Answer","text":"CBS (Computer-Based System) is the term used in IACS UR E26 to describe any onboard system that uses computer hardware and software — from navigation displays to engine management systems — and that must be assessed for cyber risk and included in the vessel's cyber resilience plan."}}]
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* Blogger's public summary feed does NOT return a clean auto-summary —
+     e.summary.$t is just the first ~400 raw characters of the post's HTML
+     source, truncated mid-tag or mid comment-marker. Every article in
+     this repo opens with a long boxed "Article: ..." HTML comment
+     header, so that raw slice is usually mostly (or entirely) that
+     header, sometimes cut off partway through it. Strip fully-closed
+     comment blocks, then any comment left open by the truncation, then
+     any remaining tags. If nothing readable survives, callers should
+     just omit the preview rather than show empty/garbage text. */
+  function cleanSummary(s) {
+    /* Each pattern below spells the comment open/close markers with an
+       escaped hyphen between the two dashes so the literal marker text
+       never appears contiguously in this inline script block's source —
+       that exact text appearing in script data can push an HTML parser
+       into its "script data escaped" state per the HTML5 spec. */
+    return (s || '')
+      .replace(/<!\-\-[\s\S]*?\-\->/g, ' ')
+      .replace(/<!\-\-[\s\S]*$/, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  var FEED_LABELS = ["System"];
+  var CACHE_KEY = 'ss_cache_v4'; /* bumped: v3 could cache a truncated result from the fetchLabel pagination bug */
+  var PFX = 'ss';
+  var PAGE_SIZE = 18;
+  var allPosts = [], filteredPosts = [], displayedCount = 0;
+  var currentTag = '', currentSort = 'latest', currentSearch = '';
+  var viewCounts = {};
+
+  var listEl = document.getElementById(PFX+'-list');
+  var emptyEl = document.getElementById(PFX+'-empty');
+  var loadingEl = document.getElementById(PFX+'-loading');
+  var statsEl = document.getElementById(PFX+'-stats');
+  var showingEl = document.getElementById(PFX+'-showing-count');
+  var tagBar = document.getElementById(PFX+'-tag-bar');
+  var countBadge = document.getElementById(PFX+'-count-badge');
+
+  function fetchLabel(label, cb) {
+    var url = label
+      ? 'https://www.shippauljobs.com/feeds/posts/summary/-/' + encodeURIComponent(label) + '?alt=json'
+      : 'https://www.shippauljobs.com/feeds/posts/summary?alt=json';
+    var collected = [];
+    function page(start) {
+      fetch(url + '&max-results=150&start-index=' + start)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          var entries = (j.feed && j.feed.entry) || [];
+          entries.forEach(function(e){
+            var link = '';
+            (e.link||[]).forEach(function(l){ if(l.rel==='alternate') link=l.href; });
+            var thumb = '';
+            if(e['media$thumbnail']) thumb = e['media$thumbnail'].url.replace('/s72-c/','/s400-c/');
+            var cats = (e.category||[]).map(function(c){ return c.term; });
+            var author = (e.author&&e.author[0]) ? {
+              name:(e.author[0]['name']&&e.author[0]['name']['$t'])||'',
+              img:(e.author[0]['gd$image']&&e.author[0]['gd$image'].src)||''
+            } : {name:'',img:''};
+            if(author.img && author.img.indexOf('//lh')!==-1 && author.img.indexOf('photo.jpg')!==-1)
+              author.img = author.img.replace(/\/s\d+-c\//,'/s40-c/');
+            var published = (e.published&&e.published['$t'])||'';
+            var summary = cleanSummary((e.summary&&e.summary['$t'])||'');
+            var verifyFlag = (e['gd$extendedProperty']||[]).reduce(function(a,pp){ if(pp.name==='verify') a=pp.value; return a; },'');
+            var slug = link.replace(/^https?:\/\/[^/]+/,'').replace(/^\/\d{4}\/\d{2}\//,'').replace(/\.html$/,'');
+            collected.push({title:(e.title&&e.title['$t'])||'',link:link,thumb:thumb,cats:cats,author:author,published:published,summary:summary,verifyFlag:verifyFlag,slug:slug});
+          });
+          var total = parseInt((j.feed&&j.feed['openSearch$totalResults']&&j.feed['openSearch$totalResults']['$t'])||'0',10);
+          /* Blogger's public summary feed silently caps each response at
+             ~45 entries regardless of max-results=150 — checking
+             entries.length===150 to decide whether to keep paging is wrong
+             (see Explore All Posts.html for the confirmed live behavior).
+             Advance by however many entries actually came back instead. */
+          if(collected.length < total && entries.length > 0) page(start+entries.length);
+          else cb(collected);
+        })
+        .catch(function(){ cb(collected); });
+    }
+    page(1);
+  }
+
+  function fetchAllLabels(cb) {
+    var cached = null;
+    try { var raw = sessionStorage.getItem(CACHE_KEY); if(raw) cached = JSON.parse(raw); } catch(e){}
+    if(cached && cached.posts && cached.posts.length) { cb(cached.posts); return; }
+    var all = [], done = 0;
+    if(!FEED_LABELS.length) { cb([]); return; }
+    FEED_LABELS.forEach(function(label) {
+      fetchLabel(label, function(items) {
+        all = all.concat(items);
+        done++;
+        if(done === FEED_LABELS.length) {
+          var seen = {}, deduped = [];
+          all.forEach(function(pp){ if(!seen[pp.link]){ seen[pp.link]=1; deduped.push(pp); } });
+          try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({posts:deduped})); } catch(e){}
+          cb(deduped);
+        }
+      });
+    });
+  }
+
+  function buildTagPills(posts) {
+    var tagCounts = {};
+    posts.forEach(function(pp){ pp.cats.forEach(function(c){ tagCounts[c]=(tagCounts[c]||0)+1; }); });
+    var sorted = Object.keys(tagCounts).sort(function(a,b){ return tagCounts[b]-tagCounts[a]; }).slice(0,14);
+    sorted.forEach(function(t){
+      var btn = document.createElement('button');
+      btn.className = PFX+'-tag-btn';
+      btn.dataset.tag = t;
+      btn.textContent = t + ' (' + tagCounts[t] + ')';
+      btn.addEventListener('click', function(){ setTag(t); });
+      tagBar.appendChild(btn);
+    });
+  }
+
+  /* ── Ship Major System groups — per the "선박 주요 시스템 그룹 후보" list,
+       expanded with Propulsion / Power / Safety as their own groups (and
+       broader Navigation/Cargo keyword coverage) to keep "Other" small.
+       Each group's `keys` are its named sub-systems (lowercased), used to
+       classify a post by title/summary/label keyword match. A few of the
+       source list's items (IDS/NDR/Firewall) are intentionally listed
+       under both "Ship Network Systems" and "Ship Cybersecurity Systems"
+       — ties go to whichever group is checked first (array order), so
+       Network Systems wins over Cybersecurity Systems on those shared
+       terms. Reorder the array if the other grouping is preferred instead. ── */
+  var CATEGORIES = [
+    {name:'Ship Network Systems',          keys:['l2 switch','l3 switch','l2/l3','network switch','network monitoring system','network monitoring','nms','network detection','ndr','firewall','ids','intrusion detection']},
+    {name:'Ship OT Systems',               keys:['shipboard ot',' ot ','ot asset','asset management','ot patch','patch management','ot vulnerability','ot remote access']},
+    {name:'Ship IT Systems',               keys:['shipboard it','it network','it security infrastructure','security infrastructure','siem']},
+    {name:'Ship Access & Identity Systems',keys:['mfa','multi-factor authentication','pam','privileged access management','otraa','vendor remote access','secure vendor','jump server','bastion host']},
+    {name:'Ship Cybersecurity Systems',    keys:['ids','ndr','firewall','siem','threat intelligence','vulnerability management','intrusion detection','network detection']},
+    {name:'Ship Management Systems',       keys:['ship management system','fleet management','maintenance management','safety management system','sms']},
+    {name:'Navigation & Bridge Systems',   keys:['ecdis','radar','ais','gnss','gps','vdr','voyage data recorder','integrated bridge','ibs','navigation','voyage planning','autopilot','gyrocompass','chart','arpa','conning','bridge system']},
+    {name:'Propulsion Systems',            keys:['propulsion control','propulsion system','propulsion','main engine control','main engine','engine monitoring','diesel engine','marine engine','turbine','shaft','thruster','auxiliary engine','fuel system','gearbox']},
+    {name:'Power Systems',                 keys:['power management','power management system','pms','generator','switchboard','electrical system','battery system','power distribution','ups','shore power','circuit breaker']},
+    {name:'Safety Systems',                keys:['fire detection','fire suppression','alarm & monitoring','alarm and monitoring system','ams','general alarm','lifeboat','lsa','ffa','emergency','gmdss','muster','fire alarm','safety system']},
+    {name:'Cargo & Loading Systems',       keys:['cargo management','cargo control system','cargo control','loading computer','tank monitoring','ballast','ballast management','cargo hold','stowage','tank gauging','cargo system']},
+    {name:'Communication Systems',         keys:['vsat','satellite communication','internal communication','ship-to-shore','ship to shore']}
+  ];
+
+  function classifyPost(pp) {
+    var text = (pp.title+' '+pp.summary+' '+pp.cats.join(' ')).toLowerCase();
+    var best = null, bestScore = 0;
+    CATEGORIES.forEach(function(cat){
+      var score = cat.keys.reduce(function(n,k){ return n+(text.indexOf(k)!==-1?1:0); },0);
+      if(score>bestScore){ bestScore=score; best=cat.name; }
+    });
+    return best||'Other';
+  }
+
+  function groupPosts(posts) {
+    var map = {}; CATEGORIES.forEach(function(c){ map[c.name]=[]; }); map['Other']=[];
+    posts.forEach(function(pp){ map[classifyPost(pp)].push(pp); });
+    var result = [];
+    CATEGORIES.forEach(function(c){ if(map[c.name].length) result.push({name:c.name,posts:map[c.name]}); });
+    if(map['Other'].length) result.push({name:'Other',posts:map['Other']});
+    return result;
+  }
+
+  function buildListRow(pp) {
+    var li = document.createElement('li');
+    var dateStr = pp.published?pp.published.substring(0,10):'';
+    var tagHtml = pp.cats.slice(0,2).map(function(c){ return '<span class="'+PFX+'-list-tag">'+escHtml(c)+'</span>'; }).join('');
+    var thumbHtml = pp.thumb
+      ? '<div class="'+PFX+'-list-thumb" style="background-image:url('+pp.thumb+')"></div>'
+      : '<div class="'+PFX+'-list-thumb '+PFX+'-list-nothumb">🚢</div>';
+    var descHtml = pp.summary ? '<div class="'+PFX+'-list-desc">'+escHtml(pp.summary.substring(0,220))+'</div>' : '';
+    li.innerHTML='<a class="'+PFX+'-list-row" href="'+pp.link+'" target="_blank" rel="noopener">'+
+      thumbHtml+
+      '<div class="'+PFX+'-list-body">'+
+        '<span class="'+PFX+'-list-title">'+escHtml(pp.title)+'</span>'+
+        descHtml+
+        (tagHtml?'<div class="'+PFX+'-list-tags">'+tagHtml+'</div>':'')+
+      '</div>'+
+      '<span class="'+PFX+'-list-date">'+dateStr+'</span>'+
+    '</a>';
+    return li;
+  }
+
+  function renderGrouped() {
+    listEl.innerHTML='';
+    var total = filteredPosts.length;
+    statsEl.style.display = total>0?'block':'none';
+    showingEl.textContent = total;
+    emptyEl.style.display = total===0?'block':'none';
+    if(!total) return;
+    groupPosts(filteredPosts).forEach(function(grp){
+      var sec = document.createElement('div');
+      sec.className = PFX+'-group';
+      var hdr = document.createElement('div');
+      hdr.className = PFX+'-group-hdr';
+      hdr.innerHTML='<span class="'+PFX+'-group-name">'+escHtml(grp.name)+'</span>'+
+        '<span class="'+PFX+'-group-count">'+grp.posts.length+'</span>';
+      sec.appendChild(hdr);
+      var ul = document.createElement('ul');
+      ul.className = PFX+'-list-ul';
+      grp.posts.forEach(function(pp){ ul.appendChild(buildListRow(pp)); });
+      sec.appendChild(ul);
+      listEl.appendChild(sec);
+    });
+  }
+
+  function applyFilter() {
+    var q = currentSearch.toLowerCase().trim();
+    filteredPosts = allPosts.filter(function(pp){
+      if(currentTag && pp.cats.indexOf(currentTag)===-1) return false;
+      if(q) { var hay=(pp.title+' '+pp.summary+' '+pp.cats.join(' ')).toLowerCase(); if(hay.indexOf(q)===-1) return false; }
+      return true;
+    });
+    if(currentSort==='az') filteredPosts.sort(function(a,b){ return a.title.localeCompare(b.title); });
+    else if(currentSort==='oldest') filteredPosts.sort(function(a,b){ return a.published.localeCompare(b.published); });
+    else filteredPosts.sort(function(a,b){ return b.published.localeCompare(a.published); });
+    renderGrouped();
+  }
+
+  function buildCard(pp) {
+    var a = document.createElement('a');
+    a.className = PFX+'-card';
+    a.href = pp.link;
+    a.rel = 'noopener';
+    a.target = '_blank';
+    var readSet = {};
+    try { readSet = JSON.parse(localStorage.getItem('spj_read')||'{}'); } catch(e){}
+    var isRead = readSet[pp.slug];
+    var badgeHtml = '';
+    if(pp.verifyFlag==='1') badgeHtml='<a class="spj-badge spj-badge-l1 '+PFX+'-card-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Industry Validated"></a>';
+    else if(pp.verifyFlag==='2') badgeHtml='<a class="spj-badge spj-badge-l2 '+PFX+'-card-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Expert Reviewed"></a>';
+    else if(pp.verifyFlag==='3') badgeHtml='<a class="spj-badge spj-badge-l3 '+PFX+'-card-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Verified"></a>';
+    var MAX_TAGS=3, visCats=pp.cats.slice(0,MAX_TAGS), more=pp.cats.length-MAX_TAGS;
+    var tagHtml = visCats.map(function(c){ return '<span class="'+PFX+'-card-tag">'+escHtml(c)+'</span>'; }).join('');
+    if(more>0) tagHtml+='<span class="'+PFX+'-card-tag-more">+'+more+'</span>';
+    var dateStr = pp.published?pp.published.substring(0,10):'';
+    a.innerHTML =
+      '<div class="'+PFX+'-card-thumb-wrap">'+
+        '<div class="'+PFX+'-card-thumb'+(pp.thumb?'':' '+PFX+'-card-noimg')+'" style="'+(pp.thumb?'background-image:url('+pp.thumb+')':'')+'">'+
+          (pp.thumb?'':'🚢')+
+        '</div>'+
+        (isRead?'<div class="'+PFX+'-card-read-badge">✓ Read</div>':'')+
+        badgeHtml+
+      '</div>'+
+      '<div class="'+PFX+'-card-body">'+
+        '<div class="'+PFX+'-card-title">'+escHtml(pp.title)+'</div>'+
+        (pp.summary?'<div class="'+PFX+'-card-desc">'+escHtml(pp.summary.substring(0,120))+'</div>':'')+
+        (tagHtml?'<div class="'+PFX+'-card-tags">'+tagHtml+'</div>':'')+
+        '<div class="'+PFX+'-card-footer">'+
+          '<div class="'+PFX+'-card-author-row">'+
+            (pp.author.img?'<img class="'+PFX+'-card-avatar" src="'+pp.author.img+'" alt="" loading="lazy"/>':'')+
+            '<span class="'+PFX+'-card-author-name">'+escHtml(pp.author.name)+'</span>'+
+          '</div>'+
+          '<span class="'+PFX+'-card-date">'+dateStr+'</span>'+
+        '</div>'+
+      '</div>';
+    return a;
+  }
+
+  function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function setTag(t) {
+    currentTag = (currentTag===t)?'':t;
+    document.querySelectorAll('.'+PFX+'-tag-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tag===currentTag); });
+    applyFilter();
+  }
+  function setSort(s) {
+    currentSort = s;
+    document.querySelectorAll('.'+PFX+'-sort-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.sort===s); });
+    applyFilter();
+  }
+
+  document.querySelectorAll('.'+PFX+'-tag-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setTag(b.dataset.tag); });
+  });
+  document.querySelectorAll('.'+PFX+'-sort-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setSort(b.dataset.sort); });
+  });
+  var si = document.getElementById(PFX+'-search-input'), st;
+  si.addEventListener('input', function(){ clearTimeout(st); st=setTimeout(function(){ currentSearch=si.value; applyFilter(); },220); });
+
+  function fetchViewCounts(posts, cb) {
+    var done=0, total=posts.length;
+    if(!total){ if(cb) cb(); return; }
+    posts.forEach(function(pp){
+      if(!pp.slug){ done++; if(done===total&&cb) cb(); return; }
+      fetch('https://abacus.jasoncameron.dev/get/shippauljobs-views/'+encodeURIComponent(pp.slug))
+        .then(function(r){ return r.json(); })
+        .then(function(j){ viewCounts[pp.slug]=j.value||0; })
+        .catch(function(){})
+        .finally(function(){ done++; if(done===total&&cb) cb(); });
+    });
+  }
+
+  function buildRanked(posts) {
+    var ranked = posts.slice().sort(function(a,b){ return (viewCounts[b.slug]||0)-(viewCounts[a.slug]||0); }).slice(0,10);
+    var wrap = document.getElementById(PFX+'-ranked-wrap');
+    var loading = document.getElementById(PFX+'-ranked-loading');
+    if(loading) loading.remove();
+    ranked.forEach(function(pp,i){
+      var a = document.createElement('a');
+      a.className = PFX+'-rank-row';
+      a.href = pp.link; a.rel='noopener'; a.target='_blank';
+      var views = viewCounts[pp.slug]||0;
+      var viewStr = views?(views>=1000?(views/1000).toFixed(1)+'k':views)+' views':'';
+      var dateStr = pp.published?pp.published.substring(0,10):'';
+      a.innerHTML =
+        '<div class="'+PFX+'-rank-num">'+(i+1)+'</div>'+
+        '<div class="'+PFX+'-rank-thumb'+(pp.thumb?'':' '+PFX+'-rank-noimg')+'" style="'+(pp.thumb?'background-image:url('+pp.thumb+')':'')+'">'+
+          (pp.thumb?'':'🚢')+
+        '</div>'+
+        '<div class="'+PFX+'-rank-body">'+
+          '<p class="'+PFX+'-rank-title">'+escHtml(pp.title)+'</p>'+
+          '<div class="'+PFX+'-rank-meta">'+
+            '<div class="'+PFX+'-rank-avatar" style="'+(pp.author.img?'background-image:url('+pp.author.img+')':'')+'"></div>'+
+            '<span class="'+PFX+'-rank-author">'+escHtml(pp.author.name)+'</span>'+
+            '<span class="'+PFX+'-rank-date">'+dateStr+'</span>'+
+            (viewStr?'<span>·</span><span>'+viewStr+'</span>':'')+
+          '</div>'+
+        '</div>';
+      wrap.appendChild(a);
+    });
+  }
+
+  /* Boot */
+  loadingEl.style.display='block';
+  fetchAllLabels(function(posts){
+    allPosts = posts;
+    loadingEl.style.display='none';
+    countBadge.textContent = posts.length + ' Articles';
+    countBadge.style.display = 'inline-block';
+    buildTagPills(posts);
+    applyFilter();
+    fetchViewCounts(posts.slice(0,30), function(){
+      buildRanked(allPosts);
+    });
+  });
+})();
+</script>
+
+</div>

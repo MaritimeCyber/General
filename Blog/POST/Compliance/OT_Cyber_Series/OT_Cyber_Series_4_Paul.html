@@ -1,0 +1,494 @@
+
+<!--&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
+     Ship OT Cybersecurity Series &#183; Part 4 of 5
+     Why Most Ship ZCDs Fail
+     Seven Common Mistakes in IACS UR E26/E27 Projects
+     Author  : Captain Paul (In Sung Lee)
+     Series  : Ship OT Cybersecurity Series
+     Style   : Maritime 4.0 Design System &#8212; Paul Style
+&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;-->
+<div style='box-sizing: border-box; font-family: Inter, "Segoe UI", Arial, sans-serif; line-height: 1.75; margin: 0px auto; max-width: 800px;'>
+<!--&#9552;&#9552; HERO HEADER &#9552;&#9552;-->
+<div style="background: linear-gradient(135deg, rgb(26, 10, 46) 0%, rgb(45, 27, 78) 40%, rgb(10, 35, 66) 75%, rgb(21, 79, 122) 100%) 0% 0% repeat; border-radius: 16px; margin-bottom: 32px; overflow: hidden; padding: 40px 36px 32px; position: relative;">
+<div style="background: 0% 0% repeat rgba(255, 255, 255, 0.04); border-radius: 50%; height: 260px; position: absolute; right: -50px; top: -50px; width: 260px;"></div>
+<div style="background: 0% 0% repeat rgba(192, 57, 43, 0.1); border-radius: 50%; bottom: -80px; height: 300px; left: -60px; position: absolute; width: 300px;"></div>
+<!--Tags-->
+<div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; position: relative;">
+<span style="background: 0% 0% repeat rgba(192, 57, 43, 0.4); border-radius: 20px; color: #fca5a5; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">⚠ Lessons Learned</span>
+<span style="background: 0% 0% repeat rgba(255, 193, 7, 0.3); border-radius: 20px; color: #ffe082; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Ship OT Cybersecurity Series</span>
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Part 4 of 5</span>
+<span style="background: 0% 0% repeat rgba(26, 158, 130, 0.35); border-radius: 20px; color: #7effd8; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">IACS UR E26/E27</span>
+</div>
+<!--Title-->
+<h1 style="color: white; font-size: 24px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.4; margin: 0px 0px 8px; position: relative;">
+    Why Most Ship ZCDs Fail
+  </h1>
+<p style="color: #b8d4ea; font-size: 14px; font-weight: 600; margin: 0px 0px 4px; position: relative;">
+    Seven Common Mistakes in IACS UR E26/E27 Projects
+  </p>
+<p style="color: #9ab5c9; font-size: 12px; font-style: italic; margin: 0px 0px 24px; position: relative;">
+    Ship OT Cybersecurity Series · Part 4 — Final
+  </p>
+<!--Author-->
+<div style="align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; gap: 12px; padding-top: 18px; position: relative;">
+<a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+<img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgba(192, 57, 43, 0.8); flex-shrink: 0; height: 40px; object-fit: cover; width: 40px;"/>
+</a>
+<div>
+<div style="color: white; font-size: 13px; font-weight: 700; line-height: 1.3;">Captain Paul</div>
+<div style="color: #9ab5c9; font-size: 10px;">Maritime 4.0 · AI, Data &amp; Cyber Security ·
+        <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" style="color: #7effd8;" target="_blank">linkedin.com/in/shipjobs</a>
+</div>
+</div>
+</div>
+</div>
+<!--&#9552;&#9552; SERIES NAVIGATION &#9552;&#9552;-->
+<div style="background: 0% 0% repeat rgb(240, 247, 255); border-radius: 12px; border: 1px solid rgb(197, 216, 236); margin-bottom: 32px; padding: 20px 24px;">
+<div style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 1px; margin-bottom: 14px; text-transform: uppercase;">📚 Ship OT Cybersecurity Series — 5 Parts</div>
+<div style="display: flex; flex-direction: column; gap: 9px;">
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: 0% 0% repeat rgb(226, 237, 248); border-radius: 12px; color: #154f7a; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Part 1</span>
+<span style="color: #4a6278; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-ot-network-design-iacs-ur-e26-e27.html" rel="noopener" style="color: #154f7a; font-weight: 600; text-decoration: none;" target="_blank">From Cable to Cyber Resilience — Designing Physical Networks for IACS UR E26/E27</a></span>
+</div>
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: 0% 0% repeat rgb(226, 237, 248); border-radius: 12px; color: #154f7a; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Part 2</span>
+<span style="color: #4a6278; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/07/zone-conduit-vlan-purdue-model-ship-iacs-ur-e26.html" rel="noopener" style="color: #154f7a; font-weight: 600; text-decoration: none;" target="_blank">Zone Before VLAN — Designing Logical Networks Using the Purdue Model and Zone &amp; Conduit Concepts</a></span>
+</div>
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: 0% 0% repeat rgb(226, 237, 248); border-radius: 12px; color: #154f7a; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Part 3</span>
+<span style="color: #4a6278; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-documentation-zone-conduit-diagram-iacs-ur-e26.html" rel="noopener" style="color: #154f7a; font-weight: 600; text-decoration: none;" target="_blank">From Networks to ZCD — Translating Physical and Logical Networks into IACS UR E26 Documentation</a></span>
+</div>
+<!--Part 4 &#8212; Current-->
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: 0% 0% repeat rgb(192, 57, 43); border-radius: 12px; color: #fca5a5; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">▶ Part 4</span>
+<span style="color: #0a2342; font-size: 13px; font-weight: 700; line-height: 1.5;">Why Most Ship ZCDs Fail — Seven Common Mistakes in IACS UR E26/E27 Projects</span>
+</div>
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: 0% 0% repeat rgb(226, 237, 248); border-radius: 12px; color: #154f7a; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Part 5</span>
+<span style="color: #4a6278; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/07/ship-zcd-anatomy-building-blocks-iacs-ur-e26.html" rel="noopener" style="color: #154f7a; font-weight: 600; text-decoration: none;" target="_blank">Anatomy of a Ship ZCD — Understanding the Building Blocks of an IACS UR E26 Zone and Conduit Diagram</a></span>
+</div>
+</div>
+</div>
+<!--&#9552;&#9552; SERIES OVERVIEW &#9552;&#9552;-->
+<div style="background: 0% 0% repeat rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 18px 22px;">
+<div style="color: #e67e22; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">📌 Series Overview</div>
+<p style="color: #374151; font-size: 14px; line-height: 1.8; margin: 0px;">
+    This series explored how physical networks evolve into logical architectures and ultimately become the cyber resilience documentation required by IACS UR E26 and E27. This final part examines where real-world projects most frequently go wrong.
+  </p>
+</div>
+<!--&#9552;&#9552; KEY TERMS &#9552;&#9552;-->
+<div style="background: 0% 0% repeat rgb(247, 250, 253); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 32px; padding: 18px 22px;">
+<div style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 1px; margin-bottom: 14px; text-transform: uppercase;">📖 Key Terms — Terminology Used in This Article</div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 10px 14px;">
+<span style="color: #0a2342; font-size: 13px; font-weight: 800;">ZCD (Zone and Conduit Diagram)</span>
+<span style="color: #6b7280; font-size: 13px;"> — A structural diagram showing a ship's cybersecurity zones and communication paths. The primary document required by IACS UR E26 and the first item classification society auditors request.</span>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 10px 14px;">
+<span style="color: #0a2342; font-size: 13px; font-weight: 800;">Zone</span>
+<span style="color: #6b7280; font-size: 13px;"> — A grouping of assets (equipment and systems) that share common security requirements. Defined by trust level, not physical location (IEC 62443).</span>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 10px 14px;">
+<span style="color: #0a2342; font-size: 13px; font-weight: 800;">Conduit</span>
+<span style="color: #6b7280; font-size: 13px;"> — A permitted communication path between Zones — a managed path with applied security controls (firewall, ACL, VPN, IDS). A connection with no controls is not a Conduit.</span>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 10px 14px;">
+<span style="color: #0a2342; font-size: 13px; font-weight: 800;">VLAN (Virtual LAN)</span>
+<span style="color: #6b7280; font-size: 13px;"> — A network segment logically separated through switch configuration. A tool for implementing Zones, but a VLAN is not itself a Zone. Zone = security policy; VLAN = implementation mechanism.</span>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 10px 14px;">
+<span style="color: #0a2342; font-size: 13px; font-weight: 800;">DMZ (Demilitarized Zone)</span>
+<span style="color: #6b7280; font-size: 13px;"> — A buffer zone between IT and OT networks (Purdue Level 3.5). Houses jump servers, patch servers, and remote access gateways. Frequently omitted in E26 designs — a critical gap.</span>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 10px 14px;">
+<span style="color: #0a2342; font-size: 13px; font-weight: 800;">Data Flow Matrix</span>
+<span style="color: #6b7280; font-size: 13px;"> — A table defining device-to-device communication by protocol and port. The basis for firewall rules; Conduit definitions written without this table may be rejected in audit.</span>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 10px 14px;">
+<span style="color: #0a2342; font-size: 13px; font-weight: 800;">MoC (Management of Change)</span>
+<span style="color: #6b7280; font-size: 13px;"> — The process of updating the ZCD and related documents whenever ship systems are modified. Replacing equipment without MoC causes the ZCD to diverge from actual configuration — a critical deficiency in audit.</span>
+</div>
+</div>
+</div>
+<!--&#9552;&#9552; INTRODUCTION &#9552;&#9552;-->
+<div style="margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)) 0% 0% repeat; border-radius: 2px; flex-shrink: 0; height: 28px; width: 5px;"></div>
+<h2 style="color: #0a2342; font-size: 18px; font-weight: 800; margin: 0px;">Introduction</h2>
+</div>
+<p style="color: #4a6278; font-size: 14.5px; line-height: 1.85; margin: 0px 0px 14px;">
+    After reviewing numerous ship cyber security projects, one observation becomes clear.
+  </p>
+<div style="display: grid; gap: 10px; grid-template-columns: repeat(2,1fr); margin-bottom: 18px;">
+<div style="background: 0% 0% repeat rgb(250, 236, 234); border-left: 4px solid rgb(192, 57, 43); border-radius: 0px 10px 10px 0px; padding: 14px 16px;">
+<p style="color: #922b21; font-size: 13px; font-weight: 800; margin: 0px 0px 4px;">Most projects do not fail because of</p>
+<p style="color: #c0392b; font-size: 18px; font-weight: 800; margin: 0px;">Technology</p>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; padding: 14px 16px;">
+<p style="color: #7a4f10; font-size: 13px; font-weight: 800; margin: 0px 0px 4px;">They fail because of</p>
+<p style="color: #e67e22; font-size: 18px; font-weight: 800; margin: 0px;">Architecture</p>
+</div>
+</div>
+<p style="color: #4a6278; font-size: 14.5px; line-height: 1.85; margin: 0px 0px 14px;">
+    Or more precisely — because the documentation does not represent reality.
+  </p>
+<p style="color: #4a6278; font-size: 14.5px; line-height: 1.85; margin: 0px 0px 14px;">
+    A Zone and Conduit Diagram (ZCD) is often one of the first documents requested by classification societies. Ironically, it is also one of the most misunderstood deliverables. Many diagrams look impressive. Few actually describe how the ship operates.<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVc1ce654d99ed-PUCzevoStKGzUplDYvZSHIZsUV6QescR8yyGF7X1k3tDWY4F93BI-JbnwpICTy5ae2spA1yFGp1lMHGnYUvMwd59nDruuyd_a9nertUUKzRxr64wpkCd_CBH8AGUfk6LPPnQTCSOQIQN5taMRfGme5c44OQlwqVZqm63VQMh5zUCzg/s1536/OT%20Cyber.png" style="margin-left: 1em; margin-right: 1em; text-align: center;"><img alt="Why Most Ship ZCDs Fail: Maritime OT Analysis" border="0" data-original-height="1024" data-original-width="1536" height="426" loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVc1ce654d99ed-PUCzevoStKGzUplDYvZSHIZsUV6QescR8yyGF7X1k3tDWY4F93BI-JbnwpICTy5ae2spA1yFGp1lMHGnYUvMwd59nDruuyd_a9nertUUKzRxr64wpkCd_CBH8AGUfk6LPPnQTCSOQIQN5taMRfGme5c44OQlwqVZqm63VQMh5zUCzg/w640-h426-rw/OT%20Cyber.png" width="640"/></a></p>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 12px; padding: 18px 24px; text-align: center;">
+<p style="color: #fca5a5; font-size: 15px; font-weight: 800; margin: 0px;">
+      When architecture diverges from reality,<br/>cyber resilience becomes little more than a drawing.
+    </p>
+</div>
+</div>
+<!--&#9552;&#9552; SEVEN MISTAKES &#9552;&#9552;-->
+<!--Mistake 1-->
+<div style="border-radius: 12px; border: 1px solid rgb(245, 183, 177); margin-bottom: 20px; overflow: hidden;">
+<div style="align-items: center; background: linear-gradient(135deg, rgb(192, 57, 43), rgb(231, 76, 60)) 0% 0% repeat; display: flex; gap: 14px; padding: 14px 20px;">
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.15); border-radius: 50%; color: white; flex-shrink: 0; font-size: 16px; font-weight: 900; height: 38px; line-height: 38px; text-align: center; width: 38px;">#1</span>
+<div>
+<p style="color: #fca5a5; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin: 0px 0px 2px; text-transform: uppercase;">Mistake One</p>
+<p style="color: white; font-size: 15px; font-weight: 800; margin: 0px;">Starting With Firewalls Instead of Systems</p>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); padding: 18px 20px;">
+<div style="background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; margin-bottom: 14px; padding: 12px 16px;">
+<p style="color: #7a1e1e; font-size: 13.5px; margin: 0px;">Many projects begin by asking: <strong>"Where should the firewall be installed?"</strong></p>
+<p style="color: #7a1e1e; font-size: 13.5px; margin: 6px 0px 0px;">But this is the wrong question. The first question should be: <strong>"What systems exist, and how do they interact?"</strong></p>
+</div>
+<p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 14px;">Firewalls are security controls. They are consequences of architecture — not the architecture itself.</p>
+<div style="background: 0% 0% repeat rgb(247, 250, 253); border-radius: 10px; border: 1px solid rgb(209, 224, 238); margin-bottom: 14px; padding: 14px 18px;">
+<p style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin: 0px 0px 10px; text-transform: uppercase;">Correct Sequence</p>
+<div style="align-items: center; display: flex; flex-direction: column; gap: 0px;">
+<span style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 6px; color: white; font-size: 12px; font-weight: 600; padding: 5px 18px;">Asset Inventory</span>
+<span style="color: #9ab5c9; font-size: 16px; line-height: 1.2;">↓</span>
+<span style="background: 0% 0% repeat rgb(21, 79, 122); border-radius: 6px; color: white; font-size: 12px; font-weight: 600; padding: 5px 18px;">Dependency Mapping</span>
+<span style="color: #9ab5c9; font-size: 16px; line-height: 1.2;">↓</span>
+<span style="background: 0% 0% repeat rgb(26, 110, 90); border-radius: 6px; color: white; font-size: 12px; font-weight: 600; padding: 5px 18px;">Zone Definition</span>
+<span style="color: #9ab5c9; font-size: 16px; line-height: 1.2;">↓</span>
+<span style="background: 0% 0% repeat rgb(142, 68, 173); border-radius: 6px; color: white; font-size: 12px; font-weight: 600; padding: 5px 18px;">Conduit Definition</span>
+<span style="color: #9ab5c9; font-size: 16px; line-height: 1.2;">↓</span>
+<span style="background: 0% 0% repeat rgb(230, 126, 34); border-radius: 6px; color: white; font-size: 12px; font-weight: 600; padding: 5px 18px;">Firewall Rules</span>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; padding: 10px 14px;">
+<p style="color: #922b21; font-size: 13px; font-weight: 700; margin: 0px;">Starting from products almost always leads to unnecessary complexity.</p>
+</div>
+</div>
+</div>
+<!--Mistake 2-->
+<div style="border-radius: 12px; border: 1px solid rgb(215, 189, 226); margin-bottom: 20px; overflow: hidden;">
+<div style="align-items: center; background: linear-gradient(135deg, rgb(142, 68, 173), rgb(155, 89, 182)) 0% 0% repeat; display: flex; gap: 14px; padding: 14px 20px;">
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.15); border-radius: 50%; color: white; flex-shrink: 0; font-size: 16px; font-weight: 900; height: 38px; line-height: 38px; text-align: center; width: 38px;">#2</span>
+<div>
+<p style="color: #e8d5f5; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin: 0px 0px 2px; text-transform: uppercase;">Mistake Two</p>
+<p style="color: white; font-size: 15px; font-weight: 800; margin: 0px;">Treating VLANs as Zones</p>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); padding: 18px 20px;">
+<div style="background: 0% 0% repeat rgb(245, 238, 248); border-radius: 8px; margin-bottom: 14px; padding: 12px 16px; text-align: center;">
+<p style="color: #6c3483; font-size: 13px; margin: 0px 0px 4px;">The most common assumption:</p>
+<p style="color: #8e44ad; font-size: 20px; font-weight: 900; margin: 0px;">VLAN = Zone</p>
+<p style="color: #c0392b; font-size: 13px; font-weight: 700; margin: 6px 0px 0px;">✗ These concepts are fundamentally different.</p>
+</div>
+<div style="display: grid; gap: 10px; grid-template-columns: repeat(2,1fr); margin-bottom: 14px;">
+<div style="background: 0% 0% repeat rgb(250, 236, 234); border-left: 4px solid rgb(192, 57, 43); border-radius: 0px 8px 8px 0px; padding: 12px 14px;">
+<p style="color: #922b21; font-size: 11px; font-weight: 800; margin: 0px 0px 4px; text-transform: uppercase;">VLAN</p>
+<p style="color: #7a1e1e; font-size: 13px; font-weight: 600; margin: 0px;">A networking mechanism</p>
+</div>
+<div style="background: 0% 0% repeat rgb(232, 245, 241); border-left: 4px solid rgb(26, 158, 130); border-radius: 0px 8px 8px 0px; padding: 12px 14px;">
+<p style="color: #085041; font-size: 11px; font-weight: 800; margin: 0px 0px 4px; text-transform: uppercase;">Zone</p>
+<p style="color: #085041; font-size: 13px; font-weight: 600; margin: 0px;">A trust boundary</p>
+</div>
+</div>
+<p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 12px;">One Zone may contain multiple VLANs. Two systems with different trust levels should never belong to the same Zone simply because they share a switch.</p>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 8px; padding: 10px 14px; text-align: center;">
+<span style="color: #7effd8; font-size: 13px; font-weight: 700;">Zones define trust. VLANs implement trust. Not the other way around.</span>
+</div>
+</div>
+</div>
+<!--Mistake 3-->
+<div style="border-radius: 12px; border: 1px solid rgb(169, 223, 206); margin-bottom: 20px; overflow: hidden;">
+<div style="align-items: center; background: linear-gradient(135deg, rgb(26, 110, 90), rgb(26, 158, 130)) 0% 0% repeat; display: flex; gap: 14px; padding: 14px 20px;">
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.15); border-radius: 50%; color: white; flex-shrink: 0; font-size: 16px; font-weight: 900; height: 38px; line-height: 38px; text-align: center; width: 38px;">#3</span>
+<div>
+<p style="color: #b8e8d0; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin: 0px 0px 2px; text-transform: uppercase;">Mistake Three</p>
+<p style="color: white; font-size: 15px; font-weight: 800; margin: 0px;">Ignoring Level 3.5</p>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); padding: 18px 20px;">
+<p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 14px;">Level 3.5 is often viewed as an inconvenience. As a result, remote access servers, patch servers, and engineering workstations are directly connected to operational networks. This creates dangerous trust relationships.</p>
+<div style="background: 0% 0% repeat rgb(232, 245, 241); border-left: 4px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; margin-bottom: 14px; padding: 12px 16px;">
+<p style="color: #085041; font-size: 13.5px; font-weight: 700; margin: 0px;">Level 3.5 (DMZ) acts as the buffer between IT and OT. Without it, there is no controlled trust — only connectivity.</p>
+</div>
+<p style="color: #4a6278; font-size: 13px; font-weight: 700; margin: 0px 0px 10px;">Typical systems located in the DMZ:</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="background: 0% 0% repeat rgb(232, 245, 241); border-radius: 20px; color: #085041; font-size: 12px; font-weight: 600; padding: 4px 12px;">🖥 Jump Servers</span>
+<span style="background: 0% 0% repeat rgb(232, 245, 241); border-radius: 20px; color: #085041; font-size: 12px; font-weight: 600; padding: 4px 12px;">📦 Patch Servers</span>
+<span style="background: 0% 0% repeat rgb(232, 245, 241); border-radius: 20px; color: #085041; font-size: 12px; font-weight: 600; padding: 4px 12px;">🔑 Remote Access Gateways</span>
+<span style="background: 0% 0% repeat rgb(232, 245, 241); border-radius: 20px; color: #085041; font-size: 12px; font-weight: 600; padding: 4px 12px;">🛡 Antivirus Servers</span>
+<span style="background: 0% 0% repeat rgb(232, 245, 241); border-radius: 20px; color: #085041; font-size: 12px; font-weight: 600; padding: 4px 12px;">📝 Syslog Servers</span>
+</div>
+</div>
+</div>
+<!--Mistake 4-->
+<div style="border-radius: 12px; border: 1px solid rgb(197, 216, 236); margin-bottom: 20px; overflow: hidden;">
+<div style="align-items: center; background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122)) 0% 0% repeat; display: flex; gap: 14px; padding: 14px 20px;">
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.15); border-radius: 50%; color: white; flex-shrink: 0; font-size: 16px; font-weight: 900; height: 38px; line-height: 38px; text-align: center; width: 38px;">#4</span>
+<div>
+<p style="color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin: 0px 0px 2px; text-transform: uppercase;">Mistake Four</p>
+<p style="color: white; font-size: 15px; font-weight: 800; margin: 0px;">Trying to Make the ZCD Match the Switch Diagram</p>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); padding: 18px 20px;">
+<div style="display: grid; gap: 7px; grid-template-columns: repeat(2,1fr); margin-bottom: 14px;">
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">A physical network drawing</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">A switch topology</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">An IP addressing diagram</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">A cable layout</span>
+</div>
+</div>
+<p style="color: #4a6278; font-size: 13px; font-weight: 700; margin: 0px 0px 10px;">The purpose of a ZCD is to represent:</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 12px; font-weight: 600; padding: 4px 12px;">✓ Trust boundaries</span>
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 12px; font-weight: 600; padding: 4px 12px;">✓ Communication paths</span>
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 12px; font-weight: 600; padding: 4px 12px;">✓ Security controls</span>
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 12px; font-weight: 600; padding: 4px 12px;">✓ Security levels</span>
+</div>
+<p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">Trying to represent every switch and cable produces diagrams that are difficult to understand and impossible to maintain.</p>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 8px; padding: 10px 14px; text-align: center;">
+<span style="color: #7effd8; font-size: 13px; font-weight: 700;">Good ZCDs are abstractions — not wiring diagrams.</span>
+</div>
+</div>
+</div>
+<!--Mistake 5-->
+<div style="border-radius: 12px; border: 1px solid rgb(209, 184, 224); margin-bottom: 20px; overflow: hidden;">
+<div style="align-items: center; background: linear-gradient(135deg, rgb(108, 52, 131), rgb(142, 68, 173)) 0% 0% repeat; display: flex; gap: 14px; padding: 14px 20px;">
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.15); border-radius: 50%; color: white; flex-shrink: 0; font-size: 16px; font-weight: 900; height: 38px; line-height: 38px; text-align: center; width: 38px;">#5</span>
+<div>
+<p style="color: #e8d5f5; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin: 0px 0px 2px; text-transform: uppercase;">Mistake Five</p>
+<p style="color: white; font-size: 15px; font-weight: 800; margin: 0px;">Defining Conduits Without Data Flows</p>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); padding: 18px 20px;">
+<p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 14px;">Many projects define conduits by name — C-01, C-02, C-03 — but fail to explain what flows through them.</p>
+<div style="display: grid; gap: 7px; grid-template-columns: repeat(2,1fr); margin-bottom: 14px;">
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">Why communication exists</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">Which protocols are used</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">Which direction is required</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(250, 236, 234); border-radius: 8px; display: flex; gap: 8px; padding: 10px 12px;">
+<span style="color: #c0392b; font-weight: 700;">✗</span>
+<span style="color: #7a1e1e; font-size: 12.5px;">Which ports are necessary</span>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(245, 238, 248); border-left: 4px solid rgb(142, 68, 173); border-radius: 0px 10px 10px 0px; margin-bottom: 14px; padding: 12px 16px;">
+<p style="color: #6c3483; font-size: 13.5px; font-weight: 700; margin: 0px 0px 8px;">Without understanding data flows, conduits become meaningless lines on paper.</p>
+<p style="color: #6c3483; font-size: 13px; margin: 0px;">Data Flow Matrices are the foundation of: Conduit Definitions, Firewall Rules, and Verification Activities.</p>
+</div>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 8px; padding: 10px 14px; text-align: center;">
+<span style="color: #7effd8; font-size: 13px; font-weight: 700;">Good conduits originate from operational requirements — not assumptions.</span>
+</div>
+</div>
+</div>
+<!--Mistake 6-->
+<div style="border-radius: 12px; border: 1px solid rgb(253, 232, 200); margin-bottom: 20px; overflow: hidden;">
+<div style="align-items: center; background: linear-gradient(135deg, rgb(183, 86, 10), rgb(230, 126, 34)) 0% 0% repeat; display: flex; gap: 14px; padding: 14px 20px;">
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.15); border-radius: 50%; color: white; flex-shrink: 0; font-size: 16px; font-weight: 900; height: 38px; line-height: 38px; text-align: center; width: 38px;">#6</span>
+<div>
+<p style="color: #fde8c8; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin: 0px 0px 2px; text-transform: uppercase;">Mistake Six</p>
+<p style="color: white; font-size: 15px; font-weight: 800; margin: 0px;">Forgetting That Availability Comes First</p>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); padding: 18px 20px;">
+<div style="display: grid; gap: 10px; grid-template-columns: repeat(2,1fr); margin-bottom: 14px;">
+<div style="background: 0% 0% repeat rgb(247, 250, 253); border-radius: 8px; border: 1px solid rgb(209, 224, 238); padding: 12px 14px;">
+<p style="color: #154f7a; font-size: 11px; font-weight: 800; margin: 0px 0px 4px; text-transform: uppercase;">Traditional IT Security</p>
+<p style="color: #0a2342; font-size: 13.5px; font-weight: 600; margin: 0px;">Focuses on <em>Confidentiality</em></p>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 248, 240); border-radius: 8px; border: 1px solid rgb(253, 232, 200); padding: 12px 14px;">
+<p style="color: #e67e22; font-size: 11px; font-weight: 800; margin: 0px 0px 4px; text-transform: uppercase;">Maritime OT</p>
+<p style="color: #b7560a; font-size: 13.5px; font-weight: 600; margin: 0px;">Prioritizes <em>Availability</em></p>
+</div>
+</div>
+<p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 12px;">Ships must continue operating. Therefore, cyber resilience depends not only on protection but also on survivability.</p>
+<p style="color: #4a6278; font-size: 13px; font-weight: 700; margin: 0px 0px 10px;">Physical network design should consider redundancy:</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
+<span style="background: 0% 0% repeat rgb(255, 248, 240); border-radius: 20px; color: #b7560a; font-size: 12px; font-weight: 600; padding: 4px 12px;">🔄 Redundant Core Switches</span>
+<span style="background: 0% 0% repeat rgb(255, 248, 240); border-radius: 20px; color: #b7560a; font-size: 12px; font-weight: 600; padding: 4px 12px;">🔁 Ring Topologies</span>
+<span style="background: 0% 0% repeat rgb(255, 248, 240); border-radius: 20px; color: #b7560a; font-size: 12px; font-weight: 600; padding: 4px 12px;">⚡ Dual Power Supplies</span>
+<span style="background: 0% 0% repeat rgb(255, 248, 240); border-radius: 20px; color: #b7560a; font-size: 12px; font-weight: 600; padding: 4px 12px;">🌐 RSTP</span>
+<span style="background: 0% 0% repeat rgb(255, 248, 240); border-radius: 20px; color: #b7560a; font-size: 12px; font-weight: 600; padding: 4px 12px;">🔗 PRP</span>
+<span style="background: 0% 0% repeat rgb(255, 248, 240); border-radius: 20px; color: #b7560a; font-size: 12px; font-weight: 600; padding: 4px 12px;">🔗 HSR</span>
+</div>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 8px; padding: 10px 14px; text-align: center;">
+<span style="color: #7effd8; font-size: 13px; font-weight: 700;">Cyber resilience means designing systems that continue functioning when abnormal conditions occur.</span>
+</div>
+</div>
+</div>
+<!--Mistake 7-->
+<div style="border-radius: 12px; border: 1px solid rgb(232, 213, 245); margin-bottom: 32px; overflow: hidden;">
+<div style="align-items: center; background: linear-gradient(135deg, rgb(26, 10, 46), rgb(45, 27, 78)) 0% 0% repeat; display: flex; gap: 14px; padding: 14px 20px;">
+<span style="background: 0% 0% repeat rgba(255, 255, 255, 0.15); border-radius: 50%; color: white; flex-shrink: 0; font-size: 16px; font-weight: 900; height: 38px; line-height: 38px; text-align: center; width: 38px;">#7</span>
+<div>
+<p style="color: #d1b8e0; font-size: 9px; font-weight: 800; letter-spacing: 1.2px; margin: 0px 0px 2px; text-transform: uppercase;">Mistake Seven — Most Dangerous</p>
+<p style="color: white; font-size: 15px; font-weight: 800; margin: 0px;">Believing That Documentation Equals Reality</p>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(255, 255, 255); padding: 18px 20px;">
+<div style="background: 0% 0% repeat rgb(245, 238, 248); border-left: 4px solid rgb(108, 52, 131); border-radius: 0px 10px 10px 0px; margin-bottom: 14px; padding: 14px 16px;">
+<p style="color: #6c3483; font-size: 14px; font-weight: 700; margin: 0px 0px 4px;">A ZCD may satisfy documentation requirements.</p>
+<p style="color: #6c3483; font-size: 14px; margin: 0px;">But if the actual ship differs from the document, the architecture no longer exists.</p>
+</div>
+<p style="color: #4a6278; font-size: 13px; font-weight: 700; margin: 0px 0px 10px;">Many discrepancies emerge because:</p>
+<div style="display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px;">
+<div style="align-items: center; background: 0% 0% repeat rgb(245, 238, 248); border-radius: 8px; display: flex; gap: 10px; padding: 9px 14px;">
+<span style="color: #8e44ad; font-weight: 700;">→</span>
+<span style="color: #4a3060; font-size: 13px;">Suppliers modify systems after delivery.</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(245, 238, 248); border-radius: 8px; display: flex; gap: 10px; padding: 9px 14px;">
+<span style="color: #8e44ad; font-weight: 700;">→</span>
+<span style="color: #4a3060; font-size: 13px;">Temporary connections become permanent.</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(245, 238, 248); border-radius: 8px; display: flex; gap: 10px; padding: 9px 14px;">
+<span style="color: #8e44ad; font-weight: 700;">→</span>
+<span style="color: #4a3060; font-size: 13px;">Maintenance laptops are introduced into networks.</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(245, 238, 248); border-radius: 8px; display: flex; gap: 10px; padding: 9px 14px;">
+<span style="color: #8e44ad; font-weight: 700;">→</span>
+<span style="color: #4a3060; font-size: 13px;">Remote access sessions remain active indefinitely.</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(245, 238, 248); border-radius: 8px; display: flex; gap: 10px; padding: 9px 14px;">
+<span style="color: #8e44ad; font-weight: 700;">→</span>
+<span style="color: #4a3060; font-size: 13px;">Networks evolve after vessel delivery.</span>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(26, 10, 46); border-radius: 10px; padding: 16px 20px; text-align: center;">
+<p style="color: #d1b8e0; font-size: 13px; margin: 0px 0px 6px;">Over time, the ship changes. But the documents often do not.</p>
+<p style="color: #e8d5f5; font-size: 14px; font-weight: 800; margin: 0px;">Cyber resilience disappears in the gap between them.</p>
+</div>
+</div>
+</div>
+<!--&#9552;&#9552; A GOOD ZCD IS NOT A PICTURE &#9552;&#9552;-->
+<div style="margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)) 0% 0% repeat; border-radius: 2px; flex-shrink: 0; height: 28px; width: 5px;"></div>
+<h2 style="color: #0a2342; font-size: 18px; font-weight: 800; margin: 0px;">A Good ZCD Is Not a Picture</h2>
+</div>
+<p style="color: #4a6278; font-size: 14.5px; line-height: 1.85; margin: 0px 0px 14px;">A good ZCD is much more than a deliverable. It is the graphical expression of cyber architecture.</p>
+<div style="background: 0% 0% repeat rgb(247, 250, 253); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 18px; padding: 18px 22px;">
+<p style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin: 0px 0px 12px; text-transform: uppercase;">A ZCD represents</p>
+<div style="display: grid; gap: 8px; grid-template-columns: repeat(2,1fr);">
+<div style="align-items: center; background: 0% 0% repeat rgb(232, 245, 241); border-radius: 8px; display: flex; gap: 10px; padding: 10px 14px;">
+<span style="color: #1a9e82; font-weight: 700;">✓</span>
+<span style="color: #085041; font-size: 13px; font-weight: 600;">Trust relationships</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(232, 245, 241); border-radius: 8px; display: flex; gap: 10px; padding: 10px 14px;">
+<span style="color: #1a9e82; font-weight: 700;">✓</span>
+<span style="color: #085041; font-size: 13px; font-weight: 600;">Security boundaries</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(232, 245, 241); border-radius: 8px; display: flex; gap: 10px; padding: 10px 14px;">
+<span style="color: #1a9e82; font-weight: 700;">✓</span>
+<span style="color: #085041; font-size: 13px; font-weight: 600;">Controlled communication</span>
+</div>
+<div style="align-items: center; background: 0% 0% repeat rgb(232, 245, 241); border-radius: 8px; display: flex; gap: 10px; padding: 10px 14px;">
+<span style="color: #1a9e82; font-weight: 700;">✓</span>
+<span style="color: #085041; font-size: 13px; font-weight: 600;">Cyber resilience assumptions</span>
+</div>
+</div>
+</div>
+<p style="color: #4a6278; font-size: 14.5px; line-height: 1.85; margin: 0px 0px 14px;">Most importantly, it provides a <strong>common language</strong> between all stakeholders in a ship cyber project:</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;">
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 13px; font-weight: 600; padding: 5px 14px;">🏢 Owners</span>
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 13px; font-weight: 600; padding: 5px 14px;">🏭 Shipyards</span>
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 13px; font-weight: 600; padding: 5px 14px;">🔧 Integrators</span>
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 13px; font-weight: 600; padding: 5px 14px;">⚙ Equipment Suppliers</span>
+<span style="background: 0% 0% repeat rgb(232, 240, 248); border-radius: 20px; color: #0a2342; font-size: 13px; font-weight: 600; padding: 5px 14px;">📋 Classification Societies</span>
+</div>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 10px; padding: 14px 18px; text-align: center;">
+<span style="color: #9ab5c9; font-size: 13px;">Without that common language, cyber resilience becomes difficult to</span>
+<span style="color: #7effd8; font-size: 13px; font-weight: 700;"> design, verify, and maintain.</span>
+</div>
+</div>
+<!--&#9552;&#9552; FINAL THOUGHTS &#9552;&#9552;-->
+<div style="margin-bottom: 32px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)) 0% 0% repeat; border-radius: 2px; flex-shrink: 0; height: 28px; width: 5px;"></div>
+<h2 style="color: #0a2342; font-size: 18px; font-weight: 800; margin: 0px;">Final Thoughts</h2>
+</div>
+<div style="background: 0% 0% repeat rgb(240, 247, 255); border-radius: 10px; border: 1px solid rgb(197, 216, 236); margin-bottom: 18px; padding: 16px 20px;">
+<div style="display: grid; gap: 8px; grid-template-columns: repeat(2,1fr);">
+<div style="background: 0% 0% repeat rgb(255, 255, 255); border-radius: 8px; padding: 12px 14px;">
+<p style="color: #154f7a; font-size: 11px; font-weight: 800; margin: 0px 0px 4px; text-transform: uppercase;">Common Interpretation</p>
+<p style="color: #4a6278; font-size: 13.5px; margin: 0px;">IACS UR E26/E27 = Cyber security requirements</p>
+</div>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 8px; padding: 12px 14px;">
+<p style="color: #9ab5c9; font-size: 11px; font-weight: 800; margin: 0px 0px 4px; text-transform: uppercase;">Reality</p>
+<p style="color: #7effd8; font-size: 13.5px; font-weight: 700; margin: 0px;">They are architectural requirements.</p>
+</div>
+</div>
+</div>
+<p style="color: #4a6278; font-size: 14.5px; line-height: 1.85; margin: 0px 0px 18px;">
+    The objective is not to install more security products. The objective is to build ships capable of maintaining essential functions despite cyber incidents.
+  </p>
+<!--Journey flow-->
+<div style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122), rgb(26, 158, 130)) 0% 0% repeat; border-radius: 14px; margin-bottom: 18px; padding: 24px;">
+<p style="color: #b8d4ea; font-size: 10px; font-weight: 800; letter-spacing: 1px; margin: 0px 0px 18px; text-align: center; text-transform: uppercase;">The Complete Journey</p>
+<div style="align-items: center; display: flex; flex-direction: column; gap: 4px;">
+<div style="background: 0% 0% repeat rgba(255, 255, 255, 0.12); border-radius: 8px; color: white; font-size: 13px; font-weight: 700; padding: 10px 24px; text-align: center; width: 220px;">⚡ Begins with cables</div>
+<div style="color: rgba(255, 255, 255, 0.4); font-size: 18px;">↓</div>
+<div style="background: 0% 0% repeat rgba(255, 255, 255, 0.12); border-radius: 8px; color: white; font-size: 13px; font-weight: 700; padding: 10px 24px; text-align: center; width: 220px;">🌐 Continues through networks</div>
+<div style="color: rgba(255, 255, 255, 0.4); font-size: 18px;">↓</div>
+<div style="background: 0% 0% repeat rgba(255, 255, 255, 0.12); border-radius: 8px; color: white; font-size: 13px; font-weight: 700; padding: 10px 24px; text-align: center; width: 220px;">🔒 Becomes Zones &amp; Conduits</div>
+<div style="color: rgba(255, 255, 255, 0.4); font-size: 18px;">↓</div>
+<div style="background: 0% 0% repeat rgba(26, 158, 130, 0.5); border-radius: 8px; border: 1px solid rgba(126, 255, 216, 0.5); color: #7effd8; font-size: 14px; font-weight: 800; padding: 12px 24px; text-align: center; width: 220px;">🛡 Evolves into Cyber Resilience</div>
+</div>
+</div>
+<div style="background: 0% 0% repeat rgb(10, 35, 66); border-radius: 12px; padding: 22px 26px;">
+<p style="color: #b8d4ea; font-size: 13.5px; line-height: 1.9; margin: 0px 0px 10px;">Cyber resilience is not created by firewalls.</p>
+<p style="color: #7effd8; font-size: 16px; font-weight: 800; margin: 0px 0px 10px;">It is created by architecture.</p>
+<p style="color: #9ab5c9; font-size: 13.5px; margin: 0px;">And architecture is only valuable when it reflects reality.</p></div></div>
+<!--&#9552;&#9552; AUTHOR FOOTER &#9552;&#9552;-->
+<div style="background: 0% 0% repeat rgb(247, 250, 253); border-radius: 12px; border: 1px solid rgb(209, 224, 238); padding: 20px 24px;">
+<div style="align-items: center; display: flex; gap: 14px;">
+<a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+<img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 52px; object-fit: cover; width: 52px;"/>
+</a>
+<div>
+<div style="color: #0a2342; font-size: 14px; font-weight: 800;">Captain Paul</div>
+<div style="color: #4a6278; font-size: 12px; line-height: 1.6; margin-top: 4px;">
+        Maritime cybersecurity professional specializing in IACS UR E26/E27 compliance, OT system architecture, and shipyard-level cyber resilience design. Writing for engineers, superintendents, and operators navigating Maritime 4.0.
+      </div>
+<div style="display: flex; gap: 12px; margin-top: 10px;">
+<a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" style="color: #0077b5; font-size: 12px; font-weight: 700; text-decoration: none;" target="_blank">💼 LinkedIn ↗</a>
+<a href="https://www.shippauljobs.com" rel="noopener" style="color: #154f7a; font-size: 12px; font-weight: 700; text-decoration: none;" target="_blank">🌐 More Articles ↗</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:32px;padding:16px;background:#f0f4ff;border-radius:8px;border-left:4px solid #1a237e;font-family:'Roboto',sans-serif;">
+<p style="font-size:12px;font-weight:700;color:#1a237e;margin:0 0 10px 0;">⚓ Join the ShipPaulJobs Community</p>
+<a href="https://www.linkedin.com/groups/21070066" style="display:inline-flex;align-items:center;gap:6px;background:#0077b5;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:4px;text-decoration:none;" target="_blank">
+<svg fill="#fff" height="13" style="flex-shrink:0;" viewbox="0 0 24 24" width="13" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                            Join →
+                          </a>
+</div>

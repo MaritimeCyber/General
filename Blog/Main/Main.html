@@ -3524,30 +3524,39 @@ if(!window.b1WC){window.b1WC=function(btn){
                         #fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
                         @media(max-width:900px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
                         @media(max-width:580px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 100%}}
+                        /* &#8212; "View All &#8594;" 강조 효과 (전역) &#8212; */
+                        @keyframes spjVaPulse{0%,100%{box-shadow:0 0 0 0 rgba(29,137,207,0.5);}50%{box-shadow:0 0 0 6px rgba(29,137,207,0);}}
+                        @keyframes spjVaPulseGold{0%,100%{box-shadow:0 0 0 0 rgba(232,160,32,0.55);}50%{box-shadow:0 0 0 6px rgba(232,160,32,0);}}
+                        .spj-viewall{animation:spjVaPulse 2.4s ease-in-out infinite;transition:transform .15s ease,background .15s ease,border-color .15s ease,color .15s ease;}
+                        .spj-viewall:hover{animation-play-state:paused;transform:scale(1.08);background:#1d89cf!important;border-color:#1d89cf!important;color:#fff!important;}
+                        .spj-viewall-gold{animation:spjVaPulseGold 2.4s ease-in-out infinite;transition:transform .15s ease,background .15s ease,border-color .15s ease,color .15s ease;}
+                        .spj-viewall-gold:hover{animation-play-state:paused;transform:scale(1.08);background:#e8a020!important;border-color:#e8a020!important;color:#0a1a2e!important;}
                       </style>
-                      <div id='fps-wrap' style='margin:0 0 2em;border-top:2px solid rgba(26,158,130,0.5);padding:1.2em 14px 14px;background:#fff;border-radius:10px;border:1px solid #e0eaf2;'>
+                      <div id='fps-wrap' style='margin:0 0 2em;border-radius:10px;padding:1.2em 14px 14px;background:linear-gradient(160deg,#0b1e2d 0%,#0c2538 60%,#0a1a2e 100%);border:1px solid rgba(26,158,130,0.22);border-top:3px solid #e8a020;box-shadow:0 4px 18px rgba(0,0,0,0.32),inset 0 0 80px rgba(232,160,32,0.035);'>
                         <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
-                          <span style='font-size:13px;font-weight:700;color:#0a2342;letter-spacing:0.4px'>Completed Series</span>
+                          <div style='display:flex;align-items:center;gap:7px;'>
+                            <span style='font-size:13px;font-weight:700;color:#e8f4ff;letter-spacing:0.4px'>Completed Series</span>
+                          </div>
                           <div style='display:flex;align-items:center;gap:6px;'>
-                            <span id='fps-count' style='background:#1a9e82;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                            <a href='https://www.shippauljobs.com/p/completed-series.html' style='font-size:10px;font-weight:600;color:#1a9e82;background:rgba(26,158,130,0.08);border:1px solid rgba(26,158,130,0.25);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <span id='fps-count' style='background:#e8a020;color:#0a1a2e;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
+                            <a class='spj-viewall-gold' href='https://www.shippauljobs.com/p/completed-series.html' style='font-size:10px;font-weight:600;color:#e8a020;background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.3);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
                           </div>
                         </div>
-                        <div style='font-size:11px;color:#7a9ab0;margin-bottom:10px;'>Fully completed multi-part posts &#8212; read the full story from start to finish.</div>
+                        <div style='font-size:11px;color:rgba(180,210,235,0.65);margin-bottom:10px;'>Fully completed multi-part posts &#8212; read the full story from start to finish.</div>
                         <div style='position:relative;'>
-                          <button disabled='disabled' id='fps-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(224,234,242,0.7);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
-                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid #b0c4d8;transition:border-right-color .18s;'/>
+                          <button disabled='disabled' id='fps-prev' style='position:absolute;left:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(255,255,255,0.07);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:4px 0 0 4px;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:14px solid rgba(255,255,255,0.3);transition:border-right-color .18s;'/>
                           </button>
                           <div id='fps-outer'>
-                            <div id='fps-loading' style='color:#7eaac8;font-size:12px;padding:8px 0'>Loading&#8230;</div>
+                            <div id='fps-loading' style='color:rgba(180,210,235,0.6);font-size:12px;padding:8px 0'>Loading&#8230;</div>
                             <div id='fps-track'/>
                           </div>
-                          <button disabled='disabled' id='fps-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(224,234,242,0.7);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
-                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid #b0c4d8;transition:border-left-color .18s;'/>
+                          <button disabled='disabled' id='fps-next' style='position:absolute;right:-14px;top:50%;transform:translateY(-50%);z-index:5;background:rgba(255,255,255,0.07);border:none;padding:0;cursor:default;width:26px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:0 4px 4px 0;transition:background .18s;'>
+                            <span style='display:inline-block;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:14px solid rgba(255,255,255,0.3);transition:border-left-color .18s;'/>
                           </button>
                         </div>
                         <div style='text-align:center;margin-top:10px;'>
-                          <span id='fps-indicator' style='font-size:10px;color:#9ab4c8'/>
+                          <span id='fps-indicator' style='font-size:10px;color:rgba(180,210,235,0.5)'/>
                         </div>
                       </div>
                       <script type='text/javascript'>
@@ -3683,6 +3692,8 @@ if(!window.b1WC){window.b1WC=function(btn){
 //]]>
                       </script>
                       <!-- &#9552;&#9552;&#9552;&#9552; END 완결된 시리즈 포스트 CAROUSEL &#9552;&#9552;&#9552;&#9552; -->
+                      <!-- &#9552;&#9552;&#9552; SHIP SYSTEMS + MARINE SOLUTIONS — GROUPED CARD &#9552;&#9552;&#9552; -->
+                      <div style='margin:0 0 2em;border:1px solid rgba(29,137,207,0.4);border-radius:10px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.28);'>
                       <!-- &#9552;&#9552;&#9552; SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
                       <style>
                         #scs-outer{overflow:hidden}
@@ -3691,12 +3702,12 @@ if(!window.b1WC){window.b1WC=function(btn){
                         @media(max-width:900px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
                         @media(max-width:580px){#scs-track&gt;a,#scs-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
                       </style>
-                      <div id='scs-wrap' style='margin:0 0 0;border-top:2px solid rgba(29,137,207,0.35);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:10px 10px 0 0;'>
+                      <div id='scs-wrap' style='margin:0;padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:0;'>
                         <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
                           <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Ship Systems</span>
                           <div style='display:flex;align-items:center;gap:6px;'>
                             <span id='scs-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                            <a href='https://www.shippauljobs.com/p/ship-systems.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/ship-systems.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
                           </div>
                         </div>
                         <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Learn the fundamentals of modern ship systems and digital vessel technologies.</div>
@@ -4120,12 +4131,12 @@ if(!window.b1WC){window.b1WC=function(btn){
                         @media(max-width:900px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 20px)/3)}}
                         @media(max-width:580px){#ms-track&gt;a,#ms-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
                       </style>
-                      <div id='ms-wrap' style='margin:0 0 2em;border-top:1px solid rgba(29,137,207,0.18);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:0 0 10px 10px;'>
+                      <div id='ms-wrap' style='margin:0;border-top:1px solid rgba(29,137,207,0.18);padding:1.2em 14px 14px;background:rgba(4,10,24,0.55);border-radius:0;'>
                         <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
                           <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Marine Solutions</span>
                           <div style='display:flex;align-items:center;gap:6px;'>
                             <span id='ms-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                            <a href='https://www.shippauljobs.com/p/marine-solutions.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/marine-solutions.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
                           </div>
                         </div>
                         <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Explore practical maritime AI, cybersecurity and digital transformation solutions.</div>
@@ -4145,6 +4156,8 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <span id='ms-indicator' style='font-size:10px;color:rgba(200,228,248,0.5)'/>
                         </div>
                       </div>
+                      </div>
+                      <!-- &#9552;&#9552;&#9552; END SHIP SYSTEMS + MARINE SOLUTIONS — GROUPED CARD &#9552;&#9552;&#9552; -->
                       <script type='text/javascript'>
 //<![CDATA[
 (function(){
@@ -4365,7 +4378,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <span id='apl-title' style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Explore All Posts</span>
                           <div style='display:flex;align-items:center;gap:6px;'>
                             <span id='apl-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'/>
-                            <a href='https://www.shippauljobs.com/p/explore-all-posts.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/explore-all-posts.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
                           </div>
                         </div>
                         <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:6px;'>Browse our complete collection of maritime technology, cybersecurity, AI and digital shipping articles.</div>
@@ -6056,8 +6069,8 @@ if(!window.b1WC){window.b1WC=function(btn){
 #spj-ca-track{overflow:hidden;position:relative;min-height:70px;border-radius:10px;}
 .spj-nc{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(135deg,#f0f5fa 0%,#e8f0f8 100%);border:1px solid #d1e0ee;border-radius:10px;text-decoration:none;color:inherit;box-sizing:border-box;width:100%;}
 .spj-nc:hover{box-shadow:0 2px 10px rgba(0,60,120,0.12);}
-.spj-nc-av{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #b8d0e8;flex-shrink:0;display:block;}
-.spj-nc-ini{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1a9e82,#1d89cf);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;flex-shrink:0;}
+.spj-nc-av{width:80px;height:80px;border-radius:8px;object-fit:cover;border:2px solid #b8d0e8;flex-shrink:0;display:block;}
+.spj-nc-ini{width:80px;height:80px;border-radius:8px;background:linear-gradient(135deg,#1a9e82,#1d89cf);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;flex-shrink:0;}
 .spj-nc-info{min-width:0;flex:1;}
 .spj-nc-name{font-size:11.5px;font-weight:700;color:#0a2342;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3;}
 .spj-nc-role{font-size:9.5px;color:#5a7a99;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -6488,47 +6501,119 @@ if(!window.b1WC){window.b1WC=function(btn){
   <b:include name='content'/>
 </b:includable>
           <b:includable id='content'>
-<div style='font-family:Segoe UI,Arial,sans-serif;border-radius:10px;overflow:hidden;background:#fff;border:1px solid #dde6f0;'>
-  <!-- 상단 accent -->
-  <div style='height:3px;background:linear-gradient(90deg,#1a9e82,#1d89cf);'/>
-  <!-- 설명 -->
-  <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
-    <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
-      Advertising, collaboration, crew opportunities &#8212; or any maritime cybersecurity inquiry.
-    </p>
+<style>
+  #ContactForm1 .title{display:none;}
+  #spj-contact-card{font-family:"Segoe UI",Arial,sans-serif;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #dde6f0;box-shadow:0 2px 14px rgba(10,35,66,0.07);}
+  #spj-contact-card .spj-cc-head{background:linear-gradient(90deg,#1a9e82,#1d89cf);padding:12px 14px 10px;}
+  #spj-contact-card .spj-cc-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:2px;}
+  #spj-contact-card .spj-cc-title{font-size:14px;font-weight:800;color:#fff;line-height:1.3;}
+  #spj-contact-card .spj-chip{background:#f7fafd;border:1px solid #ccdaeb;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:4px 11px;font-family:inherit;transition:background .15s,border-color .15s,color .15s;}
+  #spj-contact-card .spj-chip:hover{background:#1a9e82;border-color:#1a9e82;color:#fff;}
+  #spj-contact-card .spj-field-label{color:#5a7090;font-size:11px;font-weight:700;display:block;margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase;}
+  #spj-contact-card .spj-field{background:#f7fafd;border:1px solid #ccdaeb;border-radius:8px;color:#1a3350;font-size:12.5px;padding:8px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;transition:border-color .15s,box-shadow .15s;}
+  #spj-contact-card .spj-field:focus{border-color:#1a9e82;box-shadow:0 0 0 3px rgba(26,158,130,0.14);}
+  #spj-contact-card .spj-submit{align-items:center;background:linear-gradient(90deg,#1a9e82,#1d89cf);border:none;border-radius:8px;color:#fff;cursor:pointer;display:flex;font-size:12.5px;font-weight:700;gap:6px;justify-content:center;padding:10px 14px;width:100%;font-family:inherit;letter-spacing:0.3px;transition:filter .15s,transform .15s;}
+  #spj-contact-card .spj-submit:hover{filter:brightness(1.08);}
+  #spj-contact-card .spj-submit:active{transform:translateY(1px);}
+  #spj-contact-card .spj-tabbar{border-bottom:1px solid #eaf0f7;display:flex;}
+  #spj-contact-card .spj-tab{background:none;border-bottom:2px solid transparent;border:none;color:#8a9bb0;cursor:pointer;flex:1;font-family:inherit;font-size:11.5px;font-weight:700;padding:11px 8px;transition:color .15s,border-color .15s;}
+  #spj-contact-card .spj-tab.active{border-bottom-color:#1a9e82;color:#154f7a;}
+  #spj-contact-card .spj-tab-panel{display:none;}
+  #spj-contact-card .spj-tab-panel.active{display:block;}
+  #spj-contact-card .spj-perk{align-items:center;color:#5a7090;display:flex;font-size:10.5px;gap:6px;margin-top:8px;}
+  #spj-contact-card .spj-perk-dot{background:#1a9e82;border-radius:50%;flex-shrink:0;height:5px;width:5px;}
+</style>
+<div id='spj-contact-card'>
+  <!-- 헤더 -->
+  <div class='spj-cc-head'>
+    <div class='spj-cc-eyebrow'>Reach the Crew</div>
+    <div class='spj-cc-title'>📬 Get In Touch</div>
   </div>
-  <!-- 빠른 선택 chips -->
-  <div style='padding:10px 14px;border-bottom:1px solid #eaf0f7;display:flex;flex-wrap:wrap;gap:5px;'>
-    <button onclick='spjFill(&apos;ad&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>📢 Advertising</button>
-    <button onclick='spjFill(&apos;collab&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>🤝 Collaboration</button>
-    <button onclick='spjFill(&apos;crew&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>&#9875; Join Crew</button>
-    <button onclick='spjFill(&apos;cyber&apos;)' style='background:#eaf4ff;border:1px solid #b8d4ee;border-radius:20px;color:#1d6fa8;cursor:pointer;font-size:11px;font-weight:700;padding:3px 10px;font-family:inherit;transition:background .15s;' type='button'>🔐 Compliance</button>
+  <!-- 탭 -->
+  <div class='spj-tabbar'>
+    <button class='spj-tab active' data-tab='msg' onclick='spjTab(&quot;msg&quot;)' type='button'>💬 Message</button>
+    <button class='spj-tab' data-tab='nl' onclick='spjTab(&quot;nl&quot;)' type='button'>📰 Newsletter</button>
   </div>
-  <!-- 폼 -->
-  <div style='padding:12px 14px 14px;'>
-    <div class='contact-form-widget'>
-      <div class='form'>
-        <form name='contact-form' style='display:flex;flex-direction:column;gap:9px;'>
-          <div>
-            <label style='color:#5a7090;font-size:11px;font-weight:700;display:block;margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase;'><data:contactFormNameMsg/></label>
-            <input class='contact-form-name' expr:id='data:widget.instanceId + &quot;_contact-form-name&quot;' name='name' size='30' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;transition:border-color .15s;' type='text' value=''/>
-          </div>
-          <div>
-            <label style='color:#5a7090;font-size:11px;font-weight:700;display:block;margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase;'><data:contactFormEmailMsg/> <span style='color:#e05a5a;'>*</span></label>
-            <input class='contact-form-email' expr:id='data:widget.instanceId + &quot;_contact-form-email&quot;' name='email' size='30' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;transition:border-color .15s;' type='text' value=''/>
-          </div>
-          <div>
-            <label style='color:#5a7090;font-size:11px;font-weight:700;display:block;margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase;'><data:contactFormMessageMsg/> <span style='color:#e05a5a;'>*</span></label>
-            <textarea class='contact-form-email-message' cols='25' expr:id='data:widget.instanceId + &quot;_contact-form-email-message&quot;' name='email-message' rows='4' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:7px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;resize:vertical;transition:border-color .15s;'/>
-          </div>
-          <input class='contact-form-button contact-form-button-submit' expr:id='data:widget.instanceId + &quot;_contact-form-submit&quot;' expr:value='data:contactFormSendMsg' style='background:#154f7a;border:none;border-radius:7px;color:#fff;cursor:pointer;font-size:12.5px;font-weight:700;padding:9px 14px;width:100%;font-family:inherit;letter-spacing:0.3px;transition:background .15s;' type='button'/>
-          <div style='width:100%;'>
-            <p class='contact-form-error-message' expr:id='data:widget.instanceId + &quot;_contact-form-error-message&quot;' style='color:#e05a5a;font-size:11.5px;margin:4px 0 0;text-align:center;'/>
-            <p class='contact-form-success-message' expr:id='data:widget.instanceId + &quot;_contact-form-success-message&quot;' style='color:#1a9e82;font-size:11.5px;margin:4px 0 0;text-align:center;font-weight:600;'/>
-          </div>
-        </form>
+
+  <!-- ══ 탭 1: Message ══ -->
+  <div class='spj-tab-panel active' id='spj-tab-msg'>
+    <!-- 설명 -->
+    <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
+      <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
+        Advertising, collaboration, crew opportunities &#8212; or any maritime cybersecurity inquiry.
+      </p>
+    </div>
+    <!-- 빠른 선택 chips -->
+    <div style='padding:10px 14px;border-bottom:1px solid #eaf0f7;'>
+      <div style='color:#8a9bb0;font-size:9.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;'>Quick Topics</div>
+      <div style='display:flex;flex-wrap:wrap;gap:6px;'>
+        <button class='spj-chip' onclick='spjFill(&apos;ad&apos;)' type='button'>📢 Advertising</button>
+        <button class='spj-chip' onclick='spjFill(&apos;collab&apos;)' type='button'>🤝 Collaboration</button>
+        <button class='spj-chip' onclick='spjFill(&apos;crew&apos;)' type='button'>&#9875; Join Crew</button>
+        <button class='spj-chip' onclick='spjFill(&apos;cyber&apos;)' type='button'>🔐 Compliance</button>
       </div>
     </div>
+    <!-- 폼 -->
+    <div style='padding:12px 14px 14px;'>
+      <div class='contact-form-widget'>
+        <div class='form'>
+          <form name='contact-form' style='display:flex;flex-direction:column;gap:10px;'>
+            <div>
+              <label class='spj-field-label'>👤 <data:contactFormNameMsg/></label>
+              <input class='contact-form-name spj-field' expr:id='data:widget.instanceId + &quot;_contact-form-name&quot;' name='name' size='30' type='text' value=''/>
+            </div>
+            <div>
+              <label class='spj-field-label'>✉️ <data:contactFormEmailMsg/> <span style='color:#e05a5a;'>*</span></label>
+              <input class='contact-form-email spj-field' expr:id='data:widget.instanceId + &quot;_contact-form-email&quot;' name='email' size='30' type='text' value=''/>
+            </div>
+            <div>
+              <label class='spj-field-label'>💬 <data:contactFormMessageMsg/> <span style='color:#e05a5a;'>*</span></label>
+              <textarea class='contact-form-email-message spj-field' cols='25' expr:id='data:widget.instanceId + &quot;_contact-form-email-message&quot;' name='email-message' rows='4' style='resize:vertical;'/>
+            </div>
+            <input class='contact-form-button contact-form-button-submit spj-submit' expr:id='data:widget.instanceId + &quot;_contact-form-submit&quot;' expr:value='data:contactFormSendMsg' type='button'/>
+            <div style='width:100%;'>
+              <p class='contact-form-error-message' expr:id='data:widget.instanceId + &quot;_contact-form-error-message&quot;' style='color:#e05a5a;font-size:11.5px;margin:4px 0 0;text-align:center;'/>
+              <p class='contact-form-success-message' expr:id='data:widget.instanceId + &quot;_contact-form-success-message&quot;' style='color:#1a9e82;font-size:11.5px;margin:4px 0 0;text-align:center;font-weight:600;'/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 탭 2: Newsletter ══ -->
+  <div class='spj-tab-panel' id='spj-tab-nl'>
+    <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
+      <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
+        Stay updated on maritime cybersecurity trends and IACS regulation changes &#8212; delivered to your inbox.
+      </p>
+      <div class='spj-perk'><span class='spj-perk-dot'></span>No spam &#8212; unsubscribe anytime</div>
+    </div>
+    <div style='padding:12px 14px 14px;'>
+      <form action='https://f90cb6a5.sibforms.com/serve/MUIFAKyss0LAZbscunG_LBOWQa3HwvBBITLc84aoXg5TwI3f4ee0eX7uul8voCw9NiM7WG5_0EWWANANueZOLTyJNz3FmwUGyZqRSUgNfv7WXo3jBer2cHeSi0ZUufgNoyQ9zVfudMn4oxXxZpTB5xEMfRC1LOLryX8u3Dz4hLewL9WJesulRLV3Q4SwxPZE-btgW4kBk-insQXOFA==' method='POST' style='display:flex;flex-direction:column;gap:10px;' target='_blank'>
+        <input class='spj-field' name='EMAIL' placeholder='your@email.com' required='required' type='text'/>
+        <input name='locale' type='hidden' value='en'/>
+        <input name='email_address_check' type='hidden' value=''/>
+        <button class='spj-submit' type='submit'>
+          ✉️ Subscribe to Newsletter
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 공통 푸터 링크 -->
+  <div style='padding:10px 14px 12px;border-top:1px solid #eaf0f7;'>
+    <p style='margin:0;line-height:1.8;text-align:center;font-size:10.5px;color:#8a9bb0;font-family:Segoe UI,Arial,sans-serif;'>
+      <a href='https://www.shippauljobs.com/p/about.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>About</a>
+      <span style='margin:0 3px;opacity:0.5;'>|</span>
+      <a href='https://www.shippauljobs.com/p/contact.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Contact</a>
+      <span style='margin:0 3px;opacity:0.5;'>|</span>
+      <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Privacy Policy</a>
+      <span style='margin:0 3px;opacity:0.5;'>|</span>
+      <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Terms</a>
+      <span style='margin:0 3px;opacity:0.5;'>|</span>
+      <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Editorial Policy</a>
+    </p>
   </div>
 </div>
 <script>//<![CDATA[
@@ -6543,49 +6628,12 @@ if(!window.b1WC){window.b1WC=function(btn){
     var el=document.querySelector('.contact-form-email-message');
     if(el&&m[k]){el.value=m[k];el.focus();}
   };
+  window.spjTab=function(name){
+    document.querySelectorAll('#spj-contact-card .spj-tab').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===name); });
+    document.querySelectorAll('#spj-contact-card .spj-tab-panel').forEach(function(p){ p.classList.toggle('active', p.id==='spj-tab-'+name); });
+  };
 })();
 //]]></script>
-</b:includable>
-        </b:widget>
-        <b:widget id='HTML14' locked='false' title='Newsletter' type='HTML' version='2' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='content'/>
-          </b:widget-settings>
-          <b:includable id='main'>
-  <b:include name='widget-title'/>
-  <div class='widget-content'>
-    <div style='font-family:Segoe UI,Arial,sans-serif;border-radius:10px;overflow:hidden;background:#fff;border:1px solid #dde6f0;'>
-      <div style='height:3px;background:linear-gradient(90deg,#1a9e82,#1d89cf);'/>
-      <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
-        <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
-          Stay updated on maritime cybersecurity trends and IACS regulation changes &#8212; delivered to your inbox.
-        </p>
-      </div>
-      <div style='padding:12px 14px 14px;'>
-        <form action='https://f90cb6a5.sibforms.com/serve/MUIFAKyss0LAZbscunG_LBOWQa3HwvBBITLc84aoXg5TwI3f4ee0eX7uul8voCw9NiM7WG5_0EWWANANueZOLTyJNz3FmwUGyZqRSUgNfv7WXo3jBer2cHeSi0ZUufgNoyQ9zVfudMn4oxXxZpTB5xEMfRC1LOLryX8u3Dz4hLewL9WJesulRLV3Q4SwxPZE-btgW4kBk-insQXOFA==' method='POST' style='display:flex;flex-direction:column;gap:8px;' target='_blank'>
-          <input name='EMAIL' placeholder='your@email.com' required='required' style='background:#f7fafd;border:1px solid #ccdaeb;border-radius:6px;color:#1a3350;font-size:12.5px;padding:8px 10px;width:100%;box-sizing:border-box;outline:none;font-family:inherit;' type='text'/>
-          <input name='locale' type='hidden' value='en'/>
-          <input name='email_address_check' type='hidden' value=''/>
-          <button style='background:#154f7a;border:none;border-radius:7px;color:#fff;cursor:pointer;font-size:12.5px;font-weight:700;padding:9px 14px;width:100%;font-family:inherit;letter-spacing:0.3px;' type='submit'>
-            Subscribe to Newsletter
-          </button>
-        </form>
-      </div>
-      <div style='padding:10px 14px 12px;border-top:1px solid #eaf0f7;'>
-        <p style='margin:0;line-height:1.8;text-align:center;font-size:10.5px;color:#8a9bb0;font-family:Segoe UI,Arial,sans-serif;'>
-          <a href='https://www.shippauljobs.com/p/about.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>About</a>
-          <span style='margin:0 3px;opacity:0.5;'>|</span>
-          <a href='https://www.shippauljobs.com/p/contact.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Contact</a>
-          <span style='margin:0 3px;opacity:0.5;'>|</span>
-          <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Privacy Policy</a>
-          <span style='margin:0 3px;opacity:0.5;'>|</span>
-          <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Terms</a>
-          <span style='margin:0 3px;opacity:0.5;'>|</span>
-          <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Editorial Policy</a>
-        </p>
-      </div>
-    </div>
-  </div>
 </b:includable>
         </b:widget>
       </b:section>
@@ -6935,7 +6983,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   } /* end initGlobe */
 
   /* THREE.js — Globe 컨테이너가 뷰포트에 진입할 때만 로드 (IntersectionObserver) */
-  var _globeTarget = document.getElementById('spj-globe-canvas') || document.getElementById('right-panel');
+  var _globeTarget = document.getElementById('spj-globe-canvas') || document.getElementById('globe-canvas');
   function _loadThree() {
     if (window._threeLoaded) return;
     window._threeLoaded = true;

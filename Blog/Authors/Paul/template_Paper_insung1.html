@@ -1,0 +1,1995 @@
+<!-- ════════════════════════════════════════════════════════════
+     Article : BERT — Pre-training of Deep Bidirectional Transformers for Language Understanding (NAACL 2019 Best Long Paper) Review
+     Author  : Captain  Paul   <div style='color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.2px;margin-bottom:6px;text-transform:uppercase;'> </div>  |  Published: Apr 9, 2026
+     Source  : Devlin, Chang, Lee, Toutanova — Google AI Language — NAACL 2019
+     Style   : Maritime 4.0 Design System — Blogger-compatible
+════════════════════════════════════════════════════════════ -->
+
+<div
+  style="
+    font-family:
+      &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif;
+    max-width: 780px;
+    margin: 0 auto;
+    color: #2c3e50;
+    line-height: 1.75;
+    box-sizing: border-box;
+  "
+>
+  <!-- ══ HEADER ══ -->
+  <div
+    style="
+      background: linear-gradient(
+        135deg,
+        #0a2342 0%,
+        #154f7a 55%,
+        #1a9e82 100%
+      );
+      border-radius: 16px;
+      padding: 40px 36px 32px;
+      margin-bottom: 36px;
+    "
+  >
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px">
+      <span
+        style="
+          background: rgba(255, 193, 7, 0.35);
+          color: #ffe082;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          border-radius: 20px;
+          text-transform: uppercase;
+        "
+        >🏆 Best Long Paper — NAACL 2019</span
+      >
+      <span
+        style="
+          background: rgba(26, 158, 130, 0.35);
+          color: #7effd8;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          border-radius: 20px;
+          text-transform: uppercase;
+        "
+        >BERT</span
+      >
+      <span
+        style="
+          background: rgba(255, 255, 255, 0.13);
+          color: #b8d4ea;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          border-radius: 20px;
+          text-transform: uppercase;
+        "
+        >Transformer</span
+      >
+      <span
+        style="
+          background: rgba(255, 255, 255, 0.13);
+          color: #b8d4ea;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          border-radius: 20px;
+          text-transform: uppercase;
+        "
+        >Pre-training</span
+      >
+      <span
+        style="
+          background: rgba(255, 255, 255, 0.13);
+          color: #b8d4ea;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
+          padding: 3px 11px;
+          border-radius: 20px;
+          text-transform: uppercase;
+        "
+        >Google AI</span
+      >
+    </div>
+    <h1
+      style="
+        font-size: 21px;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.45;
+        margin: 0 0 8px 0;
+        letter-spacing: -0.3px;
+      "
+    >
+      BERT: Pre-training of Deep Bidirectional Transformers for Language
+      Understanding
+    </h1>
+    <p
+      style="
+        font-size: 13px;
+        color: #b8d4ea;
+        margin: 0 0 20px 0;
+        font-style: italic;
+      "
+    >
+      Jacob Devlin · Ming-Wei Chang · Kenton Lee · Kristina Toutanova
+      &nbsp;·&nbsp; Google AI Language &nbsp;·&nbsp; NAACL 2019
+    </p>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding-top: 18px;
+      "
+    >
+      <div style="display: flex; align-items: center; gap: 10px">
+        <a
+          href="https://naver.me/5t75tO9j/2026/01/202601-crew-behind-shipjobs.html"
+          target="_blank"
+          rel="noopener"
+          style="flex-shrink: 0"
+        >
+          <img
+            src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+            alt="Captain Paul"
+            style="
+              width: 36px;
+              height: 36px;
+              border-radius: 50%;
+              object-fit: cover;
+              border: 2px solid rgba(255, 255, 255, 0.3);
+            "
+          />
+        </a>
+        <div>
+          <div
+            style="
+              color: #ffffff;
+              font-size: 13px;
+              font-weight: 700;
+              line-height: 1.3;
+            "
+          >
+            Captain Paul
+          </div>
+          <div style="color: #9ab5c9; font-size: 10px">
+            Maritime 4.0 · AI, Data &amp; Cyber Security
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAPER INFO CARD ══ -->
+  <div
+    style="
+      background: #f7fafe;
+      border: 1px solid #d1e0ee;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 36px;
+    "
+  >
+    <div
+      style="
+        font-size: 10px;
+        font-weight: 800;
+        color: #154f7a;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      "
+    >
+      Paper Details
+    </div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px">
+      <tr>
+        <td
+          style="
+            padding: 5px 12px 5px 0;
+            color: #6b8599;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: top;
+            width: 100px;
+          "
+        >
+          Title
+        </td>
+        <td style="padding: 5px 0; color: #2c3e50; line-height: 1.55">
+          BERT: Pre-training of Deep Bidirectional Transformers for Language
+          Understanding
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="
+            padding: 5px 12px 5px 0;
+            color: #6b8599;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: top;
+          "
+        >
+          Authors
+        </td>
+        <td style="padding: 5px 0; color: #2c3e50">
+          Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova (Google
+          AI Language)
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="
+            padding: 5px 12px 5px 0;
+            color: #6b8599;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: top;
+          "
+        >
+          Venue
+        </td>
+        <td style="padding: 5px 0; color: #2c3e50">
+          NAACL 2019 —
+          <strong style="color: #0a2342">Best Long Paper Award</strong>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="
+            padding: 5px 12px 5px 0;
+            color: #6b8599;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: top;
+          "
+        >
+          Models
+        </td>
+        <td style="padding: 5px 0; color: #2c3e50">
+          BERT-Base (110M params) · BERT-Large (340M params)
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="
+            padding: 5px 12px 5px 0;
+            color: #6b8599;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: top;
+          "
+        >
+          Benchmarks
+        </td>
+        <td style="padding: 5px 0; color: #2c3e50">
+          GLUE · SQuAD 1.1 · SQuAD 2.0 · SWAG — new SOTA on all 11 tasks
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="
+            padding: 5px 12px 5px 0;
+            color: #6b8599;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: top;
+          "
+        >
+          Source
+        </td>
+        <td style="padding: 5px 0">
+          <a
+            href="https://arxiv.org/abs/1810.04805"
+            style="color: #154f7a; font-weight: 700"
+            >arXiv:1810.04805 ↗</a
+          >
+        </td>
+      </tr>
+    </table>
+    <div
+      style="
+        margin-top: 12px;
+        font-size: 10px;
+        color: #b0bcc7;
+        border-top: 1px solid #e2eaf3;
+        padding-top: 10px;
+      "
+    >
+      ※ This review reflects the reviewer's independent analysis and does not
+      represent the views of the original authors.
+    </div>
+  </div>
+
+  <!-- ══ LEAD PARAGRAPH ══ -->
+  <p
+    style="
+      font-size: 15px;
+      color: #354a5e;
+      line-height: 1.85;
+      margin: 0 0 28px 0;
+      padding: 20px 22px;
+      background: #f0f7ff;
+      border-radius: 12px;
+      border-left: 4px solid #1a9e82;
+    "
+  >
+    Before BERT, the standard playbook in NLP was to train a language model in
+    one direction — left-to-right, or at best a shallow combination of both
+    directions — then fine-tune it on a specific task. BERT broke that
+    convention entirely. By masking tokens and predicting them from
+    <em>both</em> directions simultaneously, it learned richer contextual
+    representations than anything before it — and established a new paradigm
+    that still dominates NLP today.
+  </p>
+
+  <!-- ══ TABLE OF CONTENTS ══ -->
+  <div
+    style="
+      background: #eef6f3;
+      border: 1px solid #b2ddd4;
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 36px;
+    "
+  >
+    <div
+      style="
+        font-size: 10px;
+        font-weight: 800;
+        color: #1a9e82;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      "
+    >
+      Contents of This Review
+    </div>
+    <ol
+      style="
+        margin: 0;
+        padding: 0 0 0 18px;
+        font-size: 14px;
+        color: #354a5e;
+        line-height: 2.2;
+      "
+    >
+      <li>
+        <strong style="color: #0a2342">What This Paper Actually Does</strong>
+      </li>
+      <li>
+        <strong style="color: #0a2342"
+          >The Problem with Prior Language Models</strong
+        >
+      </li>
+      <li>
+        <strong style="color: #0a2342"
+          >BERT Architecture — Input Representation &amp; Encoder Stack</strong
+        >
+      </li>
+      <li>
+        <strong style="color: #0a2342">Pre-training Tasks — MLM and NSP</strong>
+      </li>
+      <li>
+        <strong style="color: #0a2342"
+          >Fine-tuning — One Model, Eleven Tasks</strong
+        >
+      </li>
+      <li>
+        <strong style="color: #0a2342">Results — GLUE, SQuAD, SWAG</strong>
+      </li>
+      <li>
+        <strong style="color: #0a2342"
+          >Assessment: What This Paper Gets Right</strong
+        >
+      </li>
+      <li><strong style="color: #0a2342">Closing Reflection</strong></li>
+    </ol>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid #e2eaf3; margin: 0 0 36px 0" />
+
+  <!-- ══ SECTION 1 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        📌 (1) What This Paper Actually Does
+      </h2>
+    </div>
+    <p
+      style="
+        font-size: 14px;
+        color: #4a6278;
+        line-height: 1.85;
+        margin: 0 0 16px 0;
+      "
+    >
+      BERT introduces a
+      <strong style="color: #0a2342">pre-train then fine-tune</strong> framework
+      for NLP. A single large Transformer encoder is pre-trained on massive
+      unlabeled text using two self-supervised tasks. The pre-trained model is
+      then fine-tuned with a minimal task-specific layer on top — achieving
+      state-of-the-art results across a wide range of NLP benchmarks with
+      surprisingly little task-specific engineering.
+    </p>
+    <div
+      style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 16px;
+      "
+    >
+      <div
+        style="
+          background: #f7fafe;
+          border: 1px solid #d1e0ee;
+          border-radius: 12px;
+          padding: 18px 20px;
+          text-align: center;
+        "
+      >
+        <div style="font-size: 24px; margin-bottom: 8px">🏗</div>
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 800;
+            color: #154f7a;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+          "
+        >
+          Stage 1 · Pre-training
+        </div>
+        <p style="font-size: 13px; color: #4a6278; line-height: 1.7; margin: 0">
+          Train on BooksCorpus + Wikipedia (3.3B words) using MLM and NSP. No
+          labels required. Captures deep linguistic knowledge.
+        </p>
+      </div>
+      <div
+        style="
+          background: #eef6f3;
+          border: 1px solid #b2ddd4;
+          border-radius: 12px;
+          padding: 18px 20px;
+          text-align: center;
+        "
+      >
+        <div style="font-size: 24px; margin-bottom: 8px">🎯</div>
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 800;
+            color: #1a9e82;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+          "
+        >
+          Stage 2 · Fine-tuning
+        </div>
+        <p style="font-size: 13px; color: #4a6278; line-height: 1.7; margin: 0">
+          Add a small task-specific output head. Fine-tune all parameters
+          end-to-end on labeled data. Works for classification, QA, NER, and
+          more.
+        </p>
+      </div>
+    </div>
+    <div
+      style="
+        background: #f0f7ff;
+        border-left: 4px solid #154f7a;
+        border-radius: 0 10px 10px 0;
+        padding: 16px 20px;
+        font-size: 14px;
+        color: #354a5e;
+        line-height: 1.75;
+      "
+    >
+      The critical claim:
+      <strong style="color: #0a2342"
+        >one pre-trained model, minimal task-specific modification</strong
+      >, outperforms all prior task-specific architectures across 11 different
+      NLP benchmarks simultaneously.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        🔍 (2) The Problem with Prior Language Models
+      </h2>
+    </div>
+    <p
+      style="
+        font-size: 14px;
+        color: #4a6278;
+        line-height: 1.85;
+        margin: 0 0 16px 0;
+      "
+    >
+      Two prior approaches dominated pre-trained NLP representations — and both
+      had fundamental limitations that BERT was designed to address:
+    </p>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+      "
+    >
+      <div
+        style="
+          background: #fff8e1;
+          border: 1px solid #ffe082;
+          border-radius: 12px;
+          padding: 16px 20px;
+          display: flex;
+          gap: 14px;
+          align-items: flex-start;
+        "
+      >
+        <div
+          style="
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #b8860b;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          "
+        >
+          GPT
+        </div>
+        <div>
+          <div
+            style="
+              font-size: 13px;
+              font-weight: 800;
+              color: #0a2342;
+              margin-bottom: 4px;
+            "
+          >
+            Unidirectional — Left-to-Right Only (OpenAI GPT)
+          </div>
+          <p
+            style="
+              font-size: 13px;
+              color: #4a6278;
+              line-height: 1.75;
+              margin: 0;
+            "
+          >
+            At each position, only left context is attended to. "The bank can
+            guarantee deposits will eventually cover future tuition costs" — the
+            meaning of "bank" cannot be resolved without looking right.
+            Left-to-right models must make commitments before seeing full
+            context.
+          </p>
+        </div>
+      </div>
+      <div
+        style="
+          background: #fff8e1;
+          border: 1px solid #ffe082;
+          border-radius: 12px;
+          padding: 16px 20px;
+          display: flex;
+          gap: 14px;
+          align-items: flex-start;
+        "
+      >
+        <div
+          style="
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #b8860b;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          "
+        >
+          ELMo
+        </div>
+        <div>
+          <div
+            style="
+              font-size: 13px;
+              font-weight: 800;
+              color: #0a2342;
+              margin-bottom: 4px;
+            "
+          >
+            Shallow Bidirectional — Concatenated, Not Joint (ELMo)
+          </div>
+          <p
+            style="
+              font-size: 13px;
+              color: #4a6278;
+              line-height: 1.75;
+              margin: 0;
+            "
+          >
+            Trains a left-to-right LSTM and a right-to-left LSTM independently,
+            then concatenates their representations. The two directions never
+            interact during training — the bidirectionality is shallow and
+            surface-level, not deeply integrated.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      style="
+        background: linear-gradient(135deg, #0a2342 0%, #154f7a 100%);
+        border-radius: 12px;
+        padding: 20px 24px;
+        color: #fff;
+      "
+    >
+      <div
+        style="
+          font-size: 11px;
+          font-weight: 800;
+          color: #7effd8;
+          letter-spacing: 1.2px;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+        "
+      >
+        BERT's Answer
+      </div>
+      <p style="font-size: 14px; color: #d6eaf8; line-height: 1.8; margin: 0">
+        Use a
+        <strong style="color: #ffe082">Masked Language Model (MLM)</strong> —
+        randomly mask tokens and train the model to predict them using
+        <em>all</em> surrounding context simultaneously. Every token in every
+        layer attends to every other token, left and right. This is true deep
+        bidirectionality.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        ⚙️ (3) BERT Architecture — Input &amp; Encoder Stack
+      </h2>
+    </div>
+    <p
+      style="
+        font-size: 14px;
+        color: #4a6278;
+        line-height: 1.85;
+        margin: 0 0 16px 0;
+      "
+    >
+      BERT uses the Transformer
+      <strong style="color: #0a2342">encoder</strong> stack — not the decoder.
+      Each token attends to all other tokens in both directions via multi-head
+      self-attention. Two model sizes are released:
+    </p>
+    <div
+      style="
+        background: #f7fafe;
+        border: 1px solid #d1e0ee;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 16px;
+      "
+    >
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px">
+        <thead>
+          <tr style="background: #e8f0f7">
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: left;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Model
+            </th>
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Layers (L)
+            </th>
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Hidden Size (H)
+            </th>
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Attention Heads
+            </th>
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Parameters
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top: 1px solid #e2eaf3">
+            <td style="padding: 10px 16px; color: #2c3e50; font-weight: 700">
+              BERT-Base
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              12
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              768
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              12
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              110M
+            </td>
+          </tr>
+          <tr style="border-top: 1px solid #e2eaf3; background: #fafcff">
+            <td style="padding: 10px 16px; color: #1a9e82; font-weight: 800">
+              BERT-Large
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              24
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              1024
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              16
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #4a6278">
+              340M
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Input representation -->
+    <div
+      style="
+        background: #f7fafe;
+        border: 1px solid #d1e0ee;
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-bottom: 16px;
+      "
+    >
+      <div
+        style="
+          font-size: 11px;
+          font-weight: 800;
+          color: #154f7a;
+          letter-spacing: 1.2px;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        "
+      >
+        Input Representation — Three Embeddings Summed
+      </div>
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          font-size: 13px;
+          color: #4a6278;
+        "
+      >
+        <div style="display: flex; align-items: flex-start; gap: 10px">
+          <span style="color: #1a9e82; font-weight: 800; min-width: 130px"
+            >Token Embedding</span
+          ><span
+            >WordPiece vocabulary (30,000 tokens). [CLS] prepended to every
+            input; [SEP] separates sentence pairs.</span
+          >
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px">
+          <span style="color: #1a9e82; font-weight: 800; min-width: 130px"
+            >Segment Embedding</span
+          ><span
+            >Distinguishes Sentence A from Sentence B. Enables sentence-pair
+            tasks (NLI, QA).</span
+          >
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px">
+          <span style="color: #1a9e82; font-weight: 800; min-width: 130px"
+            >Position Embedding</span
+          ><span
+            >Learned absolute position encodings for each token position (unlike
+            sinusoidal in original Transformer).</span
+          >
+        </div>
+      </div>
+    </div>
+    <div
+      style="
+        background: #f0f7ff;
+        border-left: 4px solid #1a9e82;
+        border-radius: 0 10px 10px 0;
+        padding: 14px 18px;
+        font-size: 13px;
+        color: #354a5e;
+        line-height: 1.75;
+      "
+    >
+      The [CLS] token's final hidden state is used as the aggregate sequence
+      representation for classification tasks. For token-level tasks (NER, QA),
+      per-token hidden states are used directly.
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        🎓 (4) Pre-training Tasks — MLM and NSP
+      </h2>
+    </div>
+
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+      "
+    >
+      <!-- MLM -->
+      <div
+        style="
+          background: #f7fafe;
+          border: 1px solid #d1e0ee;
+          border-radius: 12px;
+          padding: 20px 22px;
+        "
+      >
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 800;
+            color: #154f7a;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+          "
+        >
+          Task 1 · Masked Language Model (MLM)
+        </div>
+        <p
+          style="
+            font-size: 13px;
+            color: #4a6278;
+            line-height: 1.75;
+            margin: 0 0 12px 0;
+          "
+        >
+          15% of input tokens are selected at random. Of those:
+        </p>
+        <div style="font-size: 13px; color: #4a6278; line-height: 1.85">
+          <div style="display: flex; gap: 8px; margin-bottom: 4px">
+            <span style="color: #1a9e82; font-weight: 800">80%</span
+            ><span
+              >replaced with
+              <code
+                style="
+                  background: #eef6f3;
+                  padding: 1px 6px;
+                  border-radius: 4px;
+                "
+                >[MASK]</code
+              >
+              token</span
+            >
+          </div>
+          <div style="display: flex; gap: 8px; margin-bottom: 4px">
+            <span style="color: #154f7a; font-weight: 800">10%</span
+            ><span>replaced with a random token</span>
+          </div>
+          <div style="display: flex; gap: 8px">
+            <span style="color: #6b8599; font-weight: 800">10%</span
+            ><span>left unchanged</span>
+          </div>
+        </div>
+        <p
+          style="
+            font-size: 12.5px;
+            color: #6b8599;
+            line-height: 1.7;
+            margin: 12px 0 0 0;
+          "
+        >
+          The model must predict the original token at masked positions. The
+          80/10/10 split prevents the model from learning only to predict [MASK]
+          tokens — it must handle all tokens as potentially requiring
+          prediction.
+        </p>
+      </div>
+      <!-- NSP -->
+      <div
+        style="
+          background: #f7fafe;
+          border: 1px solid #d1e0ee;
+          border-radius: 12px;
+          padding: 20px 22px;
+        "
+      >
+        <div
+          style="
+            font-size: 12px;
+            font-weight: 800;
+            color: #154f7a;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+          "
+        >
+          Task 2 · Next Sentence Prediction (NSP)
+        </div>
+        <p
+          style="
+            font-size: 13px;
+            color: #4a6278;
+            line-height: 1.75;
+            margin: 0 0 12px 0;
+          "
+        >
+          Pairs of sentences are fed to the model. 50% are actual consecutive
+          sentences (IsNext); 50% are random sentence pairs (NotNext). The model
+          predicts which case applies via the [CLS] token.
+        </p>
+        <p
+          style="font-size: 12.5px; color: #6b8599; line-height: 1.7; margin: 0"
+        >
+          Designed to teach the model sentence-level relationships — critical
+          for tasks like Natural Language Inference (NLI) and Question Answering
+          that require understanding sentence pairs. (Later work showed NSP has
+          limited benefit; RoBERTa removed it.)
+        </p>
+      </div>
+    </div>
+
+    <div
+      style="
+        background: #f0f7ff;
+        border-left: 4px solid #154f7a;
+        border-radius: 0 10px 10px 0;
+        padding: 14px 18px;
+        font-size: 13px;
+        color: #354a5e;
+        line-height: 1.75;
+      "
+    >
+      Pre-training corpus:
+      <strong style="color: #0a2342">BooksCorpus</strong> (800M words) +
+      <strong style="color: #0a2342">English Wikipedia</strong> (2,500M words).
+      Trained on 16 TPU v3 chips for 4 days (BERT-Large).
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        🔁 (5) Fine-tuning — One Model, Eleven Tasks
+      </h2>
+    </div>
+    <p
+      style="
+        font-size: 14px;
+        color: #4a6278;
+        line-height: 1.85;
+        margin: 0 0 16px 0;
+      "
+    >
+      Fine-tuning BERT on a downstream task requires only adding a task-specific
+      output layer on top of the pre-trained encoder, then fine-tuning all
+      parameters end-to-end. The paper demonstrates four generic fine-tuning
+      configurations:
+    </p>
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 12px;
+      "
+    >
+      <div
+        style="
+          background: #eef6f3;
+          border: 1px solid #b2ddd4;
+          border-radius: 12px;
+          padding: 16px 18px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #1a9e82;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+          "
+        >
+          Sentence Pair Classification
+        </div>
+        <p style="font-size: 13px; color: #4a6278; line-height: 1.7; margin: 0">
+          Feed [CLS] + Sentence A + [SEP] + Sentence B + [SEP]. Classify via
+          [CLS] hidden state. Tasks: MNLI, QQP, QNLI, STS-B, MRPC, RTE, WNLI.
+        </p>
+      </div>
+      <div
+        style="
+          background: #eef6f3;
+          border: 1px solid #b2ddd4;
+          border-radius: 12px;
+          padding: 16px 18px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #1a9e82;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+          "
+        >
+          Single Sentence Classification
+        </div>
+        <p style="font-size: 13px; color: #4a6278; line-height: 1.7; margin: 0">
+          Feed [CLS] + Sentence + [SEP]. Classify via [CLS]. Tasks: SST-2
+          (sentiment), CoLA (grammatical acceptability).
+        </p>
+      </div>
+      <div
+        style="
+          background: #eef6f3;
+          border: 1px solid #b2ddd4;
+          border-radius: 12px;
+          padding: 16px 18px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #1a9e82;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+          "
+        >
+          Question Answering
+        </div>
+        <p style="font-size: 13px; color: #4a6278; line-height: 1.7; margin: 0">
+          Feed [CLS] + Question + [SEP] + Passage + [SEP]. Predict start and end
+          token positions of the answer span. Task: SQuAD 1.1, SQuAD 2.0.
+        </p>
+      </div>
+      <div
+        style="
+          background: #eef6f3;
+          border: 1px solid #b2ddd4;
+          border-radius: 12px;
+          padding: 16px 18px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #1a9e82;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+          "
+        >
+          Sequence Labeling (NER)
+        </div>
+        <p style="font-size: 13px; color: #4a6278; line-height: 1.7; margin: 0">
+          Feed token sequence. Apply output layer to each token hidden state
+          independently. No CRF needed — BERT representations are strong enough
+          for direct token classification.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        📊 (6) Results — GLUE, SQuAD, SWAG
+      </h2>
+    </div>
+    <div
+      style="
+        background: #f7fafe;
+        border: 1px solid #d1e0ee;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 16px;
+      "
+    >
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px">
+        <thead>
+          <tr style="background: #e8f0f7">
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: left;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Benchmark
+            </th>
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Prior SOTA
+            </th>
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              BERT-Large
+            </th>
+            <th
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #154f7a;
+                font-weight: 800;
+              "
+            >
+              Improvement
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top: 1px solid #e2eaf3">
+            <td style="padding: 10px 16px; color: #2c3e50; font-weight: 700">
+              GLUE Score
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #6b8599">
+              72.8
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 800;
+              "
+            >
+              80.5
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 700;
+              "
+            >
+              +7.7
+            </td>
+          </tr>
+          <tr style="border-top: 1px solid #e2eaf3; background: #fafcff">
+            <td style="padding: 10px 16px; color: #2c3e50; font-weight: 700">
+              SQuAD 1.1 (F1)
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #6b8599">
+              91.7
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 800;
+              "
+            >
+              93.2
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 700;
+              "
+            >
+              +1.5
+            </td>
+          </tr>
+          <tr style="border-top: 1px solid #e2eaf3">
+            <td style="padding: 10px 16px; color: #2c3e50; font-weight: 700">
+              SQuAD 2.0 (F1)
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #6b8599">
+              78.0
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 800;
+              "
+            >
+              83.1
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 700;
+              "
+            >
+              +5.1
+            </td>
+          </tr>
+          <tr style="border-top: 1px solid #e2eaf3; background: #fafcff">
+            <td style="padding: 10px 16px; color: #2c3e50; font-weight: 700">
+              SWAG (Acc.)
+            </td>
+            <td style="padding: 10px 16px; text-align: center; color: #6b8599">
+              59.2
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 800;
+              "
+            >
+              86.3
+            </td>
+            <td
+              style="
+                padding: 10px 16px;
+                text-align: center;
+                color: #1a9e82;
+                font-weight: 700;
+              "
+            >
+              +27.1
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 13px; color: #6b8599; line-height: 1.75; margin: 0">
+      The SWAG result (+27.1%) is particularly striking — the prior SOTA used
+      domain-specific features. BERT's general representations surpass it by a
+      margin that suggests the task was effectively solved. GLUE improvement of
+      7.7 points was the largest single-step advance the benchmark had seen.
+    </p>
+  </div>
+
+  <!-- ══ SECTION 7 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        ✅ (7) Assessment: What This Paper Gets Right
+      </h2>
+    </div>
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 14px;
+      "
+    >
+      <div
+        style="
+          background: #eef6f3;
+          border: 1px solid #b2ddd4;
+          border-radius: 12px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #1a9e82;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+          "
+        >
+          ✔ The MLM Insight
+        </div>
+        <p
+          style="font-size: 13px; color: #4a6278; line-height: 1.75; margin: 0"
+        >
+          Using masked prediction to achieve deep bidirectionality is elegant.
+          The 80/10/10 split in masking is a practical solution to the
+          train-test mismatch problem — a design detail that has been widely
+          adopted in subsequent work.
+        </p>
+      </div>
+      <div
+        style="
+          background: #eef6f3;
+          border: 1px solid #b2ddd4;
+          border-radius: 12px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #1a9e82;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+          "
+        >
+          ✔ General-Purpose Design
+        </div>
+        <p
+          style="font-size: 13px; color: #4a6278; line-height: 1.75; margin: 0"
+        >
+          A single architecture handles classification, sequence labeling, span
+          extraction, and sentence pair tasks with only minor output layer
+          modifications. This universality, backed by SOTA results across 11
+          benchmarks, is the paper's defining achievement.
+        </p>
+      </div>
+      <div
+        style="
+          background: #fff8e1;
+          border: 1px solid #ffe082;
+          border-radius: 12px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #b8860b;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+          "
+        >
+          ⚠ NSP Utility
+        </div>
+        <p
+          style="font-size: 13px; color: #4a6278; line-height: 1.75; margin: 0"
+        >
+          Subsequent work (RoBERTa, 2019) showed that removing NSP and training
+          longer with more data improves performance. NSP may not be the useful
+          signal BERT assumed — the gain may come primarily from the additional
+          training data seen during NSP training.
+        </p>
+      </div>
+      <div
+        style="
+          background: #fff8e1;
+          border: 1px solid #ffe082;
+          border-radius: 12px;
+          padding: 18px 20px;
+        "
+      >
+        <div
+          style="
+            font-size: 11px;
+            font-weight: 800;
+            color: #b8860b;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+          "
+        >
+          ⚠ Inference Cost
+        </div>
+        <p
+          style="font-size: 13px; color: #4a6278; line-height: 1.75; margin: 0"
+        >
+          BERT-Large requires significant compute at inference time. For
+          latency-sensitive or resource-constrained deployments (embedded
+          systems, mobile, edge devices), distilled variants (DistilBERT,
+          TinyBERT) are necessary — a trade-off the original paper does not
+          address.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 ══ -->
+  <div style="margin-bottom: 36px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e2eaf3;
+      "
+    >
+      <div
+        style="
+          width: 4px;
+          height: 32px;
+          background: linear-gradient(180deg, #154f7a, #1a9e82);
+          border-radius: 4px;
+          flex-shrink: 0;
+        "
+      ></div>
+      <h2
+        style="
+          font-size: 17px;
+          font-weight: 800;
+          color: #0a2342;
+          margin: 0;
+          line-height: 1.4;
+        "
+      >
+        🎯 (8) Closing Reflection
+      </h2>
+    </div>
+    <p
+      style="
+        font-size: 14px;
+        color: #4a6278;
+        line-height: 1.85;
+        margin: 0 0 14px 0;
+      "
+    >
+      BERT did not just win a set of benchmarks. It established a template that
+      every subsequent major NLP model has followed: pre-train a large encoder
+      on self-supervised tasks, then fine-tune. RoBERTa, ALBERT, XLNet,
+      SpanBERT, SciBERT, BioBERT, and eventually GPT-3 and beyond — all are
+      descendants or direct responses to the design choices made in this paper.
+    </p>
+    <p
+      style="
+        font-size: 14px;
+        color: #4a6278;
+        line-height: 1.85;
+        margin: 0 0 16px 0;
+      "
+    >
+      For practitioners applying NLP to domain-specific text — maritime incident
+      reports, port state control findings, regulatory circulars, vessel
+      maintenance logs — BERT-style domain-adapted models (trained or fine-tuned
+      on domain corpora) remain among the most practical tools available. The
+      architectural principles here translate directly to custom domain
+      applications.
+    </p>
+    <div
+      style="
+        background: #f0f7ff;
+        border-left: 4px solid #0a2342;
+        border-radius: 0 10px 10px 0;
+        padding: 16px 20px;
+        font-size: 14px;
+        color: #354a5e;
+        line-height: 1.75;
+      "
+    >
+      The word "bidirectional" in BERT's title carries the full weight of the
+      paper's contribution. Understanding <em>why</em> directionality matters —
+      and how masking achieves it without leaking information — is the essential
+      insight. Everything else follows.
+    </div>
+  </div>
+
+  <!-- ══ CLOSING NOTE ══ -->
+  <div
+    style="
+      text-align: center;
+      margin-bottom: 36px;
+      padding: 20px 22px;
+      background: #f7fafe;
+      border-radius: 12px;
+      border: 1px solid #d1e0ee;
+    "
+  >
+    <p
+      style="
+        font-size: 13px;
+        color: #6b8599;
+        line-height: 1.8;
+        margin: 0;
+        font-style: italic;
+      "
+    >
+      If you are entering NLP in 2026, BERT is still the right paper to start
+      with — not because it is the current frontier, but because it is the
+      foundation everything else is built on. Understand the MLM. Understand
+      fine-tuning. Then you can reason about what every paper since has been
+      trying to improve.
+    </p>
+    <p
+      style="
+        font-size: 13px;
+        font-weight: 800;
+        color: #0a2342;
+        margin: 14px 0 0 0;
+      "
+    >
+      — Captain Paul, ShipPaulJobs
+    </p>
+  </div>
+
+  <!-- ══ HASHTAGS ══ -->
+  <div style="margin-bottom: 32px">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px">
+      <span
+        style="
+          background: #eef6f3;
+          color: #1a9e82;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#BERT</span
+      >
+      <span
+        style="
+          background: #eef6f3;
+          color: #1a9e82;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#PaperReview</span
+      >
+      <span
+        style="
+          background: #eef6f3;
+          color: #1a9e82;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#NAACL2019</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#NLP</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#Transformer</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#PreTraining</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#MaskedLanguageModel</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#FineTuning</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#GoogleAI</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#DeepLearning</span
+      >
+      <span
+        style="
+          background: #e8f0f7;
+          color: #154f7a;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 4px 12px;
+          border-radius: 20px;
+        "
+        >#GLUE</span
+      >
+    </div>
+  </div>
+
+  <!-- ══ AUTHOR CARD ══ -->
+  <div
+    style="
+      border-top: 2px solid #e2eaf3;
+      padding-top: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      flex-wrap: wrap;
+    "
+  >
+    <a
+      href="https://naver.me/5t75tO9j/2026/01/202601-crew-behind-shipjobs.html"
+      target="_blank"
+      rel="noopener"
+      style="flex-shrink: 0"
+    >
+      <img
+        src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true"
+        alt="Captain Paul"
+        style="
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid #e2eaf3;
+        "
+      />
+    </a>
+    <div style="flex: 1; min-width: 220px">
+      <div
+        style="
+          font-size: 14px;
+          font-weight: 800;
+          color: #0a2342;
+          margin-bottom: 2px;
+        "
+      >
+        Captain Paul
+      </div>
+      <div style="font-size: 11px; color: #6b8599; margin-bottom: 10px">
+        Maritime 4.0 · AI, Data &amp; Cyber Security
+      </div>
+      <p
+        style="
+          font-size: 12.5px;
+          color: #6b8599;
+          line-height: 1.7;
+          margin: 0 0 14px 0;
+        "
+      >
+        Maritime professional focused on the intersection of vessel operations,
+        classification society regulations, and OT/IT cybersecurity. Writing for
+        engineers, consultants, and operators navigating Maritime 4.0 together.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <a
+          href="https://www.linkedin.com/in/shipjobs/"
+          target="_blank"
+          rel="noopener"
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            background: #0a66c2;
+            color: #fff;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+          "
+        >
+          💼 LinkedIn ↗
+        </a>
+        <a
+          href="https://naver.me/5t75tO9j"
+          target="_blank"
+          rel="noopener"
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            background: #0a2342;
+            color: #fff;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            border: 2px solid #1a9e82;
+          "
+        >
+          🌐 More Articles ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

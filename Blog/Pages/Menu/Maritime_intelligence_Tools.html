@@ -1,0 +1,545 @@
+<!--════════════════════════════════════════════════════════════
+     Page   : Maritime Intelligence Tools — Tools showcase hub page
+     URL    : https://www.shippauljobs.com/p/maritime-intelligence-tools.html
+     Label  : "Maritime Intelligence Tools" (nav tab text = "Tools")
+     Role   : Static curated grid of the 9 professional maritime tools
+              built by ShipPaulJobs. Previously these 9 cards lived in a
+              rotating ticker + carousel ("Professional maritime tools
+              developed by ShipPaulJobs (n/9)") embedded directly in
+              Main.html's postPagination includable (#tls-wrap). That
+              ticker/carousel has been removed from Main.html — the 9
+              cards now live only here, on their own dedicated Page, so
+              the tool suite has a stable, linkable, SEO-indexable home
+              instead of being buried in the homepage sidebar.
+     Content: Each tool card below was ported 1:1 (icon, label, title,
+              description, button label(s) and target URL(s)) from the
+              original #tls-wrap markup in Main.html. Nothing invented —
+              only re-laid-out as a static grid instead of an
+              auto-rotating 3.5-card carousel, since 9 fixed tools don't
+              need pagination the way an auto-refreshing post feed does.
+     Style  : Same opaque light "Maritime 4.0" page system every other
+              MAIN MENU hub page uses (navy→teal gradient header, white
+              cards, translucent blue outer panel). The tool cards
+              themselves keep their original dark "command console"
+              look (#071320 background, neon-green gradient labels) —
+              that visual identity is specific to the Tools brand and is
+              preserved here inside a dark panel nested in the light
+              page, the same way the ticker sat in a dark panel on the
+              (dark) homepage.
+     Nav    : No hardcoded top menu — the theme's own "Page List (Top)"
+              nav renders above every Page automatically.
+     Reader comments: set to "Don't allow" in Page options — the CSS
+     below only hides the widget visually, it does not disable Blogger's
+     comment collection itself.
+
+     ── Blogger Page settings ──
+     Page title (the actual <title> tag / SERP headline — set in the
+     Blogger dashboard's Page title field, not derivable from body
+     content): recommend
+     "Maritime Intelligence Tools — Free Tools by ShipPaulJobs | ShipPaulJobs"
+     Search description (≤150 chars, paste into Page → Search Description):
+     "9 free maritime tools: type approval search, cyber compliance AI,
+     ship order trends, threat intel, jobs feed, weather, AIS tracking
+     & more." (144 chars)
+════════════════════════════════════════════════════════════-->
+
+<!--══ Hide comments section immediately (prevents flash — blocked via CSS before JS runs) ══-->
+<style>
+  #comments,
+  .comments,
+  #comment-holder,
+  .comments-widget-container {
+    display: none !important;
+  }
+</style>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&amp;family=Inter:wght@400;600;700&amp;display=swap"
+  rel="stylesheet"
+/>
+
+<div id="mit-post-wrap" style="background: rgba(200, 228, 248, 0.35); border-radius: 22px; box-sizing: border-box; color: #2c3e50; font-family: 'Inter', 'Segoe UI', Arial, sans-serif; margin: 0px auto; max-width: 900px; padding: 18px;">
+
+  <style>
+    #mit-post-wrap,
+    #mit-post-wrap * {
+      box-sizing: border-box;
+    }
+    @keyframes mit-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+    @keyframes mit-live-dot {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /*── Header — opaque navy→teal gradient card (same system every article template uses) ──*/
+    #mit-header {
+      background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%);
+      border-radius: 16px;
+      box-sizing: border-box;
+      font-family: 'Roboto', Arial, sans-serif;
+      padding: 36px 24px 26px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #mit-eyebrow {
+      color: #7ec8f4;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    #mit-h1 {
+      color: #eef6ff;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin: 0px 0px 12px;
+    }
+    #mit-sub {
+      color: #c8e4f8;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      margin: 0px auto;
+      max-width: 580px;
+      opacity: 0.95;
+    }
+
+    /*── Overview (static, light card) ──*/
+    #mit-overview { background: #fff; border: 1.5px solid #d1e0ee; border-radius: 14px; box-shadow: 0 2px 12px rgba(10,35,66,0.07); margin-bottom: 20px; padding: 22px 22px 16px; }
+    .mit-ov-intro-text { color: #4a6478; font-size: 13.5px; line-height: 1.7; margin: 0 0 16px; }
+    .mit-stat-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .mit-stat-card { background: #f4f9ff; border: 1.5px solid #d1e0ee; border-radius: 10px; padding: 14px 14px 12px; text-align: center; }
+    .mit-stat-val { color: #154f7a; font-size: 22px; font-weight: 900; line-height: 1.1; }
+    .mit-stat-label { color: #4a6478; font-size: 11px; line-height: 1.45; margin-top: 4px; }
+
+    /*── Tools panel — dark "command console" panel (preserves the tool
+         cards' original visual identity from Main.html's #tls-wrap) ──*/
+    #mit-tools-panel {
+      background: rgba(4, 10, 24, 0.94);
+      border: 1px solid rgba(29, 137, 207, 0.35);
+      border-radius: 14px;
+      padding: 20px 16px;
+      margin-bottom: 20px;
+    }
+    #mit-tools-panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: #fff;
+      padding: 0 4px 14px;
+      border-bottom: 2px solid rgba(29,137,207,0.35);
+      margin-bottom: 14px;
+    }
+    .mit-tools-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    /* Card design — ported 1:1 from Main.html's .tc / .tc-* classes,
+       renamed with an "mit-" prefix so this page's CSS never collides
+       with the (removed) theme rules of the same name. */
+    .mit-tc { border-radius: 10px; font-family: 'Segoe UI', Arial, sans-serif; overflow: hidden; background: #071320; border: 1px solid rgba(80,160,240,0.18); display: flex; flex-direction: column; position: relative; text-decoration: none; transition: border-color .18s, transform .18s; }
+    .mit-tc:hover { border-color: rgba(26,158,130,0.55); transform: translateY(-2px); }
+    .mit-tc-num { position: absolute; top: 7px; left: 7px; background: rgba(29,137,207,0.85); color: #fff; font-size: 9px; font-weight: 700; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 3; line-height: 1; }
+    .mit-tc-accent { height: 3px; background: linear-gradient(90deg,#1a9e82 0%,#1d89cf 100%); }
+    .mit-tc-head { padding: 13px 15px 11px; border-bottom: 1px solid rgba(80,160,240,0.12); display: flex; align-items: center; gap: 10px; background: #000; }
+    .mit-tc-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(26,158,130,0.15); border: 1px solid rgba(26,158,130,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; line-height: 1; }
+    .mit-tc-title-wrap { flex: 1; min-width: 0; }
+    .mit-tc-label { font-size: 9px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 3px; background: linear-gradient(90deg,#00c97a 0%,#1eff9e 50%,#00e676 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 4px rgba(0,255,140,0.45)); }
+    .mit-tc-title { font-size: 13px; font-weight: 700; line-height: 1.2; background: linear-gradient(90deg,#00c97a 0%,#1eff9e 40%,#00e676 70%,#00b862 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 6px rgba(0,255,140,0.55)); }
+    .mit-tc-live { align-items: center; display: flex; gap: 4px; flex-shrink: 0; }
+    .mit-tc-live-dot { background: #1a9e82; border-radius: 50%; display: inline-block; height: 7px; width: 7px; box-shadow: 0 0 6px rgba(26,158,130,0.8); animation: mit-live-dot 2s ease-in-out infinite; }
+    .mit-tc-live-txt { color: #7effd8; font-size: 8.5px; font-weight: 800; }
+    .mit-tc-body { padding: 10px 15px 11px; border-bottom: 1px solid rgba(80,160,240,0.1); flex: 1; display: flex; align-items: center; }
+    .mit-tc-body p { color: rgba(180,210,234,0.72); font-size: 11px; line-height: 1.65; margin: 0; }
+    .mit-tc-menu { padding: 10px 15px 13px; display: flex; flex-direction: column; gap: 5px; }
+    .mit-tc-menu.mit-tc-menu-row { flex-direction: row; gap: 6px; }
+    .mit-tc-btn { align-items: center; background: rgba(26,158,130,0.14); border: 1.5px solid rgba(26,158,130,0.45); border-radius: 7px; color: #7effd8; display: flex; font-size: 11px; font-weight: 700; gap: 8px; padding: 8px 12px; text-decoration: none; transition: background .15s; }
+    .mit-tc-btn:hover { background: rgba(26,158,130,0.26); }
+    .mit-tc-menu-row .mit-tc-btn { flex: 1; flex-direction: column; align-items: center; justify-content: center; padding: 8px 6px; gap: 3px; text-align: center; }
+    .mit-tc-btn-icon { font-size: 14px; line-height: 1; flex-shrink: 0; }
+    .mit-tc-btn-label { flex: 1; }
+    .mit-tc-menu-row .mit-tc-btn-label { flex: none; font-size: 10px; }
+
+    /*── FAQ ── */
+    #mit-faq { background: #fff; border: 1.5px solid #d1e0ee; border-radius: 14px; box-shadow: 0 2px 12px rgba(10,35,66,0.07); margin-top: 20px; padding: 22px 22px 16px; }
+    #mit-faq h2 { color: #0a2342; font-size: 16px; font-weight: 800; margin: 0 0 16px; }
+    .mit-faq-item { border-top: 1px solid #e8f0f8; padding: 14px 0; }
+    .mit-faq-item:first-of-type { border-top: none; padding-top: 0; }
+    .mit-faq-q { color: #0a2342; font-size: 13.5px; font-weight: 700; line-height: 1.5; margin: 0 0 7px; }
+    .mit-faq-a { color: #4a6478; font-size: 13px; line-height: 1.7; margin: 0; }
+    .mit-faq-a a { color: #1a9e82; font-weight: 600; text-decoration: none; }
+
+    #mit-footer-note { color: #9fb5c2; font-size: 11px; line-height: 1.8; margin: 18px 4px 4px; text-align: center; }
+  </style>
+
+  <!--══ Header ══-->
+  <div id="mit-header">
+    <div id="mit-eyebrow">ShipPaulJobs · Free Maritime Tools Suite</div>
+    <h1 id="mit-h1">Maritime Intelligence Tools</h1>
+    <p id="mit-sub">Nine free tools for maritime compliance, cybersecurity, market intelligence and vessel tracking — built and maintained by ShipPaulJobs.</p>
+  </div>
+
+  <!--══ Overview (static SEO section) ══-->
+  <div id="mit-overview">
+    <p class="mit-ov-intro-text">Each tool below is free to use and updates from live sources — classification society databases, RSS feeds, AIS data, and open weather APIs. No sign-up required.</p>
+    <div class="mit-stat-grid">
+      <div class="mit-stat-card">
+        <div class="mit-stat-val">9</div>
+        <div class="mit-stat-label">tools in the suite</div>
+      </div>
+      <div class="mit-stat-card">
+        <div class="mit-stat-val">9</div>
+        <div class="mit-stat-label">classification societies covered</div>
+      </div>
+      <div class="mit-stat-card">
+        <div class="mit-stat-val">100%</div>
+        <div class="mit-stat-label">free, no sign-up required</div>
+      </div>
+      <div class="mit-stat-card">
+        <div class="mit-stat-val">Live</div>
+        <div class="mit-stat-label">data — weather, AIS, threat &amp; jobs feeds</div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ Tools grid ══-->
+  <div id="mit-tools-panel">
+    <div id="mit-tools-panel-title">Professional maritime tools developed by ShipPaulJobs (9)</div>
+    <div class="mit-tools-grid">
+
+      <!-- ① Card: Class Type Approval Check -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">1</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">🔍</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Type Approval</div>
+            <div class="mit-tc-title">Class Type Approval Check</div>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Search official Type Approval databases across 9 major classification societies — all in one place.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/maritime-class-approval-check.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🔍</span>
+            <span class="mit-tc-btn-label">Search Type Approvals</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ② Card: Maritime Cyber Compliance AI -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">2</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">🤖</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Compliance AI</div>
+            <div class="mit-tc-title">Maritime Cyber Compliance AI</div>
+          </div>
+          <div class="mit-tc-live">
+            <span class="mit-tc-live-dot"></span>
+            <span class="mit-tc-live-txt">LIVE</span>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Ask any question about maritime cyber regulations — get clause references, plain-English interpretations, and official PDF source links instantly.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🤖</span>
+            <span class="mit-tc-btn-label">Open Compliance AI</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ③ Card: Maritime Cybersecurity Docs -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">3</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">📥</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Document Library</div>
+            <div class="mit-tc-title">Maritime Cybersecurity Docs</div>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Access official maritime cybersecurity documents — IACS UR E26/E27, BIMCO, NIST SP 800, class society rules &amp; national port security regulations.</p>
+        </div>
+        <div class="mit-tc-menu mit-tc-menu-row">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/international-association-compliance.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🌐</span>
+            <span class="mit-tc-btn-label">Intl.</span>
+          </a>
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/class-society-cyber-guidelines-iacs-ur.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🏛️</span>
+            <span class="mit-tc-btn-label">Class</span>
+          </a>
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/national-and-port-security-compliance.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🛡️</span>
+            <span class="mit-tc-btn-label">National</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ④ Card: Ship Order Trends -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">4</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">🚢</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Newbuilding Intel</div>
+            <div class="mit-tc-title">Ship Order Trends</div>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Track global newbuilding orders by vessel type — container ships, LNG carriers, bulk carriers, tankers &amp; offshore units. Sourced from Clarksons &amp; industry data.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/global-newbuilding-orders.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">📊</span>
+            <span class="mit-tc-btn-label">View Order Trends</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ⑤ Card: Maritime Cyber Threat Intel -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">5</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">🛡️</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Cyber Threats</div>
+            <div class="mit-tc-title">Maritime Cyber Threat Intel</div>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Maritime cybersecurity intelligence briefings — ransomware incidents at ports, GPS/AIS jamming, OT/IT breaches &amp; regulatory alerts curated for maritime security professionals.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">📡</span>
+            <span class="mit-tc-btn-label">View Threat Feed</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ⑥ Card: Maritime Jobs Feed -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">6</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">💼</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Career Intel</div>
+            <div class="mit-tc-title">Maritime Jobs Feed</div>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Curated maritime cyber &amp; digital job listings — AI &amp; data, OT security, compliance, and executive positions at shipowners, ports, class societies &amp; tech vendors.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🔍</span>
+            <span class="mit-tc-btn-label">Browse Jobs</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ⑦ Card: Maritime Weather -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">7</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">🌤</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Weather &amp; Sea State</div>
+            <div class="mit-tc-title">Maritime Weather</div>
+          </div>
+          <div class="mit-tc-live">
+            <span class="mit-tc-live-dot"></span>
+            <span class="mit-tc-live-txt">LIVE</span>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Real-time maritime weather — wind speed, wave height, barometric pressure and sea state updated for the vessel's current position via open-meteo API.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/maritime-weather-forecast.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🌤</span>
+            <span class="mit-tc-btn-label">Check Weather</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ⑧ Card: Visitor Intel -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">8</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">📡</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">Connection Intel</div>
+            <div class="mit-tc-title">Visitor Intel</div>
+          </div>
+          <div class="mit-tc-live">
+            <span class="mit-tc-live-dot"></span>
+            <span class="mit-tc-live-txt">LIVE</span>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Visitor intelligence panel — displays your connection origin, IP geolocation, language, timezone and maritime region context in real time.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/visitor-intel.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">📡</span>
+            <span class="mit-tc-btn-label">Check Your Intel</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ⑨ Card: Vessel & Fleet Analysis -->
+      <div class="mit-tc">
+        <div class="mit-tc-num">9</div>
+        <div class="mit-tc-accent"></div>
+        <div class="mit-tc-head">
+          <div class="mit-tc-icon">🛰</div>
+          <div class="mit-tc-title-wrap">
+            <div class="mit-tc-label">AIS Tracking</div>
+            <div class="mit-tc-title">Vessel &amp; Fleet Analysis</div>
+          </div>
+          <div class="mit-tc-live">
+            <span class="mit-tc-live-dot"></span>
+            <span class="mit-tc-live-txt">LIVE</span>
+          </div>
+        </div>
+        <div class="mit-tc-body">
+          <p>Live AIS vessel tracking map — real-time positions of cargo ships, tankers and bulk carriers in Korean and East Asian waters. Powered by VesselFinder.</p>
+        </div>
+        <div class="mit-tc-menu">
+          <a class="mit-tc-btn" href="https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html" rel="noopener noreferrer" target="_blank">
+            <span class="mit-tc-btn-icon">🗺</span>
+            <span class="mit-tc-btn-label">Open Vessel Map</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--══ FAQ ══-->
+  <div id="mit-faq">
+    <h2>Frequently Asked Questions — Maritime Intelligence Tools</h2>
+
+    <div class="mit-faq-item">
+      <p class="mit-faq-q">Are these maritime tools free to use?</p>
+      <p class="mit-faq-a">Yes. All 9 tools in this suite are free, require no account or sign-up, and are maintained by ShipPaulJobs as part of the site's maritime technology and cybersecurity coverage.</p>
+    </div>
+
+    <div class="mit-faq-item">
+      <p class="mit-faq-q">Which classification societies does the Type Approval Check cover?</p>
+      <p class="mit-faq-a">The <a href="https://www.shippauljobs.com/p/maritime-class-approval-check.html" rel="noopener" target="_blank">Class Type Approval Check</a> tool searches official Type Approval databases across 9 major classification societies from a single search interface.</p>
+    </div>
+
+    <div class="mit-faq-item">
+      <p class="mit-faq-q">How current is the data behind these tools?</p>
+      <p class="mit-faq-a">Tools marked LIVE — Maritime Cyber Compliance AI, Maritime Weather, Visitor Intel, and Vessel &amp; Fleet Analysis — pull from live sources on every visit (open-meteo, VesselFinder AIS, and connection metadata). Ship Order Trends and Maritime Cyber Threat Intel refresh from Clarksons/industry data and curated threat feeds on a regular cadence.</p>
+    </div>
+
+    <div class="mit-faq-item">
+      <p class="mit-faq-q">Where can I find IACS UR E26/E27 and other compliance documents?</p>
+      <p class="mit-faq-a">The <a href="https://www.shippauljobs.com/p/international-association-compliance.html" rel="noopener" target="_blank">Maritime Cybersecurity Docs</a> library indexes IACS UR E26/E27, BIMCO, NIST SP 800, class society rules, and national port security regulations, split into International, Class, and National sub-sections.</p>
+    </div>
+  </div>
+
+  <div id="mit-footer-note">Source: shippauljobs.com · 9 tools maintained by the ShipPaulJobs team · Suggestions or bug reports welcome via the site's contact page</div>
+
+</div>
+
+<!-- WebPage + ItemList structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Maritime Intelligence Tools — Free Tools by ShipPaulJobs",
+  "url": "https://www.shippauljobs.com/p/maritime-intelligence-tools.html",
+  "description": "9 free maritime tools: type approval search, cyber compliance AI, ship order trends, threat intel, jobs feed, weather, AIS tracking & more.",
+  "inLanguage": "en",
+  "dateModified": "2026-08-22",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ShipPaulJobs",
+    "url": "https://www.shippauljobs.com"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      { "@type": "SoftwareApplication", "position": 1, "name": "Class Type Approval Check", "url": "https://www.shippauljobs.com/p/maritime-class-approval-check.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 2, "name": "Maritime Cyber Compliance AI", "url": "https://www.shippauljobs.com/p/shippaul-intelligence-maritime-cyber.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 3, "name": "Maritime Cybersecurity Docs", "url": "https://www.shippauljobs.com/p/international-association-compliance.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 4, "name": "Ship Order Trends", "url": "https://www.shippauljobs.com/p/global-newbuilding-orders.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 5, "name": "Maritime Cyber Threat Intel", "url": "https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 6, "name": "Maritime Jobs Feed", "url": "https://www.shippauljobs.com/p/live-feed-maritime-jobs-feed-ai-data.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 7, "name": "Maritime Weather", "url": "https://www.shippauljobs.com/p/maritime-weather-forecast.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 8, "name": "Visitor Intel", "url": "https://www.shippauljobs.com/p/visitor-intel.html", "applicationCategory": "UtilitiesApplication" },
+      { "@type": "SoftwareApplication", "position": 9, "name": "Vessel & Fleet Analysis", "url": "https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html", "applicationCategory": "UtilitiesApplication" }
+    ]
+  }
+}
+</script>
+
+<!-- FAQPage structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are these maritime tools free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. All 9 tools in this suite are free, require no account or sign-up, and are maintained by ShipPaulJobs." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which classification societies does the Type Approval Check cover?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The Class Type Approval Check tool searches official Type Approval databases across 9 major classification societies from a single search interface." }
+    },
+    {
+      "@type": "Question",
+      "name": "How current is the data behind these tools?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tools marked LIVE pull from live sources on every visit (open-meteo, VesselFinder AIS, connection metadata). Ship Order Trends and Threat Intel refresh from Clarksons/industry data and curated feeds on a regular cadence." }
+    },
+    {
+      "@type": "Question",
+      "name": "Where can I find IACS UR E26/E27 and other compliance documents?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The Maritime Cybersecurity Docs library indexes IACS UR E26/E27, BIMCO, NIST SP 800, class society rules, and national port security regulations, split into International, Class, and National sub-sections." }
+    }
+  ]
+}
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    ["comments", "comment-holder"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+    document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) {
+      el.style.display = "none";
+    });
+  });
+</script>

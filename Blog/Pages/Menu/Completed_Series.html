@@ -1,0 +1,847 @@
+<!--════════════════════════════════════════════════════════════
+     Page : Completed Series — Multi-Part Maritime Knowledge Series | ShipPaulJobs
+     URL  : https://www.shippauljobs.com/p/completed-series.html
+════════════════════════════════════════════════════════════-->
+
+<!--══ Hide comments ══-->
+<style>
+  #comments,.comments,#comment-holder,.comments-widget-container{display:none!important}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+<div id="cs-wrap" style="background:rgba(200,228,248,0.35);border-radius:22px;box-sizing:border-box;color:#2c3e50;font-family:'Inter','Segoe UI',Arial,sans-serif;margin:0 auto;max-width:900px;padding:18px">
+
+<style>
+#cs-wrap,#cs-wrap *{box-sizing:border-box}
+@keyframes cs-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+#cs-header{background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:36px 24px 26px;text-align:center;margin-bottom:20px}
+#cs-eyebrow{color:#7ec8f4;font-size:11px;font-weight:700;letter-spacing:2.5px;margin-bottom:14px;text-transform:uppercase}
+#cs-h1{color:#eef6ff;font-family:'Roboto',Arial,sans-serif;font-size:38px;font-weight:900;letter-spacing:-.5px;line-height:1.2;margin:0 0 8px}
+#cs-count-badge{background:rgba(29,137,207,.55);border-radius:20px;color:#e8f4fd;display:none;font-size:11.5px;font-weight:700;padding:2px 14px;margin-bottom:14px}
+#cs-sub{color:#c8e4f8;font-size:14px;font-weight:300;line-height:1.7;margin:0 auto 20px;max-width:560px;opacity:.95}
+
+#cs-search-bar{margin:0 auto;max-width:560px}
+#cs-search-panel{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:10px 16px 14px}
+#cs-search-input-wrap{align-items:center;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.30);border-radius:8px;display:flex;gap:8px;padding:0 12px;transition:border-color .2s}
+#cs-search-input-wrap:focus-within{border-color:#1d89cf}
+#cs-search-input{background:transparent;border:0;color:#e8f4fd;font-family:'Inter',Arial,sans-serif;font-size:13px;height:38px;outline:none;width:100%}
+#cs-search-input::placeholder{color:rgba(232,244,253,.55)}
+#cs-tag-bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:22px}
+.cs-tag-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:20px;color:#e8f4fd;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:600;padding:4px 13px;transition:background .15s,border-color .15s;white-space:nowrap}
+.cs-tag-btn:hover{background:rgba(29,137,207,.45)}
+.cs-tag-btn.active{background:#1d89cf;border-color:#1d89cf;color:#fff}
+
+#cs-controls{align-items:center;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+#cs-sort-wrap{display:flex;border:1.5px solid #d1e0ee;border-radius:20px;overflow:hidden}
+.cs-sort-btn{background:#fff;border:0;color:#154f7a;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;padding:5px 13px;transition:background .15s,color .15s}
+.cs-sort-btn.active{background:#154f7a;color:#fff}
+#cs-stats{color:#6b8599;font-size:11.5px;margin-bottom:10px;display:none}
+#cs-showing-count{font-weight:700;color:#154f7a}
+
+#cs-loading{color:#154f7a;padding:40px 10px;text-align:center;display:none}
+#cs-loading-text{animation:cs-pulse 1.6s ease-in-out infinite;font-size:13.5px;font-weight:600}
+
+#cs-grid{margin-bottom:20px}
+
+.spj-badge{align-items:center;background:#fff url('https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png') center/cover no-repeat;border-radius:50%;border:none!important;display:inline-flex;flex-shrink:0;height:26px;justify-content:center;overflow:hidden;text-decoration:none;width:26px;z-index:5}
+.spj-badge img{display:none!important}
+.spj-badge-l1{box-shadow:0 0 0 2.5px #00c97a,0 0 7px rgba(0,201,122,.55),0 1px 3px rgba(0,0,0,.2)}
+.spj-badge-l2{box-shadow:0 0 0 2.5px #1d89cf,0 0 7px rgba(29,137,207,.55),0 1px 3px rgba(0,0,0,.2)}
+.spj-badge-l3{box-shadow:0 0 0 2.5px #9b59b6,0 0 7px rgba(155,89,182,.55),0 1px 3px rgba(0,0,0,.2)}
+
+/* ── Year / Month / Week accordion (grouped list) ── */
+.cs-year-section{margin-bottom:10px}
+.cs-year-header{align-items:center;background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;cursor:pointer;display:flex;font-family:'Inter',Arial,sans-serif;gap:10px;padding:11px 18px;width:100%;transition:background .15s,border-color .15s}
+.cs-year-header:hover{background:#e4eef8;border-color:#a8c4dc}
+.cs-year-header.open{background:#154f7a;border-color:#154f7a}
+.cs-year-label{color:#0a2342;font-size:15px;font-weight:800;flex:1 1 auto;text-align:left;transition:color .15s}
+.cs-year-total{color:#6b8599;font-size:11px;font-weight:600;flex-shrink:0;transition:color .15s}
+.cs-year-chevron{color:#9fb5c2;flex-shrink:0;display:inline-flex;transition:color .15s,transform .18s;transform:rotate(0deg)}
+.cs-year-header.open .cs-year-chevron{transform:rotate(180deg)}
+.cs-year-header.open .cs-year-label,.cs-year-header.open .cs-year-total{color:#fff}
+.cs-year-header.open .cs-year-chevron{color:#c8e4f8}
+.cs-year-body{padding:4px 0 12px 0}
+
+.cs-month-group{margin-bottom:4px}
+.cs-month-header{align-items:center;background:none;border:0;border-bottom:1.5px solid rgba(29,137,207,.2);cursor:pointer;display:flex;font-family:'Inter',Arial,sans-serif;justify-content:space-between;gap:8px;margin:16px 4px 8px;padding:0 0 5px;width:100%;transition:border-color .15s}
+.cs-month-header:hover{border-color:#154f7a}
+.cs-month-header.closed{border-bottom-color:#e8f0f8}
+.cs-month-group:first-child .cs-month-header{margin-top:4px}
+.cs-month-label{color:#154f7a;font-size:12.5px;font-weight:700;text-align:left}
+.cs-month-right{align-items:center;display:flex;flex-shrink:0;gap:6px}
+.cs-month-count{background:#e8f4f0;color:#1a9e82;border-radius:10px;font-size:10px;font-weight:700;padding:2px 8px;white-space:nowrap}
+.cs-month-chevron{color:#9fb5c2;display:inline-flex;flex-shrink:0;transform:rotate(180deg);transition:transform .18s}
+.cs-month-header.closed .cs-month-chevron{transform:rotate(0deg)}
+.cs-month-body{padding-left:4px}
+
+.cs-week-group{margin:0 0 10px 4px;padding-left:12px;border-left:2px solid #eef4fa}
+.cs-week-header{align-items:center;background:none;border:0;cursor:pointer;display:flex;font-family:'Inter',Arial,sans-serif;justify-content:space-between;gap:8px;margin:0 0 6px;padding:2px 0;width:100%}
+.cs-week-label{color:#6b8599;font-size:11px;font-weight:700;letter-spacing:.02em;text-align:left}
+.cs-week-right{align-items:center;display:flex;flex-shrink:0;gap:6px}
+.cs-week-count{color:#9fb5c2;font-size:10px;font-weight:600;white-space:nowrap}
+.cs-week-chevron{color:#c3d3e0;display:inline-flex;flex-shrink:0;transform:rotate(180deg);transition:transform .18s}
+.cs-week-header.closed .cs-week-chevron{transform:rotate(0deg)}
+
+/* ── Post row — one post per line, wide card (design reference: Publications.html .pub-card) ── */
+.cs-list{display:flex;flex-direction:column;gap:10px}
+.cs-list-row{background:#fff;border-radius:10px;border:1px solid #e8f0f8;box-shadow:0 1px 5px rgba(10,35,66,.05);display:flex;flex-direction:row;overflow:hidden;text-decoration:none;transition:box-shadow .18s,border-color .18s,transform .18s}
+.cs-list-row:hover{border-color:#154f7a;box-shadow:0 4px 18px rgba(10,35,66,.12);transform:translateY(-2px)}
+.cs-list-thumb-wrap{flex-shrink:0;position:relative;width:200px}
+.cs-list-thumb{background:linear-gradient(135deg,rgba(21,79,122,.85),rgba(26,158,130,.75));background-position:center;background-repeat:no-repeat;background-size:contain;height:100%;width:100%}
+.cs-list-nothumb{align-items:center;color:rgba(255,255,255,.85);display:flex;font-size:26px;justify-content:center}
+@media(max-width:560px){.cs-list-thumb-wrap{width:130px}}
+@media(max-width:400px){.cs-list-thumb-wrap{width:100px}}
+.cs-list-read-badge{background:#16a34a;border-radius:10px;bottom:7px;color:#fff;font-size:9px;font-weight:700;left:7px;line-height:1.6;padding:2px 8px;position:absolute;z-index:2}
+.cs-list-verify-badge{position:absolute;right:7px;top:7px;z-index:2}
+.cs-list-body{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;padding:10px 14px}
+.cs-list-title{color:#0a2342;font-size:13.5px;font-weight:700;line-height:1.5;margin:0 0 5px}
+.cs-list-title.cs-list-read{color:#9fb5c2}
+.cs-list-desc{color:#6b8599;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;font-size:11.5px;line-height:1.55;overflow:hidden}
+.cs-list-tags{display:flex;flex-wrap:nowrap;gap:3px;margin-top:7px;overflow:hidden}
+.cs-list-tag{background:rgba(29,137,207,.1);border-radius:4px;color:#1d89cf;cursor:pointer;flex-shrink:0;font-size:9px;font-weight:600;line-height:1.7;padding:1px 6px;white-space:nowrap}
+.cs-list-tag-more{background:transparent;color:#9fb5c2;cursor:default;flex-shrink:0;font-size:10px;font-weight:700;padding:1px 2px}
+.cs-list-footer{align-items:center;border-top:1px solid #e8f0f7;display:flex;justify-content:space-between;margin-top:9px;padding-top:8px}
+.cs-list-author-row{align-items:center;display:flex;gap:5px;min-width:0;overflow:hidden}
+.cs-list-avatar{border-radius:50%;border:1px solid #d0e4f0;flex-shrink:0;height:18px;object-fit:cover;width:18px}
+.cs-list-author-name{color:#4a6278;font-size:10px;font-weight:600;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-list-date{color:#9fb5c2;flex-shrink:0;font-size:10px}
+.cs-list-footer-right{align-items:center;display:flex;flex-shrink:0;gap:6px}
+.cs-list-comments{color:#1d89cf;cursor:pointer;font-size:10.5px;font-weight:600;white-space:nowrap}
+.cs-list-share{align-items:center;background:rgba(26,158,130,.88);border-radius:50%;border:none;box-shadow:0 2px 7px rgba(0,0,0,.22);cursor:pointer;display:flex;flex-shrink:0;height:26px;justify-content:center;opacity:0;pointer-events:none;transition:background .16s,transform .16s,opacity .18s;width:26px}
+.cs-list-row:hover .cs-list-share{opacity:1;pointer-events:auto}
+.cs-list-share:hover{background:#1a9e82;transform:scale(1.1)}
+#cs-empty{color:#6b8599;display:none;font-size:13.5px;line-height:1.9;padding:30px 10px;text-align:center;background:#fff;border:1px solid #e8f0f8;border-radius:14px;margin-bottom:20px}
+#cs-load-more-wrap{text-align:center;margin-bottom:20px;display:none}
+#cs-load-more{background:#154f7a;border:0;border-radius:20px;color:#fff;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:700;padding:10px 28px;transition:background .18s}
+#cs-load-more:hover{background:#1a9e82}
+
+#cs-ranked-wrap{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-bottom:24px;padding:20px 22px 8px}
+#cs-ranked-header{align-items:center;display:flex;gap:8px;margin-bottom:4px}
+#cs-ranked-title{color:#0a2342;flex-shrink:0;font-size:15px;font-weight:800}
+#cs-verify-badge{color:#9fb5c2;font-size:9.5px;font-weight:800;letter-spacing:.1em;margin-left:auto;text-decoration:none;text-transform:uppercase;transition:color .15s;white-space:nowrap}
+#cs-verify-badge:hover{color:#154f7a}
+#cs-ranked-note{color:#9fb5c2;font-size:10.5px}
+.cs-rank-row{align-items:center;border-top:1px solid #e8f0f8;display:flex;gap:12px;padding:12px 0;text-decoration:none}
+.cs-rank-row:hover .cs-rank-title{color:#1a9e82}
+.cs-rank-num{background:#154f7a;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px}
+.cs-rank-row:nth-child(1) .cs-rank-num{background:#ffc107;color:#1a1200}
+.cs-rank-row:nth-child(2) .cs-rank-num{background:#b0bac2;color:#1a1200}
+.cs-rank-row:nth-child(3) .cs-rank-num{background:#e67e22;color:#fff}
+.cs-rank-thumb{background:linear-gradient(135deg,rgba(21,79,122,.85),rgba(26,158,130,.75));background-position:center;background-size:cover;border-radius:8px;flex-shrink:0;height:44px;width:44px}
+.cs-rank-noimg{align-items:center;color:rgba(255,255,255,.85);display:flex;font-size:16px;justify-content:center}
+.cs-rank-body{flex:1 1 auto;min-width:0}
+.cs-rank-title{color:#0a2342;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;flex:1 1 auto;font-size:13px;font-weight:700;line-height:1.5;margin:0;min-width:0;overflow:hidden;transition:color .15s}
+.cs-rank-meta{align-items:center;color:#9fb5c2;display:flex;font-size:10.5px;gap:5px;margin-top:3px}
+.cs-rank-avatar{background-color:#e8f0f7;background-position:center;background-size:cover;border-radius:50%;flex-shrink:0;height:15px;width:15px}
+.cs-rank-author{color:#6b8599;font-weight:600}
+.cs-rank-date{flex-shrink:0}
+#cs-ranked-loading{color:#9fb5c2;font-size:12.5px;padding:14px 0;text-align:center}
+
+#cs-context{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-bottom:20px;padding:22px 22px 16px}
+.cs-ctx-intro{border-bottom:1px solid #e8f0f8;margin-bottom:16px;padding-bottom:12px}
+.cs-ctx-intro-text{color:#4a6478;font-size:13.5px;line-height:1.7;margin:0 0 6px}
+.cs-ctx-updated{color:#9fb5c2;font-size:11.5px;margin:0}
+.cs-ctx-updated a{color:#1a9e82;text-decoration:none}
+.cs-ctx-title{color:#0a2342;font-size:16px;font-weight:800;letter-spacing:-.01em;margin:0 0 14px}
+.cs-role-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));margin-bottom:18px}
+.cs-role-card{background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:10px;display:flex;flex-direction:column;gap:6px;padding:14px 16px}
+.cs-role-badge{border-radius:4px;display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 8px;width:fit-content}
+.cs-badge-cyber{background:#e8f0f7;color:#154f7a}
+.cs-badge-ai{background:#e6f4f0;color:#0e7c62}
+.cs-badge-auto{background:#ede9fe;color:#5b21b6}
+.cs-badge-eng{background:#fef3e2;color:#b45309}
+.cs-role-card strong{color:#0a2342;font-size:13px;line-height:1.45}
+.cs-role-card p{color:#4a6478;font-size:12px;line-height:1.6;margin:0}
+#cs-faq{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-top:20px;padding:22px 22px 16px}
+#cs-faq h2{color:#0a2342;font-size:16px;font-weight:800;margin:0 0 16px}
+.cs-faq-item{border-top:1px solid #e8f0f8;padding:14px 0}
+.cs-faq-item:first-of-type{border-top:none;padding-top:0}
+.cs-faq-q{color:#0a2342;font-size:13.5px;font-weight:700;line-height:1.5;margin:0 0 7px}
+.cs-faq-a{color:#4a6478;font-size:13px;line-height:1.7;margin:0}
+.cs-faq-a a{color:#1a9e82;font-weight:600;text-decoration:none}
+#cs-footer-note{color:#9fb5c2;font-size:11px;line-height:1.8;margin:18px 4px 4px;text-align:center}
+
+    /* ── Card sort / filter animation ── */
+    @keyframes cs-card-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .cs-card { animation: cs-card-in 0.28s ease both; }
+    #cs-grid.cs-sorting { opacity: 0; transition: opacity 0.15s; }
+    #cs-grid.cs-sorted  { opacity: 1; transition: opacity 0.15s; }
+</style>
+
+<!--══ Header ══-->
+<div id="cs-header">
+  <div id="cs-eyebrow">ShipPaulJobs · Completed Series</div>
+  <h1 id="cs-h1">Completed Series</h1>
+  <div id="cs-count-badge" style="display:none"></div>
+  <p id="cs-sub">In-depth multi-part series on maritime cybersecurity, ship systems, regulations, and smart shipping — fully written and ready to read from start to finish.</p>
+  <div id="cs-search-bar">
+    <div id="cs-search-panel">
+      <div id="cs-search-input-wrap">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;opacity:.6"><circle cx="9" cy="9" r="6" stroke="#e8f4fd" stroke-width="2"/><path d="M15 15l3 3" stroke="#e8f4fd" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="cs-search-input" placeholder="Search series archive…" autocomplete="off" spellcheck="false"/>
+      </div>
+      <div id="cs-tag-bar">
+        <button class="cs-tag-btn active" data-tag="">All</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ Controls ══-->
+<div id="cs-controls">
+  <div id="cs-sort-wrap">
+    <button class="cs-sort-btn active" data-sort="latest">Latest</button>
+    <button class="cs-sort-btn" data-sort="oldest">Oldest</button>
+    <button class="cs-sort-btn" data-sort="az">A–Z</button>
+  </div>
+</div>
+<div id="cs-stats" style="display:none">Showing <span id="cs-showing-count">0</span> articles</div>
+
+<!--══ Loading ══-->
+<div id="cs-loading" style="display:none">
+  <div id="cs-loading-text">📡 Loading completed series…</div>
+</div>
+
+<!--══ Grid ══-->
+<div id="cs-grid"></div>
+<div id="cs-empty" style="display:none">No completed series posts found.</div>
+<div id="cs-load-more-wrap"><button id="cs-load-more">Load more</button></div>
+
+<!--══ Top Ranked ══-->
+<div id="cs-ranked-wrap">
+  <div id="cs-ranked-header">
+    <div id="cs-ranked-title">🏆 Top Ranked Series</div>
+    <a id="cs-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener">📌 Verification Policy</a>
+  </div>
+  <div id="cs-ranked-note">Most-viewed series posts, ranked by reader traffic</div>
+  <div id="cs-ranked-loading">Loading top posts…</div>
+</div>
+
+<!--══ Context ══-->
+<div id="cs-context">
+  <div class="cs-ctx-intro">
+    <p class="cs-ctx-intro-text">Completed Series are multi-part deep dives into a single maritime topic — written in structured instalments and published once the full series is complete. Each series takes a practitioner through a topic from foundations to advanced application, with consistent terminology and cross-part references.</p>
+    <p class="cs-ctx-updated">Last reviewed: August 2026 &nbsp;|&nbsp; <a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" rel="noopener">Editorial &amp; Verification Policy</a></p>
+  </div>
+  <h2 class="cs-ctx-title">What to Expect from a Series</h2>
+  <div class="cs-role-grid">
+    <div class="cs-role-card">
+      <div class="cs-role-badge cs-badge-cyber">Structure</div>
+      <strong>Part-by-Part Progression</strong>
+      <p>Each series is structured to build knowledge progressively — Part 1 covers foundations, later parts move to advanced implementation and real-world case studies.</p>
+    </div>
+    <div class="cs-role-card">
+      <div class="cs-role-badge cs-badge-ai">Coverage</div>
+      <strong>Deep Technical Coverage</strong>
+      <p>Series topics include IACS UR E26 implementation, OT/IT network segmentation for vessels, CII compliance strategies, digital twin deployment, and autonomous ship systems.</p>
+    </div>
+    <div class="cs-role-card">
+      <div class="cs-role-badge cs-badge-eng">Verification</div>
+      <strong>Expert Reviewed</strong>
+      <p>All series articles are reviewed by maritime cybersecurity engineers, class society consultants, or flag state technical advisors before publication.</p>
+    </div>
+  </div>
+</div>
+
+<!--══ FAQ ══-->
+<div id="cs-faq">
+  <h2>Frequently Asked Questions — Completed Series</h2>
+  <div class="cs-faq-item">
+    <p class="cs-faq-q">What are the Completed Series?</p>
+    <p class="cs-faq-a">Completed Series are multi-part deep-dive articles on a single maritime topic — cybersecurity, ship systems, regulations, or smart shipping — fully written and published so readers can follow from Part 1 to the final instalment without waiting for future parts.</p>
+  </div>
+  <div class="cs-faq-item">
+    <p class="cs-faq-q">How are series organised on this page?</p>
+    <p class="cs-faq-a">Use the tag filter chips to narrow by topic, the search bar to find a specific series by name or keyword, and the sort controls to order by latest publication, oldest first (to read Part 1 first), or A–Z by title.</p>
+  </div>
+</div>
+
+<div id="cs-footer-note">Source: shippauljobs.com · Label "SERIES" · Views tracked from page-visit counter (site-wide, live since deployment)</div>
+
+<!--══ Structured Data ══-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Completed Series — Maritime Knowledge Series | ShipPaulJobs",
+  "url": "https://www.shippauljobs.com/p/completed-series.html",
+  "description": "Fully completed multi-part series on maritime cybersecurity, ship systems, and smart shipping. Browse each series from Part 1 through the final instalment.",
+  "publisher": {"@type":"Organization","name":"ShipPaulJobs","url":"https://www.shippauljobs.com"},
+  "about": [{"@type":"Thing","name":"Maritime Cybersecurity Series"},
+    {"@type":"Thing","name":"Ship Systems Guides"},
+    {"@type":"Thing","name":"Smart Ship Technology"}],
+  "mainEntity": [{"@type":"Question","name":"What are the Completed Series?","acceptedAnswer":{"@type":"Answer","text":"Completed Series are multi-part deep-dive articles on a single maritime topic — cybersecurity, ship systems, regulations, or smart shipping — fully written and published so readers can follow from Part 1 to the final instalment."}},
+    {"@type":"Question","name":"How are series organised?","acceptedAnswer":{"@type":"Answer","text":"Each series is tagged SERIES in Blogger. Use the search bar or tag filter chips to find articles by topic within the series. Sort A-Z to group by title, or Latest to see the most recently completed series first."}}]
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* Blogger's public summary feed does NOT return a clean auto-summary —
+     e.summary.$t is just the first ~400 raw characters of the post's HTML
+     source, truncated mid-tag or mid comment-marker. Every article in
+     this repo opens with a long boxed "Article: ..." HTML comment
+     header, so that raw slice is usually mostly (or entirely) that
+     header, sometimes cut off partway through it. Strip fully-closed
+     comment blocks, then any comment left open by the truncation, then
+     any remaining tags. If nothing readable survives, callers should
+     just omit the preview rather than show empty/garbage text. */
+  function cleanSummary(s) {
+    /* Each pattern below spells the comment open/close markers with an
+       escaped hyphen between the two dashes so the literal marker text
+       never appears contiguously in this inline script block's source —
+       that exact text appearing in script data can push an HTML parser
+       into its "script data escaped" state per the HTML5 spec. */
+    return (s || '')
+      .replace(/<!\-\-[\s\S]*?\-\->/g, ' ')
+      .replace(/<!\-\-[\s\S]*$/, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  var FEED_LABELS = ["SERIES"];
+  var CACHE_KEY = 'cs_cache_v6'; /* bumped: v6 adds the `comments` field (thr$total) used by the new wide row cards */
+  var PFX = 'cs';
+  var PAGE_SIZE = 18;
+  var allPosts = [], filteredPosts = [], displayedCount = 0;
+  var currentTag = '', currentSort = 'latest', currentSearch = '';
+  var viewCounts = {};
+
+  /* Blogger serves images (post thumbnails) in two different URL shapes,
+     and the size token needs to be swapped differently for each:
+       1) path-segment: .../s72-w629-h285-c/filename.png  (older blogspot host)
+       2) query-suffix: ...AVvXsE...=s72-c                (blogger.googleusercontent.com/img/a/…)
+     A naive "/s72-c/" replace matches neither real-world shape reliably —
+     images silently stay at their original tiny size. w1080-h500 is ~3x
+     the rendered thumb box, so it stays sharp on retina displays too;
+     background-size:cover on the target box handles the final crop. */
+  function upsizeGoogleImg(url, token) {
+    if(!url) return url;
+    if(/\/s\d+(-w\d+-h\d+)?(-c)?\//.test(url)) return url.replace(/\/s\d+(-w\d+-h\d+)?(-c)?\//, '/'+token+'/');
+    if(/=s\d+(-w\d+-h\d+)?(-c)?$/.test(url)) return url.replace(/=s\d+(-w\d+-h\d+)?(-c)?$/, '='+token);
+    return url;
+  }
+
+  var grid = document.getElementById(PFX+'-grid');
+  var emptyEl = document.getElementById(PFX+'-empty');
+  var loadingEl = document.getElementById(PFX+'-loading');
+  var statsEl = document.getElementById(PFX+'-stats');
+  var showingEl = document.getElementById(PFX+'-showing-count');
+  var loadMoreWrap = document.getElementById(PFX+'-load-more-wrap');
+  var loadMoreBtn = document.getElementById(PFX+'-load-more');
+  var tagBar = document.getElementById(PFX+'-tag-bar');
+  var countBadge = document.getElementById(PFX+'-count-badge');
+
+  function fetchLabel(label, cb) {
+    var url = label
+      ? 'https://www.shippauljobs.com/feeds/posts/summary/-/' + encodeURIComponent(label) + '?alt=json'
+      : 'https://www.shippauljobs.com/feeds/posts/summary?alt=json';
+    var collected = [];
+    function page(start) {
+      fetch(url + '&max-results=150&start-index=' + start)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          var entries = (j.feed && j.feed.entry) || [];
+          entries.forEach(function(e){
+            var link = '';
+            (e.link||[]).forEach(function(l){ if(l.rel==='alternate') link=l.href; });
+            var thumb = '';
+            if(e['media$thumbnail']) thumb = upsizeGoogleImg(e['media$thumbnail'].url, 'w1080-h500');
+            var cats = (e.category||[]).map(function(c){ return c.term; });
+            var author = (e.author&&e.author[0]) ? {
+              name:(e.author[0]['name']&&e.author[0]['name']['$t'])||'',
+              img:(e.author[0]['gd$image']&&e.author[0]['gd$image'].src)||''
+            } : {name:'',img:''};
+            if(author.img && author.img.indexOf('//lh')!==-1 && author.img.indexOf('photo.jpg')!==-1)
+              author.img = author.img.replace(/\/s\d+-c\//,'/s40-c/');
+            var published = (e.published&&e.published['$t'])||'';
+            var summary = cleanSummary((e.summary&&e.summary['$t'])||'');
+            var verifyFlag = (e['gd$extendedProperty']||[]).reduce(function(a,pp){ if(pp.name==='verify') a=pp.value; return a; },'');
+            var slug = link.replace(/^https?:\/\/[^/]+/,'').replace(/^\/\d{4}\/\d{2}\//,'').replace(/\.html$/,'');
+            var comments = e['thr$total'] ? (parseInt(e['thr$total']['$t'],10)||0) : 0;
+            collected.push({title:(e.title&&e.title['$t'])||'',link:link,thumb:thumb,cats:cats,author:author,published:published,summary:summary,verifyFlag:verifyFlag,slug:slug,comments:comments});
+          });
+          var total = parseInt((j.feed&&j.feed['openSearch$totalResults']&&j.feed['openSearch$totalResults']['$t'])||'0',10);
+          /* Blogger's public summary feed silently caps each response at
+             ~45 entries regardless of max-results=150 — entries.length===150
+             is never true, so this always stopped after page 1. Advance by
+             however many entries actually came back instead. */
+          if(collected.length < total && entries.length > 0) page(start+entries.length);
+          else cb(collected);
+        })
+        .catch(function(){ cb(collected); });
+    }
+    page(1);
+  }
+
+  function fetchAllLabels(cb) {
+    var cached = null;
+    try { var raw = sessionStorage.getItem(CACHE_KEY); if(raw) cached = JSON.parse(raw); } catch(e){}
+    if(cached && cached.posts && cached.posts.length) { cb(cached.posts); return; }
+    var all = [], done = 0;
+    if(!FEED_LABELS.length) { cb([]); return; }
+    FEED_LABELS.forEach(function(label) {
+      fetchLabel(label, function(items) {
+        all = all.concat(items);
+        done++;
+        if(done === FEED_LABELS.length) {
+          var seen = {}, deduped = [];
+          all.forEach(function(pp){ if(!seen[pp.link]){ seen[pp.link]=1; deduped.push(pp); } });
+          try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({posts:deduped})); } catch(e){}
+          cb(deduped);
+        }
+      });
+    });
+  }
+
+  function buildTagPills(posts) {
+    var tagCounts = {};
+    posts.forEach(function(pp){ pp.cats.forEach(function(c){ tagCounts[c]=(tagCounts[c]||0)+1; }); });
+    var sorted = Object.keys(tagCounts).sort(function(a,b){ return tagCounts[b]-tagCounts[a]; }).slice(0,14);
+    sorted.forEach(function(t){
+      var btn = document.createElement('button');
+      btn.className = PFX+'-tag-btn';
+      btn.dataset.tag = t;
+      btn.textContent = t + ' (' + tagCounts[t] + ')';
+      btn.addEventListener('click', function(){ setTag(t); });
+      tagBar.appendChild(btn);
+    });
+  }
+
+  function applyFilter() {
+    var q = currentSearch.toLowerCase().trim();
+    filteredPosts = allPosts.filter(function(pp){
+      if(currentTag && pp.cats.indexOf(currentTag)===-1) return false;
+      if(q) { var hay=(pp.title+' '+pp.summary+' '+pp.cats.join(' ')).toLowerCase(); if(hay.indexOf(q)===-1) return false; }
+      return true;
+    });
+    if(currentSort==='az') filteredPosts.sort(function(a,b){ return a.title.localeCompare(b.title); });
+    else if(currentSort==='oldest') filteredPosts.sort(function(a,b){ return a.published.localeCompare(b.published); });
+    else filteredPosts.sort(function(a,b){ return b.published.localeCompare(a.published); });
+    grid.classList.add(PFX+'-sorting');
+    setTimeout(function() {
+      grid.innerHTML='';
+      displayedCount=0;
+      grid.classList.remove(PFX+'-sorting');
+      grid.classList.add(PFX+'-sorted');
+      emptyEl.style.display='none';
+      renderPage();
+    }, 140);
+    return;
+  }
+
+  /* ── Year / Month / Week grouping (Latest & Oldest sort) ──
+     `filteredPosts` is already date-sorted by applyFilter() before this
+     runs, so bucketing in first-seen order naturally preserves that
+     direction at every level — no separate asc/desc branch needed. */
+  var CHEVRON_SVG = '<svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var MONTH_ABBR  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function monthLabel(dateStr) {
+    var d = new Date(dateStr);
+    if(isNaN(d.getTime())) return 'Undated';
+    return MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function daysInMonth(y, m){ return new Date(y, m+1, 0).getDate(); }
+  function weekLabel(dateStr) {
+    var d = new Date(dateStr);
+    if(isNaN(d.getTime())) return 'Undated';
+    var day = d.getDate(), wk = Math.ceil(day/7);
+    var startDay = (wk-1)*7+1, endDay = Math.min(startDay+6, daysInMonth(d.getFullYear(), d.getMonth()));
+    return '📅 Week ' + wk + ' (' + MONTH_ABBR[d.getMonth()] + ' ' + startDay + '-' + endDay + ')';
+  }
+  function groupByMonth(posts) {
+    var groups = [], map = {};
+    posts.forEach(function(p){
+      var key = (p.published||'').substring(0,7); /* YYYY-MM */
+      if(!map[key]) { map[key] = { key:key, label:monthLabel(p.published), items:[] }; groups.push(map[key]); }
+      map[key].items.push(p);
+    });
+    return groups;
+  }
+  function groupByWeek(posts) {
+    var groups = [], map = {};
+    posts.forEach(function(p){
+      var d = new Date(p.published);
+      var key = isNaN(d.getTime()) ? 'undated' : (d.getDate()<=7?1:d.getDate()<=14?2:d.getDate()<=21?3:d.getDate()<=28?4:5);
+      if(!map[key]) { map[key] = { key:key, label:weekLabel(p.published), items:[] }; groups.push(map[key]); }
+      map[key].items.push(p);
+    });
+    return groups;
+  }
+
+  function renderPage() {
+    if(currentSort==='az') renderFlatList();
+    else renderGroupedAll();
+  }
+
+  /* ── Flat paginated list (A–Z sort — alphabetical order doesn't nest under a calendar grouping) ── */
+  function renderFlatList() {
+    var list = grid.querySelector('.'+PFX+'-list');
+    if(!list) { list = document.createElement('div'); list.className = PFX+'-list'; grid.appendChild(list); }
+    var slice = filteredPosts.slice(displayedCount, displayedCount+PAGE_SIZE);
+    slice.forEach(function(pp, idx) {
+      var row = buildListRow(pp);
+      row.style.animationDelay = (idx * 0.04) + 's';
+      list.appendChild(row);
+    });
+    displayedCount += slice.length;
+    updateStats(displayedCount < filteredPosts.length);
+  }
+
+  /* ── Year → Month → Week → post-row accordion (Latest / Oldest sort) ──
+     Lazily builds each level's body only when first expanded, so a busy
+     archive doesn't pay to render months/weeks nobody opened. Only the
+     newest (or, under Oldest sort, the first-shown) year/month/week is
+     open by default. */
+  function renderGroupedAll() {
+    var yearMap = {}, yearOrder = [];
+    filteredPosts.forEach(function(p){
+      var y = p.published ? p.published.substring(0,4) : 'Unknown';
+      if(!yearMap[y]){ yearMap[y]=[]; yearOrder.push(y); }
+      yearMap[y].push(p);
+    });
+
+    yearOrder.forEach(function(year, yi){
+      var posts = yearMap[year];
+      var isOpen = true; /* expand all by default */
+
+      var yearSection = document.createElement('div');
+      yearSection.className = PFX+'-year-section';
+
+      var yearHeader = document.createElement('button');
+      yearHeader.className = PFX+'-year-header'+(isOpen?' open':'');
+      yearHeader.type = 'button';
+      yearHeader.innerHTML =
+        '<span class="'+PFX+'-year-label">📆 '+escHtml(year)+'</span>'+
+        '<span class="'+PFX+'-year-total">'+posts.length+' articles</span>'+
+        '<span class="'+PFX+'-year-chevron">'+CHEVRON_SVG+'</span>';
+
+      var yearBody = document.createElement('div');
+      yearBody.className = PFX+'-year-body';
+      yearBody.style.display = isOpen ? '' : 'none';
+      var yearBuilt = false;
+
+      function buildYearBody(){
+        if(yearBuilt) return;
+        yearBuilt = true;
+        var monthGroups = groupByMonth(posts);
+        monthGroups.forEach(function(mg, mi){
+          var monthSection = document.createElement('div');
+          monthSection.className = PFX+'-month-group';
+
+          var mOpen = true; /* expand all by default */
+          var mHeader = document.createElement('button');
+          mHeader.className = PFX+'-month-header'+(mOpen?'':' closed');
+          mHeader.type = 'button';
+          mHeader.innerHTML =
+            '<span class="'+PFX+'-month-label">'+escHtml(mg.label)+'</span>'+
+            '<span class="'+PFX+'-month-right">'+
+              '<span class="'+PFX+'-month-count">'+mg.items.length+(mg.items.length>1?' posts':' post')+'</span>'+
+              '<span class="'+PFX+'-month-chevron">'+CHEVRON_SVG+'</span>'+
+            '</span>';
+          monthSection.appendChild(mHeader);
+
+          var monthBody = document.createElement('div');
+          monthBody.className = PFX+'-month-body';
+          monthBody.style.display = mOpen ? '' : 'none';
+          var monthBuilt = false;
+
+          function buildMonthBody(){
+            if(monthBuilt) return;
+            monthBuilt = true;
+            var weekGroups = groupByWeek(mg.items);
+            weekGroups.forEach(function(wg, wi){
+              var weekSection = document.createElement('div');
+              weekSection.className = PFX+'-week-group';
+
+              var wOpen = true; /* expand all by default */
+              var wHeader = document.createElement('button');
+              wHeader.className = PFX+'-week-header'+(wOpen?'':' closed');
+              wHeader.type = 'button';
+              wHeader.innerHTML =
+                '<span class="'+PFX+'-week-label">'+escHtml(wg.label)+'</span>'+
+                '<span class="'+PFX+'-week-right">'+
+                  '<span class="'+PFX+'-week-count">'+wg.items.length+(wg.items.length>1?' posts':' post')+'</span>'+
+                  '<span class="'+PFX+'-week-chevron">'+CHEVRON_SVG+'</span>'+
+                '</span>';
+              weekSection.appendChild(wHeader);
+
+              var list = document.createElement('div');
+              list.className = PFX+'-list';
+              list.style.display = wOpen ? '' : 'none';
+              wg.items.forEach(function(p){ list.appendChild(buildListRow(p)); });
+              weekSection.appendChild(list);
+
+              wHeader.addEventListener('click', function(){
+                wOpen = !wOpen;
+                list.style.display = wOpen ? '' : 'none';
+                wHeader.classList.toggle('closed', !wOpen);
+              });
+
+              monthBody.appendChild(weekSection);
+            });
+          }
+          if(mOpen) buildMonthBody();
+          monthSection.appendChild(monthBody);
+
+          mHeader.addEventListener('click', function(){
+            mOpen = !mOpen;
+            if(mOpen) buildMonthBody();
+            monthBody.style.display = mOpen ? '' : 'none';
+            mHeader.classList.toggle('closed', !mOpen);
+          });
+
+          yearBody.appendChild(monthSection);
+        });
+      }
+      if(isOpen) buildYearBody();
+
+      yearHeader.addEventListener('click', function(){
+        var nowOpen = yearHeader.classList.toggle('open');
+        if(nowOpen) buildYearBody();
+        yearBody.style.display = nowOpen ? '' : 'none';
+      });
+
+      yearSection.appendChild(yearHeader);
+      yearSection.appendChild(yearBody);
+      grid.appendChild(yearSection);
+    });
+
+    displayedCount = filteredPosts.length;
+    updateStats(false);
+  }
+
+  function updateStats(showLoadMore) {
+    var shown = displayedCount, total = filteredPosts.length;
+    statsEl.style.display = total>0?'block':'none';
+    showingEl.textContent = shown + ' / ' + total;
+    loadMoreWrap.style.display = showLoadMore ? 'block' : 'none';
+    emptyEl.style.display = (total===0)?'block':'none';
+  }
+
+  var SHARE_SVG =
+    '<svg fill="none" height="12" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="12">'+
+    '<circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle>'+
+    '<line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>';
+
+  /* ── Share panel — same visual/behavior as the main page's card share
+       button, reimplemented locally (design reference: Publications.html
+       pubShareCard) because the theme only defines window.scsShareCard
+       inside a homepage-only include block. Falls back to it if present. ── */
+  function csShareCard(btn, e) {
+    if(window.scsShareCard) { window.scsShareCard(btn, e); return; }
+    e.stopPropagation(); e.preventDefault();
+    var prev = document.getElementById(PFX+'-sp');
+    if(prev) { prev.remove(); if(window._csSPBtn===btn){ window._csSPBtn=null; return; } }
+    window._csSPBtn = btn;
+    var url = btn.getAttribute('data-url');
+    var r = btn.getBoundingClientRect();
+
+    var panel = document.createElement('div');
+    panel.id = PFX+'-sp';
+    panel.className = 'b1-share-panel open';
+    panel.style.position = 'fixed';
+    panel.style.top = 'auto';
+    panel.style.bottom = (window.innerHeight - r.top + 6) + 'px';
+    panel.style.right = (window.innerWidth - r.right) + 'px';
+    panel.style.zIndex = '99999';
+
+    function mkA(bg, href, svgHtml, label) {
+      var a = document.createElement('a');
+      a.className = 'b1-share-btn';
+      a.style.background = bg;
+      if(href){ a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; } else { a.href='#'; }
+      a.innerHTML = svgHtml + '<span>' + label + '</span>';
+      return a;
+    }
+    function closePanel() {
+      var p = document.getElementById(PFX+'-sp');
+      if(p) p.remove();
+      window._csSPBtn = null;
+    }
+
+    var LI = '<svg fill="white" height="14" width="14"><use href="#spj-ico-li"></use></svg>';
+    var FB = '<svg fill="white" height="14" width="14"><use href="#spj-ico-fb"></use></svg>';
+    var XTW = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tw"></use></svg>';
+    var WA = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wa"></use></svg>';
+    var TG = '<svg fill="white" height="14" width="14"><use href="#spj-ico-tg"></use></svg>';
+    var RD = '<svg fill="white" height="14" width="14"><use href="#spj-ico-rd"></use></svg>';
+    var WC_SVG = '<svg fill="white" height="14" width="14"><use href="#spj-ico-wc"></use></svg>';
+    var CP = '<svg fill="none" height="14" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" width="14"><use href="#spj-ico-cp"></use></svg>';
+
+    var liA = mkA('#0a66c2','https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url),LI,'LinkedIn'); liA.onclick=function(){ setTimeout(closePanel,100); }; panel.appendChild(liA);
+    var fbA = mkA('#1877f2','https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),FB,'Facebook'); fbA.onclick=function(){ setTimeout(closePanel,100); }; panel.appendChild(fbA);
+    var xA = mkA('#111','https://twitter.com/intent/tweet?url='+encodeURIComponent(url),XTW,'X (Twitter)'); xA.onclick=function(){ setTimeout(closePanel,100); }; panel.appendChild(xA);
+    var waA = mkA('#25d366','https://wa.me/?text='+encodeURIComponent(url),WA,'WhatsApp'); waA.onclick=function(){ setTimeout(closePanel,100); }; panel.appendChild(waA);
+    var tgA = mkA('#26a5e4','https://t.me/share/url?url='+encodeURIComponent(url),TG,'Telegram'); tgA.onclick=function(){ setTimeout(closePanel,100); }; panel.appendChild(tgA);
+    var rdA = mkA('#ff4500','https://www.reddit.com/submit?url='+encodeURIComponent(url),RD,'Reddit'); rdA.onclick=function(){ setTimeout(closePanel,100); }; panel.appendChild(rdA);
+    var wcA = mkA('#07c160',null,WC_SVG,'WeChat'); wcA.setAttribute('data-u',url);
+    wcA.onclick = function(ev){ ev.preventDefault(); ev.stopPropagation(); if(window.b1WC) window.b1WC(this); return false; };
+    panel.appendChild(wcA);
+    var cpA = mkA('#607d8b',null,CP,'Copy Link');
+    cpA.onclick = function(ev){
+      ev.preventDefault(); ev.stopPropagation();
+      if(navigator.clipboard){ navigator.clipboard.writeText(url); }
+      else { try { var t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); } catch(err){} }
+      cpA.querySelector('span').textContent = 'Copied!';
+      setTimeout(closePanel,1200);
+      return false;
+    };
+    panel.appendChild(cpA);
+
+    document.body.appendChild(panel);
+    setTimeout(function(){
+      function handler(ev){ if(!panel.contains(ev.target) && ev.target!==btn){ closePanel(); document.removeEventListener('click',handler); } }
+      document.addEventListener('click', handler);
+    }, 50);
+  }
+  window.csShareCard = csShareCard;
+
+  /* ── Post row — wide single-line card (design reference: Publications.html .pub-card) ── */
+  function buildListRow(pp) {
+    var a = document.createElement('a');
+    a.className = PFX+'-list-row';
+    a.href = pp.link;
+    a.rel = 'noopener';
+    a.target = '_blank';
+
+    var readSet = {};
+    try { readSet = JSON.parse(localStorage.getItem('spj_read')||'{}'); } catch(e){}
+    var isRead = readSet[pp.slug];
+
+    var badgeHtml = '';
+    if(pp.verifyFlag==='1') badgeHtml='<a class="spj-badge spj-badge-l1 '+PFX+'-list-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Industry Validated"></a>';
+    else if(pp.verifyFlag==='2') badgeHtml='<a class="spj-badge spj-badge-l2 '+PFX+'-list-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Expert Reviewed"></a>';
+    else if(pp.verifyFlag==='3') badgeHtml='<a class="spj-badge spj-badge-l3 '+PFX+'-list-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Verified"></a>';
+
+    var MAX_TAGS=3, visCats=pp.cats.slice(0,MAX_TAGS), more=pp.cats.length-MAX_TAGS;
+    var tagHtml = visCats.map(function(c){ return '<span class="'+PFX+'-list-tag">'+escHtml(c)+'</span>'; }).join('');
+    if(more>0) tagHtml+='<span class="'+PFX+'-list-tag-more">+'+more+'</span>';
+
+    var dateStr = pp.published?pp.published.substring(0,10):'';
+
+    var thumbHtml = pp.thumb
+      ? '<div class="'+PFX+'-list-thumb" style="background-image:url('+pp.thumb+')"></div>'
+      : '<div class="'+PFX+'-list-thumb '+PFX+'-list-nothumb">🚢</div>';
+
+    var commentsHtml =
+      '<span class="'+PFX+'-list-comments" onclick="event.preventDefault();event.stopPropagation();location.href=this.closest(\'a\').href+\'#comment-form\';">💬 '+(pp.comments||0)+'</span>';
+    var shareHtml =
+      '<button class="'+PFX+'-list-share" data-url="'+escHtml(pp.link)+'" data-title="'+escHtml(pp.title)+'" onclick="csShareCard(this,event)" type="button">'+SHARE_SVG+'</button>';
+
+    a.innerHTML =
+      '<div class="'+PFX+'-list-thumb-wrap">'+
+        thumbHtml+
+        (isRead?'<div class="'+PFX+'-list-read-badge">✓ Read</div>':'')+
+        badgeHtml+
+      '</div>'+
+      '<div class="'+PFX+'-list-body">'+
+        '<h4 class="'+PFX+'-list-title'+(isRead?' '+PFX+'-list-read':'')+'">'+escHtml(pp.title)+'</h4>'+
+        (pp.summary?'<div class="'+PFX+'-list-desc">'+escHtml(pp.summary.substring(0,180))+'</div>':'')+
+        (tagHtml?'<div class="'+PFX+'-list-tags">'+tagHtml+'</div>':'')+
+        '<div class="'+PFX+'-list-footer">'+
+          '<div class="'+PFX+'-list-author-row">'+
+            (pp.author.img?'<img class="'+PFX+'-list-avatar" src="'+pp.author.img+'" alt="" loading="lazy"/>':'')+
+            '<span class="'+PFX+'-list-author-name">'+escHtml(pp.author.name)+'</span>'+
+            '<span class="'+PFX+'-list-date">'+dateStr+'</span>'+
+          '</div>'+
+          '<div class="'+PFX+'-list-footer-right">'+commentsHtml+shareHtml+'</div>'+
+        '</div>'+
+      '</div>';
+    return a;
+  }
+
+  function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function setTag(t) {
+    currentTag = (currentTag===t)?'':t;
+    document.querySelectorAll('.'+PFX+'-tag-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tag===currentTag); });
+    applyFilter();
+  }
+  function setSort(s) {
+    currentSort = s;
+    document.querySelectorAll('.'+PFX+'-sort-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.sort===s); });
+    applyFilter();
+  }
+
+  document.querySelectorAll('.'+PFX+'-tag-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setTag(b.dataset.tag); });
+  });
+  document.querySelectorAll('.'+PFX+'-sort-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setSort(b.dataset.sort); });
+  });
+  var si = document.getElementById(PFX+'-search-input'), st;
+  si.addEventListener('input', function(){ clearTimeout(st); st=setTimeout(function(){ currentSearch=si.value; applyFilter(); },220); });
+  loadMoreBtn.addEventListener('click', function(){ renderPage(); });
+
+  function fetchViewCounts(posts, cb) {
+    var done=0, total=posts.length;
+    if(!total){ if(cb) cb(); return; }
+    posts.forEach(function(pp){
+      if(!pp.slug){ done++; if(done===total&&cb) cb(); return; }
+      fetch('https://abacus.jasoncameron.dev/get/shippauljobs-views/'+encodeURIComponent(pp.slug))
+        .then(function(r){ return r.json(); })
+        .then(function(j){ viewCounts[pp.slug]=j.value||0; })
+        .catch(function(){})
+        .finally(function(){ done++; if(done===total&&cb) cb(); });
+    });
+  }
+
+  function buildRanked(posts) {
+    var ranked = posts.slice().sort(function(a,b){ return (viewCounts[b.slug]||0)-(viewCounts[a.slug]||0); }).slice(0,10);
+    var wrap = document.getElementById(PFX+'-ranked-wrap');
+    var loading = document.getElementById(PFX+'-ranked-loading');
+    if(loading) loading.remove();
+    ranked.forEach(function(pp,i){
+      var a = document.createElement('a');
+      a.className = PFX+'-rank-row';
+      a.href = pp.link; a.rel='noopener'; a.target='_blank';
+      var views = viewCounts[pp.slug]||0;
+      var viewStr = views?(views>=1000?(views/1000).toFixed(1)+'k':views)+' views':'';
+      var dateStr = pp.published?pp.published.substring(0,10):'';
+      a.innerHTML =
+        '<div class="'+PFX+'-rank-num">'+(i+1)+'</div>'+
+        '<div class="'+PFX+'-rank-thumb'+(pp.thumb?'':' '+PFX+'-rank-noimg')+'" style="'+(pp.thumb?'background-image:url('+pp.thumb+')':'')+'">'+
+          (pp.thumb?'':'🚢')+
+        '</div>'+
+        '<div class="'+PFX+'-rank-body">'+
+          '<p class="'+PFX+'-rank-title">'+escHtml(pp.title)+'</p>'+
+          '<div class="'+PFX+'-rank-meta">'+
+            '<div class="'+PFX+'-rank-avatar" style="'+(pp.author.img?'background-image:url('+pp.author.img+')':'')+'"></div>'+
+            '<span class="'+PFX+'-rank-author">'+escHtml(pp.author.name)+'</span>'+
+            '<span class="'+PFX+'-rank-date">'+dateStr+'</span>'+
+            (viewStr?'<span>·</span><span>'+viewStr+'</span>':'')+
+          '</div>'+
+        '</div>';
+      wrap.appendChild(a);
+    });
+  }
+
+  /* Boot */
+  loadingEl.style.display='block';
+  fetchAllLabels(function(posts){
+    allPosts = posts;
+    loadingEl.style.display='none';
+    countBadge.textContent = posts.length + ' Articles';
+    countBadge.style.display = 'inline-block';
+    buildTagPills(posts);
+    applyFilter();
+    fetchViewCounts(posts.slice(0,30), function(){
+      buildRanked(allPosts);
+    });
+  });
+})();
+</script>
+
+</div>

@@ -1,0 +1,351 @@
+
+<!--&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
+     Article: Ship OT Cybersecurity: IACS E26/E27 Compliance Guide &#8212; Part 1
+     Author : Captain Paul (In Sung Lee)
+     Source : https://www.shippauljobs.com/
+     Style  : Maritime 4.0 Design System &#8212; Blogger-compatible
+&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;-->
+<div style='box-sizing: border-box; font-family: "Segoe UI", "Apple SD Gothic Neo", Arial, sans-serif; line-height: 1.75; margin: 0px auto; max-width: 780px;'>
+<!--&#9552;&#9552; HEADER &#9552;&#9552;-->
+<div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%); border-radius: 16px; margin-bottom: 36px; padding: 40px 36px 32px;">
+<div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px;">
+<span style="background: rgba(255, 193, 7, 0.35); border-radius: 20px; color: #ffe082; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">📋 Compliance</span>
+<span style="background: rgba(26, 158, 130, 0.35); border-radius: 20px; color: #7effd8; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">IACS UR E26/E27</span>
+<span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Ship OT Security</span>
+<span style="background: rgba(255, 193, 7, 0.2); border-radius: 20px; color: #ffe082; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">3-Part Series · Part 1</span>
+</div>
+<h1 style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin: 0px 0px 8px;">
+      IACS E26/E27 Compliance Guide: What Ship OT/IT Engineers Need to Know
+    </h1>
+<h2 style="color: #b8d4ea; font-size: 13px; font-style: italic; margin: 0px 0px 20px; text-align: left;">
+      Ship OT Cybersecurity — A Practitioner's Guide for Vessel Operators
+    </h2>
+<div style="align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 18px;">
+<div style="align-items: center; display: flex; gap: 10px;">
+<a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" rel="noopener" target="_blank">
+<img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 36px; object-fit: cover; width: 36px;"/>
+</a>
+<div>
+<div style="color: white; font-size: 13px; font-weight: 700; line-height: 1.3;">Captain Paul </div>
+<div style="color: #9ab5c9; font-size: 10px;">Maritime Cybersecurity Consultant · CRSI Specialist</div>
+</div>
+</div>
+<div style="align-items: center; color: #9ab5c9; display: flex; font-size: 11px; gap: 5px; margin-left: auto;">
+<span> </span>
+</div>
+</div>
+</div>
+<!--&#9552;&#9552; LEAD PARAGRAPH &#9552;&#9552;-->
+<p style="background: rgb(240, 247, 255); border-left: 4px solid rgb(26, 158, 130); border-radius: 12px; color: #354a5e; font-size: 15px; line-height: 1.85; margin: 0px 0px 32px; padding: 20px 22px;">
+    If your vessel is under construction or due for a major retrofit after July 2024, <strong style="color: #0a2342;">IACS Unified Requirements E26 and E27</strong> are no longer optional reading — they are contractual obligations tied to your Classification Society certificate. Yet the same question comes up in every conversation with ship OT/IT engineers: <em>"I know E26/E27 exist, but what do they actually require me to do on board?"</em> This post answers that question directly — no vendor pitch, no generic checklist.
+  </p>
+<div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmDclwUUYqAhJq_W7sV-vQ0YSSibbicX-pd-do2otHshLlvh4Q6A_5HPRjC2pWv9lYTMbimt0F71dbFFCbpwllvlyBuFe6CNAji9VCTv-KZ9LE-OlTNljdmyzredaSOTr5QF48Ip9jH-MbQr6OEWfOFuI4iP7dB5Jkyn2WuBj3n9PtsiwL4tI3iC1DlyU/s1536/E26E27.png" style="display: block; padding: 1em 0px; text-align: center;"><img alt="" border="0" data-original-height="1024" data-original-width="1536" loading="lazy" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmDclwUUYqAhJq_W7sV-vQ0YSSibbicX-pd-do2otHshLlvh4Q6A_5HPRjC2pWv9lYTMbimt0F71dbFFCbpwllvlyBuFe6CNAji9VCTv-KZ9LE-OlTNljdmyzredaSOTr5QF48Ip9jH-MbQr6OEWfOFuI4iP7dB5Jkyn2WuBj3n9PtsiwL4tI3iC1DlyU/s600-rw/E26E27.png" width="600"/></a></div>
+<!--&#9552;&#9552; SECTION &#8544;: The Two Documents &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅰ. The Two Documents and Why They Are Different</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      IACS published E26 and E27 together, but they operate at <strong style="color: #0a2342;">different levels of the vessel hierarchy</strong>.
+    </p>
+<div style="display: grid; gap: 12px; grid-template-columns: 1fr 1fr; margin-bottom: 16px;">
+<div style="background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); padding: 16px 18px;">
+<div style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase;">IACS UR E26</div>
+<p style="color: #354a5e; font-size: 13.5px; line-height: 1.65; margin: 0px 0px 8px;"><strong style="color: #0a2342;">Cyber Resilience of Ships</strong></p>
+<p style="color: #4a6278; font-size: 13px; line-height: 1.65; margin: 0px;">Vessel-level governance layer — defines how a ship as a whole must be organized, protected, monitored, and recovered.</p>
+</div>
+<div style="background: rgb(238, 246, 243); border-radius: 10px; border: 1px solid rgb(178, 221, 212); padding: 16px 18px;">
+<div style="color: #1a9e82; font-size: 10px; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase;">IACS UR E27</div>
+<p style="color: #1a4a40; font-size: 13.5px; line-height: 1.65; margin: 0px 0px 8px;"><strong style="color: #0a2342;">Cyber Resilience of On-board Systems</strong></p>
+<p style="color: #4a6278; font-size: 13px; line-height: 1.65; margin: 0px;">Component-level product standard — defines what individual CBS must be capable of doing before installation.</p>
+</div>
+</div>
+<div style="background: rgb(240, 247, 255); border-radius: 8px; color: #354a5e; font-size: 13px; font-style: italic; padding: 12px 16px;">
+      In practice: <strong style="color: #0a2342;">E26 governs how you run the ship's cybersecurity program. E27 governs what you are allowed to buy and install.</strong>
+</div>
+</div>
+<!--&#9552;&#9552; SECTION &#8545;: The CBS &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅱ. The CBS: The Fundamental Unit of E26/E27</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Everything revolves around the <strong style="color: #0a2342;">Computer-Based System (CBS)</strong> — any programmable system on board that performs a function relevant to the safety, security, or operation of the vessel.
+    <br/>(And CBS can be classified into 4 types, and E26 focuses on managing Target and Exclusion.  <br/>reference : <a href="https://www.shippauljobs.com/p/crsi-iacs-ur-e26e27-system.html ">https://www.shippauljobs.com/p/crsi-iacs-ur-e26e27-system.html </a> )</p>
+<div style="background: rgb(247, 250, 255); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 16px; padding: 20px 22px;">
+<ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+<li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Navigation systems (ECDIS, GNSS, Radar, AIS)</span></li>
+<li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Propulsion and steering control systems</span></li>
+<li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Power management and distribution systems (PMS, EMS)</span></li>
+<li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Alarm and monitoring systems (AMS, IAS)</span></li>
+<li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Cargo management systems</span></li>
+<li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Communication systems (GMDSS, VSAT)</span></li>
+<li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Vessel data recorders (VDR, S-VDR)</span></li>
+</ul>
+</div>
+<div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; color: #7a4f10; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      The first practical step in E26 compliance: build and maintain a <strong>complete CBS inventory</strong>. Every CBS must be identified, documented, and assigned to a Zone.
+    </div>
+</div>
+<!--&#9552;&#9552; DIVIDER &#9552;&#9552;-->
+<hr style="border-color: currentcolor; border-image: none; border-style: none; border-top: 2px solid #e2eaf3; border-width: medium; border: none; margin: 0px 0px 36px;"/>
+<!--&#9552;&#9552; SECTION &#8546;: Zone and Conduit &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(21, 79, 122), rgb(192, 57, 43)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅲ. Zone and Conduit: How E26 Structures the Ship Network</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      E26 requires the vessel's network to be organized into <strong style="color: #0a2342;">Zones</strong> and connected by <strong style="color: #0a2342;">Conduits</strong> — drawn directly from IEC 62443.
+    </p>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; min-width: 120px; padding-top: 2px; text-transform: uppercase;">OT Zone (L0–1)</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">Sensors, actuators, PLCs, DCS — <strong style="color: #0a2342;">field devices directly controlling physical processes</strong></div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; min-width: 120px; padding-top: 2px; text-transform: uppercase;">Control Zone (L2)</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">SCADA, HMI, Historian, AMS — <strong style="color: #0a2342;">the supervisory layer</strong></div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; min-width: 120px; padding-top: 2px; text-transform: uppercase;">IT / Admin (L3)</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">Crew network, business systems, shore connectivity</div>
+</div>
+</div>
+<div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      A <strong>Conduit</strong> is the controlled pathway between two Zones (firewall, data diode, DMZ). <strong>No uncontrolled paths between zones are permitted</strong> — every connection must be documented, justified, and enforced.
+    </div>
+</div>
+<!--&#9552;&#9552; SECTION &#8547;: Five Functions &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(26, 158, 130), rgb(39, 174, 143)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅳ. The Five Functions of E26</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      E26 organizes the vessel's cybersecurity obligations around five functions — directly mapped from the <strong style="color: #0a2342;">NIST Cybersecurity Framework</strong>:
+    </p>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="background: rgb(10, 35, 66); border-radius: 8px; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-top: 2px; padding: 3px 10px;">IDENTIFY</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">Maintain a complete and current inventory of all CBS — software versions, configurations, and interconnections. This is the foundation.</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="background: rgb(21, 79, 122); border-radius: 8px; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-top: 2px; padding: 3px 10px;">PROTECT</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">Implement access controls, network segmentation (Zones and Conduits), software hardening, and secure configuration across all CBS.</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="background: rgb(26, 158, 130); border-radius: 8px; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-top: 2px; padding: 3px 10px;">DETECT</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">Establish capability to detect cyber incidents in a timely manner. OT monitoring is now a compliance requirement — detect anomalies, unauthorized changes, and intrusion attempts.</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="background: rgb(230, 126, 34); border-radius: 8px; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-top: 2px; padding: 3px 10px;">RESPOND</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">Define incident classification, escalation procedures, isolation of affected systems, and communication to flag state and Classification Society.</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<div style="background: rgb(192, 57, 43); border-radius: 8px; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-top: 2px; padding: 3px 10px;">RECOVER</div>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;">Define and implement procedures for restoring affected CBS. Recovery priorities must align with vessel safety criticality — <strong style="color: #0a2342;">propulsion and navigation before administrative systems</strong>.</div>
+</div>
+</div>
+</div>
+<!--&#9552;&#9552; DIVIDER &#9552;&#9552;-->
+<hr style="border-color: currentcolor; border-image: none; border-style: none; border-top: 2px solid #e2eaf3; border-width: medium; border: none; margin: 0px 0px 36px;"/>
+<!--&#9552;&#9552; SECTION &#8548;: Security Levels &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(230, 126, 34), rgb(243, 156, 18)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; line-height: 1.4; margin: 0px;">Ⅴ. Security Levels: The E27 Targeting System</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      E27 introduces <strong style="color: #0a2342;">Security Levels (SL)</strong> to define how much protection a CBS must provide:
+    </p>
+<div style="margin-bottom: 18px; overflow-x: auto;">
+<table style="border-collapse: separate; border-radius: 12px; border-spacing: 0px; border: 1px solid rgb(209, 224, 238); font-size: 13px; overflow: hidden; width: 100%;">
+<thead>
+<tr>
+<th style="background: rgb(10, 35, 66); color: white; font-size: 11px; font-weight: 800; letter-spacing: 1px; padding: 10px 16px; text-align: center; text-transform: uppercase; width: 12%;">Level</th>
+<th style="background: rgb(21, 79, 122); color: #b8d4ea; font-size: 11px; font-weight: 800; letter-spacing: 1px; padding: 10px 16px; text-align: left; text-transform: uppercase;">Definition</th>
+<th style="background: rgb(26, 158, 130); color: #d0fff4; font-size: 11px; font-weight: 800; letter-spacing: 1px; padding: 10px 16px; text-align: left; text-transform: uppercase;">Typical Application</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background: rgb(247, 250, 255);">
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 800; padding: 10px 16px; text-align: center;">SL 0</td>
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 10px 16px;">No specific security requirements</td>
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 10px 16px;">Non-critical, isolated systems</td>
+</tr>
+<tr style="background: white;">
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 800; padding: 10px 16px; text-align: center;">SL 1</td>
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 10px 16px;">Protection against unintentional violation</td>
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 10px 16px;">Basic operational systems</td>
+</tr>
+<tr style="background: rgb(247, 250, 255);">
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 800; padding: 10px 16px; text-align: center;">SL 2</td>
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 10px 16px;">Protection against intentional violation using simple means</td>
+<td style="border-bottom: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 10px 16px;">Most navigation and control systems</td>
+</tr>
+<tr style="background: white;">
+<td style="color: #0a2342; font-weight: 800; padding: 10px 16px; text-align: center;">SL 3</td>
+<td style="color: #4a6278; padding: 10px 16px;">Protection against intentional violation using sophisticated means</td>
+<td style="color: #1a4a40; font-weight: 600; padding: 10px 16px;">Safety-critical systems, remote access gateways</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; color: #7a4f10; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      For each CBS: define a <strong>Target Security Level (SL-T)</strong> via risk assessment, then verify the CBS meets a <strong>Capability Security Level (SL-C)</strong> through Type Approval. When procuring, you must specify required SL-C and demand a valid Type Approval certificate.
+    </div>
+</div>
+<!--&#9552;&#9552; SECTION &#8549;: Type Approval &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(10, 35, 66), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; line-height: 1.4; margin: 0px;">Ⅵ. Type Approval: The E27 Procurement Gate</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Type Approval under E27 is the mechanism by which individual CBS demonstrate compliance before installation:
+    </p>
+<div style="background: rgb(247, 250, 255); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 16px; padding: 20px 22px;">
+<ol style="display: flex; flex-direction: column; gap: 12px; list-style: none; margin: 0px; padding: 0px;">
+<li style="align-items: flex-start; display: flex; gap: 12px;">
+<span style="background: rgb(10, 35, 66); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 1px; min-width: 20px; text-align: center; width: 20px;">1</span>
+<span style="color: #354a5e; font-size: 14px;">Manufacturer submits the CBS for evaluation by a Classification Society</span>
+</li>
+<li style="align-items: flex-start; display: flex; gap: 12px;">
+<span style="background: rgb(21, 79, 122); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 1px; min-width: 20px; text-align: center; width: 20px;">2</span>
+<span style="color: #354a5e; font-size: 14px;">Society assesses the CBS against E27 requirements at the claimed SL-C</span>
+</li>
+<li style="align-items: flex-start; display: flex; gap: 12px;">
+<span style="background: rgb(26, 158, 130); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 1px; min-width: 20px; text-align: center; width: 20px;">3</span>
+<span style="color: #354a5e; font-size: 14px;">If approved, a Type Approval certificate is issued, valid for a defined period</span>
+</li>
+<li style="align-items: flex-start; display: flex; gap: 12px;">
+<span style="background: rgb(10, 35, 66); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 1px; min-width: 20px; text-align: center; width: 20px;">4</span>
+<span style="color: #354a5e; font-size: 14px;">Shipyard or operator verifies that installed CBS hold valid TA certificates at the required SL-C</span>
+</li>
+</ol>
+</div>
+<div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; color: #7a4f10; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Common gap found during assessments: the CBS inventory exists, but <strong>SL-T assignments are either missing or not verified against supplier Type Approval status</strong>.
+    </div>
+</div>
+<!--&#9552;&#9552; DIVIDER &#9552;&#9552;-->
+<hr style="border-color: currentcolor; border-image: none; border-style: none; border-top: 2px solid #e2eaf3; border-width: medium; border: none; margin: 0px 0px 36px;"/>
+<!--&#9552;&#9552; SECTION &#8550;: SBOM &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; line-height: 1.4; margin: 0px;">Ⅶ. The SBOM Requirement: Often Overlooked</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Both E26 and E27 reference the need for <strong style="color: #0a2342;">software transparency</strong>. E26 requires CBS software configurations to be documented and maintained. E27 expects manufacturers to provide information about software components within their systems — effectively a <strong style="color: #0a2342;">Software Bill of Materials (SBOM)</strong> requirement.
+    </p>
+<div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Most manufacturers are not yet delivering formal SBOMs. However, Classification Societies are increasingly asking for software component transparency during Annual Surveys. <strong>Establishing an SBOM tracking process now puts you significantly ahead of the compliance curve.</strong>
+</div>
+</div>
+<!--&#9552;&#9552; SECTION &#8551;: Applicability &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(26, 158, 130), rgb(39, 174, 143)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; line-height: 1.4; margin: 0px;">Ⅷ. What Applies to Your Vessel: Applicability Rules</h2>
+</div>
+<div style="background: rgb(240, 247, 255); border-radius: 8px; color: #354a5e; font-size: 13px; padding: 12px 16px;">
+      If your vessel falls within scope, both E26 and E27 apply simultaneously — <strong style="color: #0a2342;">you cannot comply with one without the other</strong>, since E26 requires CBS that meet E27 standards.
+    </div>
+</div>
+<!--&#9552;&#9552; SECTION &#8552;: Practical Starting Point &#9552;&#9552;-->
+<div style="color: #2c3e50; margin-bottom: 36px;">
+<div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+<div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+<h2 style="color: #0a2342; font-size: 17px; font-weight: 800; line-height: 1.4; margin: 0px;">Ⅸ. The Practical Starting Point</h2>
+</div>
+<p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      The sequence that works in practice — and what a Classification Society surveyor will work through during your Annual Survey:
+    </p>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<span style="background: rgb(10, 35, 66); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 2px; min-width: 20px; text-align: center; width: 20px;">1</span>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;"><strong style="color: #0a2342;">Build the CBS inventory</strong> — every programmable system, its location, function, software version, and network connections</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<span style="background: rgb(21, 79, 122); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 2px; min-width: 20px; text-align: center; width: 20px;">2</span>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;"><strong style="color: #0a2342;">Define Zones and Conduits</strong> — map the network topology and formalize the zone boundaries</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<span style="background: rgb(26, 158, 130); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 2px; min-width: 20px; text-align: center; width: 20px;">3</span>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;"><strong style="color: #0a2342;">Assign SL-T to each CBS</strong> — based on safety criticality and risk assessment</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<span style="background: rgb(10, 35, 66); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 2px; min-width: 20px; text-align: center; width: 20px;">4</span>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;"><strong style="color: #0a2342;">Verify Type Approval status</strong> — for each CBS against the required SL-C</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<span style="background: rgb(21, 79, 122); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 2px; min-width: 20px; text-align: center; width: 20px;">5</span>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;"><strong style="color: #0a2342;">Implement E26 controls</strong> — access control, monitoring, incident response, recovery procedures</div>
+</div>
+<div style="align-items: flex-start; background: rgb(247, 250, 255); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 14px; padding: 14px 18px;">
+<span style="background: rgb(26, 158, 130); border-radius: 50%; color: white; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 20px; line-height: 20px; margin-top: 2px; min-width: 20px; text-align: center; width: 20px;">6</span>
+<div style="color: #354a5e; font-size: 14px; line-height: 1.65;"><strong style="color: #0a2342;">Document everything</strong> — the Cybersecurity Management Plan is a survey deliverable, not an internal document</div>
+</div>
+</div>
+</div>
+<!--&#9552;&#9552; DIVIDER &#9552;&#9552;-->
+<hr style="border-color: currentcolor; border-image: none; border-style: none; border-top: 2px solid #e2eaf3; border-width: medium; border: none; margin: 0px 0px 36px;"/>
+<!--&#9552;&#9552; SERIES NAVIGATION &#9552;&#9552;-->
+<div style="background: rgb(240, 247, 255); border-radius: 12px; border: 1px solid rgb(197, 216, 236); margin: 40px 0px 32px; padding: 24px 28px;">
+<div style="color: #154f7a; font-size: 10px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 16px; text-transform: uppercase;"> Series Navigation — Vessel Operators Compliance Guide (4 Parts)</div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: rgb(10, 35, 66); border-radius: 12px; color: #7effd8; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">▶ NOW</span>
+<span style="color: #0a2342; font-size: 13px; font-weight: 700; line-height: 1.5;">IACS E26/E27 Compliance Guide: What Ship OT/IT Engineers Need to Know</span>
+</div>
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: rgb(226, 237, 248); border-radius: 12px; color: #154f7a; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Part 2</span>
+<span style="color: #4a6278; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/03/ship-ot-monitoring-for-iacs-e26e27.html">Ship OT Monitoring for IACS E26/E27: Required Functions, Scope, and Protocols</a></span>
+</div>
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: rgb(226, 237, 248); border-radius: 12px; color: #154f7a; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Part 3</span>
+<span style="color: #4a6278; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/03/ship-ot-cybersecurity-iacs-e26e27.html">Automating IACS E26/E27 Annual Survey: What OT Monitoring Can and Cannot Do</a></span>
+</div>
+<div style="align-items: flex-start; display: flex; gap: 10px;">
+<span style="background: rgb(226, 237, 248); border-radius: 12px; color: #154f7a; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Part 4</span>
+<span style="color: #4a6278; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/02/maritime-cybersecurity-solutions.html" rel="noopener" style="color: #154f7a; font-weight: 600; text-decoration: none;" target="_blank">IACS UR E26/E27 Compliance Matrix: Cybersecurity Solutions for Maritime OT</a></span>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 7px;">
+<span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IACS_E26</span>
+<span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IACS_E27</span>
+<span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#ShipCybersecurity</span>
+<span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#OTSecurity</span>
+<span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#TypeApproval</span>
+<span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IEC62443</span>
+<span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#CBS</span>
+<span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#SBOM</span>
+<span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#Maritime40</span>
+</div>
+</div>
+<!--&#9552;&#9552; AUTHOR CARD &#9552;&#9552;-->
+<div style="align-items: flex-start; border-top: 2px solid rgb(226, 234, 243); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 28px;">
+<a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" rel="noopener" target="_blank">
+<img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 52px; object-fit: cover; width: 52px;"/>
+</a>
+<div style="flex: 1 1 0%; min-width: 220px;">
+<div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 2px;">Captain Paul</div>
+<div style="color: #6b8599; font-size: 11px; margin-bottom: 10px;">Founder &amp; Editor-in-Chief · ShipPaulJobs</div>
+<p style="color: #6b8599; font-size: 12.5px; line-height: 1.7; margin: 0px 0px 14px;">Senior Manager at a global consulting firm specializing in Maritime Cyber Security, AI, and Data Analytics. 17+ years spanning shipbuilding R&amp;D, AI product development, and maritime cyber compliance. Specializes in IACS UR E26/E27, IMO MSC guidelines, and smart ship development. Founder of ShipPaulJobs.
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#0a2342;color:#fff;font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;text-decoration:none;">💼 LinkedIn ↗</a>
+    </div></p>
+</div>
+</div>
+<div style="margin-top:32px;padding:16px;background:#f0f4ff;border-radius:8px;border-left:4px solid #1a237e;font-family:'Roboto',sans-serif;">
+<p style="font-size:12px;font-weight:700;color:#1a237e;margin:0 0 10px 0;">⚓ Join the ShipPaulJobs Community</p>
+<a href="https://www.linkedin.com/groups/21070066" style="display:inline-flex;align-items:center;gap:6px;background:#0077b5;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:4px;text-decoration:none;" target="_blank">
+<svg fill="#fff" height="13" style="flex-shrink:0;" viewbox="0 0 24 24" width="13" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+                            Join →
+                          </a>
+</div>

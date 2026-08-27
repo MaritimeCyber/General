@@ -1,0 +1,39 @@
+<!-- ════════════════════════════════════════════════════════════
+     Page View Counter — Blogger Injection Gadget
+     화면에 아무것도 표시하지 않음. 사이트 전체(모든 페이지 템플릿)에
+     한 번만 배치하면 됨 — 예: 레이아웃 하단, 사이드바 아무 곳.
+════════════════════════════════════════════════════════════ -->
+<div id="PageViewCounter.html" style="display:none;"></div>
+
+<script>
+  (function () {
+    var GITHUB_RAW_URL =
+      "https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/PageViewCounter.html";
+
+    var target = document.getElementById("PageViewCounter.html");
+    if (!target) return;
+
+    fetch(GITHUB_RAW_URL)
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.text();
+      })
+      .then(function (html) {
+        target.innerHTML = html;
+
+        /* innerHTML 삽입된 <script> 강제 실행 */
+        var scripts = target.querySelectorAll("script");
+        scripts.forEach(function (oldScript) {
+          var newScript = document.createElement("script");
+          Array.prototype.forEach.call(oldScript.attributes, function (attr) {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+          newScript.textContent = oldScript.textContent;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      })
+      .catch(function (err) {
+        console.warn("[pvc-inject] Failed to load:", err);
+      });
+  })();
+</script>

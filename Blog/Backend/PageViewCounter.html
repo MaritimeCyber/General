@@ -1,0 +1,43 @@
+<!-- ════════════════════════════════════════════════════════════
+     Page View Counter — www.shippauljobs.com
+     기능: 실제 포스트 페이지(예: /2026/08/slug.html) 방문 시
+          경량 카운터 API에 조회수 +1. 화면에 아무것도 그리지 않음(silent).
+          다른 페이지(홈/라벨/검색/Page)에서는 증가시키지 않음.
+     서비스: abacus.jasoncameron.dev (무료, CORS 지원 확인됨)
+     Namespace: shippauljobs-views (사이트 전체 공용) · Key: URL pathname 정규화
+     사용: Blogger → 레이아웃 → HTML/자바스크립트 가젯에 InjectionCode_PageViewCounter.html 붙여넣기
+          (아무 곳에나 배치 가능 — 화면에 렌더링되지 않음)
+════════════════════════════════════════════════════════════ -->
+<script>
+  (function () {
+    "use strict";
+    var NS = "shippauljobs-views";
+    var path = location.pathname || "";
+
+    /* 실제 개별 포스트 페이지만 카운트: /YYYY/MM/slug.html 형태 */
+    if (!/^\/\d{4}\/\d{2}\/.+/.test(path)) return;
+
+    var key = path
+      .replace(/\/+$/, "")
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    if (!key) return;
+
+    /* 같은 브라우저에서 30분 내 재방문(새로고침 등)은 중복 집계 방지 */
+    var DEDUP_KEY = "pvc_seen_" + key;
+    var DEDUP_TTL = 30 * 60 * 1000;
+    try {
+      var last = parseInt(sessionStorage.getItem(DEDUP_KEY) || "0", 10);
+      if (last && Date.now() - last < DEDUP_TTL) return;
+      sessionStorage.setItem(DEDUP_KEY, String(Date.now()));
+    } catch (e) {
+      /* sessionStorage 사용 불가 시에도 카운트는 계속 진행 (중복 방지만 skip) */
+    }
+
+    fetch("https://abacus.jasoncameron.dev/hit/" + NS + "/" + key, {
+      method: "GET",
+    }).catch(function () {
+      /* 실패해도 사용자 경험에 영향 없음 — 조용히 무시 */
+    });
+  })();
+</script>

@@ -1,0 +1,619 @@
+<!-- HERO HEADER -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a,#1a9e82);border-radius:14px;padding:36px 32px 28px;font-family:Inter,sans-serif;margin-bottom:28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;width:240px;height:240px;background:rgba(255,255,255,0.04);border-radius:50%;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;">
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F6A2; Ship Solutions</span>
+    <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(26,255,218,0.3);">&#x1F6E1; OT/IT Security</span>
+    <span style="background:rgba(255,255,255,0.15);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;">Jump Server Series &middot; Part 2 of 3</span>
+    <span style="background:rgba(245,158,11,0.3);color:#fcd34d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(245,158,11,0.4);">Technical Deep-Dive</span>
+  </div>
+  <h1 style="color:white;font-size:28px;font-weight:800;line-height:1.3;margin:0 0 12px;letter-spacing:-0.4px;">Designing Secure Remote Access for Ships</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.75;margin:0 0 20px;">13 engineering design domains for maritime jump server architecture &mdash; from authentication and authorization to software update integrity, vendor access governance, and maritime environmental constraints. Aligned to IACS UR E26/E27, IEC 62443, and NIST SP 800-207.</p>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener">
+      <img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(26,255,218,0.5);display:block;" />
+    </a>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</span>
+        <span style="background:rgba(26,158,130,0.35);color:#7effd8;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;border:1px solid rgba(26,255,218,0.3);white-space:nowrap;">&#10003; Verified</span>
+      </div>
+      <div style="color:rgba(255,255,255,0.65);font-size:10px;margin-top:2px;">ShipPaulJobs Maritime Cybersecurity &middot; July 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIES NAVIGATION -->
+<div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 60%,#1a6e5a 100%);border-radius:14px;padding:20px 22px 16px;margin:0 0 28px;font-family:Inter,sans-serif;">
+  <div style="font-size:10px;font-weight:800;color:#7effd8;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;">&#x1F4DA; Maritime Jump Server Series</div>
+  <div id="jss-nav-2" style="display:flex;flex-direction:column;gap:6px;">
+    <a href="https://www.shippauljobs.com/2026/05/part-1-why-modern-ships-need-jump.html" data-part="1"
+       style="display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:8px;text-decoration:none;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);transition:all 0.2s;"
+       onmouseover="if(!this.dataset.active){this.style.background='rgba(255,255,255,0.13)';this.style.borderColor='rgba(255,255,255,0.25)';}"
+       onmouseout="if(!this.dataset.active){this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.1)';}">
+      <span style="background:rgba(255,255,255,0.12);color:#7effd8;font-size:9px;font-weight:800;padding:3px 9px;border-radius:10px;flex-shrink:0;white-space:nowrap;">PART 1</span>
+      <span style="color:#dce8f5;font-size:12.5px;line-height:1.4;">Why Modern Ships Need Jump Servers</span>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/06/part-2-designing-secure-remote-access.html" data-part="2"
+       style="display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:8px;text-decoration:none;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);transition:all 0.2s;"
+       onmouseover="if(!this.dataset.active){this.style.background='rgba(255,255,255,0.13)';this.style.borderColor='rgba(255,255,255,0.25)';}"
+       onmouseout="if(!this.dataset.active){this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.1)';}">
+      <span style="background:rgba(255,255,255,0.12);color:#7effd8;font-size:9px;font-weight:800;padding:3px 9px;border-radius:10px;flex-shrink:0;white-space:nowrap;">PART 2</span>
+      <span style="color:#dce8f5;font-size:12.5px;line-height:1.4;">Designing Secure Remote Access for Ships</span>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/07/part-3-how-to-evaluate-maritime-jump.html" data-part="3"
+       style="display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:8px;text-decoration:none;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);transition:all 0.2s;"
+       onmouseover="if(!this.dataset.active){this.style.background='rgba(255,255,255,0.13)';this.style.borderColor='rgba(255,255,255,0.25)';}"
+       onmouseout="if(!this.dataset.active){this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.1)';}">
+      <span style="background:rgba(255,255,255,0.12);color:#7effd8;font-size:9px;font-weight:800;padding:3px 9px;border-radius:10px;flex-shrink:0;white-space:nowrap;">PART 3</span>
+      <span style="color:#dce8f5;font-size:12.5px;line-height:1.4;">How to Evaluate a Maritime Jump Server Solution</span>
+    </a>
+  </div>
+</div>
+<script>
+(function(){
+  var links = document.querySelectorAll('#jss-nav-2 a[data-part]');
+  links.forEach(function(a){
+    if(a.getAttribute('data-part') === '2'){
+      a.dataset.active = '1';
+      a.style.background = 'rgba(26,158,130,0.35)';
+      a.style.borderColor = 'rgba(126,255,216,0.45)';
+      a.style.cursor = 'default';
+      var spans = a.querySelectorAll('span');
+      spans[0].style.background = '#1a9e82';
+      spans[0].style.color = '#ffffff';
+      spans[1].style.color = '#ffffff';
+      spans[1].style.fontWeight = '700';
+      a.insertAdjacentHTML('beforeend', '<span style="margin-left:auto;font-size:8px;font-weight:800;color:#7effd8;white-space:nowrap;">&#128205; YOU ARE HERE</span>');
+      a.addEventListener('click', function(e){ e.preventDefault(); });
+    }
+  });
+})();
+</script>
+
+<!-- EXECUTIVE SUMMARY -->
+<div style="font-family:Inter,sans-serif;background:#f0fdf4;border:1px solid #bbf7d0;border-left:5px solid #16a34a;border-radius:8px;padding:20px 22px;margin-bottom:28px;">
+  <div style="font-size:11px;font-weight:800;color:#15803d;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Executive Summary</div>
+  <p style="font-size:14px;color:#166534;line-height:1.8;margin:0 0 10px;">Part 1 established why modern ships require jump servers. This article addresses how to design a secure remote access architecture that is technically sound, operationally practical, and compliant with IACS UR E26/E27 and related international standards.</p>
+  <p style="font-size:14px;color:#166534;line-height:1.8;margin:0;">Secure remote access for ships is a multi-domain engineering challenge spanning architecture, identity management, session control, cryptography, vendor governance, software integrity, and maritime-specific operational constraints. This article examines thirteen design domains in structured depth. A jump server that is poorly designed &mdash; or correctly designed but poorly integrated &mdash; provides less security assurance than its presence might suggest.</p>
+</div>
+
+<!-- DOMAIN MAP -->
+<div style="font-family:Inter,sans-serif;margin-bottom:32px;">
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;">
+    <div style="font-size:12px;font-weight:700;color:#0a7055;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.08em;">13 Design Domains Covered in This Article</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;">
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #0a2342;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 1: Architecture</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #0a2342;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 2: Authentication</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #0a2342;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 3: Authorization</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #154f7a;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 4: Session Management</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #154f7a;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 5: Audit Logging</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #154f7a;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 6: Secure Communication</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #1a9e82;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 7: Vendor Access</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #1a9e82;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 8: File Transfer</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #1a9e82;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 9: Software Update</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #d97706;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 10: Cybersecurity</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #d97706;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 11: Maritime Environment</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #d97706;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 12: Compliance</div>
+      <div style="background:white;border:1px solid #e2e8f0;border-left:3px solid #64748b;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:600;color:#0a2342;">Domain 13: Lifecycle Management</div>
+    </div>
+  </div>
+</div>
+
+<!-- HELPER MACRO: domain section -->
+<!-- DOMAIN 1 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 1</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Architecture</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #0a2342;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">The jump server's architectural position determines what it can protect and what remains exposed. A correctly positioned jump server enforces access control for all remote sessions. A poorly positioned one creates a false sense of security while leaving direct access paths open.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A cruise vessel retrofits a jump server between its satellite gateway and its IT network. The OT network, however, retains a separate direct VPN connection configured by the engine automation OEM during commissioning. The jump server protects the IT side; the OT side remains accessible without passing through it.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Direct connections to OT systems that bypass the jump server negate its access control value<br/>&#x2022; Flat network topologies allow lateral movement if any connected session is compromised<br/>&#x2022; Insufficient network segmentation means a compromised vendor session can probe adjacent systems<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Single Ingress Point:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server must be the only authorized entry point into shipboard OT and IT systems from external sources. No secondary or "emergency" VPN paths should exist that bypass it. If such paths existed prior to deployment, they must be disabled.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Network Zoning:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The ship's network should be divided into at minimum three zones: the external/DMZ zone (where the jump server sits), the IT zone (crew internet, fleet management), and the OT zone (propulsion, navigation, safety systems). IACS UR E26 supports this model.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Redundancy Planning:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">A hardware failure that prevents all remote access during a critical maintenance window has real operational consequences. Consider active-passive redundancy or the ability to bring up a secondary instance from a known-good image.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Physical Separation:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server should not be co-located on the OT network segment it controls access to. It belongs in the DMZ between external and internal zones.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 requires that networks carrying safety-critical functions be segmented from networks carrying non-safety functions. IMO MSC-FAL.1/Circ.3 emphasizes controlling access points as part of broader cyber risk management. IEC 62443 zone-and-conduit model applies.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Enforce the single-ingress-point rule without exceptions, including for OEM support connections<br/>&#x2022; Apply the IEC 62443 zone-and-conduit model as reference for OT segmentation<br/>&#x2022; Document network architecture formally; review at each IACS UR E26 annual assessment<br/>&#x2022; Physically separate the jump server from the systems it protects<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 2 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 2</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Authentication</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #154f7a;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Weak authentication is the most common initial step in successful remote access attacks. For maritime systems, where compromised credentials may not be detected for days due to intermittent satellite connectivity, authentication failure has disproportionately severe consequences.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A cargo vessel's engine room monitoring system uses a shared service account for vendor remote access. Three separate OEMs use the same credentials; none of them know the others do. The account has never been changed since commissioning.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Shared credentials make individual session attribution impossible &mdash; audit logs cannot identify which person initiated a session<br/>&#x2022; Passwords shared across multiple organizations are effectively uncontrolled, including by former employees<br/>&#x2022; Static passwords that are never rotated remain valid indefinitely after a vendor's support contract ends<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Multi-Factor Authentication (MFA):</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Every remote access session through the jump server should require MFA. The factors: something the user knows (password), something the user has (hardware token, authenticator app, smart card). MFA must be mandatory, not configurable.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Individual Named Accounts:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Shared accounts must be eliminated. Every person who will connect remotely must have a named individual account. This is the prerequisite for meaningful audit trails.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Credential Vaulting:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Jump server platforms typically include credential vault functionality &mdash; automatically injecting credentials into a session without exposing the actual password to the user. This enables session logging without compromising credential security.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Certificate-Based Authentication:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">For system-to-system connections (fleet management platforms, automated data collectors), certificate-based mutual authentication is preferable to password-based. Certificates have defined expiry dates and can be revoked immediately.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Privileged Account Separation:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Accounts used for remote access to OT systems should be separate from accounts used for email or administration. A vendor engineer's remote access account should not be an administrator account on shore-side systems.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 requires access control mechanisms for all CBS including controls over remote access. NIST SP 800-207 (Zero Trust Architecture) treats user identity as a core pillar &mdash; authentication must be continuous and risk-based, not binary.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Require MFA for all human remote access sessions without exception<br/>&#x2022; Issue individual named accounts; prohibit shared credentials for remote access<br/>&#x2022; Implement credential vaulting for OT system access<br/>&#x2022; Establish a formal process for revoking access when vendor contracts end or individuals change roles<br/>&#x2022; Set password complexity and rotation policies aligned with ISO/IEC 27001 Annex A<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 3 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 3</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Authorization</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #1a9e82;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Authentication confirms who is connecting. Authorization determines what they are permitted to do. These are distinct functions, both necessary. A correctly authenticated user should have access only to the systems and functions their role requires.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A third-party cybersecurity consultant is granted temporary remote access to perform a vulnerability scan of the navigation network. The access granted also gives them visibility into the engine automation network, because network segmentation is not enforced at the jump server policy level.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Overly broad authorization grants allow lateral exploration of systems that are out of scope<br/>&#x2022; Static authorization policies that are never reviewed may grant access no longer necessary<br/>&#x2022; Authorization policies not systematically documented cannot be audited or verified by third parties<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Role-Based Access Control (RBAC):</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Define access roles that correspond to functions rather than individuals: OEM_Propulsion_Support, Fleet_Performance_Monitor, Cybersecurity_Auditor. Each role has a defined scope of accessible systems and permitted actions.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Target System Specificity:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Authorization should specify not just the network segment but the specific system. An ECDIS vendor should have access to the ECDIS management interface, not all devices on the navigation network segment.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Time-Based Access Windows:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Authorization should include temporal constraints. Vendor support access should be valid only during the approved maintenance window &mdash; not before, not after. Automatic expiry without manual intervention.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Approval Workflows:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">High-risk access (administrative access, access during navigation, access to safety systems) should require explicit approval from the ship master or designated cybersecurity officer before the session is permitted.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 addresses access control as a Protection function, requiring that access to CBS be controlled and third-party access managed within defined parameters. IEC 62443-3-3 defines security levels that include requirements for user authorization at each level.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Implement RBAC with documented role definitions reviewed at least annually<br/>&#x2022; Require explicit time-bounded approval for all vendor access sessions<br/>&#x2022; Apply least privilege: start with no access and grant only what is demonstrably necessary<br/>&#x2022; Review and prune access authorizations when vendor contracts change or systems are reconfigured<br/>&#x2022; Log authorization decisions &mdash; both grants and denials &mdash; as part of the audit record<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 4 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 4</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Session Management</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Session management determines what happens during the session: how it is initiated, monitored, terminated, and what happens if it goes dormant or behaves anomalously. Correct session management prevents risks that occur during a session, not just at connection establishment.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A vendor connects to an engine automation system for a scheduled diagnostic at 08:00. The diagnostic takes 45 minutes. The vendor forgets to disconnect. The session remains active for 18 hours, during which the vessel transits a congested shipping lane. Anyone with access to the vendor's workstation could have interacted with the ship's engine automation system.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Idle sessions create persistent access windows that outlast their intended purpose<br/>&#x2022; Sessions established in one time zone and left open can remain active during crew changeover, when oversight is lowest<br/>&#x2022; Long-lived sessions are harder to monitor in real time; anomalous activity may not be detected until after the session ends<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Idle Timeout:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">All sessions should automatically terminate after a defined period of inactivity. Typically 10&ndash;15 minutes for high-sensitivity OT access. This is not configurable at the end-user level.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Maximum Session Duration:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Even active sessions should have a maximum duration. A 4-hour maintenance window should not be extendable to 8 hours without explicit re-approval from the ship-side officer.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Real-Time Session Visibility:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The ship's designated cybersecurity responsible officer and shore-based security team should be able to see all active sessions at any time &mdash; who is connected, to what system, for how long.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Session Termination Controls:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Authorized personnel (ship master, IT/OT security officer, shore-based SOC) should be able to terminate any session immediately without requiring the remote user's cooperation.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Concurrent Session Limits:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">A single user account should not be permitted to have multiple simultaneous sessions. This reduces the impact of credential sharing or theft.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26's Detection requirements include the ability to identify and alert on anomalous network behavior. Unmonitored long-lived sessions are precisely the kind of anomaly that a compliant detection capability should identify.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Configure idle timeout at 10&ndash;15 minutes for OT system access<br/>&#x2022; Set hard maximum session durations tied to the approved maintenance window<br/>&#x2022; Provide real-time session dashboards accessible to both shipboard and shore-based security personnel<br/>&#x2022; Implement automatic session termination if the session deviates from its pre-approved access scope<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 5 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 5</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Audit Logging</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #0a2342;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Audit logs are the primary evidence base for incident investigation, compliance verification, and insider threat detection. A remote access incident without audit logs is almost impossible to reconstruct. Logs also deter misconduct &mdash; users who know their sessions are recorded behave differently.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A ship experiences an unexplained configuration change in its ballast water treatment automation system. Investigation reveals that a third-party vendor had remote access three days before the change was noticed. There are no session logs, no record of which systems the vendor accessed, and no way to determine whether the vendor connection is related.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Without logs, incident investigation relies entirely on vendor cooperation, which cannot be assumed in a contested situation<br/>&#x2022; Incomplete logs (connection events only, not session content) may identify that access occurred without identifying what happened<br/>&#x2022; Logs stored exclusively on the ship can be modified or deleted if the jump server is compromised<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Session Recording:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Beyond connection logs (who connected, when, from where), the jump server should record full session content: all commands typed, all screens viewed, all files transferred. This is forensic-quality audit capability.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Centralized Log Storage:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Logs should be forwarded to a shore-based SIEM in near real-time over the satellite link. On-ship log storage should be considered a backup, not the primary repository.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Log Integrity:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Logs should be write-once, tamper-evident. Cryptographic hash chaining (where each log entry includes a hash of the previous entry) can detect log modification after the fact.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Log Retention:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Define retention periods based on regulatory and operational requirements. A minimum of 12 months is common practice, aligned with the annual audit cycle.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Alerting from Logs:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Logs are most valuable when actively analyzed, not only stored. SIEM integration enables real-time alerting on after-hours access, access to out-of-scope systems, or multiple failed authentication attempts.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 requires that ships maintain records sufficient to support incident investigation. IMO MSC-FAL.1/Circ.3 lists logging as a component of the Detect and Respond functions.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Enable full session recording for all human interactive sessions to OT systems<br/>&#x2022; Forward logs to a shore-based SIEM within each satellite connectivity window<br/>&#x2022; Implement tamper-evident log storage with cryptographic chaining<br/>&#x2022; Define and enforce log retention policies of at least 12 months<br/>&#x2022; Review logs for anomalies at a defined frequency; do not rely solely on automated alerting<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 6 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 6</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Secure Communication</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #154f7a;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">All remote access sessions traverse public or semi-public networks &mdash; satellite links, cellular connections, port WiFi. Without encryption, session data is visible to anyone with access to the network path. The details of implementation determine whether encryption provides genuine or only nominal protection.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A vessel in port uses port-side WiFi for a vendor remote diagnostic session while the VSAT link is in economy mode. The port-side WiFi is not secured. Session credentials and command data are transmitted without verifying the encryption configuration of the connection.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Cleartext transmission exposes session credentials and command content to network-level interception<br/>&#x2022; Certificate validation failures (accepting self-signed certificates) reduce encryption effectiveness<br/>&#x2022; Protocol downgrade attacks force encrypted sessions to use weaker cipher suites<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Mandatory TLS/SSH:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">All jump server connections should use current TLS (TLS 1.2 minimum, TLS 1.3 preferred) or SSH for interactive terminal sessions. Older protocols (SSLv3, TLS 1.0/1.1, Telnet) should be explicitly disabled at the application and network level.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Certificate Validation:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Server certificates should be validated against a trusted certificate authority. Self-signed certificates should not be accepted for production remote access sessions. Validation bypass must not be available to end users.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Cipher Suite Hardening:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Disable weak cipher suites, export-grade ciphers, and null encryption options. Apply hardening guidance from NIST SP 800-52 (Guidelines for TLS implementations).</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Layered Encryption:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The encrypted VPN tunnel between shore and ship provides the outer layer. The jump server's session-level TLS/SSH provides the inner layer. Both are necessary and serve different security functions.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 requires that connections between shipboard CBS and external networks use secure communication protocols. BIMCO's Guidelines on Cyber Security Onboard Ships recommends encryption as a baseline control for all remote access.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Enforce TLS 1.2+ or SSH-2 for all remote access sessions; disable older protocols<br/>&#x2022; Validate certificates; prohibit certificate warnings from being bypassed by end users<br/>&#x2022; Conduct annual cryptographic configuration reviews as part of the IACS E26 assessment<br/>&#x2022; Document the encryption layer model (VPN outer + session inner) in the SCSRP<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 7 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 7</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Vendor Access</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #1a9e82;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Third-party vendor access is the most operationally complex remote access category. Vendors are legitimate and necessary, but they are outside the ship operator's direct control. Managing vendor access requires balancing operational necessity against security risk.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A propulsion system OEM has negotiated a service contract that includes "24/7 remote access for diagnostic support." This means the OEM has a persistent VPN credential used without notifying the ship operator. The ship master has no visibility into when the connection is active, what the engineer is doing, or how long the session runs.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Persistent vendor access credentials that are not time-bounded create permanent backdoors to ship systems<br/>&#x2022; Vendors with unrestricted access may, intentionally or accidentally, modify configurations beyond their maintenance scope<br/>&#x2022; A vendor organization's own cybersecurity practices may be weaker than the ship operator's &mdash; a compromised vendor network becomes a pathway into the ship<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Just-in-Time Access:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Vendor access should be provisioned on-demand for a specific maintenance window, not maintained as a persistent credential. The jump server should support approval-based access requests valid only for the approved duration.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Vendor Account Ownership:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Vendor accounts in the jump server should be owned and managed by the ship operator, not the vendor. The operator controls creation, modification, and deactivation.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Vendor Session Notifications:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">When a vendor session is initiated, the ship master or designated cybersecurity officer should be automatically notified. When it ends, a session summary should be generated.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Contractual Alignment:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Vendor access agreements should specify the technical controls required (MFA, session recording, time-limited access) as contractual obligations, not just operational guidance.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E27 places obligations on equipment manufacturers regarding the remote connectivity features they build into their products. IACS UR E26 requires that ship operators manage third-party access as part of their overall cyber risk management framework.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Eliminate persistent vendor credentials; implement just-in-time provisioning<br/>&#x2022; Require vendor engineers to authenticate with individual named accounts, not shared service accounts<br/>&#x2022; Enable full session recording for all vendor sessions; provide session summaries to the ship operator<br/>&#x2022; Specify remote access security requirements in vendor contracts as binding obligations<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 8 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 8</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">File Transfer</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">File transfer is an often-overlooked attack vector because it bypasses the command-level controls that jump servers apply to interactive sessions. Many remote access sessions include file transfers: configuration files, diagnostic exports, log data, and software packages.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A vendor transfers a configuration file to the ship's power management system during a remote session. The file is not scanned for malware before transfer. The file contains a configuration modification the ship operator did not explicitly authorize and was not aware had been transferred.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Files transferred to ship systems can contain malware or unauthorized configuration changes<br/>&#x2022; Files exfiltrated from ship systems during a vendor session may contain sensitive operational data<br/>&#x2022; Uncontrolled file transfer paths that bypass the jump server represent a secondary attack vector<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">File Transfer Inspection:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">All files transferred through the jump server should be subject to malware scanning before delivery to the target system. Inline inspection or integration with a scanning service is required.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Transfer Authorization:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">File transfers should require explicit authorization separate from session authorization. A vendor authorized to run diagnostics is not automatically authorized to push configuration files.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Transfer Logging:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">All files transferred (direction, filename, hash, size, timestamp) should be logged with the same rigor as command activity. SHA-256 hash logging enables integrity verification.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Allowed File Types:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Define and enforce allowed file type lists for OT system transfers. Executable files, scripts, and archives should require elevated authorization and explicit approval.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 requires that the ship maintain control over what connects to CBS. Uncontrolled file transfers to OT systems are a violation of the protection controls required under E26. IEC 62443-3-3 addresses integrity of data communicated between zones.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Scan all inbound files for malware before delivery to target systems<br/>&#x2022; Require explicit approval for configuration file transfers to OT systems<br/>&#x2022; Log all file transfers with cryptographic hash values to enable integrity verification<br/>&#x2022; Prohibit uncontrolled file transfer paths that bypass the jump server<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 9 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 9</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Software Update</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #0a2342;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Remote software updates (OTA) are a critical maintenance function for modern shipboard CBS and one of the highest-risk remote access operations. A malicious or corrupted software update can fundamentally compromise a system. The update process must be at least as controlled as any other privileged remote operation.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A navigation equipment manufacturer pushes a firmware update to an onboard ECDIS via a direct connection to the manufacturer's cloud update server. The update is not logged in the ship's maintenance record. The ship master is not notified. The crew cannot verify the integrity of the installed software after the update.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; A compromised update server (supply chain attack) can deliver malware packaged as a legitimate update<br/>&#x2022; An update applied without crew awareness cannot be correlated with subsequent system anomalies during investigation<br/>&#x2022; Software version control is impossible if updates are applied outside a managed process<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Software Integrity Verification:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">All software delivered to shipboard systems should carry a cryptographic signature from the manufacturer. The ship system should verify this signature before installation. This is a core requirement of IACS UR E27 for on-board equipment.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Update Staging:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Updates should be delivered to a staging environment first where they can be verified before deployment to production systems. This applies both for testing and for integrity verification.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Maintenance Record Integration:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Every software update event should be logged in the ship's maintenance record system with software version, hash, manufacturer signature status, and installer identity.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Crew Awareness and Approval:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The ship master or designated cybersecurity officer should be notified before any software update is applied to a CBS, and should be able to defer the update if operational circumstances make it inappropriate.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E27 requires that on-board equipment manufacturers provide mechanisms for secure software updates, including integrity verification and version management. UR E26 requires that the ship maintain a software inventory for all CBS.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Verify manufacturer signatures on all software before installation; reject unsigned software<br/>&#x2022; Require explicit crew approval before applying updates to safety-critical CBS<br/>&#x2022; Log all software update events with version, hash, and authorization trail<br/>&#x2022; Maintain a current software inventory for all shipboard CBS<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 10 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 10</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Cybersecurity of the Jump Server Itself</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #dc2626;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">The jump server itself is a high-value target. If an attacker compromises the jump server, they gain access to everything the jump server controls. The security of the jump server platform is therefore as important as the security it provides.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A jump server is deployed on a standard server running a general-purpose Linux distribution. It is configured correctly at deployment. Over 18 months, OS security patches are not applied because the procedure requires taking it offline, which is operationally inconvenient. A publicly known vulnerability in the OS is exploited.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; An attacker who compromises the jump server gains access to all systems it controls<br/>&#x2022; Unpatched jump servers accumulate known vulnerabilities that are actively exploited in the wild<br/>&#x2022; A compromised jump server can be used to modify audit logs, concealing the attacker's activity<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Hardened Host:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server operating system should be hardened: unnecessary services disabled, attack surface minimized, host-based firewall enabled. Apply CIS Benchmarks or DISA STIG hardening guidance for the relevant OS.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Minimal Software:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server should run only the software required for its access control function. No general-purpose applications, no crew welfare software, no fleet management clients should reside on the same platform.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Patch Management:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server should have its own documented patch management procedure with defined update frequencies and a process for applying critical patches with minimum delay. Critical patch target: &le;30 days.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Integrity Monitoring:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">File integrity monitoring (FIM) should detect unauthorized changes to the jump server's configuration or software. Any unauthorized change should trigger an immediate alert.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Security Testing:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server should be included in the ship's cybersecurity vulnerability assessment scope and tested for common vulnerabilities at the same frequency as other critical systems.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 requires that protection controls are applied to the systems that provide protection &mdash; a jump server that is itself insecure undermines the entire remote access security model. CIS Benchmarks provide a practical hardening baseline.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Apply OS hardening benchmarks at deployment and re-verify after each major update<br/>&#x2022; Establish a patch management schedule with a target patch latency of &le;30 days for critical patches<br/>&#x2022; Implement file integrity monitoring on the jump server<br/>&#x2022; Include the jump server in the scope of annual or biannual penetration testing<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 11 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 11</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Maritime Environment</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #1a9e82;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Ship systems operate in an environment fundamentally different from shore-based IT infrastructure: intermittent connectivity, harsh physical conditions, a constrained crew skill base, and operational priority that places safety of navigation above all else. A jump server not designed for this environment will fail in ways that matter.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">During a voyage through a remote area with poor satellite coverage, the ship experiences an extended period of satellite connectivity loss. A planned OEM remote diagnostic session cannot be established. The crew has no documented fallback procedure and no way to notify the OEM that the session cannot proceed.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Store-and-forward failures can cause access requests and log events to be lost during satellite outages<br/>&#x2022; Hardware not rated for maritime environmental conditions may fail due to vibration, humidity, or temperature extremes in the engine room<br/>&#x2022; Interfaces too complex for non-specialist crew will be misused, bypassed, or ignored<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Connectivity Resilience:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server should function in store-and-forward mode during satellite outages. Queued access requests and log events should be transmitted when connectivity is restored. Core onboard functions must not require always-on satellite connectivity.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Bandwidth Efficiency:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Maritime satellite connectivity is expensive. Jump server protocols should be bandwidth-efficient. Excessive log forwarding or session recording data should not saturate the satellite link during high-traffic periods.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Physical Ruggedization:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server hardware should meet applicable IEC 60945 or equivalent standards for maritime environmental conditions: vibration, humidity, temperature range, and electromagnetic compatibility.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Crew Usability:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Onboard management interfaces &mdash; approving access requests, monitoring sessions, reviewing alerts &mdash; should be operable by crew with general IT competence, not specialized cybersecurity expertise.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Graceful Degradation:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">If the jump server has a fault, the appropriate response is to prevent all remote access (fail-secure) rather than fail-open (allow uncontrolled access). The crew should be alerted and manual override procedures should be documented.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IEC 60945 defines environmental and EMC requirements for maritime navigation and communication equipment. IEC 62443 addresses security controls in industrial environments with reliability and availability constraints comparable to maritime OT.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Specify and test maritime environmental ratings for jump server hardware at procurement<br/>&#x2022; Design for satellite connectivity intermittency; ensure no critical function depends on always-on connectivity<br/>&#x2022; Test usability with representative crew members; simplify interfaces based on findings<br/>&#x2022; Document and train crew on jump server failure procedures and fallback processes<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 12 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 12</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Compliance</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #7c3aed;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">Compliance is not a substitute for genuine security, but it is the mechanism by which security requirements are made enforceable and verifiable. Understanding which standards apply, what they require, and how the jump server architecture addresses those requirements is essential for vessels subject to IACS UR E26/E27 classification.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A ship operator schedules their first IACS UR E26 cyber survey. During preparation, they discover the jump server generates access logs but they have never been forwarded to a SIEM, have never been reviewed, and the retention period is 30 days. The surveyor requests 12 months of access records for a specific vendor session referenced in an incident report.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Compliance gaps identified during a class survey may result in conditions of class or survey non-conformities<br/>&#x2022; An undocumented gap between the jump server capabilities and regulatory requirements cannot be tracked or remediated<br/>&#x2022; Audit evidence that cannot be produced on demand undermines the ship operator's position in an incident investigation<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="overflow-x:auto;margin-bottom:10px;">
+  <table style="width:100%;border-collapse:collapse;font-size:11.5px;font-family:Inter,sans-serif;">
+    <thead>
+      <tr style="background:#0a2342;color:white;">
+        <th style="padding:7px 10px;text-align:left;font-weight:700;">Standard</th>
+        <th style="padding:7px 10px;text-align:left;font-weight:700;">Key Relevant Requirements</th>
+        <th style="padding:7px 10px;text-align:left;font-weight:700;">Jump Server Design Touchpoints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:white;"><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;font-weight:600;">IACS UR E26</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Access control; audit trails; third-party access management</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Authentication, Authorization, Audit Logging, Vendor Access</td></tr>
+      <tr style="background:#f8fafc;"><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;font-weight:600;">IACS UR E27</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Remote connectivity in CBS equipment; software update integrity</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Software Update, Vendor Access, Secure Communication</td></tr>
+      <tr style="background:white;"><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;font-weight:600;">IMO MSC.428(98)</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Cyber risk management in SMS</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Architecture, Vendor Access, Compliance documentation</td></tr>
+      <tr style="background:#f8fafc;"><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;font-weight:600;">IEC 62443-3-3</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Zone segmentation, access control, logging</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Architecture, Session Management, Audit Logging</td></tr>
+      <tr style="background:white;"><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;font-weight:600;">NIST SP 800-207</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Zero Trust principles</td><td style="padding:7px 10px;border-bottom:1px solid #e2e8f0;">Authentication, Authorization, Session Management</td></tr>
+      <tr style="background:#f8fafc;"><td style="padding:7px 10px;">ISO/IEC 27001</td><td style="padding:7px 10px;">Access control (A.9), cryptography (A.10), operations (A.12)</td><td style="padding:7px 10px;">All domains</td></tr>
+    </tbody>
+  </table>
+</div><div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Compliance Documentation:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server configuration and access policies should be formally documented and maintained as part of the Ship Cyber Security and Resilience Programme (SCSRP) required under UR E26.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Audit Evidence Generation:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server should automatically generate evidence suitable for compliance verification: access policy documents, session logs, software version records, user account inventories. These should be available for surveyor review.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">Vessels contracted on or after 1 July 2024 are subject to IACS UR E26. Equipment installed on those vessels is subject to UR E27. All vessels subject to ISM Code are covered by IMO MSC.428(98). IEC 62443 is referenced as a technical standard by IACS.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Map jump server capabilities explicitly to IACS UR E26/E27 requirements<br/>&#x2022; Generate compliance reports from jump server audit data at defined intervals (quarterly minimum)<br/>&#x2022; Include jump server review in the agenda for IACS annual cyber resilience assessments<br/>&#x2022; Document gaps with remediation timelines when capabilities do not yet meet all requirements<br/></div>
+    </div>
+  </div>
+</div>
+<!-- DOMAIN 13 -->
+<div style="font-family:Inter,sans-serif;margin-bottom:36px;border-top:2px solid #e2e8f0;padding-top:28px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+    <div style="background:#0a2342;color:#1affda;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;white-space:nowrap;">DOMAIN 13</div>
+    <h2 style="font-size:18px;font-weight:800;color:#0a2342;margin:0;">Lifecycle Management</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #64748b;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#1e40af;text-transform:uppercase;margin-bottom:6px;">Why It Matters</div>
+      <p style="font-size:12.5px;color:#1e3a8a;line-height:1.75;margin:0;">A jump server deployed correctly in 2025 will face a different threat landscape in 2030. The security controls adequate today may not be adequate in five years. Lifecycle management ensures that the jump server continues to deliver protection throughout the vessel's operational life.</p>
+    </div>
+    <div style="background:#fef9c3;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:6px;">Typical Ship Scenario</div>
+      <p style="font-size:12.5px;color:#78350f;line-height:1.75;margin:0;">A jump server deployed during a vessel's new construction enters end-of-life for its underlying platform software three years after delivery. The vendor announces that no further security patches will be issued. The ship operator has no technology refresh plan and no alternative. The ship will operate for another 17 years.</p>
+    </div>
+  </div>
+  <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#991b1b;text-transform:uppercase;margin-bottom:6px;">Security Risks</div>
+    <div style="font-size:12.5px;color:#7f1d1d;line-height:1.8;">&#x2022; Running end-of-life software eliminates the vendor's ability to patch newly discovered vulnerabilities<br/>&#x2022; Access policies, user accounts, and authorization rules that are never reviewed accumulate stale and excessive access grants<br/>&#x2022; A decommissioned jump server that is not securely wiped contains configuration data, credential vault contents, and session recordings &mdash; all sensitive<br/></div>
+  </div>
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;margin-bottom:10px;">Engineering Considerations</div>
+    <div style="display:flex;flex-direction:column;gap:8px;"><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Version Currency:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">The jump server platform software should be on a supported version with active security updates available. Define an EOL transition plan before current major version reaches end-of-support.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Configuration Review:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Access policies, user accounts, and authorization rules should be reviewed at defined intervals. Vendors whose contracts have ended should have accounts deactivated. Decommissioned systems should be removed from access policies.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Change Management:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">Changes to the jump server configuration &mdash; new user accounts, modified access policies, platform updates &mdash; should be subject to a formal change management process with documented approvals.</span></div><div><span style="font-size:12px;font-weight:700;color:#0a2342;">Decommissioning:</span> <span style="font-size:12.5px;color:#4a5568;line-height:1.75;">When a jump server is replaced, the decommissioned unit must be securely wiped. It contains configuration data, credential vault contents, and potentially session recordings &mdash; all of which are sensitive.</span></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#0a7055;text-transform:uppercase;margin-bottom:6px;">Regulatory Considerations</div>
+      <p style="font-size:12px;color:#2c3e50;line-height:1.75;margin:0;">IACS UR E26 requires that the SCSRP be maintained as a living document, implying that controls including the jump server must be reviewed and updated. ISO/IEC 27001 addresses asset management and security in the context of system lifecycle.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 14px;">
+      <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;margin-bottom:6px;">Best Practices</div>
+      <div style="font-size:12px;color:#166534;line-height:1.8;">&#x2022; Define and maintain a jump server software update and EOL transition plan<br/>&#x2022; Conduct quarterly access policy reviews at minimum<br/>&#x2022; Apply formal change management to all jump server configuration changes<br/>&#x2022; Include jump server lifecycle management in the ship's Planned Maintenance System (PMS)<br/>&#x2022; Document and execute a secure decommissioning procedure when replacing the platform<br/></div>
+    </div>
+  </div>
+</div>
+<!-- KEY TAKEAWAYS -->
+<div style="background:linear-gradient(135deg,#0a2342,#154f7a);border-radius:12px;padding:28px 30px;font-family:Inter,sans-serif;margin-bottom:28px;">
+  <div style="font-size:13px;font-weight:700;color:#1affda;margin-bottom:18px;text-transform:uppercase;letter-spacing:0.08em;">Key Takeaways</div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">01</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Secure remote access is a multi-domain problem. A jump server without correct authentication is a choke point without a lock. Each of the thirteen domains is necessary; none is sufficient alone.</p></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">02</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">The principle of least privilege must be applied at every layer: access scope (which systems), temporal scope (which time windows), and functional scope (which operations).</p></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">03</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Audit logs are the security control that continues to work after an incident. Every other control attempts to prevent harm; logs enable understanding and recovery when prevention fails.</p></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">04</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">The maritime environment imposes real constraints on how remote access controls must be designed &mdash; connectivity intermittency, crew skill base, and operational priority require engineering decisions that pure IT security frameworks do not address.</p></div>
+    <div style="display:flex;gap:14px;align-items:flex-start;"><div style="background:#1a9e82;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;">05</div><p style="font-size:13.5px;color:rgba(255,255,255,0.9);line-height:1.75;margin:0;">Compliance documents what must be done; engineering determines whether it actually works. Treat regulatory requirements as minimum thresholds, not design targets.</p></div>
+  </div>
+</div>
+
+<!-- SERIES NAVIGATION -->
+<div style="font-family:Inter,sans-serif;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;margin-bottom:28px;">
+  <div style="font-size:11px;font-weight:700;color:#0a2342;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;">Jump Servers for Modern Ships &mdash; 3-Part Series</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:6px;padding:10px 16px;display:flex;align-items:center;gap:10px;">
+      <div style="background:#e2e8f0;color:#64748b;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;white-space:nowrap;">Part 1</div>
+      <span style="color:#4a5568;font-size:13px;font-weight:600;">Why Modern Ships Need Jump Servers</span>
+    </div>
+    <div style="background:#0a2342;border-radius:6px;padding:10px 16px;display:flex;align-items:center;gap:10px;">
+      <div style="background:#1affda;color:#0a2342;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;white-space:nowrap;">Part 2</div>
+      <span style="color:white;font-size:13px;font-weight:600;">Designing Secure Remote Access for Ships</span>
+      <span style="color:#1affda;font-size:11px;margin-left:auto;white-space:nowrap;">You are here</span>
+    </div>
+    <div style="background:white;border:1px solid #e2e8f0;border-radius:6px;padding:10px 16px;display:flex;align-items:center;gap:10px;">
+      <div style="background:#e2e8f0;color:#64748b;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;white-space:nowrap;">Part 3</div>
+      <span style="color:#4a5568;font-size:13px;font-weight:600;">How to Evaluate a Maritime Jump Server Solution</span>
+      <span style="color:#94a3b8;font-size:11px;margin-left:auto;white-space:nowrap;">Vendor Checklist</span>
+    </div>
+  </div>
+</div>
+
+<!-- AUTHOR CTA -->
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:24px 26px;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+  <a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="flex-shrink:0;"><img src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" alt="Captain Paul" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #1a9e82;display:block;" /></a>
+  <div style="flex:1;min-width:200px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;"><span style="font-size:15px;font-weight:800;color:#0a2342;">Captain Paul</span><span style="background:#eef6f3;color:#0a7055;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;border:1px solid rgba(26,158,130,0.3);white-space:nowrap;">Verified</span></div>
+    <div style="font-size:11px;color:#1a9e82;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">ShipPaulJobs Maritime Cybersecurity &mdash; Remote Access &amp; OT Security</div>
+    <p style="font-size:13px;color:#2c3e50;line-height:1.75;margin:0 0 10px;">Continue to Part 3 &mdash; a structured vendor evaluation framework with 55 technical evaluation items across 11 domains, designed for RFP processes, vendor demonstrations, and pre-contract technical due diligence.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;"><a href="https://www.linkedin.com/in/shipjobs/" target="_blank" rel="noopener" style="background:#0a2342;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Connect on LinkedIn</a><a href="https://www.shippauljobs.com/2026/02/maritime-cybersecurity-solutions.html" target="_blank" rel="noopener" style="background:#1a9e82;color:white;font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px;text-decoration:none;">Full Ship Solutions Series</a></div>
+  </div>
+</div>

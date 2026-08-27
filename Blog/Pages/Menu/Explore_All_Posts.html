@@ -1,0 +1,898 @@
+<!--════════════════════════════════════════════════════════════
+     Page : Explore All Posts — Full ShipPaulJobs Knowledge Base
+     URL  : https://www.shippauljobs.com/p/explore-all-posts.html
+     Role : Filterable knowledge-base explorer — all published posts
+            with topic tabs, year filter, search, and Latest/Popular toggle.
+════════════════════════════════════════════════════════════-->
+
+<!--══ Hide comments ══-->
+<style>
+  #comments,.comments,#comment-holder,.comments-widget-container{display:none!important}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+<div id="exp-wrap" style="background:rgba(200,228,248,0.35);border-radius:22px;box-sizing:border-box;color:#2c3e50;font-family:'Inter','Segoe UI',Arial,sans-serif;margin:0 auto;max-width:900px;padding:18px">
+
+<style>
+#exp-wrap,#exp-wrap *{box-sizing:border-box}
+@keyframes exp-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/*── Header ──*/
+#exp-header{background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;padding:36px 24px 26px;text-align:center;margin-bottom:20px}
+#exp-eyebrow{color:#7ec8f4;font-size:11px;font-weight:700;letter-spacing:2.5px;margin-bottom:14px;text-transform:uppercase}
+#exp-h1{color:#eef6ff;font-family:'Roboto',Arial,sans-serif;font-size:38px;font-weight:900;letter-spacing:-.5px;line-height:1.2;margin:0 0 8px}
+#exp-count-line{color:#c8e4f8;font-size:13px;font-weight:300;margin:0 0 6px;opacity:.9}
+#exp-count-badge{background:rgba(29,137,207,.55);border-radius:20px;color:#e8f4fd;display:inline-block;font-size:11.5px;font-weight:700;padding:2px 14px;margin-bottom:14px}
+#exp-sub{color:#c8e4f8;font-size:14px;font-weight:300;line-height:1.7;margin:0 auto 20px;max-width:560px;opacity:.95}
+
+/*── Search ──*/
+#exp-search-bar{margin:0 auto;max-width:560px}
+#exp-search-panel{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:10px 16px 14px}
+#exp-search-input-wrap{align-items:center;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.30);border-radius:8px;display:flex;gap:8px;padding:0 12px;transition:border-color .2s}
+#exp-search-input-wrap:focus-within{border-color:#1d89cf}
+#exp-search-input{background:transparent;border:0;color:#e8f4fd;font-family:'Inter',Arial,sans-serif;font-size:13px;height:38px;outline:none;width:100%}
+#exp-search-input::placeholder{color:rgba(232,244,253,.55)}
+
+/*── Topic tabs ──*/
+#exp-topic-bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.exp-topic-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:20px;color:#e8f4fd;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:600;padding:4px 13px;transition:background .15s,border-color .15s;white-space:nowrap}
+.exp-topic-btn:hover{background:rgba(29,137,207,.45)}
+.exp-topic-btn.active{background:#1d89cf;border-color:#1d89cf;color:#fff}
+
+/*── Year + Sort row ──*/
+#exp-controls{align-items:center;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+#exp-year-wrap{display:flex;flex-wrap:wrap;gap:5px;flex:1 1 auto}
+.exp-year-pill{background:rgba(21,79,122,.12);border:1px solid rgba(21,79,122,.22);border-radius:20px;color:#154f7a;cursor:pointer;font-size:11px;font-weight:600;padding:3px 11px;transition:background .15s;white-space:nowrap}
+.exp-year-pill:hover,.exp-year-pill.active{background:#154f7a;color:#fff}
+
+/*── Sort toggle ──*/
+#exp-sort-wrap{display:flex;border:1.5px solid #d1e0ee;border-radius:20px;overflow:hidden;flex-shrink:0}
+.exp-sort-btn{background:#fff;border:0;color:#154f7a;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;padding:5px 14px;transition:background .15s,color .15s}
+.exp-sort-btn.active{background:#154f7a;color:#fff}
+
+/*── Stats row ──*/
+#exp-stats{color:#6b8599;font-size:11.5px;margin-bottom:10px}
+#exp-showing-count{font-weight:700;color:#154f7a}
+
+/*── Loading ──*/
+#exp-loading{color:#154f7a;padding:40px 10px;text-align:center;display:none}
+#exp-loading-text{animation:exp-pulse 1.6s ease-in-out infinite;font-size:13.5px;font-weight:600;letter-spacing:.3px}
+
+/*── Post grid ──*/
+#exp-grid{margin-bottom:20px}
+.exp-card-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+@media(max-width:580px){.exp-card-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:360px){.exp-card-grid{grid-template-columns:1fr}}
+
+/*── Year accordion ──*/
+.exp-year-section{margin-bottom:10px}
+.exp-year-header{align-items:center;background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;cursor:pointer;display:flex;font-family:'Inter',Arial,sans-serif;gap:10px;padding:11px 18px;width:100%;transition:background .15s,border-color .15s}
+.exp-year-header:hover{background:#e4eef8;border-color:#a8c4dc}
+.exp-year-header.open{background:#154f7a;border-color:#154f7a}
+.exp-year-label{color:#0a2342;font-size:15px;font-weight:800;flex:1 1 auto;text-align:left;transition:color .15s}
+.exp-year-total{color:#6b8599;font-size:11px;font-weight:600;flex-shrink:0;transition:color .15s}
+.exp-year-chevron{color:#9fb5c2;flex-shrink:0;display:inline-flex;transition:color .15s,transform .18s;transform:rotate(0deg)}
+.exp-year-header.open .exp-year-chevron{transform:rotate(180deg)}
+.exp-year-header.open .exp-year-label,.exp-year-header.open .exp-year-total{color:#fff}
+.exp-year-header.open .exp-year-chevron{color:#c8e4f8}
+.exp-year-body{padding:4px 0 12px 0}
+
+/*── Month sub-headers (inside year body) — independently collapsible ──*/
+.exp-month-group{margin-bottom:4px}
+.exp-month-header{align-items:center;background:none;border:0;border-bottom:1.5px solid rgba(29,137,207,.2);cursor:pointer;display:flex;font-family:'Inter',Arial,sans-serif;justify-content:space-between;gap:8px;margin:16px 4px 8px;padding:0 0 5px;width:100%;transition:border-color .15s}
+.exp-month-header:hover{border-color:#154f7a}
+.exp-month-header.closed{border-bottom-color:#e8f0f8}
+.exp-month-group:first-child .exp-month-header{margin-top:4px}
+.exp-month-label{color:#154f7a;font-size:12.5px;font-weight:700;text-align:left}
+.exp-month-right{align-items:center;display:flex;flex-shrink:0;gap:6px}
+.exp-month-count{background:#e8f4f0;color:#1a9e82;border-radius:10px;font-size:10px;font-weight:700;padding:2px 8px;white-space:nowrap}
+.exp-month-chevron{color:#9fb5c2;display:inline-flex;flex-shrink:0;transform:rotate(180deg);transition:transform .18s}
+.exp-month-header.closed .exp-month-chevron{transform:rotate(0deg)}
+
+/*── List rows ──*/
+.exp-list{display:flex;flex-direction:column;gap:2px}
+.exp-list-row{align-items:flex-start;background:#fff;border:1px solid #e8f0f8;border-radius:8px;color:inherit;display:flex;gap:10px;padding:9px 12px;text-decoration:none;transition:border-color .15s,background .15s}
+.exp-list-row:hover{background:#f4f9ff;border-color:#154f7a}
+.exp-list-thumb{background:linear-gradient(135deg,rgba(21,79,122,.7),rgba(26,158,130,.6));background-position:center;background-size:cover;border-radius:6px;flex-shrink:0;height:64px;width:84px}
+.exp-list-nothumb{align-items:center;color:rgba(255,255,255,.75);display:flex;font-size:20px;justify-content:center}
+.exp-list-body{flex:1 1 auto;min-width:0}
+.exp-list-title{color:#0a2342;font-size:12.5px;font-weight:600;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp-list-title.exp-list-read{color:#9fb5c2}
+.exp-list-desc{color:#6b8599;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;font-size:11px;line-height:1.5;margin-top:3px;overflow:hidden}
+.exp-list-tags{display:flex;flex-wrap:nowrap;gap:4px;margin-top:5px;overflow:hidden}
+.exp-list-tag{background:rgba(29,137,207,.1);border-radius:3px;color:#1d89cf;flex-shrink:0;font-size:9px;font-weight:600;padding:1px 5px;white-space:nowrap}
+.exp-list-tag-more{color:#9fb5c2;font-size:9px;font-weight:600}
+.exp-list-meta{flex-shrink:0;margin-top:2px;text-align:right}
+.exp-list-date{color:#9fb5c2;font-size:10.5px}
+@media(max-width:480px){.exp-list-thumb{display:none}}
+
+/*── Card ──*/
+.exp-card{background:#fff;border-radius:10px;border:1px solid #e8f0f8;box-shadow:0 1px 5px rgba(10,35,66,.05);display:flex;flex-direction:column;overflow:hidden;text-decoration:none;transition:box-shadow .18s,border-color .18s,transform .18s}
+.exp-card:hover{border-color:#154f7a;box-shadow:0 4px 18px rgba(10,35,66,.12);transform:translateY(-2px)}
+.exp-card-thumb-wrap{position:relative}
+.exp-card-thumb{background:linear-gradient(135deg,rgba(21,79,122,.85),rgba(26,158,130,.75));background-position:center;background-repeat:no-repeat;background-size:cover;height:120px;width:100%}
+.exp-card-noimg{align-items:center;color:rgba(255,255,255,.85);display:flex;font-size:26px;justify-content:center}
+.exp-card-read-badge{background:#16a34a;border-radius:10px;bottom:7px;color:#fff;font-size:9px;font-weight:700;left:7px;line-height:1.6;padding:2px 8px;position:absolute;z-index:2}
+.spj-badge{align-items:center;background:#fff url('https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/common/shipjobs2.png') center/cover no-repeat;border-radius:50%;border:none!important;display:inline-flex;flex-shrink:0;height:26px;justify-content:center;overflow:hidden;text-decoration:none;width:26px;z-index:5}
+.spj-badge img{display:none!important}
+.spj-badge-l1{box-shadow:0 0 0 2.5px #00c97a,0 0 7px rgba(0,201,122,.55),0 1px 3px rgba(0,0,0,.2)}
+.spj-badge-l2{box-shadow:0 0 0 2.5px #1d89cf,0 0 7px rgba(29,137,207,.55),0 1px 3px rgba(0,0,0,.2)}
+.spj-badge-l3{box-shadow:0 0 0 2.5px #9b59b6,0 0 7px rgba(155,89,182,.55),0 1px 3px rgba(0,0,0,.2)}
+.exp-card-verify-badge{position:absolute;right:7px;top:7px;z-index:2}
+.exp-card-body{display:flex;flex:1 1 auto;flex-direction:column;padding:12px 14px 12px}
+.exp-card-title{color:#0a2342;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;font-size:13.5px;font-weight:700;line-height:1.5;margin:0 0 5px;overflow:hidden}
+.exp-card-desc{color:#6b8599;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;font-size:11.5px;line-height:1.55;overflow:hidden}
+.exp-card-tags{display:flex;flex-wrap:nowrap;gap:3px;margin-top:7px;overflow:hidden}
+.exp-card-tag{background:rgba(29,137,207,.1);border-radius:4px;color:#1d89cf;cursor:pointer;flex-shrink:0;font-size:9px;font-weight:600;line-height:1.7;padding:1px 6px;white-space:nowrap}
+.exp-card-tag-more{background:transparent;color:#9fb5c2;cursor:default;flex-shrink:0;font-size:10px;font-weight:700;padding:1px 2px}
+.exp-card-footer{align-items:center;border-top:1px solid #e8f0f7;display:flex;justify-content:space-between;margin-top:auto;padding-top:8px;margin-top:9px}
+.exp-card-author-row{align-items:center;display:flex;gap:5px;min-width:0;overflow:hidden}
+.exp-card-avatar{border-radius:50%;border:1px solid #d0e4f0;flex-shrink:0;height:18px;object-fit:cover;width:18px}
+.exp-card-author-name{color:#4a6278;font-size:10px;font-weight:600;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp-card-date{color:#9fb5c2;flex-shrink:0;font-size:10px}
+
+/*── Empty state ──*/
+#exp-empty{color:#6b8599;display:none;font-size:13.5px;line-height:1.9;padding:30px 10px;text-align:center;background:#fff;border:1px solid #e8f0f8;border-radius:14px;margin-bottom:20px}
+
+/*── Load more ──*/
+#exp-load-more-wrap{text-align:center;margin-bottom:20px}
+#exp-load-more{background:#154f7a;border:0;border-radius:20px;color:#fff;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:700;padding:10px 28px;transition:background .18s}
+#exp-load-more:hover{background:#1a9e82}
+
+/*── Top Ranked ──*/
+#exp-ranked-wrap{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-top:4px;margin-bottom:24px;padding:20px 22px 8px}
+#exp-ranked-header{align-items:center;display:flex;gap:8px;margin-bottom:4px}
+#exp-ranked-title{color:#0a2342;flex-shrink:0;font-size:15px;font-weight:800}
+#exp-verify-badge{color:#9fb5c2;font-size:9.5px;font-weight:800;letter-spacing:.1em;margin-left:auto;text-decoration:none;text-transform:uppercase;transition:color .15s;white-space:nowrap}
+#exp-verify-badge:hover{color:#154f7a}
+#exp-ranked-note{color:#9fb5c2;font-size:10.5px}
+.exp-rank-row{align-items:center;border-top:1px solid #e8f0f8;display:flex;gap:12px;padding:12px 0;text-decoration:none}
+.exp-rank-row:hover .exp-rank-title{color:#1a9e82}
+.exp-rank-num{background:#154f7a;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px}
+.exp-rank-row:nth-child(1) .exp-rank-num{background:#ffc107;color:#1a1200}
+.exp-rank-row:nth-child(2) .exp-rank-num{background:#b0bac2;color:#1a1200}
+.exp-rank-row:nth-child(3) .exp-rank-num{background:#e67e22;color:#fff}
+.exp-rank-thumb{background:linear-gradient(135deg,rgba(21,79,122,.85),rgba(26,158,130,.75));background-position:center;background-size:cover;border-radius:8px;flex-shrink:0;height:44px;width:44px}
+.exp-rank-noimg{align-items:center;color:rgba(255,255,255,.85);display:flex;font-size:16px;justify-content:center}
+.exp-rank-body{flex:1 1 auto;min-width:0}
+.exp-rank-title-row{align-items:center;display:flex;gap:6px}
+.exp-rank-title{color:#0a2342;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;flex:1 1 auto;font-size:13px;font-weight:700;line-height:1.5;margin:0;min-width:0;overflow:hidden;transition:color .15s}
+.exp-rank-meta{align-items:center;color:#9fb5c2;display:flex;font-size:10.5px;gap:5px;margin-top:3px}
+.exp-rank-avatar{background-color:#e8f0f7;background-position:center;background-size:cover;border-radius:50%;flex-shrink:0;height:15px;width:15px}
+.exp-rank-author{color:#6b8599;font-weight:600}
+.exp-rank-date{flex-shrink:0}
+.exp-rank-comments{align-items:center;color:#9fb5c2;display:flex;flex-shrink:0;gap:3px;margin-left:auto}
+#exp-ranked-loading{color:#9fb5c2;font-size:12.5px;padding:14px 0;text-align:center}
+
+/*── Context ──*/
+#exp-context{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-bottom:20px;padding:22px 22px 16px}
+.exp-ctx-intro{border-bottom:1px solid #e8f0f8;margin-bottom:16px;padding-bottom:12px}
+.exp-ctx-intro-text{color:#4a6478;font-size:13.5px;line-height:1.7;margin:0 0 6px}
+.exp-ctx-updated{color:#9fb5c2;font-size:11.5px;margin:0}
+.exp-ctx-updated a{color:#1a9e82;text-decoration:none}
+.exp-ctx-title{color:#0a2342;font-size:16px;font-weight:800;letter-spacing:-.01em;margin:0 0 14px}
+.exp-role-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));margin-bottom:18px}
+.exp-role-card{background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:10px;display:flex;flex-direction:column;gap:6px;padding:14px 16px}
+.exp-role-badge{border-radius:4px;display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 8px;width:fit-content}
+.exp-badge-cyber{background:#e8f0f7;color:#154f7a}
+.exp-badge-ai{background:#e6f4f0;color:#0e7c62}
+.exp-badge-auto{background:#ede9fe;color:#5b21b6}
+.exp-badge-eng{background:#fef3e2;color:#b45309}
+.exp-role-card strong{color:#0a2342;font-size:13px;line-height:1.45}
+.exp-role-card p{color:#4a6478;font-size:12px;line-height:1.6;margin:0}
+
+/*── FAQ ──*/
+#exp-faq{background:#fff;border:1.5px solid #d1e0ee;border-radius:14px;box-shadow:0 2px 12px rgba(10,35,66,.07);margin-top:20px;padding:22px 22px 16px}
+#exp-faq h2{color:#0a2342;font-size:16px;font-weight:800;margin:0 0 16px}
+.exp-faq-item{border-top:1px solid #e8f0f8;padding:14px 0}
+.exp-faq-item:first-of-type{border-top:none;padding-top:0}
+.exp-faq-q{color:#0a2342;font-size:13.5px;font-weight:700;line-height:1.5;margin:0 0 7px}
+.exp-faq-a{color:#4a6478;font-size:13px;line-height:1.7;margin:0}
+.exp-faq-a a{color:#1a9e82;font-weight:600;text-decoration:none}
+
+#exp-footer-note{color:#9fb5c2;font-size:11px;line-height:1.8;margin:18px 4px 4px;text-align:center}
+
+    /* ── Card sort / filter animation ── */
+    @keyframes exp-card-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .exp-card { animation: exp-card-in 0.28s ease both; }
+    #exp-grid.exp-sorting { opacity: 0; transition: opacity 0.15s; }
+    #exp-grid.exp-sorted  { opacity: 1; transition: opacity 0.15s; }
+</style>
+
+<!--══ Header ══-->
+<div id="exp-header">
+  <div id="exp-eyebrow">ShipPaulJobs · Full Archive — All Posts</div>
+  <h1 id="exp-h1">Explore All Posts</h1>
+  <div id="exp-count-line">Full ShipPaulJobs Knowledge Base</div>
+  <div id="exp-count-badge" style="display:none">— Articles</div>
+  <p id="exp-sub">Browse every article on ShipPaulJobs — filter by topic, year, or popularity. Maritime cybersecurity, ship systems, marine solutions, career intelligence, regulations, and more.</p>
+  <div id="exp-search-bar">
+    <div id="exp-search-panel">
+      <div id="exp-search-input-wrap">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style="flex-shrink:0;opacity:.6"><circle cx="9" cy="9" r="6" stroke="#e8f4fd" stroke-width="2"/><path d="M15 15l3 3" stroke="#e8f4fd" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="exp-search-input" placeholder="Search all posts…" autocomplete="off" spellcheck="false"/>
+      </div>
+      <div id="exp-topic-bar">
+        <button class="exp-topic-btn active" data-topic="">All</button>
+        <button class="exp-topic-btn" data-topic="Ship Systems">Ship Systems</button>
+        <button class="exp-topic-btn" data-topic="Marine Solutions">Marine Solutions</button>
+        <button class="exp-topic-btn" data-topic="Cybersecurity">Cybersecurity</button>
+        <button class="exp-topic-btn" data-topic="Maritime AI">Maritime AI</button>
+        <button class="exp-topic-btn" data-topic="Regulations">Regulations</button>
+        <button class="exp-topic-btn" data-topic="Digital Transformation">Digital</button>
+        <button class="exp-topic-btn" data-topic="Maritime News">News</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ Controls row ══-->
+<div id="exp-controls">
+  <div id="exp-year-wrap">
+    <span style="color:#154f7a;font-size:11px;font-weight:700;align-self:center;flex-shrink:0">Year:</span>
+    <button class="exp-year-pill active" data-year="">All</button>
+  </div>
+  <div id="exp-sort-wrap">
+    <button class="exp-sort-btn active" data-sort="latest">Latest</button>
+    <button class="exp-sort-btn" data-sort="popular">Popular</button>
+  </div>
+</div>
+<div id="exp-stats" style="display:none">Showing <span id="exp-showing-count">0</span> articles</div>
+
+<!--══ Loading ══-->
+<div id="exp-loading" style="display:none">
+  <div id="exp-loading-text">📡 Loading full post archive…</div>
+</div>
+
+<!--══ Grid ══-->
+<div id="exp-grid"></div>
+<div id="exp-empty" style="display:none">No posts found for this filter.</div>
+<div id="exp-load-more-wrap" style="display:none">
+  <button id="exp-load-more">Load more articles</button>
+</div>
+
+<!--══ Top Ranked ══-->
+<div id="exp-ranked-wrap">
+  <div id="exp-ranked-header">
+    <div id="exp-ranked-title">🏆 Top Ranked Posts</div>
+    <a id="exp-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener">📌 Verification Policy</a>
+  </div>
+  <div id="exp-ranked-note">Most-viewed posts across the entire ShipPaulJobs archive</div>
+  <div id="exp-ranked-loading">Loading top posts…</div>
+</div>
+
+<!--══ Context ══-->
+<div id="exp-context">
+  <div class="exp-ctx-intro">
+    <p class="exp-ctx-intro-text">Explore All Posts is the complete archive of every article published on ShipPaulJobs — spanning maritime cybersecurity, ship systems and technology, marine solutions, smart shipping, career intelligence, regulatory compliance, and industry news. Use the topic tabs and search to navigate the full knowledge base.</p>
+    <p class="exp-ctx-updated">Last updated: August 2026 &nbsp;|&nbsp; <a href="https://www.shippauljobs.com/p/editorial-verification-policy.html" rel="noopener">Editorial &amp; Verification Policy</a></p>
+  </div>
+  <h2 class="exp-ctx-title">Content Categories</h2>
+  <div class="exp-role-grid">
+    <div class="exp-role-card">
+      <div class="exp-role-badge exp-badge-cyber">Cybersecurity</div>
+      <strong>Maritime Cybersecurity</strong>
+      <p>IACS UR E26/E27, IMO MSC-FAL.1/Circ.3, OT/IT security, vessel penetration testing, incident response, and cyber risk management for ship operators and maritime authorities.</p>
+    </div>
+    <div class="exp-role-card">
+      <div class="exp-role-badge exp-badge-eng">Systems</div>
+      <strong>Ship Systems &amp; Technology</strong>
+      <p>Integrated bridge systems, ECDIS, engine automation, onboard networks, power management, and cargo systems — the full technology stack of modern commercial vessels.</p>
+    </div>
+    <div class="exp-role-card">
+      <div class="exp-role-badge exp-badge-ai">Solutions</div>
+      <strong>Marine Solutions &amp; Services</strong>
+      <p>Vessel performance platforms, digital twin systems, connectivity solutions, fleet management software, and compliance toolkits for maritime operators.</p>
+    </div>
+    <div class="exp-role-card">
+      <div class="exp-role-badge exp-badge-auto">Careers</div>
+      <strong>Maritime Careers &amp; Jobs</strong>
+      <p>Job listings, career guides, certification pathways, salary intelligence, and workforce trends for maritime AI, cybersecurity, and smart ship roles.</p>
+    </div>
+    <div class="exp-role-card">
+      <div class="exp-role-badge exp-badge-cyber">Compliance</div>
+      <strong>Regulation &amp; Compliance</strong>
+      <p>IMO, IACS, flag state, and port state control updates — CII, EEXI, ballast water, MARPOL, and cyber resilience regulations explained for practitioners.</p>
+    </div>
+    <div class="exp-role-card">
+      <div class="exp-role-badge exp-badge-ai">Industry</div>
+      <strong>Industry News &amp; Analysis</strong>
+      <p>Shipbuilding trends, autonomous vessel developments, port digitalization, green shipping initiatives, and market intelligence for maritime professionals.</p>
+    </div>
+  </div>
+</div>
+
+<!--══ FAQ ══-->
+<div id="exp-faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="exp-faq-item">
+    <p class="exp-faq-q">What topics does ShipPaulJobs cover?</p>
+    <p class="exp-faq-a">ShipPaulJobs publishes articles across six core areas: maritime cybersecurity (IACS UR E26/E27, OT security, vessel pen testing), ship systems and technology (IBS, ECDIS, engine automation, onboard networks), marine solutions and services (performance platforms, digital twins, connectivity), maritime careers and job intelligence, regulatory compliance (IMO, MARPOL, CII/EEXI), and maritime industry news and analysis. All articles are written or reviewed by maritime professionals.</p>
+  </div>
+  <div class="exp-faq-item">
+    <p class="exp-faq-q">How do the topic filters work?</p>
+    <p class="exp-faq-a">Each topic tab (Ship Systems, Marine Solutions, Cybersecurity, Maritime AI, Regulations, Digital, News) filters the post archive by the matching Blogger label. Posts with multiple labels may appear under more than one topic. The "All" tab shows every published post. Use the search bar to further narrow results within any topic view.</p>
+  </div>
+  <div class="exp-faq-item">
+    <p class="exp-faq-q">What does the "Popular" sort show?</p>
+    <p class="exp-faq-a">The Popular sort reorders visible posts by their view count, fetched live from the site's page-visit counter (Abacus tracker, deployed site-wide). Top-viewed posts appear first regardless of publication date. Switch back to Latest to restore chronological order. The Top Ranked section at the bottom always shows the globally most-viewed posts across the entire archive.</p>
+  </div>
+</div>
+
+<div id="exp-footer-note">Source: shippauljobs.com · All published posts · Views tracked from page-visit counter (site-wide, live since deployment)</div>
+
+<!--══ Structured Data ══-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Explore All Posts — Full Maritime Knowledge Archive | ShipPaulJobs",
+  "url": "https://www.shippauljobs.com/p/explore-all-posts.html",
+  "description": "Complete archive of every ShipPaulJobs article — maritime cybersecurity, ship systems, marine solutions, career guides, regulatory compliance, and industry news. Filterable by topic, year, and popularity.",
+  "publisher": {"@type":"Organization","name":"ShipPaulJobs","url":"https://www.shippauljobs.com"},
+  "about": [
+    {"@type":"Thing","name":"Maritime Cybersecurity"},
+    {"@type":"Thing","name":"Ship Systems Technology"},
+    {"@type":"Thing","name":"Marine Solutions"},
+    {"@type":"Thing","name":"Maritime Careers"},
+    {"@type":"Thing","name":"Maritime Regulation"}
+  ],
+  "mainEntity": [
+    {"@type":"Question","name":"What topics does ShipPaulJobs cover?","acceptedAnswer":{"@type":"Answer","text":"Maritime cybersecurity (IACS UR E26/E27, OT security), ship systems (IBS, ECDIS, engine automation), marine solutions, maritime careers and jobs, regulatory compliance (IMO, CII/EEXI, MARPOL), and industry news."}},
+    {"@type":"Question","name":"How do the topic filters work?","acceptedAnswer":{"@type":"Answer","text":"Each topic tab filters the archive by the matching Blogger label. The All tab shows every published post. Use search to narrow results within any topic."}},
+    {"@type":"Question","name":"What does the Popular sort show?","acceptedAnswer":{"@type":"Answer","text":"Posts reordered by live view count from the site-wide page-visit counter. Top-viewed posts appear first regardless of publication date."}}
+  ]
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* Blogger's public summary feed does NOT return a clean auto-summary —
+     e.summary.$t is just the first ~400 raw characters of the post's HTML
+     source, truncated mid-tag or mid comment-marker. Every article in
+     this repo opens with a long boxed "Article: ..." HTML comment
+     header, so that raw slice is usually mostly (or entirely) that
+     header, sometimes cut off partway through it. Strip fully-closed
+     comment blocks, then any comment left open by the truncation, then
+     any remaining tags. If nothing readable survives, callers should
+     just omit the preview rather than show empty/garbage text. */
+  function cleanSummary(s) {
+    /* Each pattern below spells the comment open/close markers with an
+       escaped hyphen between the two dashes so the literal marker text
+       never appears contiguously in this inline script block's source —
+       that exact text appearing in script data can push an HTML parser
+       into its "script data escaped" state per the HTML5 spec. */
+    return (s || '')
+      .replace(/<!\-\-[\s\S]*?\-\->/g, ' ')
+      .replace(/<!\-\-[\s\S]*$/, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  /* ── Topic → label mapping ── */
+  var TOPIC_LABELS = {
+    'Ship Systems':         ['SYSTEM','Ship and System','Ship Systems'],
+    'Marine Solutions':     ['SOLUTIOL','Marine Solutions'],
+    'Cybersecurity':        ['CYBER','Cybersecurity','Maritime Cybersecurity','CYBERSECURITY'],
+    'Maritime AI':          ['AI','Maritime AI','Artificial Intelligence'],
+    'Regulations':          ['REGULATION','Regulations','REG','Compliance','Maritime Compliance'],
+    'Digital Transformation':['DIGITAL','Digital Transformation','Digital'],
+    'Maritime News':        ['NEWS','Maritime News','Industry News','MARITIMEMEWS']
+  };
+
+  var CACHE_KEY = 'exp_cache_v2'; /* bumped from v1 — invalidates the old cache that stored only the first 45 posts (see fetchAllPosts) */
+  var PAGE_SIZE = 18;
+  var allPosts = [];
+  var filteredPosts = [];
+  var displayedCount = 0;
+  var currentTopic = '';
+  var currentYear  = '';
+  var currentSort  = 'latest';
+  var currentSearch = '';
+  var viewCounts = {};
+
+  /* ── DOM refs ── */
+  var grid       = document.getElementById('exp-grid');
+  var emptyEl    = document.getElementById('exp-empty');
+  var loadingEl  = document.getElementById('exp-loading');
+  var statsEl    = document.getElementById('exp-stats');
+  var countBadge = document.getElementById('exp-count-badge');
+  var showingEl  = document.getElementById('exp-showing-count');
+  var loadMoreWrap = document.getElementById('exp-load-more-wrap');
+  var loadMoreBtn  = document.getElementById('exp-load-more');
+  var yearWrap   = document.getElementById('exp-year-wrap');
+
+  /* ── Fetch all posts (paginated, no label filter) ── */
+  function fetchAllPosts(cb) {
+    var cached = null;
+    try { var raw = sessionStorage.getItem(CACHE_KEY); if(raw) cached = JSON.parse(raw); } catch(e){}
+    if(cached && cached.posts && cached.posts.length) { cb(cached.posts); return; }
+
+    var collected = [];
+    function page(start) {
+      var url = 'https://www.shippauljobs.com/feeds/posts/summary?alt=json&max-results=150&start-index=' + start;
+      fetch(url)
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          var entries = (j.feed && j.feed.entry) || [];
+          entries.forEach(function(e){
+            var link = '';
+            (e.link||[]).forEach(function(l){ if(l.rel==='alternate') link = l.href; });
+            var thumb = '';
+            if(e['media$thumbnail']) thumb = e['media$thumbnail'].url.replace('/s72-c/','/s400-c/');
+            var cats = (e.category||[]).map(function(c){ return c.term; });
+            var author = (e.author&&e.author[0])?{
+              name:(e.author[0]['name']&&e.author[0]['name']['$t'])||'',
+              img:(e.author[0]['gd$image']&&e.author[0]['gd$image'].src)||''
+            }:{name:'',img:''};
+            if(author.img && author.img.indexOf('//lh')!==-1 && author.img.indexOf('photo.jpg')!==-1){
+              author.img = author.img.replace(/\/s\d+-c\//,'/s40-c/');
+            }
+            var published = (e.published&&e.published['$t'])||'';
+            var summary = cleanSummary((e.summary&&e.summary['$t'])||'');
+            var verifyFlag = (e['gd$extendedProperty']||[]).reduce(function(a,p){
+              if(p.name==='verify') a=p.value; return a; },'');
+            var commentCount = (e['thr$total']&&e['thr$total']['$t'])||'0';
+            var slug = link.replace(/^https?:\/\/[^/]+/,'').replace(/^\/\d{4}\/\d{2}\//,'').replace(/\.html$/,'');
+            collected.push({
+              title:(e.title&&e.title['$t'])||'',
+              link:link, thumb:thumb, cats:cats, author:author,
+              published:published, summary:summary,
+              verifyFlag:verifyFlag, commentCount:commentCount, slug:slug,
+              views:0
+            });
+          });
+          var totalStr = (j.feed&&j.feed['openSearch$totalResults']&&j.feed['openSearch$totalResults']['$t'])||'0';
+          var total = parseInt(totalStr,10);
+          /* Blogger's public summary feed silently caps each response at
+             ~45 entries regardless of the requested max-results=150 — so
+             checking "entries.length===150" to decide whether to keep
+             paging is wrong and was the cause of the page stopping at 45
+             articles. Advance start-index by however many entries actually
+             came back, and keep going until we've collected everything
+             Blogger reports in openSearch$totalResults (or a page comes
+             back empty, so a feed glitch can't loop forever). */
+          if(collected.length < total && entries.length > 0) {
+            page(start + entries.length);
+          } else {
+            try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({posts:collected})); } catch(e){}
+            cb(collected);
+          }
+        })
+        .catch(function(){ cb(collected); });
+    }
+    page(1);
+  }
+
+  /* ── Build year pills ── */
+  function buildYearPills(posts) {
+    var years = {};
+    posts.forEach(function(p){ var y=p.published.substring(0,4); if(y) years[y]=(years[y]||0)+1; });
+    var sorted = Object.keys(years).sort(function(a,b){return b-a;});
+    sorted.forEach(function(y){
+      var btn = document.createElement('button');
+      btn.className = 'exp-year-pill';
+      btn.dataset.year = y;
+      btn.textContent = y + ' (' + years[y] + ')';
+      btn.addEventListener('click', function(){ setYear(y); });
+      yearWrap.appendChild(btn);
+    });
+  }
+
+  /* ── Filter & sort ── */
+  function applyFilter() {
+    var q = currentSearch.toLowerCase().trim();
+    var topicLabels = currentTopic ? TOPIC_LABELS[currentTopic] || [] : [];
+
+    filteredPosts = allPosts.filter(function(p){
+      if(currentYear && p.published.substring(0,4) !== currentYear) return false;
+      if(topicLabels.length) {
+        var match = p.cats.some(function(c){
+          return topicLabels.some(function(l){ return c.toLowerCase()===l.toLowerCase(); });
+        });
+        if(!match) return false;
+      }
+      if(q) {
+        var hay = (p.title+' '+p.summary+' '+p.cats.join(' ')).toLowerCase();
+        if(hay.indexOf(q)===-1) return false;
+      }
+      return true;
+    });
+
+    if(currentSort === 'popular') {
+      filteredPosts.sort(function(a,b){ return (viewCounts[b.slug]||0)-(viewCounts[a.slug]||0); });
+    } else {
+      filteredPosts.sort(function(a,b){ return b.published.localeCompare(a.published); });
+    }
+    displayedCount = 0;
+    grid.classList.add('exp-sorting');
+    setTimeout(function() {
+      grid.innerHTML = '';
+      displayedCount = 0;
+      grid.classList.remove('exp-sorting');
+      grid.classList.add('exp-sorted');
+      emptyEl.style.display = 'none';
+      renderPage();
+    }, 140);
+    return;
+  }
+
+  /* ── Group posts by year-month (assumes already sorted newest-first) ── */
+  /* Shared chevron icon for the year/month accordion toggles — an inline
+     SVG instead of the ▲/▼ text glyphs (inconsistent rendering across
+     fonts/OSes). Points down by default; CSS rotates it 180° for the
+     "open" state, so the JS never needs to swap glyphs on click. */
+  var CHEVRON_SVG = '<svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function monthLabel(dateStr) {
+    var d = new Date(dateStr);
+    if(isNaN(d.getTime())) return 'Undated';
+    return MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function groupByMonth(posts) {
+    var groups = [], map = {};
+    posts.forEach(function(p){
+      var key = (p.published || '').substring(0, 7); /* YYYY-MM */
+      if(!map[key]) { map[key] = { key: key, label: monthLabel(p.published), items: [] }; groups.push(map[key]); }
+      map[key].items.push(p);
+    });
+    return groups;
+  }
+
+  /* ── Render: Latest sort groups posts under Year-Month headers (all at
+       once — the archive is small enough that pagination would just
+       fragment months). Popular sort stays a flat ranked grid with the
+       existing "Load more" pager, since popularity order and calendar
+       grouping are two different, incompatible orderings. ── */
+  function renderPage() {
+    if(currentSort === 'popular') renderFlatPage();
+    else renderGroupedAll();
+  }
+
+  function newCardGrid() {
+    var c = document.createElement('div');
+    c.className = 'exp-card-grid';
+    return c;
+  }
+
+  function renderFlatPage() {
+    var container = grid.querySelector('.exp-card-grid');
+    if(!container) { container = newCardGrid(); grid.appendChild(container); }
+    var slice = filteredPosts.slice(displayedCount, displayedCount + PAGE_SIZE);
+    slice.forEach(function(p, idx) {
+      var card = buildCard(p);
+      card.style.animationDelay = (idx * 0.04) + 's';
+      container.appendChild(card);
+    });
+    displayedCount += slice.length;
+    updateStats(displayedCount < filteredPosts.length);
+  }
+
+  function renderGroupedAll() {
+    /* ── 1. group posts by year ── */
+    var yearMap = {}, yearOrder = [];
+    filteredPosts.forEach(function(p){
+      var y = p.published ? p.published.substring(0,4) : 'Unknown';
+      if(!yearMap[y]){ yearMap[y]=[]; yearOrder.push(y); }
+      yearMap[y].push(p);
+    });
+    yearOrder.sort(function(a,b){ return b.localeCompare(a); }); /* newest first */
+
+    yearOrder.forEach(function(year, yi){
+      var posts = yearMap[year];
+      var isOpen = (yi === 0); /* only first (most recent) year open by default */
+
+      /* Year accordion header */
+      var yearSection = document.createElement('div');
+      yearSection.className = 'exp-year-section';
+
+      var yearHeader = document.createElement('button');
+      yearHeader.className = 'exp-year-header' + (isOpen?' open':'');
+      yearHeader.type = 'button';
+      yearHeader.innerHTML =
+        '<span class="exp-year-label">📆 ' + escHtml(year) + '</span>' +
+        '<span class="exp-year-total">' + posts.length + ' articles</span>' +
+        '<span class="exp-year-chevron">' + CHEVRON_SVG + '</span>';
+
+      /* Year body — built lazily (on first expand) so collapsed years
+         never pay the cost of building their month/list DOM at all. Only
+         the currently-open year's markup actually exists in the page. */
+      var yearBody = document.createElement('div');
+      yearBody.className = 'exp-year-body';
+      yearBody.style.display = isOpen ? '' : 'none';
+      var yearBuilt = false;
+
+      function buildYearBody(){
+        if(yearBuilt) return;
+        yearBuilt = true;
+        var monthGroups = groupByMonth(posts);
+        monthGroups.forEach(function(g, gi){
+          var monthSection = document.createElement('div');
+          monthSection.className = 'exp-month-group';
+
+          /* Month sub-header is independently collapsible too — open by
+             default (gi===0, i.e. just the most recent month) so a busy
+             year doesn't dump every month's full list at once. */
+          var mOpen = (gi === 0);
+          var mHeader = document.createElement('button');
+          mHeader.className = 'exp-month-header' + (mOpen?'':' closed');
+          mHeader.type = 'button';
+          mHeader.innerHTML =
+            '<span class="exp-month-label">' + escHtml(g.label) + '</span>' +
+            '<span class="exp-month-right">' +
+              '<span class="exp-month-count">' + g.items.length + (g.items.length>1?' posts':' post') + '</span>' +
+              '<span class="exp-month-chevron">' + CHEVRON_SVG + '</span>' +
+            '</span>';
+          monthSection.appendChild(mHeader);
+
+          /* compact list rows */
+          var list = document.createElement('div');
+          list.className = 'exp-list';
+          list.style.display = mOpen ? '' : 'none';
+          g.items.forEach(function(p){ list.appendChild(buildListRow(p)); });
+          monthSection.appendChild(list);
+
+          mHeader.addEventListener('click', function(){
+            mOpen = !mOpen;
+            list.style.display = mOpen ? '' : 'none';
+            mHeader.classList.toggle('closed', !mOpen);
+          });
+
+          yearBody.appendChild(monthSection);
+        });
+      }
+      if(isOpen) buildYearBody();
+
+      yearHeader.addEventListener('click', function(){
+        var nowOpen = yearHeader.classList.toggle('open');
+        if(nowOpen) buildYearBody();
+        yearBody.style.display = nowOpen ? '' : 'none';
+      });
+
+      yearSection.appendChild(yearHeader);
+      yearSection.appendChild(yearBody);
+      grid.appendChild(yearSection);
+    });
+
+    displayedCount = filteredPosts.length;
+    updateStats(false);
+  }
+
+  /* ── Compact list row (used in grouped / Latest view) ── */
+  function buildListRow(p) {
+    var a = document.createElement('a');
+    a.className = 'exp-list-row';
+    a.href = p.link;
+    a.rel = 'noopener';
+    a.target = '_blank';
+
+    var readSet = {};
+    try { readSet = JSON.parse(localStorage.getItem('spj_read')||'{}'); } catch(e){}
+    var isRead = readSet[p.slug];
+
+    var badgeHtml = '';
+    if(p.verifyFlag==='1') badgeHtml='<a class="spj-badge spj-badge-l1" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Industry Validated" style="height:14px;width:14px;margin-left:5px;vertical-align:middle;flex-shrink:0"></a>';
+    else if(p.verifyFlag==='2') badgeHtml='<a class="spj-badge spj-badge-l2" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Expert Reviewed" style="height:14px;width:14px;margin-left:5px;vertical-align:middle;flex-shrink:0"></a>';
+    else if(p.verifyFlag==='3') badgeHtml='<a class="spj-badge spj-badge-l3" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Verified" style="height:14px;width:14px;margin-left:5px;vertical-align:middle;flex-shrink:0"></a>';
+
+    var MAX_TAGS = 2;
+    var tagHtml = p.cats.slice(0, MAX_TAGS).map(function(c){
+      return '<span class="exp-list-tag">' + escHtml(c) + '</span>';
+    }).join('');
+    var more = p.cats.length - MAX_TAGS;
+    if(more > 0) tagHtml += '<span class="exp-list-tag-more">+' + more + '</span>';
+
+    var dateStr = p.published ? p.published.substring(5,10) : '';
+
+    var thumbHtml = p.thumb
+      ? '<div class="exp-list-thumb" style="background-image:url('+p.thumb+')"></div>'
+      : '<div class="exp-list-thumb exp-list-nothumb">🚢</div>';
+
+    var descHtml = p.summary ? '<div class="exp-list-desc">' + escHtml(p.summary.substring(0,220)) + '</div>' : '';
+
+    a.innerHTML =
+      thumbHtml +
+      '<div class="exp-list-body">' +
+        '<div class="exp-list-title' + (isRead?' exp-list-read':'') + '">' +
+          escHtml(p.title) + badgeHtml +
+        '</div>' +
+        descHtml +
+        (tagHtml ? '<div class="exp-list-tags">' + tagHtml + '</div>' : '') +
+      '</div>' +
+      '<div class="exp-list-meta"><span class="exp-list-date">' + dateStr + '</span></div>';
+    return a;
+  }
+
+  function updateStats(showLoadMore) {
+    var shown = displayedCount;
+    var total = filteredPosts.length;
+    statsEl.style.display = total > 0 ? 'block' : 'none';
+    showingEl.textContent = shown + ' / ' + total;
+    loadMoreWrap.style.display = showLoadMore ? 'block' : 'none';
+    emptyEl.style.display = (total === 0) ? 'block' : 'none';
+  }
+
+  /* ── Build card HTML ── */
+  function buildCard(p) {
+    var a = document.createElement('a');
+    a.className = 'exp-card';
+    a.href = p.link;
+    a.rel = 'noopener';
+    a.target = '_blank';
+
+    var readKey = 'spj_read';
+    var readSet = {};
+    try { readSet = JSON.parse(localStorage.getItem(readKey)||'{}'); } catch(e){}
+    var isRead = readSet[p.slug];
+
+    var badgeHtml = '';
+    if(p.verifyFlag==='1') badgeHtml='<a class="spj-badge spj-badge-l1 exp-card-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Industry Validated"></a>';
+    else if(p.verifyFlag==='2') badgeHtml='<a class="spj-badge spj-badge-l2 exp-card-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Expert Reviewed"></a>';
+    else if(p.verifyFlag==='3') badgeHtml='<a class="spj-badge spj-badge-l3 exp-card-verify-badge" href="https://www.shippauljobs.com/p/editorial-verification-policy.html" target="_blank" rel="noopener" title="Verified"></a>';
+
+    var MAX_TAGS = 3;
+    var visibleCats = p.cats.slice(0, MAX_TAGS);
+    var moreCats = p.cats.length - MAX_TAGS;
+    var tagHtml = visibleCats.map(function(c){
+      return '<span class="exp-card-tag">' + escHtml(c) + '</span>';
+    }).join('');
+    if(moreCats > 0) tagHtml += '<span class="exp-card-tag-more">+' + moreCats + '</span>';
+
+    var dateStr = p.published ? p.published.substring(0,10) : '';
+    var views = viewCounts[p.slug] || 0;
+    var viewStr = views ? ' · ' + (views >= 1000 ? (views/1000).toFixed(1)+'k' : views) + ' views' : '';
+
+    var thumbStyle = p.thumb
+      ? 'background-image:url(' + p.thumb + ');background-size:cover'
+      : '';
+    var noImgInner = p.thumb ? '' : '<div class="exp-card-noimg">🚢</div>';
+
+    a.innerHTML =
+      '<div class="exp-card-thumb-wrap">' +
+        '<div class="exp-card-thumb' + (p.thumb?'':' exp-card-noimg') + '" style="' + thumbStyle + '">' + noImgInner + '</div>' +
+        (isRead ? '<div class="exp-card-read-badge">✓ Read</div>' : '') +
+        badgeHtml +
+      '</div>' +
+      '<div class="exp-card-body">' +
+        '<div class="exp-card-title">' + escHtml(p.title) + '</div>' +
+        (p.summary ? '<div class="exp-card-desc">' + escHtml(p.summary.substring(0,120)) + '</div>' : '') +
+        (tagHtml ? '<div class="exp-card-tags">' + tagHtml + '</div>' : '') +
+        '<div class="exp-card-footer">' +
+          '<div class="exp-card-author-row">' +
+            (p.author.img ? '<img class="exp-card-avatar" src="' + p.author.img + '" alt="" loading="lazy"/>' : '') +
+            '<span class="exp-card-author-name">' + escHtml(p.author.name) + '</span>' +
+          '</div>' +
+          '<span class="exp-card-date">' + dateStr + viewStr + '</span>' +
+        '</div>' +
+      '</div>';
+    return a;
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ── State setters ── */
+  function setTopic(t) {
+    currentTopic = t;
+    document.querySelectorAll('.exp-topic-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.topic === t);
+    });
+    applyFilter();
+  }
+  function setYear(y) {
+    currentYear = (currentYear === y) ? '' : y;
+    document.querySelectorAll('.exp-year-pill').forEach(function(b){
+      b.classList.toggle('active', b.dataset.year === currentYear);
+    });
+    applyFilter();
+  }
+  function setSort(s) {
+    currentSort = s;
+    document.querySelectorAll('.exp-sort-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.sort === s);
+    });
+    if(s === 'popular' && allPosts.length && allPosts.some(function(p){return !p.views;})) {
+      fetchViewCounts(applyFilter);
+    } else {
+      applyFilter();
+    }
+  }
+
+  /* ── Event listeners ── */
+  document.querySelectorAll('.exp-topic-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setTopic(b.dataset.topic); });
+  });
+  document.querySelectorAll('.exp-sort-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setSort(b.dataset.sort); });
+  });
+  document.getElementById('exp-year-wrap').querySelector('.exp-year-pill').addEventListener('click', function(){
+    setYear('');
+  });
+  var searchInput = document.getElementById('exp-search-input');
+  var searchTimer;
+  searchInput.addEventListener('input', function(){
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function(){
+      currentSearch = searchInput.value;
+      applyFilter();
+    }, 220);
+  });
+  loadMoreBtn.addEventListener('click', function(){ renderPage(); });
+
+  /* ── View counts (Top Ranked) ── */
+  function fetchViewCounts(cb) {
+    var posts = allPosts.slice(0, 30);
+    var done = 0;
+    if(!posts.length){ if(cb) cb(); return; }
+    posts.forEach(function(p){
+      if(!p.slug){ done++; if(done===posts.length && cb) cb(); return; }
+      fetch('https://abacus.jasoncameron.dev/get/shippauljobs-views/' + encodeURIComponent(p.slug))
+        .then(function(r){ return r.json(); })
+        .then(function(j){ viewCounts[p.slug] = j.value||0; p.views = j.value||0; })
+        .catch(function(){})
+        .finally(function(){ done++; if(done===posts.length && cb) cb(); });
+    });
+  }
+
+  function buildRanked(posts) {
+    var ranked = posts.slice().sort(function(a,b){return (viewCounts[b.slug]||0)-(viewCounts[a.slug]||0);}).slice(0,10);
+    var wrap = document.getElementById('exp-ranked-wrap');
+    var loading = document.getElementById('exp-ranked-loading');
+    if(loading) loading.remove();
+    ranked.forEach(function(p, i){
+      var a = document.createElement('a');
+      a.className = 'exp-rank-row';
+      a.href = p.link;
+      a.rel = 'noopener';
+      a.target = '_blank';
+      var views = viewCounts[p.slug]||0;
+      var viewStr = views ? (views>=1000?(views/1000).toFixed(1)+'k':views)+' views' : '';
+      var dateStr = p.published?p.published.substring(0,10):'';
+      a.innerHTML =
+        '<div class="exp-rank-num">'+(i+1)+'</div>'+
+        '<div class="exp-rank-thumb'+(p.thumb?'':' exp-rank-noimg')+'" style="'+(p.thumb?'background-image:url('+p.thumb+')':'')+'">'+
+          (p.thumb?'':'🚢')+
+        '</div>'+
+        '<div class="exp-rank-body">'+
+          '<div class="exp-rank-title-row"><p class="exp-rank-title">'+escHtml(p.title)+'</p></div>'+
+          '<div class="exp-rank-meta">'+
+            '<div class="exp-rank-avatar" style="'+(p.author.img?'background-image:url('+p.author.img+')':'')+'"></div>'+
+            '<span class="exp-rank-author">'+escHtml(p.author.name)+'</span>'+
+            '<span class="exp-rank-date">'+dateStr+'</span>'+
+            (viewStr?'<span>·</span><span>'+viewStr+'</span>':'')+
+          '</div>'+
+        '</div>';
+      wrap.appendChild(a);
+    });
+  }
+
+  /* ── Boot ── */
+  loadingEl.style.display = 'block';
+  fetchAllPosts(function(posts){
+    allPosts = posts;
+    loadingEl.style.display = 'none';
+    var total = posts.length;
+    countBadge.textContent = total + ' Articles';
+    countBadge.style.display = 'inline-block';
+    buildYearPills(posts);
+    applyFilter();
+    fetchViewCounts(function(){
+      allPosts.forEach(function(p){ p.views = viewCounts[p.slug]||0; });
+      buildRanked(allPosts);
+      if(currentSort==='popular') applyFilter();
+    });
+  });
+})();
+</script>
+
+</div>
