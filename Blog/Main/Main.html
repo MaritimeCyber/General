@@ -4,7 +4,7 @@
   <head>
     <!-- &#9472;&#9472; 페이지 전환 flash 방지 + 우주 별 배경 (CSS-only starfield) &#9472;&#9472; -->
     <style>
-      /* ── Cross-document View Transition (Chrome/Edge 111+) ── */
+      /* &#9472;&#9472; Cross-document View Transition (Chrome/Edge 111+) &#9472;&#9472; */
       @view-transition { navigation: auto; }
       ::view-transition-old(root),
       ::view-transition-new(root) {
@@ -120,7 +120,7 @@
           &quot;@type&quot;: &quot;WebPage&quot;,
           &quot;name&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
           &quot;url&quot;: &quot;<data:post.url/>&quot;,
-          &quot;description&quot;: &quot;ShipPaulJobs — Maritime 4.0 platform focused on AI, cybersecurity and data.&quot;,
+          &quot;description&quot;: &quot;ShipPaulJobs &#8212; Maritime 4.0 platform focused on AI, cybersecurity and data.&quot;,
           &quot;isPartOf&quot;: {
             &quot;@type&quot;: &quot;WebSite&quot;,
             &quot;name&quot;: &quot;ShipPaulJobs&quot;,
@@ -1702,7 +1702,8 @@
       #scs-track&gt;a:hover .spj-card-share,
       #scs-track&gt;div:hover .spj-card-share,
       #ms-track&gt;a:hover .spj-card-share,
-      #ms-track&gt;div:hover .spj-card-share{opacity:1;pointer-events:auto}
+      #ms-track&gt;div:hover .spj-card-share,
+      #fps-track&gt;div:hover .spj-card-share{opacity:1;pointer-events:auto}
       @keyframes b1SmIn{from{opacity:0;transform:translateY(-6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
       .b1-share-panel{display:none;position:absolute;top:calc(100% + 7px);right:0;flex-direction:column;gap:2px;background:#fff;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:6px;min-width:152px}
       .b1-share-panel.open{display:flex;animation:b1SmIn .16s ease}
@@ -1819,6 +1820,12 @@
       .centered-top-container .tabs li a{color:#c8e4f8!important}
       .centered-top-container .tabs .selected a{color:#7ec8f4!important}
       .centered-top-container .tabs .selected{border-bottom-color:#7ec8f4!important}
+      /* &#9472;&#9472; MORE 드롭다운 팝업: 다크 nav 스타일 유지 + z-index 수정 &#9472;&#9472; */
+      .centered-top-container{position:relative;z-index:300;}
+      .centered-top-container.sticky{z-index:300!important;}
+      .centered-top-container .overflow-popup{background:#0a2342!important;border:1px solid rgba(100,180,240,0.2)!important;box-shadow:0 6px 20px rgba(0,0,0,0.5)!important;z-index:9999!important;position:absolute!important;}
+      .centered-top-container .overflow-popup li a{color:#c8e4f8!important;padding:10px 20px;border-bottom:1px solid rgba(100,180,240,0.1);}
+      .centered-top-container .overflow-popup li.selected a{color:#7ec8f4!important;font-weight:700;}
       .centered-top-container .blog-name a,
       .centered-top-container .title{color:#ffffff!important}
 
@@ -1841,6 +1848,10 @@
       body.archive-view #apl-wrap, body.archive-view #apl-title, body.archive-view #apl-count,
       body.search-view #apl-wrap, body.search-view #apl-title, body.search-view #apl-count
       {display:none!important;}
+      /* HOME이 아닐 때 Completed Series / Ship Systems / Marine Solutions / Announcements 그룹 숨김 */
+      body:not(.is-homepage) #fps-wrap,
+      body:not(.is-homepage) #scs-ms-wrap,
+      body:not(.is-homepage) #ann-wrap {display:none!important;}
 
       /* &#9472;&#9472; Blog title + description readability &#9472;&#9472; */
       .Header h1,.Header h1 a,.Header h1 a:hover,.Header h1 a:visited,
@@ -2342,7 +2353,7 @@
                     <b:widget-settings>
                       <b:widget-setting name='showSnippet'>true</b:widget-setting>
                       <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-                      <b:widget-setting name='postId'>3794105873621270878</b:widget-setting>
+                      <b:widget-setting name='postId'>2521720889124883192</b:widget-setting>
                       <b:widget-setting name='showFirstImage'>true</b:widget-setting>
                       <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
                     </b:widget-settings>
@@ -3520,7 +3531,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                         #fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 25px)/3.5);min-width:0}
                         @media(max-width:900px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 calc((100% - 10px)/2)}}
                         @media(max-width:580px){#fps-track&gt;a,#fps-track&gt;div{flex:0 0 100%}}
-                        /* &#8212; "View All &#8594;" 강조 효과 (전역) &#8212; */
+                        /* &#8212; &quot;View All &#8594;&quot; 강조 효과 (전역) &#8212; */
                         @keyframes spjVaPulse{0%,100%{box-shadow:0 0 0 0 rgba(29,137,207,0.5);}50%{box-shadow:0 0 0 6px rgba(29,137,207,0);}}
                         @keyframes spjVaPulseGold{0%,100%{box-shadow:0 0 0 0 rgba(232,160,32,0.55);}50%{box-shadow:0 0 0 6px rgba(232,160,32,0);}}
                         .spj-viewall{animation:spjVaPulse 2.4s ease-in-out infinite;transition:transform .15s ease,background .15s ease,border-color .15s ease,color .15s ease;}
@@ -3528,6 +3539,40 @@ if(!window.b1WC){window.b1WC=function(btn){
                         .spj-viewall-gold{animation:spjVaPulseGold 2.4s ease-in-out infinite;transition:transform .15s ease,background .15s ease,border-color .15s ease,color .15s ease;}
                         .spj-viewall-gold:hover{animation-play-state:paused;transform:scale(1.08);background:#e8a020!important;border-color:#e8a020!important;color:#0a1a2e!important;}
                       </style>
+                      <!-- Announcements & Updates -->
+                      <div id='ann-wrap' style='margin:0 0 2em;'>
+                        <div style='display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:linear-gradient(135deg,#0b1a2b,#0d2035);border:1px solid rgba(29,137,207,0.4);border-top:3px solid #1d89cf;border-radius:10px 10px 0 0;'>
+                          <span style='font-size:13px;font-weight:700;color:#e8f4ff;letter-spacing:0.4px;'>📢 Announcements &amp; Updates</span>
+                          <a href='https://www.shippauljobs.com/p/announcements-and-updates.html' style='font-size:11px;color:#1d89cf;text-decoration:none;font-weight:600;background:rgba(29,137,207,0.12);border:1px solid rgba(29,137,207,0.3);border-radius:20px;padding:3px 12px;'>View All &#8594;</a>
+                        </div>
+                        <div style='border:1px solid rgba(29,137,207,0.3);border-top:none;border-radius:0 0 10px 10px;background:linear-gradient(160deg,#0b1e2d,#0a1825);padding:12px 14px;display:flex;flex-direction:column;gap:10px;'>
+                          <!-- Card 1: LinkedIn Group -->
+                          <div style='background:rgba(10,102,194,0.1);border:1px solid rgba(10,102,194,0.3);border-left:3px solid #0a66c2;border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;'>
+                            <div style='flex:1;min-width:180px;'>
+                              <div style='display:flex;align-items:center;gap:6px;margin-bottom:4px;'>
+                                <span style='background:#0a66c2;color:#fff;font-size:9px;font-weight:700;border-radius:20px;padding:1px 8px;'>🔗 Community</span>
+                                <span style='font-size:10px;color:#5a7a99;'>2026.08.30</span>
+                              </div>
+                              <div style='font-size:12.5px;color:#c8dde8;font-weight:700;margin-bottom:2px;'>LinkedIn Maritime Cyber Community is Live!</div>
+                              <div style='font-size:11px;color:#7aabcc;'>Connect with professionals worldwide. Share insights on IACS E26, OT security &amp; beyond.</div>
+                            </div>
+                            <a href='https://www.linkedin.com/groups/21070066/' rel='noopener' style='display:inline-flex;align-items:center;gap:5px;background:#0a66c2;color:#fff;font-size:11px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:20px;white-space:nowrap;flex-shrink:0;' target='_blank'>Join &#8594;</a>
+                          </div>
+                          <!-- Card 2: Author Application -->
+                          <div style='background:rgba(29,137,207,0.07);border:1px solid rgba(29,137,207,0.2);border-left:3px solid #1d89cf;border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;'>
+                            <div style='flex:1;min-width:180px;'>
+                              <div style='display:flex;align-items:center;gap:6px;margin-bottom:4px;'>
+                                <span style='background:rgba(29,137,207,0.2);color:#1d89cf;font-size:9px;font-weight:700;border-radius:20px;padding:1px 8px;'>&#9997; Platform</span>
+                                <span style='font-size:10px;color:#5a7a99;'>2026.08.01</span>
+                              </div>
+                              <div style='font-size:12.5px;color:#c8dde8;font-weight:700;margin-bottom:2px;'>Author Applications Open</div>
+                              <div style='font-size:11px;color:#7aabcc;'>Share your expertise with a global maritime audience. Join the crew!</div>
+                            </div>
+                            <a href='https://www.shippauljobs.com/p/contact.html' style='display:inline-flex;align-items:center;gap:5px;background:rgba(29,137,207,0.18);border:1px solid rgba(29,137,207,0.4);color:#1d89cf;font-size:11px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:20px;white-space:nowrap;flex-shrink:0;'>Apply &#8594;</a>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Announcements & Updates -->
                       <div id='fps-wrap' style='margin:0 0 2em;border-radius:10px;padding:1.2em 14px 14px;background:linear-gradient(160deg,#0b1e2d 0%,#0c2538 60%,#0a1a2e 100%);border:1px solid rgba(26,158,130,0.22);border-top:3px solid #e8a020;box-shadow:0 4px 18px rgba(0,0,0,0.32),inset 0 0 80px rgba(232,160,32,0.035);'>
                         <div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:4px'>
                           <div style='display:flex;align-items:center;gap:7px;'>
@@ -3535,7 +3580,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           </div>
                           <div style='display:flex;align-items:center;gap:6px;'>
                             <span id='fps-count' style='background:#e8a020;color:#0a1a2e;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                            <a class='spj-viewall-gold' href='https://www.shippauljobs.com/p/completed-series.html' style='font-size:10px;font-weight:600;color:#e8a020;background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.3);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <a class='spj-viewall-gold' href='https://www.shippauljobs.com/p/completed-series.html' style='font-size:10px;font-weight:600;color:#e8a020;background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.3);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All &#8594;</a>
                           </div>
                         </div>
                         <div style='font-size:11px;color:rgba(180,210,235,0.65);margin-bottom:10px;'>Fully completed multi-part posts &#8212; read the full story from start to finish.</div>
@@ -3652,7 +3697,8 @@ if(!window.b1WC){window.b1WC=function(btn){
     var readBadge=isRead?'<span style="position:absolute;top:7px;left:7px;background:rgba(10,35,66,0.78);color:#7effd8;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:0.06em;line-height:1.5">READ</span>':'';
     var finBadge='<span style="position:absolute;top:7px;right:7px;background:rgba(26,158,130,0.92);color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:0.06em;line-height:1.6">✓ Complete</span>';
     var authorImgHtml=p.authorImg?'<img src="'+esc(p.authorImg)+'" alt="'+esc(p.authorName)+'" style="width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid #d0dde8;">':'<div style="width:26px;height:26px;border-radius:50%;background:#e0eaf2;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;">👤</div>';
-    var shareWrap=(window.b1ShareHtml?b1ShareHtml(p.url,''):'');
+    var _fpsSvg='<svg fill="none" height="13" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24" width="13"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>';
+    var shareWrap='<button class="spj-card-share" data-url="'+esc(p.url)+'" data-title="'+esc(p.title)+'" onclick="fpsShareCard(this,event)" style="flex-shrink:0;background:rgba(26,158,130,0.88);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(0,0,0,.22);transition:transform .16s,background .16s,opacity .18s" onmouseover="this.style.background=\'#1a9e82\';this.style.transform=\'scale(1.1)\'" onmouseout="this.style.background=\'rgba(26,158,130,0.88)\';this.style.transform=\'\'">'+_fpsSvg+'</button>';
     var fpsCommentsHtml='<span style="font-size:9px;color:#8099b3;display:inline-flex;align-items:center;gap:2px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8099b3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'+(p.comments||0)+'</span>';
     var authorName=esc(p.authorName||'ShipPaulJobs');
     var authorHtml='<div style="padding:7px 10px 9px;display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff;border-top:1px solid #edf2f7;margin-top:auto"><div style="display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden">'+authorImgHtml+'<button onclick="event.stopPropagation();if(window.showAuthorPosts)showAuthorPosts(\''+esc(p.authorName||'ShipPaulJobs').replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')" style="font-size:11px;color:#0a2342;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:none;border:none;padding:0;cursor:pointer;max-width:100px;display:inline-block;line-height:1.4">'+authorName+'</button></div>'+'<div style="display:flex;align-items:center;gap:5px;flex-shrink:0">'+(spjBadgeFps(p.labels||[])||'')+fpsCommentsHtml+'</div>'+shareWrap+'</div>';
@@ -3688,8 +3734,8 @@ if(!window.b1WC){window.b1WC=function(btn){
 //]]>
                       </script>
                       <!-- &#9552;&#9552;&#9552;&#9552; END 완결된 시리즈 포스트 CAROUSEL &#9552;&#9552;&#9552;&#9552; -->
-                      <!-- &#9552;&#9552;&#9552; SHIP SYSTEMS + MARINE SOLUTIONS — GROUPED CARD &#9552;&#9552;&#9552; -->
-                      <div style='margin:0 0 2em;border:1px solid rgba(29,137,207,0.4);border-radius:10px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.28);'>
+                      <!-- &#9552;&#9552;&#9552; SHIP SYSTEMS + MARINE SOLUTIONS &#8212; GROUPED CARD &#9552;&#9552;&#9552; -->
+                      <div id='scs-ms-wrap' style='margin:0 0 2em;border:1px solid rgba(29,137,207,0.4);border-radius:10px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.28);'>
                       <!-- &#9552;&#9552;&#9552; SOLUTIONS &amp; SYSTEMS CAROUSEL &#9552;&#9552;&#9552; -->
                       <style>
                         #scs-outer{overflow:hidden}
@@ -3703,7 +3749,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Ship Systems</span>
                           <div style='display:flex;align-items:center;gap:6px;'>
                             <span id='scs-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/ship-systems.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/ship-systems.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All &#8594;</a>
                           </div>
                         </div>
                         <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Learn the fundamentals of modern ship systems and digital vessel technologies.</div>
@@ -4132,7 +4178,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <span style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Introduction to Marine Solutions</span>
                           <div style='display:flex;align-items:center;gap:6px;'>
                             <span id='ms-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px;display:none'/>
-                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/marine-solutions.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/marine-solutions.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All &#8594;</a>
                           </div>
                         </div>
                         <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;'>Explore practical maritime AI, cybersecurity and digital transformation solutions.</div>
@@ -4153,7 +4199,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                         </div>
                       </div>
                       </div>
-                      <!-- &#9552;&#9552;&#9552; END SHIP SYSTEMS + MARINE SOLUTIONS — GROUPED CARD &#9552;&#9552;&#9552; -->
+                      <!-- &#9552;&#9552;&#9552; END SHIP SYSTEMS + MARINE SOLUTIONS &#8212; GROUPED CARD &#9552;&#9552;&#9552; -->
                       <script type='text/javascript'>
 //<![CDATA[
 (function(){
@@ -4374,7 +4420,7 @@ if(!window.b1WC){window.b1WC=function(btn){
                           <span id='apl-title' style='font-size:13px;font-weight:700;color:#fff;letter-spacing:0.4px'>Explore All Posts</span>
                           <div style='display:flex;align-items:center;gap:6px;'>
                             <span id='apl-count' style='background:#1d89cf;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.2px'/>
-                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/explore-all-posts.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All →</a>
+                            <a class='spj-viewall' href='https://www.shippauljobs.com/p/explore-all-posts.html' style='font-size:10px;font-weight:600;color:rgba(200,228,248,0.9);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;text-decoration:none;white-space:nowrap;flex-shrink:0;'>View All &#8594;</a>
                           </div>
                         </div>
                         <div style='font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:6px;'>Browse our complete collection of maritime technology, cybersecurity, AI and digital shipping articles.</div>
@@ -4480,7 +4526,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   // ── config ──────────────────────────────────────────────
   var PER_PAGE   = 9;
   var MAX_DEPTH  = 10;                  // 최대 ~500개 포스트
-  var CACHE_KEY  = 'apl_cache_v5';
+  var CACHE_KEY  = 'apl_cache_v6';
   var CACHE_TTL  = 6 * 60 * 60 * 1000; // 6시간 캐시
 
   // ── author → role 매핑 (필요 시 수정) ──────────────────
@@ -4548,6 +4594,8 @@ if(!window.b1WC){window.b1WC=function(btn){
   var masterAll        = null;   // full post list after HIDDEN_LABELS filter
   var curPage          = 1;
   var initialRenderDone = false; // 첫 페이지 즉시 렌더 플래그
+  var curLabelFilter   = null;   // 현재 선택된 라벨 필터 (null = 전체)
+  var ppLabelFilter    = null;   // Top Ranked 라벨 필터 (curLabelFilter 동기화)
 
   // ── #8: 공통 스타일 상수 ─────────────────────────────────
   var S_CARD = 'position:relative;display:flex;flex-direction:column;justify-content:space-between;'
@@ -4676,12 +4724,46 @@ if(!window.b1WC){window.b1WC=function(btn){
     });
     masterAll = filtered;
     var cntEl = document.getElementById('apl-count');
-    if(cntEl) cntEl.textContent = filtered.length;
     if(staticEl){
       staticEl.innerHTML = '<div>' + filtered.map(function(p){
         return '<a href="' + esc(p.url) + '">' + esc(p.title) + '</a>';
       }).join('') + '</div>';
     }
+    // 라벨 필터 활성 시: 완전한 masterAll로 재필터링 + 재렌더
+    if(curLabelFilter){
+      all = masterAll.filter(function(p){
+        return p.labels.indexOf(curLabelFilter) >= 0;
+      });
+      if(cntEl) cntEl.textContent = all.length;
+      if(!all.length){
+        if(cardsEl) cardsEl.innerHTML = '<p style="color:#aaa;font-size:12px;padding:16px 0">No posts found for &ldquo;' + esc(curLabelFilter) + '&rdquo;.</p>';
+        var pg2 = document.getElementById('apl-pager');
+        if(pg2) pg2.innerHTML = '';
+      } else {
+        renderPage(1);
+      }
+    } else {
+      all = masterAll.slice();
+      if(cntEl) cntEl.textContent = masterAll.length;
+    }
+    // 사이드바 라벨 카운트를 masterAll 기준으로 업데이트
+    var lblCounts = {};
+    masterAll.forEach(function(p){
+      (p.labels||[]).forEach(function(l){ lblCounts[l] = (lblCounts[l]||0) + 1; });
+    });
+    Array.prototype.forEach.call(
+      document.querySelectorAll('#Label1 .ranked-lbl-item, #Label2 .ranked-lbl-item, #Label4 .ranked-lbl-item'),
+      function(item){
+        var a = item.querySelector('a');
+        var cs = item.querySelector('.ranked-lbl-cnt');
+        if(!a || !cs) return;
+        var href = a.getAttribute('href') || '';
+        var m2 = href.match(/\/search\/label\/([^?#]+)/);
+        if(!m2) return;
+        var lbl = decodeURIComponent(m2[1]).replace(/\+/g,' ');
+        cs.textContent = lblCounts[lbl] || 0;
+      }
+    );
   }
 
   // ── render page ──────────────────────────────────────────
@@ -4822,7 +4904,16 @@ if(!window.b1WC){window.b1WC=function(btn){
 
   // ── #3: 캐시 히트 시 즉시 렌더, 미스 시 fetch ───────────
   var cached = loadCache();
-  if(cached){ all = cached; render(); }
+  if(cached){
+    all = cached;
+    // masterAll을 캐시에서 즉시 설정 (라벨 필터 즉시 작동)
+    masterAll = all.filter(function(p){
+      return !p.labels.some(function(l){ return HIDDEN_LABELS.indexOf(l) >= 0; });
+    });
+    var _cntEl = document.getElementById('apl-count');
+    if(_cntEl) _cntEl.textContent = masterAll.length;
+    render();
+  }
   else{ fetchPage(feedBase + '&max-results=50', 0); }
 
   // ── Global: All Blog Posts keyword filter ────────────────
@@ -4848,6 +4939,128 @@ if(!window.b1WC){window.b1WC=function(btn){
     }
   };
 
+  // ── parseEntry: Blogger API entry → post object ─────────
+  function parseEntry(e){
+    var href = '';
+    (e.link || []).forEach(function(l){ if(l.rel === 'alternate') href = l.href; });
+    function toOriginal(url){
+      return url
+        .replace(/\/s\d+[^\/]*\//g, '/s0/')
+        .replace(/\/w\d+-h\d+[^\/]*\//g, '/s0/')
+        .replace(/=s\d+[^&]*/g, '=s0');
+    }
+    var thumb = '', isVideo = false, ytId = '';
+    var contentHtml = (e.content || e.summary || {}).$t || '';
+    if(contentHtml){
+      var ytM = contentHtml.match(/(?:youtube\.com\/embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      if(ytM){ ytId = ytM[1]; thumb = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg'; isVideo = true; }
+    }
+    if(!thumb && contentHtml){
+      var imgTags = contentHtml.match(/<img\s[^>]*src=["']([^"']+)["'][^>]*>/gi) || [];
+      for(var ii=0; ii<imgTags.length; ii++){
+        var srcM = imgTags[ii].match(/src=["']([^"']+)["']/i);
+        if(srcM && srcM[1] && !/Asset\/img\/member\//i.test(srcM[1])){ thumb = toOriginal(srcM[1]); break; }
+      }
+    }
+    if(!thumb && e.media$thumbnail && e.media$thumbnail.url) thumb = toOriginal(e.media$thumbnail.url);
+    return {
+      title   : e.title.$t,
+      url     : href,
+      date    : (e.published.$t || '').substring(0,10),
+      labels  : (e.category || []).map(function(c){ return c.term; }),
+      image   : thumb,
+      isVideo : isVideo,
+      ytId    : ytId,
+      author  : (function(content, a){ var html = content ? content.$t : ''; if(html){ var img = html.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/); if(img){ var alt = img[0].match(/alt="([^"]+)"/); if(alt && alt[1]) return alt[1]; } } var n = a && a.length ? (a[0].name.$t || '') : ''; return (n === 'Unknown' || n === 'unknown') ? '' : n; })(e.content || e.summary, e.author),
+      authorImg: (function(content){ var html = content ? content.$t : ''; if(html){ var img = html.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/i); if(img){ var src = img[0].match(/src=["']([^"']+)["']/i); if(src && src[1]) return src[1]; } } return ''; })(e.content || e.summary),
+      authorUrl: (e.author && e.author[0] && e.author[0].uri && e.author[0].uri.$t) ? e.author[0].uri.$t : '',
+      location : (e['georss$featurename'] && e['georss$featurename']['$t']) ? e['georss$featurename']['$t'] : '',
+      comments : e.thr$total ? (e.thr$total.$t || '0') : '0'
+    };
+  }
+
+  // ── Global: Label (Tag) in-page filter ───────────────────
+  window.aplFilterLabel = function(label){
+    curLabelFilter = label || null;
+    // UI: title + header
+    var titleEl = document.getElementById('apl-title');
+    if(titleEl) titleEl.textContent = curLabelFilter ? '📋 ' + curLabelFilter + ' Posts' : 'Explore All Posts';
+    var headEl = document.getElementById('apl-header');
+    if(headEl){
+      if(curLabelFilter){
+        headEl.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">'
+          + '<span style="background:rgba(29,137,207,0.18);color:#1d89cf;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700">🏷️ ' + esc(curLabelFilter) + '</span>'
+          + '<button onclick="window.aplFilterLabel(null)" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:20px;color:#aac8e0;font-size:11px;padding:2px 10px;cursor:pointer">✕ 전체 보기</button>'
+          + '</div>';
+        headEl.style.display = 'block';
+      } else {
+        headEl.innerHTML = ''; headEl.style.display = 'none';
+      }
+    }
+    // HOME: 섹션 표시/숨김
+    var fpsWrap = document.getElementById('fps-wrap');
+    var scsMs   = document.getElementById('scs-ms-wrap');
+    var annWrap = document.getElementById('ann-wrap');
+    var showGroups = !curLabelFilter;
+    if(fpsWrap) fpsWrap.style.display = showGroups ? '' : 'none';
+    if(scsMs)   scsMs.style.display   = showGroups ? '' : 'none';
+    if(annWrap) annWrap.style.display  = showGroups ? '' : 'none';
+    // Top Ranked + 스크롤
+    ppLabelFilter = curLabelFilter;
+    renderPPPage(1);
+    var aplWrap = document.getElementById('apl-wrap');
+    if(aplWrap) aplWrap.scrollIntoView({behavior:'smooth', block:'start'});
+    // 라벨 없음: masterAll로 복원
+    if(!curLabelFilter){
+      all = masterAll ? masterAll.slice() : all;
+      var cntEl = document.getElementById('apl-count');
+      if(cntEl) cntEl.textContent = all.length;
+      renderPage(1);
+      return;
+    }
+    // 라벨 있음: Blogger API 직접 호출 (완전한 결과)
+    var reqLabel = curLabelFilter;
+    var cntEl2 = document.getElementById('apl-count');
+    if(cntEl2) cntEl2.textContent = '…';
+    if(cardsEl) cardsEl.innerHTML = '<p style="color:#aaa;font-size:12px;padding:16px 0">Loading…</p>';
+    var pg0 = document.getElementById('apl-pager');
+    if(pg0) pg0.innerHTML = '';
+    var labelPosts = [];
+    function fetchLabelPage(url){
+      fetch(url)
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if(curLabelFilter !== reqLabel) return;
+          (d.feed.entry || []).forEach(function(e){
+            var p = parseEntry(e);
+            if(!p.labels.some(function(l){ return HIDDEN_LABELS.indexOf(l) >= 0; }))
+              labelPosts.push(p);
+          });
+          var next = null;
+          (d.feed.link || []).forEach(function(l){ if(l.rel === 'next') next = l.href; });
+          if(next && curLabelFilter === reqLabel){
+            fetchLabelPage(next);
+          } else {
+            if(curLabelFilter !== reqLabel) return;
+            all = labelPosts;
+            if(cntEl2) cntEl2.textContent = all.length;
+            if(!all.length){
+              if(cardsEl) cardsEl.innerHTML = '<p style="color:#aaa;font-size:12px;padding:16px 0">No posts found for &ldquo;' + esc(reqLabel) + '&rdquo;.</p>';
+              var pg3 = document.getElementById('apl-pager');
+              if(pg3) pg3.innerHTML = '';
+            } else {
+              renderPage(1);
+            }
+          }
+        })
+        .catch(function(){
+          if(curLabelFilter !== reqLabel) return;
+          if(cardsEl) cardsEl.innerHTML = '<p style="color:#f88;font-size:12px;padding:16px 0">Failed to load posts. Please try again.</p>';
+        });
+    }
+    fetchLabelPage('/feeds/posts/default/-/' + encodeURIComponent(reqLabel) + '?alt=json&max-results=50');
+  };
+
   // ── Global: Top Ranked DOM filter + Pagination ───────────
   var SCS_LOWER = ['cbs','system','solution'];
   function hasSCSTag(art, tagSel){
@@ -4864,7 +5077,31 @@ if(!window.b1WC){window.b1WC=function(btn){
   function getPPEligible(){
     return Array.prototype.filter.call(
       document.querySelectorAll('#PopularPosts1 article.post'),
-      function(a){ return !hasSCSTag(a, '.pp-tag'); }
+      function(a){
+        if(hasSCSTag(a, '.pp-tag')) return false;
+        if(!ppLabelFilter) return true;
+        // masterAll 전체 라벨로 URL 매칭
+        if(masterAll){
+          var link = a.querySelector('a[href]');
+          if(link){
+            var href = link.href || '';
+            for(var i=0;i<masterAll.length;i++){
+              var mUrl = masterAll[i].url || '';
+              // URL 끝부분 비교 (path 기준)
+              var mPath = mUrl.replace(/^https?:\/\/[^\/]+/,'');
+              var hPath = href.replace(/^https?:\/\/[^\/]+/,'');
+              if(mPath && hPath && mPath === hPath){
+                return masterAll[i].labels.indexOf(ppLabelFilter) >= 0;
+              }
+            }
+          }
+        }
+        // fallback: .pp-tag 텍스트 비교
+        var tags = a.querySelectorAll('.pp-tag');
+        return Array.prototype.some.call(tags, function(t){
+          return (t.textContent||'').trim() === ppLabelFilter;
+        });
+      }
     );
   }
 
@@ -4889,12 +5126,27 @@ if(!window.b1WC){window.b1WC=function(btn){
 
   function renderPPPage(page){
     ppPage = page;
+    // 라벨 필터 적용 시 PP 위젯 숨기기 (PP 위젯은 사이트 전체 top N만 pre-render)
+    var ppWidget = document.getElementById('PopularPosts1');
+    var ppWidgetWrap = ppWidget && (ppWidget.closest('.widget-content, section, .widget') || ppWidget.parentElement);
+    if(ppLabelFilter){
+      if(ppWidgetWrap) ppWidgetWrap.style.display = 'none';
+      else if(ppWidget) ppWidget.style.display = 'none';
+      return;
+    } else {
+      if(ppWidgetWrap) ppWidgetWrap.style.display = '';
+      else if(ppWidget) ppWidget.style.display = '';
+    }
     var arts = getPPEligible();
     var q = ppKw.toLowerCase();
     var matched = q ? arts.filter(function(a){
       return (a.textContent||a.innerText||'').toLowerCase().indexOf(q) >= 0;
     }) : arts;
-    arts.forEach(function(a){ a.style.display = 'none'; });
+    // 전체 PP 목록 먼저 숨기기
+    Array.prototype.forEach.call(
+      document.querySelectorAll('#PopularPosts1 article.post'),
+      function(a){ a.style.display = 'none'; }
+    );
     var start = (page-1)*PP_PER_PAGE;
     matched.forEach(function(a,i){
       a.style.display = (i>=start && i<start+PP_PER_PAGE) ? '' : 'none';
@@ -5010,6 +5262,29 @@ if(!window.b1WC){window.b1WC=function(btn){
   } else {
     setupPPBadgeInjection();
   }
+
+  // ── HOME: 라벨 링크 클릭 → in-page 필터 인터셉터 ──────────
+  (function(){
+    document.addEventListener('click', function(e){
+      if(!document.body.classList.contains('is-homepage')) return;
+      var a = e.target && e.target.closest && e.target.closest('a[href]');
+      if(!a) return;
+      var href = a.getAttribute('href') || '';
+      // /search/label/... 링크만 인터셉트
+      var m = href.match(/\/search\/label\/([^?#]+)/);
+      if(!m) return;
+      e.preventDefault();
+      var label = decodeURIComponent(m[1]).replace(/\+/g,' ');
+      // 이미 같은 라벨이면 필터 해제 (토글)
+      if(window.curLabelFilter === label){ window.aplFilterLabel(null); }
+      else if(window.aplFilterLabel){ window.aplFilterLabel(label); }
+    }, false);
+    // curLabelFilter 전역 접근용 (토글 판단)
+    Object.defineProperty(window, 'curLabelFilter', {
+      get: function(){ return curLabelFilter; },
+      configurable: true
+    });
+  })();
 
 })();
 //]]>
@@ -6063,14 +6338,16 @@ if(!window.b1WC){window.b1WC=function(btn){
 ══════════════════════════════════════════ -->
 <style>
 #spj-ca-track{overflow:hidden;position:relative;min-height:70px;border-radius:10px;}
-.spj-nc{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(135deg,#f0f5fa 0%,#e8f0f8 100%);border:1px solid #d1e0ee;border-radius:10px;text-decoration:none;color:inherit;box-sizing:border-box;width:100%;}
+.spj-nc{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(135deg,#f0f5fa 0%,#e8f0f8 100%);border:1px solid #d1e0ee;border-radius:10px;color:inherit;box-sizing:border-box;width:100%;}
 .spj-nc:hover{box-shadow:0 2px 10px rgba(0,60,120,0.12);}
-.spj-nc-av{width:80px;height:80px;border-radius:8px;object-fit:cover;border:2px solid #b8d0e8;flex-shrink:0;display:block;}
-.spj-nc-ini{width:80px;height:80px;border-radius:8px;background:linear-gradient(135deg,#1a9e82,#1d89cf);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;flex-shrink:0;}
+.spj-nc-av-wrap{display:block;flex-shrink:0;border-radius:8px;overflow:hidden;transition:opacity .18s;}
+.spj-nc-av-wrap:hover{opacity:0.82;}
+.spj-nc-av{width:56px;height:56px;border-radius:8px;object-fit:cover;border:2px solid #b8d0e8;display:block;}
+.spj-nc-ini{width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,#1a9e82,#1d89cf);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;}
 .spj-nc-info{min-width:0;flex:1;}
-.spj-nc-name{font-size:11.5px;font-weight:700;color:#0a2342;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3;}
-.spj-nc-role{font-size:9.5px;color:#5a7a99;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.spj-nc-arr{font-size:13px;color:#8aa0ba;flex-shrink:0;}
+.spj-nc-name-btn{font-size:12px;font-weight:700;color:#0a2342;background:none;border:none;padding:0;cursor:pointer;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;line-height:1.35;display:block;}
+.spj-nc-name-btn:hover{color:#1a9e82;text-decoration:underline;}
+.spj-nc-role{font-size:9.5px;color:#5a7a99;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 @keyframes spj-in{from{transform:translateX(105%);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes spj-out{from{transform:translateX(0);opacity:1}to{transform:translateX(-105%);opacity:0}}
 </style>
@@ -6085,8 +6362,9 @@ if(!window.b1WC){window.b1WC=function(btn){
       <div style="font-size:10px;color:#5a7a99;margin-top:2px;">Meet the team behind the platform →</div>
     </div>
   </a>
-  <div class="spj-section-label" style="margin-bottom:8px;">
-    Contributing Authors&nbsp;<span style="color:#8a9aaa;font-weight:500;">(<span id="spj-ca-pos">1</span>/<span id="spj-ca-total">0</span>)</span>
+  <div class="spj-section-label" style="margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+    <span>Contributing Authors&nbsp;<span style="color:#8a9aaa;font-weight:500;">(<span id="spj-ca-pos">1</span>/<span id="spj-ca-total">0</span>)</span></span>
+    <a href="#" onclick="window.open('https://www.shippauljobs.com/p/author.html?popup=1','_blank','width=900,height=700,scrollbars=yes,resizable=yes');return false;" style="font-size:11px;font-weight:600;color:#1a9e82;text-decoration:none;white-space:nowrap;flex-shrink:0;">View All →</a>
   </div>
   <div id="spj-ca-track"></div>
   <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;">
@@ -6121,13 +6399,15 @@ if(!window.b1WC){window.b1WC=function(btn){
     var idx=0,busy=false;
     var track=document.getElementById('spj-ca-track');
     function makeCard(a){
-      var av=a.imgSrc
+      var avInner=a.imgSrc
         ?'<img src="'+a.imgSrc+'" alt="'+a.name+'" class="spj-nc-av">'
         :'<div class="spj-nc-ini">'+a.name.charAt(0).toUpperCase()+'</div>';
-      var el=document.createElement('a');
-      el.href=a.href;el.target='_blank';el.rel='noopener';
+      var safeN=a.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      var avLink='<a href="'+a.href+'" target="_blank" rel="noopener" class="spj-nc-av-wrap" title="View Blogger profile" onclick="event.stopPropagation();">'+avInner+'</a>';
+      var nameBtn='<button class="spj-nc-name-btn" onclick="event.stopPropagation();if(window.showAuthorPosts)showAuthorPosts(\''+safeN+'\')" type="button" title="View recent posts">'+a.name+'</button>';
+      var el=document.createElement('div');
       el.className='spj-nc';
-      el.innerHTML=av+'<div class="spj-nc-info"><div class="spj-nc-name">'+a.name+'</div><div class="spj-nc-role">'+a.role+'</div></div><span class="spj-nc-arr">→</span>';
+      el.innerHTML=avLink+'<div class="spj-nc-info">'+nameBtn+'<div class="spj-nc-role">'+a.role+'</div></div>';
       return el;
     }
     var cur=makeCard(authors[0]);
@@ -6251,11 +6531,11 @@ if(!window.b1WC){window.b1WC=function(btn){
         </b:section>
       </div>
       <b:section class='sidebar_bottom' id='sidebar_bottom' name='Sidebar (Bottom)' preferred='yes'>
-        <b:widget id='Label2' locked='false' title='INTEL MENU' type='Label' version='2' visible='true'>
+        <b:widget id='Label2' locked='false' title='INTEL MENU (Top10)' type='Label' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'>AI and Automation,AICyberLab,Industry and Market,JOBS,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[AI and Automation,AICyberLab,Cyber Resilience,Industry and Market,Maritime Industry Events,Maritime Leadership & Strategy,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6289,7 +6569,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[A.I in Marine,CRSI,Cyber Resilience by Design,IACS UR E26 E27,Maritime Industry Events,Maritime Leadership & Strategy,Maritime OT Systems,Risk Management,Ship OT Cybersecurity]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>Expert Reviewed,Industry Validated,The Complete Guide,Verified</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6447,7 +6727,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   <div class="mw-head">
     <div class="mw-head-label">CAPTAIN PAUL'S</div>
     <div class="mw-head-title-row">
-      <span class="mw-head-title">🧰 Free Maritime Tools</span>
+      <span class="mw-head-title">Free Maritime Tools</span>
       <a class="mw-head-link" href="https://www.shippauljobs.com/p/maritime-tools.html" rel="noopener" target="_blank">View All →</a>
     </div>
   </div>
@@ -6499,7 +6779,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:includable id='content'>
 <style>
   #ContactForm1 .title{display:none;}
-  #spj-contact-card{font-family:"Segoe UI",Arial,sans-serif;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #dde6f0;box-shadow:0 2px 14px rgba(10,35,66,0.07);}
+  #spj-contact-card{font-family:&quot;Segoe UI&quot;,Arial,sans-serif;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #dde6f0;box-shadow:0 2px 14px rgba(10,35,66,0.07);}
   #spj-contact-card .spj-cc-head{background:linear-gradient(90deg,#1a9e82,#1d89cf);padding:12px 14px 10px;}
   #spj-contact-card .spj-cc-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:2px;}
   #spj-contact-card .spj-cc-title{font-size:14px;font-weight:800;color:#fff;line-height:1.3;}
@@ -6519,14 +6799,14 @@ if(!window.b1WC){window.b1WC=function(btn){
   #spj-contact-card .spj-perk{align-items:center;color:#5a7090;display:flex;font-size:10.5px;gap:6px;margin-top:8px;}
   #spj-contact-card .spj-perk-dot{background:#1a9e82;border-radius:50%;flex-shrink:0;height:5px;width:5px;}
   #spj-contact-card .spj-qt-grid,#spj-contact-card #spj-quick-labels{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;}
-  #spj-contact-card .spj-qt-btn{background:#f0f5fb;border:1px solid #ccdaeb;border-radius:6px;color:#1d6fa8;cursor:pointer;display:block;font-family:inherit;font-size:10px;font-weight:700;line-height:1.2;padding:7px 2px;text-align:center;transition:background .15s,border-color .15s,color .15s;white-space:nowrap;overflow:hidden;width:100%;}
+  #spj-contact-card .spj-qt-btn{background:#f0f5fb;border:1px solid #ccdaeb;border-radius:6px;color:#1d6fa8;cursor:pointer;display:block;font-family:inherit;font-size:18px;line-height:1;padding:8px 2px;text-align:center;transition:background .15s,border-color .15s,color .15s;width:100%;}
   #spj-contact-card .spj-qt-btn:hover{background:#1a9e82;border-color:#1a9e82;color:#fff;}
 </style>
 <div id='spj-contact-card'>
   <!-- 헤더 -->
   <div class='spj-cc-head'>
     <div class='spj-cc-eyebrow'>Reach the Crew</div>
-    <div class='spj-cc-title'>📬 Get In Touch</div>
+    <div class='spj-cc-title'>Get In Touch</div>
   </div>
   <!-- 탭 -->
   <div class='spj-tabbar'>
@@ -6534,23 +6814,23 @@ if(!window.b1WC){window.b1WC=function(btn){
     <button class='spj-tab' data-tab='nl' onclick='spjTab(&quot;nl&quot;)' type='button'>📰 Newsletter</button>
   </div>
 
-  <!-- ══ 탭 1: Message ══ -->
+  <!-- &#9552;&#9552; 탭 1: Message &#9552;&#9552; -->
   <div class='spj-tab-panel active' id='spj-tab-msg'>
     <!-- 설명 -->
     <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
       <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
-        Advertising, collaboration, crew opportunities &#8212; or any maritime cybersecurity inquiry.
+        Pick a topic and drop us a message.
       </p>
     </div>
     <!-- 빠른 선택 chips -->
     <div style='padding:10px 14px;border-bottom:1px solid #eaf0f7;'>
       <div style='color:#8a9bb0;font-size:9.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;'>Quick Topics</div>
       <div class='spj-qt-grid'>
-        <button class='spj-qt-btn' onclick='spjFill(&apos;ad&apos;)' type='button'>Advertising</button>
-        <button class='spj-qt-btn' onclick='spjFill(&apos;collab&apos;)' type='button'>Collaboration</button>
-        <button class='spj-qt-btn' onclick='spjFill(&apos;crew&apos;)' type='button'>Join Crew</button>
-        <button class='spj-qt-btn' onclick='spjFill(&apos;cyber&apos;)' type='button'>Compliance</button>
-        <button class='spj-qt-btn' onclick='spjFill(&apos;qa&apos;)' type='button'>Q&amp;A</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;ad&apos;)' title='Advertising' type='button'>📢</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;collab&apos;)' title='Collaboration' type='button'>🤝</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;crew&apos;)' title='Join Crew' type='button'>&#9875;</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;cyber&apos;)' title='Compliance' type='button'>🔐</button>
+        <button class='spj-qt-btn' onclick='spjFill(&apos;qa&apos;)' title='Q&amp;A' type='button'>&#10067;</button>
       </div>
     </div>
     <!-- 폼 -->
@@ -6563,12 +6843,12 @@ if(!window.b1WC){window.b1WC=function(btn){
               <input class='contact-form-name spj-field' expr:id='data:widget.instanceId + &quot;_contact-form-name&quot;' name='name' size='30' type='text' value=''/>
             </div>
             <div>
-              <label class='spj-field-label'>✉️ <data:contactFormEmailMsg/> <span style='color:#e05a5a;'>*</span></label>
+              <label class='spj-field-label'>&#9993;&#65039; <data:contactFormEmailMsg/> <span style='color:#e05a5a;'>*</span></label>
               <input class='contact-form-email spj-field' expr:id='data:widget.instanceId + &quot;_contact-form-email&quot;' name='email' size='30' type='text' value=''/>
             </div>
             <div>
               <label class='spj-field-label'>💬 <data:contactFormMessageMsg/> <span style='color:#e05a5a;'>*</span></label>
-              <textarea class='contact-form-email-message spj-field' cols='25' expr:id='data:widget.instanceId + &quot;_contact-form-email-message&quot;' name='email-message' rows='4' style='resize:vertical;'/>
+              <textarea class='contact-form-email-message spj-field' cols='25' expr:id='data:widget.instanceId + &quot;_contact-form-email-message&quot;' name='email-message' oninput='this.style.height=&quot;auto&quot;;this.style.height=this.scrollHeight+&quot;px&quot;;' rows='4' style='resize:none;overflow:hidden;min-height:80px;'/>
             </div>
             <input class='contact-form-button contact-form-button-submit spj-submit' expr:id='data:widget.instanceId + &quot;_contact-form-submit&quot;' expr:value='data:contactFormSendMsg' type='button'/>
             <div style='width:100%;'>
@@ -6581,13 +6861,13 @@ if(!window.b1WC){window.b1WC=function(btn){
     </div>
   </div>
 
-  <!-- ══ 탭 2: Newsletter ══ -->
+  <!-- &#9552;&#9552; 탭 2: Newsletter &#9552;&#9552; -->
   <div class='spj-tab-panel' id='spj-tab-nl'>
     <div style='padding:12px 14px 10px;border-bottom:1px solid #eaf0f7;'>
       <p style='color:#4a6080;font-size:12.5px;line-height:1.7;margin:0;'>
         Stay updated on maritime cybersecurity trends and IACS regulation changes &#8212; delivered to your inbox.
       </p>
-      <div class='spj-perk'><span class='spj-perk-dot'></span>No spam &#8212; unsubscribe anytime</div>
+      <div class='spj-perk'><span class='spj-perk-dot'/>No spam &#8212; unsubscribe anytime</div>
     </div>
     <div style='padding:12px 14px 14px;'>
       <form action='https://f90cb6a5.sibforms.com/serve/MUIFAKyss0LAZbscunG_LBOWQa3HwvBBITLc84aoXg5TwI3f4ee0eX7uul8voCw9NiM7WG5_0EWWANANueZOLTyJNz3FmwUGyZqRSUgNfv7WXo3jBer2cHeSi0ZUufgNoyQ9zVfudMn4oxXxZpTB5xEMfRC1LOLryX8u3Dz4hLewL9WJesulRLV3Q4SwxPZE-btgW4kBk-insQXOFA==' method='POST' style='display:flex;flex-direction:column;gap:10px;' target='_blank'>
@@ -6595,7 +6875,7 @@ if(!window.b1WC){window.b1WC=function(btn){
         <input name='locale' type='hidden' value='en'/>
         <input name='email_address_check' type='hidden' value=''/>
         <button class='spj-submit' type='submit'>
-          ✉️ Subscribe to Newsletter
+          Subscribe to Newsletter
         </button>
       </form>
     </div>
@@ -6627,7 +6907,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   };
   window.spjFill=function(k){
     var el=document.querySelector('.contact-form-email-message');
-    if(el&&m[k]){el.value=m[k];el.focus();}
+    if(el&&m[k]){el.value=m[k];el.style.height='auto';el.style.height=el.scrollHeight+'px';el.focus();}
   };
   window.spjTab=function(name){
     document.querySelectorAll('#spj-contact-card .spj-tab').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===name); });
@@ -7135,7 +7415,7 @@ if(!window.b1WC){window.b1WC=function(btn){
   }
   (function() {
     var configs = [
-      { id: 'Label2', icon: '🗂️', title: 'INTEL MENU' },
+      { id: 'Label2', icon: '🗂️', title: 'INTEL MENU (Top10)' },
       { id: 'Label1', icon: '🔖', title: 'Maritime Knowledge Hub', defaultCollapsed: true },
       { id: 'Label4', icon: '📌', title: 'Expert Insights', defaultCollapsed: true },
       { id: 'HTML10', icon: '🧭', title: 'MARITIME INTELLIGENCE' }

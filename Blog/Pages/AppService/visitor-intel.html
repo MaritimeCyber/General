@@ -170,8 +170,8 @@
       <span class="vi-hdr-tag alt">Maritime Region</span>
       <span class="vi-hdr-tag alt">🔴 LIVE</span>
     </div>
-    <h1>Maritime Visitor Intelligence</h1>
-    <p>Your real-time connection profile — IP geolocation, network origin, timezone and maritime region context, displayed as if you were on a ship's bridge intelligence console.</p>
+    <h1>Maritime Visit Context</h1>
+    <p>A privacy-conscious summary of your current visit context — approximate region, network type, timezone, and maritime corridor proximity. The same technical metadata that any web server can observe from your connection.</p>
     <div class="vi-author">
       <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/member/insung.jpeg" alt="Captain Paul" />
       <div>
@@ -185,7 +185,7 @@
   <!-- ══ LIVE TOOL ══ -->
   <div class="vi-panel" id="vi-panel">
     <div class="vi-panel-hdr">
-      <span class="vi-panel-title">⬡ Connection Intelligence Feed</span>
+      <span class="vi-panel-title">⬡ Visit Context</span>
       <button class="vi-refresh-btn" onclick="viFetch()">↻ Refresh</button>
     </div>
     <div id="vi-body"><div class="vi-loading">⌛ Fetching your connection profile…</div></div>
@@ -193,7 +193,7 @@
 
   <!-- ══ SECURITY NOTE ══ -->
   <div class="vi-note">
-    <strong>🔒 Privacy Notice:</strong> This tool reads only your publicly routable IP address and open-meteo compatible geolocation data — the same information visible to any web server you contact. No personal data is stored. The display is for educational purposes, illustrating what metadata is exposed during any internet connection.
+    <strong>🔒 Privacy Notice:</strong> This page uses <a href="https://ipapi.co" target="_blank" rel="noopener" style="color:#1a9e82;">ipapi.co</a> — a third-party geolocation service — to look up approximate location and network context from your IP address. Your browser sends your IP to ipapi.co as part of that request; ShipPaulJobs does not receive, log, or store your IP address or any personal data. The information displayed is approximate and shown for educational purposes only, to illustrate what network metadata is visible during any internet connection.
   </div>
 
   <!-- ══ EDITORIAL CONTENT ══ -->
@@ -297,18 +297,28 @@
         var lat = d.latitude, lng = d.longitude;
         var region = maritimeRegion(lat, lng);
 
+        /* Mask IP: show only network-class prefix for privacy */
+        var maskedIp = '—';
+        if (d.ip) {
+          var parts = d.ip.split('.');
+          if (parts.length === 4) {
+            maskedIp = parts[0] + '.' + parts[1] + '.xxx.xxx';
+          } else {
+            /* IPv6 — show /48 prefix only */
+            maskedIp = d.ip.split(':').slice(0,3).join(':') + '::/48';
+          }
+        }
+
         var html = '<div class="vi-grid">'
-          + row('IP Address',   d.ip || '—',           'hi')
+          + row('Network Prefix', maskedIp, 'hi')
           + row('Country',      (d.country_name || '—') + (d.country_code ? ' (' + d.country_code + ')' : ''), '')
           + row('Flag',         d.country_code ? '<span class="flag">' + countryFlag(d.country_code) + '</span>' : '—', 'flag')
-          + row('City / Region', [d.city, d.region].filter(Boolean).join(', ') || '—', '')
+          + row('Approx. Region', [d.city, d.region].filter(Boolean).join(', ') || '—', '')
           + row('Timezone',     d.timezone || '—', '')
           + row('UTC Offset',   d.utc_offset ? d.utc_offset.replace(/(\+|-)(\d{2})(\d{2})/, '$1$2h$3m') : '—', '')
-          + row('ISP / Org',    d.org || d.asn || '—', '')
+          + row('ISP / Network',d.org || d.asn || '—', '')
           + row('ASN',          d.asn || '—', 'hi')
-          + row('Postal',       d.postal || '—', '')
-          + row('Currency',     d.currency ? d.currency + ' (' + (d.currency_name || '') + ')' : '—', '')
-          + row('Lat / Long',   lat && lng ? lat.toFixed(4) + ', ' + lng.toFixed(4) : '—', 'hi')
+          + row('Approx. Coords', lat && lng ? lat.toFixed(2) + ', ' + lng.toFixed(2) : '—', 'hi')
           + row('Languages',    d.languages || '—', '')
           + '</div>';
 
