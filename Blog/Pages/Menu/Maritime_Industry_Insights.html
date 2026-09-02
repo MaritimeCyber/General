@@ -65,7 +65,12 @@
   .comments-widget-container {
     display: none !important;
   }
-</style>
+
+    /* ── Period filter buttons ── */
+    .spj-period-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+    .spj-period-btn { background: rgba(200,228,248,0.10); border: 1px solid rgba(200,228,248,0.22); border-radius: 20px; color: rgba(200,228,248,0.72); cursor: pointer; font-size: 11px; font-weight: 600; padding: 4px 11px; transition: background 0.15s, color 0.15s; }
+    .spj-period-btn.active, .spj-period-btn:hover { background: #1a9e82; border-color: #1a9e82; color: #fff; }
+  </style>
 
 <link
   href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&amp;family=Inter:wght@400;600;700&amp;display=swap"
@@ -302,6 +307,14 @@
         <div id="mii-tag-jump"></div>
       </div>
     </div>
+    <div class="spj-period-bar" id="mii-period-bar">
+      <button class="spj-period-btn active" data-period="recent50">Recent 50</button>
+      <button class="spj-period-btn" data-period="1m">1개월</button>
+      <button class="spj-period-btn" data-period="3m">3개월</button>
+      <button class="spj-period-btn" data-period="6m">6개월</button>
+      <button class="spj-period-btn" data-period="1y">1년</button>
+      <button class="spj-period-btn" data-period="all">전체기간</button>
+    </div>
   </div>
 
   <!--══ Industry Overview (static SEO section) ══-->
@@ -468,6 +481,15 @@
     var miiSortMode = "alpha"; /* 'alpha' = A-Z (default) | 'count' = most posts first */
 
     var allItems = [];
+    var periodMode = 'recent50';
+    function filterByPeriod(items) {
+      var sorted = items.slice().sort(function(a,b){ return new Date(b.published).getTime() - new Date(a.published).getTime(); });
+      if (periodMode === 'recent50') return sorted.slice(0, 50);
+      if (periodMode === 'all') return items;
+      var days = {'1m':30,'3m':90,'6m':180,'1y':365}[periodMode]||999999;
+      var cutoff = new Date(Date.now() - days*86400000);
+      return sorted.filter(function(p){ return new Date(p.published) >= cutoff; });
+    }
 
     /* "✓ Read" badge state — reads the same site-wide "spj_read" localStorage
        set that Main.html's global read-tracker script writes to on every
@@ -914,10 +936,10 @@
     function applySearch(q) {
       q = (q || "").trim().toLowerCase();
       if (!q) {
-        renderArchive(allItems);
+        renderArchive(filterByPeriod(allItems));
         return;
       }
-      var filtered = allItems.filter(function (p) {
+      var filtered = filterByPeriod(allItems).filter(function (p) {
         return (p.title + " " + p.summary).toLowerCase().indexOf(q) !== -1;
       });
       renderArchive(filtered);
@@ -1153,7 +1175,7 @@
       items.sort(function (a, b) { return new Date(b.published).getTime() - new Date(a.published).getTime(); });
       allItems = items;
       document.getElementById("mii-loading").style.display = "none";
-      renderArchive(allItems);
+      renderArchive(filterByPeriod(allItems));
       loadTopRanked(allItems);
     }
 
@@ -1179,7 +1201,7 @@
       var mode = btn.getAttribute("data-sort");
       if (mode && mode !== miiSortMode) {
         miiSortMode = mode;
-        renderArchive(allItems);
+        renderArchive(filterByPeriod(allItems));
       }
     });
 
@@ -1213,6 +1235,16 @@
       });
     });
   })();
+
+    document.getElementById("mii-period-bar").addEventListener("click", function(e) {
+      var btn = e.target.closest(".spj-period-btn");
+      if (!btn) return;
+      document.querySelectorAll("#mii-period-bar .spj-period-btn").forEach(function(b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      periodMode = btn.getAttribute("data-period");
+      renderArchive(filterByPeriod(allItems));
+    });
+
 </script>
 
 <!-- FAQPage structured data -->
