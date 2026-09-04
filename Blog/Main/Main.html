@@ -4729,30 +4729,26 @@ if(!window.b1WC){window.b1WC=function(btn){
         return '<a href="' + esc(p.url) + '">' + esc(p.title) + '</a>';
       }).join('') + '</div>';
     }
-    // 라벨 필터 활성 시: 완전한 masterAll로 재필터링 + 재렌더
     if(curLabelFilter){
       all = masterAll.filter(function(p){
         return p.labels.indexOf(curLabelFilter) >= 0;
       });
       if(cntEl) cntEl.textContent = all.length;
       if(!all.length){
-        if(cardsEl) cardsEl.innerHTML = '<p style="color:#aaa;font-size:12px;padding:16px 0">No posts found for &ldquo;' + esc(curLabelFilter) + '&rdquo;.</p>';
+        if(cardsEl) cardsEl.innerHTML = '<p style="color:#aaa;font-size:12px;padding:16px 0">No posts found.</p>';
         var pg2 = document.getElementById('apl-pager');
         if(pg2) pg2.innerHTML = '';
-      } else {
-        renderPage(1);
-      }
+      } else { renderPage(1); }
     } else {
       all = masterAll.slice();
       if(cntEl) cntEl.textContent = masterAll.length;
     }
-    // 사이드바 라벨 카운트를 masterAll 기준으로 업데이트
     var lblCounts = {};
     masterAll.forEach(function(p){
       (p.labels||[]).forEach(function(l){ lblCounts[l] = (lblCounts[l]||0) + 1; });
     });
     Array.prototype.forEach.call(
-      document.querySelectorAll('#Label1 .ranked-lbl-item, #Label2 .ranked-lbl-item, #Label4 .ranked-lbl-item'),
+      document.querySelectorAll('#Label1 .ranked-lbl-item,#Label2 .ranked-lbl-item,#Label4 .ranked-lbl-item'),
       function(item){
         var a = item.querySelector('a');
         var cs = item.querySelector('.ranked-lbl-cnt');
@@ -4765,7 +4761,6 @@ if(!window.b1WC){window.b1WC=function(btn){
       }
     );
   }
-
   // ── render page ──────────────────────────────────────────
   function renderPage(page){
     var totalPages = Math.ceil(all.length / PER_PAGE);
@@ -4979,17 +4974,16 @@ if(!window.b1WC){window.b1WC=function(btn){
     };
   }
 
-  // ── Global: Label (Tag) in-page filter ───────────────────
+  // ── Global: Label (Tag) in-page filter ───────────────────────
   window.aplFilterLabel = function(label){
     curLabelFilter = label || null;
-    // UI: title + header
     var titleEl = document.getElementById('apl-title');
-    if(titleEl) titleEl.textContent = curLabelFilter ? '📋 ' + curLabelFilter + ' Posts' : 'Explore All Posts';
+    if(titleEl) titleEl.textContent = curLabelFilter ? '\u{1F4CB} ' + curLabelFilter + ' Posts' : 'Explore All Posts';
     var headEl = document.getElementById('apl-header');
     if(headEl){
       if(curLabelFilter){
         headEl.innerHTML = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">'
-          + '<span style="background:rgba(29,137,207,0.18);color:#1d89cf;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700">🏷️ ' + esc(curLabelFilter) + '</span>'
+          + '<span style="background:rgba(29,137,207,0.18);color:#1d89cf;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700">\u{1F3F7}️ ' + esc(curLabelFilter) + '</span>'
           + '<button onclick="window.aplFilterLabel(null)" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:20px;color:#aac8e0;font-size:11px;padding:2px 10px;cursor:pointer">✕ 전체 보기</button>'
           + '</div>';
         headEl.style.display = 'block';
@@ -4997,7 +4991,6 @@ if(!window.b1WC){window.b1WC=function(btn){
         headEl.innerHTML = ''; headEl.style.display = 'none';
       }
     }
-    // HOME: 섹션 표시/숨김
     var fpsWrap = document.getElementById('fps-wrap');
     var scsMs   = document.getElementById('scs-ms-wrap');
     var annWrap = document.getElementById('ann-wrap');
@@ -5005,12 +4998,10 @@ if(!window.b1WC){window.b1WC=function(btn){
     if(fpsWrap) fpsWrap.style.display = showGroups ? '' : 'none';
     if(scsMs)   scsMs.style.display   = showGroups ? '' : 'none';
     if(annWrap) annWrap.style.display  = showGroups ? '' : 'none';
-    // Top Ranked + 스크롤
     ppLabelFilter = curLabelFilter;
     renderPPPage(1);
     var aplWrap = document.getElementById('apl-wrap');
     if(aplWrap) aplWrap.scrollIntoView({behavior:'smooth', block:'start'});
-    // 라벨 없음: masterAll로 복원
     if(!curLabelFilter){
       all = masterAll ? masterAll.slice() : all;
       var cntEl = document.getElementById('apl-count');
@@ -5018,7 +5009,6 @@ if(!window.b1WC){window.b1WC=function(btn){
       renderPage(1);
       return;
     }
-    // 라벨 있음: Blogger API 직접 호출 (완전한 결과)
     var reqLabel = curLabelFilter;
     var cntEl2 = document.getElementById('apl-count');
     if(cntEl2) cntEl2.textContent = '…';
@@ -5026,10 +5016,32 @@ if(!window.b1WC){window.b1WC=function(btn){
     var pg0 = document.getElementById('apl-pager');
     if(pg0) pg0.innerHTML = '';
     var labelPosts = [];
+    function finalizeLabelPosts(){
+      if(curLabelFilter !== reqLabel) return;
+      all = labelPosts;
+      if(cntEl2) cntEl2.textContent = all.length;
+      if(!all.length){
+        if(cardsEl) cardsEl.innerHTML = '<p style="color:#aaa;font-size:12px;padding:16px 0">No posts found for &ldquo;' + esc(reqLabel) + '&rdquo;.</p>';
+        var pg3 = document.getElementById('apl-pager');
+        if(pg3) pg3.innerHTML = '';
+      } else {
+        renderPage(1);
+      }
+    }
     function fetchLabelPage(url){
-      fetch(url)
-        .then(function(r){ return r.json(); })
+      /* next 링크를 shippauljobs.com 도메인으로 정규화 */
+      var normalizedUrl = url.replace(/^https?:\/\/[^\/]+/, '');
+      /* 중복 라벨 필터 패턴 제거 (blogger.com next 링크 버그) */
+      var label = encodeURIComponent(reqLabel);
+      var dupPat = new RegExp('(-/' + label + '){2,}', 'gi');
+      normalizedUrl = normalizedUrl.replace(dupPat, '/-/' + label);
+      fetch(normalizedUrl)
+        .then(function(r){
+          if(!r.ok) { finalizeLabelPosts(); return null; }
+          return r.json();
+        })
         .then(function(d){
+          if(!d) return;
           if(curLabelFilter !== reqLabel) return;
           (d.feed.entry || []).forEach(function(e){
             var p = parseEntry(e);
@@ -5041,26 +5053,16 @@ if(!window.b1WC){window.b1WC=function(btn){
           if(next && curLabelFilter === reqLabel){
             fetchLabelPage(next);
           } else {
-            if(curLabelFilter !== reqLabel) return;
-            all = labelPosts;
-            if(cntEl2) cntEl2.textContent = all.length;
-            if(!all.length){
-              if(cardsEl) cardsEl.innerHTML = '<p style="color:#aaa;font-size:12px;padding:16px 0">No posts found for &ldquo;' + esc(reqLabel) + '&rdquo;.</p>';
-              var pg3 = document.getElementById('apl-pager');
-              if(pg3) pg3.innerHTML = '';
-            } else {
-              renderPage(1);
-            }
+            finalizeLabelPosts();
           }
         })
         .catch(function(){
-          if(curLabelFilter !== reqLabel) return;
-          if(cardsEl) cardsEl.innerHTML = '<p style="color:#f88;font-size:12px;padding:16px 0">Failed to load posts. Please try again.</p>';
+          /* next 페이지 실패 시 이미 로드된 포스트 표시 */
+          finalizeLabelPosts();
         });
     }
-    fetchLabelPage('/feeds/posts/default/-/' + encodeURIComponent(reqLabel) + '?alt=json&max-results=50');
+    fetchLabelPage('/feeds/posts/default/-/' + encodeURIComponent(reqLabel) + '?alt=json&max-results=150');
   };
-
   // ── Global: Top Ranked DOM filter + Pagination ───────────
   var SCS_LOWER = ['cbs','system','solution'];
   function hasSCSTag(art, tagSel){
@@ -6337,6 +6339,7 @@ if(!window.b1WC){window.b1WC=function(btn){
      1+2. Who we are + Contributing Authors (merged)
 ══════════════════════════════════════════ -->
 <style>
+#Profile1{display:none;}
 #spj-ca-track{overflow:hidden;position:relative;min-height:70px;border-radius:10px;}
 .spj-nc{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(135deg,#f0f5fa 0%,#e8f0f8 100%);border:1px solid #d1e0ee;border-radius:10px;color:inherit;box-sizing:border-box;width:100%;}
 .spj-nc:hover{box-shadow:0 2px 10px rgba(0,60,120,0.12);}
@@ -6535,7 +6538,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:widget-settings>
             <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[AI and Automation,AICyberLab,Cyber Resilience,Industry and Market,Maritime Industry Events,Maritime Leadership & Strategy,OT Security,Rules and Compliance,Ships and Systems,Threats and Attacks]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'><![CDATA[AI and Automation,AICyberLab,IACS UR E26,IACS UR E26 E27,IACS UR E27,Maritime Industry Events,Maritime Leadership & Strategy,OT Security,Ships and Systems,Threats and Attacks]]></b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6636,6 +6639,24 @@ if(!window.b1WC){window.b1WC=function(btn){
         <b:widget id='HTML4' locked='false' title='Secure Connectivity Information' type='HTML' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<div id="Hello_GuestInfo.html"></div><script>(function(){var GITHUB_RAW_URL="https://cdn.jsdelivr.net/gh/MaritimeCyber/General@main/Blog/Backend/Hello_GuestInfo.html";var target=document.getElementById("Hello_GuestInfo.html");var s=document.createElement("style");s.textContent="#hg-right #hg-wrap{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0!important;width:100%!important;max-width:100%!important;margin:0!important;padding:10px 14px!important;font-family:monospace!important;font-size:12px!important;color:#c8e4f8!important;line-height:1.7!important;}#hg-right #hg-greeting{font-size:15px!important;font-weight:700!important;color:#1affda!important;text-shadow:0 0 8px rgba(26,255,218,0.55)!important;}#hg-right #hg-flag{font-size:22px!important;}#hg-right #hg-lang{font-size:10.5px!important;color:rgba(200,228,248,0.62)!important;margin-bottom:8px!important;}#hg-right #hg-body{font-size:11.5px!important;color:#c8e4f8!important;line-height:1.65!important;}#hg-right #hg-extra{font-size:11px!important;color:rgba(200,228,248,0.78)!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:8px!important;padding-top:8px!important;}#hg-right #hg-confirm{font-size:11px!important;color:#1a9e82!important;border-top:1px solid rgba(26,158,130,0.28)!important;margin-top:6px!important;padding-top:6px!important;}#hg-right a{color:#1affda!important;text-decoration:none!important;}#hg-right #hg-loading{color:rgba(200,228,248,0.45)!important;}#hg-right .hg-pill,#hg-right .hg-badge{background:rgba(26,158,130,0.18)!important;border:1px solid rgba(26,158,130,0.4)!important;color:#1affda!important;border-radius:4px!important;}";document.head.appendChild(s);fetch(GITHUB_RAW_URL).then(function(res){if(!res.ok)throw new Error("HTTP "+res.status);return res.text()}).then(function(html){target.innerHTML=html;var scripts=target.querySelectorAll("script");scripts.forEach(function(oldScript){var newScript=document.createElement("script");Array.prototype.forEach.call(oldScript.attributes,function(attr){newScript.setAttribute(attr.name,attr.value)});newScript.textContent=oldScript.textContent;oldScript.parentNode.replaceChild(newScript,oldScript)})}).catch(function(err){console.warn("[gh-inject] Failed to load:",err)})})();</script>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <b:include name='widget-title'/>
+            <div class='widget-content'>
+              <data:content/>
+            </div>
+          </b:includable>
+        </b:widget>
+        <b:widget id='HTML20' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<div id='spj-site-links'>
+  <div class='sb-head'><span class='sb-head-title'>🔗 Site Info</span></div>
+  <a href='https://www.shippauljobs.com/p/about.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>📋 About</a>
+  <a href='https://www.shippauljobs.com/p/contact.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>✉️ Contact</a>
+  <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>🔒 Privacy Policy</a>
+  <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>📜 Terms &amp; Conditions</a>
+  <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;' target='_blank'>✅ Editorial Policy</a>
+</div>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
             <b:include name='widget-title'/>
@@ -6881,20 +6902,6 @@ if(!window.b1WC){window.b1WC=function(btn){
     </div>
   </div>
 
-  <!-- 공통 푸터 링크 -->
-  <div style='padding:10px 14px 12px;border-top:1px solid #eaf0f7;'>
-    <p style='margin:0;line-height:1.8;text-align:center;font-size:10.5px;color:#8a9bb0;font-family:Segoe UI,Arial,sans-serif;'>
-      <a href='https://www.shippauljobs.com/p/about.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>About</a>
-      <span style='margin:0 3px;opacity:0.5;'>|</span>
-      <a href='https://www.shippauljobs.com/p/contact.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Contact</a>
-      <span style='margin:0 3px;opacity:0.5;'>|</span>
-      <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Privacy Policy</a>
-      <span style='margin:0 3px;opacity:0.5;'>|</span>
-      <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Terms</a>
-      <span style='margin:0 3px;opacity:0.5;'>|</span>
-      <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='color:#8a9bb0;text-decoration:none;' target='_blank'>Editorial Policy</a>
-    </p>
-  </div>
 </div>
 <script>//<![CDATA[
 (function(){
@@ -7372,13 +7379,140 @@ if(!window.b1WC){window.b1WC=function(btn){
       items.forEach(function(li) { ul.appendChild(li); });
     }
     function run() {
-      sortRankedList('Label4');
-      sortRankedList('Label1');
+      /* Label4/Label1 정렬은 updateLabelCounts가 API 응답 후 처리 */
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', run);
     } else {
       run();
+    }
+  })();
+
+  /* ── Label 위젯 실제 포스트 수 API 업데이트 + localStorage 캐시 (24h) ──
+     최적화: 라벨별 개별 fetch → 단일 피드 fetch + 클라이언트 카운팅
+     API 호출 N회 → 1회, throttle/지연 원인 제거 ── */
+  (function() {
+    var CACHE_KEY = 'spj_lbl_cnt2';
+    var CACHE_TTL = 86400000; /* 24시간 ms */
+    var WIDGET_IDS = ['Label2', 'Label4', 'Label1'];
+
+    function readCache() {
+      try {
+        var raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        var c = JSON.parse(raw);
+        if (Date.now() - c.ts > CACHE_TTL) return null;
+        return c.data; /* { labelName: count, ... } */
+      } catch(e) { return null; }
+    }
+    function writeCache(data) {
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch(e) {}
+    }
+
+    function applyAndSort(ul, items, counts) {
+      items.forEach(function(item) {
+        var a = item.querySelector('a');
+        var cntEl = item.querySelector('.ranked-lbl-cnt');
+        if (!a || !cntEl) return;
+        var m = (a.href || '').match(/\/search\/label\/(.+?)(\?|$)/);
+        if (!m) return;
+        var name = decodeURIComponent(m[1]);
+        if (name in counts) {
+          cntEl.textContent = '(' + counts[name] + ')';
+          item.setAttribute('data-count', counts[name]);
+        }
+        cntEl.style.visibility = 'visible';
+      });
+      var arr = Array.prototype.slice.call(ul.querySelectorAll('.ranked-lbl-item'));
+      arr.sort(function(a, b) {
+        return (parseInt(b.getAttribute('data-count')) || 0) - (parseInt(a.getAttribute('data-count')) || 0);
+      });
+      arr.forEach(function(li) { ul.appendChild(li); });
+    }
+
+    function applyToAll(counts) {
+      WIDGET_IDS.forEach(function(id) {
+        var widget = document.getElementById(id);
+        if (!widget) return;
+        var ul = widget.querySelector('.ranked-lbl-list');
+        if (!ul) return;
+        applyAndSort(ul, ul.querySelectorAll('.ranked-lbl-item'), counts);
+      });
+    }
+
+    function hideAllCounts() {
+      WIDGET_IDS.forEach(function(id) {
+        var widget = document.getElementById(id);
+        if (!widget) return;
+        widget.querySelectorAll('.ranked-lbl-cnt').forEach(function(el) {
+          el.style.visibility = 'hidden';
+        });
+      });
+    }
+
+    function showAllCounts() {
+      WIDGET_IDS.forEach(function(id) {
+        var widget = document.getElementById(id);
+        if (!widget) return;
+        widget.querySelectorAll('.ranked-lbl-cnt').forEach(function(el) {
+          el.style.visibility = 'visible';
+        });
+      });
+    }
+
+    function fetchSingleFeedAndCount() {
+      /* start-index 병렬 페이지네이션으로 전체 포스트 수집 후 라벨 카운팅
+         Blogger 커스텀 도메인은 max-results 40개 제한 + next 링크 미생성 */
+      var counts = {};
+      var PAGE_SIZE = 40;
+
+      function countPage(data) {
+        (data.feed.entry || []).forEach(function(post) {
+          (post.category || []).forEach(function(cat) {
+            counts[cat.term] = (counts[cat.term] || 0) + 1;
+          });
+        });
+        return data;
+      }
+
+      function fetchPage(si) {
+        return fetch('/feeds/posts/summary?alt=json&v=2&max-results=' + PAGE_SIZE + '&start-index=' + si)
+          .then(function(r) { return r.json(); })
+          .then(countPage);
+      }
+
+      fetchPage(1)
+        .then(function(data) {
+          var total = parseInt(((data.feed || {})['openSearch$totalResults'] || {})['$t'] || '0');
+          var pages = [];
+          for (var si = PAGE_SIZE + 1; si <= total; si += PAGE_SIZE) {
+            pages.push(fetchPage(si));
+          }
+          return Promise.all(pages);
+        })
+        .then(function() {
+          writeCache(counts);
+          applyToAll(counts);
+        })
+        .catch(function() { showAllCounts(); });
+    }
+
+    function runAll() {
+      var cached = readCache();
+      if (cached) {
+        /* 캐시 히트: API 호출 없이 즉시 렌더링 */
+        applyToAll(cached);
+        return;
+      }
+      /* 캐시 미스: 카운트 숨기고 단일 fetch */
+      hideAllCounts();
+      fetchSingleFeedAndCount();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runAll);
+    } else {
+      runAll();
     }
   })();
 

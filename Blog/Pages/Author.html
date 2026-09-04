@@ -457,9 +457,32 @@
 
 <script>
 (function(){
+  /* ── Crew page fallback photos (사진 미등록 시 대체) ── */
+  var BASE_IMG = 'https://cdn.jsdelivr.net/gh/MaritimeCyber/General@main/Asset/img/member/';
+  var CREW_PHOTOS = {
+    'Captain Paul':        BASE_IMG + 'insung.jpeg',
+    'Blue Horizonist':     BASE_IMG + 'lew.jpeg',
+    'Julius':              BASE_IMG + 'Julius.jpeg',
+    'Julius Shin':         BASE_IMG + 'Julius.jpeg',
+    'Morgan':              BASE_IMG + 'Morgan.jpeg',
+    'Woojin Lee':          BASE_IMG + 'Jin.jpeg',
+    'Yeon':                BASE_IMG + 'Yeon.jpeg',
+    'Chris':               BASE_IMG + 'Minsung.png',
+    'Min Sung (Chris) Jung': BASE_IMG + 'Minsung.png',
+    'Richard':             BASE_IMG + 'Richard.png',
+    'Iaan':                BASE_IMG + 'iaan.png',
+    'Iaan (伊恩)':         BASE_IMG + 'iaan.png',
+    'Changmin':            BASE_IMG + 'changmin.png',
+    'Bruno':               BASE_IMG + 'Bruno.png',
+    'Sheep':               BASE_IMG + 'Sheep.png',
+    'Iris':                BASE_IMG + 'Iris.png',
+    'Brandon Ha':          BASE_IMG + 'Brandon Ha_w.png',
+    'Brandon_Ha':          BASE_IMG + 'Brandon Ha_w.png'
+  };
+
   /* ── Manual overrides: customize role/joinDate/badge per author name ── */
   var OVERRIDES = {
-    'Captain Paul': { role: 'Platform Editor - Maritime Cyber', joinDate: '2024-01-01', badge: 'Editor', founder: true }
+    'Captain Paul': { role: 'Platform Editor - Maritime Cyber', joinDate: '2019-05-01', badge: 'Editor', founder: true }
     /* 'Name': { role: 'OT Security Specialist', joinDate: '2025-06-15', badge: 'Senior' } */
   };
 
@@ -474,6 +497,8 @@
   var feedNames   = {};
   /* feedNameMap: feedAuthorName → authorsMap key (built during reconcile for merged names) */
   var feedNameMap = {};
+  /* postFirstImgCache: url → first <img> src found in post body (null if none) */
+  var postFirstImgCache = {};
   var sortMode    = 'posts-desc';
   var periodMode  = 'recent50'; /* default: latest 50 posts */
   var ready       = { profile: false, feed: false };
@@ -533,7 +558,8 @@
           var labels = (e.category || []).map(function(c){ return c.term; });
 
           /* Store entry for period filtering */
-          allEntries.push({ name: name, date: pub, title: postTitle, url: postUrl, labels: labels });
+          var imgUrl = e['media$thumbnail'] ? e['media$thumbnail'].url.replace('/s72-c/', '/s400-c/') : null;
+          allEntries.push({ name: name, date: pub, title: postTitle, url: postUrl, labels: labels, imgUrl: imgUrl });
           feedNames[name] = true;
 
           /* Update/create author metadata (not post count — that's handled by calcPostsForPeriod) */
@@ -657,6 +683,28 @@
     if(elI) elI.textContent = '(' + cntI + ')';
   }
 
+  /* ─── Fetch author photo from post title card (3rd fallback: 작성자 사진) ─── */
+  /* 포스트 상단 헤더 카드의 원형(border-radius:50%) 작성자 사진을 가져옴 */
+  function fetchPostFirstImage(url){
+    if(postFirstImgCache.hasOwnProperty(url)) return Promise.resolve(postFirstImgCache[url]);
+    return fetch(url)
+      .then(function(r){ return r.text(); })
+      .then(function(html){
+        var parser = new DOMParser();
+        var doc    = parser.parseFromString(html, 'text/html');
+        var body   = doc.querySelector('.post-body') || doc.querySelector('.entry-content') || doc.querySelector('article');
+        if(!body){ postFirstImgCache[url] = null; return null; }
+        /* 1st: 원형 작성자 사진 (border-radius:50%) — 포스트 제목 카드의 작성자 정보 */
+        var img = body.querySelector('img[style*="border-radius: 50%"], img[style*="border-radius:50%"]');
+        /* 2nd: 혹시 없으면 첫 번째 img로 폴백 */
+        if(!img) img = body.querySelector('img');
+        var src = img ? img.src : null;
+        postFirstImgCache[url] = src;
+        return src;
+      })
+      .catch(function(){ postFirstImgCache[url] = null; return null; });
+  }
+
   /* ─── Render ─── */
   function tryRender(){
     if(ready.profile && ready.feed){
@@ -688,6 +736,7 @@
     var grid    = document.getElementById('spj-ap-grid');
     var countEl = document.getElementById('spj-ap-count');
     var authors = Object.values(authorsMap);
+
     sortAuthors(authors);
     countEl.textContent = authors.length + ' author' + (authors.length !== 1 ? 's' : '');
     grid.innerHTML = '';
@@ -704,8 +753,10 @@
       var badge    = ov.badge   || (a.posts >= 10 ? 'Senior' : '');
       var founder  = ov.founder || false;
 
-      var avInner = a.imgSrc
-        ? '<img class="spj-ap-avatar" src="'+esc(a.imgSrc)+'" alt="'+esc(a.name)+'" loading="lazy">'
+      /* 1st: Blogger profile photo  2nd: Crew page static photo  3rd: lazy-loaded from post body */
+      var resolvedImg = (a.imgSrc && a.imgSrc.indexOf('blogblog.com') === -1) ? a.imgSrc : (CREW_PHOTOS[a.name] || null);
+      var avInner = resolvedImg
+        ? '<img class="spj-ap-avatar" src="'+esc(resolvedImg)+'" alt="'+esc(a.name)+'" loading="lazy">'
         : '<div class="spj-ap-initials">'+esc(a.name.charAt(0).toUpperCase())+'</div>';
 
       var metaHtml =
@@ -718,7 +769,7 @@
             '<span class="spj-ap-meta-lbl">Joined&nbsp;</span>'+
             '<span class="spj-ap-meta-num">'+fmtDate(joinDate)+'</span>'+
           '</div>'+
-          (a.lastDate && a.lastDate !== a.firstDate
+          (a.lastDate
             ? '<div class="spj-ap-meta-item">'+
                 '<span class="spj-ap-meta-lbl">Last&nbsp;</span>'+
                 '<span class="spj-ap-meta-num">'+fmtDate(a.lastDate)+'</span>'+
@@ -769,6 +820,18 @@
           '</div>'+
         '</div>';
       grid.appendChild(card);
+
+      /* 3rd fallback: fetch first <img> from latest post body (작성자 사진) */
+      if(!resolvedImg && a.latestUrl){
+        (function(cardEl, authorName, postUrl){
+          var avWrap = cardEl.querySelector('.spj-ap-av-wrap');
+          fetchPostFirstImage(postUrl).then(function(src){
+            if(src && avWrap && avWrap.parentNode){
+              avWrap.innerHTML = '<img class="spj-ap-avatar" src="'+esc(src)+'" alt="'+esc(authorName)+'" loading="lazy">';
+            }
+          });
+        })(card, a.name, a.latestUrl);
+      }
     });
   }
 
