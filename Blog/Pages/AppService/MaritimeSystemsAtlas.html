@@ -1,0 +1,350 @@
+<!--════════════════════════════════════════════════════════════
+     Page   : Maritime Systems Atlas — Ship Family → System → Component explorer
+     Author : Julius Shin  |  ShipPaulJobs
+     URL    : https://www.shippauljobs.com/p/maritime-systems-atlas.html
+     Tool # : 10 of the Maritime Intelligence Tools suite
+              (Blog/Pages/Menu/Maritime_intelligence_Tools.html card ⑩,
+               Blog/Layout/SideBar/Free_Maritime_Tools_Suite.html tile 10)
+     Source : The Atlas application itself is served from
+              https://juliusshin.org/atlas (Next.js on Vercel) and embedded
+              here in an iframe. Code lives in the private repository
+              Galaxy-Codesmith/maritime-systems-atlas. This page holds only
+              the ShipPaulJobs shell: header, stats, embed, guide, FAQ.
+     Data   : Release PUB-MAR-ATLAS-2026-08-11-003, projection schema
+              atlas-public-projection/1.2.0 — 80 vessel types, 21 families,
+              18 system categories, 314 systems, 1,036 reference components,
+              4,023 Family→System applicability relations.
+     NOTE   : Blogger HTML fragment — NO <head>, inline CSS only.
+              Reader comments: set to "Don't allow" in Page options.
+
+     ── Blogger Page settings ──
+     Page title: "Maritime Systems Atlas — Ship Family, System & Component Explorer | ShipPaulJobs"
+     Search description (≤150 chars):
+     "Free interactive atlas of 21 ship families, 314 shipboard systems and
+     1,036 reference components with family applicability. No sign-up." (139 chars)
+════════════════════════════════════════════════════════════-->
+
+<!--══ Hide comments section immediately (prevents flash — blocked via CSS before JS runs) ══-->
+<style>
+  #comments,
+  .comments,
+  #comment-holder,
+  .comments-widget-container {
+    display: none !important;
+  }
+</style>
+
+<style>
+#msa-wrap * { box-sizing: border-box; }
+#msa-wrap {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #2c3e50;
+  max-width: 900px;
+  line-height: 1.7;
+}
+
+/* ── Header ── */
+.msa-hdr {
+  background: linear-gradient(135deg, #0a2342 0%, #154f7a 55%, #0d6e5a 100%);
+  border-radius: 14px;
+  padding: 28px 28px 22px;
+  margin-bottom: 20px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.msa-hdr::before {
+  content: '';
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.msa-hdr-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.msa-hdr-tag {
+  background: rgba(26,158,130,0.35); color: #7effd8;
+  font-size: 9px; font-weight: 800; letter-spacing: 1.4px;
+  padding: 3px 11px; border-radius: 20px; text-transform: uppercase;
+}
+.msa-hdr-tag.alt { background: rgba(255,255,255,0.13); color: #b8d4ea; }
+.msa-hdr h1 { font-size: 22px; font-weight: 800; margin: 0 0 8px; line-height: 1.35; }
+.msa-hdr p  { font-size: 13px; color: rgba(255,255,255,0.72); margin: 0 0 18px; }
+.msa-author { display: flex; align-items: center; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; }
+.msa-author img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #1a9e82; flex-shrink: 0; }
+.msa-author-name { color: #fff; font-size: 13px; font-weight: 700; line-height: 1.3; }
+.msa-author-sub  { color: #9ab5c9; font-size: 10px; }
+.msa-release-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(26,255,218,0.12); border: 1px solid rgba(26,255,218,0.3);
+  border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 700;
+  color: #1affda; margin-left: auto; font-family: monospace; white-space: nowrap;
+}
+
+/* ── Stats ── */
+.msa-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.msa-stat {
+  background: #f4f9ff; border: 1.5px solid #d1e0ee; border-radius: 10px;
+  padding: 14px 12px 12px; text-align: center;
+}
+.msa-stat-val { color: #154f7a; font-size: 22px; font-weight: 900; line-height: 1.1; }
+.msa-stat-lbl { color: #4a6478; font-size: 11px; line-height: 1.45; margin-top: 4px; }
+
+/* ── Embed panel (dark "command console") ── */
+.msa-panel {
+  background: #040c1c;
+  border: 1px solid rgba(26,158,130,0.35);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.msa-panel-hdr {
+  background: rgba(26,158,130,0.12);
+  border-bottom: 1px solid rgba(26,158,130,0.25);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+}
+.msa-panel-title { color: #1affda; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-family: monospace; }
+.msa-panel-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.msa-ext-btn {
+  background: rgba(26,158,130,0.2); border: 1px solid rgba(26,158,130,0.4);
+  color: #7effd8; font-size: 10px; font-weight: 700; padding: 4px 10px;
+  border-radius: 5px; text-decoration: none; font-family: monospace;
+  transition: background 0.15s;
+}
+.msa-ext-btn:hover { background: rgba(26,158,130,0.35); color: #fff; }
+#msa-iframe {
+  display: block;
+  width: 100%;
+  height: 900px;
+  border: 0;
+  background: #111315;
+}
+.msa-panel-foot {
+  background: rgba(26,158,130,0.08);
+  border-top: 1px solid rgba(26,158,130,0.18);
+  padding: 9px 16px;
+  font-size: 10.5px; color: rgba(200,228,248,0.55); font-family: monospace;
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+}
+.msa-panel-foot a { color: #1affda; text-decoration: none; font-weight: 700; }
+
+/* ── Light content cards ── */
+.msa-card {
+  background: #fff; border: 1.5px solid #d1e0ee; border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(10,35,66,0.07);
+  margin-bottom: 20px; padding: 22px 22px 16px;
+}
+.msa-card h2 { color: #0a2342; font-size: 16px; font-weight: 800; margin: 0 0 12px; }
+.msa-card p  { color: #4a6478; font-size: 13.5px; line-height: 1.7; margin: 0 0 10px; }
+.msa-card a  { color: #1a9e82; font-weight: 600; text-decoration: none; }
+
+.msa-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 6px 0 8px; }
+.msa-step { background: #f4f9ff; border: 1.5px solid #d1e0ee; border-radius: 10px; padding: 12px 14px; }
+.msa-step-n { color: #1a9e82; font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 4px; }
+.msa-step-t { color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.msa-step-d { color: #4a6478; font-size: 12px; line-height: 1.6; }
+
+.msa-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+.msa-legend span {
+  background: #f4f9ff; border: 1.5px solid #d1e0ee; border-radius: 8px;
+  padding: 6px 10px; font-size: 12px; color: #2c3e50;
+}
+.msa-legend b { color: #154f7a; font-size: 14px; margin-right: 4px; }
+
+/* ── Boundary note ── */
+.msa-note {
+  background: #f0f4f8; border-left: 4px solid #1a9e82;
+  border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px;
+  font-size: 13px; color: #354a5e; line-height: 1.8;
+}
+.msa-note strong { color: #0a2342; }
+
+/* ── FAQ ── */
+.msa-faq-item { border-top: 1px solid #e8f0f8; padding: 14px 0; }
+.msa-faq-item:first-of-type { border-top: none; padding-top: 0; }
+.msa-faq-q { color: #0a2342; font-size: 13.5px; font-weight: 700; line-height: 1.5; margin: 0 0 7px; }
+.msa-faq-a { color: #4a6478; font-size: 13px; line-height: 1.7; margin: 0; }
+
+.msa-foot { color: #9fb5c2; font-size: 11px; line-height: 1.8; margin: 18px 4px 4px; text-align: center; }
+.msa-foot a { color: #1a9e82; text-decoration: none; font-weight: 600; }
+
+@media (max-width: 640px) {
+  .msa-hdr { padding: 22px 18px 18px; }
+  #msa-iframe { height: 720px; }
+  .msa-release-badge { margin-left: 0; }
+}
+</style>
+
+<div id="msa-wrap">
+
+  <!--══ Header ══-->
+  <div class="msa-hdr">
+    <div class="msa-hdr-tags">
+      <span class="msa-hdr-tag">Ship Systems</span>
+      <span class="msa-hdr-tag alt">Reference Atlas</span>
+      <span class="msa-hdr-tag alt">Free · No Sign-up</span>
+    </div>
+    <h1>Maritime Systems Atlas</h1>
+    <p>Explore how shipboard systems are organised across 21 ship families — from vessel type to system category, system and released reference components — with family applicability marked for every system.</p>
+    <div class="msa-author">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/member/Julius.jpeg" alt="Julius Shin" />
+      <div>
+        <div class="msa-author-name">Julius Shin</div>
+        <div class="msa-author-sub">Maritime Technical Consultant · Shipboard Cybersecurity &amp; Compliance</div>
+      </div>
+      <span class="msa-release-badge">PUB-MAR-ATLAS-2026-08-11-003 · v1.2.0</span>
+    </div>
+  </div>
+
+  <!--══ Stats ══-->
+  <div class="msa-stats">
+    <div class="msa-stat"><div class="msa-stat-val">80</div><div class="msa-stat-lbl">vessel types</div></div>
+    <div class="msa-stat"><div class="msa-stat-val">21</div><div class="msa-stat-lbl">ship families</div></div>
+    <div class="msa-stat"><div class="msa-stat-val">18</div><div class="msa-stat-lbl">system categories</div></div>
+    <div class="msa-stat"><div class="msa-stat-val">314</div><div class="msa-stat-lbl">shipboard systems</div></div>
+    <div class="msa-stat"><div class="msa-stat-val">1,036</div><div class="msa-stat-lbl">reference components</div></div>
+    <div class="msa-stat"><div class="msa-stat-val">4,023</div><div class="msa-stat-lbl">family → system applicability relations</div></div>
+  </div>
+
+  <!--══ Embedded Atlas ══-->
+  <div class="msa-panel">
+    <div class="msa-panel-hdr">
+      <span class="msa-panel-title">Maritime Systems Atlas · Interactive Explorer</span>
+      <div class="msa-panel-actions">
+        <a class="msa-ext-btn" href="https://juliusshin.org/atlas" rel="noopener noreferrer" target="_blank">↗ Open full screen</a>
+        <a class="msa-ext-btn" href="https://juliusshin.org/atlas?view=tree" rel="noopener noreferrer" target="_blank">↗ Tree view</a>
+      </div>
+    </div>
+    <iframe
+      id="msa-iframe"
+      src="https://juliusshin.org/atlas"
+      title="Maritime Systems Atlas — interactive ship family, system and component explorer"
+      loading="lazy"
+      allowfullscreen=""
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <div class="msa-panel-foot">
+      <span>Served from <a href="https://juliusshin.org/atlas" rel="noopener noreferrer" target="_blank">juliusshin.org/atlas</a></span>
+      <span>Source: Ship Classification &amp; Systems v2.4.1 / CBS E26</span>
+      <span>If the panel does not load, use “Open full screen”.</span>
+    </div>
+  </div>
+
+  <!--══ How to use ══-->
+  <div class="msa-card">
+    <h2>How to use the Atlas</h2>
+    <p>The Atlas starts from a <strong>ship family reference profile</strong>. Two sibling branches open from every family: its member vessel types, and its system categories leading to systems and released components. Every record has its own profile page and stable URL, so you can bookmark or share a single system or component.</p>
+    <div class="msa-steps">
+      <div class="msa-step"><div class="msa-step-n">Step 1</div><div class="msa-step-t">Pick a ship family</div><div class="msa-step-d">Oil tanker, LNG, container, RO-RO / PCTC, offshore, tug, yacht — 21 families in total.</div></div>
+      <div class="msa-step"><div class="msa-step-n">Step 2</div><div class="msa-step-t">Open a system category</div><div class="msa-step-d">18 categories, from cargo containment and propulsion &amp; steering to electrical power, integrated automation and navigation.</div></div>
+      <div class="msa-step"><div class="msa-step-n">Step 3</div><div class="msa-step-t">Read the applicability mark</div><div class="msa-step-d">Each system shows whether it is standard, common or a variant for that family.</div></div>
+      <div class="msa-step"><div class="msa-step-n">Step 4</div><div class="msa-step-t">Drill into components</div><div class="msa-step-d">Released reference components list type, typical configuration and parent system.</div></div>
+    </div>
+    <p style="margin-top:10px;"><strong>Applicability legend</strong> (family reference profile, not a vessel or project determination):</p>
+    <div class="msa-legend">
+      <span><b>●</b> Standard — normally fitted on a modern newbuilding of this family</span>
+      <span><b>○</b> Common — owner specification, trade or regulation-area dependent</span>
+      <span><b>△</b> Variant — follows a design decision, notation or vessel sub-type</span>
+    </div>
+    <p style="margin-top:8px;">Search works across all five record kinds — vessel types, families, categories, systems and components — and returns bounded pages of up to 18 records.</p>
+  </div>
+
+  <!--══ Boundary note ══-->
+  <div class="msa-note">
+    <strong>Knowledge aid, not a decision.</strong> The Atlas is a reconciled reference projection, not a classification, compliance, cybersecurity or engineering determination. Component coverage is deliberately partial: 222 systems carry released reference components and 92 do not yet, and a zero count means no records in this release rather than “no components exist”. Verify applicability against the vessel, contract, current class rules and supplier evidence before acting on it.
+  </div>
+
+  <!--══ Why it matters for cyber & compliance ══-->
+  <div class="msa-card">
+    <h2>Why a systems atlas belongs in a cyber compliance toolkit</h2>
+    <p>IACS UR E26 starts from an inventory of computer-based systems, and UR E27 asks which of those systems and components are in scope. Before either can be answered for a given vessel, the engineering vocabulary has to be shared: what the systems are, which family normally carries them, and how they decompose into components. The Atlas gives that shared vocabulary as a browsable, citable structure — a starting point for zone-and-conduit design, asset inventories and supplier scoping discussions, complementing the <a href="https://www.shippauljobs.com/p/maritime-class-approval-check.html" rel="noopener" target="_blank">Type Approval Check</a> and the <a href="https://www.shippauljobs.com/p/international-association-compliance.html" rel="noopener" target="_blank">Maritime Cybersecurity Docs</a> library.</p>
+  </div>
+
+  <!--══ FAQ ══-->
+  <div class="msa-card">
+    <h2>Frequently Asked Questions — Maritime Systems Atlas</h2>
+    <div class="msa-faq-item">
+      <p class="msa-faq-q">Is the Maritime Systems Atlas free?</p>
+      <p class="msa-faq-a">Yes. It is free to browse, needs no account or sign-up, and every family, system and component profile has a stable public URL you can link to.</p>
+    </div>
+    <div class="msa-faq-item">
+      <p class="msa-faq-q">Where does the data come from?</p>
+      <p class="msa-faq-a">From an owner-approved workbook, <em>Ship Classification and Systems v2.4.1 / CBS E26</em>, published through a deterministic, validated pipeline. Each release records its source hash, counts and the checks that passed. The current release is PUB-MAR-ATLAS-2026-08-11-003.</p>
+    </div>
+    <div class="msa-faq-item">
+      <p class="msa-faq-q">Can I download the whole dataset?</p>
+      <p class="msa-faq-a">No. The Atlas is published for bounded exploration — search returns at most 18 records per page and the tree opens one branch at a time. There is no bulk export. For project-specific systems maps, use the contact link inside the Atlas.</p>
+    </div>
+    <div class="msa-faq-item">
+      <p class="msa-faq-q">Why do some systems show no components?</p>
+      <p class="msa-faq-a">Component coverage is partial in this release: 222 of 314 systems have released reference components. An empty list is a release coverage condition, not a statement that the physical system has no parts.</p>
+    </div>
+    <div class="msa-faq-item">
+      <p class="msa-faq-q">Does a “standard” mark mean my vessel must have that system?</p>
+      <p class="msa-faq-a">No. Standard, common and variant describe the family reference profile — what a modern newbuilding of that family normally carries. They are not vessel, class, rule or compliance determinations.</p>
+    </div>
+  </div>
+
+  <div class="msa-foot">
+    Atlas application &amp; data: <a href="https://juliusshin.org/atlas" rel="noopener noreferrer" target="_blank">juliusshin.org/atlas</a> · Maintained by Julius Shin · Part of the <a href="https://www.shippauljobs.com/p/maritime-tools.html" rel="noopener" target="_blank">ShipPaulJobs Maritime Intelligence Tools</a>
+  </div>
+
+</div><!--/#msa-wrap-->
+
+<!-- WebPage + SoftwareApplication structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Maritime Systems Atlas — Ship Family, System & Component Explorer",
+  "url": "https://www.shippauljobs.com/p/maritime-systems-atlas.html",
+  "description": "Free interactive atlas of 21 ship families, 314 shipboard systems and 1,036 reference components with family applicability. No sign-up.",
+  "inLanguage": "en",
+  "dateModified": "2026-09-10",
+  "publisher": { "@type": "Organization", "name": "ShipPaulJobs", "url": "https://www.shippauljobs.com" },
+  "author": { "@type": "Person", "name": "Julius Shin", "url": "https://juliusshin.org" },
+  "mainEntity": {
+    "@type": "SoftwareApplication",
+    "name": "Maritime Systems Atlas",
+    "url": "https://juliusshin.org/atlas",
+    "applicationCategory": "ReferenceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Julius Shin" },
+    "softwareVersion": "1.2.0"
+  }
+}
+</script>
+
+<!-- FAQPage structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Is the Maritime Systems Atlas free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is free to browse, needs no account or sign-up, and every family, system and component profile has a stable public URL." } },
+    { "@type": "Question", "name": "Where does the data come from?", "acceptedAnswer": { "@type": "Answer", "text": "From an owner-approved workbook, Ship Classification and Systems v2.4.1 / CBS E26, published through a deterministic, validated pipeline. The current release is PUB-MAR-ATLAS-2026-08-11-003." } },
+    { "@type": "Question", "name": "Can I download the whole dataset?", "acceptedAnswer": { "@type": "Answer", "text": "No. The Atlas is published for bounded exploration: search returns at most 18 records per page and the tree opens one branch at a time. There is no bulk export." } },
+    { "@type": "Question", "name": "Why do some systems show no components?", "acceptedAnswer": { "@type": "Answer", "text": "Component coverage is partial in this release: 222 of 314 systems have released reference components. An empty list is a release coverage condition, not a statement that the system has no parts." } },
+    { "@type": "Question", "name": "Does a standard mark mean my vessel must have that system?", "acceptedAnswer": { "@type": "Answer", "text": "No. Standard, common and variant describe the family reference profile, not vessel, class, rule or compliance determinations." } }
+  ]
+}
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    ["comments", "comment-holder"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+    document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) {
+      el.style.display = "none";
+    });
+  });
+</script>
