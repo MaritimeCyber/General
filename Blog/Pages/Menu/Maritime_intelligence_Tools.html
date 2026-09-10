@@ -570,13 +570,18 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    ["comments", "comment-holder"].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) el.style.display = "none";
-    });
-    document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) {
-      el.style.display = "none";
-    });
-  });
+  (function () {
+    function hideComments() {
+      ["comments", "comment-holder"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = "none";
+      });
+      document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) {
+        el.style.display = "none";
+      });
+    }
+    /* Works both when pasted inline and when injected from GitHub after DOMContentLoaded */
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", hideComments);
+    else hideComments();
+  })();
 </script>

@@ -14,6 +14,10 @@
               atlas-public-projection/1.2.0 — 80 vessel types, 21 families,
               18 system categories, 314 systems, 1,036 reference components,
               4,023 Family→System applicability relations.
+     Hosting: This file is served from GitHub raw and injected into the
+              Blogger Page by Blog/Backend/InjectionCode_MaritimeSystemsAtlas.html.
+              Edit HERE and push — the live page updates within ~5 minutes
+              (raw.githubusercontent.com cache). Nothing to re-paste in Blogger.
      NOTE   : Blogger HTML fragment — NO <head>, inline CSS only.
               Reader comments: set to "Don't allow" in Page options.
 
@@ -338,13 +342,18 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    ["comments", "comment-holder"].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) el.style.display = "none";
-    });
-    document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) {
-      el.style.display = "none";
-    });
-  });
+  (function () {
+    function hideComments() {
+      ["comments", "comment-holder"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = "none";
+      });
+      document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) {
+        el.style.display = "none";
+      });
+    }
+    /* Works both when pasted inline and when injected from GitHub after DOMContentLoaded */
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", hideComments);
+    else hideComments();
+  })();
 </script>
