@@ -1,0 +1,46 @@
+<!-- ════════════════════════════════════════════════════════════
+     Maritime Systems Atlas 페이지 인젝션 — www.shippauljobs.com
+     기능: Blog/Backend/MaritimeSystemsAtlas.html
+     사용: Blogger → 페이지 → 새 페이지(제목: Maritime Systems Atlas) → HTML 보기에 붙여넣기
+     원리: GitHub raw HTML을 fetch 해서 아래 div에 주입. 이후 수정은
+           GitHub 파일만 push 하면 됨 (Blogger 재붙여넣기 불필요, 캐시 ~5분).
+════════════════════════════════════════════════════════════ -->
+<div id="MaritimeSystemsAtlas-widget"></div>
+
+<script>
+  (function () {
+    var GITHUB_RAW_URL =
+      "https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/MaritimeSystemsAtlas.html";
+
+    var target = document.getElementById("MaritimeSystemsAtlas-widget");
+    if (!target) return;
+
+    fetch(GITHUB_RAW_URL, { cache: "no-cache" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.text();
+      })
+      .then(function (html) {
+        target.innerHTML = html;
+
+        // innerHTML로 삽입된 <script>는 브라우저가 자동 실행하지 않으므로
+        // 새 <script> 엘리먼트로 교체하여 강제 실행
+        var scripts = target.querySelectorAll("script");
+        scripts.forEach(function (oldScript) {
+          var newScript = document.createElement("script");
+          Array.prototype.forEach.call(oldScript.attributes, function (attr) {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+          newScript.textContent = oldScript.textContent;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      })
+      .catch(function (err) {
+        console.warn("[gh-inject] Failed to load MaritimeSystemsAtlas-widget:", err);
+        target.innerHTML =
+          '<p style="font-family:Arial,sans-serif;font-size:13px;color:#4a6478;">' +
+          'Content is temporarily unavailable. ' +
+          '<a href="https://juliusshin.org/atlas" rel="noopener" target="_blank">Open the Maritime Systems Atlas directly →</a></p>';
+      })
+  })();
+</script>

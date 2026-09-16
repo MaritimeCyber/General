@@ -47,6 +47,10 @@ General/
 │   │   ├── MaritimeCyberNews.html                      # [Live Feed] Maritime cyber threat intel
 │   │   ├── InjectionCode_MaritimeCyberIntelligence.html# Blogger gadget: injects MaritimeCyberNews
 │   │   └── MaritimeJobsFeed.html                       # [Live Feed] Maritime AI/Data/Cyber jobs feed
+│   │   ├── MaritimeSystemsAtlas.html                   # [Tool #10] Maritime Systems Atlas page body (iframe → juliusshin.org/atlas)
+│   │   ├── InjectionCode_MaritimeSystemsAtlas.html     # Blogger page: injects MaritimeSystemsAtlas
+│   │   ├── InjectionCode_MaritimeIntelligenceTools.html# Blogger page: injects Pages/Menu/Maritime_intelligence_Tools
+│   │   └── InjectionCode_FreeMaritimeToolsSuite.html   # Blogger gadget: injects Layout/SideBar/Free_Maritime_Tools_Suite
 │   ├── Main/               # Blog theme & layout widgets
 │   │   ├── Main.html                                   # Full Blogger theme XML backup (live theme)
 │   │   ├── theme-8002758868633250458.xml               # Theme backup file

@@ -1,0 +1,42 @@
+<!-- ════════════════════════════════════════════════════════════
+     Free Maritime Tools 사이드바 위젯 인젝션 — www.shippauljobs.com
+     기능: Blog/Layout/SideBar/Free_Maritime_Tools_Suite.html
+     사용: Blogger → 레이아웃 → 기존 Free Maritime Tools HTML/자바스크립트 가젯 내용을 이 코드로 교체
+     원리: GitHub raw HTML을 fetch 해서 아래 div에 주입. 이후 수정은
+           GitHub 파일만 push 하면 됨 (Blogger 재붙여넣기 불필요, 캐시 ~5분).
+════════════════════════════════════════════════════════════ -->
+<div id="FreeMaritimeToolsSuite-widget"></div>
+
+<script>
+  (function () {
+    var GITHUB_RAW_URL =
+      "https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Layout/SideBar/Free_Maritime_Tools_Suite.html";
+
+    var target = document.getElementById("FreeMaritimeToolsSuite-widget");
+    if (!target) return;
+
+    fetch(GITHUB_RAW_URL, { cache: "no-cache" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.text();
+      })
+      .then(function (html) {
+        target.innerHTML = html;
+
+        // innerHTML로 삽입된 <script>는 브라우저가 자동 실행하지 않으므로
+        // 새 <script> 엘리먼트로 교체하여 강제 실행
+        var scripts = target.querySelectorAll("script");
+        scripts.forEach(function (oldScript) {
+          var newScript = document.createElement("script");
+          Array.prototype.forEach.call(oldScript.attributes, function (attr) {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+          newScript.textContent = oldScript.textContent;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      })
+      .catch(function (err) {
+        console.warn("[gh-inject] Failed to load FreeMaritimeToolsSuite-widget:", err);
+      })
+  })();
+</script>
