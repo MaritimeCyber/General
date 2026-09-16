@@ -831,15 +831,23 @@
         '</div>';
       grid.appendChild(card);
 
-      /* 3rd fallback: fetch first <img> from latest post body (작성자 사진) */
-      if(!resolvedImg && a.latestUrl){
+      /* 3rd fallback: post header author photo → 4th fallback: default needtoupload.png */
+      var DEFAULT_AUTHOR_PHOTO = 'https://raw.githubusercontent.com/MaritimeCyber/General/5f9ee4b19681dea998ec271475a277de53264aa8/Asset/img/member/needtoupload.png';
+      if(!resolvedImg){
         (function(cardEl, authorName, postUrl){
           var avWrap = cardEl.querySelector('.spj-ap-av-wrap');
-          fetchPostFirstImage(postUrl).then(function(src){
-            if(src && avWrap && avWrap.parentNode){
-              avWrap.innerHTML = '<img class="spj-ap-avatar" src="'+esc(src)+'" alt="'+esc(authorName)+'" loading="lazy">';
+          if(postUrl){
+            fetchPostFirstImage(postUrl).then(function(src){
+              var finalSrc = src || DEFAULT_AUTHOR_PHOTO;
+              if(avWrap && avWrap.parentNode){
+                avWrap.innerHTML = '<img class="spj-ap-avatar" src="'+esc(finalSrc)+'" alt="'+esc(authorName)+'" loading="lazy">';
+              }
+            });
+          } else {
+            if(avWrap && avWrap.parentNode){
+              avWrap.innerHTML = '<img class="spj-ap-avatar" src="'+esc(DEFAULT_AUTHOR_PHOTO)+'" alt="'+esc(authorName)+'" loading="lazy">';
             }
-          });
+          }
         })(card, a.name, a.latestUrl);
       }
     });

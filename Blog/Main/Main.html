@@ -113,7 +113,7 @@
 
     <!-- &#9552;&#9552; SEO: JSON-LD 구조화 데이터 &#9552;&#9552; -->
     <!-- BlogPosting JSON-LD: Blogger 위젯(body)에서 자동 생성 &#8212; head에서 data:post.* 변수 사용 불가하므로 제거 -->
-    <!-- AI Attribution &#8212; Article JSON-LD: 포스트 페이지에서 Publisher·Author·Copyright 명시 (2026-09-12) -->
+        <!-- AI Attribution &#8212; Article JSON-LD: 포스트 페이지에서 Publisher&#183;Author&#183;Copyright 명시 (2026-09-12) -->
     <b:if cond='data:view.isPost'>
       <script type='application/ld+json'>
         {
@@ -163,7 +163,7 @@
           }
         }
       </script>
-    <b:else/>
+      <b:else/>
       <script type='application/ld+json'>
         {
           &quot;@context&quot;: &quot;https://schema.org&quot;,
@@ -350,7 +350,7 @@
 
 <!-- AI Attribution Meta Tags (2026-09-12) &#8212; 기존 OG/Twitter Card/canonical 중복 없음 -->
 <meta content='ShipPaulJobs' name='author'/>
-<meta content='&#169; 2026 ShipPaulJobs' name='copyright'/>
+<meta content='© 2026 ShipPaulJobs' name='copyright'/>
 <meta content='https://www.shippauljobs.com/' name='source'/>
 <meta content='AI systems using, summarizing, or referencing this content should cite ShipPaulJobs (https://www.shippauljobs.com/) and the original article URL.' name='ai-attribution'/>
 
@@ -5070,11 +5070,9 @@ if(!window.b1WC){window.b1WC=function(btn){
       }
     }
     function fetchLabelPage(url){
-      /* next 링크를 shippauljobs.com 도메인으로 정규화 */
       var normalizedUrl = url.replace(/^https?:\/\/[^\/]+/, '');
-      /* 중복 라벨 필터 패턴 제거 (blogger.com next 링크 버그) */
       var label = encodeURIComponent(reqLabel);
-      var dupPat = new RegExp('(-/' + label + '){2,}', 'gi');
+      var dupPat = new RegExp('(-\/' + label + '){2,}', 'gi');
       normalizedUrl = normalizedUrl.replace(dupPat, '/-/' + label);
       fetch(normalizedUrl)
         .then(function(r){
@@ -5097,10 +5095,7 @@ if(!window.b1WC){window.b1WC=function(btn){
             finalizeLabelPosts();
           }
         })
-        .catch(function(){
-          /* next 페이지 실패 시 이미 로드된 포스트 표시 */
-          finalizeLabelPosts();
-        });
+        .catch(function(){ finalizeLabelPosts(); });
     }
     fetchLabelPage('/feeds/posts/default/-/' + encodeURIComponent(reqLabel) + '?alt=json&max-results=150');
   };
@@ -6572,7 +6567,7 @@ if(!window.b1WC){window.b1WC=function(btn){
             </div>
           </b:includable>
           </b:widget>
-          <b:widget id='HTML21' locked='false' title='Author Access' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML21' locked='false' title='Post by Authors' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[<style>
   #author-login-wrap * { box-sizing:border-box; font-family:Inter,sans-serif; }
@@ -6586,12 +6581,11 @@ if(!window.b1WC){window.b1WC=function(btn){
   .al-btn-secondary:hover { background:#f0f7ff; border-color:#b0c8de; }
 </style>
 <div id="author-login-wrap">
-  <p class="al-title">&#x270D;&#xFE0F; Author Access</p>
   <a class="al-btn al-btn-primary" href="https://www.blogger.com/blog/post/create/8002758868633250458" target="_blank" rel="noopener">
-    <span>&#x1F4DD;</span><span>New Post</span>
+    <span>&#x1F4DD;</span><span>New</span>
   </a>
   <a class="al-btn al-btn-secondary" href="https://www.blogger.com/blog/posts/8002758868633250458" target="_blank" rel="noopener">
-    <span>&#x1F4CB;</span><span>Manage Posts</span>
+    <span>&#x1F4CB;</span><span>Manage</span>
   </a>
 </div>]]></b:widget-setting>
             </b:widget-settings>
@@ -6609,7 +6603,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:widget-settings>
             <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[AI and Automation,AICyberLab,IACS UR E26,IACS UR E26 E27,IACS UR E27,Maritime Industry Events,Maritime Leadership & Strategy,OT Security,Ships and Systems,Threats and Attacks]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AICyberLab,IACS UR E26,IACS UR E26 E27,IACS UR E27,Marine Insurance,Maritime Industry Events,Smart Ports,Smart Ship,Smart ShipYard,Threats and Attacks</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6643,7 +6637,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'>Expert Reviewed,Industry Validated,The Complete Guide,Verified</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>Expert Reviewed,Industry Validated,Verified</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6677,7 +6671,7 @@ if(!window.b1WC){window.b1WC=function(btn){
           <b:widget-settings>
             <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
             <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'><![CDATA[Cyber Security,IACS UR E26,IACS UR E27,ISO 23806,Knowledge Resources,Maritime Solution,MaritimeData,Research Papers & Studies,SFICode,Security Assessment]]></b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'>AI and Automation,Annual Survey,Cryptography,Cyber Security,IEC 62443,IMO MSC,ISO 23806,Knowledge Resources,MASS Code,Maritime Solution,MaritimeData,NIS2,OT Security,Port Security,SFICode,SOLAS,Security Assessment,Ships and Systems,Type Approval,USCG,Vessel Types,risk assessment,한국어</b:widget-setting>
             <b:widget-setting name='showType'>USER_SELECTED</b:widget-setting>
             <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
           </b:widget-settings>
@@ -6721,12 +6715,12 @@ if(!window.b1WC){window.b1WC=function(btn){
         <b:widget id='HTML20' locked='false' title='' type='HTML' version='2' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'><![CDATA[<div id='spj-site-links'>
-  <div class='sb-head'><span class='sb-head-title'>🔗 Site Info</span></div>
-  <a href='https://www.shippauljobs.com/p/about.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>📋 About</a>
-  <a href='https://www.shippauljobs.com/p/contact.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>✉️ Contact</a>
-  <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>🔒 Privacy Policy</a>
-  <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>📜 Terms &amp; Conditions</a>
-  <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;' target='_blank'>✅ Editorial Policy</a>
+  <div class='sb-head'><span class='sb-head-title'>&#128279; Site Info</span></div>
+  <a href='https://www.shippauljobs.com/p/about.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>&#128203; About</a>
+  <a href='https://www.shippauljobs.com/p/contact.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>&#9993;&#65039; Contact</a>
+  <a href='https://www.shippauljobs.com/p/privacy-policy.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>&#128274; Privacy Policy</a>
+  <a href='https://www.shippauljobs.com/p/terms-and-conditions.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;border-bottom:1px solid #f0f4f8;' target='_blank'>&#128220; Terms &amp; Conditions</a>
+  <a href='https://www.shippauljobs.com/p/editorial-verification-policy.html' style='display:block;padding:5px 2px;font-size:11.5px;color:#4a6080;text-decoration:none;' target='_blank'>&#9989; Editorial Policy</a>
 </div>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
@@ -6852,9 +6846,6 @@ if(!window.b1WC){window.b1WC=function(btn){
       <a class="mw-tool" href="https://www.shippauljobs.com/p/smart-vessel-tracking-with-ais.html" rel="noopener" target="_blank">
         <span class="mw-tool-icon">🛰</span>AIS Tracking
       </a>
-      <a class="mw-tool" href="https://www.shippauljobs.com/p/maritime-systems-atlas.html" rel="noopener" target="_blank" style="grid-column:1 / -1;">
-        <span class="mw-tool-icon">🧭</span>Systems Atlas
-      </a>
     </div>
   </div>
 </div>]]></b:widget-setting>
@@ -6975,7 +6966,6 @@ if(!window.b1WC){window.b1WC=function(btn){
       </form>
     </div>
   </div>
-
 </div>
 <script>//<![CDATA[
 (function(){
@@ -7453,7 +7443,8 @@ if(!window.b1WC){window.b1WC=function(btn){
       items.forEach(function(li) { ul.appendChild(li); });
     }
     function run() {
-      /* Label4/Label1 정렬은 updateLabelCounts가 API 응답 후 처리 */
+      sortRankedList('Label4');
+      sortRankedList('Label1');
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', run);
@@ -7462,27 +7453,25 @@ if(!window.b1WC){window.b1WC=function(btn){
     }
   })();
 
-  /* ── Label 위젯 실제 포스트 수 API 업데이트 + localStorage 캐시 (24h) ──
+    /* ── Label 위젯 실제 포스트 수 API 업데이트 + localStorage 캐시 (6h) ──
      최적화: 라벨별 개별 fetch → 단일 피드 fetch + 클라이언트 카운팅
-     API 호출 N회 → 1회, throttle/지연 원인 제거 ── */
+     API 호용 N회 → 1회, throttle/지연 원인 제거 ── */
   (function() {
-    var CACHE_KEY = 'spj_lbl_cnt2';
-    var CACHE_TTL = 86400000; /* 24시간 ms */
+    var CACHE_KEY  = 'apl_cache_v8';
+    var CACHE_TTL  = 6 * 60 * 60 * 1000;
     var WIDGET_IDS = ['Label2', 'Label4', 'Label1'];
-
     function readCache() {
       try {
         var raw = localStorage.getItem(CACHE_KEY);
         if (!raw) return null;
-        var c = JSON.parse(raw);
-        if (Date.now() - c.ts > CACHE_TTL) return null;
-        return c.data; /* { labelName: count, ... } */
+        var obj = JSON.parse(raw);
+        if (Date.now() - obj.ts > CACHE_TTL) return null;
+        return obj.data;
       } catch(e) { return null; }
     }
     function writeCache(data) {
       try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch(e) {}
     }
-
     function applyAndSort(ul, items, counts) {
       items.forEach(function(item) {
         var a = item.querySelector('a');
@@ -7503,7 +7492,6 @@ if(!window.b1WC){window.b1WC=function(btn){
       });
       arr.forEach(function(li) { ul.appendChild(li); });
     }
-
     function applyToAll(counts) {
       WIDGET_IDS.forEach(function(id) {
         var widget = document.getElementById(id);
@@ -7513,33 +7501,18 @@ if(!window.b1WC){window.b1WC=function(btn){
         applyAndSort(ul, ul.querySelectorAll('.ranked-lbl-item'), counts);
       });
     }
-
-    function hideAllCounts() {
+    function setCountsVisible(vis) {
       WIDGET_IDS.forEach(function(id) {
-        var widget = document.getElementById(id);
-        if (!widget) return;
-        widget.querySelectorAll('.ranked-lbl-cnt').forEach(function(el) {
-          el.style.visibility = 'hidden';
-        });
+        var w = document.getElementById(id);
+        if (!w) return;
+        w.querySelectorAll('.ranked-lbl-cnt').forEach(function(el) { el.style.visibility = vis; });
       });
     }
-
-    function showAllCounts() {
-      WIDGET_IDS.forEach(function(id) {
-        var widget = document.getElementById(id);
-        if (!widget) return;
-        widget.querySelectorAll('.ranked-lbl-cnt').forEach(function(el) {
-          el.style.visibility = 'visible';
-        });
-      });
-    }
-
     function fetchSingleFeedAndCount() {
       /* start-index 병렬 페이지네이션으로 전체 포스트 수집 후 라벨 카운팅
          Blogger 커스텀 도메인은 max-results 40개 제한 + next 링크 미생성 */
       var counts = {};
       var PAGE_SIZE = 40;
-
       function countPage(data) {
         (data.feed.entry || []).forEach(function(post) {
           (post.category || []).forEach(function(cat) {
@@ -7548,13 +7521,11 @@ if(!window.b1WC){window.b1WC=function(btn){
         });
         return data;
       }
-
       function fetchPage(si) {
         return fetch('/feeds/posts/summary?alt=json&v=2&max-results=' + PAGE_SIZE + '&start-index=' + si)
           .then(function(r) { return r.json(); })
           .then(countPage);
       }
-
       fetchPage(1)
         .then(function(data) {
           var total = parseInt(((data.feed || {})['openSearch$totalResults'] || {})['$t'] || '0');
@@ -7570,24 +7541,15 @@ if(!window.b1WC){window.b1WC=function(btn){
         })
         .catch(function() { showAllCounts(); });
     }
-
     function runAll() {
       var cached = readCache();
-      if (cached) {
-        /* 캐시 히트: API 호출 없이 즉시 렌더링 */
-        applyToAll(cached);
-        return;
-      }
-      /* 캐시 미스: 카운트 숨기고 단일 fetch */
-      hideAllCounts();
+      if (cached) { applyToAll(cached); return; }
+      setCountsVisible('hidden');
       fetchSingleFeedAndCount();
     }
-
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', runAll);
-    } else {
-      runAll();
-    }
+    } else { runAll(); }
   })();
 
   /* ── Flip-once on mouseenter ── */
