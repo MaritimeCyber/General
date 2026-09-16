@@ -1,0 +1,359 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 1 — Cybersecurity Fundamentals
+     Lesson : 4 of 5 — Kali Linux and Security Testing
+     Topics : Kali Linux · Security Assessment · Penetration Testing ·
+              Testing Methodology · Legal & Ethical Framework ·
+              Maritime OT Assessment · Passive-First Approach
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:'Segoe UI','Apple SD Gothic Neo',Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:#f0f7ff;border:1px solid #c8dff7;border-radius:10px;font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:#0a2342;border-radius:4px;color:#fff;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 1</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 4 of 5</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 1 · Lesson 4</span>
+    <span style="background:rgba(26,158,130,0.4);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Fundamentals</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Security Testing</span>
+  </div>
+  <h1 style="color:#fff;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Kali Linux and Security Testing</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">What Kali Linux is and why it exists · Vulnerability assessment vs penetration test · The five-phase pentest methodology · Maritime OT assessment constraints · The passive-first approach for shipboard systems · Legal and ethical framework — everything a maritime cyber professional needs to understand before conducting or commissioning any security testing activity.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:1.5px solid rgba(255,255,255,0.4);border-radius:50%;flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:#fff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ EDITORIAL NOTE ══-->
+<div style="background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 10px 10px 0;margin-bottom:28px;padding:16px 20px;">
+  <div style="color:#92400e;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">📌 Editorial Note</div>
+  <p style="color:#92400e;font-size:13.5px;line-height:1.8;margin:0;">This lesson explains security testing concepts for educational and defensive purposes. It describes methodology phases at a conceptual level — how assessors think and what they look for — to help defenders understand what testing reveals and how to interpret findings. This lesson does not provide step-by-step exploitation instructions. Offensive security testing requires written authorisation from the system owner; conducting it without authorisation is illegal in virtually all jurisdictions.</p>
+</div>
+
+
+  <div class="separator" style="clear: both">
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeUUjisxU8tYHTUquM30qqoCeCzraxKWUTtma22fssi-h99tsjhdKCJkU5Q4l_LSP9LtXtWwirgoLgUv7erG4lhHRGSOsblcHH3Ch26qEQZ5mtxK5Ur8eRhpNcMo4Y2fWfbpn3xm9TV6pcTDVTpPvA3-OpuLLT0TmVvaBUl9z1TirRQl49dYIHA69qy0U/Maritime%20Cyber%20Book.png" style="display: block; padding: 1em 0px; text-align: center"><img alt="Maritime Cybersecurity Learning Roadmap" border="0" height="360" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeUUjisxU8tYHTUquM30qqoCeCzraxKWUTtma22fssi-h99tsjhdKCJkU5Q4l_LSP9LtXtWwirgoLgUv7erG4lhHRGSOsblcHH3Ch26qEQZ5mtxK5Ur8eRhpNcMo4Y2fWfbpn3xm9TV6pcTDVTpPvA3-OpuLLT0TmVvaBUl9z1TirRQl49dYIHA69qy0U/w640-h360/Maritime%20Cyber%20Book.png" width="640" /></a>
+  </div>
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a7055;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain what Kali Linux is and why it is the standard security testing platform, distinguish a vulnerability assessment from a penetration test and know when each is appropriate, describe the five phases of a standard penetration test methodology, explain why maritime OT environments require a fundamentally different assessment approach than standard IT systems, articulate the passive-first methodology and why it exists, and understand the full legal and ethical framework that governs all security testing activity.</p>
+</div>
+
+<!--══ INTRO NARRATIVE ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">In the previous three lessons of this Part 1 series, you built the conceptual and technical foundation for cybersecurity: what you are protecting and why (Lesson 1), how systems communicate and where networks fail (Lesson 2), and how operating systems manage the processes, users, and services that attackers target (Lesson 3). This lesson applies that knowledge to a different perspective: what it looks like when a professional security assessor actively tests those defences.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Understanding how security testing works is valuable whether you intend to conduct assessments yourself or whether you are on the receiving end as a ship operator, fleet manager, or security officer commissioning a maritime cyber assessment for IACS UR E26 compliance. In either case, you need to know: what does a competent assessor actually do? What should they be allowed to do? What should they absolutely not do on a live vessel? And what does the report they deliver actually mean?</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">The platform that most security professionals use for this work is Kali Linux. This lesson explains what it is, how professional security testing is structured, and why the maritime OT context demands a fundamentally different approach than standard corporate IT penetration testing.</p>
+</div>
+
+<!--══ SECTION 1: WHAT IS KALI LINUX ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. What Is Kali Linux?</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>Kali Linux</strong> is a Debian-based Linux distribution developed and maintained by Offensive Security, designed specifically for security professionals performing penetration testing, digital forensics, and security research. It comes pre-installed with over 600 security tools organised by category: information gathering, vulnerability analysis, web application testing, exploitation frameworks, post-exploitation, wireless analysis, password attacks, digital forensics, reverse engineering, and more.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Kali is not an "attack operating system" designed to break into systems without permission. It is a professional assessment platform — the same tools that security professionals use are also available to malicious actors, but the difference is authorisation, scope, and intent. A surgeon's scalpel is not an assassination weapon because of who holds it and under what circumstances.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">Because it is built on Debian Linux, everything from Lesson 3 applies: the same process model, the same user/group/permission system, the same file system structure, the same service management via systemd. Kali is simply Debian with a curated collection of security tools pre-installed and optimised. Learning Kali is therefore learning Linux with a security focus.</p>
+  <div style="background:#fff;border:1px solid #d1e0ee;border-radius:10px;margin-bottom:14px;overflow:hidden;">
+    <div style="background:#154f7a;color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 16px;text-transform:uppercase;">Kali Linux Tool Categories — Selected Examples</div>
+    <div style="display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+      <div style="border-right:1px solid #e8f0f7;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:12px;font-weight:800;margin-bottom:6px;">Information Gathering</div>
+        <ul style="color:#4a6278;font-size:12.5px;line-height:1.85;margin:0;padding-left:14px;">
+          <li>nmap — port and service scanning</li>
+          <li>theHarvester — OSINT aggregation</li>
+          <li>Recon-ng — web intelligence framework</li>
+          <li>Maltego — relationship/entity mapping</li>
+          <li>Shodan integration — exposed devices</li>
+        </ul>
+      </div>
+      <div style="border-right:1px solid #e8f0f7;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:12px;font-weight:800;margin-bottom:6px;">Vulnerability Analysis</div>
+        <ul style="color:#4a6278;font-size:12.5px;line-height:1.85;margin:0;padding-left:14px;">
+          <li>OpenVAS — vulnerability scanner</li>
+          <li>Nikto — web server scanning</li>
+          <li>Lynis — Linux hardening audit</li>
+          <li>enum4linux — SMB enumeration</li>
+          <li>sqlmap — SQL injection detection</li>
+        </ul>
+      </div>
+      <div style="padding:12px 16px;">
+        <div style="color:#0a2342;font-size:12px;font-weight:800;margin-bottom:6px;">Exploitation / Forensics</div>
+        <ul style="color:#4a6278;font-size:12.5px;line-height:1.85;margin:0;padding-left:14px;">
+          <li>Metasploit Framework — exploitation</li>
+          <li>Wireshark — traffic analysis (passive)</li>
+          <li>Volatility — memory forensics</li>
+          <li>Autopsy — disk forensics</li>
+          <li>John the Ripper — password analysis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p style="color:#4a6278;font-size:13px;line-height:1.8;margin:0 0 14px;">Kali can be deployed as a full installation on dedicated hardware, as a bootable live USB (no persistent changes to the host system), as a virtual machine (VMware, VirtualBox, Hyper-V), as a Docker container, or as a Windows Subsystem for Linux (WSL) instance. For maritime assessments, the live USB or read-only deployment model is often preferred: no data persists on the assessment device after the engagement ends, protecting both the assessor and the ship operator.</p>
+  <p style="color:#4a6278;font-size:13px;line-height:1.8;margin:0;">Kali is the industry-standard environment for certifications including OSCP (Offensive Security Certified Professional — considered the gold standard of hands-on penetration testing certification), GPEN (GIAC Penetration Tester), and PNPT (Practical Network Penetration Tester). It is also the environment most maritime cybersecurity assessors carry when conducting CRSI (Cyber Resilience Services Implementation) or IACS UR E26 compliance assessments.</p>
+</div>
+
+<!--══ SECTION 2: VA vs PENTEST ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Vulnerability Assessment vs Penetration Test</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The two most common forms of security testing are frequently confused — even by people who commission them. They have different scopes, methods, resource requirements, and outputs. Choosing the wrong one for the situation provides false confidence or wastes budget.</p>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:16px;">
+    <div style="background:#fff;border:1.5px solid #c8dff7;border-radius:10px;overflow:hidden;">
+      <div style="background:#0a2342;padding:12px 16px;"><div style="color:#7ec8f4;font-size:13px;font-weight:800;">Vulnerability Assessment (VA)</div></div>
+      <div style="padding:14px 16px;">
+        <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+          <li>Identifies and catalogues weaknesses — does <strong>not</strong> attempt exploitation</li>
+          <li>Primarily automated scanning (Nessus, OpenVAS, Qualys)</li>
+          <li>Wide coverage of the target environment</li>
+          <li>Output: vulnerability list with CVSS severity ratings</li>
+          <li>Suitable for periodic compliance checks and broad baseline</li>
+          <li>Lower cost per engagement; suitable for quarterly cadence</li>
+          <li>Risk: scanner findings include false positives — manual verification recommended</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:#fff;border:1.5px solid #b2ddd4;border-radius:10px;overflow:hidden;">
+      <div style="background:#154f7a;padding:12px 16px;"><div style="color:#7effd8;font-size:13px;font-weight:800;">Penetration Test</div></div>
+      <div style="padding:14px 16px;">
+        <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+          <li>Simulates a real attacker — actively attempts exploitation</li>
+          <li>Combination of automated tools and experienced manual testing</li>
+          <li>Proves whether vulnerabilities are exploitable in practice</li>
+          <li>Narrower scope, much higher depth</li>
+          <li>Output: exploited vulnerabilities with demonstrated real-world impact</li>
+          <li>Required for high-assurance validation and regulatory compliance</li>
+          <li>Higher cost; typically annual or post-major-change</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p style="color:#4a6278;font-size:13px;line-height:1.8;margin:0 0 12px;">The critical distinction: a vulnerability assessment tells you <em>what might be exploitable</em>. A penetration test tells you <em>what actually is exploitable and what an attacker could do with it</em>. A high-severity CVSS 9.8 vulnerability that requires local authenticated access on a system with no local users may be lower priority than a CVSS 5.3 vulnerability that is trivially exploitable from the internet and grants access to a navigation network.</p>
+  <p style="color:#4a6278;font-size:13px;line-height:1.8;margin:0;">A third type — the <strong>Red Team Exercise</strong> — goes further still: it simulates a full adversary campaign, including social engineering, physical access attempts, and multi-stage attack chains against a defined objective (e.g., "demonstrate ability to disrupt cargo operations from the public internet"), often without the defensive team knowing the timing. Red teaming is covered in Part 3 of this series.</p>
+</div>
+
+<!--══ SECTION 3: PENTEST PHASES ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. The Standard Penetration Test Methodology — Five Phases</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">Security testing follows a structured process. The most widely referenced methodologies — PTES (Penetration Testing Execution Standard) and the OWASP Testing Guide — converge on five distinct phases. Understanding these phases helps defenders identify exactly which controls must be strongest, and at what point in an attacker's kill chain they can best interrupt progress.</p>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+    <div style="background:#fff;border:1px solid #d1e0ee;border-left:4px solid #0a2342;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="align-items:center;display:flex;gap:10px;margin-bottom:8px;">
+        <div style="background:#0a2342;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">1</div>
+        <div style="color:#0a2342;font-size:14px;font-weight:800;">Reconnaissance (Information Gathering)</div>
+      </div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;"><strong>Passive:</strong> OSINT with no direct interaction with the target — public DNS records, WHOIS, certificate transparency logs (crt.sh), Shodan results, LinkedIn/job postings (revealing internal tool names and technology stack), GitHub repositories (credentials accidentally committed), and Google dorking (finding exposed login pages, configuration files, backup files via Google search operators).</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;"><strong>Active:</strong> Direct interaction begins — port scanning with nmap, service fingerprinting, banner grabbing, web crawling. Goal: build a complete map of the attack surface before any exploitation is attempted. A professional assessor spends significant time here — attacking the wrong target or the wrong port wastes time and increases noise.</p>
+      <div style="background:#f0f7ff;border-radius:6px;padding:8px 12px;"><span style="color:#154f7a;font-size:12px;font-weight:800;">Defender action: </span><span style="color:#4a6278;font-size:12px;">Regularly audit your external footprint via OSINT on your own organisation. Scrub sensitive data from job postings. Monitor certificate transparency logs for unauthorised certificates issued on your domains. Ensure Shodan doesn't surface internal systems.</span></div>
+    </div>
+    <div style="background:#fff;border:1px solid #d1e0ee;border-left:4px solid #154f7a;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="align-items:center;display:flex;gap:10px;margin-bottom:8px;">
+        <div style="background:#154f7a;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">2</div>
+        <div style="color:#0a2342;font-size:14px;font-weight:800;">Scanning and Enumeration</div>
+      </div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">Active, directed probing of in-scope systems: identify open ports, running services, software versions, and known CVEs. Vulnerability scanners (Nessus, OpenVAS) cross-reference discovered software versions against vulnerability databases and generate a prioritised finding list. Enumeration extracts deeper information: usernames, SMB shares, domain structure, SNMP community strings, web application directory listings, API endpoints.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">A critical sub-task here is <em>service fingerprinting</em> — determining exactly what software and version is running on each port. An HTTP server on port 80 might be Apache 2.2.15 (a version with known critical vulnerabilities) or NGINX 1.24 (current). The version matters enormously for both the attacker's next steps and the defender's prioritisation.</p>
+      <div style="background:#f0f7ff;border-radius:6px;padding:8px 12px;"><span style="color:#154f7a;font-size:12px;font-weight:800;">Defender action: </span><span style="color:#4a6278;font-size:12px;">Patch management reduces what a scanner finds. Remove unnecessary services and close unused ports — each open port is an attack surface. Network segmentation limits which ports are reachable from any given network zone.</span></div>
+    </div>
+    <div style="background:#fff;border:1px solid #d1e0ee;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="align-items:center;display:flex;gap:10px;margin-bottom:8px;">
+        <div style="background:#1a9e82;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">3</div>
+        <div style="color:#0a2342;font-size:14px;font-weight:800;">Exploitation</div>
+      </div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">Within the agreed scope, testers attempt to exploit identified vulnerabilities to gain unauthorised access. They use exploit frameworks (Metasploit, which includes a database of ready-to-use exploits for known CVEs), custom code, or manual techniques. The goal is to <em>prove</em> that a vulnerability is practically exploitable, not merely theoretically present — a scanner can flag a vulnerability that requires specific conditions that don't exist in this environment, making it a false alarm in practice.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">A professional assessor documents every step — including exploits attempted, what succeeded, what failed, and the exact evidence chain — so that findings can be reproduced and remediated. "We got in" without documentation is not a penetration test; it is just hacking.</p>
+      <div style="background:#fff8e1;border-radius:6px;padding:8px 12px;"><span style="color:#92400e;font-size:12px;font-weight:800;">Maritime caution: </span><span style="color:#4a6278;font-size:12px;">Active exploitation of navigation, propulsion, or safety systems is <strong>never</strong> performed — even in a contracted penetration test. The consequences of crashing an ECDIS workstation underway are not acceptable, regardless of scope agreement.</span></div>
+    </div>
+    <div style="background:#fff;border:1px solid #d1e0ee;border-left:4px solid #b45309;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="align-items:center;display:flex;gap:10px;margin-bottom:8px;">
+        <div style="background:#b45309;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">4</div>
+        <div style="color:#0a2342;font-size:14px;font-weight:800;">Post-Exploitation</div>
+      </div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">After gaining initial access, testers ask: what can an attacker do from here? They attempt to: maintain persistence (so access survives reboots), escalate privileges (from regular user to administrator or root), harvest credentials (passwords, API keys, SSH keys from the compromised host), and move laterally to other systems in the network. This phase shows the real business impact of a breach — not just "we got in through the VPN" but "and then we could reach the cargo management system, the ballast water management controller, and the vessel management interface."</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">The pivot point is particularly revealing for maritime environments. If a tester compromises the crew Wi-Fi network and then finds they can reach the ECDIS workstation — because no network segmentation exists — that finding has immediate safety implications beyond just IT security.</p>
+      <div style="background:#f0f7ff;border-radius:6px;padding:8px 12px;"><span style="color:#154f7a;font-size:12px;font-weight:800;">Defender action: </span><span style="color:#4a6278;font-size:12px;">Network segmentation (IACS UR E26 zone/conduit model), least-privilege user accounts, and detection capabilities (EDR, SIEM) are all validated by this phase. An attacker who gets in should face internal barriers — not a flat network where everything is reachable from everywhere.</span></div>
+    </div>
+    <div style="background:#fff;border:1px solid #d1e0ee;border-left:4px solid #7c3aed;border-radius:0 10px 10px 0;padding:16px 18px;">
+      <div style="align-items:center;display:flex;gap:10px;margin-bottom:8px;">
+        <div style="background:#7c3aed;border-radius:50%;color:#fff;flex-shrink:0;font-size:11px;font-weight:800;height:26px;line-height:26px;text-align:center;width:26px;">5</div>
+        <div style="color:#0a2342;font-size:14px;font-weight:800;">Reporting</div>
+      </div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">A penetration test without a clear, actionable report provides no security value. The report is the actual deliverable. Professional reports have two distinct sections: an <em>executive summary</em> that communicates risk posture and business impact to non-technical management without technical jargon, and a <em>technical findings section</em> where each vulnerability is documented with severity rating (CVSS score), supporting evidence (screenshots, logs, command output), step-by-step reproduction procedure, and specific, actionable remediation guidance.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">Good reports distinguish between what was found and what was actually exploitable — because that distinction drives prioritisation. A critical CVSS score that cannot be exploited in this specific environment may be lower priority than a medium CVSS finding that yields domain administrator access in three steps.</p>
+      <div style="background:#f0f7ff;border-radius:6px;padding:8px 12px;"><span style="color:#154f7a;font-size:12px;font-weight:800;">Follow-through: </span><span style="color:#4a6278;font-size:12px;">Track findings in a risk register, assign remediation owners, verify fixes with a formal retest. A penetration test that produces a report that sits unread on a file share has achieved nothing.</span></div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 4: MARITIME OT ASSESSMENT ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">4. Security Testing in the Maritime Context — Why OT Changes Everything</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Maritime cyber security assessments apply the same five-phase methodology described above, but within constraints that are fundamentally different from standard corporate IT penetration testing. Understanding these constraints is not optional — they exist because of genuine safety risk, operational continuity requirements, and the legal framework of maritime law. Disregarding them on a live vessel can cause loss of life or maritime incident.</p>
+  <div style="background:#fff;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <div style="background:#0a2342;color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:12px 18px;text-transform:uppercase;">Maritime Assessment Constraints — What Changes</div>
+    <div style="padding:16px 18px;">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="border-left:3px solid #e53e3e;padding-left:14px;">
+          <div style="color:#c53030;font-size:12px;font-weight:800;margin-bottom:5px;">⛔ SAFETY PRIMACY — Hard Limit</div>
+          <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">Active exploitation of propulsion, steering, navigation, or safety management systems is categorically prohibited — even in a contracted penetration test. Crashing an ECDIS workstation underway, sending malformed data to an AMS (Alarm Management System), or disrupting the GPS signal receiver are not acceptable test methods regardless of scope agreement, contractual indemnity, or the assessor's confidence in a "controlled" test. The risks are not manageable at sea.</p>
+        </div>
+        <div style="border-left:3px solid #d69e2e;padding-left:14px;">
+          <div style="color:#b7791f;font-size:12px;font-weight:800;margin-bottom:5px;">⚠️ OPERATIONAL CONTINUITY — Timing and Method Control</div>
+          <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">Port call windows (typically 24–48 hours) are the preferred assessment timing — the vessel is not underway, some systems can be safely taken offline for testing, and there is crew access to support the assessment. Aggressive network scans (high packet-rate nmap scans, SYN floods, UDP probes) can crash legacy OT systems and industrial controllers that were never designed to handle unexpected network traffic. Test intensity must be calibrated to the target environment.</p>
+        </div>
+        <div style="border-left:3px solid #1a9e82;padding-left:14px;">
+          <div style="color:#0a7055;font-size:12px;font-weight:800;margin-bottom:5px;">✅ ASSET INVENTORY FIRST — IACS UR E26 Requirement</div>
+          <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">IACS UR E26 requires a complete inventory of computer-based systems (CBS) as a prerequisite for zone/conduit design. A maritime assessment therefore typically begins with a full asset discovery phase using passive techniques — listening to network traffic (Wireshark), reviewing existing documentation, physically inspecting hardware — before any active scanning. You cannot properly define scope or risk without knowing what is on the network.</p>
+        </div>
+        <div style="border-left:3px solid #154f7a;padding-left:14px;">
+          <div style="color:#0a2342;font-size:12px;font-weight:800;margin-bottom:5px;">📋 SCOPE DOCUMENT — Rules of Engagement</div>
+          <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">Written, signed Rules of Engagement (RoE) are legally mandatory. This document defines: which systems are in-scope (specific IP ranges, hostnames, OT control system identifiers), which test methods are permitted vs prohibited, which personnel must be notified before testing begins (including Master of the vessel, class society representative, and shore-based fleet manager), the emergency stop procedure (who to call, how quickly testing must cease), and data handling requirements for findings.</p>
+        </div>
+        <div style="border-left:3px solid #7c3aed;padding-left:14px;">
+          <div style="color:#553c9a;font-size:12px;font-weight:800;margin-bottom:5px;">🔍 ZONE VERIFICATION — IACS UR E26 Compliance</div>
+          <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">Assessors verify that the IEC 62443-inspired zone and conduit model required by IACS UR E26 is genuinely implemented — not just documented. Network architecture diagrams may show clean separation; the actual network may tell a different story. Zone verification involves network mapping, firewall rule review, and traffic analysis to confirm that OT zones (navigation, propulsion, cargo) are genuinely isolated from IT zones (crew internet, management systems) with appropriate conduit controls between them.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 5: PASSIVE-FIRST ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">5. The Passive-First Approach — Maritime OT Assessment in Practice</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Given the safety and operational constraints above, a competent maritime cybersecurity assessor defaults to a <strong>passive-first methodology</strong>: gather as much intelligence as possible through non-intrusive means before any active probing, and restrict active methods to the minimum necessary to answer each specific security question.</p>
+  <div style="background:#0a2342;border-radius:10px;padding:16px 20px;margin-bottom:16px;">
+    <div style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">Passive Assessment Techniques — Maritime OT</div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+      <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px;">
+        <div style="color:#7effd8;font-weight:800;margin-bottom:4px;">Network Traffic Monitoring (Wireshark / tcpdump)</div>
+        <div style="color:#9ab5c9;line-height:1.7;">Connect a monitoring laptop to a network switch port configured for SPAN/mirroring. Capture and analyse traffic for 30–60 minutes. This reveals: which systems are communicating with which (building the actual network topology, not the documented one), which protocols are in use (including unencrypted Modbus, Telnet, FTP), and whether any unexpected external connections are being made.</div>
+      </div>
+      <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px;">
+        <div style="color:#7effd8;font-weight:800;margin-bottom:4px;">Configuration Review (Document Analysis)</div>
+        <div style="color:#9ab5c9;line-height:1.7;">Review firewall rule sets, switch VLAN configurations, user account lists, and system log archives without touching live systems. Many vulnerabilities — open ports to OT from IT, default credentials, unnecessary services — are visible in configuration files without any active probing.</div>
+      </div>
+      <div style="border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px;">
+        <div style="color:#7effd8;font-weight:800;margin-bottom:4px;">Physical Inspection</div>
+        <div style="color:#9ab5c9;line-height:1.7;">Walk the vessel. Count network switches and their physical locations. Observe which physical interfaces are active on ECDIS workstations, AMS servers, and OT HMIs. Note any USB drives plugged into systems, any maintenance laptops connected to production networks, any unlocked server rooms. Physical access findings are often the most impactful: an unlocked server room on the bridge deck bypasses all network security controls.</div>
+      </div>
+      <div style="padding-bottom:0;">
+        <div style="color:#7effd8;font-weight:800;margin-bottom:4px;">Controlled Active Scanning (When Required)</div>
+        <div style="color:#9ab5c9;line-height:1.7;">When active scanning of OT systems is necessary (e.g., to confirm software versions on a specific system for CVE analysis), use the lowest-intensity scan options available: <code style="background:rgba(255,255,255,0.08);border-radius:3px;padding:1px 4px;">nmap -sV --version-intensity 0 -T2</code> (slow timing, minimal probes). Always scan during a maintenance window with the Master's knowledge. Never run aggressive timing (-T5) or SYN scans against OT targets.</div>
+      </div>
+    </div>
+  </div>
+  <p style="color:#4a6278;font-size:13px;line-height:1.8;margin:0;">The passive-first approach is not a limitation on assessment quality — it is the appropriate methodology for safety-critical operational technology environments. A well-executed passive assessment of a vessel's network can surface critical findings (open Modbus port accessible from crew Wi-Fi, Telnet HMI visible from VLAN 1, AIS receiver on same switch as cargo management) without touching a single live system. The evidence quality is high, the operational risk is zero, and the findings are directly actionable.</p>
+</div>
+
+<!--══ SECTION 6: LEGAL & ETHICAL ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">6. Legal and Ethical Framework — No Authorisation, No Testing</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Unauthorised access to computer systems is a criminal offence under laws including the Computer Fraud and Abuse Act (CFAA) in the United States, the Computer Misuse Act 1990 (CMA) in the United Kingdom, the Cybercrime Prevention Act in the Philippines (relevant for Filipino-crewed vessels), and equivalent legislation in all IMO member states. "But I wanted to test the security" is not a legal defence. Ignorance of scope boundaries is not a defence. Working from a Kali Linux distribution is not a defence.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">The jurisdictional complexity of maritime law adds additional layers: a vessel in international waters is subject to the law of its flag state; in territorial waters, the coastal state's laws apply; at port, the port state's laws apply. An assessor who exceeds their agreed scope while a vessel is at anchor in a foreign port may face prosecution under three different jurisdictions simultaneously.</p>
+  <div style="background:#fff;border:1.5px solid #e53e3e;border-radius:10px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:#c53030;padding:12px 18px;"><div style="color:#fff;font-size:13px;font-weight:800;">Required before any security test — no exceptions</div></div>
+    <div style="padding:16px 18px;">
+      <ul style="color:#4a6278;font-size:13.5px;line-height:1.9;margin:0;padding-left:18px;">
+        <li><strong>Written authorisation</strong> from the legal owner of every system in scope — not verbal agreement, not an email chain, not assumption based on a prior engagement</li>
+        <li><strong>Defined scope document</strong> specifying exact IP ranges, hostnames, system types, and testing methods permitted</li>
+        <li><strong>Rules of Engagement</strong> signed by both parties, including escalation contacts and emergency stop procedure</li>
+        <li><strong>Notification list</strong> — Master of the vessel, fleet manager, class society representative, legal counsel (as required)</li>
+        <li><strong>Confidentiality / NDA</strong> — test findings reveal the owner's security posture; handling and disclosure must be governed by contract</li>
+        <li><strong>Insurance verification</strong> — professional assessors carry professional liability (E&O) insurance covering security testing activities</li>
+      </ul>
+    </div>
+  </div>
+  <p style="color:#4a6278;font-size:13px;line-height:1.8;margin:0;">Professional certifications such as OSCP (Offensive Security Certified Professional), GPEN (GIAC Penetration Tester), and PNPT (Practical Network Penetration Tester) all include mandatory ethical frameworks. The EC-Council Code of Ethics requires practitioners to obtain explicit authorisation, protect client data, disclose all findings, and report illegal activity encountered during an engagement. These are professional obligations — violating them results in certification revocation in addition to legal consequences.</p>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#0a1e35,#0d2a40);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(26,158,130,0.08);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(26,158,130,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#7effd8;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">The first thing we do on an IACS UR E26 CRSI assessment is nothing — <strong style="color:#fcd34d;">we do not scan</strong>. That may sound counterintuitive, but the rule learned in the field is unambiguous: on a vessel's OT environment, never run a scanner before you know what is connected.</p>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">This comes from something that actually happened during an E26 CRSI assessment. During the initial network mapping phase, the moment we opened a Wireshark capture, Modbus TCP port 502 traffic was immediately visible. Something was communicating on that port. Traced back, it was the engine room AMS (Alarm Management System) — sharing a switch segment with the IT network, with no documentation of this connection anywhere. Had we run a Nessus scan against that port, there was a real chance the AMS would have become unresponsive.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;">This is also exactly why <strong style="color:#7effd8;">IACS UR E26 requires asset inventory first</strong> — you cannot safely plan any test before you know what is there. Field practice diverges from textbook methodology: the textbook says "Phase 1: Reconnaissance, Phase 2: Scanning", but on a vessel it becomes "Phase 1: passive traffic monitoring + physical walkthrough, Phase 2: documentation review with vessel stakeholders, Phase 3: limited scanning only within agreed maintenance windows." That distinction is why this lesson matters beyond tool listings — tools are the means; judgment is the core skill.</p>
+</div>
+
+<!--══ WHAT WE LEARNED ══-->
+<div style="background:#eef6f3;border:1.5px solid #b2ddd4;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0e7c62;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ What We Learned</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>Kali Linux is a Debian-based professional assessment platform with 600+ pre-installed security tools — not an attack OS, but a practitioner's environment that requires authorisation to use legitimately.</li>
+    <li>A vulnerability assessment identifies weaknesses without exploiting them; a penetration test actively exploits to demonstrate real-world impact. Choose based on the security question you need to answer.</li>
+    <li>The five-phase pentest methodology: Reconnaissance → Scanning/Enumeration → Exploitation → Post-Exploitation → Reporting. Each phase has direct relevance to defensive control design.</li>
+    <li>Maritime OT assessments apply the same methodology but under strict constraints: no active exploitation of safety systems, operational continuity requirements, asset inventory before scanning, zone/conduit verification, and signed Rules of Engagement.</li>
+    <li>The passive-first approach — network traffic monitoring, configuration review, physical inspection — gathers critical intelligence without touching live systems, which is the appropriate methodology for safety-critical OT.</li>
+    <li>No security test may proceed without written, scoped, signed authorisation. Maritime jurisdictional complexity adds flag state, coastal state, and port state law considerations simultaneously.</li>
+  </ul>
+</div>
+
+<!--══ WHERE THIS LEADS NEXT ══-->
+<div style="background:#fff;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Where This Leads Next</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0;"><strong><a href="https://www.shippauljobs.com/2026/09/security-and-cybersecurity-knowledge.html" rel="noopener" style="color:#0a2342;text-decoration:underline;" target="_blank">Lesson 5 — Security+ and the Cybersecurity Knowledge Map</a></strong> zooms out from the specific tools and techniques of this lesson to give you the full map of cybersecurity domains — what you have learned in Part 1, and where the remaining 11 lessons in this series will take you. CompTIA Security+ SY0-701 provides the most recognised vendor-neutral framework for understanding the complete scope of cybersecurity practice: from identity and access management through cryptography, incident response, and risk management. For maritime professionals without a formal cybersecurity background, understanding where Security+ fits in the learning landscape — and how it maps to IACS UR E26/E27 requirements — is the essential orientation for everything that follows.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 1 — Cybersecurity Fundamentals</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><a href="https://www.shippauljobs.com/2026/09/what-is-cybersecurity.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 1 — What Is Cybersecurity?</a></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><a href="https://www.shippauljobs.com/2026/09/network-fundamentals-for-cybersecurity.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 2 — Network Fundamentals for Cybersecurity</a></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><a href="https://www.shippauljobs.com/2026/09/linux-os-fundamentals-for-cybersecurity.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 3 — Linux &amp; Operating System Fundamentals</a></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;"><span style="background:#1a9e82;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span><span style="color:#fff;font-size:13px;font-weight:700;">Lesson 4 — Kali Linux and Security Testing</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><a href="https://www.shippauljobs.com/2026/09/security-and-cybersecurity-knowledge.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 5 — Security+ and the Cybersecurity Knowledge Map</a></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

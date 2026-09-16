@@ -1,82 +1,353 @@
-<div style="color:#2c3e50;font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.8;margin:0 auto;max-width:780px;padding:24px 16px;">
+<!--════════════════════════════════════════════════════════════
+     Page   : Announcements & Updates
+     URL    : https://www.shippauljobs.com/p/announcements-and-updates.html
+     Role   : Platform news, community updates, and important notices.
+              Cards come from two sources merged by date (newest first):
+              1. STATIC_DATA — hardcoded notices (always shown)
+              2. Blogger API — posts labelled "Announcements"
+              Period filter: 1 / 3 / 6 / 9 / 12 months + All.
+              One full-width card per row.
+════════════════════════════════════════════════════════════-->
 
-  <!-- Page Header -->
-  <div style="background:linear-gradient(135deg,#0b1a2b,#0d2035);border:1px solid rgba(29,137,207,0.4);border-top:4px solid #1d89cf;border-radius:14px;padding:28px 28px 22px;margin-bottom:28px;">
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.15em;color:#1d89cf;text-transform:uppercase;margin-bottom:8px;">ShipPaulJobs</div>
-    <h1 style="font-size:22px;font-weight:800;color:#e8f4ff;margin:0 0 8px;line-height:1.3;">📢 Announcements &amp; Updates</h1>
-    <p style="font-size:13px;color:#7aabcc;margin:0;">Platform news, community updates, and important notices from ShipPaulJobs.</p>
+<style>
+  /* ── Hide comments ── */
+  #comments,.comments,#comment-holder,.comments-widget-container{display:none!important}
+
+  #au-wrap,#au-wrap *{box-sizing:border-box}
+
+  /* ── Header ── */
+  #au-header{
+    background:linear-gradient(135deg,#0b1a2b 0%,#0d2035 55%,#0a3055 100%);
+    border:1px solid rgba(29,137,207,0.4);
+    border-top:4px solid #1d89cf;
+    border-radius:16px;padding:28px 28px 22px;margin-bottom:20px;
+  }
+  #au-eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;color:#1d89cf;text-transform:uppercase;margin-bottom:8px}
+  #au-h1{font-size:24px;font-weight:800;color:#e8f4ff;margin:0 0 8px;line-height:1.3}
+  #au-sub{font-size:13px;color:#7aabcc;margin:0 0 18px}
+
+  /* ── Period filter ── */
+  .au-period-bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .au-period-btn{
+    background:rgba(200,228,248,.10);border:1px solid rgba(200,228,248,.22);
+    border-radius:20px;color:rgba(200,228,248,.72);cursor:pointer;
+    font-size:11px;font-weight:600;padding:5px 13px;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .au-period-btn.active,.au-period-btn:hover{background:#1d89cf;border-color:#1d89cf;color:#fff}
+
+  /* ── Loading ── */
+  #au-loading{color:#7aabcc;font-size:13px;padding:20px 0;text-align:center;display:block}
+
+  /* ── Counter ── */
+  #au-counter{font-size:11px;color:#5a7a99;margin-bottom:14px}
+
+  /* ── Card ── */
+  .au-card{
+    background:linear-gradient(160deg,#0b1e2d,#0a1825);
+    border:1px solid rgba(29,137,207,.25);
+    border-radius:12px;padding:22px 24px 20px;margin-bottom:14px;
+    transition:border-color .18s,box-shadow .18s;
+  }
+  .au-card:hover{border-color:rgba(29,137,207,.55);box-shadow:0 4px 18px rgba(10,35,66,.25)}
+  .au-card-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .au-badge-new{background:#0a66c2;color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px;letter-spacing:.05em}
+  .au-badge-post{background:rgba(26,158,130,.2);color:#1a9e82;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px}
+  .au-badge-tag{background:rgba(29,137,207,.15);color:#1d89cf;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px}
+  .au-badge-notice{background:rgba(255,255,255,.08);color:#aac8e0;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px}
+  .au-card-date{color:#5a7a99;font-size:11px;margin-left:auto}
+  .au-card-title{font-size:17px;font-weight:800;color:#e8f4ff;margin:0 0 10px;line-height:1.4}
+  .au-card-title a{color:inherit;text-decoration:none}
+  .au-card-title a:hover{color:#1d89cf}
+  .au-card-body{font-size:13px;color:#9bbdd4;line-height:1.75;margin:0 0 16px}
+  .au-card-body p{margin:0 0 10px}
+  .au-card-body p:last-child{margin-bottom:0}
+  .au-card-body strong{color:#c8dde8}
+  .au-card-cta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .au-btn-primary{
+    display:inline-flex;align-items:center;gap:7px;
+    background:#0a66c2;color:#fff;font-size:12px;font-weight:700;
+    text-decoration:none;padding:9px 20px;border-radius:22px;
+    box-shadow:0 2px 8px rgba(10,102,194,.4);transition:background .15s;
+  }
+  .au-btn-primary:hover{background:#0955a8}
+  .au-btn-secondary{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(29,137,207,.18);border:1px solid rgba(29,137,207,.5);
+    color:#1d89cf;font-size:12px;font-weight:700;
+    text-decoration:none;padding:9px 20px;border-radius:22px;transition:background .15s;
+  }
+  .au-btn-secondary:hover{background:rgba(29,137,207,.28)}
+  .au-btn-read{
+    display:inline-flex;align-items:center;gap:5px;
+    background:rgba(26,158,130,.18);border:1px solid rgba(26,158,130,.4);
+    color:#1a9e82;font-size:12px;font-weight:700;
+    text-decoration:none;padding:9px 18px;border-radius:22px;transition:background .15s;
+  }
+  .au-btn-read:hover{background:rgba(26,158,130,.28)}
+  .au-btn-note{font-size:11px;color:#5a7a99}
+
+  /* ── Month group header ── */
+  .au-group-header{
+    display:flex;align-items:center;gap:10px;
+    margin:24px 0 10px;
+  }
+  .au-group-label{
+    font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:#1d89cf;white-space:nowrap;
+  }
+  .au-group-line{flex:1;height:1px;background:rgba(29,137,207,.2)}
+
+  /* ── Card number badge ── */
+  .au-card-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:22px;height:22px;border-radius:50%;
+    background:rgba(29,137,207,.15);color:#1d89cf;
+    font-size:10px;font-weight:800;flex-shrink:0;margin-right:2px;
+  }
+
+  /* ── Empty ── */
+  #au-empty{display:none;text-align:center;color:#5a7a99;font-size:13.5px;padding:40px 10px}
+
+  /* ── Footer ── */
+  #au-footer{background:linear-gradient(135deg,#0a1628,#0d2a52);border-radius:10px;color:white;padding:20px;text-align:center;margin-top:8px}
+  #au-footer p{color:rgba(255,255,255,.7);font-size:13px;margin:0 0 12px}
+  #au-footer-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .au-footer-btn{border-radius:6px;color:white;display:inline-block;font-size:12px;font-weight:700;padding:8px 20px;text-decoration:none}
+  .au-footer-btn-primary{background:#0a66c2}
+  .au-footer-btn-secondary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+
+  @media(max-width:600px){
+    #au-h1{font-size:20px}
+    .au-card{padding:18px 16px 16px}
+    .au-card-title{font-size:15px}
+  }
+</style>
+
+<div id="au-wrap" style="color:#2c3e50;font-family:Inter,'Segoe UI',Arial,sans-serif;line-height:1.8;margin:0 auto;max-width:780px;padding:24px 16px;">
+
+  <!-- Header -->
+  <div id="au-header">
+    <div id="au-eyebrow">ShipPaulJobs · Platform Notices</div>
+    <h1 id="au-h1">📢 Announcements &amp; Updates</h1>
+    <p id="au-sub">Platform news, community updates, and important notices from ShipPaulJobs.</p>
+    <div class="au-period-bar" id="au-period-bar">
+      <button class="au-period-btn active" data-period="all">전체기간</button>
+      <button class="au-period-btn" data-period="12m">12개월</button>
+      <button class="au-period-btn" data-period="9m">9개월</button>
+      <button class="au-period-btn" data-period="6m">6개월</button>
+      <button class="au-period-btn" data-period="3m">3개월</button>
+      <button class="au-period-btn" data-period="1m">1개월</button>
+    </div>
   </div>
 
-  <!-- Announcement 1: LinkedIn Group -->
-  <div style="background:linear-gradient(160deg,#0b1e2d,#0a1825);border:1px solid rgba(29,137,207,0.35);border-left:4px solid #0a66c2;border-radius:12px;padding:22px 22px 20px;margin-bottom:18px;position:relative;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-      <span style="background:#0a66c2;color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px;letter-spacing:0.05em;">🆕 NEW</span>
-      <span style="background:rgba(29,137,207,0.15);color:#1d89cf;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px;">Community</span>
-      <span style="color:#5a7a99;font-size:11px;margin-left:auto;">2026.08.30</span>
-    </div>
-    <h2 style="font-size:16px;font-weight:800;color:#e8f4ff;margin:0 0 10px;line-height:1.4;">LinkedIn Maritime Cyber Community Group is Now Live 🔗</h2>
-    <p style="font-size:13px;color:#9bbdd4;line-height:1.75;margin:0 0 14px;">
-      We've launched the official <strong style="color:#c8dde8;">ShipPaulJobs LinkedIn Group</strong> — a dedicated space for maritime cyber security professionals, OT/IT engineers, compliance specialists, and enthusiasts worldwide.
-    </p>
-    <p style="font-size:13px;color:#9bbdd4;line-height:1.75;margin:0 0 18px;">
-      Connect with peers, share insights on IACS UR E26/E27, discuss the latest IMO cyber regulations, and stay ahead of maritime OT threats. All levels of experience are welcome — from junior engineers to senior consultants.
-    </p>
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-      <a href="https://www.linkedin.com/groups/21070066/" target="_blank" rel="noopener"
-        style="display:inline-flex;align-items:center;gap:7px;background:#0a66c2;color:#fff;font-size:12px;font-weight:700;text-decoration:none;padding:9px 20px;border-radius:22px;box-shadow:0 2px 8px rgba(10,102,194,0.4);">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        Join the Group
-      </a>
-      <span style="font-size:11px;color:#5a7a99;">Free to join · Open to all</span>
-    </div>
-  </div>
+  <div id="au-loading">공지사항 불러오는 중…</div>
+  <div id="au-counter"></div>
+  <div id="au-list"></div>
+  <div id="au-empty">선택한 기간에 공지사항이 없습니다.</div>
 
-  <!-- Announcement 2: Author Application -->
-  <div style="background:linear-gradient(160deg,#0b1e2d,#0a1825);border:1px solid rgba(29,137,207,0.25);border-left:4px solid #1d89cf;border-radius:12px;padding:22px 22px 20px;margin-bottom:18px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-      <span style="background:rgba(29,137,207,0.2);color:#1d89cf;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px;">Platform</span>
-      <span style="color:#5a7a99;font-size:11px;margin-left:auto;">2026.08.01</span>
-    </div>
-    <h2 style="font-size:16px;font-weight:800;color:#e8f4ff;margin:0 0 10px;line-height:1.4;">Author Applications Open — Join the ShipPaulJobs Crew ✍️</h2>
-    <p style="font-size:13px;color:#9bbdd4;line-height:1.75;margin:0 0 14px;">
-      ShipPaulJobs is expanding its crew of expert contributors. If you're a maritime cyber security practitioner, OT/IT architect, naval engineer, or compliance specialist — we'd love to have your voice on the platform.
-    </p>
-    <p style="font-size:13px;color:#9bbdd4;line-height:1.75;margin:0 0 18px;">
-      As a crew author, your articles reach a global readership of maritime professionals and classification society experts. Minimum one article per quarter, topics and format are flexible.
-    </p>
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-      <a href="https://www.shippauljobs.com/p/contact.html" target="_blank" rel="noopener"
-        style="display:inline-flex;align-items:center;gap:6px;background:rgba(29,137,207,0.18);border:1px solid rgba(29,137,207,0.5);color:#1d89cf;font-size:12px;font-weight:700;text-decoration:none;padding:9px 20px;border-radius:22px;">
-        Apply Now →
-      </a>
-      <span style="font-size:11px;color:#5a7a99;">Reviewed within 5–7 business days</span>
-    </div>
-  </div>
-
-  <!-- Announcement 3: Site Launch -->
-  <div style="background:linear-gradient(160deg,#0b1e2d,#0a1825);border:1px solid rgba(255,255,255,0.08);border-left:4px solid rgba(255,255,255,0.15);border-radius:12px;padding:22px 22px 20px;margin-bottom:18px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-      <span style="background:rgba(255,255,255,0.08);color:#aac8e0;font-size:10px;font-weight:700;border-radius:20px;padding:2px 10px;">Notice</span>
-      <span style="color:#5a7a99;font-size:11px;margin-left:auto;">2026.01.01</span>
-    </div>
-    <h2 style="font-size:16px;font-weight:800;color:#e8f4ff;margin:0 0 10px;line-height:1.4;">ShipPaulJobs — Maritime AI &amp; Cybersecurity Intelligence Platform Launched 🚢</h2>
-    <p style="font-size:13px;color:#9bbdd4;line-height:1.75;margin:0 0 14px;">
-      ShipPaulJobs officially launched as an independent intelligence platform at the intersection of Maritime AI, Data, and Cybersecurity. Our mission is to deliver practitioner-grade content on IACS UR E26/E27, IMO NIS regulations, OT security, and Smart Ship technology.
-    </p>
-    <p style="font-size:13px;color:#9bbdd4;line-height:1.75;margin:0;">
-      All content is free. No paywalls. No subscriptions. Built by and for the maritime community.
-    </p>
-  </div>
-
-  <!-- Footer CTA -->
-  <div style="background:linear-gradient(135deg,#0a1628,#0d2a52);border-radius:10px;color:white;padding:20px;text-align:center;margin-top:8px;">
-    <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0 0 12px;">Stay connected with the maritime cyber community</p>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
-      <a href="https://www.linkedin.com/groups/21070066/" target="_blank" rel="noopener"
-        style="background:#0a66c2;border-radius:6px;color:white;display:inline-block;font-size:12px;font-weight:700;padding:8px 20px;text-decoration:none;">LinkedIn Group →</a>
-      <a href="https://www.shippauljobs.com"
-        style="background:rgba(255,255,255,0.1);border-radius:6px;border:1px solid rgba(255,255,255,0.2);color:white;display:inline-block;font-size:12px;font-weight:700;padding:8px 20px;text-decoration:none;">Back to Home →</a>
+  <!-- Footer -->
+  <div id="au-footer">
+    <p>Stay connected with the maritime cyber community</p>
+    <div id="au-footer-links">
+      <a class="au-footer-btn au-footer-btn-primary"
+         href="https://www.linkedin.com/groups/21070066/"
+         target="_blank" rel="noopener">LinkedIn Group →</a>
+      <a class="au-footer-btn au-footer-btn-secondary"
+         href="https://www.shippauljobs.com">Back to Home →</a>
     </div>
   </div>
 
 </div>
+
+<script>
+(function(){
+  /* ══════════════════════════════════════════════════
+     SOURCE 1 — Static notices (always included)
+     Add new static notices at the TOP of this array.
+  ══════════════════════════════════════════════════ */
+  var STATIC_DATA = [
+    {
+      date:'2026-08-30', isNew:true,
+      tagLabel:'Community', tagStyle:'tag',
+      borderColor:'#0a66c2',
+      title:'LinkedIn Maritime Cyber Community Group is Now Live 🔗',
+      html:'<p>We\'ve launched the official <strong>ShipPaulJobs LinkedIn Group</strong> — a dedicated space for maritime cyber security professionals, OT/IT engineers, compliance specialists, and enthusiasts worldwide.</p>' +
+           '<p>Connect with peers, share insights on IACS UR E26/E27, discuss the latest IMO cyber regulations, and stay ahead of maritime OT threats. All levels of experience are welcome.</p>',
+      cta:{href:'https://www.linkedin.com/groups/21070066/',text:'Join the Group',style:'primary',note:'Free to join · Open to all',
+           icon:'<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>'}
+    },
+    {
+      date:'2026-08-01', isNew:false,
+      tagLabel:'Platform', tagStyle:'tag',
+      borderColor:'#1d89cf',
+      title:'Author Applications Open — Join the ShipPaulJobs Crew ✍️',
+      html:'<p>ShipPaulJobs is expanding its crew of expert contributors. If you\'re a maritime cyber security practitioner, OT/IT architect, naval engineer, or compliance specialist — we\'d love to have your voice on the platform.</p>' +
+           '<p>As a crew author, your articles reach a global readership of maritime professionals and classification society experts. Minimum one article per quarter, topics and format are flexible.</p>',
+      cta:{href:'https://www.shippauljobs.com/p/contact.html',text:'Apply Now →',style:'secondary',note:'Reviewed within 5–7 business days'}
+    },
+    {
+      date:'2026-01-01', isNew:false,
+      tagLabel:'Notice', tagStyle:'notice',
+      borderColor:'rgba(255,255,255,0.15)',
+      title:'ShipPaulJobs — Maritime AI &amp; Cybersecurity Intelligence Platform Launched 🚢',
+      html:'<p>ShipPaulJobs officially launched as an independent intelligence platform at the intersection of Maritime AI, Data, and Cybersecurity. Our mission is to deliver practitioner-grade content on IACS UR E26/E27, IMO NIS regulations, OT security, and Smart Ship technology.</p>' +
+           '<p>All content is free. No paywalls. No subscriptions. Built by and for the maritime community.</p>',
+      cta:null
+    }
+  ];
+
+  /* ══════════════════════════════════════════════════
+     SOURCE 2 — Blogger posts with label "Announcements"
+     Fetched via JSON feed; merged with STATIC_DATA.
+  ══════════════════════════════════════════════════ */
+  var LABEL       = 'Announcements';
+  var FEED_URL    = 'https://www.shippauljobs.com/feeds/posts/summary/-/' +
+                    encodeURIComponent(LABEL) + '?alt=json&max-results=50';
+
+  var allItems    = [];
+  var periodMode  = 'all';
+
+  /* Map a Blogger feed entry to a card object */
+  function mapEntry(e) {
+    var links = e.link || [];
+    var url   = '';
+    links.forEach(function(l){ if(l.rel==='alternate') url=l.href; });
+    var published = (e.published && e.published.$t) || '';
+    var dateStr   = published ? published.substring(0,10) : '';
+    var title     = (e.title && e.title.$t) || '(no title)';
+    var snippet   = (e.summary && e.summary.$t) || '';
+    /* strip HTML tags from snippet */
+    snippet = snippet.replace(/<[^>]+>/g,'').substring(0,200);
+    return {
+      date       : dateStr,
+      isNew      : false,
+      tagLabel   : 'Post',
+      tagStyle   : 'post',
+      borderColor: '#1a9e82',
+      title      : title,
+      url        : url,
+      html       : snippet ? '<p>' + snippet + (snippet.length>=200?'…':'') + '</p>' : '',
+      cta        : url ? {href:url, text:'Read More →', style:'read'} : null,
+      fromBlogger: true
+    };
+  }
+
+  /* ── Utilities ── */
+  function fmtDate(d){
+    var dt=new Date(d);
+    return dt.getFullYear()+'.'+
+      String(dt.getMonth()+1).padStart(2,'0')+'.'+
+      String(dt.getDate()).padStart(2,'0');
+  }
+
+  function filterItems(items){
+    if(periodMode==='all') return items;
+    var days={'1m':30,'3m':90,'6m':180,'9m':270,'12m':365}[periodMode]||99999;
+    var cutoff=new Date(); cutoff.setDate(cutoff.getDate()-days);
+    return items.filter(function(p){ return new Date(p.date)>=cutoff; });
+  }
+
+  function badgeHTML(p){
+    if(p.tagStyle==='post')   return '<span class="au-badge-post">포스트</span>';
+    if(p.tagStyle==='notice') return '<span class="au-badge-notice">'+p.tagLabel+'</span>';
+    return '<span class="au-badge-tag">'+p.tagLabel+'</span>';
+  }
+
+  function ctaHTML(cta){
+    if(!cta) return '';
+    var icon=cta.icon||'';
+    var cls=cta.style==='primary'?'au-btn-primary':
+            cta.style==='read'   ?'au-btn-read'   :'au-btn-secondary';
+    var note=cta.note?'<span class="au-btn-note">'+cta.note+'</span>':'';
+    return '<div class="au-card-cta">'+
+      '<a href="'+cta.href+'" '+(cta.href.startsWith('http')?'target="_blank" rel="noopener"':'')+
+      ' class="'+cls+'">'+icon+cta.text+'</a>'+note+'</div>';
+  }
+
+  function cardHTML(p, num){
+    var newBadge=p.isNew?'<span class="au-badge-new">🆕 NEW</span>':'';
+    var numBadge='<span class="au-card-num">'+num+'</span>';
+    var titleInner=p.url
+      ?'<a href="'+p.url+'" target="_blank" rel="noopener">'+p.title+'</a>'
+      :p.title;
+    return '<div class="au-card" style="border-left:4px solid '+p.borderColor+';">'+
+      '<div class="au-card-meta">'+numBadge+newBadge+badgeHTML(p)+
+      '<span class="au-card-date">'+fmtDate(p.date)+'</span></div>'+
+      '<h2 class="au-card-title">'+titleInner+'</h2>'+
+      (p.html?'<div class="au-card-body">'+p.html+'</div>':'')+
+      ctaHTML(p.cta)+
+      '</div>';
+  }
+
+  var KO_MONTHS=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+
+  function render(){
+    var items=filterItems(allItems);
+    var list=document.getElementById('au-list');
+    var empty=document.getElementById('au-empty');
+    var counter=document.getElementById('au-counter');
+    if(!items.length){
+      list.innerHTML=''; empty.style.display='block'; counter.innerHTML='';
+    } else {
+      empty.style.display='none';
+      /* group by YYYY-MM */
+      var html='';
+      var lastKey='';
+      var total=items.length;
+      for(var i=0;i<items.length;i++){
+        var p=items[i];
+        var dt=new Date(p.date);
+        var key=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0');
+        if(key!==lastKey){
+          var label=dt.getFullYear()+'년 '+KO_MONTHS[dt.getMonth()];
+          html+='<div class="au-group-header">'+
+            '<span class="au-group-label">'+label+'</span>'+
+            '<span class="au-group-line"></span>'+
+            '</div>';
+          lastKey=key;
+        }
+        /* number = global rank (newest = #1) */
+        html+=cardHTML(p, total-i);
+      }
+      list.innerHTML=html;
+      counter.innerHTML=items.length+'개 공지 &middot; 최신순';
+    }
+  }
+
+  /* ── Fetch Blogger posts then merge ── */
+  function init(bloggerItems){
+    /* Merge static + Blogger, sort newest first */
+    allItems = STATIC_DATA.concat(bloggerItems||[]);
+    allItems.sort(function(a,b){ return new Date(b.date)-new Date(a.date); });
+
+    document.getElementById('au-loading').style.display='none';
+    render();
+  }
+
+  /* Try fetching the "Announcements" label feed */
+  try {
+    var s=document.createElement('script');
+    var cb='auFeedCb_'+Date.now();
+    window[cb]=function(data){
+      var entries=(data&&data.feed&&data.feed.entry)||[];
+      init(entries.map(mapEntry));
+      delete window[cb];
+    };
+    s.onerror=function(){ init([]); };
+    s.src=FEED_URL+'&callback='+cb;
+    document.head.appendChild(s);
+  } catch(e){ init([]); }
+
+  /* Period filter */
+  document.getElementById('au-period-bar').addEventListener('click',function(e){
+    var btn=e.target.closest('.au-period-btn');
+    if(!btn) return;
+    document.querySelectorAll('.au-period-btn').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    periodMode=btn.dataset.period;
+    render();
+  });
+
+})();
+</script>

@@ -1,0 +1,259 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 2 — Understanding Cyber Attacks
+     Lesson : 10 of 7 — SQL Injection
+     Topics : SQL Injection · In-band · Blind · Error-based · Union-based ·
+              Parameterised Queries · Input Validation · ORM · WAF ·
+              Maritime Web Application Risk
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 2</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 10 of 7</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(60,20,80) 55%,rgb(130,30,140) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 2 · Lesson 10</span>
+    <span style="background:rgba(130,30,140,0.5);border-radius:20px;color:#e8b0f0;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Injection</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">SQLi · Web App</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">SQL Injection</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">In-band SQLi · Blind SQLi · Union-based Extraction · Error-based · Parameterised Queries · Input Validation · ORM · WAF — one of the longest-lived and most consistently exploited vulnerability classes in web applications.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(250,240,255);border-left:4px solid rgb(130,30,140);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#7a1a8a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain what SQL Injection is and why it occurs, describe the main SQLi variants (in-band, blind, out-of-band), demonstrate conceptually how a Union-based injection extracts data, explain why parameterised queries are the definitive fix, describe supporting controls (input validation, ORM, WAF), and identify which maritime web applications present the highest SQLi risk.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">SQL Injection first appeared as a documented vulnerability in 1998 and has remained on the OWASP Top 10 list — the canonical ranking of the most critical web application security risks — virtually every year since the list was created in 2003. Despite being thoroughly understood and trivially preventable, SQLi continues to power major data breaches. Its persistence is a function of developer unfamiliarity, deadline pressure, and legacy code that has never been modernised.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The attack exploits a single fundamental mistake: treating user-supplied input as part of an SQL command rather than as data. When an application constructs a database query by concatenating a user's input directly into the query string, an attacker can inject SQL syntax that changes the logic of the query, extracts data the attacker should not see, modifies records, or even drops tables entirely.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">Maritime applications relevant to SQLi include Fleet Management Systems (FMS), Port Management Information Systems (PMIS), crew management portals, vessel tracking dashboards, and the administrative backends of any web-based tool that stores voyage or compliance data in a relational database. A successful SQLi attack against a fleet database could expose crew personal data, voyage history, cargo manifests, and access credentials.</p>
+</div>
+
+<!--══ SECTION 1: HOW SQL INJECTION WORKS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(60,20,80));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Why SQL Injection Happens — The Root Cause</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Consider a login form. When a user enters their username <code style="background:#f4f0ff;border-radius:4px;font-size:12px;padding:1px 5px;">admin</code> and password <code style="background:#f4f0ff;border-radius:4px;font-size:12px;padding:1px 5px;">mypassword</code>, a vulnerable application might build the database query by string concatenation:</p>
+  <div style="background:#1a1a2e;border-radius:10px;margin:12px 0 16px;padding:16px 20px;">
+    <div style="color:#7dc5f5;font-family:'Courier New',monospace;font-size:12.5px;line-height:1.75;">
+      <div style="color:#a0a0b0;font-size:10px;margin-bottom:8px;letter-spacing:0.08em;">VULNERABLE — string concatenation</div>
+      query = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "'"
+      <div style="color:#a0a0b0;margin-top:12px;font-size:10px;letter-spacing:0.08em;">RESULT WITH NORMAL INPUT</div>
+      SELECT * FROM users WHERE username='admin' AND password='mypassword'
+      <div style="color:#ff7070;margin-top:12px;font-size:10px;letter-spacing:0.08em;">ATTACKER INPUT: username = admin'--</div>
+      SELECT * FROM users WHERE username='admin'<span style="color:#ffb870;">--</span>' AND password='anything'
+      <div style="color:#a0ffb8;margin-top:6px;font-size:10.5px;">→ The -- comments out the rest. Authentication is bypassed entirely. The attacker logs in as admin.</div>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The single quote <code style="background:#f4f0ff;border-radius:4px;font-size:12px;padding:1px 5px;">'</code> closes the string in the SQL syntax. The double-dash <code style="background:#f4f0ff;border-radius:4px;font-size:12px;padding:1px 5px;">--</code> begins an SQL comment that makes the database engine ignore everything that follows. The attacker's input changed the query's logic.</p>
+</div>
+
+<!--══ SECTION 2: SQLi VARIANTS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(60,20,80),rgb(130,30,140));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. SQLi Variants — What Attackers Can Do</h2>
+  </div>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(60,20,80);color:#e8b0f0;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">SQL Injection Types</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#7a1a8a;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;white-space:nowrap;width:160px;">In-band — Error-based</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;">The database returns error messages that reveal schema details — table names, column names, data types. The attacker crafts inputs that trigger informative errors and reads the database structure from the responses.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#7a1a8a;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;">In-band — Union-based</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;">SQL's UNION operator combines results from multiple SELECT statements. An attacker appends a crafted UNION SELECT to retrieve data from other tables — credentials, email addresses, private records — which appear alongside the normal query results in the application's response.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#7a1a8a;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;">Blind — Boolean-based</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;">The application shows no data in its response but behaves differently based on whether a condition is true or false (e.g. displays a result versus a blank page). The attacker asks true/false questions and reads data one bit at a time from the behavioural difference. Slow but functional when no errors or data are returned.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#7a1a8a;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;">Blind — Time-based</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;">The attacker injects SQL that causes the database to delay its response (e.g. SLEEP(5) in MySQL) if a condition is true. By measuring response time, data is extracted without any application-level feedback. No errors, no data — just timing.</td>
+          </tr>
+          <tr>
+            <td style="color:#7a1a8a;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;">Out-of-band</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;">Data is exfiltrated through an out-of-band channel (DNS or HTTP callbacks) rather than the main application response. Less common; requires the database server to have outbound network access. Used when blind techniques are too slow.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 3: DEFENCES ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Defences — How to Prevent SQL Injection</h2>
+  </div>
+  <div style="background:white;border:1px solid #d1e0ee;border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:#0a2342;color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Defence Layers — Priority Order</div>
+    <div style="padding:14px 18px 12px;">
+      <div style="border-bottom:1px solid #f0f4f8;margin-bottom:12px;padding-bottom:12px;">
+        <div style="color:#1a9e82;font-size:13px;font-weight:800;margin-bottom:6px;">🔒 1. Parameterised Queries (Prepared Statements) — Primary Defence</div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 8px;">Parameterised queries separate SQL code from data. The query template is sent to the database engine first, and user input is passed as parameters that are treated purely as data — never interpreted as SQL syntax. A single quote in a parameterised query is stored as a literal character, not as a string delimiter that changes query logic.</p>
+        <div style="background:#1a1a2e;border-radius:8px;padding:12px 16px;">
+          <div style="color:#a0a0b0;font-family:'Courier New',monospace;font-size:10px;margin-bottom:6px;letter-spacing:0.08em;">SECURE — Parameterised Query (Python/psycopg2 example)</div>
+          <div style="color:#a0ffb8;font-family:'Courier New',monospace;font-size:12px;line-height:1.65;">cursor.execute(<br>&nbsp;&nbsp;"SELECT * FROM users WHERE username=%s AND password=%s",<br>&nbsp;&nbsp;(username, password)<br>)</div>
+        </div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:8px 0 0;">No matter what the user enters, the database never treats it as SQL syntax. This eliminates SQLi completely at the query level.</p>
+      </div>
+      <div style="border-bottom:1px solid #f0f4f8;margin-bottom:12px;padding-bottom:12px;">
+        <div style="color:#1a9e82;font-size:13px;font-weight:800;margin-bottom:6px;">🛡️ 2. ORM (Object-Relational Mapping)</div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">ORMs (SQLAlchemy, Hibernate, ActiveRecord, Django ORM) generate parameterised queries by default, removing the need to write raw SQL. Applications built on mature ORMs are largely protected from SQLi as long as developers do not bypass the ORM to write raw query strings.</p>
+      </div>
+      <div style="border-bottom:1px solid #f0f4f8;margin-bottom:12px;padding-bottom:12px;">
+        <div style="color:#1a9e82;font-size:13px;font-weight:800;margin-bottom:6px;">🔍 3. Input Validation (Defense-in-Depth)</div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">Validate that input conforms to expected type, length, and character set before passing it to any database query. A vessel IMO number field should accept only 7-digit integers; a username field should accept only alphanumeric characters. Reject input that fails validation. This is not a substitute for parameterised queries but reduces the attack surface.</p>
+      </div>
+      <div>
+        <div style="color:#1a9e82;font-size:13px;font-weight:800;margin-bottom:6px;">🌐 4. WAF (Web Application Firewall)</div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">A WAF inspects HTTP requests and blocks patterns matching known SQLi signatures (UNION SELECT, OR 1=1, SLEEP(), etc.). WAFs reduce noise from automated SQLi scanning tools and provide a detection and blocking layer. They should not be considered a substitute for secure code — an attacker with application knowledge can often craft bypass payloads that evade WAF signatures.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 4: MARITIME RISK ══-->
+<div style="margin-bottom:28px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(60,20,80),rgb(10,80,160));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">4. Maritime Context — Which Applications Are at Risk?</h2>
+  </div>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Maritime Applications — SQLi Risk Profile</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <thead>
+          <tr style="border-bottom:1.5px solid #d1e0ee;">
+            <th style="color:#4a6278;font-size:11px;font-weight:700;padding:8px 12px 8px 0;text-align:left;text-transform:uppercase;">Application</th>
+            <th style="color:#4a6278;font-size:11px;font-weight:700;padding:8px 12px;text-align:left;text-transform:uppercase;">Risk Level</th>
+            <th style="color:#4a6278;font-size:11px;font-weight:700;padding:8px 0 8px 12px;text-align:left;text-transform:uppercase;">Data at Risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a2342;font-weight:600;padding:9px 12px 9px 0;vertical-align:top;">Fleet Management Systems</td>
+            <td style="padding:9px 12px;vertical-align:top;"><span style="background:#ffebeb;border-radius:4px;color:#cc0000;font-size:10px;font-weight:800;padding:2px 7px;">HIGH</span></td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Crew PII, voyage records, maintenance logs, certification data</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a2342;font-weight:600;padding:9px 12px 9px 0;vertical-align:top;">Port Management Information Systems</td>
+            <td style="padding:9px 12px;vertical-align:top;"><span style="background:#ffebeb;border-radius:4px;color:#cc0000;font-size:10px;font-weight:800;padding:2px 7px;">HIGH</span></td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Cargo manifests, berth scheduling, vessel call data</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a2342;font-weight:600;padding:9px 12px 9px 0;vertical-align:top;">Crew Management Portals</td>
+            <td style="padding:9px 12px;vertical-align:top;"><span style="background:#ffebeb;border-radius:4px;color:#cc0000;font-size:10px;font-weight:800;padding:2px 7px;">HIGH</span></td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Passport/STCW data, contracts, payroll records, contact details</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#0a2342;font-weight:600;padding:9px 12px 9px 0;vertical-align:top;">Vessel Tracking / AIS Web Portals</td>
+            <td style="padding:9px 12px;vertical-align:top;"><span style="background:#fff4e0;border-radius:4px;color:#b06000;font-size:10px;font-weight:800;padding:2px 7px;">MEDIUM</span></td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Position history, route data (potential cargo intelligence)</td>
+          </tr>
+          <tr>
+            <td style="color:#0a2342;font-weight:600;padding:9px 12px 9px 0;vertical-align:top;">Compliance Reporting Portals</td>
+            <td style="padding:9px 12px;vertical-align:top;"><span style="background:#fff4e0;border-radius:4px;color:#b06000;font-size:10px;font-weight:800;padding:2px 7px;">MEDIUM</span></td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">MARPOL/ISM inspection records, audit findings, non-conformities</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#0a1e35,#1a0a2e);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(130,30,140,0.08);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(130,30,140,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#e8b0f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, web application security is frequently the weakest layer. Fleet management and crew management portals are often developed by specialised maritime software vendors or in-house teams whose primary expertise is operational, not cybersecurity. SQL Injection vulnerabilities in login forms, search functions, and filter parameters are not uncommon findings.</p>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">The impact in a maritime context can extend well beyond the database itself. Crew records in a compromised fleet database expose STCW certification details, home addresses, next of kin contacts, and passport numbers — a significant data protection liability. Worse, credentials extracted from the database can provide access to other systems if password reuse is present — which, in the absence of a password management policy, it very often is.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#e8b0f0;">Practical assessment note:</strong> Testing for SQLi does not require sophisticated tooling. A single quotation mark entered in a search field or URL parameter that produces a database error message is sufficient evidence of vulnerability. All web-facing application inputs should be reviewed for injection risk, and vendor-supplied applications should be assessed or their security assurances documented before deployment.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#faf0ff;border:1.5px solid #d4a8e0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#7a1a8a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 10</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>SQL Injection occurs when user input is concatenated into SQL queries, allowing attackers to change query logic.</li>
+    <li>In-band SQLi (error-based, union-based) extracts data directly through the application response; blind SQLi infers data from application behaviour or timing.</li>
+    <li>Parameterised queries (prepared statements) are the primary, definitive defence — they separate code from data at the database protocol level.</li>
+    <li>ORMs provide parameterised queries by default; WAFs and input validation are additional layers, not substitutes for secure code.</li>
+    <li>Maritime fleet management, port management, and crew management systems are high-value SQLi targets with significant data protection consequences.</li>
+    <li>A single quote in an input field producing a database error is a red flag requiring immediate remediation.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 11</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 11 — Cross-Site Scripting (XSS)</strong> examines another injection vulnerability class — but targeting the user's browser rather than the server's database. We explore Reflected, Stored, and DOM-based XSS, how malicious scripts steal cookies and credentials, and the Content Security Policy (CSP) controls that prevent script execution.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 2 — Understanding Cyber Attacks</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 6 — Phishing &amp; Social Engineering</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 7 — Ransomware &amp; the Cyber Kill Chain</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 8 — DoS and DDoS Attacks</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 9 — Man-in-the-Middle (MitM) Attacks</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#7a1a8a;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 10 — SQL Injection</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 11 — Cross-Site Scripting (XSS)</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Coming</span><span>Lesson 12 — DNS Spoofing &amp; DNS-based Attacks</span></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

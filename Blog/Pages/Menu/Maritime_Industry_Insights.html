@@ -462,7 +462,9 @@
        automatically invalidates any visitor's stale cached items instead of
        rendering "undefined" for the new fields — same pattern as apl_cache_v5
        in Main.html's Explore All Posts widget. */
-    var CACHE_KEY = "mii_cache_v2"; /* bumped: v1 could have cached a truncated (45-post) result from the pagination bug */
+    var LABEL2 = "Maritime Leadership & Strategy";
+    var FEED_BASE2 = "https://www.shippauljobs.com/feeds/posts/summary/-/" + encodeURIComponent(LABEL2) + "?alt=json";
+    var CACHE_KEY = "mii_cache_v3"; /* bumped: added Maritime Leadership & Strategy dual-feed */
     var CACHE_TTL = 30 * 60 * 1000;
     var VIEW_NS = "shippauljobs-views"; /* shared sitewide counter — same namespace Maritime Weekly.html uses */
     var MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -470,8 +472,9 @@
     var RANK_SHOW = 6;
     var FALLBACK_GROUP = "General"; /* posts tagged only "Maritime Industry Insights" with no other topic tag */
     var GROUP_MAP = [
-      { name: "Maritime News Analysis", labels: ["Maritime News Analysis","Maritime Trend","Maritime","Maritime Solution"] },
-      { name: "Maritime Market",        labels: ["Maritime Market","Industry and Market","Marine Insurance","claims management","loss prevention","Marine","shipowner"] },
+      { name: "Maritime News Analysis",         labels: ["Maritime News Analysis","Maritime Trend","Maritime","Maritime Solution"] },
+      { name: "Maritime Leadership & Strategy", labels: ["Maritime Leadership & Strategy"] },
+      { name: "Maritime Market",                labels: ["Maritime Market","Industry and Market","Marine Insurance","claims management","loss prevention","Marine","shipowner"] },
       { name: "Industry Trends",        labels: ["A.I in Marine","AI Product","AI and Automation","AICyberLab","CRSI","Cyber Security","Security Assessment","Threats and Attacks","risk assessment","JOBS","Maritime Jobs & Careers","IACS UR E26 E27","IACS UR E26","IACS UR E27","IACS E26","IACS E27","Compliances","Regulatory Compliance","Rules and Compliance","Compliance","Classification"] },
       { name: "USCG",                   labels: ["USCG"] },
       { name: "IMO",                    labels: ["IMO","IMO MSC"] },
@@ -523,6 +526,17 @@
       try {
         localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items: items }));
       } catch (e) {}
+    }
+
+    /* Merge two post arrays, deduplicating by URL */
+    function mergeItems(a, b) {
+      var seen = {};
+      var merged = [];
+      (a || []).concat(b || []).forEach(function(p) {
+        var key = p.link || p.title;
+        if (!seen[key]) { seen[key] = true; merged.push(p); }
+      });
+      return merged;
     }
 
     /*── Feed fetch (paginated) ──*/
@@ -579,10 +593,10 @@
       };
     }
 
-    function fetchAllPosts(cb) {
+    function fetchAllPosts(feedBase, cb) {
       var collected = [];
       function page(start) {
-        fetch(FEED_BASE + "&max-results=150&start-index=" + start)
+        fetch(feedBase + "&max-results=150&start-index=" + start)
           .then(function (r) {
             return r.json();
           })
@@ -1182,12 +1196,25 @@
     var cached = loadCache();
     if (cached) {
       onData(cached);
-      fetchAllPosts(function (fresh) { if (fresh.length) saveCache(fresh); }); /* Background refresh (applied on next visit) */
+      /* Background refresh — re-fetch both feeds, update cache for next visit */
+      var _bg1 = null, _bg2 = null;
+      function _bgDone() {
+        if (_bg1 === null || _bg2 === null) return;
+        var m = mergeItems(_bg1, _bg2);
+        if (m.length) saveCache(m);
+      }
+      fetchAllPosts(FEED_BASE,  function(r){ _bg1 = r; _bgDone(); });
+      fetchAllPosts(FEED_BASE2, function(r){ _bg2 = r; _bgDone(); });
     } else {
-      fetchAllPosts(function (fresh) {
-        if (fresh.length) saveCache(fresh);
-        onData(fresh);
-      });
+      var _f1 = null, _f2 = null;
+      function _fDone() {
+        if (_f1 === null || _f2 === null) return;
+        var merged = mergeItems(_f1, _f2);
+        if (merged.length) saveCache(merged);
+        onData(merged);
+      }
+      fetchAllPosts(FEED_BASE,  function(r){ _f1 = r; _fDone(); });
+      fetchAllPosts(FEED_BASE2, function(r){ _f2 = r; _fDone(); });
     }
 
     document.getElementById("mii-search-input").addEventListener("input", function () {

@@ -1,0 +1,300 @@
+<!--════════════════════════════════════════════════════════════
+     Series : ShipPaulJobs AI Learning Roadmap
+     Part   : PART 1 — AI Fundamentals
+     Lesson : 3 of 5 — CNN, RNN and the Deep Learning Era
+     Topics : Convolutional Neural Networks · Recurrent Neural Networks ·
+              LSTM · GRU · AlexNet · Vanishing Gradient ·
+              Sequence Modelling · Path to Transformer
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">ShipPaulJobs AI Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(10,120,130);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 1</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 3 of 5</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/shippauljobs-ai-learning-roadmap-from.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(10,70,80) 55%,rgb(20,150,160) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 1 · Lesson 3</span>
+    <span style="background:rgba(20,150,160,0.5);border-radius:20px;color:#a0f0f8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Deep Learning Era</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">CNN · RNN · LSTM</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">CNN, RNN and the Deep Learning Era</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">Convolutional Neural Networks · Recurrent Neural Networks · LSTM · GRU · Vanishing Gradient Problem · AlexNet to ResNet — the two dominant deep learning architectures before the Transformer, and why their limitations made the Transformer necessary.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(230,250,252);border-left:4px solid rgb(20,150,160);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a7c88;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain how a Convolutional Neural Network processes spatial data using filters and pooling; describe how Recurrent Neural Networks handle sequences and why they suffer from the vanishing gradient problem; explain how LSTM and GRU address long-range dependencies; and articulate why these architectures were insufficient for language modelling at scale, motivating the Transformer.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">From 2012 to 2017, two neural network architectures dominated applied AI: the <strong>Convolutional Neural Network (CNN)</strong> for spatial data (images, video, spectrograms) and the <strong>Recurrent Neural Network (RNN)</strong> — particularly its LSTM variant — for sequential data (time series, audio, natural language). Every major AI product of that era — image recognition systems, speech-to-text, machine translation — was built on one of these two architectures or a combination of them.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Understanding these architectures is not historical trivia. CNNs remain the workhorse of computer vision systems deployed in shipyards and ports today (Lesson 4). RNNs still appear in legacy time-series systems for engine monitoring. And the specific limitations of RNNs — their inability to efficiently capture long-range dependencies — is the precise problem the Transformer was designed to solve, which is why understanding RNNs makes the Transformer intuitive rather than mysterious.</p>
+</div>
+
+<!--══ SECTION 1 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(10,70,80));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. From Perceptrons to Deep Networks — A Brief Arc</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The simplest neural network is a <strong>single-layer perceptron</strong>: an input layer of n features connected to an output neuron by weighted connections, producing a weighted sum that is passed through an activation function (sigmoid, tanh, or ReLU). A perceptron can only learn linearly separable patterns — a severe limitation discovered by Minsky and Papert in 1969 (<em>Perceptrons</em>, MIT Press).</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Adding hidden layers — neurons between input and output that are not directly connected to either — creates a <strong>Multi-Layer Perceptron (MLP)</strong>. With enough hidden neurons and non-linear activation functions, MLPs can theoretically approximate any function (Universal Approximation Theorem, Cybenko 1989). In practice, training deep MLPs was difficult until the 2010s: without GPU acceleration and large datasets, the backpropagation signal vanished through many layers (the vanishing gradient problem), and deep networks failed to converge.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The CNN and RNN were architectural innovations that allowed deeper networks to train reliably on specific data types by introducing structural priors — assumptions about the nature of the data built into the architecture itself.</p>
+</div>
+
+<!--══ SECTION 2 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,70,80),rgb(15,110,120));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Convolutional Neural Networks — Seeing Like a Machine</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">A <strong>CNN</strong> is designed for data with spatial structure — data where neighbouring elements are meaningfully related. In an image, the pixel at position (100, 100) is likely correlated with the pixel at (101, 100). An MLP treats all pixels as independent inputs, ignoring this spatial structure. A CNN exploits it through three key ideas:</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,70,80);color:#a0f0f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">The Three Ideas Behind CNNs</div>
+    <div style="padding:14px 18px 12px;">
+      <ol style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:18px;">
+        <li><strong>Local connectivity (Convolutional filters):</strong> Instead of connecting every input pixel to every neuron, a convolutional layer uses small filters (e.g., 3×3 pixels) that slide across the image and detect local patterns — edges, corners, textures. The same filter is applied at every position: this is parameter sharing, which dramatically reduces the number of parameters relative to a fully-connected layer over the same input.</li>
+        <li><strong>Translation invariance:</strong> Because the same filter applies everywhere, a CNN learns that a diagonal edge is the same feature regardless of whether it appears at the top-left or the bottom-right of the image. This is the structural prior: objects can appear anywhere in an image and should be detected wherever they are.</li>
+        <li><strong>Pooling (downsampling):</strong> After convolution, a pooling layer reduces the spatial resolution (e.g., max pooling takes the maximum value in each 2×2 block). This makes the representation smaller and more robust to small translations.</li>
+      </ol>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Multiple convolutional layers are stacked: early layers detect low-level features (edges, blobs), mid layers detect textures and object parts, later layers detect high-level semantic features (faces, vessel shapes, containers). This hierarchical feature learning is what makes CNNs so effective for vision tasks.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The <strong>AlexNet</strong> breakthrough (Krizhevsky, Sutskever, and Hinton, 2012) used 5 convolutional layers + 3 fully-connected layers trained on 2 GPUs for 5 days, winning ImageNet with 15.3% top-5 error vs. 26.2% for the runner-up. By 2015, <strong>ResNet-152</strong> (He et al., CVPR 2016) introduced residual connections — skip connections that allow gradients to flow directly across many layers — and achieved 3.57% error, below human performance of ~5% on the same benchmark.</p>
+</div>
+
+<!--══ SECTION 3 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(15,110,120),rgb(20,150,160));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Recurrent Neural Networks — Processing Sequences</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">A <strong>Recurrent Neural Network (RNN)</strong> is designed for sequential data: time series, sentences, audio. Unlike a CNN or MLP which processes a fixed-size input in a single pass, an RNN processes one element of the sequence at a time, maintaining a <strong>hidden state</strong> — a vector that summarises what the network has seen so far.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">At each time step t, the RNN takes the current input x_t and the previous hidden state h_{t-1}, and computes a new hidden state h_t and an optional output y_t. The same parameters are shared across all time steps — another form of parameter sharing analogous to the CNN's filter sharing. The hidden state acts as the network's "memory" of the sequence so far.</p>
+  <div style="background:rgb(230,250,252);border-radius:10px;margin-bottom:14px;padding:16px 20px;">
+    <div style="color:#0a7c88;font-size:11px;font-weight:800;letter-spacing:0.08em;margin-bottom:8px;text-transform:uppercase;">RNN Applications in Maritime</div>
+    <p style="color:#354a5e;font-size:13px;line-height:1.8;margin:0 0 8px;">RNNs are appropriate for: <strong>engine sensor time series</strong> (predict the next state of engine RPM, temperature, and vibration given the last N measurements); <strong>AIS vessel trajectory prediction</strong> (predict next position given history of positions); <strong>anomaly detection in sequential operational logs</strong> (detect abnormal sequences of events in ECDIS or PMS logs).</p>
+    <p style="color:#354a5e;font-size:13px;line-height:1.8;margin:0;">Legacy maritime condition monitoring systems deployed in the 2015–2018 period often used LSTM-based anomaly detection. Understanding RNNs is necessary to audit and assess these systems under IACS UR E26 Section 4.3 requirements.</p>
+  </div>
+</div>
+
+<!--══ SECTION 4 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,70,80),rgb(20,150,160));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">4. The Vanishing Gradient Problem — RNN's Core Limitation</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Vanilla RNNs suffer from a critical failure: the <strong>vanishing gradient problem</strong> (Hochreiter, 1991; Bengio et al., 1994). During backpropagation through time (BPTT), gradients must be multiplied through the weight matrix at each time step. If those weights are less than 1, the gradients shrink exponentially as they propagate back through long sequences. After 20–30 steps, the gradient signal is effectively zero — the network cannot learn from events that occurred early in a long sequence.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">For language modelling, this meant that vanilla RNNs could only effectively learn from the last ~5-10 words of context. For sentence-level translation, document summarisation, or long-term time-series forecasting, this was a severe limitation.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">LSTM — The Engineering Solution to Vanishing Gradients</div>
+    <div style="padding:14px 18px 12px;">
+      <p style="color:#4a6278;font-size:13px;line-height:1.85;margin:0 0 10px;">The <strong>Long Short-Term Memory (LSTM)</strong> (Hochreiter and Schmidhuber, 1997, <em>Neural Computation</em>) solved the vanishing gradient problem with a <strong>cell state</strong> — a separate memory track that runs through the sequence with only linear interactions, allowing gradients to flow without exponential decay.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.85;margin:0 0 10px;">The LSTM regulates what information to add to or remove from the cell state via three <strong>gates</strong>, each of which is a sigmoid-activated neural network layer that produces a value between 0 and 1 (0 = "let nothing through," 1 = "let everything through"):</p>
+      <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+        <li><strong>Forget gate:</strong> Decides what information to erase from the cell state.</li>
+        <li><strong>Input gate:</strong> Decides what new information to add to the cell state.</li>
+        <li><strong>Output gate:</strong> Decides what part of the cell state to expose as the hidden state output.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The <strong>Gated Recurrent Unit (GRU)</strong> (Cho et al., 2014, arXiv:1406.1078) is a simplified variant of LSTM with two gates instead of three, slightly fewer parameters, and comparable performance on most tasks. GRUs are faster to train and are preferred in resource-constrained settings.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">By 2016, LSTM-based sequence-to-sequence models (Sutskever, Vinyals, and Le, 2014) achieved state-of-the-art results in machine translation and speech recognition. Google replaced its statistical machine translation system with an LSTM-based neural system in November 2016 — translating 100 billion words per day.</p>
+</div>
+
+<!--══ SECTION 5 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(20,150,160));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">5. The Remaining Limits of RNNs — Why the Transformer Was Necessary</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">LSTMs solved the vanishing gradient problem but retained two structural limitations that became critical at the scale of modern language models:</p>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:16px;">
+    <div style="background:white;border:1.5px solid #b2d8da;border-radius:12px;padding:16px 16px 12px;">
+      <h3 style="color:#0a2342;font-size:13px;font-weight:800;margin:0 0 8px;">⚠️ Sequential Computation</h3>
+      <p style="color:#4a6278;font-size:12.5px;line-height:1.7;margin:0;">An RNN processes one token at a time, in order. To process position 500 of a sequence, positions 1–499 must be computed first. This means RNN training is inherently sequential and cannot be parallelised across the sequence length — making it slow on GPUs, which are designed for parallel computation. Training on billion-token corpora took impractically long.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #b2d8da;border-radius:12px;padding:16px 16px 12px;">
+      <h3 style="color:#0a2342;font-size:13px;font-weight:800;margin:0 0 8px;">⚠️ Fixed-Size Bottleneck</h3>
+      <p style="color:#4a6278;font-size:12.5px;line-height:1.7;margin:0;">In sequence-to-sequence models (e.g., translation: English sentence → French sentence), the entire source sentence was compressed into a single fixed-size hidden state vector, which the decoder then expanded. For long sentences, this bottleneck lost information. The <strong>attention mechanism</strong> (Bahdanau et al., 2014) was introduced to allow the decoder to look directly at all encoder hidden states — a partial fix that became the seed of the Transformer.</p>
+    </div>
+  </div>
+
+  <!-- RELATED POST CALLOUT -->
+  <div style="background:linear-gradient(135deg,rgb(230,250,252),rgb(218,246,248));border:1.5px solid rgb(140,220,230);border-radius:10px;margin:18px 0;padding:14px 18px;">
+    <span style="color:#0a7c88;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">📎 관련 포스트</span>
+    <div style="margin-top:6px;"><a href="https://www.shippauljobs.com/2026/08/llm-architecture-ai-ethics-2027-revised.html" rel="noopener" style="color:#1565c0;font-size:13.5px;font-weight:700;text-decoration:none;" target="_blank">LLM Architecture & AI Ethics — 2027 Perspective →</a></div>
+    <p style="color:#4a6278;font-size:12px;line-height:1.65;margin:5px 0 0;">RNN에서 Transformer로의 전환이 LLM 아키텍처에 어떤 구조적 변화를 가져왔는지, 그리고 현재 LLM에서 나타나는 AI 윤리 문제를 심층적으로 분석합니다.</p>
+  </div>
+
+  <!-- RELATED POST CALLOUT -->
+  <div style="background:linear-gradient(135deg,rgb(230,250,252),rgb(218,246,248));border:1.5px solid rgb(140,220,230);border-radius:10px;margin:18px 0;padding:14px 18px;">
+    <span style="color:#0a7c88;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">📎 관련 포스트 — 논문 리뷰</span>
+    <div style="margin-top:6px;"><a href="https://www.shippauljobs.com/2023/06/react-synergizing-reasoning-and-acting.html" rel="noopener" style="color:#1565c0;font-size:13.5px;font-weight:700;text-decoration:none;" target="_blank">Paper Review: ReAct — Synergizing Reasoning and Acting in Language Models →</a></div>
+    <p style="color:#4a6278;font-size:12px;line-height:1.65;margin:5px 0 0;">Transformer 기반 LLM이 단순한 언어 모델을 넘어 추론(Reasoning)과 행동(Acting)을 결합하는 ReAct 패러다임으로 어떻게 발전했는지 논문을 통해 확인하세요.</p>
+  </div>
+
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The Transformer (Vaswani et al., 2017) replaced sequential recurrence with parallel self-attention across the entire sequence in a single computation. By attending to all positions simultaneously, it eliminated both the sequential bottleneck and the fixed-size compression problem. With this, LLMs became feasible at scales that RNNs could not approach.</p>
+</div>
+
+<!--══ SECTION 6 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,70,80),rgb(20,150,160));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">6. The Deep Learning Era in Numbers — A Timeline</h2>
+  </div>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">CNN and RNN Milestones 2012–2017</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;width:80px;">2012</td>
+            <td style="color:#354a5e;padding:10px 0;"><strong>AlexNet</strong> — 8 layers, 60M parameters. Wins ImageNet by 11pp. Establishes the GPU-deep learning pipeline.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2014</td>
+            <td style="color:#354a5e;padding:10px 0;"><strong>VGGNet</strong> (Oxford, Simonyan and Zisserman) — 19 layers of uniform 3×3 convolutions. Establishes depth as the primary quality driver. GRU paper (Cho et al.) simplifies LSTM.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2015</td>
+            <td style="color:#354a5e;padding:10px 0;"><strong>ResNet-152</strong> (He et al., Microsoft) — 152 layers enabled by skip connections. 3.57% ImageNet error. Below human performance. Bidirectional LSTMs achieve state-of-the-art in NER and POS tagging.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2016</td>
+            <td style="color:#354a5e;padding:10px 0;"><strong>Google Neural Machine Translation</strong> (GNMT) — LSTM seq2seq with attention, deployed at scale. AlphaGo (DeepMind) — CNN + MCTS + RL, defeats Lee Sedol at Go.</td>
+          </tr>
+          <tr>
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2017</td>
+            <td style="color:#354a5e;padding:10px 0;"><strong>Transformer</strong> (Vaswani et al.) — replaces recurrence with self-attention. Initiates the LLM era. CNN and RNN remain essential in computer vision and edge deployment, but no longer the frontier of language AI.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 7: MARITIME CONNECTION ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">7. Maritime Connection — CNNs and RNNs in Vessel Systems Today</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Both architectures remain active in maritime AI deployments. Understanding their capabilities and limitations is necessary to evaluate vendor claims and assess cyber risk for AI-dependent vessel systems.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,70,80);color:#a0f0f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">CNN and RNN — Maritime Deployment Examples</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;width:140px;">CNN — Vision</td>
+            <td style="color:#354a5e;padding:10px 0;">Port surveillance cameras with automated vessel identification; underwater hull inspection drones; weld quality inspection in shipyard production; container seal integrity detection. (Details in Lesson 4.)</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">CNN — Spectrogram</td>
+            <td style="color:#354a5e;padding:10px 0;">Marine engine acoustic anomaly detection — vibration sensor data is converted to a spectrogram (time-frequency image) and a CNN classifies it. Faster and often more accurate than raw-signal LSTM approaches.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">LSTM — Time Series</td>
+            <td style="color:#354a5e;padding:10px 0;">Engine sensor anomaly detection (multi-variate: RPM, temperature, pressure, vibration as simultaneous sequences); AIS trajectory prediction; fuel consumption forecasting with route and weather context.</td>
+          </tr>
+          <tr>
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">Security Risk</td>
+            <td style="color:#354a5e;padding:10px 0;">CNN and RNN models deployed on vessels are adversarially vulnerable: manipulated sensor inputs (spoofed vibration patterns) can evade an LSTM anomaly detector; adversarial patches on containers can confuse a CNN seal-integrity detector. These are not theoretical — they are documented attack classes.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,rgb(230,250,252),rgb(216,244,246));border:1.5px solid rgb(140,210,220);border-radius:14px;margin-bottom:28px;padding:22px 24px;">
+  <div style="align-items:center;display:flex;gap:12px;margin-bottom:14px;">
+    <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:2px solid rgb(20,150,160);flex-shrink:0;height:44px;object-fit:cover;width:44px;" />
+    <div>
+      <div style="color:#0a7c88;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">✍️ Author Insight</div>
+      <div style="color:#0a2342;font-size:13px;font-weight:700;">Captain Paul — Maritime Cybersecurity Consultant</div>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 12px;">During E26 CRSI 프로젝트 수행, I encounter LSTM-based engine monitoring systems where the vendor documentation describes the model's training data but provides no adversarial robustness evaluation. This is a gap that the NIST AI RMF MEASURE function is designed to close — but maritime operators are often unaware that such evaluation is expected.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 12px;">The practical question for an IACS UR E26 compliance assessment: "Has your AI-based monitoring system been tested against manipulated sensor inputs that simulate the attack patterns documented in the MITRE ATLAS framework?" In most cases the answer is no, and the organisation is unaware that such a test is technically feasible and increasingly expected.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">For CNN-based vision systems in port surveillance or shipyard inspection: the question is whether the model has been evaluated for sensitivity to physical adversarial patches — a class of attack where a sticker on a container can cause misclassification. These are not hypothetical; they are demonstrated in research with physical-world applications.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:rgb(230,250,252);border-radius:14px;margin-bottom:28px;padding:22px 24px;">
+  <div style="color:#0a7c88;font-size:12px;font-weight:800;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">🔑 Key Takeaways</div>
+  <ul style="color:#354a5e;font-size:13.5px;line-height:1.9;margin:0;padding-left:18px;">
+    <li><strong>CNNs</strong> exploit spatial structure through local filters, parameter sharing, and pooling. They are the dominant architecture for image and spectrogram analysis in maritime AI today.</li>
+    <li><strong>Residual connections</strong> (ResNet, 2015) allow networks to be trained at 100+ layer depth, dramatically improving vision task performance.</li>
+    <li><strong>RNNs</strong> process sequences by maintaining a hidden state updated at each time step. They are used in maritime time-series forecasting and log anomaly detection.</li>
+    <li>The <strong>vanishing gradient problem</strong> limits vanilla RNNs to short effective context windows. LSTM and GRU solve this through gated cell state mechanisms.</li>
+    <li>RNNs are inherently sequential — they cannot be fully parallelised on GPUs. This was the primary computational motivation for replacing them with the Transformer.</li>
+    <li>CNN and LSTM systems deployed in maritime OT environments are susceptible to adversarial input manipulation — a risk category that IACS UR E26 cyber resilience requirements are beginning to address.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid rgb(200,223,247);border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">⏭ What's Next</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 4 — Computer Vision and Object Detection</strong> takes the CNN architecture from this lesson and applies it to the full computer vision pipeline: ImageNet, object detection with YOLO, semantic segmentation, and the foundation vision models (SAM, CLIP) that power the latest generation of maritime AI vision applications in ports and shipyards.</p>
+</div>
+
+<!--══ OFFICIAL SOURCES ══-->
+<div style="border-top:2px solid rgb(200,223,247);margin-bottom:28px;padding-top:22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">📚 Official Sources & Key Citations</div>
+  <ul style="color:#4a6278;font-size:12.5px;line-height:2;margin:0;padding-left:18px;">
+    <li>Hochreiter, S., and Schmidhuber, J. (1997). "Long Short-Term Memory." <em>Neural Computation</em>, 9(8), 1735–1780.</li>
+    <li>Cho, K., van Merrienboer, B., Gulcehre, C., et al. (2014). "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation." arXiv:1406.1078 (GRU paper).</li>
+    <li>Krizhevsky, A., Sutskever, I., and Hinton, G. (2012). "ImageNet Classification with Deep Convolutional Neural Networks." <em>NeurIPS 2012.</em></li>
+    <li>He, K., Zhang, X., Ren, S., and Sun, J. (2016). "Deep Residual Learning for Image Recognition." <em>CVPR 2016.</em> arXiv:1512.03385 (ResNet).</li>
+    <li>Bahdanau, D., Cho, K., and Bengio, Y. (2014). "Neural Machine Translation by Jointly Learning to Align and Translate." arXiv:1409.0473 (Attention mechanism).</li>
+    <li>MITRE ATLAS — Adversarial Threat Landscape for AI Systems. <a href="https://atlas.mitre.org" rel="noopener" style="color:#1a9e82;" target="_blank">atlas.mitre.org</a></li>
+    <li>NIST AI RMF 1.0 (2023) — MEASURE function: adversarial robustness evaluation. <a href="https://airc.nist.gov/RMF" rel="noopener" style="color:#1a9e82;" target="_blank">airc.nist.gov</a></li>
+  </ul>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:8px;padding:14px 20px;">
+  <div style="color:#6b8599;font-size:10px;font-weight:800;letter-spacing:0.08em;margin-bottom:10px;text-transform:uppercase;">📚 PART 1 — AI Fundamentals</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+    <a href="https://www.shippauljobs.com/2026/09/from-ai-to-generative-ai-ai-learning.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L1: From AI to GenAI</a>
+    <a href="https://www.shippauljobs.com/2026/09/how-machines-learn-from-data-ai.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L2: How Machines Learn</a>
+    <span style="background:rgb(10,120,130);border-radius:6px;color:white;font-size:11px;font-weight:700;padding:4px 12px;">L3: CNN · RNN · Deep Learning</span>
+    <a href="https://www.shippauljobs.com/2026/09/computer-vision-and-object-detection-ai.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L4: Computer Vision</a>
+    <a href="https://www.shippauljobs.com/2026/09/from-gans-to-generative-ai-ai-learning.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L5: GANs → Generative AI</a>
+  </div>
+  <div style="border-top:1px solid #dde8f4;margin-top:10px;padding-top:10px;">
+    <a href="https://www.shippauljobs.com/2026/09/shippauljobs-ai-learning-roadmap-from.html" rel="noopener" style="color:#1a9e82;font-size:11px;font-weight:700;text-decoration:none;" target="_blank">← Course Index</a>
+  </div>
+</div>
+
+</div>

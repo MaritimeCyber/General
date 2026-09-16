@@ -28,8 +28,8 @@ AUTHOR_BIOS = {
     "Captain Paul": {
         "name":  "Captain Paul",
         "title": "Founder &amp; Editor-in-Chief · ShipPaulJobs",
-        "bio":   ("Senior Manager at a global consulting firm specializing in "
-                  "Maritime Cyber Security, AI, and Data Analytics. 17+ years "
+        "bio":   ("Director at a global consulting firm specializing in "
+                  "Maritime Cyber Security, AI, and Data Analytics. 20+ years "
                   "spanning shipbuilding R&amp;D, AI product development, and "
                   "maritime cyber compliance. Specializes in IACS UR E26/E27, "
                   "IMO MSC guidelines, and smart ship development. "

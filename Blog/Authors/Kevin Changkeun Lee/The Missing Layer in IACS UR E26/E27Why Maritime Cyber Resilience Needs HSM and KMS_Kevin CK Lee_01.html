@@ -1,0 +1,313 @@
+<!--════════════════════════════════════════════════════════════
+     Article: The Missing Layer in IACS UR E26/E27 — Why Maritime Cyber Resilience Needs HSM and KMS
+     Author : Kevin CK Lee · President & Co-Founder, Keypair, Inc.
+     Style  : Maritime 4.0 Design System — Blogger-compatible
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing: border-box; font-family: &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif; line-height: 1.75; margin: 0px auto; max-width: 780px;">
+
+  <!--══ HEADER ══-->
+  <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%); border-radius: 16px; margin-bottom: 36px; padding: 40px 36px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px;">
+      <span style="background: rgba(255, 193, 7, 0.35); border-radius: 20px; color: #ffe082; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">💡 Insight</span>
+      <span style="background: rgba(26, 158, 130, 0.4); border-radius: 20px; color: #7effd8; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">IACS UR E27</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Cryptography</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">HSM &amp; KMS</span>
+    </div>
+    <h1 style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin: 0px 0px 8px;">
+      The Missing Layer in IACS UR E26/E27 — Why Maritime Cyber Resilience Needs HSM and KMS
+    </h1>
+    <p style="color: #b8d4ea; font-size: 13px; font-style: italic; margin: 0px 0px 20px;">
+      Protecting the cryptographic keys behind ship identity, secure communications and software integrity — before AI and quantum computing meet.
+    </p>
+    <div style="align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 18px;">
+      <div style="align-items: center; display: flex; gap: 10px;">
+        <a href="https://www.linkedin.com/in/kevin-changkeun-lee-17777717/" rel="noopener" target="_blank">
+          <img alt="Kevin CK Lee" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/3a42946efe8708915135f2d8613c2de2df26b97d/Asset/img/member/kebin.jpeg?raw=true" style="border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.4); flex-shrink: 0; height: 36px; object-fit: cover; width: 36px;" />
+        </a>
+        <div>
+          <div style="color: white; font-size: 13px; font-weight: 700; line-height: 1.3;">Kevin CK Lee</div>
+          <div style="color: #9ab5c9; font-size: 10px;">President &amp; Co-Founder, Keypair, Inc. · PKI · HSM/KMS · Secure Elements</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ LEAD ══-->
+  <p style="background: rgb(240, 247, 255); border-left: 4px solid rgb(26, 158, 130); border-radius: 12px; color: #354a5e; font-size: 15px; line-height: 1.85; margin: 0px 0px 32px; padding: 20px 22px;">
+    A recent article on this site by a class surveyor summarised the first two years of UR E26/E27 as a shift in the centre of gravity of class survey — from verifying physical objects to verifying system behaviour. Reviewers now ask whether a security capability described in a CSDD (Cyber Security Design Description) is a catalogue phrase or an actually configured setting. I would like to add one question that remains after the zones and conduits are drawn and the firewalls and VPNs (Virtual Private Networks) are in place: <strong style="color: #0a2342;">where are the cryptographic keys that those systems rely on for trust — and what happens to them when a system is compromised?</strong>
+  </p>
+
+  <!--══ SECTION 1 ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">1. When the Perimeter Falls, the Keys Go With It</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">The past two years of edge-device incidents tell a consistent story. In early 2024, chained authentication-bypass and command-injection flaws in Ivanti Connect Secure led to more than 2,100 compromised appliances identified by external scanning; attackers harvested stored credentials, moved laterally, and evaded the vendor's own integrity checking tool.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">Fortinet's FortiGate — one of the most widely deployed firewall and SSL-VPN (Secure Sockets Layer Virtual Private Network) platforms, including on board commercial vessels — illustrates the same problem from three angles:</p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;"><strong>Stolen configurations outlive the vulnerability.</strong> In January 2025, a threat actor published configuration files, including administrator and VPN user credentials, for more than 15,000 FortiGate devices — data believed to have been extracted years earlier through an authentication-bypass flaw that had long since been patched.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;"><strong>Persistence survives patching.</strong> In April 2025, Fortinet disclosed that attackers had planted a symbolic link in the SSL-VPN file system that kept read-only access to device files, including configurations, even after the original flaws were fixed. The Shadowserver Foundation counted over 16,000 affected internet-facing devices, and CERT-FR (France's national Computer Emergency Response Team) advised resetting all secrets — credentials, certificates, identity tokens and cryptographic keys.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;"><strong>AI removes the skill barrier.</strong> Between January and February 2026, Amazon Threat Intelligence observed a low-to-medium-skilled, financially motivated actor use commercial generative AI tools to compromise more than 600 FortiGate devices in 55 countries. No vulnerability was exploited — only exposed management interfaces and weak single-factor credentials. The actor extracted full configurations containing VPN and administrative credentials, and used AI-generated scripts to parse and decrypt them.</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">This is not a criticism of one vendor; every edge platform faces the same structural issue. <strong style="color: #0a2342;">As long as keys and credentials live inside the device's software, compromising the device means compromising the keys — and a patch closes the hole but never recalls a key that has already left.</strong> Ships face this under worse conditions: patches wait for voyage schedules and satellite bandwidth, there is no security specialist on board to judge an alert, and IT (Information Technology) compromise can propagate into machinery and navigation systems. An environment that detects late and patches late needs a design in which keys cannot leave in the first place.</p>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION 2 ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">2. AI and Quantum Computing: Two Halves of One Attack Chain</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">AI and quantum computing are usually discussed as separate threats. For maritime operators they should be seen as the front and back ends of the same chain, and both converge on one target: <strong style="color: #0a2342;">keys and identity</strong>.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 20px;">Today, AI lowers the cost of attack to the point where small operators and equipment suppliers who assumed they were "not a target" now are; the FortiGate campaign above is a live example. Tomorrow's risk is <strong style="color: #0a2342;">Harvest Now, Decrypt Later (HNDL)</strong>: adversaries record encrypted traffic now and decrypt it once a cryptographically relevant quantum computer can run Shor's algorithm against RSA (a widely used public-key encryption algorithm) and elliptic-curve cryptography. No such machine exists yet and timelines are debated — but AI changes the economics of harvesting, because it can automatically triage vast volumes of intercepted data and keep what is worth decrypting later.</p>
+
+    <div style="margin: 0px 0px 20px; text-align: center;">
+      <img alt="Figure 1. AI accelerates theft of keys stored in software today; combined with quantum computing, it enables retroactive decryption of traffic harvested today" loading="lazy" src="https://lh3.googleusercontent.com/-rEhDj97U1w4/aqn6W8bTl6I/AAAAAAAAiPw/ohcKfB18qc4ayduYK_W2Bfvc733pq7bTwCNcBGAsYHQ/rw/photo.jpg" style="border-radius: 10px; border: 1px solid rgb(209, 224, 238); height: auto; max-width: 100%;" />
+      <div style="color: #6b8599; font-size: 12px; font-style: italic; line-height: 1.6; margin-top: 8px;">Figure 1. AI accelerates theft of keys stored in software today; combined with quantum computing, it enables retroactive decryption of traffic harvested today</div>
+    </div>
+
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">Shipping meets both HNDL preconditions unusually well. Nearly all ship–shore traffic — operational data, remote maintenance sessions, software updates — travels over satellite links whose signals are broadcast over wide areas, and voyage and cargo data for energy carriers, naval auxiliaries or major charterers keeps its value for years. Where the attack target is a signing key or a control channel, the consequence in OT (Operational Technology) is not just disclosure but forgery: an attacker who holds a trusted key does not need to break in; they are let in.</p>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION 3 ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(26, 158, 130), rgb(39, 174, 143)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">3. UR E27 Already Talks About Keys</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 20px;">UR E26/E27 are goal-based and do not mandate any specific product, and nothing in this article should be read as claiming otherwise. It is sometimes said, however, that E27 never mentions HSMs (Hardware Security Modules). The text says otherwise. Section 6.3.4.1 (IEC 62443-4-1, the IEC's industrial/OT cybersecurity product-security standard — requirement SM-8) requires suppliers of digitally signed software to show policies, procedures and technical controls protecting the generation, storage and use of code-signing private keys, and gives <strong style="color: #0a2342;">cryptographic hardware such as a hardware security module</strong> as an example of such a technical control. An example is not an obligation — but when a surveyor asks what the technical control actually is, it is the most demonstrable answer. Table 1 lists the E27 items that touch keys directly.</p>
+
+    <div style="color: #0a2342; font-size: 13px; font-weight: 800; margin: 0px 0px 10px;">Table 1. UR E27 Rev.1 requirements directly related to cryptographic keys</div>
+    <div style="margin: 0px 0px 20px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 13px; width: 100%;">
+        <tr>
+          <th style="background: rgb(10, 35, 66); color: white; font-size: 11.5px; font-weight: 700; padding: 10px 14px; text-align: left;">UR E27 Rev.1 Requirement</th>
+          <th style="background: rgb(10, 35, 66); color: white; font-size: 11.5px; font-weight: 700; padding: 10px 14px; text-align: left;">What It Asks For (Summary)</th>
+          <th style="background: rgb(10, 35, 66); color: white; font-size: 11.5px; font-weight: 700; padding: 10px 14px; text-align: left;">What It Means for Key Management</th>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">§4.1 #4 Authenticator management</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Protect authenticators from unauthorised disclosure and modification when stored and transmitted</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Keep credentials and keys inside a secure element or HSM, not in files</td>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">§4.1 #22 Use of cryptography</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Algorithms, key sizes and mechanisms per commonly accepted industry practice</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">KMS (Key Management System)-based crypto agility so algorithms can change as practice changes</td>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">§4.2 #31, #32 MFA (Multi-Factor Authentication); device authentication</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">MFA over untrusted networks; identify and authenticate software processes and devices</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Hardware tokens for remote maintainers; per-device certificates (device ID)</td>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">§4.2 #38 Cryptographic integrity</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Cryptographic mechanisms to recognise changes in communication via untrusted networks</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">SATCOM (Satellite Communications) VPN/TLS (Transport Layer Security) keys issued, rotated and revoked via HSM + KMS</td>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">§5.1 / §6.3.4.1 Private keys for code signing (SM-8)</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Policies and technical controls for generation, storage and use of signing keys; HSM cited as an example</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Signing keys non-exportable in an HSM, with role separation and audit logs</td>
+        </tr>
+        <tr>
+          <td style="color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">§5.4 / §6.3.4.4 Update authenticity (SUM-4)</td>
+          <td style="color: #354a5e; padding: 10px 14px; vertical-align: top;">Users must be able to verify that security updates are authentic</td>
+          <td style="color: #354a5e; padding: 10px 14px; vertical-align: top;">Signature verification chain anchored in secure boot on the device</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; color: #1a4a40; font-size: 14px; line-height: 1.75; padding: 14px 18px;">
+      Treated as one line per system in a CSDD, these items easily end as "supported". But a single ship carries dozens of computer-based systems, manufacturer signing keys, remote-maintainer certificates and SATCOM gateway keys. Who issues them, when are they rotated, and how is a maintenance contractor's certificate revoked when the contract ends? <strong>Governing that lifecycle is the job of a KMS; physically protecting its root of trust is the job of an HSM.</strong> E26's expectation that cyber resilience is maintained across the operational life of the ship is difficult to demonstrate without it.
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION 4 ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(29, 137, 207)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">4. HSM Protects the Key; KMS Governs Its Life</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 20px;">Keys on a ship are not only on the ship. <strong style="color: #0a2342;">The most dangerous keys are often ashore.</strong> If one equipment maker's firmware-signing key leaks, correctly signed malicious updates can reach every vessel carrying that equipment. Figure 2 maps where keys sit across shore, link and onboard layers, what protects them, and which requirements they relate to.</p>
+
+    <div style="margin: 0px 0px 20px; text-align: center;">
+      <img alt="Figure 2. Three layers of maritime cryptographic trust — existing firewalls, VPNs and detection tools stay in place; only the key layer beneath them changes" loading="lazy" src="https://blogger.googleusercontent.com/img/a/AVvXsEiaFRvb-hsmLUEeM1q8Wi22XAcVyxFzKrausyYG67FJS_RXEp7n2Y5KpTcZCoKF0e_syfyEPccPJJFiK3v1dYlGXfcmL1FlTt3xxqWswAUZg9lNx81A47NmJLN3EL9Y0gMkjg6rcNBknIFZtqUfkEtvWQceaLW_KkmywbvB3_LRAa7iN2ZUQcmA7pvg-ZQs=rw" style="border-radius: 10px; border: 1px solid rgb(209, 224, 238); height: auto; max-width: 100%;" />
+      <div style="color: #6b8599; font-size: 12px; font-style: italic; line-height: 1.6; margin-top: 8px;">Figure 2. Three layers of maritime cryptographic trust — existing firewalls, VPNs and detection tools stay in place; only the key layer beneath them changes</div>
+    </div>
+
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;"><strong style="color: #0a2342;">Equipment manufacturers</strong>: moving code-signing keys into an HSM is the clearest way to evidence SM-8 during E27 type approval. <strong style="color: #0a2342;">Shipowners and managers</strong>: a fleet KMS and PKI (Public Key Infrastructure) to issue, rotate and revoke remote-access certificates, VPN keys and device certificates across vessels and vendors. This also helps with the grey zone around owner-supplied systems raised in the surveyor's article: if owner-supplied CBS (Computer Based System) must obtain certificates from the owner's PKI before connecting, responsibility at the interface becomes explicit. <strong style="color: #0a2342;">Onboard equipment</strong>: designed for unattended operation, with device identity held in a tamper-resistant secure element that erases keys on physical intrusion.</p>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION 5 ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(29, 137, 207), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">5. A Moving Baseline: The Post-Quantum Transition</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 20px;">E27 item #22 does not name algorithms; it requires "commonly accepted security industry practices". Not naming them means the baseline moves. NSA's (U.S. National Security Agency) CNSA 2.0 (Commercial National Security Algorithm Suite 2.0) requires software and firmware signing to use quantum-resistant algorithms exclusively by 2030; NIST's (U.S. National Institute of Standards and Technology) draft transition guidance (IR 8547) proposes deprecating RSA and ECDSA (Elliptic Curve Digital Signature Algorithm) after 2030 and disallowing them after 2035; Korea's national migration master plan also targets 2035. NIST has already standardised ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism, FIPS 203) and ML-DSA (Module-Lattice-Based Digital Signature Algorithm, FIPS 204).</p>
+
+    <div style="margin: 0px 0px 20px; text-align: center;">
+      <img alt="Figure 3. Service life of a late-2024 newbuild against published cryptographic transition milestones" loading="lazy" src="https://lh3.googleusercontent.com/-bQpasbdYmSY/aqn6XLaOUBI/AAAAAAAAiP4/pgUYOzJw0ZoCmSfZmIZr89cSYFTGHMnxQCNcBGAsYHQ/rw/photo.jpg" style="border-radius: 10px; border: 1px solid rgb(209, 224, 238); height: auto; max-width: 100%;" />
+      <div style="color: #6b8599; font-size: 12px; font-style: italic; line-height: 1.6; margin-top: 8px;">Figure 3. Service life of a late-2024 newbuild against published cryptographic transition milestones</div>
+    </div>
+
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">Servers ashore are replaced every three to five years; a ship contracted in late 2024 will trade into the 2050s. This does not mean replacing every system with post-quantum cryptography tomorrow — most onboard equipment cannot support it yet. It means <strong style="color: #0a2342;">designing crypto agility in now</strong>: hybrid classical-plus-PQC (Post-Quantum Cryptography) schemes on ship–shore links, and an architecture in which algorithms can change without replacing equipment. The practical switching point for that change is the HSM and KMS layer.</p>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION 6 ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(26, 158, 130), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">6. Five Questions for Shipowners and Security Managers at RFQ Stage</h2>
+    </div>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 14px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 22px; justify-content: center; width: 22px;">1</span>
+          <span style="color: #354a5e; font-size: 14px; line-height: 1.7;">Where are your code-signing private keys stored, and to what standard (e.g. FIPS 140-3 — a U.S. cryptographic-module security standard, or KCMVP — Korea's Cryptographic Module Validation Program) is that HSM validated? (E27 SM-8)</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 22px; justify-content: center; width: 22px;">2</span>
+          <span style="color: #354a5e; font-size: 14px; line-height: 1.7;">Are device credentials and identity keys in the file system, or inside a secure element? (E27 #4, #32)</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 22px; justify-content: center; width: 22px;">3</span>
+          <span style="color: #354a5e; font-size: 14px; line-height: 1.7;">Who issues and revokes remote-maintainer certificates — the manufacturer or the owner?</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 22px; justify-content: center; width: 22px;">4</span>
+          <span style="color: #354a5e; font-size: 14px; line-height: 1.7;">Can cryptographic algorithms be changed through a firmware update, and what is your post-quantum roadmap? (E27 #22)</span>
+        </li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;">
+          <span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 22px; justify-content: center; width: 22px;">5</span>
+          <span style="color: #354a5e; font-size: 14px; line-height: 1.7;">Is there a cryptographic bill of materials (CBOM) for the whole ship, including owner-supplied systems?</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ CLOSING ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Closing: Firewalls Guard the Door; HSMs Guard the Keys</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">Strengthening the key layer does not require dry-docking a ship. Existing firewalls, VPNs and detection tools remain in service; only the keys they trust move behind a hardware boundary. The sequence is straightforward: inventory where cryptography is used (CBOM); move shore-side signing keys and PKI roots into HSM/KMS, which protects the whole fleet without touching a vessel; write crypto agility into newbuild specifications; and build secure elements into the next generation of onboard equipment.</p>
+    <div style="background: rgb(253, 248, 238); border-left: 4px solid rgb(201, 162, 39); border-radius: 0px 12px 12px 0px; margin: 0px 0px 16px; padding: 18px 22px;">
+      <p style="color: #7a5c08; font-size: 14.5px; font-weight: 700; line-height: 1.85; margin: 0px;">UR E26/E27 have taught the industry to demonstrate cyber resilience. The next question is <strong>who is responsible for the keys that underpin that demonstration — where they are held, and for how long.</strong> When that question appears in shipbuilding contracts and equipment purchase specifications, cyber resilience will stop being a set of documents and become part of the ship's structure.</p>
+    </div>
+  </div>
+
+  <!--══ RELATED ARTICLES ══-->
+  <div style="font-family: &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif; margin-bottom: 32px;">
+    <p style="color: #0a2342; font-size: 13px; font-weight: 800; letter-spacing: 0.3px; margin: 0px 0px 10px;">Related Reading:</p>
+    <ul style="display: flex; flex-direction: column; gap: 8px; list-style: none; margin: 0px; padding: 0px;">
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/08/iacs-ur-e26e27-two-years-of-survey.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">IACS UR E26/E27: Two Years of Survey Practice — A Class Surveyor's Inside View</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/08/ur-e27-response-strategies-for-marine.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">UR E27 Is Already in Effect — So Why Do Marine Equipment Manufacturers Still Feel So Little Urgency?</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/09/ur-e27-response-strategies-ur-e27.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Is Our Product Actually Subject to UR E27?</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Maritime Cybersecurity Learning Roadmap — From Cybersecurity Fundamentals to Maritime Cyber Resilience</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/09/what-is-cybersecurity.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">What Is Cybersecurity? — The CIA Triad, Risk, Controls, and Resilience</a></li>
+    </ul>
+  </div>
+
+  <!--══ HASHTAGS ══-->
+  <div style="margin-bottom: 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px;">
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#MaritimeCybersecurity</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IACS</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#URE27</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#HSM</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#KMS</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#PostQuantum</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#Cryptography</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#Maritime40</span>
+    </div>
+  </div>
+
+  <!--══ AUTHOR CARD ══-->
+  <div style="align-items: flex-start; border-top: 2px solid rgb(226, 234, 243); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 28px;">
+    <img alt="Kevin CK Lee" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/3a42946efe8708915135f2d8613c2de2df26b97d/Asset/img/member/kebin.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 52px; object-fit: cover; width: 52px;" />
+    <div style="flex: 1 1 0%; min-width: 220px;">
+      <div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 2px;">Kevin CK Lee</div>
+      <div style="color: #6b8599; font-size: 11px; margin-bottom: 10px;">President &amp; Co-Founder @ Keypair, Inc. · PKI · HSM/KMS · Secure Elements</div>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.7; margin: 0px 0px 16px;">Kevin CK Lee is President &amp; Co-Founder of <a href="https://www.keypair.co.kr/" rel="noopener" style="color: #154f7a; font-weight: 600;" target="_blank">Keypair, Inc.</a>, a Seoul-based company he has led since January 2014 that developed the world's first NFC (Near-Field Communication)-enabled OTP (One-Time Password) &amp; HSM smart IC card for PKI and electronic authentication, later extending into AMI (Advanced Metering Infrastructure), Smart Grid and access-control security. Keypair's current lineup includes the KeyWallet series of NFC and biometric-token crypto cold wallets. He also advises Pharmaonex, and previously served as President of Insprit (developer and manufacturer of Korea's first tablet), CEO of Reakosys Inc. (MPEG4 (Moving Picture Experts Group-4) streaming and video compression for early feature phones), and Regional Director at Alcatel-Lucent (ATM (Asynchronous Transfer Mode)/IP (Internet Protocol) product marketing for telecom and broadband carriers).</p>
+
+      <!--══ Experience timeline ══-->
+      <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 14px; padding: 16px 18px;">
+        <div style="color: #0a2342; font-size: 10.5px; font-weight: 800; letter-spacing: 0.6px; margin-bottom: 12px; text-transform: uppercase;">Experience</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">President &amp; Co-Founder · Keypair, Inc.</div>
+            <div style="color: #6b8599; font-size: 11px; margin-top: 2px;">Jan 2014 – Present · 12 yr 9 mo · Seoul, Korea</div>
+            <div style="color: #4a6278; font-size: 11.5px; margin-top: 4px;">World-first NFC-enabled OTP &amp; HSM smart IC card for PKI/electronic authentication; extended into AMI, Smart Grid and access control; now KeyWallet crypto cold wallets (NFC card + biometric token)</div>
+          </div>
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">Advisor · Pharmaonex</div>
+            <div style="color: #6b8599; font-size: 11px; margin-top: 2px;">Jan 2014 – Present · 12 yr 9 mo · Seoul, Korea</div>
+          </div>
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">President · Insprit</div>
+            <div style="color: #6b8599; font-size: 11px; margin-top: 2px;">Jun 2009 – Dec 2010 · 1 yr 7 mo</div>
+            <div style="color: #4a6278; font-size: 11.5px; margin-top: 4px;">Developed and manufactured Korea's first tablet for the local market</div>
+          </div>
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">CEO · Reakosys Inc.</div>
+            <div style="color: #6b8599; font-size: 11px; margin-top: 2px;">Jan 2001 – May 2009 · 8 yr 5 mo</div>
+            <div style="color: #4a6278; font-size: 11.5px; margin-top: 4px;">MPEG4 streaming and video compression for early feature phones — solutions embedded by major phone makers in the early 2000s</div>
+          </div>
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">Regional Director · Alcatel-Lucent</div>
+            <div style="color: #6b8599; font-size: 11px; margin-top: 2px;">May 1998 – Dec 2000 · 2 yr 8 mo</div>
+            <div style="color: #4a6278; font-size: 11.5px; margin-top: 4px;">Product marketing on ATM and IP products for telecom and broadband carriers</div>
+          </div>
+        </div>
+      </div>
+
+      <!--══ Education ══-->
+      <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 16px; padding: 16px 18px;">
+        <div style="color: #0a2342; font-size: 10.5px; font-weight: 800; letter-spacing: 0.6px; margin-bottom: 8px; text-transform: uppercase;">Education</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">Korea University</div>
+            <div style="color: #4a6278; font-size: 11.5px; margin-top: 2px;">MS, Information &amp; Security (Cryptography) · 2017 – 2019</div>
+          </div>
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">Korea University</div>
+            <div style="color: #4a6278; font-size: 11.5px; margin-top: 2px;">MBA · 2007 – 2009</div>
+          </div>
+          <div>
+            <div style="color: #0a2342; font-size: 13px; font-weight: 700;">Iowa State University</div>
+            <div style="color: #4a6278; font-size: 11.5px; margin-top: 2px;">BA, Economics &amp; Political Science · 1988 – 1992</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <a href="https://www.linkedin.com/in/kevin-changkeun-lee-17777717/" rel="noopener" style="align-items: center; background: rgb(10, 35, 66); border-radius: 9px; border: 2px solid rgb(26, 158, 130); color: white; display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 9px 20px; text-decoration: none;" target="_blank">
+          💼 LinkedIn ↗
+        </a>
+        <a href="https://www.keypair.co.kr/" rel="noopener" style="align-items: center; background: white; border-radius: 9px; border: 2px solid rgb(21, 79, 122); color: #154f7a; display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 9px 20px; text-decoration: none;" target="_blank">
+          🌐 Keypair, Inc. ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>

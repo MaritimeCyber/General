@@ -1,0 +1,831 @@
+<!--════════════════════════════════════════════════════════════
+     Article: How Should UR E27 Requirements Be Interpreted and Allocated to Our Product?
+     Series : Article 4 of 12 — UR E27 Strategies for Marine Equipment Suppliers
+     Author : Blue Horizonist (Lew)  |  Published: September 2026
+     Style  : Maritime 4.0 Design System — Blogger-compatible
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing: border-box; font-family: &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif; line-height: 1.75; margin: 0px auto; max-width: 780px;">
+
+  <!--══ HEADER ══-->
+  <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%); border-radius: 16px; margin-bottom: 36px; padding: 40px 36px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px;">
+      <span style="background: rgba(255, 193, 7, 0.35); border-radius: 20px; color: #ffe082; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">💡 Insight</span>
+      <span style="background: rgba(26, 158, 130, 0.4); border-radius: 20px; color: #7effd8; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Article 4</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">IACS UR E27</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Marine Equipment Suppliers</span>
+    </div>
+    <h1 style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin: 0px 0px 8px;">
+      How Should UR E27 Requirements Be Interpreted and Allocated to Our Product?
+    </h1>
+    <p style="color: #b8d4ea; font-size: 13px; font-style: italic; margin: 0px 0px 6px;">
+      Article 4 of a 12-Part Series on UR E27 Strategies for Marine Equipment Suppliers
+    </p>
+    <p style="color: #7f9db3; font-size: 11.5px; font-style: italic; margin: 0px 0px 20px;">
+      ※ The product, system, and project examples described in this article are illustrative examples created to explain how UR E27 requirements should be interpreted and allocated.
+    </p>
+    <div style="align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 18px;">
+      <div style="align-items: center; display: flex; gap: 10px;">
+        <a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" rel="noopener" target="_blank">
+          <img alt="Blue Horizonist" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/lew.jpeg?raw=true" style="border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.4); flex-shrink: 0; height: 36px; object-fit: cover; width: 36px;" />
+        </a>
+        <div>
+          <div style="color: white; font-size: 13px; font-weight: 700; line-height: 1.3;">Blue Horizonist (Lew)</div>
+          <div style="color: #9ab5c9; font-size: 10px;">Maritime &amp; Cyber Security Consultant · ISP Consultant</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ LEAD ══-->
+  <p style="background: rgb(240, 247, 255); border-left: 4px solid rgb(26, 158, 130); border-radius: 12px; color: #354a5e; font-size: 15px; line-height: 1.85; margin: 0px 0px 20px; padding: 20px 22px;">
+    The previous article examined how to determine whether a product falls within the scope of UR E27. Once applicability has been established, the equipment manufacturer must answer the next question: <strong style="color: #0a2342;">“What security functions and measures must be incorporated into our product to satisfy each UR E27 requirement?”</strong>
+  </p>
+
+  <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+    Understanding the requirements of the specification and translating them into an actual product design are two different tasks. For example, even when UR E27 requires user authentication, access restriction, security event logging, or secure recovery, these requirements are not necessarily satisfied through a single software function. Some requirements must be implemented as inherent product functions, while others may be addressed through secure product configuration. Still others can only be satisfied by combining the manufacturer's development and service procedures with the vessel-wide security architecture established by the shipyard.
+  </p>
+  <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+    A requirements analysis should therefore go beyond marking each requirement as “compliant” or “non-compliant.” At a minimum, it should answer the following four questions:
+  </p>
+  <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; padding: 20px 22px;">
+    <ul style="display: flex; flex-direction: column; gap: 12px; list-style: none; margin: 0px; padding: 0px;">
+      <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">1</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">What security functions or measures have been incorporated into the product to address this requirement?</span></li>
+      <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">2</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Where are those functions or measures implemented — in the product functionality, product configuration, manufacturer's internal procedures, or vessel-wide security architecture?</span></li>
+      <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">3</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Who is responsible for designing, implementing, and operating those functions or measures?</span></li>
+      <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">4</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">What evidence demonstrates that the requirement has been properly addressed?</span></li>
+    </ul>
+  </div>
+  <div style="background: rgb(255, 248, 240); border-left: 4px solid #e67e22; border-radius: 0px 10px 10px 0px; border: 1px solid rgb(245, 213, 160); margin-bottom: 36px; padding: 18px 22px;">
+    <p style="color: #7a4f10; font-size: 14.5px; font-style: italic; font-weight: 700; line-height: 1.8; margin: 0px;">
+      This article explains how to translate UR E27 requirements into detailed, actionable, and verifiable items, and connect them to product design, responsible parties, and supporting evidence through a <strong>Requirement–Design–Evidence Matrix</strong>.
+    </p>
+  </div>
+
+  <!--══ SECTION 1: ONE REQUIREMENT ≠ ONE FUNCTION ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">1. One Requirement in the Specification Does Not Necessarily Correspond to One Product Function</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      UR E27 is not written around the product architecture or development practices of any particular manufacturer. A single requirement in the specification may therefore need to be addressed through several product functions, settings, and procedures. Consider the following high-level requirement:
+    </p>
+    <div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(21, 79, 122); border-radius: 0px 12px 12px 0px; color: #354a5e; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 16px; padding: 16px 20px;">
+      “Access to the system shall be restricted to authorized users.”
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      If this statement is simply copied into a requirements list and answered with “Password function provided,” it does not adequately explain how access to the product is actually restricted. The following matters must also be examined:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="column-gap: 24px; display: grid; grid-template-columns: repeat(2, 1fr); list-style: none; margin: 0px; padding: 0px; row-gap: 10px;">
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">What access paths into the product exist?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Are users identified and authenticated through each access path?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Are general-user and administrator privileges separated?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Can default accounts be changed or disabled?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">If shared accounts must be used, what is the justification and what compensating measures apply?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Who creates, modifies, and deletes accounts?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Is there a function that restricts repeated authentication failures?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Are maintenance accounts activated only when required?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Are login activities and privilege changes recorded in logs?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">If access restrictions must be lifted during an emergency, what approval procedure applies?</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A single sentence in the specification ultimately expands into several design and verification items at the product level. Rather than immediately mapping one sentence to one product function, the manufacturer should ask:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 18px 20px;">
+      <div style="align-items: flex-start; display: flex; gap: 10px;">
+        <span style="color: #9ab5c9; font-size: 20px; font-weight: 800; line-height: 1;">"</span>
+        <span style="color: #4a6278; font-size: 13.5px; font-style: italic; line-height: 1.7;">Which product functions, configuration settings, and operational procedures must be confirmed before this requirement can be considered satisfied?</span>
+      </div>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      Answering this question is the starting point of requirements analysis.
+    </p>
+  </div>
+
+  <!--══ SECTION 2: ATOMIC REQUIREMENTS ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">2. Requirements Should Be Divided into the Smallest Independently Verifiable Units</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Using a high-level requirement exactly as written in the specification can make the design description and test method ambiguous. To prevent this, each requirement should be divided into the smallest units that can be independently verified — often called <strong style="color: #0a2342;">Atomic Requirements</strong>. For example, the high-level requirement for user access control may be divided as follows:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Users are authenticated through every logical access path.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Privileges are separated by individual user or role.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">General users are prevented from performing administrative functions.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Default credentials are changed before installation or delivery.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Unused accounts are disabled or deleted.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Further access is restricted after repeated failed login attempts.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Account creation, deletion, and privilege changes are recorded.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Maintenance accounts are activated only under approved conditions.</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Each detailed requirement should focus on one subject and one verifiable action. Combining several security functions in a single statement makes it difficult to determine the actual level of compliance:
+    </p>
+    <div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(21, 79, 122); border-radius: 0px 12px 12px 0px; color: #354a5e; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 16px; padding: 16px 20px;">
+      “The system shall authenticate users, restrict privileges, record failed access attempts, and notify the administrator.”
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      This statement contains four different functions: authentication, privilege management, log generation, and notification. Depending on the product, authentication may be supported while notification is not; logs may be generated but not transferable to a central system. The statement should therefore be divided as follows:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 12px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">1</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">The system authenticates authorized users.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">2</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">The system restricts access to functions according to user roles.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">3</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">The system records failed login attempts.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">4</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">The system makes generated security events available to an administrator or external system.</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      Breaking the requirement down in this manner allows the applicability, implementation method, evidence, and compliance status of each item to be assessed independently.
+    </p>
+  </div>
+
+  <!--══ SECTION 3: PURPOSE + ACTUAL BEHAVIOR ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">3. The Purpose of the Requirement and the Product's Actual Behavior Must Be Considered Together</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Before applying a UR E27 requirement to a product, the manufacturer must understand what the requirement is intended to protect or prevent. For example, the purpose of a requirement to restrict unnecessary ports, protocols, and services is not simply to produce a list of ports — its purpose is to reduce unnecessary access paths that could be exploited by an attacker. Both the underlying purpose of the requirement and the product's actual behavior must therefore be examined.
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 0px 0px 16px;">
+      <div style="background: rgb(245, 249, 252); border-radius: 12px; border-top: 3px solid rgb(21, 79, 122); flex: 1 1 240px; padding: 16px 18px;">
+        <div style="color: #154f7a; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase;">Purpose of the Requirement</div>
+        <ul style="color: #4a6278; font-size: 13px; line-height: 1.9; margin: 0px; padding-left: 18px;">
+          <li>Are externally accessible paths minimized?</li>
+          <li>Is unauthorized communication blocked?</li>
+          <li>Are essential and unnecessary communications distinguished?</li>
+          <li>Can changes to communication settings be identified?</li>
+        </ul>
+      </div>
+      <div style="background: rgb(238, 246, 243); border-radius: 12px; border-top: 3px solid rgb(26, 158, 130); flex: 1 1 240px; padding: 16px 18px;">
+        <div style="color: #15876f; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase;">Matters to Confirm in the Product</div>
+        <ul style="color: #4a6278; font-size: 13px; line-height: 1.9; margin: 0px; padding-left: 18px;">
+          <li>Which ports and protocols are actually used?</li>
+          <li>Which services are enabled by default when the OS is installed?</li>
+          <li>Which communications are essential for the product's functions?</li>
+          <li>Can unused services be disabled?</li>
+          <li>Do communication targets or ports vary by project?</li>
+          <li>Do existing control functions continue to work after communications are restricted?</li>
+        </ul>
+      </div>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      If the purpose of the requirement is understood without examining the product's actual behavior, the result may be nothing more than an abstract policy document. Conversely, if the review only lists the ports and services currently in use, every communication path may simply be declared “necessary for product operation.”
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      Requirements analysis must therefore connect the intent of the specification with the product's actual behavior.
+    </p>
+  </div>
+
+  <!--══ SECTION 4: FOUR IMPLEMENTATION AREAS ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">4. Requirements Can Be Allocated Across Four Implementation Areas</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      UR E27 requirements applicable to a product will generally be addressed in one of the following four areas, or through a combination of two or more of them.
+    </p>
+    <div style="background: rgb(245, 249, 252); border-radius: 12px; border: 1px solid rgb(226, 234, 243); margin: 0px 0px 12px; padding: 16px 20px;">
+      <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 8px;">
+        <span style="align-items: center; background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 12px; font-weight: 800; height: 26px; justify-content: center; width: 26px;">①</span>
+        <div style="color: #0a2342; font-size: 14.5px; font-weight: 800;">Product Functionality</div>
+      </div>
+      <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 8px 36px;">Security functions performed directly by software, firmware, or hardware incorporated into the product.</p>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.75; margin: 0px 0px 0px 36px;"><strong>Examples:</strong> user authentication, role-based privilege restrictions, security log generation, integrity verification of software/files, automatic session termination, backup and restore, blocking unauthorized communications, transitioning to a safe state after a failure.</p>
+    </div>
+    <div style="background: rgb(245, 249, 252); border-radius: 12px; border: 1px solid rgb(226, 234, 243); margin: 0px 0px 12px; padding: 16px 20px;">
+      <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 8px;">
+        <span style="align-items: center; background: linear-gradient(135deg, rgb(21, 79, 122), rgb(21, 79, 122)); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 12px; font-weight: 800; height: 26px; justify-content: center; width: 26px;">②</span>
+        <div style="color: #0a2342; font-size: 14.5px; font-weight: 800;">Product Configuration</div>
+      </div>
+      <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 8px 36px;">Security measures that rely on existing product capabilities but must be securely configured before delivery or during installation.</p>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.75; margin: 0px 0px 0px 36px;"><strong>Examples:</strong> changing default passwords, disabling unnecessary accounts, stopping unused services, registering only permitted IPs/ports, configuring log capacity and retention, setting the auto screen-lock interval, restricting USB use, disabling remote access by default.</p>
+    </div>
+    <div style="background: rgb(245, 249, 252); border-radius: 12px; border: 1px solid rgb(226, 234, 243); margin: 0px 0px 12px; padding: 16px 20px;">
+      <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 8px;">
+        <span style="align-items: center; background: linear-gradient(135deg, rgb(21, 79, 122), rgb(21, 79, 122)); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 12px; font-weight: 800; height: 26px; justify-content: center; width: 26px;">③</span>
+        <div style="color: #0a2342; font-size: 14.5px; font-weight: 800;">Manufacturer's Internal Procedures</div>
+      </div>
+      <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 8px 36px;">Ongoing management activities that cannot be completed through product functions alone and must be performed by the equipment manufacturer.</p>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.75; margin: 0px 0px 0px 36px;"><strong>Examples:</strong> collecting and assessing vulnerability information, developing and distributing security updates, notifying customers, managing the security support period, controlling access to the development environment, managing software changes/configurations, incident support, managing service-engineer accounts.</p>
+    </div>
+    <div style="background: rgb(238, 246, 243); border-radius: 12px; border: 1px solid rgb(198, 227, 217); margin: 0px 0px 16px; padding: 16px 20px;">
+      <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 8px;">
+        <span style="align-items: center; background: linear-gradient(135deg, rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 12px; font-weight: 800; height: 26px; justify-content: center; width: 26px;">④</span>
+        <div style="color: #0a2342; font-size: 14.5px; font-weight: 800;">Vessel-Wide Security Architecture</div>
+      </div>
+      <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 8px 36px;">Security measures provided across the vessel by the shipyard or system integrator rather than by an individual product.</p>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.75; margin: 0px 0px 0px 36px;"><strong>Examples:</strong> firewalls between zones, vessel-wide remote access gateway, central user authentication, central log collection, network IDS, vessel-wide time synchronization, network redundancy, vessel-wide backup and recovery plan.</p>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      These four areas are not alternatives from which only one must be selected — they often need to work together. For example, if the product cannot generate security logs, there will be no useful information for a central log server to collect. Conversely, even if the product generates logs, they may be of limited value for vessel-wide incident analysis if there is no central transmission path or time synchronization.
+    </p>
+  </div>
+
+  <!--══ SECTION 5: RESPONSIBILITY ALLOCATION ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">5. Responsibility Should Be Allocated to the Party That Can Actually Implement the Measure</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Responsibility should not be assigned according to who prepares the document. It should be assigned according to who can actually change and maintain the relevant function or configuration. The following questions can help identify the responsible party:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="column-gap: 24px; display: grid; grid-template-columns: repeat(2, 1fr); list-style: none; margin: 0px; padding: 0px; row-gap: 10px;">
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Which organization can modify the source code for the function?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Which organization defines and applies the security configuration?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Who manages the configuration after delivery?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Who creates and deletes user accounts during vessel operation?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Who configures the firewall rules on the upper-level network?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Which organization receives and reviews security events?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Who performs recovery activities following a failure or compromise?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Who obtains and verifies updates for third-party products?</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      For example, the type and format of logs generated within the product will generally be determined by the equipment manufacturer. However, the network path for transmitting those logs, the receiving server address, and the overall retention period may need to be agreed with the shipyard or shipowner. Similarly, the manufacturer may provide the backup file format and restore function, while the location in which backup files are stored onboard and the frequency of regular backups may be determined by the shipowner's or shipyard's operational policies.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      Responsibility should therefore be allocated according to actual design, configuration, and operational authority — not according to who is assigned to prepare the documentation.
+    </p>
+  </div>
+
+  <!--══ SECTION 6: PARTIAL VS FULL SATISFACTION ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">6. “Partially Satisfied by the Product” Is Different from “Fully Satisfied by the Product Alone”</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A common mistake when preparing a requirement matrix is to declare an entire requirement “fully compliant” merely because the product includes a related function. Consider a product that supports external syslog transmission — this capability alone does not satisfy every requirement associated with centralized security monitoring. The following conditions must also be confirmed:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Does the product generate the security events required for security analysis?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Does each event include the user, time, target, and action performed?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Can the generated events be transmitted externally?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Does the vessel network permit the required transmission path?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Is a central log server available to receive the events?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Are the product and central server time-synchronized?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Can a log transmission failure be detected?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Who reviews the collected logs and determines whether abnormal activity has occurred?</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Of these items, log generation and external transmission should generally be supported by the product. The network path and central log server should be established through the vessel's integrated design, while log review should be defined in the procedures of the shipowner or operating organization. Instead of recording only “Syslog supported — Compliant,” the matrix should provide a more precise explanation:
+    </p>
+    <div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(21, 79, 122); border-radius: 0px 12px 12px 0px; color: #354a5e; font-size: 13.5px; line-height: 1.85; margin: 0px 0px 16px; padding: 18px 20px;">
+      “The product can transmit defined security events in Syslog format. The receiving server address, communication path, time synchronization, and log retention policy must be separately defined through the vessel's integrated design and operational procedures.”
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      This wording identifies both the scope satisfied by the product and the additional measures to be provided by the shipyard or shipowner.
+    </p>
+  </div>
+
+  <!--══ SECTION 7: CASE 1 ACCESS CONTROL TABLE ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">7. Case 1: How Can User Access-Control Requirements Be Allocated?</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Consider a Cargo Monitoring System supplied with the following components: a main server, two operator workstations, a PLC, a managed Ethernet switch, an engineering laptop, and an interface to the shipyard's integrated remote access gateway. The high-level requirement that “only authorized users shall be permitted to access the system” may be allocated as follows:
+    </p>
+    <div style="overflow-x: auto; margin: 0px 0px 16px; border-radius: 12px; border: 1px solid rgb(209, 224, 238);">
+      <table style="border-collapse: collapse; font-size: 12.5px; width: 100%;">
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th style="color: white; font-size: 10.5px; font-weight: 800; letter-spacing: 0.3px; padding: 10px 12px; text-align: left; text-transform: uppercase;">Detailed Requirement</th>
+            <th style="color: white; font-size: 10.5px; font-weight: 800; letter-spacing: 0.3px; padding: 10px 12px; text-align: left; text-transform: uppercase;">Implementation Area</th>
+            <th style="color: white; font-size: 10.5px; font-weight: 800; letter-spacing: 0.3px; padding: 10px 12px; text-align: left; text-transform: uppercase;">Primary Responsibility</th>
+            <th style="color: white; font-size: 10.5px; font-weight: 800; letter-spacing: 0.3px; padding: 10px 12px; text-align: left; text-transform: uppercase;">Required Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Separate operator and administrator privileges</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Product functionality</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Equipment manufacturer</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Privilege matrix, screen captures, test results</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Change the default administrator password</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Product configuration</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Equipment manufacturer</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Hardening checklist, installation record</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Manage user accounts during vessel operation</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Operational procedure</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Shipowner / operator</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Account-management procedure, approval records</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Obtain prior authorization for engineering laptop use</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Joint procedure</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Manufacturer &amp; shipowner</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Maintenance procedure, work authorization</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Authenticate remote-access users</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Vessel-wide security architecture</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Shipyard / integrator</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Remote access design document, gateway test results</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Restrict remote-user privileges within the product</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Functionality &amp; configuration</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Equipment manufacturer</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Account design document, configuration record</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Record identity and start/end time of remote work</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Functionality &amp; vessel architecture</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Shared responsibility</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Product logs, gateway logs, integration test results</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 9px 12px;">Immediately terminate remote access during an emergency</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Vessel architecture &amp; product configuration</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Shared responsibility</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 9px 12px;">Termination procedure, functional test results</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      The important point is that responsibility for remote access has not been assigned entirely to either the shipyard or the equipment manufacturer. The shipyard may provide the external access gateway and vessel network path — the equipment manufacturer must still restrict which accounts can be used to access the product and which functions those accounts can perform.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      A single high-level requirement may therefore need to be allocated across several components and organizations.
+    </p>
+  </div>
+
+  <!--══ SECTION 8: CASE 2 BACKUP ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">8. Case 2: The Presence of a Backup Function Does Not Guarantee Recovery</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      If the product manual states that “backup is supported,” the manufacturer may assume that the recovery requirements have been satisfied. It is nevertheless necessary to determine exactly what is backed up and to what extent the system can be restored. For example, a system may contain: PLC logic, HMI application, user accounts and privileges, network settings, operational parameters, alarm settings, historical data, OS image, and third-party software settings. If the product's backup function only exports historical data to an external file, it cannot reasonably be regarded as a backup that enables the system to be restored to its normal operating state following a failure.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Recovery-related requirements can be divided as follows:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">1</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Identify the software and configuration information required for system recovery.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">2</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Create backup files containing the required information.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">3</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Manage the version and integrity of each backup file.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">4</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Protect backup files against unauthorized modification.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">5</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Restore backup files to a damaged system.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">6</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Confirm that essential operational functions work correctly after restore.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">7</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Retain the installation images and tools required for recovery.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">8</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Document the recovery procedure and assign responsible personnel.</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Responsibility for these activities may also be divided: backup/restore functions sit with product functionality; backup scope and method with the manufacturer's design and manuals; onboard storage location with the vessel integration design; regular backup execution with the shipowner's operational procedures; restore-function testing with the manufacturer's internal testing and FAT; and long-term retention and version management as a shared responsibility between manufacturer and shipowner.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      Breaking the requirement down in this way makes clear that “a backup button exists” and “the system can be restored to a normal operating state” are not the same statement.
+    </p>
+  </div>
+
+  <!--══ SECTION 9: CASE 3 VULNERABILITY MANAGEMENT ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">9. Case 3: Vulnerability Management Depends More on Organizational Capability Than Product Functionality</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Not every requirement can be verified through a product screen or software menu. Vulnerability and security-update management is an area in which the equipment manufacturer's organizational capability is particularly important. Even if a product supports the installation of security updates, it may be difficult to demonstrate its continuing cyber resilience unless the manufacturer performs the following activities:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="column-gap: 24px; display: grid; grid-template-columns: repeat(2, 1fr); list-style: none; margin: 0px; padding: 0px; row-gap: 10px;">
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Collect vulnerability information for own products and third-party components</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Analyze the impact of disclosed vulnerabilities on the product</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Identify affected versions and configurations</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Assess risk and remediation urgency</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Develop a patch or mitigating measure</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Perform regression and security testing</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Notify affected customers of the vulnerability and corrective action</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Distribute the update package securely</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Communicate end of security support and available alternatives</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      For example, assume that a new CVE is disclosed for a commercial operating system used in the product. The manufacturer should not simply forward the OS vendor's patch link to the customer — it must first determine whether the patch affects the product's application, drivers, PLC communications, or HMI behavior.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Vulnerability-management responsibilities may be allocated as follows: update installation capability sits with product functionality; definition of applicable versions and conditions with product design and configuration management; vulnerability impact assessment and patch verification with the manufacturer's internal procedures and quality process; customer notification with the service procedure; approval and scheduling of onboard deployment with the shipowner and shipyard's operational procedures; and actual installation with a shared responsibility based on contractual conditions.
+    </p>
+    <div style="background: rgba(29, 137, 207, 0.07); border-radius: 10px; border: 1px solid rgba(29, 137, 207, 0.3); margin: 0px; padding: 16px 20px;">
+      <p style="color: #354a5e; font-size: 13px; line-height: 1.75; margin: 0px;">In this case, the primary evidence is not a screenshot from the product. It consists of vulnerability-management procedures, impact-assessment results, test records, customer notices, and update histories.</p>
+    </div>
+  </div>
+
+  <!--══ SECTION 10: VESSEL-WIDE DEPENDENCY CONDITIONS ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">10. When Relying on the Vessel-Wide Security Architecture, the Required Conditions Must Be Clearly Defined</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      It is difficult for an individual product to satisfy every security requirement independently. Reliance on vessel-wide security measures is therefore often necessary and can be an appropriate design approach when the respective roles and conditions are clearly defined. However, simply recording “Provided by Shipyard” in the requirement matrix is not sufficient — the equipment manufacturer must specify the conditions required at the interface between the product and the vessel.
+    </p>
+    <div style="background: rgb(245, 249, 252); border-left: 3px solid rgb(21, 79, 122); border-radius: 0px 10px 10px 0px; margin: 0px 0px 10px; padding: 14px 18px;">
+      <div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 6px;">If the product relies on the vessel's central firewall</div>
+      <div style="color: #4a6278; font-size: 13px; line-height: 1.9;">Source/destination IP addresses · required ports and protocols · communication direction and purpose · continuous vs. on-demand communication · additional remote-maintenance communications · impact if communication is blocked · exceptional communications during an emergency · test items after a firewall rule change.</div>
+    </div>
+    <div style="background: rgb(245, 249, 252); border-left: 3px solid rgb(21, 79, 122); border-radius: 0px 10px 10px 0px; margin: 0px 0px 10px; padding: 14px 18px;">
+      <div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 6px;">If the product uses a central time server</div>
+      <div style="color: #4a6278; font-size: 13px; line-height: 1.9;">Time-synchronization protocol supported · method for configuring the time-server address · permissible time deviation · product behavior after a synchronization failure · whether time-information changes are logged.</div>
+    </div>
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; margin: 0px 0px 16px; padding: 14px 18px;">
+      <div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 6px;">If the product relies on a central log server</div>
+      <div style="color: #4a6278; font-size: 13px; line-height: 1.9;">Types of logs transmittable externally · log transmission format · protocols and ports used · authentication/encryption requirements · transmission frequency · local storage during a communication outage · whether logs can be retransmitted after restoration.</div>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      Dependencies on the vessel-wide security architecture must be translated into specific interface requirements so that the shipyard can incorporate them into the vessel design and verify them during integration testing.
+    </p>
+  </div>
+
+  <!--══ SECTION 11: N/A, EXTERNAL DEPENDENCY, COMPENSATING CONTROL ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">11. Not Applicable, External Dependency, and Compensating Control Must Be Managed Separately</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      The following three statuses should be clearly distinguished in the requirement matrix.
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 0px 0px 16px;">
+      <div style="background: rgb(245, 249, 252); border-radius: 12px; border-top: 3px solid rgb(21, 79, 122); flex: 1 1 220px; padding: 16px 18px;">
+        <div style="color: #154f7a; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase;">N/A — Not Applicable</div>
+        <div style="color: #4a6278; font-size: 12.5px; line-height: 1.75;">Applies when a requirement does not need to apply because of the product's function, architecture, or operating environment — e.g. no wireless hardware and no Wi-Fi/Bluetooth/Cellular interface in the supply configuration. An N/A decision should still be supported by a specific rationale.</div>
+      </div>
+      <div style="background: rgb(245, 249, 252); border-radius: 12px; border-top: 3px solid rgb(21, 79, 122); flex: 1 1 220px; padding: 16px 18px;">
+        <div style="color: #154f7a; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase;">External Dependency</div>
+        <div style="color: #4a6278; font-size: 12.5px; line-height: 1.75;">Applies when the requirement remains applicable but is satisfied by combining the product with an external security function or management procedure. Responsibility is divided between the product and the vessel-wide security architecture — the requirement has not been excluded.</div>
+      </div>
+      <div style="background: rgb(238, 246, 243); border-radius: 12px; border-top: 3px solid rgb(26, 158, 130); flex: 1 1 220px; padding: 16px 18px;">
+        <div style="color: #15876f; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase;">Compensating Control</div>
+        <div style="color: #4a6278; font-size: 12.5px; line-height: 1.75;">Applies when the specified function cannot be implemented directly in the product, but alternative measures reduce the associated risk to an acceptable level. Does not mean the original requirement has disappeared.</div>
+      </div>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Consider a legacy controller that does not support individual user accounts. This should not simply be classified as N/A — a combination of compensating controls may instead be considered:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="column-gap: 24px; display: grid; grid-template-columns: repeat(2, 1fr); list-style: none; margin: 0px; padding: 0px; row-gap: 10px;">
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Protect the cabinet containing the controller with a lock</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Permit only an approved, dedicated engineering laptop</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Require individual user authentication on the laptop</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Apply a pre-authorization procedure</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Require supervision by the responsible person during the work</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Perform a backup before and after configuration changes</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Maintain a separate work record of all changes</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Disable or block the service port after the work is completed</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      A compensating control does not mean that the original requirement has disappeared. It recognizes the product's technical limitations and reduces the risk through other means. Approval from the shipyard or classification society may therefore be required together with the supporting risk analysis.
+    </p>
+  </div>
+
+  <!--══ SECTION 12: MATRIX FIELDS TABLE ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">12. What Should Be Recorded in a Requirement–Design–Evidence Matrix?</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A Requirement–Design–Evidence Matrix is not merely a list containing copied sentences from the specification. It is a management tool that connects each requirement to the method used to address it, the responsible party, and the evidence used to demonstrate conformity. In practice, the following fields should be considered:
+    </p>
+    <div style="overflow-x: auto; margin: 0px 0px 16px; border-radius: 12px; border: 1px solid rgb(209, 224, 238);">
+      <table style="border-collapse: collapse; font-size: 12.5px; width: 100%;">
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th style="color: white; font-size: 10.5px; font-weight: 800; letter-spacing: 0.3px; padding: 9px 12px; text-align: left; text-transform: uppercase; white-space: nowrap;">Field</th>
+            <th style="color: white; font-size: 10.5px; font-weight: 800; letter-spacing: 0.3px; padding: 9px 12px; text-align: left; text-transform: uppercase;">Information to Record</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Requirement ID</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Requirement number in UR E27 or the applicable classification rule</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Source Requirement</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Original requirement or its essential meaning</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Atomic Requirement</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Requirement divided into an independently verifiable unit</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Security Objective</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Security purpose to be achieved by applying the requirement</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Applicability</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Applicable, conditionally applicable, or N/A</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Applicability Rationale</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Specific basis for determining applicability or exclusion</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Target Component</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Hardware, software, or interface to which the requirement applies</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Implementation Type</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Product functionality, configuration, internal procedure, or vessel-wide architecture</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Design Implementation</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Function, configuration, or procedure actually implemented</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Responsible Party</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Party responsible for design, configuration, operation, and verification</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">External Dependency</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Conditions to be provided by the shipyard or an external system</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Verification Method</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Inspection, Analysis, Demonstration, or Test</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Evidence</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Drawings, design documents, configuration records, procedures, and test results</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Gap Status</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Compliant, partially compliant, non-compliant, or requiring further confirmation</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Required Action</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Development, configuration change, documentation, testing, or stakeholder consultation</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Owner &amp; Due Date</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Person responsible for the action and target completion date</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Configuration Reference</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Applicable model, version, and baseline</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #0a2342; font-weight: 700; padding: 8px 12px; white-space: nowrap;">Approval Status</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 12px;">Status of internal review, shipyard consultation, and classification confirmation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      It is not necessary to create an excessively complex matrix from the beginning of every project. The following basic relationship must nevertheless be maintained:
+    </p>
+    <div style="background: linear-gradient(135deg, rgb(240, 247, 255), rgb(238, 246, 243)); border-radius: 12px; margin: 0px 0px 16px; padding: 18px 22px; text-align: center;">
+      <p style="color: #0a2342; font-size: 14px; font-weight: 800; line-height: 1.8; margin: 0px;">Requirement → Applicable Target → Implementation Method → Responsible Party → Verification Method → Evidence</p>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      If this relationship is broken, it becomes difficult to explain consistently how the requirements have been satisfied, regardless of how many documents are submitted.
+    </p>
+  </div>
+
+  <!--══ SECTION 13: PRACTICAL MATRIX EXAMPLE ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">13. A Practical Example of Converting One Requirement into a Matrix</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Consider a high-level requirement stating that “security-relevant activities shall be recorded,” applied to a Cargo Monitoring System. The security events to be recorded within the product should first be defined: successful and failed logins, administrator configuration changes, user-account creation and deletion, user-privilege changes, software updates, start and end of remote access, changes to log settings, and changes to system time information. The implementation method and evidence for each item can then be connected as follows:
+    </p>
+    <div style="overflow-x: auto; margin: 0px 0px 16px; border-radius: 12px; border: 1px solid rgb(209, 224, 238);">
+      <table style="border-collapse: collapse; font-size: 11.5px; width: 100%;">
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th style="color: white; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2px; padding: 8px 10px; text-align: left; text-transform: uppercase;">Detailed Requirement</th>
+            <th style="color: white; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2px; padding: 8px 10px; text-align: left; text-transform: uppercase;">Target</th>
+            <th style="color: white; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2px; padding: 8px 10px; text-align: left; text-transform: uppercase;">Method</th>
+            <th style="color: white; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2px; padding: 8px 10px; text-align: left; text-transform: uppercase;">Responsibility</th>
+            <th style="color: white; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2px; padding: 8px 10px; text-align: left; text-transform: uppercase;">Verification</th>
+            <th style="color: white; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2px; padding: 8px 10px; text-align: left; text-transform: uppercase;">Evidence</th>
+            <th style="color: white; font-size: 9.5px; font-weight: 800; letter-spacing: 0.2px; padding: 8px 10px; text-align: left; text-transform: uppercase; white-space: nowrap;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 8px 10px;">Record failed login attempts</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Main Server, HMI</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Application security log</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Manufacturer</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Test</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Log sample, test record</td><td style="border-top: 1px solid rgb(226, 234, 243); color: rgb(26, 158, 130); font-weight: 700; padding: 8px 10px; white-space: nowrap;">Compliant</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 8px 10px;">Record admin config changes</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Main Server</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">User ID + before/after values</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Manufacturer</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Test</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Screenshot, log</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #9a7409; font-weight: 700; padding: 8px 10px; white-space: nowrap;">Partial</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 8px 10px;">Track PLC logic changes</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">PLC</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Engineering-tool change history</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Manufacturer</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Demonstration</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Tool history, procedure</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #c0392b; font-weight: 700; padding: 8px 10px; white-space: nowrap;">TBC</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 8px 10px;">Consistent timestamps on all events</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Entire system</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Sync with vessel NTP server</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Shared</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Integration test</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Network config, test results</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #154f7a; font-weight: 700; padding: 8px 10px; white-space: nowrap;">External dep.</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 8px 10px;">Transmit events to central log server</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Main Server</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Syslog transmission</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Shared</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Integration test</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Interface spec, received logs</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #154f7a; font-weight: 700; padding: 8px 10px; white-space: nowrap;">Design TBD</td></tr>
+          <tr style="background: white;"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 8px 10px;">Restrict permission to delete logs</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Main Server</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Admin-only deletion permission</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Manufacturer</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Test</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Privilege matrix, test results</td><td style="border-top: 1px solid rgb(226, 234, 243); color: rgb(26, 158, 130); font-weight: 700; padding: 8px 10px; white-space: nowrap;">Compliant</td></tr>
+          <tr style="background: rgb(247, 250, 254);"><td style="border-top: 1px solid rgb(226, 234, 243); color: #354a5e; padding: 8px 10px;">Define log retention period</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Server + storage</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Local capacity + operating policy</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Shared</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Analysis</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #4a6278; padding: 8px 10px;">Capacity calc, operational policy</td><td style="border-top: 1px solid rgb(226, 234, 243); color: #c0392b; font-weight: 700; padding: 8px 10px; white-space: nowrap;">Not defined</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      This table reveals several important points. First, generating certain logs within the product does not mean that all related requirements have been satisfied. Second, the events that can be recorded may differ between components such as the PLC and Server. Third, central transmission and time synchronization may depend on the vessel's integrated design. Fourth, the log retention period must consider both the product's storage capacity and the shipowner's operating policy. Finally, the matrix distinguishes whether an outstanding issue requires software development, product configuration, an operational procedure, or consultation with the shipyard.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      The practical purpose of the matrix is to connect product functionality, responsibility, and evidence in a single traceable flow.
+    </p>
+  </div>
+
+  <!--══ SECTION 14: MATRIX FOR CHANGE IMPACT ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">14. The Matrix Can Also Be Used to Analyze the Impact of Configuration Changes</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A Requirement–Design–Evidence Matrix is not used only when preparing the initial approval documentation. It can also provide a basis for determining which requirements and evidence must be reviewed when the product or project configuration changes. Assume, for example, that the operating system of the Main Server is changed. The matrix can be used to assess the following impacts systematically:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="column-gap: 24px; display: grid; grid-template-columns: repeat(2, 1fr); list-style: none; margin: 0px; padding: 0px; row-gap: 10px;">
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Does the user-authentication method change?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Can existing hardening settings apply to the new OS?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Does the list of unnecessary services change?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Do the types/storage of security logs change?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Is the new OS compatible with antivirus/whitelisting software?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Must a new backup image be created?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Can the existing test results still be accepted?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Is the new OS within the existing Type Approval / verification scope?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 7px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 13.5px;">Must user, installation, and recovery manuals be revised?</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Without a matrix, an OS change may be treated as a simple configuration change requiring only an update to the BOM or version list. With a matrix, the manufacturer can trace how that single change affects security functions, documents, and tests.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      The Requirement–Design–Evidence Matrix can therefore serve both as a checklist for confirming compliance and as a tool for assessing the impact of product changes.
+    </p>
+  </div>
+
+  <!--══ SECTION 15: FIVE COMMON ERRORS ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">15. Five Common Errors in Requirements Analysis</h2>
+    </div>
+    <div style="background: rgb(251, 244, 243); border-left: 3px solid rgb(192, 57, 43); border-radius: 0px 10px 10px 0px; margin: 0px 0px 6px; padding: 12px 18px;">
+      <div style="color: #c0392b; font-size: 13.5px; font-weight: 700; line-height: 1.7;">1) Copying the High-Level Requirement and Recording Only Its Compliance Status</div>
+    </div>
+    <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 16px;">A response such as “Access Control — Complied” does not explain which access paths are restricted or how those restrictions are implemented. High-level requirements should be divided into detailed items that can be independently verified.</p>
+    <div style="background: rgb(251, 244, 243); border-left: 3px solid rgb(192, 57, 43); border-radius: 0px 10px 10px 0px; margin: 0px 0px 6px; padding: 12px 18px;">
+      <div style="color: #c0392b; font-size: 13.5px; font-weight: 700; line-height: 1.7;">2) Assuming That Evidence Exists Because the Product Function Exists</div>
+    </div>
+    <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 16px;">Even when the required function is present, it may be difficult for the classification society or shipyard to verify it objectively if no design description, configuration standard, test procedure, or test result is available. The existence of a function and the availability of evidence must be managed separately.</p>
+    <div style="background: rgb(251, 244, 243); border-left: 3px solid rgb(192, 57, 43); border-radius: 0px 10px 10px 0px; margin: 0px 0px 6px; padding: 12px 18px;">
+      <div style="color: #c0392b; font-size: 13.5px; font-weight: 700; line-height: 1.7;">3) Relying on the Vessel-Wide Architecture Without Defining the Product's Required Conditions</div>
+    </div>
+    <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 16px;">Statements such as “Firewall by Yard” or “Remote Access by Shipyard” do not tell the shipyard which communications must be permitted or which interfaces must be implemented. The manufacturer must also provide specific interface requirements.</p>
+    <div style="background: rgb(251, 244, 243); border-left: 3px solid rgb(192, 57, 43); border-radius: 0px 10px 10px 0px; margin: 0px 0px 6px; padding: 12px 18px;">
+      <div style="color: #c0392b; font-size: 13.5px; font-weight: 700; line-height: 1.7;">4) Treating Every Unsupported Function as N/A</div>
+    </div>
+    <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 16px;">The absence of a particular product function does not mean the corresponding requirement is not applicable. The manufacturer must distinguish between a genuinely non-applicable requirement, reliance on an external measure, current non-compliance, and the need for a compensating control.</p>
+    <div style="background: rgb(251, 244, 243); border-left: 3px solid rgb(192, 57, 43); border-radius: 0px 10px 10px 0px; margin: 0px 0px 6px; padding: 12px 18px;">
+      <div style="color: #c0392b; font-size: 13.5px; font-weight: 700; line-height: 1.7;">5) Allowing Only the Certification Team to Prepare and Manage the Matrix</div>
+    </div>
+    <p style="color: #4a6278; font-size: 13.5px; line-height: 1.8; margin: 0px;">Actual implementation information is distributed across the development, design, quality, production, and service organizations. The certification team may consolidate the overall matrix, but the technical content of each item must be confirmed and owned by the organization that actually controls the relevant function or procedure.</p>
+  </div>
+
+  <!--══ SECTION 16: NOT EVERYTHING NEEDS TO BE FINAL ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">16. Not Every Requirement Needs to Be Finalized from the Beginning</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      The initial matrix may contain unresolved items. The important point is not to conceal them or classify all of them simply as “To Be Confirmed.” Instead, they should be categorized according to the required confirmation and action:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Items requiring internal technical review</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Items requiring a product-development decision</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Items requiring confirmation from a third-party supplier</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Items dependent on finalization of the shipyard interface</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Items requiring interpretation or approval by the classification society</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Items requiring a compensating control and subsequent approval</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      For example, even if the address of the central log server has not yet been determined, the product's required protocol, event types, and communication direction can still be defined. Similarly, even if the supplier of the remote access gateway has not been selected, the product-level accounts and privileges, remotely accessible services, and emergency disconnection method can still be established.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      The overall analysis should not be delayed simply because external conditions have not yet been finalized. Product requirements that can already be determined should be managed separately from conditions requiring later agreement with the shipyard or classification society.
+    </p>
+  </div>
+
+  <!--══ SECTION 17: EFFECTIVE SEQUENCE ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">17. The Following Sequence Is Effective in Practice</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Requirements analysis and allocation can be performed in the following sequence:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 16px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">1</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Collect the applicable UR E27 and classification requirements.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">2</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Understand the purpose and intent of each requirement.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">3</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Divide high-level requirements into detailed, independently verifiable items.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">4</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Identify the components and interfaces to which each detailed requirement applies.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">5</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Classify each requirement under one of the four implementation areas.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">6</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Assign responsibility according to actual design and operational authority.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">7</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Describe the implemented functions and settings and any external dependencies.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">8</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Select an appropriate verification method — Inspection, Analysis, Demonstration, or Test.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">9</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Link the available design documents, configuration records, test results, and procedures.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">10</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Register non-compliant items, matters requiring further confirmation, and corrective actions.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">11</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">Track matters requiring consultation with the shipyard or classification society separately.</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 10px; font-weight: 800; height: 19px; justify-content: center; margin-top: 1px; width: 19px;">12</span><span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">When the product baseline changes, reassess the impact on related requirements and evidence.</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">
+      The result is more than a list of requirements. It becomes a common management basis that tells the development team which functions must be implemented, the quality team which items must be verified, the documentation team which evidence must be prepared, and the sales team which conditions and lead times must be reflected in the quotation.
+    </p>
+  </div>
+
+  <!--══ SECTION 18: CONCLUSION ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">18. Conclusion: A Requirement Is Complete Only When It Is Linked to Responsibility and Evidence</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Applying UR E27 requirements to a product is not a matter of copying sentences from the specification into the product manual. The following elements must be connected for each requirement:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">What is the requirement intended to protect?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">What functions and configurations have been incorporated into the product to address it?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Which components and interfaces does it apply to?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Is it satisfied through product functionality, configuration, internal procedures, or vessel-wide architecture?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Who designs, configures, and operates the relevant measures?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">How will proper implementation be verified?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(10, 35, 66); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">Which documents and test results will demonstrate conformity?</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 7px; margin-top: 8px; min-width: 7px; width: 7px;"></span><span style="color: #354a5e; font-size: 14px;">What remains incomplete, and who will complete it by what date?</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Only when these relationships have been established does the statement that “the product satisfies the requirement” become a verifiable engineering statement. A Requirement–Design–Evidence Matrix is not intended to create a long list of requirements copied from the specification — it is a management tool that connects product security functions, design responsibilities, external dependencies, and evidence in a single traceable flow.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Using the matrix, an equipment manufacturer should be able to distinguish among:
+    </p>
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; padding: 20px 22px;">
+      <ul style="display: flex; flex-direction: column; gap: 12px; list-style: none; margin: 0px; padding: 0px;">
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">1</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Items that the current product already satisfies and can demonstrate</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">2</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Items requiring development, configuration changes, documentation, or additional testing</span></li>
+        <li style="align-items: flex-start; display: flex; gap: 12px;"><span style="align-items: center; background: rgb(21, 79, 122); border-radius: 50%; color: white; display: flex; flex-shrink: 0; font-size: 11px; font-weight: 800; height: 20px; justify-content: center; margin-top: 1px; width: 20px;">3</span><span style="color: #354a5e; font-size: 14px; line-height: 1.6;">Items requiring agreement with the shipyard or classification society regarding responsibility and implementation</span></li>
+      </ul>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">
+      Once these distinctions can be made, the equipment manufacturer can explain the product's actual level of readiness objectively.
+    </p>
+    <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); border-radius: 14px; padding: 26px 28px;">
+      <p style="color: white; font-size: 15px; font-weight: 700; line-height: 1.85; margin: 0px;">
+        Understanding the product's level of compliance does not automatically determine the appropriate certification route. Even for the same product, the method of demonstrating conformity may differ depending on repeat-supply potential, the extent of customer-specific modifications, the stability of the product baseline, and the maturity of the available evidence.
+      </p>
+    </div>
+  </div>
+
+  <!--══ NEXT ARTICLE TEASER ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); border-radius: 14px; padding: 28px 30px;">
+      <div style="color: #7effd8; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; margin-bottom: 14px; text-transform: uppercase;">Next Article — Article 5</div>
+      <p style="color: white; font-size: 15px; font-weight: 700; line-height: 1.85; margin: 0px 0px 12px;">
+        Which should we choose — TA, SoC, or SoF?
+      </p>
+      <p style="color: #9ab5c9; font-size: 13px; line-height: 1.75; margin: 0px;">
+        Moving beyond a simple comparison of certificate names, Article 5 will explain how to select an appropriate conformity-demonstration route based on repeat-supply potential, the extent of project-specific modifications, alignment between the approval scope and actual supply scope, and the maturity of the available evidence.
+      </p>
+    </div>
+  </div>
+
+  <!--══ SERIES NAVIGATION ══-->
+  <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); border-radius: 14px; margin-bottom: 32px; padding: 28px 30px;">
+    <div style="color: #7effd8; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; margin-bottom: 16px; text-transform: uppercase;">Series Navigation — UR E27 Strategies for Marine Equipment Suppliers (12 Articles)</div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.07); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.12); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.13); border-radius: 12px; color: #b8d4ea; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 1</span>
+        <span style="color: #cfe0ee; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/08/ur-e27-response-strategies-for-marine.html" rel="noopener" style="color: #7effd8; font-weight: 600; text-decoration: none;" target="_blank">UR E27 Is Already in Effect — So Why Do Marine Equipment Manufacturers Still Feel So Little Urgency?</a></span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.07); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.12); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.13); border-radius: 12px; color: #b8d4ea; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 2</span>
+        <span style="color: #cfe0ee; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/08/ur-e27-response-strategiesturning.html" rel="noopener" style="color: #7effd8; font-weight: 600; text-decoration: none;" target="_blank">Why Did a Product Declared “Ready for Delivery” Come to a Halt Just Before FAT?</a></span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.07); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.12); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.13); border-radius: 12px; color: #b8d4ea; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 3</span>
+        <span style="color: #cfe0ee; font-size: 13px; line-height: 1.5;"><a href="https://www.shippauljobs.com/2026/09/ur-e27-response-strategies-ur-e27.html" rel="noopener" style="color: #7effd8; font-weight: 600; text-decoration: none;" target="_blank">Is Our Product Actually Subject to UR E27?</a></span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(26, 158, 130, 0.2); border-radius: 8px; border: 1px solid rgba(26, 158, 130, 0.4); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgb(26, 158, 130); border-radius: 12px; color: white; flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">▶ NOW</span>
+        <span style="color: white; font-size: 13px; font-weight: 700; line-height: 1.5;">How Should UR E27 Requirements Be Interpreted and Allocated to Our Product?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 5</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">Which Should We Choose — TA, SoC, or SoF?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 6</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">Must an SoC or SoF Eventually Lead to TA?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 7</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">Why Does Preparing the Ten UR E27 Deliverables Separately Lead to Failure?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 8</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">How Can UR E27 Preparation Be Embedded Naturally into the Design and Development Process?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 9</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">What Must Be Demonstrated During Production, FAT, and Delivery?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 10</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">What Should the Equipment Supplier, Shipyard, Classification Society, and CRSI Each Do?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 11</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">What Should You Ask the Classification Society and Shipyard — and When?</span>
+      </div>
+      <div style="align-items: flex-start; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 10px; padding: 10px 14px;">
+        <span style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; color: rgba(255, 255, 255, 0.5); flex-shrink: 0; font-size: 9px; font-weight: 800; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Article 12</span>
+        <span style="color: rgba(255, 255, 255, 0.45); font-size: 13px; line-height: 1.5;">How Should a Realistic UR E27 Certification Schedule and Project Organization Be Structured?</span>
+      </div>
+    </div>
+  </div>
+
+  <!--══ RELATED ARTICLES ══-->
+  <div style="font-family: &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif; margin-bottom: 32px;">
+    <p style="color: #0a2342; font-size: 13px; font-weight: 800; letter-spacing: 0.3px; margin: 0px 0px 10px;">Related Reading:</p>
+    <ul style="display: flex; flex-direction: column; gap: 8px; list-style: none; margin: 0px; padding: 0px;">
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/06/chapter-4-understanding-why-iacs.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Chapter 4: Understanding Why IACS Introduced E26 and E27 — The Purpose Behind the Requirements</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/03/iacs-ur-e27-tasoc-supplier.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Is a SoC-Centric Approach Enough for Ship Cybersecurity? — Statement of Compliance vs. Type Approval</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/07/ship-zcd-anatomy-building-blocks-iacs-ur-e26.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Anatomy of a Ship ZCD — Understanding the Building Blocks of an IACS UR E26 Zone and Conduit Diagram</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(26, 158, 130); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/07/ship-zcd-failures-iacs-ur-e26-e27-seven-mistakes.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Why Most Ship ZCDs Fail — Seven Common Mistakes in IACS UR E26/E27 Projects</a></li>
+    </ul>
+  </div>
+
+  <!--══ HASHTAGS ══-->
+  <div style="margin-bottom: 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px;">
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#MaritimeCybersecurity</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IACS</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#URE27</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#RequirementsTraceability</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#GapAnalysis</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#MarineEquipmentSuppliers</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#CRSI</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#Maritime40</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#BlueHorizonist</span>
+    </div>
+  </div>
+
+  <!--══ AUTHOR CARD ══-->
+  <div style="align-items: flex-start; border-top: 2px solid rgb(226, 234, 243); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 28px;">
+    <img alt="Blue Horizonist" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/lew.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 52px; object-fit: cover; width: 52px;" />
+    <div style="flex: 1 1 0%; min-width: 220px;">
+      <div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 2px;">Blue Horizonist</div>
+      <div style="color: #6b8599; font-size: 11px; margin-bottom: 10px;">Cybersecurity Consultant · ISP · ISMP</div>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.7; margin: 0px 0px 14px;">IT/OT Integrated Cybersecurity specialist with expertise in IACS UR E26/E27 compliance, N2SF, Cybersecurity Strategy &amp; Governance, BPR, and Digital Transformation. Former IT Consultant at KPMG (2019–2022). M.S. Information Systems, University of Maryland, Robert H. Smith School of Business.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <a href="https://www.linkedin.com/in/jiho-jay-%E6%99%BA%E6%99%A7-lew-1b5823364/" rel="noopener" style="align-items: center; background: rgb(10, 35, 66); border-radius: 9px; border: 2px solid rgb(26, 158, 130); color: white; display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 9px 20px; text-decoration: none;" target="_blank">
+          💼 LinkedIn ↗
+        </a>
+        <a href="https://naver.me/5t75tO9j" rel="noopener" style="align-items: center; background: transparent; border-radius: 9px; border: 2px solid rgb(209, 224, 238); color: #354a5e; display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 9px 20px; text-decoration: none;" target="_blank">
+          🇰🇷 Korean Blog ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

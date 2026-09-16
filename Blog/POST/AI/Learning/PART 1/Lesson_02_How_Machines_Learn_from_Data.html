@@ -1,0 +1,282 @@
+<!--════════════════════════════════════════════════════════════
+     Series : ShipPaulJobs AI Learning Roadmap
+     Part   : PART 1 — AI Fundamentals
+     Lesson : 2 of 5 — How Machines Learn from Data
+     Topics : Dataset · Training · Gradient Descent · Loss Function ·
+              Model · Inference · Supervised Learning · Unsupervised ·
+              Reinforcement Learning · Feature Engineering
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">ShipPaulJobs AI Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(30,80,180);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 1</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 2 of 5</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/shippauljobs-ai-learning-roadmap-from.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(20,60,120) 55%,rgb(40,120,200) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 1 · Lesson 2</span>
+    <span style="background:rgba(40,120,200,0.5);border-radius:20px;color:#a0d4ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Machine Learning</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Training · Inference</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">How Machines Learn from Data</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">Dataset · Features · Labels · Training Loop · Loss Function · Gradient Descent · Model · Inference · Supervised, Unsupervised & Reinforcement Learning — the core vocabulary that underlies every AI system you will encounter in this roadmap.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(235,244,255);border-left:4px solid rgb(40,120,200);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#1456a0;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain what a training dataset is and why data quality matters; describe the training loop including loss functions and gradient descent; distinguish between a model and its training process; explain inference and why it differs from training; and categorise AI learning approaches as supervised, unsupervised, or reinforcement learning.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Lesson 1 established that Machine Learning inverts classical programming: instead of writing rules, you provide data and let the machine discover the rules. But that description skips an enormous amount of engineering and mathematics. What does "providing data" actually mean? What does "learning" actually look like inside a computer? What is a model, and how do you know it has learned something useful?</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">These questions are not academic. Every practical AI deployment — a vessel maintenance anomaly detector, a document classification system for port state control reports, a generative model that drafts technical responses — is built on the foundations this lesson covers. You cannot evaluate an AI system's reliability, safety, or security without understanding how it was trained and what its failure modes are.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">This lesson focuses on supervised learning — the dominant paradigm in production AI today — and introduces unsupervised and reinforcement learning as contrasting approaches. The mathematics is kept to intuition level; the goal is conceptual clarity, not derivation.</p>
+</div>
+
+<!--══ SECTION 1 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(20,60,120));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Data — The Foundation of Every Model</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">A <strong>dataset</strong> is a collection of examples, where each example is a pair: an <strong>input</strong> (also called a sample, observation, or instance) and an <strong>output</strong> (also called a label, target, or ground truth — in supervised learning). The model learns to map inputs to outputs by seeing thousands or millions of such pairs.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">For a vessel engine vibration anomaly detector, each input might be 60 seconds of vibration sensor readings from a main engine bearing; each label might be "normal" or "pre-failure." For a maritime document classifier, each input might be the text of a port state control report; each label might be a category like "deficiency — fire safety" or "detained."</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(20,60,120);color:#a0d4ff;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Dataset Quality — What Determines Model Performance</div>
+    <div style="padding:14px 18px 12px;">
+      <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+        <li><strong>Volume:</strong> More examples generally improve a model — but with diminishing returns. A model trained on 100 examples is almost always weaker than one trained on 100,000 comparable examples.</li>
+        <li><strong>Label quality:</strong> Incorrect labels (mislabelled sensor readings, incorrectly coded inspection outcomes) teach the model wrong patterns. The aphorism in the field is "garbage in, garbage out."</li>
+        <li><strong>Class balance:</strong> If 99% of examples in a vessel fault dataset are "normal" and 1% are "fault," a model that always predicts "normal" achieves 99% accuracy but is useless. Imbalanced datasets require special treatment (oversampling, weighted loss).</li>
+        <li><strong>Distribution shift:</strong> If training data comes from one vessel type and the model is deployed on a different type, the patterns learned may not transfer — a critical risk in maritime AI where fleet diversity is high.</li>
+        <li><strong>Data leakage:</strong> If information from the test set accidentally enters training (e.g., timestamps that reveal the outcome), the model's measured accuracy is inflated and its real-world performance will be worse.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The <strong>training set</strong> is used to fit the model. The <strong>validation set</strong> is used to tune hyperparameters and detect overfitting during development. The <strong>test set</strong> is held out entirely until final evaluation — it simulates the model's performance on data it has never seen, which is what actually matters in deployment.</p>
+</div>
+
+<!--══ SECTION 2 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(20,60,120),rgb(30,90,160));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Features, Labels, and the Learning Signal</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>Features</strong> are the measurable properties of the input that the model uses to make predictions. For tabular data, features are the columns: vessel age, engine RPM, sea state, fuel consumption per nautical mile. For images, features are pixel values (or, in deep learning, learned representations of those pixels). For text, features are token embeddings — high-dimensional numerical vectors that represent each word or subword.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">In classical ML, <strong>feature engineering</strong> is the art of choosing which features to compute from raw data. A domain expert decides that the ratio of fuel consumption to propeller speed is more predictive of engine wear than either measurement alone, and adds that ratio as a feature. In deep learning, the network learns features automatically from raw inputs — but the raw inputs must be in a form the network can process (pixels, tokens, audio spectrograms).</p>
+  <div style="background:rgb(235,244,255);border-radius:10px;margin-bottom:14px;padding:16px 20px;">
+    <div style="color:#1456a0;font-size:11px;font-weight:800;letter-spacing:0.08em;margin-bottom:8px;text-transform:uppercase;">A note on representation</div>
+    <p style="color:#354a5e;font-size:13px;line-height:1.8;margin:0;">Everything a machine learning model processes must be a number. Text is converted to integers (token IDs) then to floating-point vectors (embeddings). Images are grids of RGB integers normalised to floats. Categorical variables (vessel type: "bulk carrier", "tanker", "container") are converted to one-hot encoded vectors or learned embeddings. The transformation from raw data to numerical representation is called <strong>encoding</strong> or <strong>preprocessing</strong> and is a source of subtle bugs and quality problems in production AI systems.</p>
+  </div>
+</div>
+
+<!--══ SECTION 3 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(30,90,160),rgb(40,120,200));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. The Training Loop — How a Model Updates Its Parameters</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">A <strong>model</strong> is a mathematical function with <strong>parameters</strong> (also called weights): numbers that are initialised randomly and then iteratively adjusted during training. For a neural network, these are the connection weights between neurons. For a linear model, these are the coefficients in the equation y = w₁x₁ + w₂x₂ + b.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Training is the process of finding parameter values that make the model's predictions match the labels as closely as possible. This is formalised through a <strong>loss function</strong> — a measure of how wrong the model's current predictions are on the training set. Common loss functions include Mean Squared Error (for regression) and Cross-Entropy Loss (for classification).</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">The Training Loop — Step by Step</div>
+    <div style="padding:14px 18px 12px;">
+      <ol style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:18px;">
+        <li><strong>Forward pass:</strong> Feed a batch of training examples into the model. The model computes its current predictions using the current parameter values.</li>
+        <li><strong>Compute loss:</strong> Compare predictions to ground-truth labels using the loss function. A high loss means predictions are far from correct; a low loss means they are close.</li>
+        <li><strong>Backward pass (backpropagation):</strong> Compute the gradient of the loss with respect to each parameter — how much does each parameter need to change, and in which direction, to reduce the loss?</li>
+        <li><strong>Gradient descent update:</strong> Adjust each parameter by a small amount in the direction that reduces the loss. The size of the adjustment is controlled by the <strong>learning rate</strong> hyperparameter.</li>
+        <li><strong>Repeat:</strong> Iterate over the entire training set (one <strong>epoch</strong>) many times until the loss converges — i.e., stops decreasing meaningfully.</li>
+      </ol>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The learning rate is one of the most important hyperparameters: too large and the parameter updates overshoot the minimum; too small and training is slow and may get stuck. Modern optimisers like Adam (Kingma and Ba, 2014, arXiv:1412.6980) adapt the learning rate per parameter, making training more robust. GPT-3 was trained with Adam; most production models use similar adaptive optimisers.</p>
+</div>
+
+<!--══ SECTION 4 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(40,120,200));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">4. Overfitting, Underfitting, and Generalisation</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The goal of training is not to minimise loss on the training set. The goal is to minimise loss on <em>new</em> data — data the model has never seen. This capability is called <strong>generalisation</strong> and it is the core challenge of machine learning.</p>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr 1fr;margin-bottom:16px;">
+    <div style="background:white;border:1.5px solid #f5b7b1;border-radius:12px;padding:14px 14px 10px;">
+      <h3 style="color:#c0392b;font-size:13px;font-weight:800;margin:0 0 8px;">❌ Underfitting</h3>
+      <p style="color:#4a6278;font-size:12px;line-height:1.7;margin:0;">Model is too simple or trained too briefly. High loss on both training and test sets. Does not capture the patterns in the data. Fix: more complex model, longer training.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #a9dfbf;border-radius:12px;padding:14px 14px 10px;">
+      <h3 style="color:#1e8449;font-size:13px;font-weight:800;margin:0 0 8px;">✅ Good Fit</h3>
+      <p style="color:#4a6278;font-size:12px;line-height:1.7;margin:0;">Low loss on both training and test sets. Model captures real patterns without memorising noise. Generalises to new data. The goal.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #aed6f1;border-radius:12px;padding:14px 14px 10px;">
+      <h3 style="color:#1a5276;font-size:13px;font-weight:800;margin:0 0 8px;">⚠️ Overfitting</h3>
+      <p style="color:#4a6278;font-size:12px;line-height:1.7;margin:0;">Model memorises training examples including noise. Very low training loss, high test loss. Does not generalise. Fix: regularisation, dropout, more data, early stopping.</p>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">For maritime AI, overfitting has a specific dangerous form: a maintenance anomaly model that is highly accurate on the training vessels but performs poorly on new vessel classes, or on the same vessels after a scheduled drydock that changed the baseline sensor readings. Regular re-evaluation on held-out data and periodic retraining with new operational data are operational requirements, not optional improvements.</p>
+</div>
+
+<!--══ SECTION 5 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(20,60,120),rgb(40,120,200));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">5. Inference — The Model in Production</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>Inference</strong> is what happens when a trained model is deployed and used on new data. The parameters are frozen — no learning is happening. The model receives an input, runs a single forward pass, and produces an output. For an LLM, this is called "generation": the model autoregressively samples the next token until an end-of-sequence token is produced.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Training and inference have very different computational profiles. Training requires backpropagation across all parameters and all training examples — enormous GPU memory and compute over hours or days or weeks. Inference requires only a forward pass on a single input — much faster, though for large models like GPT-4, still requiring significant hardware.</p>
+  <div style="background:rgb(235,244,255);border-radius:10px;margin-bottom:14px;padding:16px 20px;">
+    <div style="color:#1456a0;font-size:11px;font-weight:800;letter-spacing:0.08em;margin-bottom:8px;text-transform:uppercase;">Why This Distinction Matters for Security</div>
+    <p style="color:#354a5e;font-size:13px;line-height:1.8;margin:0;">Adversarial attacks exploit inference — they craft inputs designed to cause the model to produce an incorrect output without modifying the model's parameters. A manipulated AIS signal, a corrupted sensor reading, or a carefully constructed text prompt can steer a deployed model away from its intended behaviour. This is different from poisoning attacks (which modify training data) and model theft attacks (which replicate the model by querying it). Each attack vector requires a different defence.</p>
+  </div>
+</div>
+
+<!--══ SECTION 6 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">6. Supervised, Unsupervised, and Reinforcement Learning</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The training loop described above assumes labels — a ground-truth output for each input. This is <strong>supervised learning</strong>, the most widely deployed paradigm. But two other paradigms are increasingly important in maritime AI and in the LLMs at the core of this roadmap.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(40,120,200);color:#e8f4ff;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Three Learning Paradigms</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;width:180px;">Supervised Learning</td>
+            <td style="color:#354a5e;padding:10px 0;">Labelled data pairs (input, label). Model learns to predict the label from the input. Used for classification and regression tasks. Examples: fault detection, document classification, image recognition.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">Unsupervised Learning</td>
+            <td style="color:#354a5e;padding:10px 0;">Unlabelled data only. Model discovers structure — clusters, dimensions, distributions — without being told what to look for. Examples: anomaly detection (clustering normal vs. outlier), dimensionality reduction, latent space learning. LLM pre-training is a form of self-supervised (unsupervised) learning.</td>
+          </tr>
+          <tr>
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">Reinforcement Learning</td>
+            <td style="color:#354a5e;padding:10px 0;">An agent interacts with an environment, takes actions, and receives reward signals. The model (policy) learns to maximise cumulative reward. Used in robotics, game playing (AlphaGo, 2016), and RLHF (Reinforcement Learning from Human Feedback) which aligns LLMs to human preferences.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RELATED POST CALLOUT -->
+  <div style="background:linear-gradient(135deg,rgb(235,244,255),rgb(220,238,255));border:1.5px solid rgb(160,210,254);border-radius:10px;margin:18px 0;padding:14px 18px;">
+    <span style="color:#1456a0;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">📎 관련 포스트</span>
+    <div style="margin-top:6px;"><a href="https://www.shippauljobs.com/2024/06/generative-agents-interactive-simulacra.html" rel="noopener" style="color:#1565c0;font-size:13.5px;font-weight:700;text-decoration:none;" target="_blank">Paper Review: Generative Agents — Interactive Simulacra of Human Behaviour →</a></div>
+    <p style="color:#4a6278;font-size:12px;line-height:1.65;margin:5px 0 0;">비지도 학습과 강화학습 개념이 실제 AI 에이전트 설계에 어떻게 적용되는지, Park et al. (2023) 논문을 통해 분석합니다. 이번 섹션 6을 읽은 후 이 논문 리뷰에서 learning paradigm의 실전 적용 사례를 확인하세요.</p>
+  </div>
+
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The dominant paradigm in LLM development combines all three: <strong>self-supervised pre-training</strong> (predict the next token in massive text corpora — no labels required), followed by <strong>supervised fine-tuning</strong> (train on high-quality curated examples of the desired behaviour), followed by <strong>RLHF</strong> (use human preference feedback to further align output quality). This three-stage pipeline produced ChatGPT (Ouyang et al., 2022, "Training language models to follow instructions with human feedback," arXiv:2203.02155).</p>
+</div>
+
+<!--══ SECTION 7: MARITIME CONNECTION ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">7. Maritime Connection — Why Data Quality Is a Safety-Critical Problem</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Maritime AI systems face dataset challenges that are structurally different from other domains. Unlike consumer AI, where training data is abundant (billions of web pages, millions of labelled images), maritime operational data is:</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Maritime Data Challenges</div>
+    <div style="padding:14px 18px 12px;">
+      <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+        <li><strong>Sparse fault labels:</strong> Engine failures and cyber incidents are rare events. A model trained to detect failures sees very few positive examples, making the classification problem highly imbalanced.</li>
+        <li><strong>Siloed and proprietary:</strong> OEM sensor data, PMS records, and voyage data are held separately by shipowners, classification societies, and equipment manufacturers. Building a unified training dataset requires data-sharing agreements that are rarely in place.</li>
+        <li><strong>Sensor drift and calibration gaps:</strong> A temperature sensor that gradually drifts by 2°C over six months introduces systematic error into the training data unless the calibration records are cross-referenced — which they rarely are in practice.</li>
+        <li><strong>Multi-vessel, multi-type heterogeneity:</strong> A model trained on bulk carrier sensor data does not generalise to VLCC tankers without retraining. Fleet diversity is a perpetual distribution shift problem.</li>
+        <li><strong>IACS UR E26 Implication:</strong> Section 4.3 of IACS UR E26 requires verification and monitoring of OT systems. AI-based monitoring systems deployed on vessels must have demonstrably reliable training data to meet this requirement — their performance must be validated and their failure modes documented.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,rgb(235,244,255),rgb(218,236,255));border:1.5px solid rgb(160,210,240);border-radius:14px;margin-bottom:28px;padding:22px 24px;">
+  <div style="align-items:center;display:flex;gap:12px;margin-bottom:14px;">
+    <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:2px solid rgb(40,120,200);flex-shrink:0;height:44px;object-fit:cover;width:44px;" />
+    <div>
+      <div style="color:#1456a0;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">✍️ Author Insight</div>
+      <div style="color:#0a2342;font-size:13px;font-weight:700;">Captain Paul — Maritime Cybersecurity Consultant</div>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 12px;">During E26 CRSI 프로젝트 수행, one of the most consistent gaps I observe is the absence of documented model validation for AI-based OT monitoring systems. Vendors often provide accuracy numbers from their internal testing — but those numbers were produced on their own proprietary dataset, which may not reflect the distribution of data on the vessel being assessed.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 12px;">The key question to ask any AI vendor in a maritime cybersecurity context is: "What was the training data distribution, and how does it compare to our operational environment?" If they cannot answer that question specifically — naming vessel types, sensor types, operational condition ranges, time periods, and known data quality issues — the validation evidence is incomplete.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">A model that is 97% accurate in aggregate may be 60% accurate on the specific failure mode that matters most for your vessel's risk profile. Training data provenance and distribution shift assessment should be treated as cybersecurity evidence, not just technical documentation.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:rgb(235,244,255);border-radius:14px;margin-bottom:28px;padding:22px 24px;">
+  <div style="color:#1456a0;font-size:12px;font-weight:800;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">🔑 Key Takeaways</div>
+  <ul style="color:#354a5e;font-size:13.5px;line-height:1.9;margin:0;padding-left:18px;">
+    <li>A <strong>dataset</strong> is a collection of (input, label) pairs. Quality, volume, balance, and distribution determine model performance more than any architectural choice.</li>
+    <li><strong>Features</strong> are the numerical representation of inputs. Feature engineering is the art of deciding which representations to compute; deep learning automates this for unstructured data.</li>
+    <li>The <strong>training loop</strong> is: forward pass → compute loss → backpropagate gradients → update parameters. Repeat until convergence.</li>
+    <li><strong>Overfitting</strong> is the key failure mode: the model memorises training data but fails on new data. Regularisation, dropout, and early stopping mitigate it.</li>
+    <li><strong>Inference</strong> is the deployed use of a frozen model — computationally different from training, and the stage at which adversarial attacks are most relevant.</li>
+    <li>The three learning paradigms — <strong>supervised, unsupervised, reinforcement</strong> — correspond to different problem structures and different failure modes.</li>
+    <li>Maritime AI faces structural data quality challenges (sparse faults, sensor drift, fleet heterogeneity) that must be addressed in vendor assessment and IACS compliance review.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid rgb(200,223,247);border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">⏭ What's Next</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 3 — CNN, RNN and the Deep Learning Era</strong> examines the two neural architectures that dominated AI from 2012 to 2017: Convolutional Neural Networks (for spatial data — images) and Recurrent Neural Networks (for sequential data — time series and text). Understanding why CNNs and RNNs were breakthroughs — and why they were eventually superseded by the Transformer — is essential context for understanding why the Transformer architecture works the way it does.</p>
+</div>
+
+<!--══ OFFICIAL SOURCES ══-->
+<div style="border-top:2px solid rgb(200,223,247);margin-bottom:28px;padding-top:22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">📚 Official Sources & Key Citations</div>
+  <ul style="color:#4a6278;font-size:12.5px;line-height:2;margin:0;padding-left:18px;">
+    <li>Goodfellow, I., Bengio, Y., and Courville, A. (2016). <em>Deep Learning.</em> MIT Press. Available free at deeplearningbook.org — the canonical textbook for training loop mechanics and optimisation.</li>
+    <li>Kingma, D., and Ba, J. (2014). "Adam: A Method for Stochastic Optimization." arXiv:1412.6980.</li>
+    <li>Ouyang, L., Wu, J., Jiang, X., et al. (2022). "Training language models to follow instructions with human feedback." arXiv:2203.02155 (InstructGPT / RLHF paper).</li>
+    <li>Park, J., O'Brien, J., Cai, C., et al. (2023). "Generative Agents: Interactive Simulacra of Human Behavior." arXiv:2304.03442.</li>
+    <li>IACS UR E26 (Rev.3, 2024) — Section 4.3: Network Monitoring and Verification. <a href="https://www.iacs.org.uk" rel="noopener" style="color:#1a9e82;" target="_blank">iacs.org.uk</a></li>
+    <li>NIST AI RMF 1.0 (2023) — MAP Function: data quality as a risk factor in AI deployment. <a href="https://airc.nist.gov/RMF" rel="noopener" style="color:#1a9e82;" target="_blank">airc.nist.gov</a></li>
+  </ul>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:8px;padding:14px 20px;">
+  <div style="color:#6b8599;font-size:10px;font-weight:800;letter-spacing:0.08em;margin-bottom:10px;text-transform:uppercase;">📚 PART 1 — AI Fundamentals</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+    <a href="https://www.shippauljobs.com/2026/09/from-ai-to-generative-ai-ai-learning.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L1: From AI to GenAI</a>
+    <span style="background:rgb(30,80,180);border-radius:6px;color:white;font-size:11px;font-weight:700;padding:4px 12px;">L2: How Machines Learn</span>
+    <a href="https://www.shippauljobs.com/2026/09/cnn-rnn-and-deep-learning-era-ai.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L3: CNN · RNN · Deep Learning</a>
+    <a href="https://www.shippauljobs.com/2026/09/computer-vision-and-object-detection-ai.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L4: Computer Vision</a>
+    <a href="https://www.shippauljobs.com/2026/09/from-gans-to-generative-ai-ai-learning.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L5: GANs → Generative AI</a>
+  </div>
+  <div style="border-top:1px solid #dde8f4;margin-top:10px;padding-top:10px;">
+    <a href="https://www.shippauljobs.com/2026/09/shippauljobs-ai-learning-roadmap-from.html" rel="noopener" style="color:#1a9e82;font-size:11px;font-weight:700;text-decoration:none;" target="_blank">← Course Index</a>
+  </div>
+</div>
+
+</div>

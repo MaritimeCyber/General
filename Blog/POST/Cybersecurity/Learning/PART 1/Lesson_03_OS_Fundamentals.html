@@ -1,0 +1,296 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 1 — Cybersecurity Fundamentals
+     Lesson : 3 of 5 — Linux & OS Fundamentals
+     Topics : Process · User/Group/Permission · File System ·
+              Services/Daemons · Log Analysis · Windows vs Linux ·
+              Maritime OT OS Reality
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:'Segoe UI','Apple SD Gothic Neo',Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:#f0f7ff;border:1px solid #c8dff7;border-radius:10px;font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:#0a2342;border-radius:4px;color:#fff;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 1</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 3 of 5</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#0a2342 0%,#154f7a 55%,#1a9e82 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 1 · Lesson 3</span>
+    <span style="background:rgba(26,158,130,0.4);border-radius:20px;color:#7effd8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Fundamentals</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Operating Systems</span>
+  </div>
+  <h1 style="color:#fff;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Linux &amp; Operating System Fundamentals</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">Processes · Users &amp; Groups · Permissions · File System · Services · Log Analysis · Windows vs Linux — the host-level knowledge that underpins every attack technique, every detection rule, and every forensic investigation in cybersecurity. For maritime: why OS fundamentals matter more on ships than most people think.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:1.5px solid rgba(255,255,255,0.4);border-radius:50%;flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:#fff;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+
+  <div class="separator" style="clear: both">
+    <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeUUjisxU8tYHTUquM30qqoCeCzraxKWUTtma22fssi-h99tsjhdKCJkU5Q4l_LSP9LtXtWwirgoLgUv7erG4lhHRGSOsblcHH3Ch26qEQZ5mtxK5Ur8eRhpNcMo4Y2fWfbpn3xm9TV6pcTDVTpPvA3-OpuLLT0TmVvaBUl9z1TirRQl49dYIHA69qy0U/Maritime%20Cyber%20Book.png" style="display: block; padding: 1em 0px; text-align: center"><img alt="Maritime Cybersecurity Learning Roadmap" border="0" height="360" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeUUjisxU8tYHTUquM30qqoCeCzraxKWUTtma22fssi-h99tsjhdKCJkU5Q4l_LSP9LtXtWwirgoLgUv7erG4lhHRGSOsblcHH3Ch26qEQZ5mtxK5Ur8eRhpNcMo4Y2fWfbpn3xm9TV6pcTDVTpPvA3-OpuLLT0TmVvaBUl9z1TirRQl49dYIHA69qy0U/w640-h360/Maritime%20Cyber%20Book.png" width="640" /></a>
+  </div>
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f0f7ff;border-left:4px solid #1a9e82;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a7055;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain what a process is and identify suspicious process behaviour, describe how Linux user/group/permission models enforce the principle of least privilege, navigate the Linux file system and recognise security-sensitive paths that attackers target, explain what a service daemon is and why disabling unnecessary services matters, use core Linux monitoring commands to establish a system baseline, read and interpret key log files, and compare the Windows and Linux security models — with direct application to the OS reality of maritime OT workstations.</p>
+</div>
+
+<!--══ INTRO NARRATIVE ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">In Lessons 1 and 2, you learned what you are protecting (assets, CIA Triad) and how data moves between protected systems (TCP/IP, networks). This lesson addresses the third question: what happens inside the systems themselves?</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Every attack that succeeds on a network eventually reaches a host — a server, a workstation, a control system. That host runs an operating system. The operating system manages processes (which programs are running), users (who can do what), the file system (where data lives), and services (what listens on which ports). Understanding these host-level concepts is the prerequisite for everything else in cybersecurity: writing effective detection rules, conducting forensic investigations, securing systems against privilege escalation, and understanding how attackers achieve persistence.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">For maritime professionals, this lesson has a particular edge: the operating systems running on shipboard navigation and OT workstations are, in many cases, well past their end-of-life dates. Understanding what good OS security looks like makes it immediately clear why end-of-life OS on safety-critical systems is a serious problem — and why patching those systems is so operationally complex.</p>
+</div>
+
+<!--══ SECTION 1: PROCESSES ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Processes — What's Running and Why It Matters</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">A <strong>process</strong> is a running instance of a program. When you open a browser, a navigation software application, or execute a malware payload — the operating system creates a process. Each process has its own memory space, open file handles, network connections, and execution context. Every process is assigned a <strong>PID (Process ID)</strong> — a unique integer used to reference it.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Processes have a <strong>parent–child hierarchy</strong>. When one process spawns another (its child), the child inherits certain properties from the parent — including the user context under which it runs. This relationship is fundamental to both system operation and attack technique. A word processor spawning a command shell is abnormal. A browser spawning PowerShell.exe is a major red flag — exactly the behaviour pattern that attackers use when exploiting document-based malware, and exactly what Endpoint Detection and Response (EDR) tools are designed to catch.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">From a security standpoint, you need to understand both what processes should be running (the baseline) and how to identify ones that should not be. The process name alone is not reliable — attackers commonly name malware after legitimate Windows processes (<code style="font-family:monospace;background:#f0f7ff;border-radius:4px;padding:1px 5px;">svchost.exe</code>, <code style="font-family:monospace;background:#f0f7ff;border-radius:4px;padding:1px 5px;">lsass.exe</code>) or place legitimate-looking names in unexpected file system locations.</p>
+  <div style="background:#0a2342;border-radius:10px;padding:16px 20px;margin-bottom:16px;">
+    <div style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">Core Linux Process Commands</div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-family:monospace;font-size:13px;line-height:1.9;">
+      <div><span style="color:#7effd8;">ps aux</span><span style="color:#6b8599;margin-left:16px;"># All running processes with CPU/memory and full path</span></div>
+      <div><span style="color:#7effd8;">ps aux | grep &lt;name&gt;</span><span style="color:#6b8599;margin-left:16px;"># Filter for a specific process name</span></div>
+      <div><span style="color:#7effd8;">pstree -p</span><span style="color:#6b8599;margin-left:16px;"># Show parent-child relationships with PIDs</span></div>
+      <div><span style="color:#7effd8;">top / htop</span><span style="color:#6b8599;margin-left:16px;"># Interactive real-time process monitor</span></div>
+      <div><span style="color:#7effd8;">lsof -p &lt;PID&gt;</span><span style="color:#6b8599;margin-left:16px;"># Files and sockets opened by a specific process</span></div>
+      <div><span style="color:#7effd8;">ls -la /proc/&lt;PID&gt;/exe</span><span style="color:#6b8599;margin-left:16px;"># Show actual binary path for a running process</span></div>
+      <div><span style="color:#7effd8;">kill -15 &lt;PID&gt;</span><span style="color:#6b8599;margin-left:16px;"># Graceful termination (SIGTERM)</span></div>
+      <div><span style="color:#7effd8;">kill -9 &lt;PID&gt;</span><span style="color:#6b8599;margin-left:16px;"># Forced termination (SIGKILL) — last resort</span></div>
+    </div>
+  </div>
+  <div style="background:#fff8e1;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:12px 16px;">
+    <p style="color:#92400e;font-size:13px;line-height:1.75;margin:0;"><strong>Security relevance — process anomalies:</strong> Threat hunters and EDR platforms look for: (1) unexpected parent–child relationships (e.g., svchost.exe → cmd.exe → powershell.exe — a common malware execution chain); (2) processes listening on network ports that should not be (a text editor with an active TCP listener); (3) processes running from world-writable locations like /tmp or C:\Users\Public; (4) processes with the same name as legitimate system processes but running from a different path or with a different parent. Each of these is a behavioural detection signal.</p>
+  </div>
+</div>
+
+<!--══ SECTION 2: USERS, GROUPS, PERMISSIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Users, Groups, and Permissions — Least Privilege in Practice</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Linux enforces access control through a <strong>user/group/permission</strong> model that implements the <em>principle of least privilege</em> — each user, process, and service should have only the minimum access rights needed to perform its function, and no more. This is one of the most important security principles in computer science, and its violations are one of the most common paths to privilege escalation.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Every file and directory in Linux has three permission sets: one for the <strong>owner</strong>, one for the <strong>group</strong>, and one for <strong>everyone else (others)</strong>. Each set has three bits: read (r = 4), write (w = 2), and execute (x = 1). Permissions are displayed in long listing format (<code style="font-family:monospace;background:#f0f7ff;border-radius:4px;padding:1px 5px;">ls -la</code>) or set numerically (e.g., 755, 644).</p>
+  <div style="background:#0a2342;border-radius:10px;margin-bottom:16px;padding:16px 20px;">
+    <div style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">Reading Linux Permissions</div>
+    <div style="color:#7effd8;font-family:monospace;font-size:14px;margin-bottom:14px;">-rwxr-xr--  1  captain  mariners  4096  Sep 10  config.sh</div>
+    <div style="display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));font-family:monospace;font-size:12px;">
+      <div><span style="color:#fcd34d;">-</span><span style="color:#9ab5c9;margin-left:8px;">File type (- = file, d = directory, l = symlink)</span></div>
+      <div><span style="color:#fcd34d;">rwx</span><span style="color:#9ab5c9;margin-left:8px;">Owner (captain): read + write + execute</span></div>
+      <div><span style="color:#fcd34d;">r-x</span><span style="color:#9ab5c9;margin-left:8px;">Group (mariners): read + execute only</span></div>
+      <div><span style="color:#fcd34d;">r--</span><span style="color:#9ab5c9;margin-left:8px;">Others: read only — no write, no execute</span></div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:14px;padding-top:12px;font-family:monospace;font-size:12px;color:#9ab5c9;">
+      <div style="color:#7effd8;margin-bottom:4px;"># Numeric equivalent:</div>
+      <div>chmod 754 config.sh  <span style="color:#6b8599;"># 7=rwx (owner), 5=r-x (group), 4=r-- (others)</span></div>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The <strong>root</strong> user (UID 0) has unrestricted access to the entire system — bypassing all permission checks. Root is the equivalent of SYSTEM on Windows. Attackers always seek to escalate to root. The root account should never be used for routine operations; use <code style="font-family:monospace;background:#f0f7ff;border-radius:4px;padding:1px 5px;">sudo</code> for specific privileged commands, which creates an audit trail in /var/log/auth.log.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">A particularly dangerous permission is the <strong>SUID bit</strong> (Set User ID): a file with SUID set runs with the file owner's privileges, regardless of who executes it. A SUID binary owned by root effectively gives any user who can execute it temporary root-level access. Attackers search for misconfigured SUID binaries as a privilege escalation path. The command <code style="font-family:monospace;background:#f0f7ff;border-radius:4px;padding:1px 5px;">find / -perm -4000 2>/dev/null</code> finds all SUID files on a system.</p>
+  <div style="background:#fff;border:1px solid #d1e0ee;border-radius:10px;overflow:hidden;">
+    <div style="background:#154f7a;color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 16px;text-transform:uppercase;">Key User / Permission Commands</div>
+    <div style="display:grid;gap:0;grid-template-columns:1fr 1fr;">
+      <div style="border-right:1px solid #e8f0f7;padding:12px 16px;">
+        <div style="color:#0a2342;font-size:12px;font-weight:800;margin-bottom:8px;">User Enumeration</div>
+        <ul style="color:#4a6278;font-family:monospace;font-size:12px;line-height:2.1;list-style:none;margin:0;padding:0;">
+          <li>cat /etc/passwd</li>
+          <li>cat /etc/shadow</li>
+          <li>id &lt;username&gt;</li>
+          <li>who / w / last</li>
+          <li>getent passwd</li>
+        </ul>
+      </div>
+      <div style="padding:12px 16px;">
+        <div style="color:#0a2342;font-size:12px;font-weight:800;margin-bottom:8px;">Privilege Analysis</div>
+        <ul style="color:#4a6278;font-family:monospace;font-size:12px;line-height:2.1;list-style:none;margin:0;padding:0;">
+          <li>sudo -l</li>
+          <li>cat /etc/sudoers</li>
+          <li>find / -perm -4000</li>
+          <li>find / -perm -2000</li>
+          <li>getfacl &lt;file&gt;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 3: FILE SYSTEM ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. The Linux File System — Where Attackers Look and Defenders Monitor</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Linux uses a single hierarchical file system rooted at <code style="font-family:monospace;background:#f0f7ff;border-radius:4px;padding:1px 5px;">/</code>. Everything is a file — including processes (/proc), hardware devices (/dev), and configuration settings (/etc). Unlike Windows with its drive letter system, there are no C:\ or D:\ drives in Linux. All storage, including external drives, is mounted into the same tree.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">Security analysts need to know the standard directory layout because attackers consistently target and abuse specific paths — and defenders write monitoring rules around them. Knowing what <em>should</em> be at a given path makes it easier to identify what should not be there.</p>
+  <div style="background:#fff;border:1px solid #d1e0ee;border-radius:10px;overflow:hidden;margin-bottom:14px;">
+    <table style="border-collapse:collapse;font-size:13px;width:100%;">
+      <thead>
+        <tr style="background:#0a2342;">
+          <th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;width:26%;">Path</th>
+          <th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;">Contents &amp; Security Relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;font-weight:700;padding:10px 14px;vertical-align:top;">/etc</td><td style="color:#4a6278;padding:10px 14px;">System configuration files. <strong>/etc/passwd</strong> (user accounts — readable by all), <strong>/etc/shadow</strong> (password hashes — root-only), <strong>/etc/sudoers</strong> (sudo privileges), <strong>/etc/crontab</strong> (scheduled tasks), <strong>/etc/ssh/sshd_config</strong> (SSH daemon config). Attackers target these to understand the user landscape and escalate privileges.</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;font-weight:700;padding:10px 14px;vertical-align:top;">/var/log</td><td style="color:#4a6278;padding:10px 14px;">System and application logs. <strong>/var/log/auth.log</strong> (authentication events, sudo usage, SSH logins), <strong>/var/log/syslog</strong> (system events), <strong>/var/log/kern.log</strong> (kernel events). Primary forensic evidence source for incident response. Attackers often try to delete or overwrite these files — log integrity monitoring is therefore a key detective control.</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;font-weight:700;padding:10px 14px;vertical-align:top;">/tmp</td><td style="color:#4a6278;padding:10px 14px;">World-writable temporary directory. Any user (and any process) can write to /tmp. Malware frequently writes its payload here, downloads additional components here, or uses it as a staging area. Monitoring for executable files in /tmp or /var/tmp is a standard detection rule. Some hardened systems mount /tmp with noexec (no execution from this directory).</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;font-weight:700;padding:10px 14px;vertical-align:top;">/home</td><td style="color:#4a6278;padding:10px 14px;">User home directories. Each user has a directory here (/home/username). Contains <strong>.ssh/authorized_keys</strong> (SSH public keys that allow passwordless login — attackers add their own keys for persistent access), <strong>.bash_history</strong> (command history — evidence of attacker activity), and application credential files. A common attacker target for credential harvesting.</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;font-weight:700;padding:10px 14px;vertical-align:top;">/bin /usr/bin</td><td style="color:#4a6278;padding:10px 14px;">Standard system binaries (ls, cat, grep, ps, netstat). Attackers may replace legitimate binaries with trojaned versions — known as <em>living-off-the-land</em> or binary planting. File integrity monitoring (FIM) tools alert when these binaries change unexpectedly.</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;font-weight:700;padding:10px 14px;vertical-align:top;">/proc</td><td style="color:#4a6278;padding:10px 14px;">Virtual filesystem providing a live view into the kernel and all running processes. <strong>/proc/&lt;PID&gt;/</strong> contains per-process information: /proc/&lt;PID&gt;/exe (binary path), /proc/&lt;PID&gt;/cmdline (full command line with arguments), /proc/&lt;PID&gt;/net/tcp (network connections). Forensically valuable — contains state that disappears when the process ends.</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;font-weight:700;padding:10px 14px;vertical-align:top;">/root</td><td style="color:#4a6278;padding:10px 14px;">Root user's home directory. If an attacker has achieved root, they may store tools, SSH keys, and scripts here. Should be inaccessible to non-root users (/root is typically mode 700 or 750).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--══ SECTION 4: SERVICES / DAEMONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">4. Services and Daemons — What Runs in the Background</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">A <strong>service</strong> (called a <em>daemon</em> on Linux) is a background process started at boot time that provides a persistent function: a web server (nginx, Apache), an SSH server (sshd), a database engine (postgresql), a mail daemon (postfix), or a logging collector (rsyslog). Daemons typically end in 'd' by naming convention — sshd, crond, httpd, auditd.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Modern Linux uses <strong>systemd</strong> as the service manager and init system. Services are defined in unit files (typically in /etc/systemd/system/ or /lib/systemd/system/) and can be started, stopped, restarted, enabled (auto-start on boot), or disabled. Every service has a corresponding log stream accessible via journalctl.</p>
+  <div style="background:#0a2342;border-radius:10px;padding:14px 20px;margin-bottom:16px;">
+    <div style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">Key systemd Commands</div>
+    <div style="font-family:monospace;font-size:13px;line-height:2.1;">
+      <div><span style="color:#7effd8;">systemctl list-units --type=service --state=running</span><span style="color:#6b8599;margin-left:8px;"># All active services</span></div>
+      <div><span style="color:#7effd8;">systemctl status sshd</span><span style="color:#6b8599;margin-left:8px;"># Detailed status + recent log entries</span></div>
+      <div><span style="color:#7effd8;">systemctl enable nginx</span><span style="color:#6b8599;margin-left:8px;"># Configure to start on next boot</span></div>
+      <div><span style="color:#7effd8;">systemctl disable &lt;service&gt;</span><span style="color:#6b8599;margin-left:8px;"># Remove from boot sequence</span></div>
+      <div><span style="color:#7effd8;">journalctl -u sshd -n 100 --no-pager</span><span style="color:#6b8599;margin-left:8px;"># Last 100 SSH log lines</span></div>
+      <div><span style="color:#7effd8;">systemctl list-units --type=service --state=failed</span><span style="color:#6b8599;margin-left:8px;"># Failed services — investigate</span></div>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">From a security perspective, services are both a risk surface and a persistence mechanism. Every unnecessary service is an attack surface — an additional port listening, an additional codebase that may contain vulnerabilities, an additional process that could be exploited. The hardening principle is simple: <strong>if a service is not required, disable it.</strong></p>
+  <p style="color:#4a6278;font-size:13.5px;line-height:1.85;margin:0 0 12px;">Attackers install malicious services to achieve <em>persistence</em> — ensuring their access survives system reboots. A malicious systemd service file in /etc/systemd/system/ will be executed as root at every boot. Service enumeration is therefore a mandatory step in post-compromise forensics: compare the current service list against a known-good baseline and investigate any additions. Scheduled tasks (cron on Linux, Scheduled Tasks on Windows) are similarly abused for persistence.</p>
+</div>
+
+<!--══ SECTION 5: LOG ANALYSIS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2342,#154f7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">5. Log Analysis and System Monitoring</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Logs are the primary evidence source for both proactive security monitoring and reactive forensic investigation. Every authentication event, every process start, every file modified, every network connection — each generates log entries. Without logs, you cannot detect attacks in progress, reconstruct what happened after a breach, or demonstrate compliance with security requirements.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">Effective log analysis requires knowing what <em>normal</em> looks like. A single failed SSH login is noise. One thousand failed SSH logins in two minutes from a single IP is a brute-force attack. Two failed logins followed by one successful login followed by immediate execution of <code style="font-family:monospace;background:#f0f7ff;border-radius:4px;padding:1px 5px;">id && whoami && cat /etc/shadow</code> is a confirmed breach. Pattern recognition — establishing the baseline and detecting deviations — is the core skill of a security analyst.</p>
+  <div style="background:#fff;border:1px solid #d1e0ee;border-radius:10px;overflow:hidden;margin-bottom:16px;">
+    <table style="border-collapse:collapse;font-size:13px;width:100%;">
+      <thead><tr style="background:#0a2342;"><th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;width:28%;">Command / Tool</th><th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;">What It Shows</th><th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;">Security Use</th></tr></thead>
+      <tbody>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;padding:9px 14px;">tail -f /var/log/auth.log</td><td style="color:#4a6278;padding:9px 14px;">Live authentication events (SSH, sudo, su)</td><td style="color:#4a6278;padding:9px 14px;">Real-time brute-force detection, unauthorized sudo</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;padding:9px 14px;">grep "Failed password" /var/log/auth.log</td><td style="color:#4a6278;padding:9px 14px;">Failed SSH login attempts</td><td style="color:#4a6278;padding:9px 14px;">Identify brute-force source IPs, targeted usernames</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;padding:9px 14px;">ss -tulpn</td><td style="color:#4a6278;padding:9px 14px;">All listening ports with owning processes</td><td style="color:#4a6278;padding:9px 14px;">Find unexpected listeners (backdoors, C2 implants)</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;padding:9px 14px;">lsof -i -n -P</td><td style="color:#4a6278;padding:9px 14px;">All open network connections with PIDs</td><td style="color:#4a6278;padding:9px 14px;">Identify which process is making unexpected outbound connections</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;padding:9px 14px;">auditd / ausearch</td><td style="color:#4a6278;padding:9px 14px;">Kernel audit: syscalls, file access, execution</td><td style="color:#4a6278;padding:9px 14px;">Track privilege escalation, file modifications, exec'd commands</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;padding:9px 14px;">journalctl -f</td><td style="color:#4a6278;padding:9px 14px;">Live systemd journal stream</td><td style="color:#4a6278;padding:9px 14px;">Real-time system events; service failures; kernel messages</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#1a9e82;font-family:monospace;padding:9px 14px;">find / -newer /tmp/ref -type f 2>/dev/null</td><td style="color:#4a6278;padding:9px 14px;">Files modified after a reference timestamp</td><td style="color:#4a6278;padding:9px 14px;">Find recently modified files — useful in timeline analysis after breach</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="color:#4a6278;font-size:13px;line-height:1.8;margin:0;">In a SIEM (Security Information and Event Management) environment — covered in depth in Part 4 — logs from all these sources are collected centrally, parsed, and correlated across events from multiple systems. The host-level log knowledge in this lesson directly feeds into the detection rules and investigation workflows you will encounter in the SIEM lessons.</p>
+</div>
+
+<!--══ SECTION 6: WINDOWS vs LINUX ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#154f7a,#1a9e82);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">6. Windows vs Linux — Security Architecture Comparison</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">Both Windows and Linux are pervasive in security operations — Windows dominates corporate desktops and many maritime OT HMIs; Linux underpins servers, network devices, embedded systems, and the majority of security tooling. Understanding the security architecture of both is essential for any practitioner who works across mixed environments — which describes almost every maritime cybersecurity engagement.</p>
+  <div style="background:#fff;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;margin-bottom:16px;">
+    <table style="border-collapse:collapse;font-size:13px;width:100%;">
+      <thead><tr style="background:#0a2342;"><th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;width:20%;">Feature</th><th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;">Linux</th><th style="color:#7ec8f4;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:10px 14px;text-align:left;">Windows</th></tr></thead>
+      <tbody>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#154f7a;font-weight:700;padding:9px 14px;">Privilege model</td><td style="color:#4a6278;padding:9px 14px;">root (UID 0) = unrestricted. sudo for per-command elevation with audit trail.</td><td style="color:#4a6278;padding:9px 14px;">Administrator + SYSTEM. UAC (User Account Control) prompts for elevation. LSASS manages credentials.</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#154f7a;font-weight:700;padding:9px 14px;">Logging</td><td style="color:#4a6278;padding:9px 14px;">syslog, journald, auditd. Structured with journalctl. Custom audit rules via auditd.</td><td style="color:#4a6278;padding:9px 14px;">Windows Event Log (Security, System, Application, PowerShell). Event IDs are standardised (4625 = failed login, 4688 = process creation).</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#154f7a;font-weight:700;padding:9px 14px;">Remote access</td><td style="color:#4a6278;padding:9px 14px;">SSH (port 22) — encrypted, key-based auth recommended, widely supported.</td><td style="color:#4a6278;padding:9px 14px;">RDP (port 3389) — frequently exposed to the internet, a primary ransomware initial access vector. Also WinRM.</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#154f7a;font-weight:700;padding:9px 14px;">Malware exposure</td><td style="color:#4a6278;padding:9px 14px;">Lower on desktop (smaller installed base). Higher on servers. Ransomware increasingly targets Linux servers.</td><td style="color:#4a6278;padding:9px 14px;">Dominant ransomware target. The majority of commodity malware targets Windows.</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#154f7a;font-weight:700;padding:9px 14px;">Patching</td><td style="color:#4a6278;padding:9px 14px;">Package manager (apt, yum, dnf). Generally straightforward to patch without rebooting for most updates.</td><td style="color:#4a6278;padding:9px 14px;">Windows Update / WSUS / MECM. Patch Tuesday cycle. Many updates require reboot — operationally disruptive for OT systems.</td></tr>
+        <tr style="background:#f7fafd;border-top:1px solid #e8f0f7;"><td style="color:#154f7a;font-weight:700;padding:9px 14px;">Persistence mechanisms</td><td style="color:#4a6278;padding:9px 14px;">cron, systemd units, /etc/rc.local, .bashrc, .profile, SSH authorized_keys, LD_PRELOAD</td><td style="color:#4a6278;padding:9px 14px;">Registry Run keys (HKCU/HKLM), Scheduled Tasks, Windows Services, WMI event subscriptions, Startup folder</td></tr>
+        <tr style="border-top:1px solid #e8f0f7;"><td style="color:#154f7a;font-weight:700;padding:9px 14px;">Credential storage</td><td style="color:#4a6278;padding:9px 14px;">/etc/shadow (hashed), SSH private keys, environment variables, application config files</td><td style="color:#4a6278;padding:9px 14px;">SAM database, NTDS.dit (domain), Windows Credential Manager, LSASS memory (targeted by Mimikatz)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#0a1e35,#0d2a40);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(26,158,130,0.08);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(26,158,130,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#7effd8;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">One of the most striking findings encountered in IACS UR E26 CRSI assessments is an <strong style="color:#fcd34d;">ECDIS workstation running Windows XP</strong>. In 2024. Windows XP reached official end-of-support in 2014 — ten years prior. That system was running navigation software used across active voyages, connected to a VSAT network with internet access, with no record of when a security patch had last been applied.</p>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">Why this matters beyond theory: every OS vulnerability discussed in this lesson — SUID misconfigurations, the world-writable /tmp directory, services running without security patches — all of these exist in Windows XP. In an unpatched state. The shipowner cannot apply patches because the OEM only certified their navigation software on that specific OS version. Apply a patch and the navigation software is no longer supported, risking loss of type approval from the class society.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;">This is exactly why <strong style="color:#7effd8;">IACS UR E26 introduced the concept of Compensating Controls</strong> — providing alternative risk-reduction approaches for legacy systems where patching is not feasible: network isolation, application whitelisting, and continuous monitoring. Understanding OS security fundamentals makes the full picture clear: why end-of-life operating systems are so dangerous, why "just upgrade it" is not a viable answer in practice, and how to manage that gap responsibly.</p>
+</div>
+
+<!--══ WHAT WE LEARNED ══-->
+<div style="background:#eef6f3;border:1.5px solid #b2ddd4;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0e7c62;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ What We Learned</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>A process is a running program instance with its own PID, memory, and parent–child relationship. Anomalous parent–child relationships are a primary EDR detection signal.</li>
+    <li>Linux enforces access via user/group/permission bits. The principle of least privilege (minimal required access) limits the blast radius of any compromise. SUID files are a privilege escalation risk.</li>
+    <li>Security-sensitive paths: /etc (config, credentials), /var/log (forensic evidence), /tmp (world-writable, malware staging), /home (SSH keys, history), /proc (live process data).</li>
+    <li>Services are attack surface and persistence targets. Disable everything not required. Enumerate services as a mandatory forensic step.</li>
+    <li>Log analysis — knowing what normal looks like — is the foundation of both detection and incident response. Key logs: auth.log, syslog, auditd. Key commands: ss, lsof, journalctl.</li>
+    <li>Windows and Linux have different privilege models, logging systems, remote access protocols, and persistence mechanisms — both appear in maritime environments.</li>
+    <li>Maritime OT workstations frequently run end-of-life operating systems (Windows XP, Windows 7) that cannot be patched without voiding OEM certification. Compensating controls (isolation, monitoring, whitelisting) are the IACS UR E26 response to this reality.</li>
+  </ul>
+</div>
+
+<!--══ WHERE THIS LEADS NEXT ══-->
+<div style="background:#fff;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Where This Leads Next</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong><a href="https://www.shippauljobs.com/2026/09/kali-linux-and-security-testing-for.html" rel="noopener" style="color:#0a2342;text-decoration:underline;" target="_blank">Lesson 4 — Kali Linux and Security Testing</a></strong> applies the OS knowledge from this lesson in a security assessment context. Kali Linux is a Debian-based Linux distribution purpose-built for security testing. Understanding processes, file systems, services, and monitoring commands — everything in this lesson — is the prerequisite for using Kali Linux effectively and responsibly. You will also learn the critical ethical and legal framework for security testing, and why maritime OT environments require a much more cautious approach than standard IT penetration testing.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 1 — Cybersecurity Fundamentals</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><a href="https://www.shippauljobs.com/2026/09/what-is-cybersecurity.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 1 — What Is Cybersecurity?</a></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><a href="https://www.shippauljobs.com/2026/09/network-fundamentals-for-cybersecurity.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 2 — Network Fundamentals for Cybersecurity</a></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;"><span style="background:#1a9e82;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span><span style="color:#fff;font-size:13px;font-weight:700;">Lesson 3 — Linux &amp; Operating System Fundamentals</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><a href="https://www.shippauljobs.com/2026/09/kali-linux-and-security-testing-for.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 4 — Kali Linux and Security Testing</a></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">→</span><a href="https://www.shippauljobs.com/2026/09/security-and-cybersecurity-knowledge.html" rel="noopener" style="color:inherit;text-decoration:none;" target="_blank">Lesson 5 — Security+ and the Cybersecurity Knowledge Map</a></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,277 @@
+<!--════════════════════════════════════════════════════════════
+     Series : ShipPaulJobs AI Learning Roadmap
+     Part   : PART 1 — AI Fundamentals
+     Lesson : 4 of 5 — Computer Vision and Object Detection
+     Topics : Computer Vision · ImageNet · CNN · Object Detection ·
+              YOLO · Semantic Segmentation · SAM · CLIP ·
+              Maritime Vision Applications
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">ShipPaulJobs AI Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(30,120,50);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 1</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 4 of 5</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/shippauljobs-ai-learning-roadmap-from.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(20,70,30) 55%,rgb(40,150,60) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 1 · Lesson 4</span>
+    <span style="background:rgba(40,150,60,0.5);border-radius:20px;color:#a0ffa8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Computer Vision</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">YOLO · SAM · CLIP</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Computer Vision and Object Detection</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">ImageNet · CNN Architecture · Object Detection · YOLO · Semantic Segmentation · Foundation Vision Models (SAM, CLIP) — how machines learned to see, and how that capability is transforming maritime port operations, shipyard inspection, and vessel safety.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(232,250,234);border-left:4px solid rgb(40,150,60);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#1a7a3c;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain the image classification task and how CNNs approach it; describe the ImageNet benchmark and why it was a turning point; explain what object detection adds to image classification and how YOLO achieves real-time detection; distinguish between classification, detection, and segmentation tasks; and identify concrete maritime applications of each computer vision capability.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Computer vision is the field of AI concerned with enabling machines to derive meaningful information from visual inputs — images, video, and depth sensor data. It is not a new aspiration: the first image segmentation programs were written in the 1960s. What changed in 2012 was the combination of large labelled datasets, deep convolutional networks, and GPU computation — and the result was a step change in capability that turned computer vision from an academic specialty into a core enabling technology for robotics, autonomous vehicles, medical diagnosis, and maritime operations.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">This lesson builds on the CNN foundations from Lesson 3 and shows how they were applied to progressively harder vision tasks: first classification (what is in this image?), then detection (where in this image is the object?), then segmentation (which pixels belong to which object?), and finally the foundation models that unify vision and language.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">For maritime professionals, the practical stakes are high: computer vision is the technology enabling autonomous port cranes, hull inspection drones, shipyard weld quality AI, and CCTV-based anomaly detection on vessels and port facilities.</p>
+</div>
+
+<!--══ SECTION 1 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(20,70,30));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. The Image Classification Problem</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>Image classification</strong> is the task of assigning a label to an entire image from a fixed set of categories. Given an image of a container ship, output "container ship." Given an image of a propeller defect, output "cavitation erosion" or "impact damage." The classification model outputs a probability distribution over all possible categories; the highest-probability category is the prediction.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Before deep learning, this was done with hand-crafted features: SIFT (Scale-Invariant Feature Transform), HOG (Histogram of Oriented Gradients), or colour histograms, fed into a Support Vector Machine classifier. Achieving 75% accuracy on a 1000-class problem required years of hand-engineering and was considered excellent.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">After AlexNet (2012), the field moved to learning features directly from raw pixel data using CNNs, and accuracy on the same 1000-class problem exceeded human performance by 2015. The key enabler was the <strong>ImageNet</strong> dataset.</p>
+</div>
+
+<!--══ SECTION 2 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(20,70,30),rgb(30,110,40));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. The ImageNet Moment — How Data Scale Changed Everything</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>ImageNet</strong> (Deng et al., CVPR 2009) is a dataset of over 14 million images manually labelled with one of 1,000 categories, assembled by Fei-Fei Li at Stanford using Amazon Mechanical Turk for annotation. The ImageNet Large Scale Visual Recognition Challenge (ILSVRC) ran annually from 2010 to 2017 and became the benchmark that drove a decade of computer vision progress.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(20,70,30);color:#a0ffa8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">ILSVRC Top-5 Error Rate — The Story in Numbers</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;width:80px;">2010</td>
+            <td style="color:#354a5e;padding:10px 0;">28.2% — Pre-deep-learning state of the art (NEC / Illinois).</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2012</td>
+            <td style="color:#354a5e;padding:10px 0;"><strong>15.3% — AlexNet</strong> (Krizhevsky, Sutskever, Hinton). 10.8pp improvement in a single year. Marks the start of the deep learning era in vision.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2014</td>
+            <td style="color:#354a5e;padding:10px 0;">6.7% — VGGNet (Simonyan, Zisserman). 19 uniform 3×3 convolutional layers.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2015</td>
+            <td style="color:#354a5e;padding:10px 0;"><strong>3.57% — ResNet-152</strong> (He et al., Microsoft). Below estimated human performance (~5.1%). Residual connections solve the training instability of very deep networks.</td>
+          </tr>
+          <tr>
+            <td style="color:#154f7a;font-weight:700;padding:10px 4px 10px 0;">2017</td>
+            <td style="color:#354a5e;padding:10px 0;">2.25% — SENet (winner of final ILSVRC). Challenge retired. The classification problem is considered solved at this benchmark level.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The ImageNet insight for maritime AI: <em>scale of labelled data is the primary driver of vision model quality</em>. The challenge for maritime applications is that maritime-specific datasets — images of vessel hulls, cargo seals, weld defects — are orders of magnitude smaller than ImageNet. Transfer learning (taking a model pre-trained on ImageNet and fine-tuning on maritime data) is the standard approach to bridge this gap.</p>
+</div>
+
+<!--══ SECTION 3 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(30,110,40),rgb(40,150,60));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Object Detection — Finding Objects in Images</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>Object detection</strong> extends classification: instead of labelling the whole image, it simultaneously identifies which objects are present and where they are located, expressed as bounding boxes (x, y, width, height) around each detected object. A single image may contain multiple objects of different classes, each with its own bounding box and class probability.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The first competitive deep learning detection systems used a two-stage approach: a <strong>Region Proposal Network (RPN)</strong> first proposes candidate regions likely to contain objects, then a CNN classifies each proposed region. R-CNN (Girshick et al., 2014), Fast R-CNN, and Faster R-CNN (Ren et al., NIPS 2015) iteratively refined this pipeline, achieving high accuracy but at 5–7 fps — too slow for real-time applications.</p>
+  <div style="background:rgb(232,250,234);border-radius:10px;margin-bottom:14px;padding:16px 20px;">
+    <div style="color:#1a7a3c;font-size:11px;font-weight:800;letter-spacing:0.08em;margin-bottom:8px;text-transform:uppercase;">Key Detection Metrics</div>
+    <p style="color:#354a5e;font-size:13px;line-height:1.8;margin:0 0 8px;"><strong>IoU (Intersection over Union):</strong> Measures how much the predicted bounding box overlaps with the ground-truth box. IoU &gt; 0.5 is typically considered a correct detection; IoU &gt; 0.75 is a high-quality detection.</p>
+    <p style="color:#354a5e;font-size:13px;line-height:1.8;margin:0;"><strong>mAP (mean Average Precision):</strong> Averages the precision-recall curve across all classes and IoU thresholds. The standard benchmark metric for detection models — allows fair comparison across different systems and datasets.</p>
+  </div>
+</div>
+
+<!--══ SECTION 4 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(40,150,60));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">4. YOLO — Real-Time Object Detection</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>YOLO (You Only Look Once)</strong> (Redmon et al., CVPR 2016, arXiv:1506.02640) reimagined object detection as a single-pass regression problem: instead of first proposing regions and then classifying them, YOLO divides the image into an S×S grid and predicts bounding boxes and class probabilities simultaneously for all cells in a single forward pass through the CNN.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The result was 45 fps on a Titan X GPU (vs. 7 fps for Faster R-CNN) with competitive accuracy — fast enough for real-time video analysis. YOLO has been successively improved through versions 2 through 11, with each version improving speed/accuracy trade-offs. YOLOv8 (Ultralytics, 2023) is the most widely deployed version in production industrial vision systems as of 2025, including maritime applications.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">YOLO in Maritime — Deployed Applications</div>
+    <div style="padding:14px 18px 12px;">
+      <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+        <li><strong>Container seal integrity inspection:</strong> Camera on crane or gantry detects seal number, seal type, and visual damage/anomalies as containers are loaded. Eliminates manual inspection steps.</li>
+        <li><strong>Port gate CCTV — vehicle and personnel detection:</strong> Detects unauthorised access to secured areas (vessel gangway, crane operating zone) in real time from existing CCTV infrastructure.</li>
+        <li><strong>Shipyard weld inspection:</strong> Camera mounted on inspection robot detects weld anomalies (porosity, cracks, undercut) from images taken during production. Faster and more consistent than manual X-ray-only inspection.</li>
+        <li><strong>Vessel hull inspection (underwater drone):</strong> ROV camera footage processed by YOLO-based detector identifies biofouling patches, anode consumption, and hull coating damage, georeferenced to a 3D hull model.</li>
+        <li><strong>Vessel traffic monitoring (VTS):</strong> AIS data fusion with CCTV detection of vessels entering harbour channels — detects non-AIS targets (small craft, spoofed vessels) that appear on camera but not on radar/AIS.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RELATED POST CALLOUT -->
+  <div style="background:linear-gradient(135deg,rgb(232,250,234),rgb(218,244,222));border:1.5px solid rgb(140,210,150);border-radius:10px;margin:18px 0;padding:14px 18px;">
+    <span style="color:#1a7a3c;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">📎 관련 포스트</span>
+    <div style="margin-top:6px;"><a href="https://www.shippauljobs.com/2026/07/ai-shipyard-has-officially-begun-why.html" rel="noopener" style="color:#1565c0;font-size:13.5px;font-weight:700;text-decoration:none;" target="_blank">AI Shipyard Has Officially Begun — Why This Changes Everything →</a></div>
+    <p style="color:#4a6278;font-size:12px;line-height:1.65;margin:5px 0 0;">Computer Vision이 실제 조선소 현장에 적용되기 시작한 배경과 현황을 다룹니다. YOLO 기반 검사 시스템이 선박 건조 프로세스를 어떻게 바꾸고 있는지 실무 관점에서 확인하세요.</p>
+  </div>
+</div>
+
+<!--══ SECTION 5 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(20,70,30),rgb(40,150,60));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">5. Beyond Detection — Segmentation, Depth, and 3D Vision</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>Semantic segmentation</strong> assigns a class label to every pixel in an image, not just a bounding box around an object. A semantic segmentation model processing a port aerial image might colour every pixel as "vessel," "quay," "crane," "water," or "container stack." This is far more computationally demanding than detection but provides richer spatial information.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>Instance segmentation</strong> (Mask R-CNN, He et al., ICCV 2017) extends this by providing separate masks for each individual object instance — distinguishing between 12 different containers stacked together, not just "there are containers here."</p>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:14px;">
+    <div style="background:white;border:1.5px solid #a8ddb0;border-radius:12px;padding:16px 16px 12px;">
+      <h3 style="color:#0a2342;font-size:13px;font-weight:800;margin:0 0 8px;">🔍 Semantic Segmentation</h3>
+      <p style="color:#4a6278;font-size:12.5px;line-height:1.7;margin:0;">Every pixel gets one class label. Objects of the same class are not distinguished. Used for: navigable waterway detection in autonomous vessel path planning; ice classification in Arctic route optimisation; hull coating condition mapping from underwater drone footage.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #a8ddb0;border-radius:12px;padding:16px 16px 12px;">
+      <h3 style="color:#0a2342;font-size:13px;font-weight:800;margin:0 0 8px;">🎯 Instance Segmentation</h3>
+      <p style="color:#4a6278;font-size:12.5px;line-height:1.7;margin:0;">Each object instance gets its own pixel mask. Enables counting and individual tracking. Used for: individual container identification and tracking through port terminals; individual crew member detection for access control; weld bead segmentation for dimensional inspection.</p>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 6 ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(40,150,60));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">6. Foundation Vision Models — SAM and CLIP</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The latest generation of vision AI moved beyond task-specific models (one model per task) toward <strong>foundation models</strong> — large models trained at scale that generalise across many vision tasks without task-specific fine-tuning. Two are particularly significant for maritime applications:</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:14px;overflow:hidden;">
+    <div style="background:rgb(40,150,60);color:#e8ffe8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Foundation Vision Models</div>
+    <div style="padding:14px 18px 12px;">
+      <p style="color:#4a6278;font-size:13px;line-height:1.85;margin:0 0 14px;"><strong>CLIP (Contrastive Language-Image Pretraining)</strong> (Radford et al., OpenAI, 2021, arXiv:2103.00020): Trained on 400 million (image, text) pairs scraped from the internet, CLIP learns a shared embedding space for images and text. Given an image and a text description, CLIP scores how well they match. Zero-shot classification: given an image of a vessel, CLIP can classify it as "bulk carrier," "container ship," or "tanker" without having been explicitly trained on those labels — purely by matching image embeddings to text embeddings.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;"><strong>SAM (Segment Anything Model)</strong> (Kirillov et al., Meta AI, 2023, arXiv:2304.02643): Trained on 1.1 billion masks, SAM can segment any object in any image given a point, bounding box, or text prompt — without task-specific training. Applications in maritime: segment any hull region of interest from an inspection image without re-training per vessel class or defect type; segment weld regions from arbitrary camera angles for dimensional inspection.</p>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The foundation model paradigm shifts the economics of maritime vision AI: instead of collecting thousands of labelled maritime images to train a task-specific model, an operator can prompt SAM or CLIP with natural language descriptions and apply the model to new vessel types or inspection tasks immediately. This significantly lowers the barrier to deploying vision AI in maritime contexts — but also shifts the security burden to the model provider and the prompt design.</p>
+</div>
+
+<!--══ SECTION 7: MARITIME CONNECTION ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">7. Maritime Connection — Vision AI and Cyber Risk</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">Every vision AI system deployed in maritime operations — from port CCTV analytics to underwater inspection drones — has a cyber attack surface that is distinct from traditional IT/OT systems. Understanding this surface requires understanding how these models work.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Vision AI Cyber Risk — Key Attack Classes</div>
+    <div style="padding:14px 18px 12px;">
+      <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+        <li><strong>Adversarial patches:</strong> Physical stickers or markings on containers, vessels, or port assets that cause systematic misclassification by the detection model. Demonstrated in published research with real-world applicability to port access control and container inspection.</li>
+        <li><strong>Training data poisoning:</strong> An attacker who can introduce crafted images into the training dataset can embed backdoors — patterns that cause specific misclassifications on demand (e.g., a specific seal type is always classified as "intact" even when damaged).</li>
+        <li><strong>Camera feed manipulation:</strong> Spoofing or replaying CCTV feeds to an AI-based access control system — a physical security bypass that exploits the AI's reliance on the camera as a trusted sensor.</li>
+        <li><strong>Model extraction:</strong> Querying a vision AI API with carefully chosen inputs to reconstruct the model's decision boundary, enabling subsequent adversarial attacks without white-box access to the model weights.</li>
+        <li><strong>IACS UR E26 relevance:</strong> Section 4.2.3 addresses prevention of malware and section 4.2.4 addresses access control. AI-based systems that enforce either capability must have their adversarial robustness evaluated as part of the cyber resilience assessment.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,rgb(232,250,234),rgb(216,244,218));border:1.5px solid rgb(140,210,150);border-radius:14px;margin-bottom:28px;padding:22px 24px;">
+  <div style="align-items:center;display:flex;gap:12px;margin-bottom:14px;">
+    <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:2px solid rgb(40,150,60);flex-shrink:0;height:44px;object-fit:cover;width:44px;" />
+    <div>
+      <div style="color:#1a7a3c;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">✍️ Author Insight</div>
+      <div style="color:#0a2342;font-size:13px;font-weight:700;">Captain Paul — Maritime Cybersecurity Consultant</div>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 12px;">During E26 CRSI 프로젝트 수행, I have seen increasing adoption of AI-based CCTV analytics in port and vessel access control contexts. The typical deployment pattern is: existing CCTV cameras → video stream to a shore-based server → YOLO-based detection → alert to security personnel if anomaly detected.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 12px;">The cyber risk question that is almost universally absent from the procurement process: "What happens if someone learns which detection model we are using and tests adversarial inputs against our camera feeds?" This is not a theoretical concern. YOLO model weights and architectures are public; an attacker who knows which version of YOLO a port uses can generate adversarial inputs in the same afternoon.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">The mitigation is not to avoid AI-based vision systems — their operational value is real. The mitigation is to treat the model version, training data distribution, and detection thresholds as sensitive configuration data (protected under IACS UR E26 Section 4.1), and to include adversarial robustness in the periodic security assessment scope alongside traditional penetration testing.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:rgb(232,250,234);border-radius:14px;margin-bottom:28px;padding:22px 24px;">
+  <div style="color:#1a7a3c;font-size:12px;font-weight:800;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">🔑 Key Takeaways</div>
+  <ul style="color:#354a5e;font-size:13.5px;line-height:1.9;margin:0;padding-left:18px;">
+    <li><strong>ImageNet</strong> (1.2M labelled images, 1,000 classes) was the dataset that enabled the deep learning revolution in computer vision. Transfer learning from ImageNet-pretrained models is the standard approach for maritime-specific tasks.</li>
+    <li><strong>Image classification</strong> labels a whole image; <strong>object detection</strong> adds bounding boxes; <strong>segmentation</strong> assigns class labels to every pixel. Each task enables different maritime applications.</li>
+    <li><strong>YOLO</strong> achieves real-time detection (45+ fps) by treating detection as a single-pass regression over a grid, rather than a two-stage region proposal + classification pipeline.</li>
+    <li><strong>YOLOv8</strong> is the most widely deployed production detection model in maritime applications as of 2025, including container inspection, port surveillance, and hull inspection drones.</li>
+    <li><strong>CLIP</strong> enables zero-shot vision classification by aligning image and text embeddings. <strong>SAM</strong> enables prompt-driven segmentation of any object without task-specific retraining.</li>
+    <li>Vision AI systems in maritime are vulnerable to adversarial patches, training data poisoning, and camera feed manipulation. Model version and configuration are sensitive cybersecurity data.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid rgb(200,223,247);border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">⏭ What's Next</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 5 — From GANs to Generative AI</strong> completes PART 1 by tracing the path from the Generative Adversarial Network (Goodfellow et al., 2014) — the first architecture that successfully generated realistic images — through Diffusion Models to the Large Language Models and multimodal generative systems that define AI in 2025–26. This lesson closes the arc opened in Lesson 1 and bridges into PART 2 (Transformer Architecture in Depth).</p>
+</div>
+
+<!--══ OFFICIAL SOURCES ══-->
+<div style="border-top:2px solid rgb(200,223,247);margin-bottom:28px;padding-top:22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">📚 Official Sources & Key Citations</div>
+  <ul style="color:#4a6278;font-size:12.5px;line-height:2;margin:0;padding-left:18px;">
+    <li>Deng, J., Dong, W., Socher, R., et al. (2009). "ImageNet: A large-scale hierarchical image database." <em>CVPR 2009.</em></li>
+    <li>Redmon, J., Divvala, S., Girshick, R., and Farhadi, A. (2016). "You Only Look Once: Unified, Real-Time Object Detection." <em>CVPR 2016.</em> arXiv:1506.02640.</li>
+    <li>Ren, S., He, K., Girshick, R., and Sun, J. (2015). "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks." <em>NeurIPS 2015.</em> arXiv:1506.01497.</li>
+    <li>He, K., Gkioxari, G., Dollár, P., and Girshick, R. (2017). "Mask R-CNN." <em>ICCV 2017.</em> arXiv:1703.06870.</li>
+    <li>Radford, A., Kim, J., Hallacy, C., et al. (2021). "Learning Transferable Visual Models From Natural Language Supervision." arXiv:2103.00020 (CLIP).</li>
+    <li>Kirillov, A., Mintun, E., Ravi, N., et al. (2023). "Segment Anything." arXiv:2304.02643 (SAM).</li>
+    <li>MITRE ATLAS — AI Adversarial Threat Landscape. <a href="https://atlas.mitre.org" rel="noopener" style="color:#1a9e82;" target="_blank">atlas.mitre.org</a></li>
+    <li>IACS UR E26 (Rev.3, 2024) — Section 4.1: Asset Inventory; Section 4.2.3: Prevention of Malware. <a href="https://www.iacs.org.uk" rel="noopener" style="color:#1a9e82;" target="_blank">iacs.org.uk</a></li>
+  </ul>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:8px;padding:14px 20px;">
+  <div style="color:#6b8599;font-size:10px;font-weight:800;letter-spacing:0.08em;margin-bottom:10px;text-transform:uppercase;">📚 PART 1 — AI Fundamentals</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+    <a href="https://www.shippauljobs.com/2026/09/from-ai-to-generative-ai-ai-learning.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L1: From AI to GenAI</a>
+    <a href="https://www.shippauljobs.com/2026/09/how-machines-learn-from-data-ai.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L2: How Machines Learn</a>
+    <a href="https://www.shippauljobs.com/2026/09/cnn-rnn-and-deep-learning-era-ai.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L3: CNN · RNN · Deep Learning</a>
+    <span style="background:rgb(30,120,50);border-radius:6px;color:white;font-size:11px;font-weight:700;padding:4px 12px;">L4: Computer Vision</span>
+    <a href="https://www.shippauljobs.com/2026/09/from-gans-to-generative-ai-ai-learning.html" rel="noopener" style="background:white;border:1px solid #c8dff7;border-radius:6px;color:#1a9e82;font-size:11px;padding:4px 12px;text-decoration:none;" target="_blank">L5: GANs → Generative AI</a>
+  </div>
+  <div style="border-top:1px solid #dde8f4;margin-top:10px;padding-top:10px;">
+    <a href="https://www.shippauljobs.com/2026/09/shippauljobs-ai-learning-roadmap-from.html" rel="noopener" style="color:#1a9e82;font-size:11px;font-weight:700;text-decoration:none;" target="_blank">← Course Index</a>
+  </div>
+</div>
+
+</div>

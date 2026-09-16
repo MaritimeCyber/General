@@ -1,0 +1,236 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 2 — Understanding Cyber Attacks
+     Lesson : 8 of 7 — DoS and DDoS Attacks
+     Topics : DoS · DDoS · Volumetric Attack · Protocol Attack ·
+              Application Layer Attack · Botnet · Amplification ·
+              CDN / Scrubbing Centre · Maritime Port Risk · Availability
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 2</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 8 of 7</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(20,60,120) 55%,rgb(10,140,200) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 2 · Lesson 8</span>
+    <span style="background:rgba(10,140,200,0.5);border-radius:20px;color:#a8e8ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Availability Attack</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">DoS · DDoS</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">DoS and DDoS Attacks</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">Denial of Service · Distributed DoS · Volumetric · Protocol · Application-layer attacks · Botnets · Amplification · Scrubbing · Maritime port and communication system risk — attacks targeting Availability, the third pillar of the CIA Triad.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(240,248,255);border-left:4px solid rgb(10,140,200);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a6e9a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can distinguish DoS from DDoS attacks, classify DDoS attack types (volumetric, protocol, application-layer), explain how botnets are used to generate attack traffic and how amplification attacks multiply that traffic, describe the maritime risk areas most exposed to availability attacks, and outline the primary DDoS mitigation approaches including CDN offloading and scrubbing centre services.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">In October 2021, the Port of Houston in Texas was targeted by a cyberattack that caused disruption to the port authority's IT systems. While attribution and the full extent of the attack were not fully disclosed publicly, it highlighted what security professionals had long warned: port authorities and maritime logistics systems are increasingly targets for attacks designed to cause operational disruption rather than data theft.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Among the most straightforward forms of such disruption is the Denial of Service attack. Unlike ransomware or data theft — which require sophisticated persistence and lateral movement — a DoS or DDoS attack has one simple objective: make a system, service, or network unavailable to its legitimate users. It targets Availability — the A in the CIA Triad.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">For maritime operations, availability is not an abstract security concern. When a port's vessel traffic management system (VTMS) is unavailable, berth scheduling fails. When a ship's satellite communication system is overwhelmed, crew welfare, voyage management, and emergency communication all degrade simultaneously. When a shipping company's freight booking portal goes offline during a peak shipping window, the operational and financial impact is immediate.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">This lesson examines how DoS and DDoS attacks work technically, why DDoS is difficult to defend against using perimeter controls alone, and what mitigation strategies exist.</p>
+</div>
+
+<!--══ SECTION 1: DoS vs DDoS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(20,60,120));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. DoS vs DDoS — What's the Difference?</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">A <strong>Denial of Service (DoS)</strong> attack originates from a single source — one attacker, one machine, one connection. The attacker sends traffic or requests at a volume or in a format that the target system cannot handle, causing it to slow down, crash, or become unreachable. Early DoS attacks were simple: flood a server with more packets than it can process. Single-source DoS is now relatively easy to defend against — block the source IP and the attack stops.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 16px;">A <strong>Distributed Denial of Service (DDoS)</strong> attack coordinates traffic from thousands or millions of sources simultaneously. Because the traffic comes from diverse IP addresses across multiple countries and ISPs, blocking individual sources is impractical. The aggregated bandwidth of the attack can exceed what the target organisation's upstream internet connection can absorb — meaning the attack is effective even before it reaches the target server.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Three Categories of DDoS Attack</div>
+    <div style="display:grid;gap:0;grid-template-columns:1fr 1fr 1fr;">
+      <div style="border-right:1px solid #e8eef4;padding:16px 16px 14px;">
+        <div style="background:#0a8cce;border-radius:6px;color:white;font-size:11px;font-weight:800;letter-spacing:0.08em;margin-bottom:10px;padding:4px 10px;text-align:center;text-transform:uppercase;">Volumetric</div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0 0 8px;">Overwhelm the target's bandwidth with raw traffic volume. Measured in Gbps or Tbps. Examples: UDP Flood, ICMP Flood, DNS Amplification, NTP Amplification.</p>
+        <div style="background:#f0f7ff;border-radius:5px;color:#154f7a;font-size:11.5px;padding:7px 9px;"><strong>Scale:</strong> Largest attacks have exceeded 3 Tbps. A 1 Gbps internet connection is overwhelmed by a modest volumetric attack.</div>
+      </div>
+      <div style="border-right:1px solid #e8eef4;padding:16px 16px 14px;">
+        <div style="background:#154f7a;border-radius:6px;color:white;font-size:11px;font-weight:800;letter-spacing:0.08em;margin-bottom:10px;padding:4px 10px;text-align:center;text-transform:uppercase;">Protocol</div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0 0 8px;">Exhaust network infrastructure resources (firewalls, load balancers, routers) by exploiting weaknesses in layer 3/4 protocol behaviour. Examples: SYN Flood, Ping of Death, Smurf Attack.</p>
+        <div style="background:#f0f7ff;border-radius:5px;color:#154f7a;font-size:11.5px;padding:7px 9px;"><strong>SYN Flood:</strong> Sends thousands of TCP SYN requests without completing the handshake, filling the server's connection table until it cannot accept new connections.</div>
+      </div>
+      <div style="padding:16px 16px 14px;">
+        <div style="background:#1a9e82;border-radius:6px;color:white;font-size:11px;font-weight:800;letter-spacing:0.08em;margin-bottom:10px;padding:4px 10px;text-align:center;text-transform:uppercase;">Application Layer</div>
+        <p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0 0 8px;">Targets web application resources at layer 7 (HTTP/HTTPS). Mimics legitimate user traffic so it is harder to filter. Examples: HTTP Flood (GET/POST), Slowloris, RUDY, DNS Query Flood.</p>
+        <div style="background:#eef6f3;border-radius:5px;color:#0e7c62;font-size:11.5px;padding:7px 9px;"><strong>Slowloris:</strong> Opens many HTTP connections and keeps them alive with partial requests, exhausting the server's connection pool without high bandwidth.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 2: BOTNETS & AMPLIFICATION ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(20,60,120),rgb(10,140,200));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Botnets and Amplification — How DDoS Scales</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">The power of DDoS comes from scale. A single attacker cannot generate terabits of traffic. DDoS achieves this through two mechanisms: <strong>botnets</strong> and <strong>amplification</strong>.</p>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:16px;">
+    <div style="background:white;border:1.5px solid #c8dff7;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🤖 Botnets</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">A botnet is a network of compromised devices — PCs, servers, IoT cameras, routers, maritime satellite terminals — that have been infected with malware placing them under attacker control. The attacker (the "bot herder") commands all devices simultaneously to send traffic to the target.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">The Mirai botnet (2016) demonstrated the IoT dimension: it compromised hundreds of thousands of internet-connected cameras and DVRs using default credentials, generating a 1.2 Tbps attack against Dyn DNS that took down Twitter, Netflix, Reddit, and many other major services.</p>
+      <div style="background:#f0f7ff;border-radius:6px;color:#154f7a;font-size:11.5px;padding:8px 10px;"><strong>Maritime risk:</strong> Vessel-connected IoT devices (CCTV, HVAC sensors, cargo monitoring) with default credentials can be recruited into botnets without the ship operator's knowledge.</div>
+    </div>
+    <div style="background:white;border:1.5px solid #b2ddd4;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">📡 Amplification Attacks</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">Amplification exploits protocols where a small request generates a large response. The attacker spoofs the victim's IP address as the source and sends small requests to thousands of open servers — all of which send large responses to the victim.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;"><strong>DNS Amplification:</strong> A 60-byte DNS query can generate a 3,000-byte response — an amplification factor of 50x. <strong>NTP Amplification</strong> (using the monlist command) can reach amplification factors of 556x. The attacker generates 100 Mbps of outbound traffic but the victim receives 5.5 Gbps.</p>
+      <div style="background:#eef6f3;border-radius:6px;color:#0e7c62;font-size:11.5px;padding:8px 10px;"><strong>Defence:</strong> Network operators implement BCP38 (source address validation) to block spoofed traffic; DNS and NTP servers should be configured to prevent amplification.</div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 3: MARITIME AVAILABILITY RISK ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Maritime Systems at Risk from Availability Attacks</h2>
+  </div>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Maritime Availability Attack Surface</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Port Management Systems</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">VTMS (Vessel Traffic Management), Terminal Operating Systems (TOS), and port community systems are internet-connected and handle time-critical berth scheduling, cargo handling, and customs documentation. Outage even for hours causes cascading delays across the supply chain.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Fleet Management Portals</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Web-based fleet management, voyage planning, and freight booking systems are externally accessible and targeted by attacks when competitors, state actors, or hacktivists wish to disrupt a shipping company's operations.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Satellite Communications</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">VSAT and LEO satellite terminals can be overwhelmed or jammed at the radio layer. While jamming is not a cyber attack in the traditional sense, satellite service denial impacts vessel communications, crew welfare systems, and remote monitoring simultaneously.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#154f7a;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">AIS &amp; GMDSS Systems</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">AIS (Automatic Identification System) data feeds to third-party tracking sites and coast guard systems can be targeted. AIS jamming and spoofing are distinct from DDoS but share the outcome: degrading situational awareness for vessel traffic in a region.</td>
+          </tr>
+          <tr>
+            <td style="color:#154f7a;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Shipyard &amp; Classification Systems</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Design systems, approval workflows, and certification databases — if unavailable — halt new construction projects and compliance processes. Ransomware groups have targeted shipyards specifically for this leverage.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 4: MITIGATION ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,140,200),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">4. DDoS Mitigation Strategies</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">DDoS mitigation cannot rely on perimeter firewalls alone — if the attack traffic exceeds the upstream bandwidth capacity, the connection is saturated before it reaches the firewall. Effective mitigation requires services positioned upstream of the target's internet connection.</p>
+  <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:14px;">
+    <div style="background:white;border:1.5px solid #c8dff7;border-radius:10px;padding:16px 18px;">
+      <div style="color:#154f7a;font-size:13px;font-weight:800;margin-bottom:8px;">☁️ CDN / Anycast DDoS Protection</div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">Services like Cloudflare, Akamai, and AWS Shield use anycast routing to distribute attack traffic across globally distributed nodes. Each node absorbs a fraction of the total attack volume. The legitimate origin server is never directly exposed to the raw attack traffic.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #c8dff7;border-radius:10px;padding:16px 18px;">
+      <div style="color:#154f7a;font-size:13px;font-weight:800;margin-bottom:8px;">🔄 Upstream Scrubbing Centres</div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">ISP-level DDoS mitigation services redirect attack traffic to scrubbing centres — high-capacity filtering infrastructure that distinguishes malicious from legitimate traffic and forwards only clean traffic to the target. Requires BGP routing agreements with the ISP.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #c8dff7;border-radius:10px;padding:16px 18px;">
+      <div style="color:#154f7a;font-size:13px;font-weight:800;margin-bottom:8px;">🚦 Rate Limiting &amp; Traffic Shaping</div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">For application-layer attacks that do not saturate bandwidth, rate limiting (restricting requests per IP, per session, per endpoint) can prevent server resource exhaustion. Web Application Firewalls (WAF) can identify and block HTTP flood patterns.</p>
+    </div>
+    <div style="background:white;border:1.5px solid #c8dff7;border-radius:10px;padding:16px 18px;">
+      <div style="color:#154f7a;font-size:13px;font-weight:800;margin-bottom:8px;">📋 Incident Response Plan</div>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0;">A pre-agreed DDoS response playbook — including contacts at the ISP, scrubbing provider, and internal escalation tree — reduces response time from hours to minutes. Maritime operators should include DDoS scenarios in their cyber incident response exercises.</p>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#0a1e35,#0d2a40);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(10,140,200,0.08);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(10,140,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a8e8ff;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">In E26 CRSI assessments, DDoS typically ranks lower than ransomware and phishing in the threat prioritisation discussions — partly because it does not result in data theft and partly because maritime operators see it as something that happens to internet companies, not shipping companies. This is a mistake that is becoming increasingly expensive.</p>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">The maritime sector's increasing digitisation — online freight booking, real-time vessel tracking, electronic documentation, web-based port clearance systems — has made availability a genuine operational dependency. A shipping company that cannot accept freight bookings for 12 hours during peak season because its portal is under DDoS attack suffers direct revenue loss, customer relationship damage, and potential regulatory reporting obligations under cyber incident reporting rules.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a8e8ff;">The simplest actionable step</strong> for maritime operators is to ensure that externally accessible web services are behind a CDN or DDoS mitigation provider. The cost of a Cloudflare or Akamai subscription is modest compared to the operational cost of even a short availability outage. This should be a baseline requirement for any internet-facing service in a maritime organisation's digital infrastructure.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#eef6f3;border:1.5px solid #b2ddd4;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0e7c62;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 8</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>DoS (single source) and DDoS (distributed, multiple sources) attacks target Availability — the A in CIA Triad.</li>
+    <li>Three DDoS categories: Volumetric (bandwidth flooding), Protocol (state table exhaustion), Application-layer (HTTP/HTTPS flood).</li>
+    <li>Botnets (infected IoT/PC networks) and amplification (exploiting UDP protocols like DNS/NTP to multiply traffic) are how DDoS achieves massive scale.</li>
+    <li>Maritime systems at risk include port VTS/TOS, fleet management portals, satellite comms, and AIS data feeds.</li>
+    <li>Perimeter firewalls cannot stop volumetric DDoS — upstream CDN, anycast distribution, and ISP scrubbing services are required.</li>
+    <li>DDoS incident response plans — with pre-agreed ISP/scrubbing contacts — must be prepared before an attack, not during one.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 9</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 9 — Man-in-the-Middle (MitM) Attacks</strong> examines how attackers intercept communications between two parties — neither of whom realises the interception is happening. This includes ARP spoofing, SSL stripping, rogue access points, and how TLS certificate pinning provides defence. The maritime dimension covers VSAT interception risk and unsecured port Wi-Fi environments.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 2 — Understanding Cyber Attacks</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 6 — Phishing &amp; Social Engineering</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 7 — Ransomware &amp; the Cyber Kill Chain</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a8cce;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 8 — DoS and DDoS Attacks</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 9 — Man-in-the-Middle (MitM) Attacks</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Coming</span><span>Lesson 10 — SQL Injection</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Coming</span><span>Lesson 11 — Cross-Site Scripting (XSS)</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Coming</span><span>Lesson 12 — DNS Spoofing &amp; DNS-based Attacks</span></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

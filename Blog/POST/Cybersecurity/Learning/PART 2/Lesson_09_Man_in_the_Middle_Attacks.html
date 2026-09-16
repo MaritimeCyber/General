@@ -1,0 +1,203 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 2 — Understanding Cyber Attacks
+     Lesson : 9 of 7 — Man-in-the-Middle (MitM) Attacks
+     Topics : MitM · ARP Spoofing · SSL Stripping · Rogue Access Point ·
+              Session Hijacking · TLS · Certificate Pinning · HSTS ·
+              VSAT Interception · Port Wi-Fi Risk
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 2</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 9 of 7</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(40,70,30) 55%,rgb(30,140,60) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 2 · Lesson 9</span>
+    <span style="background:rgba(30,140,60,0.5);border-radius:20px;color:#a0ffb8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Interception</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">MitM · TLS</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Man-in-the-Middle (MitM) Attacks</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">ARP Spoofing · SSL Stripping · Rogue Access Points · Session Hijacking · TLS and Certificate Validation · HSTS · VSAT and Port Wi-Fi Interception — attacks that intercept communications silently between two parties.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(240,255,245);border-left:4px solid rgb(30,140,60);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#1a7a3c;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain what a Man-in-the-Middle attack achieves, describe ARP spoofing and how it enables local network interception, explain SSL stripping and how it downgrades secure connections, describe rogue access point attacks, explain how TLS, certificate validation, HSTS, and certificate pinning defend against MitM, and identify the specific MitM risks in maritime satellite and port Wi-Fi environments.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Imagine two people exchanging sealed letters through a courier. A Man-in-the-Middle attack is the equivalent of that courier secretly opening every letter, reading it, potentially modifying the contents, resealing it, and delivering it as if nothing happened. Neither sender nor recipient knows the interception is occurring.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">In digital communications, a Man-in-the-Middle (MitM) attack positions the attacker between two communicating parties — a client and a server, two internal systems, or a vessel and a shore-based management platform — in a way that intercepts, reads, and potentially modifies the traffic passing between them. The communicating parties continue to believe they are communicating directly with each other.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">MitM attacks can target Confidentiality (reading credentials and data), Integrity (modifying data in transit — for example, changing an invoice's bank account number), and even Availability (if the attacker drops packets rather than forwarding them). They are particularly relevant in shared network environments — hotel Wi-Fi, port facilities, coffee shops — where multiple users share the same network segment.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">For maritime professionals, the attack surface includes port Wi-Fi networks used by crew members with company laptops, VSAT satellite links, and shore-to-ship communication channels used for operational data exchange. This lesson examines the technical mechanisms and the defences — primarily TLS — that make modern MitM attacks much harder to execute than they once were.</p>
+</div>
+
+<!--══ SECTION 1: ARP SPOOFING ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(40,70,30));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. ARP Spoofing — Intercepting Local Network Traffic</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>ARP (Address Resolution Protocol)</strong> is used on local networks to map IP addresses to MAC (hardware) addresses. When Device A wants to send data to Device B on the same local network, it broadcasts an ARP request: "Who has IP address 192.168.1.10?" Device B responds with its MAC address. ARP is stateless and unauthenticated — any device can send an unsolicited ARP reply claiming any IP address.</p>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>ARP Spoofing (ARP Poisoning)</strong> exploits this: the attacker sends forged ARP replies to both the victim and the network gateway, claiming that the attacker's MAC address corresponds to the IP address of the other party. Both devices update their ARP cache with the false mapping and begin sending traffic to the attacker, who forwards it to the real destination. Neither party knows the traffic is being routed through a third machine.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(20,40,15);color:#a0ffb8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">ARP Spoofing — What the Attacker Intercepts</div>
+    <div style="padding:14px 18px 12px;">
+      <ul style="color:#4a6278;font-size:13px;line-height:1.85;margin:0;padding-left:16px;">
+        <li>Unencrypted HTTP traffic — usernames, passwords, session tokens, form data submitted to non-HTTPS sites.</li>
+        <li>DNS queries — allowing the attacker to observe which domains the victim is resolving (and potentially redirect them via DNS spoofing).</li>
+        <li>Email traffic on unencrypted SMTP/IMAP connections — full email content including attachments.</li>
+        <li>Internal application traffic — if applications use unencrypted internal protocols (Telnet, FTP, older industrial protocols).</li>
+        <li>Session cookies — if not protected by the Secure and HttpOnly flags, allowing session hijacking.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;"><strong>Countermeasures:</strong> Dynamic ARP Inspection (DAI) on managed switches validates ARP packets against a trusted DHCP database — preventing spoofed ARP replies from being accepted. Static ARP entries for critical systems, and network segmentation that limits the shared broadcast domain, also reduce ARP spoofing risk.</p>
+</div>
+
+<!--══ SECTION 2: SSL STRIPPING & ROGUE AP ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(40,70,30),rgb(30,140,60));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. SSL Stripping and Rogue Access Points</h2>
+  </div>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:16px;">
+    <div style="background:white;border:1.5px solid #b2ddd4;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🔓 SSL Stripping</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">SSL Stripping (Moxie Marlinspike, 2009) is a technique that downgrades a secure HTTPS connection to an unencrypted HTTP connection without the victim noticing. When a positioned MitM intercepts a victim's HTTP request that would redirect to HTTPS, it fetches the HTTPS version from the real server itself, but serves the plain HTTP version to the victim. The victim sees no security indicator because the browser's address bar shows HTTP — but thinks the connection is working.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">This allows the attacker to read all traffic in cleartext even though the real server is using TLS.</p>
+      <div style="background:#eef6f3;border-radius:6px;color:#0e7c62;font-size:11.5px;padding:8px 10px;"><strong>HSTS Defence:</strong> HTTP Strict Transport Security (HSTS) tells browsers to always use HTTPS for a domain, refusing HTTP connections entirely. Combined with preloading, HSTS prevents SSL stripping on known domains.</div>
+    </div>
+    <div style="background:white;border:1.5px solid #b2ddd4;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">📶 Rogue Access Point (Evil Twin)</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">An attacker sets up a wireless access point with the same SSID (network name) as a legitimate network — a port facility's "PortWiFi_Free" or a ship's crew Wi-Fi. Devices may automatically connect to the stronger signal. All traffic through the rogue AP passes through the attacker's device before reaching the internet.</p>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;">This is trivially accomplished with a laptop and a wireless adapter running hostapd. No hacking tools required — the attack creates a standard Wi-Fi hotspot.</p>
+      <div style="background:#eef6f3;border-radius:6px;color:#0e7c62;font-size:11.5px;padding:8px 10px;"><strong>Maritime risk:</strong> Crew members connecting to "free Wi-Fi" at ports with company laptops may expose corporate credentials, VPN configurations, and email contents to an attacker in the terminal or on the quayside.</div>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 3: TLS & DEFENCES ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. TLS and Modern MitM Defences</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;"><strong>TLS (Transport Layer Security)</strong> is the primary defence against MitM on internet communications. TLS provides: (1) <strong>encryption</strong> — all data in transit is encrypted, so even if intercepted, it cannot be read without the session keys; (2) <strong>authentication</strong> — the server presents a digital certificate signed by a trusted Certificate Authority (CA), allowing the client to verify it is communicating with the real server, not an impostor; (3) <strong>integrity</strong> — MAC (Message Authentication Code) values detect any tampering with data in transit.</p>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(10,35,66);color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">MitM Defence Layers</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">TLS 1.3</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Current TLS standard. Removes weak cipher suites, mandates forward secrecy (PFS — each session uses unique keys so past sessions cannot be decrypted even if the private key is later compromised). All new services should use TLS 1.3; TLS 1.0 and 1.1 are deprecated.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Certificate Validation</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Browsers validate the server's TLS certificate against the trusted CA store. A certificate signed by an unknown or untrusted CA produces a browser warning. Users who click through certificate warnings are bypassing the MitM defence entirely.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">HSTS</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">HTTP Strict Transport Security instructs browsers to always connect via HTTPS, even if the user types http://. Prevents SSL stripping. Combined with the HSTS preload list (browsers ship with a list of HSTS-enabled domains), this provides protection on first visit.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Certificate Pinning</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">Mobile and desktop applications can pin a specific certificate or public key — refusing to connect if the server presents any other certificate, even a legitimately CA-signed one. Prevents attacks that use rogue CA certificates. Used in banking apps and high-security applications.</td>
+          </tr>
+          <tr>
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">VPN for Untrusted Networks</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;vertical-align:top;">A VPN tunnels all traffic through an encrypted channel before it leaves the device, preventing local network interception (including rogue APs and ARP spoofing). All company devices connecting to external networks (port Wi-Fi, hotel, satellite) should use a corporate VPN.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#0a1e35,#0d2a40);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(30,140,60,0.08);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(30,140,60,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0ffb8;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, the topic of crew device security at ports consistently surfaces as an area requiring immediate attention. In interviews with crew members, it is common to find that officers regularly connect company laptops to port-provided Wi-Fi networks to access email, upload voyage reports, or communicate with the operator — without any VPN or network protection.</p>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">Some ports in high-risk regions operate Wi-Fi infrastructure that is unsecured or monitored by parties with interests in the vessel's voyage data, cargo information, or crew details. An officer connecting to a rogue AP — or even a legitimate but poorly secured port Wi-Fi — with a company device and no VPN protection is exposing corporate communications and potentially OT network access credentials.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0ffb8;">The policy requirement is straightforward:</strong> all company devices must connect through a corporate VPN before accessing any company systems, regardless of the underlying network. "I'm at a trusted port" is not a security posture. The VPN must be configured as always-on, not user-optional. This single policy, consistently enforced, eliminates the local network interception risk regardless of what network the device happens to be connected to.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#eef6f3;border:1.5px solid #b2ddd4;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0e7c62;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 9</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>MitM attacks intercept communications between two parties without either knowing — targeting confidentiality, integrity, and potentially availability.</li>
+    <li>ARP Spoofing positions the attacker as the gateway on a local network, allowing interception of all unencrypted traffic.</li>
+    <li>SSL Stripping downgrades HTTPS to HTTP so the attacker can read cleartext traffic even when the server supports TLS.</li>
+    <li>Rogue Access Points (Evil Twin Wi-Fi) allow attackers to intercept all traffic from devices that connect — trivially deployed in port environments.</li>
+    <li>TLS 1.3, HSTS, certificate validation, and certificate pinning are the primary technical defences against MitM.</li>
+    <li>Never click through browser certificate warnings — they indicate a potential MitM attack or a serious misconfiguration.</li>
+    <li>Always-on VPN on company devices is the most effective single policy for maritime crew using external networks at ports.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 10</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 10 — SQL Injection</strong> introduces one of the most persistent and well-documented web application vulnerabilities. We examine how improperly handled database queries allow attackers to extract, modify, or delete data by embedding malicious SQL code in user input — and how parameterised queries and input validation eliminate this vulnerability class.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 2 — Understanding Cyber Attacks</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 6 — Phishing &amp; Social Engineering</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 7 — Ransomware &amp; the Cyber Kill Chain</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 8 — DoS and DDoS Attacks</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#1e8c3c;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 9 — Man-in-the-Middle (MitM) Attacks</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 10 — SQL Injection</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Coming</span><span>Lesson 11 — Cross-Site Scripting (XSS)</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Coming</span><span>Lesson 12 — DNS Spoofing &amp; DNS-based Attacks</span></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

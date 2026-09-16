@@ -1,0 +1,223 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 2 — Understanding Cyber Attacks
+     Lesson : 12 of 7 — DNS Spoofing & DNS-based Attacks
+     Topics : DNS Resolution · Cache Poisoning · DNS Hijacking ·
+              DNS Tunnelling · BGP Hijacking · DoH/DoT ·
+              DNSSEC · Maritime VSAT DNS Risk
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 2</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 12 of 7</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,rgb(10,35,66) 0%,rgb(80,20,20) 55%,rgb(160,40,40) 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(255,255,255,0.04);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 2 · Lesson 12</span>
+    <span style="background:rgba(160,40,40,0.5);border-radius:20px;color:#ffb0b0;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">DNS · Infrastructure</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">DNSSEC · DoH</span>
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">DNS Spoofing &amp; DNS-based Attacks</h1>
+  <p style="color:rgba(255,255,255,0.82);font-size:15px;line-height:1.75;margin:0 0 22px;">How DNS works · Cache Poisoning · DNS Hijacking · DNS Tunnelling · DNSSEC · DNS over HTTPS and TLS · Maritime VSAT DNS Risk — attacks that subvert the internet's naming system to redirect and intercept traffic.</p>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:rgb(255,240,240);border-left:4px solid rgb(160,40,40);border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#8a1010;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain how DNS resolution works, describe DNS cache poisoning and DNS hijacking attacks, explain what DNS tunnelling is and how it is used to bypass security controls, describe DNSSEC and how it defends against cache poisoning, explain DNS over HTTPS (DoH) and DNS over TLS (DoT), and identify the specific DNS security risks affecting maritime vessels over satellite communications links.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Every internet connection begins with a DNS lookup. When a browser, application, or operating system wants to connect to <code style="background:#f9f0f0;border-radius:4px;font-size:12px;padding:1px 5px;">mail.example.com</code>, it first asks the Domain Name System to resolve that name to an IP address. Only then does the actual connection begin. DNS is the telephone directory of the internet — an essential, distributed, globally replicated infrastructure that every networked device depends on dozens or hundreds of times per day.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">DNS was designed in 1983 for a small, trusted academic network. It was not designed with authentication, encryption, or integrity verification. A DNS response is taken at face value — there is no mechanism in classic DNS to verify that the answer received is genuine and not forged. This fundamental design gap has been exploited in a variety of DNS-based attack techniques that redirect traffic, intercept communications, and exfiltrate data covertly.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0;">For maritime professionals, DNS attacks are particularly relevant in two contexts: the VSAT satellite link that ships use to communicate with the internet (where the DNS resolver configuration is controlled by the satellite service provider, and manipulation is possible at multiple points in the chain), and port network environments where crew devices may connect to networks with compromised DNS resolvers.</p>
+</div>
+
+<!--══ SECTION 1: HOW DNS WORKS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(80,20,20));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. How DNS Resolution Works — The Target</h2>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0 0 14px;">When a device needs to resolve a domain name, the process follows a hierarchy of queries. The device's DNS resolver (usually the ISP or corporate resolver configured by DHCP) checks its local cache first. If not found, it queries the root servers (which delegate to the TLD servers for .com, .org, etc.), then the authoritative nameserver for the domain. The final authoritative answer — the IP address — is returned and cached locally for a period defined by the record's TTL (Time to Live).</p>
+  <div style="background:#1a1a2e;border-radius:10px;margin:0 0 14px;padding:16px 20px;">
+    <div style="color:#a0a0b0;font-size:10px;font-family:'Courier New',monospace;letter-spacing:0.08em;margin-bottom:8px;">DNS RESOLUTION CHAIN</div>
+    <div style="color:#c8e4f8;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;">Device → Local Cache → Recursive Resolver<br>Recursive Resolver → Root Server (which root?)<br>Root Server → TLD Server (.com?)<br>TLD Server → Authoritative NS (example.com?)<br>Authoritative NS → <span style="color:#a0ffb8;">IP Address: 93.184.216.34</span><br>Resolver → Device (cached for TTL seconds)</div>
+  </div>
+  <p style="color:#354a5e;font-size:14px;line-height:1.85;margin:0;">Each of these steps transmits a UDP packet over port 53, unauthenticated and unencrypted in classic DNS. The DNS transaction ID (a 16-bit number) is supposed to match responses to requests, but in practice this provides minimal protection against a positioned or lucky attacker.</p>
+</div>
+
+<!--══ SECTION 2: ATTACK TYPES ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(80,20,20),rgb(160,40,40));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. DNS Attack Techniques</h2>
+  </div>
+  <div style="background:white;border:1px solid rgb(209,224,238);border-radius:12px;margin-bottom:16px;overflow:hidden;">
+    <div style="background:rgb(80,20,20);color:#ffb0b0;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">DNS Attack Taxonomy</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#8a1010;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;white-space:nowrap;width:160px;">DNS Cache Poisoning</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;vertical-align:top;">The attacker sends a forged DNS response that arrives before the legitimate response, injecting a false IP address into the resolver's cache. All users whose devices query that resolver then receive the forged address and connect to the attacker's server, believing it is the real destination. The Kaminsky Attack (2008) demonstrated this could be done in minutes with available tools by randomising the source port and transaction ID simultaneously. Cache poisoning affects all users of the compromised resolver until the TTL expires.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#8a1010;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;">DNS Hijacking</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;vertical-align:top;">Rather than poisoning the cache, the attacker directly modifies DNS records at the authoritative source — either by compromising the domain registrar account (credential theft, social engineering), the DNS hosting provider, or a router whose DNS settings the attacker has modified. DNS hijacking at the registrar level is used in sophisticated supply chain and espionage campaigns to redirect all traffic for a domain to attacker-controlled infrastructure.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#8a1010;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;">DNS Tunnelling</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;vertical-align:top;">DNS queries are rarely blocked at the network perimeter — organisations that block HTTP and HTTPS outbound traffic often still allow DNS. An attacker who has compromised an internal host can encode data in DNS queries (e.g. in subdomains) and exfiltrate it to an attacker-controlled nameserver, bypassing data loss prevention controls. DNS tunnelling is also used by malware for command-and-control (C2) communications. Detection requires DNS traffic analysis for anomalously long or frequent subdomains.</td>
+          </tr>
+          <tr>
+            <td style="color:#8a1010;font-weight:700;padding:10px 12px 10px 0;vertical-align:top;">DNS DDoS Amplification</td>
+            <td style="color:#4a6278;padding:10px 0 10px 12px;vertical-align:top;">As discussed in Lesson 8, DNS is commonly abused as a DDoS amplification vector. A small DNS query (60 bytes) for a large record can produce a response of 3,000+ bytes — a 50× amplification factor. Open DNS resolvers (those that respond to queries from any IP) are used to reflect and amplify traffic against a target by spoofing the source IP.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ SECTION 3: DEFENCES ══-->
+<div style="margin-bottom:28px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(rgb(10,35,66),rgb(26,158,130));border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Defences — DNSSEC, DoH, and DoT</h2>
+  </div>
+  <div style="display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:14px;">
+    <div style="background:white;border:1.5px solid #f0b0b0;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🔐 DNSSEC</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;"><strong>DNS Security Extensions</strong> add cryptographic signatures to DNS records. The authoritative nameserver signs each record with its private key; the resolver validates the signature using the corresponding public key, which is itself chained back to the root via a trust hierarchy. A poisoned or modified DNS response will fail signature validation and be rejected. DNSSEC is the definitive defence against cache poisoning and record modification in transit.</p>
+      <div style="background:#fff0f0;border-radius:6px;color:#8a1010;font-size:11.5px;padding:8px 10px;"><strong>Limitation:</strong> DNSSEC does not encrypt DNS queries — it only authenticates records. It protects integrity but not confidentiality. Many domains have not deployed DNSSEC despite it being available.</div>
+    </div>
+    <div style="background:white;border:1.5px solid #f0b0b0;border-radius:12px;padding:18px 18px 14px;">
+      <h3 style="color:#0a2342;font-size:14px;font-weight:800;margin:0 0 10px;">🔒 DNS over HTTPS / DNS over TLS</h3>
+      <p style="color:#4a6278;font-size:13px;line-height:1.75;margin:0 0 10px;"><strong>DNS over HTTPS (DoH)</strong> and <strong>DNS over TLS (DoT)</strong> encrypt DNS queries between the client and the resolver, preventing eavesdropping on DNS traffic and on-path tampering. They protect against an attacker on the local network (port Wi-Fi, VSAT) who could otherwise observe and manipulate DNS queries in transit. Modern browsers support DoH natively; operating systems increasingly support DoT.</p>
+      <div style="background:#fff0f0;border-radius:6px;color:#8a1010;font-size:11.5px;padding:8px 10px;"><strong>Maritime relevance:</strong> On VSAT links where the satellite provider operates the DNS resolver, DoH/DoT routes queries to a separate encrypted resolver, bypassing potential interception or manipulation at the provider level.</div>
+    </div>
+  </div>
+  <div style="background:white;border:1px solid #d1e0ee;border-radius:12px;overflow:hidden;">
+    <div style="background:#0a2342;color:#c8e4f8;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">Additional DNS Security Controls</div>
+    <div style="padding:0 18px 4px;">
+      <table style="border-collapse:collapse;font-size:13px;width:100%;">
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;white-space:nowrap;">Registrar Account Security</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;">Protect domain registrar accounts with strong, unique passwords and MFA. DNS hijacking via registrar compromise is a common entry point for sophisticated attackers targeting an organisation's internet presence.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;">DNS Monitoring</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;">Monitor DNS traffic for anomalies: unusually long subdomain strings (tunnelling indicator), high volume of queries to unusual TLDs, queries to known malware C2 domains (via threat intelligence feeds), and unexpected changes to critical records.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f4f8;">
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;">Recursive Resolver Configuration</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;">Use enterprise DNS resolvers that support DNSSEC validation, apply filtering (blocking known malicious domains), and are not exposed as open resolvers. Configure client devices to use only corporate DNS servers via DHCP enforcement, preventing use of attacker-configured resolvers on untrusted networks.</td>
+          </tr>
+          <tr>
+            <td style="color:#1a9e82;font-weight:700;padding:9px 12px 9px 0;vertical-align:top;">Block DNS Tunnelling</td>
+            <td style="color:#4a6278;padding:9px 0 9px 12px;">Deploy DNS traffic analysis that flags anomalously long or high-frequency subdomain queries. Block DNS queries to external resolvers that bypass corporate DNS. Restrict outbound DNS to the corporate resolver so tunnelling traffic cannot reach an attacker-controlled nameserver.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--══ MARITIME DNS RISK ══-->
+<div style="background:white;border:1.5px solid #ffd4d4;border-radius:12px;margin-bottom:28px;padding:20px 22px;">
+  <div style="color:#8a1010;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">⚓ Maritime DNS Risk — VSAT and Port Networks</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.85;margin:0 0 12px;">Vessels operating on VSAT links rely on the satellite service provider's DNS infrastructure. The resolver configuration is typically applied via DHCP from the satellite modem — the vessel's own IT department often has limited visibility into or control over which resolvers are used, or whether those resolvers perform DNSSEC validation.</p>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.85;margin:0 0 12px;">In port, crew devices connecting to port Wi-Fi or cellular networks receive DNS configuration from the network operator. A compromised or attacker-controlled Wi-Fi access point can assign itself as the DNS resolver, positioning itself to intercept and redirect all DNS queries — and by extension, redirect all unencrypted or HTTPS-downgraded traffic to attacker-controlled servers.</p>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.85;margin:0;"><strong>Recommended controls for maritime operators:</strong> Enforce DoH or DoT on company devices so DNS queries are encrypted regardless of the underlying network. Configure a corporate DNS resolver (e.g. an always-on VPN that forces DNS through a company-controlled resolver) so the satellite provider or port network cannot intercept or manipulate DNS. Monitor DNS query logs from VSAT links for tunnelling indicators and unexpected record changes.</p>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#0a1e35,#2a0a0a);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(160,40,40,0.08);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(160,40,40,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#ffb0b0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">DNS security receives significantly less attention in maritime cybersecurity assessments than it warrants. During E26 CRSI assessments, it is common to find that vessel IT configurations rely entirely on the VSAT provider's DNS resolver with no DNSSEC validation, no DoH/DoT enforcement on end devices, and no DNS traffic monitoring capability. The DNS resolver used by crew and officer laptops on board is often opaque to the ship's IT management.</p>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">The DNS configuration question — "who resolves your DNS and how do you verify the responses are authentic?" — frequently yields a response along the lines of "we use whatever the VSAT provider gives us". This is not an unreasonable operational default, but it represents a gap in the security architecture: the vessel's entire internet connectivity, including access to company email, fleet management systems, and OEM remote support portals, is routed through a resolver whose integrity the operator has not verified.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#ffb0b0;">Minimum recommended posture:</strong> Enforce always-on VPN with split-DNS disabled (all DNS through corporate resolver), configure corporate resolver to enforce DNSSEC validation, enable DNS query logging with alerting on anomalous patterns, and include DNS configuration review in the scope of annual cybersecurity assessments and VSAT contract negotiations.</p>
+</div>
+
+<!--══ PART 2 COMPLETION BANNER ══-->
+<div style="background:linear-gradient(135deg,rgb(26,158,130),rgb(10,80,60));border-radius:14px;margin-bottom:28px;overflow:hidden;padding:24px 28px;position:relative;">
+  <div style="background:rgba(255,255,255,0.06);border-radius:50%;height:200px;position:absolute;right:-40px;top:-40px;width:200px;"></div>
+  <div style="color:#a0ffd8;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎉 PART 2 Complete</div>
+  <h2 style="color:white;font-size:22px;font-weight:900;margin:0 0 12px;">Understanding Cyber Attacks — All 7 Lessons</h2>
+  <p style="color:rgba(255,255,255,0.85);font-size:13.5px;line-height:1.8;margin:0 0 14px;">You have completed all seven lessons of PART 2. You can now explain the core mechanisms of: Phishing &amp; Social Engineering, Ransomware &amp; the Cyber Kill Chain, DoS and DDoS Attacks, Man-in-the-Middle Attacks, SQL Injection, Cross-Site Scripting, and DNS-based Attacks — and their specific implications in maritime operational environments.</p>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="background:white;border-radius:8px;color:#0a5040;display:inline-block;font-size:13px;font-weight:800;padding:9px 20px;text-decoration:none;" target="_blank">Continue to PART 3 →</a>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#fff0f0;border:1.5px solid #ffd4d4;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#8a1010;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 12</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>DNS translates human-readable domain names to IP addresses and was not designed with authentication or encryption.</li>
+    <li>DNS Cache Poisoning injects false IP addresses into a resolver's cache, redirecting all users of that resolver to attacker-controlled servers.</li>
+    <li>DNS Hijacking modifies authoritative DNS records by compromising the registrar or DNS hosting account — protect these accounts with MFA.</li>
+    <li>DNS Tunnelling encodes data in DNS queries to exfiltrate data or establish C2 channels, bypassing traditional firewall controls.</li>
+    <li>DNSSEC adds cryptographic signatures that allow resolvers to detect tampered or poisoned DNS responses.</li>
+    <li>DoH and DoT encrypt DNS queries between the client and resolver, preventing local network eavesdropping and on-path manipulation.</li>
+    <li>Maritime vessels over VSAT should enforce corporate DNS via always-on VPN and audit the DNS configuration included in satellite service agreements.</li>
+  </ul>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 2 — Understanding Cyber Attacks</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 6 — Phishing &amp; Social Engineering</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 7 — Ransomware &amp; the Cyber Kill Chain</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 8 — DoS and DDoS Attacks</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 9 — Man-in-the-Middle (MitM) Attacks</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 10 — SQL Injection</span></div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 11 — Cross-Site Scripting (XSS)</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#8a1010;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 12 — DNS Spoofing &amp; DNS-based Attacks</span>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#eef9f5,#e0f4ee);border-radius:8px;margin-top:12px;padding:12px 16px;text-align:center;">
+    <div style="color:#0e7c62;font-size:12px;font-weight:800;margin-bottom:4px;">✅ PART 2 Complete — All 7 Lessons Finished</div>
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← Return to Course Index</a>
+  </div>
+</div>
+
+</div>
