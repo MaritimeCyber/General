@@ -683,8 +683,8 @@
     if(elI) elI.textContent = '(' + cntI + ')';
   }
 
-  /* ─── Fetch author photo from post title card (3rd fallback: 작성자 사진) ─── */
-  /* 포스트 상단 헤더 카드의 원형(border-radius:50%) 작성자 사진을 가져옴 */
+  /* ─── Fetch author photo from post HEADER author card (3rd fallback) ─── */
+  /* 포스트 헤더의 작성자 사진만 가져옴 — 콘텐츠 이미지로 폴백 안 함 */
   function fetchPostFirstImage(url){
     if(postFirstImgCache.hasOwnProperty(url)) return Promise.resolve(postFirstImgCache[url]);
     return fetch(url)
@@ -694,10 +694,20 @@
         var doc    = parser.parseFromString(html, 'text/html');
         var body   = doc.querySelector('.post-body') || doc.querySelector('.entry-content') || doc.querySelector('article');
         if(!body){ postFirstImgCache[url] = null; return null; }
-        /* 1st: 원형 작성자 사진 (border-radius:50%) — 포스트 제목 카드의 작성자 정보 */
-        var img = body.querySelector('img[style*="border-radius: 50%"], img[style*="border-radius:50%"]');
-        /* 2nd: 혹시 없으면 첫 번째 img로 폴백 */
-        if(!img) img = body.querySelector('img');
+        var img = null;
+        /* 1순위: border-radius:50% 원형 작성자 사진 */
+        img = body.querySelector('img[style*="border-radius: 50%"], img[style*="border-radius:50%"]');
+        /* 2순위: LinkedIn 링크 안에 있는 이미지 (작성자 카드 패턴) */
+        if(!img){
+          var liEl = body.querySelector('a[href*="linkedin.com"] img');
+          if(liEl) img = liEl;
+        }
+        /* 3순위: GitHub member 폴더 경로 이미지 (CDN 작성자 사진) */
+        if(!img){
+          var memEl = body.querySelector('img[src*="/member/"]');
+          if(memEl) img = memEl;
+        }
+        /* 작성자 사진을 못 찾으면 null — 콘텐츠 첫 번째 이미지로 폴백하지 않음 */
         var src = img ? img.src : null;
         postFirstImgCache[url] = src;
         return src;
