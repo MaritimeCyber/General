@@ -1,0 +1,159 @@
+<!--════════════════════════════════════════════════════════════
+     Page   : Maritime Cyber Rule Chart — which cyber rules apply to a shipowner, shipyard or system supplier
+     Author : Julius Shin  |  ShipPaulJobs
+     URL    : https://www.shippauljobs.com/p/maritime-cyber-rule-chart.html
+     Tool # : 11 of the Maritime Intelligence Tools suite
+              (Blog/Pages/Menu/Maritime_intelligence_Tools.html card ⑪,
+               Blog/Layout/SideBar/Free_Maritime_Tools_Suite.html tile 11)
+     Source : The application is a single self-contained file,
+              Blog/Backend/MaritimeCyberRuleChart_App.html, built from the
+              regulation-compass project (python3 build.py <dest>). This shell
+              fetches it from GitHub raw and loads it into a same-origin srcdoc
+              iframe, so the blog theme CSS and the app never touch each other.
+              The app keeps its state in this page's URL hash (#s=...), which is
+              what "Copy link" shares.
+     Data   : Rule data 2026-09-20. 36 flag states, 12 IACS members, 28 national
+              jurisdictions, 9 PSC regimes; every line carries a verification tag.
+     Hosting: Served from GitHub raw and injected into the Blogger Page by
+              Blog/Backend/InjectionCode_MaritimeCyberRuleChart.html.
+              Edit HERE (or rebuild the app file) and push — live within ~5 minutes.
+════════════════════════════════════════════════════════════-->
+
+<style>
+  #comments, .comments, #comment-holder, .comments-widget-container { display: none !important; }
+</style>
+
+<style>
+#mcrc-wrap * { box-sizing: border-box; }
+#mcrc-wrap { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; color: #2c3e50; max-width: 900px; line-height: 1.7; }
+.mcrc-hdr { background: linear-gradient(135deg, #0a2342 0%, #154f7a 55%, #0d6e5a 100%); border-radius: 14px; padding: 28px 28px 22px; margin-bottom: 20px; color: #fff; }
+.mcrc-hdr-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.mcrc-hdr-tag { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: rgba(126,255,216,.16); border: 1px solid rgba(126,255,216,.4); color: #7effd8; }
+.mcrc-hdr-tag.alt { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: #d1e0ee; }
+.mcrc-hdr h1 { font-size: 28px; line-height: 1.25; margin: 0 0 10px; color: #fff; }
+.mcrc-hdr p { margin: 0 0 16px; color: #d1e0ee; font-size: 15px; }
+.mcrc-author { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mcrc-author img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid rgba(255,255,255,.5); object-fit: cover; }
+.mcrc-author-name { font-weight: 700; font-size: 14px; color: #fff; }
+.mcrc-author-sub { font-size: 12px; color: #d1e0ee; }
+.mcrc-badge { margin-left: auto; font-size: 11px; padding: 3px 10px; border-radius: 6px; background: rgba(0,0,0,.25); color: #d1e0ee; font-family: ui-monospace, Menlo, monospace; }
+.mcrc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.mcrc-stat { background: #f4f9ff; border: 1px solid #d1e0ee; border-radius: 10px; padding: 12px; text-align: center; }
+.mcrc-stat-val { font-size: 22px; font-weight: 800; color: #0a2342; }
+.mcrc-stat-lbl { font-size: 12px; color: #4a6478; }
+.mcrc-panel { border: 1px solid #d1e0ee; border-radius: 12px; overflow: hidden; margin-bottom: 24px; background: #eaf1f6; }
+.mcrc-panel-hdr { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; background: #0a2342; color: #fff; font-size: 13px; font-weight: 600; }
+#mcrc-frame { display: block; width: 100%; min-height: 560px; border: 0; background: #eaf1f6; }
+.mcrc-panel-foot { padding: 8px 14px; font-size: 12px; color: #4a6478; background: #f4f9ff; border-top: 1px solid #d1e0ee; }
+.mcrc-card { background: #fff; border: 1px solid #d1e0ee; border-radius: 12px; padding: 20px 22px; margin-bottom: 18px; }
+.mcrc-card h2 { font-size: 19px; color: #0a2342; margin: 0 0 10px; }
+.mcrc-card p, .mcrc-card li { font-size: 15px; }
+.mcrc-faq-q { font-weight: 700; color: #0a2342; margin: 14px 0 4px; }
+.mcrc-faq-a { margin: 0; }
+.mcrc-note { font-size: 13px; color: #4a6478; border-left: 3px solid #1a9e82; padding: 8px 12px; background: #f4f9ff; border-radius: 0 8px 8px 0; }
+</style>
+
+<div id="mcrc-wrap">
+
+  <div class="mcrc-hdr">
+    <div class="mcrc-hdr-tags">
+      <span class="mcrc-hdr-tag">Maritime Cyber Compliance</span>
+      <span class="mcrc-hdr-tag alt">Owner · Shipyard · Supplier</span>
+      <span class="mcrc-hdr-tag alt">Free · No Sign-up · English / 한국어</span>
+    </div>
+    <h1>Maritime Cyber Rule Chart</h1>
+    <p>Describe your company in one sentence and see which cyber security rules apply to you, plotted along the ship lifecycle from contract to operation — for shipowners and managers, shipyards, and marine system suppliers.</p>
+    <div class="mcrc-author">
+      <img src="https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/member/Julius.jpeg" alt="Julius Shin" />
+      <div>
+        <div class="mcrc-author-name">Julius Shin</div>
+        <div class="mcrc-author-sub">Maritime Technical Consultant · Shipboard Cybersecurity &amp; Compliance</div>
+      </div>
+      <span class="mcrc-badge">Chart MCR-01 · rule data 2026-09-20</span>
+    </div>
+  </div>
+
+  <div class="mcrc-stats">
+    <div class="mcrc-stat"><div class="mcrc-stat-val">3</div><div class="mcrc-stat-lbl">roles</div></div>
+    <div class="mcrc-stat"><div class="mcrc-stat-val">36</div><div class="mcrc-stat-lbl">flag states surveyed</div></div>
+    <div class="mcrc-stat"><div class="mcrc-stat-val">12</div><div class="mcrc-stat-lbl">IACS class societies</div></div>
+    <div class="mcrc-stat"><div class="mcrc-stat-val">28</div><div class="mcrc-stat-lbl">national jurisdictions</div></div>
+    <div class="mcrc-stat"><div class="mcrc-stat-val">9</div><div class="mcrc-stat-lbl">port-state control regimes</div></div>
+  </div>
+
+  <div class="mcrc-panel">
+    <div class="mcrc-panel-hdr"><span>Maritime Cyber Rule Chart · Interactive</span><span style="font-weight:400;opacity:.8">Your answers never leave your browser</span></div>
+    <iframe id="mcrc-frame" title="Maritime Cyber Rule Chart — interactive cyber regulation finder for shipowners, shipyards and suppliers" allow="clipboard-write"></iframe>
+    <div class="mcrc-panel-foot" id="mcrc-status">Loading the chart…</div>
+  </div>
+
+  <div class="mcrc-card">
+    <h2>How to use the chart</h2>
+    <ol>
+      <li><strong>Pick your role</strong> — shipowner or manager, shipyard, or system supplier. Each role gets its own sentence.</li>
+      <li><strong>Fill the blanks</strong> — tap an underlined blank and choose: flags, ship types, class societies, trading areas, where your company is established, the markets you supply.</li>
+      <li><strong>Read the chart</strong> — columns run from company and product level through design, construction, commissioning and delivery to operation. Your lane is highlighted; the other lanes show what the other parties owe under IACS UR E26 and E27.</li>
+      <li><strong>Open a card</strong> for the reason it applies, key dates, sources and a verification tag on every jurisdiction line. Hover a deliverable to see who receives it.</li>
+      <li><strong>Copy link</strong> to share the exact result with a colleague, yard or supplier.</li>
+    </ol>
+  </div>
+
+  <div class="mcrc-card">
+    <h2>What the colours and borders mean</h2>
+    <p>Each card shows the <strong>nature of the duty</strong>, not a relevance score: required by law (§), condition of class (⚓), required by contract (✎), or a means of evidence (✓). A solid border means it applies, a dashed border means it applies on a condition, and a faded card means indirect effect. Switch on “Show not applicable” to see what does <em>not</em> apply and why — for example, why equipment under the Marine Equipment Directive falls outside the EU Cyber Resilience Act.</p>
+    <p class="mcrc-note">Coverage was selected by objective criteria — the largest registries by tonnage, every IACS member, the largest shipbuilding, equipment-exporting and shipowning nations, and all nine port-state control regimes — and every jurisdiction was checked against the same list. “No instrument confirmed” means none was found, not that no duty exists.</p>
+  </div>
+
+  <div class="mcrc-card">
+    <h2>Frequently Asked Questions — Maritime Cyber Rule Chart</h2>
+    <p class="mcrc-faq-q">Is this legal advice?</p>
+    <p class="mcrc-faq-a">No. The chart is a reference aid and a prototype. Results are indicative, based on limited input, and some lines rest on secondary sources; each line is tagged “source read”, “secondary” or “unverified”. Confirm against the primary text and take professional advice before acting.</p>
+    <p class="mcrc-faq-q">Which rules does it cover?</p>
+    <p class="mcrc-faq-a">IMO Resolution MSC.428(98) and MSC-FAL.1/Circ.3/Rev.3, IACS UR E26, E27 and E22 with each society’s implementing rules, flag-state additions, port- and coastal-state duties, EU NIS 2, the Cyber Resilience Act, the Radio Equipment Directive delegated act and the AI Act, national cyber and critical-infrastructure laws, defence contract security regimes, supply-chain screening regimes, tanker and dry-bulk vetting, the BIMCO cyber clause, insurance cyber clauses, and the IEC standards used as evidence.</p>
+    <p class="mcrc-faq-q">Why does it ask whether my equipment is under the Marine Equipment Directive?</p>
+    <p class="mcrc-faq-a">Because that single answer decides three EU instruments. Article 2(4) of the Cyber Resilience Act excludes equipment within Directive 2014/90/EU, the Radio Equipment Directive excludes marine radio equipment, and the AI Act reaches wheel-marked items only through future MED implementing acts.</p>
+    <p class="mcrc-faq-q">Is my data stored anywhere?</p>
+    <p class="mcrc-faq-a">No. The tool runs entirely in your browser. Your answers are encoded only in the page link, and only if you choose to copy and share it.</p>
+  </div>
+
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Maritime Cyber Rule Chart",
+  "url": "https://www.shippauljobs.com/p/maritime-cyber-rule-chart.html",
+  "applicationCategory": "ReferenceApplication",
+  "operatingSystem": "Any (web browser)",
+  "inLanguage": ["en", "ko"],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "Julius Shin" },
+  "description": "Interactive chart of the maritime cyber security rules that apply to shipowners, shipyards and marine system suppliers, plotted along the ship lifecycle."
+}
+</script>
+
+<script>
+  (function () {
+    var APP_URL = window.MCRC_APP_URL ||
+      "https://raw.githubusercontent.com/MaritimeCyber/General/refs/heads/main/Blog/Backend/MaritimeCyberRuleChart_App.html";
+    var frame = document.getElementById("mcrc-frame"), status = document.getElementById("mcrc-status");
+    if (frame) {
+      fetch(APP_URL, { cache: "no-cache" })
+        .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); })
+        .then(function (html) {
+          frame.srcdoc = html;
+          if (status) status.textContent = "Runs entirely in your browser · Reference aid, not legal advice · Rule data 2026-09-20";
+        })
+        .catch(function (err) {
+          console.warn("[mcrc] Failed to load the chart:", err);
+          if (status) status.textContent = "The chart could not be loaded. Please reload the page in a moment.";
+        });
+    }
+    function hideComments() {
+      ["comments", "comment-holder"].forEach(function (id) { var el = document.getElementById(id); if (el) el.style.display = "none"; });
+      document.querySelectorAll(".comments, .comments-widget-container").forEach(function (el) { el.style.display = "none"; });
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", hideComments); else hideComments();
+  })();
+</script>

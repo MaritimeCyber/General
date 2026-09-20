@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maritime Cyber Rule Chart</title>
+<style>
+:root{
+  --sea:#eaf1f6; --paper:#fcfcfb; --ink:#0a2342; --ink2:#4a6478; --muted:#8597a5; --line:#cbd9e4; --line2:#dfe8ef;
+  --teal:#1a9e82; --teal-soft:#e2f4ef;
+  --d-law:#2a78d6; --d-class:#eb6834; --d-contract:#1baf7a; --d-standard:#eda100;
+  --warn-bg:#fff6df; --warn-line:#eacb7a; --warn-text:#6b4e00;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Segoe UI",sans-serif;
+  background-color:var(--sea);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='420' fill='none' stroke='%230a2342' stroke-opacity='.07'%3E%3Cpath d='M-20 90C80 40 170 130 280 95s190-70 320-20M-20 150C90 105 180 195 290 160s180-75 310-25M-20 230c120-50 200 45 300 15s200-80 320-30M-20 320c100-40 210 50 320 10s170-60 290-15M-20 385c130-45 190 30 310 0s190-55 300-20'/%3E%3C/svg%3E")}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 56px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;padding:26px 0 18px;border-bottom:1px solid var(--ink)}
+.chartno{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+h1{font-size:24px;margin:6px 0 0;letter-spacing:-.01em}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--paper);border-radius:4px;padding:5px 11px;font-size:13px}
+.btn:hover{border-color:var(--ink)}
+.langs{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--paper)}
+.langs button{border:0;background:transparent;padding:5px 11px;font-size:13px;color:var(--ink2)}
+.langs button[aria-pressed=true]{background:var(--ink);color:#fff}
+
+/* sentence */
+.say{padding:30px 0 8px;max-width:980px}
+.say p{margin:0 0 10px;font-size:21px;line-height:1.9;letter-spacing:-.01em}
+.say p.lead{font-size:26px;font-weight:600}
+.slot{border:0;border-bottom:2px solid var(--teal);background:var(--teal-soft);padding:0 4px;margin:0 1px;border-radius:3px 3px 0 0;font-weight:600;line-height:1.5;text-align:left}
+.slot:hover,.slot[aria-expanded=true]{background:#c9ebe2}
+.slot.blank{background:transparent;border-bottom:2px dashed var(--ink2);color:var(--ink2);font-weight:500;min-width:3.5em}
+.blanks{font-size:13px;color:var(--ink2);margin:4px 0 0}
+.rolepick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 6px;max-width:860px}
+.rolepick button{text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:14px 16px}
+.rolepick button:hover{border-color:var(--teal)}
+.rolepick b{display:block;font-size:17px}.rolepick span{font-size:13px;color:var(--ink2)}
+
+/* popover */
+.pop{position:absolute;z-index:30;width:min(420px,calc(100vw - 24px));background:var(--paper);border:1px solid var(--ink);border-radius:6px;box-shadow:0 12px 32px rgba(10,35,66,.18);padding:14px}
+.pop h4{margin:0 0 4px;font-size:14px}
+.pop small{display:block;color:var(--ink2);font-size:12px;margin-bottom:8px}
+.pop .opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:calc(var(--vh,1vh)*46);overflow:auto}
+.opt{border:1px solid var(--line);background:#fff;border-radius:4px;padding:5px 10px;font-size:13px;text-align:left}
+.opt[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.pop .done{margin-top:12px;display:flex;justify-content:flex-end}
+
+/* chart */
+.cw{margin-top:26px}
+.cw-h{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:4px;height:14px;border-radius:2px;display:inline-block}
+.legend em{font:italic 12px/1 Georgia,serif;color:var(--ink)}
+.legend .sty{border:1px solid var(--ink2);border-radius:3px;width:18px;height:12px;display:inline-block}
+.legend .sty.c{border-style:dashed}.legend .sty.i{opacity:.45}
+label.tog{font-size:12.5px;color:var(--ink2);display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.scroll{overflow-x:auto;border:1px solid var(--ink);background:var(--paper);border-radius:2px}
+.chart{position:relative;display:grid;grid-template-columns:64px repeat(6,minmax(126px,1fr));min-width:820px;
+  background-image:linear-gradient(var(--line2) 1px,transparent 1px),linear-gradient(90deg,var(--line2) 1px,transparent 1px);background-size:40px 40px}
+.ch,.ln,.cell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(252,252,251,.86)}
+.ch{padding:8px 10px;font:600 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);border-bottom:1px solid var(--ink);position:relative}
+.ch b{display:block;font:600 14px/1.3 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;letter-spacing:0;text-transform:none;color:var(--ink);margin-top:2px}
+.ch.life::after{content:"";position:absolute;right:-5px;top:50%;width:8px;height:8px;border-top:1px solid var(--ink);border-right:1px solid var(--ink);transform:translateY(-50%) rotate(45deg);background:var(--paper);z-index:2}
+.ch.last::after{display:none}
+.ln{padding:10px;font-size:13px;font-weight:600;border-right:1px solid var(--ink);display:flex;flex-direction:column;gap:2px}
+.ln small{font-weight:500;color:var(--ink2);font-size:11px}
+.ln.me{background:var(--teal-soft)}
+.cell{padding:8px;display:flex;flex-direction:column;gap:6px;min-height:64px;transition:box-shadow .15s}
+.cell.me{background:rgba(226,244,239,.55)}
+.cell.hit{box-shadow:inset 0 0 0 2px var(--ink)}
+.cell-lane{display:none}
+.card{position:relative;text-align:left;border:1px solid var(--ink2);background:#fff;border-radius:3px;padding:6px 8px 6px 12px;font-size:12.5px;line-height:1.35;width:100%}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--dc,var(--muted));border-radius:2px 0 0 2px}
+.card:hover,.card:focus-visible{border-color:var(--ink);box-shadow:0 2px 0 var(--ink);outline:0}
+.card b{display:block;font-weight:600}
+.card .k{display:block;color:var(--ink2);font-size:11px;margin-top:1px}
+.card .g{font-family:Georgia,serif;margin-right:3px;color:var(--ink)}
+.card.lv2{border-style:dashed}
+.card.lv1{opacity:.62}
+.card.lv0{opacity:.4;border-style:dotted;filter:grayscale(1)}
+.card.ob{border-color:var(--line);background:rgba(255,255,255,.9)}
+.card.ob .k{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.pill{border:1px solid var(--line);border-radius:999px;padding:0 6px;font-size:10.5px;color:var(--ink2);background:#fff}
+.pill.up{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-text)}
+.dim .card{opacity:.55}.dim .card:hover,.dim .card:focus-visible{opacity:1}
+.mark{font:italic 12px/1.3 Georgia,serif;color:var(--ink2)}
+svg.links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.note{font-size:12.5px;color:var(--ink2);margin:10px 0 0}
+
+/* sheet */
+.sheet{position:fixed;z-index:40;top:0;right:0;bottom:0;width:min(460px,100vw);background:var(--paper);border-left:1px solid var(--ink);padding:22px 22px 28px;overflow:auto;transform:translateX(105%);visibility:hidden;box-shadow:none;transition:transform .2s,visibility 0s .2s}
+.sheet.on{transform:none;visibility:visible;box-shadow:-12px 0 32px rgba(10,35,66,.16);transition:transform .2s}
+.sheet .x{position:absolute;top:12px;right:12px;border:0;background:transparent;font-size:20px;line-height:1}
+.sheet .duty{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);display:flex;gap:8px;align-items:center}
+.sheet .duty i{width:4px;height:14px;border-radius:2px}
+.sheet h3{font-size:18px;margin:10px 0 8px;line-height:1.35}
+.sheet .state{font-size:13px;font-weight:600;margin-bottom:10px}
+.sheet p{margin:0 0 12px;font-size:14px}
+.sheet dl{margin:0;font-size:13px}.sheet dt{color:var(--ink2);font-size:11.5px;margin-top:10px}.sheet dd{margin:0}
+.sheet a{color:var(--d-law)}
+.sheet ul.items{margin:8px 0 0;padding-left:18px}.sheet ul.items li{margin-bottom:8px;font-size:13px}
+footer{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--ink2);max-width:900px}
+footer p{margin:0 0 6px}
+
+@media (max-width:760px){
+  .say p{font-size:18px}.say p.lead{font-size:21px}.rolepick{grid-template-columns:1fr}
+  .scroll{overflow:visible;border:0;background:transparent}
+  .chart{display:block;min-width:0;background:none}
+  .ln,.corner,svg.links{display:none}
+  .ch{border:0;border-left:3px solid var(--ink);margin:18px 0 6px;background:transparent;padding:2px 10px}.ch::after{display:none}
+  .ch.empty,.cell.empty{display:none}
+  .cell{border:1px solid var(--line);margin-bottom:6px;min-height:0;background:var(--paper)}
+  .cell-lane{display:block;font-size:11px;font-weight:600;color:var(--ink2)}
+  .sheet{top:auto;left:0;width:100%;max-height:78vh;border-left:0;border-top:1px solid var(--ink);transform:translateY(105%)}
+}
+@media print{body{background:#fff}.tools,.sheet,.pop,label.tog{display:none!important}.scroll{overflow:visible}.chart{min-width:0;grid-template-columns:70px repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><div class="chartno" id="t-no"></div><h1 id="t-title"></h1></div>
+    <div class="tools">
+      <div class="langs" role="group" aria-label="Language"><button data-lang="ko">한국어</button><button data-lang="en">English</button></div>
+      <button class="btn" id="b-share"></button><button class="btn" id="b-print"></button><button class="btn" id="b-reset"></button>
+    </div>
+  </header>
+  <section class="say" id="say"></section>
+  <section class="cw" id="cw"></section>
+  <footer id="foot"></footer>
+</div>
+<aside class="sheet" id="sheet" aria-live="polite"></aside>
+<script>
+/* Jurisdiction data for the Rule Chart (global survey 2026-09-20). Uniform checklist per jurisdiction.
+   tag: v = source opened and read, s = search snippet or secondary source only, u = unverified. */
+(function () {
+  const L = (ko, en) => ({ ko, en });
+  const D = window.COMPASS_DATA = { L };
+
+  D.countries = [
+    ['au', '호주', 'Australia'], ['br', '브라질', 'Brazil'], ['ca', '캐나다', 'Canada'], ['cn', '중국', 'China'], ['dk', '덴마크', 'Denmark'],
+    ['fi', '핀란드', 'Finland'], ['fr', '프랑스', 'France'], ['de', '독일', 'Germany'], ['gr', '그리스', 'Greece'], ['hk', '홍콩', 'Hong Kong'],
+    ['in', '인도', 'India'], ['id', '인도네시아', 'Indonesia'], ['it', '이탈리아', 'Italy'], ['jp', '일본', 'Japan'], ['my', '말레이시아', 'Malaysia'],
+    ['nl', '네덜란드', 'Netherlands'], ['no', '노르웨이', 'Norway'], ['ph', '필리핀', 'Philippines'], ['ru', '러시아', 'Russia'], ['sa', '사우디아라비아', 'Saudi Arabia'],
+    ['sg', '싱가포르', 'Singapore'], ['kr', '대한민국', 'South Korea'], ['ch', '스위스', 'Switzerland'], ['tw', '대만', 'Taiwan'], ['tr', '튀르키예', 'Türkiye'],
+    ['ae', '아랍에미리트', 'UAE'], ['gb', '영국', 'United Kingdom'], ['us', '미국', 'United States'], ['vn', '베트남', 'Vietnam'],
+    ['eu_other', '그 외 EU·EEA 회원국', 'Other EU/EEA state'], ['other', '그 외 국가', 'Other country']
+  ].map(c => ({ v: c[0], t: L(c[1], c[2]) }));
+  D.nis2States = { dk: '2025-07-01', fi: '2025-04-08', de: '2025-12-06', gr: '2024-11-28', it: 'D.Lgs. 138/2024', nl: '2026-08-15', fr: null, eu_other: '' };
+
+  /* Flag states: tier b = binding duties beyond MSC.428(98), s = soft additions, r = republication only, n = no flag instrument confirmed. */
+  const F = (v, ko, en, tier, tko, ten, src, tag) => ({ v, t: L(ko, en), tier, note: L(tko, ten), src, tag });
+  D.flags = [
+    F('pa', '파나마', 'Panama', 'r', 'MMC-354: 권고 문서이며 추가 의무 없음.', 'MMC-354: recommendatory, no added duty.', 'https://www.panamashipregistry.com/wp-content/uploads/2019/06/MMC-354-.pdf', 'v'),
+    F('lr', '라이베리아', 'Liberia', 's', 'Marine Notice ISM-001과 Security Advisory 02/2020(Rev.1 2025-08): 사이버 사고를 기국에 보고하도록 권고.', 'Marine Notice ISM-001 and Security Advisory 02/2020 (Rev.1 Aug 2025): cyber incidents should be reported to the Administration.', 'https://www.liscr.com', 'v'),
+    F('mh', '마셜제도', 'Marshall Islands', 's', 'Marine Guideline 2-11-16(2025-08 개정): 사이버 사고를 MI-109-5 양식으로 보고하도록 권고.', 'Marine Guideline 2-11-16 (rev. Aug 2025): cyber incidents should be reported on form MI-109-5.', 'https://www.register-iri.com/wp-content/uploads/MG-2-11-16.pdf', 'v'),
+    F('hk', '홍콩', 'Hong Kong', 'r', 'MSIN 40/2017, MSIN 49/2021: 추가 의무 없음.', 'MSIN 40/2017 and 49/2021: no added duty.', 'https://www.mardep.gov.hk/filemanager/en/share/msnote/pdf/msin1740.pdf', 'v'),
+    F('sg', '싱가포르', 'Singapore', 's', 'Shipping Circular 15/2020: 다섯 기능 요소의 이행을 입증하도록 요구.', 'Shipping Circular 15/2020: companies must demonstrate the five functional elements.', 'https://www.mpa.gov.sg', 'v'),
+    F('mt', '몰타', 'Malta', 'r', 'Technical Notice SLS.34: 추가 의무 없음.', 'Technical Notice SLS.34: no added duty.', 'https://www.transport.gov.mt', 'v'),
+    F('cn', '중국', 'China', 'n', '기국 문서를 확인하지 못했습니다.', 'No flag instrument confirmed.', '', 'u'),
+    F('bs', '바하마', 'Bahamas', 'r', 'Marine Notice 95 v1.2: 추가 의무 없음.', 'Marine Notice 95 v1.2: no added duty.', 'https://www.bahamasmaritime.com', 'v'),
+    F('gr', '그리스', 'Greece', 'r', '장관 결정 2341.4-2/64564/2020과 해안경비대 회람: 추가 의무 없음.', 'Ministerial Decision 2341.4-2/64564/2020 and Coast Guard circular: no added duty.', 'https://www.classnk.or.jp/hp/pdf/activities/statutory/ism/flag/greece/ism_greece_cyber.pdf', 'v'),
+    F('jp', '일본', 'Japan', 'n', '기국 회람을 확인하지 못했습니다. 국토교통성의 운항 정보보안 지침은 자율입니다.', 'No flag circular confirmed. The MLIT information-security guideline for operators is voluntary.', '', 'u'),
+    F('cy', '키프로스', 'Cyprus', 'r', 'Circular 04/2020: 추가 의무 없음.', 'Circular 04/2020: no added duty.', 'https://www.gov.cy/media/sites/25/2024/05/Circular-2020-4-2020-02-12.pdf', 'v'),
+    F('id', '인도네시아', 'Indonesia', 'n', '기국 문서를 확인하지 못했습니다.', 'No flag instrument confirmed.', '', 'u'),
+    F('pt', '포르투갈(마데이라 포함)', 'Portugal (incl. Madeira)', 'n', '해사청 회람 목록에 사이버 항목이 없습니다.', 'No cyber item on the administration circulars page.', 'https://www.dgrm.pt/en/circulares', 'v'),
+    F('no', '노르웨이(NOR·NIS)', 'Norway (NOR/NIS)', 'b', 'RSV 18-2022: 선박안전보안법 제47조에 따라 사이버 사고를 해사청에 보고할 의무.', 'RSV 18-2022: duty to report cyber incidents to the NMA under Ship Safety and Security Act s.47.', 'https://www.sdir.no/en/regelverk/circulars/requirement-to-report-cyber-incidents/', 'v'),
+    F('dk', '덴마크(DIS)', 'Denmark (DIS)', 'b', '행정명령 655호(2025-07-01 시행): ISM 선박의 사이버 보안과 중대 사고의 지체 없는 보고를 의무화, 위반 시 벌금.', 'Executive Order 655 (in force 2025-07-01): binding cyber security and prompt reporting of significant incidents for ISM ships, with fines.', 'https://www.soefartsstyrelsen.dk/sikkerhed-til-soes/cyber-og-informationssikkerhed', 'v'),
+    F('gb', '영국', 'United Kingdom', 'n', 'MIN 647은 2022-11-04 철회됐고 후속 문서를 확인하지 못했습니다. 교통부 선박 사이버보안 실무지침은 자율입니다.', 'MIN 647 was withdrawn on 2022-11-04 with no successor confirmed. The DfT code of practice for ships is voluntary.', 'https://www.gov.uk/government/publications/min-647-m-incorporation-of-cyber-security-measures-within-safety-management-systems', 'v'),
+    F('im', '맨섬', 'Isle of Man', 'r', 'Technical Advisory Notice 007-20: 추가 의무 없음.', 'Technical Advisory Notice 007-20: no added duty.', 'https://www.iomshipregistry.com/media/2213/007-20-cyber-risk-management.pdf', 'v'),
+    F('bm', '버뮤다', 'Bermuda', 's', 'Guidance Notice 2020-14: 선박보안계획과 함께 사이버 보안 평가와 계획을 둘 것을 권고.', 'Guidance Notice 2020-14: recommends a cyber security assessment and plan alongside the ship security plan.', '', 'v'),
+    F('ky', '케이맨제도', 'Cayman Islands', 'r', 'Guidance Note 07/2019 Rev 1: 추가 의무 없음.', 'Guidance Note 07/2019 Rev 1: no added duty.', 'https://www.cishipping.com', 'v'),
+    F('it', '이탈리아', 'Italy', 'b', '해안경비대 회람 177/2025(2026-11-01 발효): SMS와 보안계획의 사이버 절차, 승무원·회사보안책임자·기술자 교육, 중대 사고의 CSIRT Italia 보고.', 'Coast Guard Circular 177/2025 (effective 2026-11-01): cyber procedures in the SMS and security plans, training for crew, CSOs and technicians, significant incidents reported to CSIRT Italia.', 'https://www.guardiacostiera.gov.it/portale/w/maritime-cyber-risk', 'v'),
+    F('kr', '대한민국', 'South Korea', 's', '해사 사이버안전 관리지침(해양수산부 고시): 민간에는 권고 수준. 원문 페이지를 열지 못했습니다.', 'MOF Maritime Cyber Safety Management Guidelines: recommendatory for private companies. The source page could not be opened.', 'https://www.law.go.kr', 's'),
+    F('de', '독일', 'Germany', 's', 'ISM Circular 01/2020: 권고 문서. 다만 규정 725/2004에 따라 선박보안평가에 사이버 리스크를 포함해 BSH에 제출.', 'ISM Circular 01/2020: recommendatory, but cyber risks must be covered in the ship security assessment submitted to the BSH under Reg. 725/2004.', 'https://www.deutsche-flagge.de/en/safety-and-security/ism/maritime-security', 'v'),
+    F('in', '인도', 'India', 'b', 'DGS Engineering Circular 06/2017: 인정기관이 SMS 사이버 절차를 검토해야 하며, 없으면 DOC·SMC 심사를 받아주지 않음.', 'DGS Engineering Circular 06/2017: the RO must review SMS cyber procedures; without it no DOC or SMC audit is accepted.', 'https://www.irclass.org/technical-circulars/dg-shipping-circular-reg-implementation-of-cyber-security-risk-mitigation-measures-onboard-indian-flag-ships/', 'v'),
+    F('us', '미국', 'United States', 'b', '33 CFR 101 Subpart F(2025-07-16 발효): 사이버보안 책임자, 승인 계획서와 평가(2027-07-16), 연례 교육(2026-01-12부터), 연 2회 훈련, 국가대응센터 사고 보고.', '33 CFR 101 Subpart F (effective 2025-07-16): Cybersecurity Officer, approved plan and assessment (by 2027-07-16), annual training (from 2026-01-12), two drills a year, incident reports to the National Response Center.', 'https://www.ecfr.gov/current/title-33/chapter-I/subchapter-H/part-101/subpart-F', 'v'),
+    F('nl', '네덜란드', 'Netherlands', 'r', '검사관 지침 PUC_643403_14 v2: 추가 의무 없음.', 'Instruction to Surveyors PUC_643403_14 v2: no added duty.', 'https://puc.overheid.nl/nsi/doc/PUC_643403_14/2/', 'v'),
+    F('fr', '프랑스(RIF 포함)', 'France (incl. RIF)', 's', 'Division 130 제130-39조: 선박보안계획에 사이버 리스크 평가를 포함하고 그 내용을 규정.', 'Division 130 art. 130-39: cyber risk evaluation with prescribed content in the ship security plan.', 'https://www.armateursdefrance.org', 's'),
+    F('sa', '사우디아라비아', 'Saudi Arabia', 'n', '기국 문서를 확인하지 못했습니다.', 'No flag instrument confirmed.', '', 'u'),
+    F('vn', '베트남', 'Vietnam', 'n', '기국 문서를 확인하지 못했습니다.', 'No flag instrument confirmed.', '', 'u'),
+    F('my', '말레이시아', 'Malaysia', 's', 'MSN 06/2018: 복잡한 사이버 시스템을 가진 회사·선박은 문서 검토 대상.', 'MSN 06/2018: document review for companies or ships with complex cyber systems.', 'https://www.marine.gov.my/wp-content/uploads/2023/03/37a95-msn062018.pdf', 'v'),
+    F('ru', '러시아', 'Russia', 'n', '기국 문서를 확인하지 못했습니다.', 'No flag instrument confirmed.', '', 'u'),
+    F('tr', '튀르키예', 'Türkiye', 's', '해사총국 공문(2020-12-14): DOC·SMC를 가진 내항 탱커까지 사이버 리스크 관리를 확대.', 'DG Maritime Affairs letter (2020-12-14): extends cyber risk management to domestic tankers holding DOC/SMC.', '', 'v'),
+    F('be', '벨기에', 'Belgium', 'n', '기국 문서를 확인하지 못했습니다.', 'No flag instrument confirmed.', '', 'u'),
+    F('ag', '앤티가 바부다', 'Antigua & Barbuda', 'r', 'SOLAS Circular 2020-005 Rev 1: 추가 의무 없음.', 'SOLAS Circular 2020-005 Rev 1: no added duty.', 'https://abregistry.ag', 'v'),
+    F('vc', '세인트빈센트 그레나딘', 'St Vincent & Grenadines', 'n', 'MSC.428(98) 이행 회람을 확인하지 못했습니다.', 'No MSC.428(98) circular confirmed.', '', 'u'),
+    F('ph', '필리핀', 'Philippines', 'r', 'MARINA Advisory 2017-24: 추가 의무 없음.', 'MARINA Advisory 2017-24: no added duty.', '', 'v'),
+    F('br', '브라질', 'Brazil', 'n', '기국 문서를 확인하지 못했습니다.', 'No flag instrument confirmed.', '', 'u'),
+    F('other', '그 외 기국', 'Other flag', 'n', '이 도구의 조사 범위 밖입니다. 기국 회람을 직접 확인하십시오.', 'Outside the surveyed set. Check the flag circulars directly.', '', 'u')
+  ];
+
+  /* Trading areas: duties that attach to a foreign-flag ship because of where it trades. */
+  const I = (lv, ko, en, src, tag, who) => ({ lv, t: L(ko, en), src, tag, who });
+  D.calls = [
+    { v: 'us', t: L('미국', 'United States'), items: [
+      I(3, '행정명령 14116·33 CFR 6.16-1: 미국 수역의 모든 선박은 사이버 사고와 위협을 FBI, CISA, 항만장에게 즉시 보고.', 'EO 14116 / 33 CFR 6.16-1: any vessel in US waters reports cyber incidents and threats to the FBI, CISA and the Captain of the Port.', 'https://www.dco.uscg.mil/Portals/9/OCSNCOE/References/NVICs/NVIC-02-24.pdf', 's'),
+      I(3, 'USCG CVC-WI-027: 항만국통제에서 SMS의 사이버 반영과 기본 위생을 점검, 억류 가능.', 'USCG CVC-WI-027: PSC checks SMS cyber coverage and basic hygiene; detention possible.', 'https://www.dco.uscg.mil', 's')] },
+    { v: 'cn', t: L('중국', 'China'), items: [
+      I(3, '영해 12해리 안에서 미허가 위성통신 단말 송신 금지. 해사국이 외국 선박에 첫 과태료 부과(2025-12 보도).', 'Unlicensed satellite terminals must not transmit inside the 12 nm territorial sea. First MSA penalty on a foreign ship reported Dec 2025.', 'https://gcaptain.com/china-issues-first-penalty-for-starlink-use-in-territorial-waters/', 's')] },
+    { v: 'au', t: L('호주', 'Australia'), items: [
+      I(2, 'Cyber Security Act 2024: 호주에서 사업하고 매출 AUD 3m 초과면 랜섬웨어 지급 후 72시간 내 보고.', 'Cyber Security Act 2024: ransomware payments reported within 72 hours if you carry on business in Australia with turnover above AUD 3m.', 'https://www.homeaffairs.gov.au/cyber-security-subsite/Pages/cyber-security-act.aspx', 's'),
+      I(1, '해상보안 개정법(2025)의 사이버 사고 보고가 외국 선박에 미치는지는 확인하지 못했습니다.', 'Whether cyber incident reporting under the 2025 maritime security amendments reaches foreign ships is unconfirmed.', '', 'u')] },
+    { v: 'ca', t: L('캐나다', 'Canada'), items: [
+      I(2, 'Marine Security Operations Bulletin 2021-001: 사이버 사고를 교통부에 가능한 한 빨리 보고. 외국 선박 적용 범위는 회람에 명시되지 않음.', 'Marine Security Operations Bulletin 2021-001: cyber incidents reported to Transport Canada as soon as possible. Scope for foreign ships is not explicit.', 'https://tc.canada.ca/en/marine-transportation/marine-security-operations-bulletins/marine-security-operations-bulletin-2021-001', 'v')] },
+    { v: 'gb', t: L('영국', 'United Kingdom'), items: [
+      I(2, 'NIS Regulations 2018: 영국 항만 물동량 기준(연 500만 톤 초과이면서 주요 항만 화물의 30% 초과 등)을 넘는 해운사는 기국과 무관하게 필수서비스 운영자.', 'NIS Regulations 2018: a shipping company above the UK port-volume thresholds (over 5m tonnes a year and over 30% of freight at a qualifying port, or the passenger test) is an operator of essential services regardless of flag.', 'https://www.legislation.gov.uk/uksi/2018/506/schedule/2', 'v')] },
+    { v: 'eu', t: L('EU 항만', 'EU ports'), items: [
+      I(0, 'EU 차원의 선박 사이버 사고 보고 의무는 없습니다. 해사 단일창구 규정 2019/1239는 선박에 사이버 의무를 두지 않습니다. NIS 2는 EU에 설립된 회사에만 적용됩니다.', 'No EU-level ship cyber incident report exists. EMSWe Regulation 2019/1239 places no cyber duty on ships. NIS 2 applies only to companies established in the EU.', 'https://eur-lex.europa.eu/eli/reg/2019/1239', 'v')] },
+    { v: 'baltic', t: L('발트해·북해', 'Baltic / North Sea'), items: [
+      I(1, '연안 14개국 공개서한(2026-01-26): 위성항법 교란과 AIS 조작에 대비한 예비 항법과 승무원 훈련을 촉구. 구속력 없음.', 'Open letter by 14 coastal states (2026-01-26): urges backup navigation and crew training against GNSS interference and AIS manipulation. Non-binding.', 'https://www.traficom.fi/en/news/finland-and-estonia-warn-vessels-gulf-finland-increase-gnss-disruptions', 'v')] },
+    { v: 'other', t: L('그 외 해역', 'Other areas'), items: [] }
+  ];
+  D.pscNote = I(1, '항만국통제: 모든 협력체에서 사이버는 ISM 심사 항목으로만 점검됩니다. 파리·도쿄 등 9개 협력체에서 사이버 집중점검은 없었고 2027년까지 예정도 없습니다.', 'Port-state control: every regime can inspect cyber only through ISM. None of the nine MoUs has run a cyber concentrated inspection campaign, and none is scheduled through 2027.', 'https://parismou.org', 'v');
+
+  /* National law attaching to where the company is established. who: roles hit. */
+  const N = (c, lv, who, ko, en, src, tag) => ({ c, lv, who, t: L(ko, en), src, tag });
+  D.natlaw = [
+    N('au', 2, 'oys', 'Cyber Security Act 2024: 매출 AUD 3m 초과 기업은 랜섬웨어 지급 72시간 내 보고. SOCI Act는 핵심 항만·화물 자산을 지정.', 'Cyber Security Act 2024: ransomware payment reports within 72 hours above AUD 3m turnover. The SOCI Act designates critical port and freight assets.', 'https://www.homeaffairs.gov.au/cyber-security-subsite/Pages/cyber-security-act.aspx', 's'),
+    N('ca', 2, 'o', 'Marine Transportation Security Regulations: 사이버 침해를 교통부에 보고(Bulletin 2021-001).', 'Marine Transportation Security Regulations: cyber breaches reported to Transport Canada (Bulletin 2021-001).', 'https://tc.canada.ca/en/marine-transportation/marine-security-operations-bulletins/marine-security-operations-bulletin-2021-001', 'v'),
+    N('cn', 2, 'oys', '개정 사이버보안법(2026-01-01 시행): 미인증 핵심 네트워크 장비 사용 시 과징금.', 'Amended Cybersecurity Law (in force 2026-01-01): fines for using uncertified critical network equipment.', 'https://www.mayerbrown.com/en/insights/publications/2025/12/china-finalises-amendments-to-the-cybersecurity-law-what-businesses-need-to-know-before-1-january-2026', 'v'),
+    N('cn', 2, 'o', '교통운수부령 2023년 제4호: 수운 핵심정보기반시설 운영자는 인증 장비 사용, 구매 보안심사, 데이터 국내 보관, 공급사 비밀유지 약정. 교통 데이터 보안 조치(2026-07-01)는 데이터 등급과 국외 이전을 규율.', 'MoT Order 2023 No. 4: waterway CII operators must use certified equipment, review purchases, store data in China and sign supplier confidentiality agreements. The Transport Data Security Measures (2026-07-01) tier data and govern cross-border transfer.', 'https://www.gov.cn/zhengce/2023-05/06/content_5754526.htm', 'v'),
+    N('de', 2, 'o', 'KRITIS-Dachgesetz(2026-03-17 시행): 운송 분야 핵심시설의 물리적 복원력.', 'KRITIS-Dachgesetz (in force 2026-03-17): physical resilience of critical transport facilities.', 'https://www.gesetze-im-internet.de/kritisdachg/BJNR0420B0026.html', 's'),
+    N('fr', 3, 's', 'Loi 2023-703 제66조: 소프트웨어 공급자는 중대한 취약점을 ANSSI에 통보.', 'Loi 2023-703 art. 66: software publishers must notify significant vulnerabilities to ANSSI.', 'https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000047915062', 's'),
+    N('hk', 2, 'o', 'Cap. 653(2026-01-01 시행): 지정된 해상운송 운영자는 12시간·48시간 사고 보고. 지정 여부는 비공개.', 'Cap. 653 (in force 2026-01-01): designated maritime operators report incidents within 12/48 hours. Designations are confidential.', 'https://www.mayerbrown.com/en/insights/publications/2026/01/hong-kong-issues-code-of-practice-under-the-protection-of-critical-infrastructures-computer-systems-ordinance', 'v'),
+    N('in', 3, 'oys', 'CERT-In 지침(2022-04-28): 모든 법인은 사고를 6시간 내 보고하고 로그를 180일간 인도 내에 보관.', 'CERT-In Directions (2022-04-28): every body corporate reports incidents within 6 hours and keeps 180 days of logs in India.', 'https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf', 's'),
+    N('id', 2, 'o', 'Perpres 82/2022와 SE-DJPL 16/2024: 운송 분야 핵심 정보 인프라 지정, ISPS 보안관리에 사이버 포함.', 'Perpres 82/2022 and SE-DJPL 16/2024: vital information infrastructure in transport; cyber within ISPS security management.', 'https://www.antaranews.com/berita/4152543/kemenhub-lindungi-fasilitas-pelabuhan-dari-serangan-siber', 'v'),
+    N('it', 2, 'oys', '국가 사이버보안 경계(Perimetro): 지정된 전략 운영자에 NIS 2보다 엄격한 의무. 2026-10부터 검증 시작.', 'National Cybersecurity Perimeter: stricter duties than NIS 2 for listed strategic operators; verifications start Oct 2026.', 'https://www.acn.gov.it/portale/en/nis/la-normativa', 's'),
+    N('jp', 2, 'o', '경제안보추진법: 지정된 외항 화물 운송사와 항만운송 사업자는 중요 설비 도입 전 정부 심사.', 'Economic Security Promotion Act: designated ocean carriers and port transport operators file for screening before introducing critical equipment.', 'https://www.cao.go.jp/keizai_anzen_hosho/suishinhou/infra/doc/infra_setsumeikai_eng.pdf', 'v'),
+    N('kr', 1, 'oy', '정보통신기반보호법: 시설 단위로 지정. 선사나 조선사의 공개된 지정 사례는 찾지 못했습니다.', 'ICT Infrastructure Protection Act: facilities are designated one by one. No public designation of owners or yards found.', 'https://www.law.go.kr', 's'),
+    N('my', 2, 'o', 'Cyber Security Act 2024(Act 854): 분야 주무기관이 지정한 운송 분야 기관.', 'Cyber Security Act 2024 (Act 854): transport entities designated by the sector lead.', 'https://www.nacsa.gov.my/act854.php', 'v'),
+    N('no', 2, 'o', 'Digitalsikkerhetsloven(2025-10-01 시행): 연 10만 톤 또는 10만 명 이상 항만에서 화물·여객의 5% 이상을 운송하는 선사.', 'Digitalsikkerhetsloven (in force 2025-10-01): shipping companies carrying at least 5% of cargo or passengers in a port handling 100,000 t or passengers a year.', 'https://www.sdir.no/nyheter/sjofartsdirektoratet-er-utpekt-myndighet-for-sektortilsyn-med-digitalsikkerhetsloven-for-rederier/', 'v'),
+    N('ru', 2, 'oy', '연방법 187-FZ: 운송과 방산 분야의 핵심정보기반시설. 정부령 360-r(2026-02)이 해상·하천 운송을 전형 대상으로 열거.', 'Federal Law 187-FZ: critical information infrastructure in transport and the defence industry. Order 360-r (Feb 2026) lists sea and river transport objects.', 'https://www.consultant.ru/document/cons_doc_LAW_527541/', 's'),
+    N('sa', 2, 'o', '국가사이버보안청 ECC-2:2024와 OTCC-1:2022: 국가 핵심 기반시설 운영자에 구속력.', 'NCA ECC-2:2024 and OTCC-1:2022: binding on operators of critical national infrastructure.', 'https://nca.gov.sa/en/regulatory-documents/controls-list/ecc/', 's'),
+    N('sg', 2, 'o', 'Cybersecurity Act(2024 개정, 2025-10-31 시행): 해사는 핵심정보기반시설 분야이며 소유자를 개별 지정.', 'Cybersecurity Act (2024 amendment, commenced 2025-10-31): maritime is a CII sector; owners are designated individually.', 'https://www.csa.gov.sg/legislation/cybersecurity-act/', 'v'),
+    N('ch', 3, 'o', '정보보안법(2025-04-01): 해운사와 항만 운영자는 사이버 공격을 24시간 내 보고.', 'Information Security Act (2025-04-01): shipping companies and harbour operators report cyberattacks within 24 hours.', 'https://haerting.ch/en/insights/kein-scherz-meldepflicht-fuer-cyberangriffe-auf-kritische-infrastrukturen-gilt-ab-1-april-2025/', 'v'),
+    N('tw', 2, 'o', '자통안전관리법(2025-09 개정): 운송 분야 핵심 기반시설 제공자. 지정은 비공개이며 시행일은 출처가 엇갈립니다.', 'Cyber Security Management Act (amended Sep 2025): transport critical infrastructure providers. Designation is confidential and sources conflict on the effective date.', 'https://stellexlaw.com/en/cybersecurity-management-act-2025-amendment/', 'v'),
+    N('tr', 2, 'oys', '사이버보안법 7545호(2025-03-19 시행): 운송, 제조, 방산이 핵심 분야. 기준 수치는 미공표.', 'Cybersecurity Law No. 7545 (in force 2025-03-19): transportation, manufacturing and defence are critical sectors. Thresholds not yet published.', 'https://www.forseti.com.tr/siber/siber-guvenlik-15-kritik-altyapi/', 'v'),
+    N('ae', 1, 'o', '핵심정보기반시설 보호 정책과 NESA 표준. 선사 지정 사례는 찾지 못했습니다.', 'CIIP Policy and NESA standards. No designation of owners found.', 'https://u.ae', 'v'),
+    N('gb', 2, 'o', 'NIS Regulations 2018: 영국 항만 물동량·여객 기준을 넘는 해운사.', 'NIS Regulations 2018: shipping companies above the UK port freight or passenger thresholds.', 'https://www.legislation.gov.uk/uksi/2018/506/schedule/2', 'v'),
+    N('vn', 2, 'oys', '데이터법 60/2024와 시행령 165/2025: 핵심·중요 데이터의 국내 보관과 이전 평가. 사이버보안법 116/2025는 2026-07-01 시행.', 'Law on Data 60/2024 and Decree 165/2025: local storage and transfer assessment for core and important data. Law on Cybersecurity 116/2025 in force 2026-07-01.', 'https://www.rajahtannasia.com', 's')
+  ];
+  D.natlawUp = [
+    N('au', 2, 'oys', 'SOCI 장관 지시 권한 확대와 위험관리 규칙 개정 협의(2026-03 개시).', 'Consultation on wider SOCI ministerial directions and amended risk-management rules (opened Mar 2026).', '', 's'),
+    N('br', 2, 'oys', 'PL 4752/2025 사이버보안 기본법안: 상원 심의 중. 핵심 기반시설 운영자와 공급사 대상.', 'PL 4752/2025 cybersecurity framework bill: in the Senate; would reach critical-infrastructure operators and their suppliers.', 'https://www25.senado.leg.br/web/atividade/materias/-/materia/170613', 's'),
+    N('ca', 2, 'o', '핵심 사이버 시스템 보호법(Bill C-8, 2026-06 제정): 미시행, 지정 운영자 미정.', 'Critical Cyber Systems Protection Act (Bill C-8, assented Jun 2026): not in force, no designated operators yet.', 'https://www.parl.ca/legisinfo/en/bill/45-1/c-8', 'v'),
+    N('fr', 2, 'oys', 'NIS 2 미전환. Résilience 법안이 지연되어 집행위가 2026-07 제소. 2026년 가을 이후 예상.', 'NIS 2 not transposed. The Résilience bill is stalled and the Commission referred France to the Court in Jul 2026; expected autumn 2026 at the earliest.', '', 's'),
+    N('id', 2, 'oys', '사이버 보안·복원력 법안(RUU KKS): 2026-06 의회 실무위원회 회부.', 'Cyber Security and Resilience Bill (RUU KKS): sent to a parliamentary working committee in Jun 2026.', 'https://www.antaranews.com/berita/5626912/pemerintah-dan-dpr-bentuk-panja-ruu-keamanan-dan-ketahanan-siber', 'v'),
+    N('in', 2, 'o', '상선법 2025에 따른 항만보안국 규칙 초안: 사이버 부서 신설.', 'Draft rules under the Merchant Shipping Act 2025 for a Bureau of Port Security with a cyber division.', '', 's'),
+    N('jp', 2, 'oys', '사이버대처능력강화법: 2027년까지 전면 시행. 사고 보고와 취약점 통지에 대한 공급사 의무.', 'Active Cyber Defense Law: full effect by 2027, adding incident reporting and vendor duties on vulnerability notices.', 'https://connectontech.bakermckenzie.com/japans-new-active-cyber-defense-law-impact-on-businesses/', 'v'),
+    N('kr', 2, 'oys', '해양수산부 계획(2024-10-31): 선사 사이버 관리체제 의무화와 선박·기자재 보안 인증제를 2027년 시행 목표로 법제화. 해사안전기본법 개정안 2026-09-18 발의.', 'MOF plan (2024-10-31): mandatory company cyber management systems and security certification of ships and equipment, targeting 2027. Framework Act amendment bill introduced 2026-09-18.', 'http://www.boannews.com/news/articleView.html?idxno=133983', 'v'),
+    N('no', 2, 'oys', 'NIS 2·CER 이행법: 일정 미정.', 'NIS 2 / CER implementing law: undated.', '', 'u'),
+    N('ph', 2, 'oys', 'House Bill 9605 국가 사이버보안·핵심정보기반시설 보호법: 2026-08 하원 통과, 상원 계류.', 'House Bill 9605 (National Cybersecurity and CII Protection Act): passed the House in Aug 2026; Senate pending.', 'https://businessmirror.com.ph/2026/08/13/house-passes-cyber-security-bill/', 'v'),
+    N('ch', 2, 's', 'CRA에 준하는 디지털 제품 사이버복원력 법: 2026년 가을 협의 초안 예정.', 'CRA-style law on cyber-resilient digital products: consultation draft due autumn 2026.', 'https://www.bacs.admin.ch/en/motion243810-cra-en', 'v'),
+    N('tr', 2, 'ys', '법 7545호 제7조 인증 제도: 2027-03-19 시행 예정. 하위 규정 지연.', 'Law 7545 Art. 7 certification regime: due 2027-03-19; secondary regulations overdue.', 'https://www.forseti.com.tr/siber/siber-guvenlik-15-kritik-altyapi/', 'v'),
+    N('gb', 2, 'os', 'Cyber Security and Resilience Bill: 상원 위원회 심의 중. 핵심 공급사 지정과 24시간 보고, 2028년경 의무 예상.', 'Cyber Security and Resilience Bill: in Lords committee. Critical-supplier designation and 24-hour reporting; duties expected around 2028.', 'https://bills.parliament.uk/bills/4035', 's'),
+    N('us', 2, 'o', 'CIRCIA 최종 규칙: 미확정. 72시간 사고 보고와 24시간 랜섬 지급 보고 예정.', 'CIRCIA final rule: not yet published; 72-hour incident and 24-hour ransom payment reporting expected.', '', 's'),
+    N('vn', 2, 'oys', '사이버보안법 116/2025 경과 기간: 2027-07경 종료.', 'Law on Cybersecurity 116/2025 transition ends around Jul 2027.', '', 's')
+  ];
+
+  /* Defence and naval work: security regimes binding yards and suppliers, by customer country. */
+  const P = (v, ko, en, tko, ten, src, tag) => ({ v, t: L(ko, en), item: { lv: 3, t: L(tko, ten), src, tag } });
+  D.defence = [
+    P('au', '호주', 'Australia', 'Defence Industry Security Program: Essential Eight 성숙도 2단계.', 'Defence Industry Security Program: Essential Eight Maturity Level 2.', 'https://www.defence.gov.au/business-industry/industry-governance/industry-regulators/defence-industry-security-program', 's'),
+    P('ca', '캐나다', 'Canada', 'CPCSC 1단계: 2026년 여름부터 일부 방산 계약에 의무.', 'CPCSC Level 1: mandatory in select defence contracts from summer 2026.', 'https://www.canada.ca/en/public-services-procurement/news/2026/04/canadian-program-for-cyber-security-certification-level-1.html', 's'),
+    P('fr', '프랑스', 'France', 'IGI 1300 기밀정보 보호 규정.', 'IGI 1300 classified-information rules.', '', 'u'),
+    P('de', '독일', 'Germany', 'Geheimschutzhandbuch 기밀계약 보안 지침.', 'Geheimschutzhandbuch classified-contract security manual.', '', 's'),
+    P('gr', '그리스', 'Greece', '국방부 군비총국 산업보안 인증.', 'GDDIA industrial security certification.', 'https://www.gdaee.mil.gr/en/prerequisites-for-industrial-security-certification-attachment-in-greek/', 's'),
+    P('it', '이탈리아', 'Italy', '기밀계약 산업보안 인가(NOSI).', 'Industrial security clearance (NOSI) for classified contracts.', '', 's'),
+    P('jp', '일본', 'Japan', '방위성 기준: NIST SP 800-171에 정합.', 'Ministry of Defense standards aligned to NIST SP 800-171.', '', 's'),
+    P('nl', '네덜란드', 'Netherlands', 'ABDO 2019 방산계약 보안 요건.', 'ABDO 2019 defence-contract security requirements.', 'https://www.defensie.nl/downloads/beleidsnota-s/2020/02/04/abdo-2019', 's'),
+    P('no', '노르웨이', 'Norway', 'Sikkerhetsloven: 공급사 보안 인가와 소유 통제.', 'Security Act: supplier clearance and ownership control.', '', 's'),
+    P('kr', '대한민국', 'South Korea', '방위산업기술 보호법: 기술보호체계 운영과 통합실태조사.', 'Defense Technology Protection Act: technology-protection system and joint government inspection.', 'https://www.law.go.kr', 's'),
+    P('tr', '튀르키예', 'Türkiye', '방위산업보안법 5202호.', 'Defence Industry Security Law No. 5202.', '', 's'),
+    P('gb', '영국', 'United Kingdom', 'DEFCON 658과 Def Stan 05-138 4판: 하도급으로 전가.', 'DEFCON 658 with Def Stan 05-138 Issue 4: flows down to subcontractors.', 'https://www.gov.uk/guidance/cyber-security-model', 's'),
+    P('us', '미국', 'United States', 'DFARS 252.204-7012와 CMMC 2.0: NIST SP 800-171, 72시간 보고. 1단계 2025-11-10 시행, 제3자 심사 2단계는 2026-07-13 중단.', 'DFARS 252.204-7012 and CMMC 2.0: NIST SP 800-171, 72-hour reporting. Phase 1 since 2025-11-10; third-party Phase 2 suspended 2026-07-13.', 'https://www.hklaw.com/en/insights/publications/2026/07/dow-suspends-cmmc-phase-ii-requirements', 's')
+  ];
+
+  /* Supply-chain screening and market-access gates, by destination market. */
+  const G = (v, ko, en, lv, tko, ten, src, tag) => ({ v, t: L(ko, en), item: { lv, t: L(tko, ten), src, tag } });
+  D.screen = [
+    G('cn', '중국', 'China', 2, '수운 핵심정보기반시설 운영자에 납품 시 인증 또는 신뢰 가능 장비 요구, 구매 보안심사, 비밀유지 약정. 교통 데이터의 국외 이전 제한.', 'Supplying waterway CII operators requires certified or trustworthy equipment, purchase security review and confidentiality agreements. Transport data export is restricted.', 'https://www.gov.cn/zhengce/2023-05/06/content_5754526.htm', 'v'),
+    G('de', '독일', 'Germany', 1, 'BSIG 제41조: 특정 제조사의 핵심 부품 사용 금지 가능.', 'BSIG s.41 allows bans on critical components from a given manufacturer.', 'https://www.gesetze-im-internet.de/bsig_2025/__41.html', 'v'),
+    G('in', '인도', 'India', 2, 'General Financial Rules 제144(xi)조: 육상 국경 접경국 입찰자는 사전 등록. 국영 조선소 납품에 영향.', 'General Financial Rules r.144(xi): bidders from land-border countries must register; affects supply to state yards.', 'https://www.pib.gov.in/PressReleasePage.aspx?PRID=1640778', 's'),
+    G('it', '이탈리아', 'Italy', 2, '국가 평가인증센터(CVCN)가 경계 대상 기관의 ICT 조달을 심사. 법 90/2024 제14조는 부품 명세 제출과 특정국 기술 가점을 규정.', 'The national evaluation centre (CVCN) screens ICT supplies to Perimeter entities. Law 90/2024 art. 14 requires a bill of materials and gives a scoring premium to listed countries.', 'https://www.piselliandpartners.com', 'v'),
+    G('jp', '일본', 'Japan', 2, '경제안보추진법 사전심사: 지정 선사·항만운송 사업자의 신고서에 공급사의 지배구조, 제조지, 부품 정보가 들어갑니다.', 'Economic Security Promotion Act screening: designated carriers and port operators must disclose supplier ownership, place of manufacture and components.', 'https://www.cao.go.jp/keizai_anzen_hosho/suishinhou/infra/doc/infra_setsumeikai_eng.pdf', 'v'),
+    G('ru', '러시아', 'Russia', 3, '대통령령 166호: 주요 핵심 기반시설에서 외국 소프트웨어 금지. 정부령 1912호: 2030-01-01부터 신뢰 장비만 허용. 러시아선급 규칙 제21부가 사이버복원력을 규율.', 'Decree 166 bans foreign software on significant critical infrastructure. Decree 1912 allows only trusted hardware-software from 2030-01-01. RS Rules Part XXI govern cyber resilience.', 'http://government.ru/docs/all/150563/', 's'),
+    G('tw', '대만', 'Taiwan', 1, '중국산 ICT 제품 금지: 정부 기관에 적용되며 핵심 기반시설 제공자로 확대될 수 있음.', 'Ban on PRC ICT products binds government and may extend to critical infrastructure providers.', '', 's'),
+    G('tr', '튀르키예', 'Türkiye', 2, '법 7545호 제7조: 핵심 기반시설의 사이버보안 제품은 인증 공급사 제품만 허용, 국산 우대. 인증 제도 2027-03-19 예정.', 'Law 7545 Art. 7: cybersecurity products in critical infrastructure only from certified vendors, with domestic preference. Certification regime due 2027-03-19.', 'https://www.mondaq.com/turkey/cybersecurity/1756112/', 's'),
+    G('ae', '아랍에미리트', 'UAE', 1, '국가 사이버 인가 프로그램(2026 도입): 미인가 사이버보안 공급사의 핵심 기반시설 서비스 제한.', 'National Cyber Accreditation Programme (rolling out 2026): restricts unaccredited cybersecurity providers from serving critical infrastructure.', '', 'v')
+  ];
+
+  /* IACS members: where UR E26/E27 live, where to start, E27 approval route, voluntary notations. */
+  const K = (v, name, rule, url, ta, nota, tag) => ({ v, name, rule, url, ta, nota, tag });
+  D.classes = [
+    K('abs', 'ABS', L('Marine Vessel Rules 4-9-13(E26), 4-9-14(E27)', 'Marine Vessel Rules 4-9-13 (E26), 4-9-14 (E27)'), 'https://ww2.eagle.org/en/rules-and-resources/regulatory-updates/Maritime-Cybersecurity.html', L('ABS Cyber Resilience Program(제품 설계 평가)', 'ABS Cyber Resilience Program (Product Design Assessment)'), 'CR · CS-1 · CS-2 · CR-Ex', 'v'),
+    K('bv', 'BV', L('NR659 제3장 CYBER RESILIENT', 'NR659 Ch.3 CYBER RESILIENT'), 'https://marine-offshore.bureauveritas.com/nr659-rules-cyber-security-classification-marine-units', L('NR659 제5장 형식승인', 'NR659 Ch.5 Type Approval Certification'), 'CYBER MANAGED · CYBER RESILIENT · CYBER SECURE', 'v'),
+    K('ccs', 'CCS', L('GD014-2024 선박 사이버보안 지침(SL0가 E26·E27 최소 수준)', 'GD014-2024 Guidelines for Ship Cyber Security (SL0 = E26/E27 minimum)'), 'https://www.ccs.org.cn/ccswzen/', L('지침 내 시스템 형식승인', 'System type approval under the Guidelines'), 'Cyber Security (M, P/S [SLx])', 'v'),
+    K('crs', 'CRS', L('선급규칙 Part 1 Ch.6 Sec.6 Cyber resilience', 'Rules Part 1 Ch.6 Sec.6 Cyber resilience'), 'https://www.crs.hr/rules-imo-and-eu-regulations/crs-rules-and-standards/rules-for-the-classification-of-ships', L('E27 전용 제도 확인 못함', 'No E27-specific programme found'), 'Cyber Resilience', 'v'),
+    K('dnv', 'DNV', L('DNV-RU-SHIP Pt.6 Ch.5 Sec.21 Cyber secure, DNV-CG-0325', 'DNV-RU-SHIP Pt.6 Ch.5 Sec.21 Cyber secure; DNV-CG-0325'), 'https://www.dnv.com/services/cyber-secure-class-notation-124600/', L('DNV-CP-0231(보안 프로파일 1이 E27)', 'DNV-CP-0231 (security profile 1 = E27)'), 'Cyber secure · Cyber secure(Essential) · (+)', 'v'),
+    K('irs', 'IRS', L('강선규칙 Part 4 Ch.7 Sec.7(E26), Sec.8(E27)', 'Steel Ships Rules Part 4 Ch.7 Sec.7 (E26), Sec.8 (E27)'), 'https://www.irclass.org/marine/cyber-risk-management/', L('Type Approval of Cyber Secured Control System Components Rev.1', 'Type Approval of Cyber Secured Control System Components Rev.1'), 'CyS-E · CyS-I · CyS-II · (+)', 'v'),
+    K('kr', 'KR', L('선박 및 시스템의 사이버복원력 지침', 'Guidance for Cyber Resilience of Ships and Systems'), 'https://www.krs.co.kr', L('KR 사이버복원력 형식승인(KR-DAON)', 'KR cyber resilience type approval (KR-DAON)'), 'Cyber Resilience · Cyber Resilience(CSMS) · (+)', 'v'),
+    K('lr', 'LR', L('규칙 위치를 공개 자료에서 확인하지 못함(2024-07 규칙에 반영된 것으로 알려짐)', 'Rule location not found in public sources (reported aligned in the July 2024 Rules)'), 'https://www.lr.org', L('E27 전용 제도 확인 못함', 'No E27-specific scheme found'), '', 'u'),
+    K('nk', 'ClassNK', L('강선규칙 Part X Ch.4(E27), Ch.5(E26)', 'Rules Part X Ch.4 (E27), Ch.5 (E26)'), 'https://www.classnk.or.jp/hp/en/activities/cybersecurity/ur-e26e27.html', L('선용품 승인 지침 Part 7 Ch.10', 'Guidance for Approval of Materials and Equipment Part 7 Ch.10'), 'CybR', 'v'),
+    K('prs', 'PRS', L('Publication 125/P Ship\'s Cyber Security(2024-07), 내용은 열람 못함', 'Publication 125/P Ship\'s Cyber Security (Jul 2024); content not read'), 'https://prs.pl/en/publications/publications-files-to-download/', L('확인 못함', 'Not found'), '', 's'),
+    K('rina', 'RINA', L('규칙 위치 확인 못함(회원 영역)', 'Rule location not found (member area)'), 'https://www.rina.org/en/adv/maritime-cyber-security', L('IACS UR E27 Type Approval 증서 발급', 'Issues IACS UR E27 Type Approval certificates'), '', 'v'),
+    K('tl', 'Türk Loydu', L('Additional Rule for Cyber Resilience of Ships, TL-GE26·TL-GE27', 'Additional Rule for Cyber Resilience of Ships; TL-GE26 / TL-GE27'), 'https://tlrule.turkloydu.org/TLRules.aspx', L('확인 못함', 'Not found'), '', 's')
+  ];
+})();
+
+</script>
+<script>
+/* Maritime Cyber Regulation Compass: rule data (prototype v0.1, 2026-09-19)
+   Every user-facing string is {ko, en}. Rules return {lv, why} or null (not enough answers).
+   lv: 3 applies, 2 conditional, 1 indirect, 0 not applicable. */
+(function () {
+  const L = (ko, en) => ({ ko, en });
+  const D = window.COMPASS_DATA;
+  const YN = [{ v: 'yes', t: L('예', 'Yes') }, { v: 'no', t: L('아니오', 'No') }];
+  const SIZE = [
+    { v: 'small', t: L('소기업: 50인 미만이고 매출 EUR 10m 이하', 'Small: under 50 staff and turnover up to EUR 10m') },
+    { v: 'medium', t: L('중기업: 50인 이상 또는 매출 EUR 10m 초과', 'Medium: 50+ staff or turnover above EUR 10m') },
+    { v: 'large', t: L('대기업: 250인 이상 또는 매출 EUR 50m 초과', 'Large: 250+ staff or turnover above EUR 50m') }
+  ];
+  const NONE = { v: 'none', t: L('해당 없음', 'None'), exclusive: true };
+  const EU_SET = Object.keys(D.nis2States);
+  const euLoc = loc => (loc || []).filter(c => EU_SET.includes(c));
+  const pick = (list, extra) => list.map(x => ({ v: x.v, t: x.t })).concat(extra || []);
+  const CLASSES = [
+    { v: 'abs', t: L('ABS', 'ABS') }, { v: 'bv', t: L('BV', 'BV') }, { v: 'ccs', t: L('CCS', 'CCS') }, { v: 'crs', t: L('CRS', 'CRS') },
+    { v: 'dnv', t: L('DNV', 'DNV') }, { v: 'irs', t: L('IRS', 'IRS') }, { v: 'kr', t: L('KR', 'KR') }, { v: 'lr', t: L('LR', 'LR') },
+    { v: 'nk', t: L('ClassNK', 'ClassNK') }, { v: 'prs', t: L('PRS', 'PRS') }, { v: 'rina', t: L('RINA', 'RINA') }, { v: 'tl', t: L('Türk Loydu', 'Türk Loydu') },
+    { v: 'non', t: L('비IACS 선급', 'Non-IACS society') }
+  ];
+  const iacs = arr => Array.isArray(arr) && arr.some(c => c !== 'non');
+
+  const roles = [
+    { v: 'owner', t: L('선주·선박관리사', 'Shipowner / manager'), d: L('내 선대에 무엇이 적용되는가', 'What applies to my fleet') },
+    { v: 'yard', t: L('조선사', 'Shipyard'), d: L('시스템 통합자로서 무엇을 내야 하는가', 'What I must deliver as systems integrator') },
+    { v: 'supplier', t: L('시스템 공급사', 'System supplier'), d: L('내 제품이 무엇을 충족해야 하는가', 'What my product must meet') }
+  ];
+
+  const locQ = (p, role) => [
+    { id: p + '_loc', role, type: 'multi', proper: true, q: L('법인이나 사업장이 있는 국가를 모두 고르십시오', 'Select every country where you have a legal entity or site'), opts: D.countries },
+    { id: p + '_eusize', role, type: 'single', showIf: a => euLoc(a[p + '_loc']).length > 0, q: L('EU·EEA 내 법인의 규모', 'Size of the EU/EEA entity'), opts: SIZE }
+  ];
+  const questions = [
+    /* owner */
+    { id: 'o_flag', role: 'owner', type: 'multi', proper: true, q: L('기국을 모두 고르십시오', 'Select all flags'), help: L('톤수 기준 상위 등록국 36곳을 같은 기준으로 조사했습니다', 'The 36 largest registries were surveyed on one checklist'), opts: pick(D.flags) },
+    { id: 'o_type', role: 'owner', type: 'multi', q: L('선종을 모두 고르십시오', 'Select all ship types'), opts: [
+      { v: 'tanker', t: L('탱커(유조·케미컬·가스)', 'Tanker (oil, chemical, gas)') }, { v: 'bulk', t: L('건화물선', 'Dry bulk') },
+      { v: 'container', t: L('컨테이너선', 'Container') }, { v: 'passenger', t: L('여객선', 'Passenger') },
+      { v: 'mou', t: L('MODU·해양작업선', 'MODU / offshore unit') }, { v: 'other', t: L('기타', 'Other') }] },
+    { id: 'o_size', role: 'owner', type: 'single', q: L('국제항해에 종사하는 500GT 이상 화물선, 여객선 또는 MODU를 운항합니까?', 'Do you operate cargo ships of 500 GT or more, passenger ships or MODUs on international voyages?'), opts: YN },
+    { id: 'o_newbuild', role: 'owner', type: 'single', q: L('2024-07-01 이후 건조계약된 선박을 보유하거나 발주했습니까?', 'Do you own or have on order ships contracted for construction on or after 2024-07-01?'), opts: YN },
+    { id: 'o_class', role: 'owner', type: 'multi', proper: true, q: L('입급 선급을 모두 고르십시오', 'Select all classification societies'), opts: CLASSES },
+    { id: 'o_calls', role: 'owner', type: 'multi', proper: true, q: L('기항하거나 운항하는 해역을 모두 고르십시오', 'Select every area where your ships trade'), help: L('외국기 선박에 의무나 권고가 확인된 해역만 따로 표시했습니다', 'Only areas with a confirmed duty or advisory for foreign-flag ships are listed separately'), opts: pick(D.calls) },
+    ...locQ('o', 'owner'),
+    /* yard */
+    { id: 'y_contract', role: 'yard', type: 'single', q: L('2024-07-01 이후 건조계약한 UR E26 적용 선박이 있습니까?', 'Do you build in-scope ships contracted on or after 2024-07-01?'),
+      help: L('적용 선종: 국제항해 여객선, 500GT 이상 화물선·고속선, 500GT 이상 MODU, 자항 해양작업선', 'In scope: passenger ships on international voyages, cargo ships and HSC of 500 GT+, MODUs of 500 GT+, self-propelled offshore construction units'), opts: YN },
+    { id: 'y_class', role: 'yard', type: 'multi', proper: true, q: L('적용하는 선급을 모두 고르십시오', 'Select the classification societies you build to'), opts: CLASSES },
+    { id: 'y_integrator', role: 'yard', type: 'single', q: L('시스템 통합을 누가 수행합니까?', 'Who performs systems integration?'), opts: [
+      { v: 'self', t: L('조선사 자체', 'The yard itself') }, { v: 'out', t: L('외부 통합자에 위탁', 'Outsourced integrator') }] },
+    ...locQ('y', 'yard'),
+    { id: 'y_eumarket', role: 'yard', type: 'single', q: L('자체 브랜드의 디지털 통합 시스템을 EU 시장에 출시합니까?', 'Do you place own-brand integrated digital systems on the EU market?'), opts: YN },
+    { id: 'y_def', role: 'yard', type: 'multi', proper: true, q: L('함정·방산 계약의 발주국을 모두 고르십시오', 'Select the customer countries of your naval or defence contracts'), opts: pick(D.defence, [NONE]) },
+    /* supplier */
+    { id: 's_product', role: 'supplier', type: 'multi', q: L('제품 유형을 모두 고르십시오', 'Select all product types'), opts: [
+      { v: 'nav', t: L('항해·무선통신 장비', 'Navigation / radiocommunication') }, { v: 'ctrl', t: L('기관·추진 제어', 'Machinery / propulsion control') },
+      { v: 'cargo', t: L('화물·밸러스트 제어', 'Cargo / ballast control') }, { v: 'power', t: L('전력·배전', 'Power / distribution') },
+      { v: 'net', t: L('네트워크·보안 장비', 'Network / security equipment') }, { v: 'sw', t: L('소프트웨어·원격 서비스', 'Software / remote services') }] },
+    { id: 's_cbs', role: 'supplier', type: 'single', q: L('제품이 UR E26 적용 선박(2024-07-01 이후 건조계약)에 탑재됩니까?', 'Is your product installed on UR E26 in-scope ships (contracted on or after 2024-07-01)?'), opts: [
+      ...YN, { v: 'unsure', t: L('모름', 'Not sure') }] },
+    { id: 's_class', role: 'supplier', type: 'multi', proper: true, q: L('납품 선박의 선급을 모두 고르십시오', 'Select the class societies of the ships you supply'), opts: CLASSES },
+    { id: 's_untrusted', role: 'supplier', type: 'single', q: L('원격접속이나 육상 연결 등 신뢰할 수 없는 네트워크와의 인터페이스가 있습니까?', 'Does it interface with untrusted networks (remote access, shore links)?'), opts: YN },
+    { id: 's_radio', role: 'supplier', type: 'single', q: L('제품에 Wi-Fi, LTE/5G 등 무선 기능이 있습니까?', 'Does the product include radio functions (Wi-Fi, LTE/5G)?'), opts: YN },
+    { id: 's_ai', role: 'supplier', type: 'single', q: L('제품에 AI 기능이 포함됩니까?', 'Does the product include AI functions?'), opts: YN },
+    { id: 's_eumarket', role: 'supplier', type: 'single', q: L('제품을 EU 시장에 출시합니까?', 'Do you place products on the EU market?'), opts: YN },
+    { id: 's_med', role: 'supplier', type: 'single', q: L('선박용 기자재 지침(MED, 2014/90/EU) 대상 품목입니까?', 'Are your products within the Marine Equipment Directive (MED, 2014/90/EU)?'),
+      help: L('이 문항이 CRA, 무선기기 지침, AI Act 적용을 가릅니다', 'This answer decides CRA, RED and AI Act applicability'), opts: [
+      { v: 'all', t: L('전 품목이 MED 대상', 'All products are MED items') }, { v: 'some', t: L('일부만 MED 대상', 'Some are MED items') }, { v: 'none', t: L('MED 대상 없음', 'None are MED items') }] },
+    ...locQ('s', 'supplier'),
+    { id: 's_sell', role: 'supplier', type: 'multi', proper: true, q: L('다음 시장 중 납품하는 곳을 모두 고르십시오', 'Select the markets below that you supply'), help: L('공급망 심사나 시장 진입 제한이 확인된 시장입니다', 'Markets with a confirmed supply-chain screening or market-access gate'), opts: pick(D.screen, [NONE]) },
+    { id: 's_def', role: 'supplier', type: 'multi', proper: true, q: L('함정·방산 납품의 발주국을 모두 고르십시오', 'Select the customer countries of your naval or defence supply'), opts: pick(D.defence, [NONE]) }
+  ];
+
+  const types = {
+    law: L('법령·기국 요건', 'Law and flag requirements'),
+    class: L('선급 규칙', 'Class rules'),
+    contract: L('계약·검선·보험', 'Contract, vetting and insurance'),
+    standard: L('증빙 표준', 'Evidence standards')
+  };
+
+  const has = (arr, v) => Array.isArray(arr) && arr.includes(v);
+  const R = (lv, ko, en) => ({ lv, why: L(ko, en) });
+  const name = (list, v) => (list.find(x => x.v === v) || {}).t;
+  const ROLEKEY = { owner: 'o', yard: 'y', supplier: 's' };
+  /* Build a result from per-jurisdiction lines: level = highest line, reasons listed as items. */
+  function fromItems(items, emptyKo, emptyEn, headKo, headEn) {
+    const live = items.filter(i => i.lv > 0);
+    if (!live.length) return { lv: 0, why: L(emptyKo, emptyEn), items };
+    return { lv: Math.max(...live.map(i => i.lv)), why: L(headKo, headEn), items };
+  }
+  function nis2(p, annex) {
+    return a => {
+      const loc = a[p + '_loc']; if (!loc) return null;
+      const eu = euLoc(loc);
+      if (!eu.length) {
+        if (p === 'o') return R(0, 'EU·EEA 내 설립 법인이 없습니다.', 'No entity established in the EU/EEA.');
+        return R(1, 'EU 법인은 없지만 EU 고객의 공급망 보안 요구가 계약으로 전가될 수 있습니다.', 'No EU entity, but EU customers may pass supply-chain security duties on by contract.');
+      }
+      const sz = a[p + '_eusize']; if (!sz) return null;
+      if (sz === 'small') return R(1, '소기업은 원칙적으로 제외됩니다. 회원국 지정 예외와 고객의 공급망 요구는 남습니다.', 'Small enterprises are excluded in principle. National designation and customer supply-chain demands remain.');
+      const tier = (sz === 'large' && annex === 'I') ? L('필수(essential) 기관', 'essential entity') : L('중요(important) 기관', 'important entity');
+      const items = eu.map(c => { const d = D.nis2States[c], n = name(D.countries, c);
+        return { lv: d === null ? 2 : 3, tag: 's', src: 'https://digital-strategy.ec.europa.eu/en/policies/nis-transposition', t: d === null
+          ? L(n.ko + ': 아직 국내법으로 전환되지 않았습니다.', n.en + ': not yet transposed into national law.')
+          : L(n.ko + (d ? ': 국내법 시행 ' + d + '.' : ': 국내법 시행 여부를 확인하십시오.'), n.en + (d ? ': national law in force ' + d + '.' : ': check national transposition.')) }; });
+      return { lv: 3, items, why: L(`부속서 ${annex} 대상이며 규모 기준을 충족해 ${tier.ko}에 해당합니다.`, `Annex ${annex} sector and size threshold met: ${tier.en}.`) };
+    };
+  }
+  function natRule(table, role, emptyKo, emptyEn, headKo, headEn) {
+    const k = ROLEKEY[role];
+    return a => { const loc = a[k + '_loc']; if (!loc) return null;
+      const items = table.filter(n => loc.includes(n.c) && n.who.includes(k)).map(n => { const c = name(D.countries, n.c); return { lv: n.lv, src: n.src, tag: n.tag, t: L(c.ko + ': ' + n.t.ko, c.en + ': ' + n.t.en) }; });
+      return fromItems(items, emptyKo, emptyEn, headKo, headEn); };
+  }
+  function listRule(qid, table, emptyKo, emptyEn, headKo, headEn) {
+    return a => { const sel = a[qid]; if (!sel) return null;
+      const items = table.filter(x => sel.includes(x.v)).map(x => ({ lv: x.item.lv, src: x.item.src, tag: x.item.tag, t: L(x.t.ko + ': ' + x.item.t.ko, x.t.en + ': ' + x.item.t.en) }));
+      return fromItems(items, emptyKo, emptyEn, headKo, headEn); };
+  }
+  const roles3 = f => ({ owner: f('owner'), yard: f('yard'), supplier: f('supplier') });
+
+  const regs = [
+    { id: 'imo428', type: 'law', name: L('IMO 결의 MSC.428(98) + MSC-FAL.1/Circ.3/Rev.3', 'IMO Res. MSC.428(98) + MSC-FAL.1/Circ.3/Rev.3'),
+      sum: L('안전관리체제(SMS)에 사이버 리스크 관리를 반영해야 합니다. 기국과 인정기관의 ISM 심사로 집행됩니다.', 'Cyber risk must be addressed in the safety management system. Enforced through flag and RO ISM audits.'),
+      dates: L('2021-01-01 이후 첫 DOC 연차심사부터. 지침 Rev.3은 2025-04-04', 'From first DOC annual verification after 2021-01-01. Guidelines Rev.3 dated 2025-04-04'),
+      src: 'https://www.imo.org/en/ourwork/security/pages/cyber-security.aspx',
+      rule: { owner: a => a.o_size ? (a.o_size === 'yes' ? R(3, 'ISM 코드 적용 선박을 운항합니다.', 'You operate ships subject to the ISM Code.') : R(0, 'ISM 코드 적용 선박이 없습니다.', 'No ships subject to the ISM Code.')) : null,
+        yard: () => R(1, '선주의 SMS 요구가 건조 사양과 인도 문서 요구로 이어집니다.', "The owner's SMS needs flow into build specifications and delivery documents."),
+        supplier: () => R(1, '선주의 SMS가 공급사 관리와 유지보수 절차를 요구합니다.', "The owner's SMS demands supplier management and maintenance procedures.") } },
+    { id: 'flag', type: 'law', name: L('기국 요건: IMO 기준을 넘는 의무', 'Flag-state requirements beyond the IMO baseline'),
+      sum: L('36개 기국을 같은 점검표로 조사했습니다. 구속력 있는 추가 의무, 권고 수준의 추가 요구, 단순 재공지, 확인된 문서 없음의 네 등급으로 나눕니다. 조선사나 공급사를 직접 겨냥한 기국 문서는 없었습니다.', 'Thirty-six flags were surveyed on one checklist and sorted into binding additions, soft additions, republication only, and no instrument confirmed. No flag instrument addresses yards or suppliers directly.'),
+      dates: L('기국별 상이', 'Varies by flag'), unverified: true, src: '',
+      rule: { owner: a => { if (!a.o_flag) return null;
+        const LV = { b: 3, s: 2, r: 0, n: 0 };
+        const items = D.flags.filter(f => a.o_flag.includes(f.v)).map(f => ({ lv: LV[f.tier], src: f.src, tag: f.tag, t: L(f.t.ko + ': ' + f.note.ko, f.t.en + ': ' + f.note.en) }));
+        return fromItems(items, '선택한 기국은 IMO 결의를 재공지하는 수준이거나 기국 문서를 확인하지 못했습니다. 확인 못함은 의무가 없다는 뜻이 아닙니다.', 'The selected flags only republish the IMO resolution, or no instrument was confirmed. Not confirmed does not mean no duty.',
+          '선택한 기국 중 IMO 기준을 넘는 요구를 둔 곳이 있습니다.', 'At least one selected flag goes beyond the IMO baseline.'); } } },
+    { id: 'calls', type: 'law', name: L('기항지·연안국 의무', 'Port-state and coastal-state duties'),
+      sum: L('외국기 선박이 어디를 운항하느냐에 따라 붙는 의무입니다. 항만국통제 협력체 9곳과 연안국·운하 25곳을 같은 기준으로 조사했고, 미국과 중국 외에는 선박 단위 의무를 찾지 못했습니다.', 'Duties that attach to a foreign-flag ship because of where it trades. Nine PSC regimes and 25 coastal states and waterways were surveyed; outside the US and China no ship-level duty was found.'),
+      dates: L('해역별 상이', 'Varies by area'), unverified: true, src: '',
+      rule: { owner: a => { if (!a.o_calls) return null;
+        const items = []; D.calls.filter(c => a.o_calls.includes(c.v)).forEach(c => c.items.forEach(i => items.push({ lv: i.lv, src: i.src, tag: i.tag, t: L(c.t.ko + ': ' + i.t.ko, c.t.en + ': ' + i.t.en) })));
+        if (a.o_size === 'yes') items.push(D.pscNote);
+        return fromItems(items, '선택한 해역에서 외국기 선박에 대한 사이버 의무를 찾지 못했습니다.', 'No cyber duty for foreign-flag ships found in the selected areas.',
+          '운항 해역에 따라 다음 의무나 권고가 적용됩니다.', 'The following duties or advisories follow from where you trade.'); } } },
+    { id: 'natlaw', type: 'law', name: L('소재국 사이버·기반시설 법', 'National cyber and critical-infrastructure law where you are established'),
+      sum: L('법인이나 사업장이 있는 나라의 법이 회사를 규제 대상으로 지정하는지를 28개국에 같은 점검표로 조사했습니다. EU 회원국의 NIS 2 이행은 NIS 2 카드에서 다룹니다.', 'Whether national law designates your company as a regulated entity, surveyed across 28 jurisdictions on one checklist. NIS 2 transposition in EU states is covered by the NIS 2 card.'),
+      dates: L('국가별 상이', 'Varies by country'), unverified: true, src: '',
+      rule: roles3(role => natRule(D.natlaw, role, '선택한 국가에서 이 역할에 적용되는 국내법을 찾지 못했습니다.', 'No national law reaching this role was found in the selected countries.', '소재국 법에 따라 다음이 적용되거나 지정 시 적용됩니다.', 'The following apply, or apply once you are designated.')) },
+    { id: 'natlaw_up', type: 'law', upcoming: true, name: L('소재국의 예정 법안', 'Pending national legislation where you are established'),
+      sum: L('발의됐거나 제정됐지만 아직 시행되지 않은 법안입니다. 일정은 바뀔 수 있습니다.', 'Bills introduced, or acts passed but not yet in force. Dates may move.'),
+      dates: L('국가별 상이', 'Varies by country'), unverified: true, src: '',
+      rule: roles3(role => natRule(D.natlawUp, role, '선택한 국가에서 이 역할에 영향을 줄 예정 법안을 찾지 못했습니다.', 'No pending legislation affecting this role was found in the selected countries.', '다음 법안의 진행을 추적하십시오.', 'Track the following legislation.')) },
+    { id: 'defence', type: 'law', name: L('함정·방산 계약 보안 제도', 'Defence and naval contract security regimes'),
+      sum: L('발주국의 방산 보안 제도는 조선사와 공급사의 국적과 무관하게 계약으로 적용되고 하도급으로 전가됩니다.', "The customer country's defence security regime applies by contract regardless of the contractor's nationality, and flows down to subcontractors."),
+      dates: L('발주국별 상이', 'Varies by customer country'), unverified: true, src: '',
+      rule: { yard: listRule('y_def', D.defence, '함정·방산 계약이 없습니다.', 'No naval or defence contracts.', '발주국의 방산 보안 제도가 적용됩니다.', "The customer countries' defence security regimes apply."),
+        supplier: listRule('s_def', D.defence, '함정·방산 납품이 없습니다.', 'No naval or defence supply.', '발주국의 방산 보안 제도가 적용됩니다.', "The customer countries' defence security regimes apply.") } },
+    { id: 'screen', type: 'law', name: L('납품 시장의 공급망 심사·진입 제한', 'Supply-chain screening and market-access gates'),
+      sum: L('고객이 속한 나라의 제도 때문에 공급사가 지배구조, 제조지, 부품 정보를 내거나 인증을 받아야 하는 경우입니다.', "Cases where the customer's jurisdiction makes a supplier disclose ownership, origin and components, or obtain certification."),
+      dates: L('시장별 상이', 'Varies by market'), unverified: true, src: '',
+      rule: { supplier: listRule('s_sell', D.screen, '선택한 시장에 확인된 심사 제도가 없습니다.', 'No confirmed screening regime in the selected markets.', '납품 시장에 따라 다음 제도의 영향을 받습니다.', 'The following regimes affect you depending on the market.') } },
+    { id: 'nis2', type: 'law', name: L('EU NIS 2 지침 (2022/2555)', 'EU NIS 2 Directive (2022/2555)'),
+      sum: L('리스크 관리 조치, 24시간·72시간·1개월 사고 보고, 공급망 보안, 경영진 책임을 요구합니다.', 'Risk-management measures, 24h/72h/1-month incident reporting, supply-chain security and management liability.'),
+      dates: L('회원국 국내법으로 시행', 'Applies through national law'), src: 'https://eur-lex.europa.eu/eli/dir/2022/2555/oj',
+      rule: { owner: nis2('o', 'I'), yard: nis2('y', 'II'), supplier: nis2('s', 'II') } },
+    { id: 'cra', type: 'law', name: L('EU 사이버복원력법 CRA (2024/2847)', 'EU Cyber Resilience Act (2024/2847)'),
+      sum: L('디지털 요소가 있는 제품의 제조자에게 보안 설계, 취약점 관리, 사고 보고를 요구합니다. 제2조 4항은 MED 대상 장비를 제외합니다.', 'Security by design, vulnerability handling and reporting for products with digital elements. Art. 2(4) excludes MED equipment.'),
+      dates: L('보고 의무 2026-09-11 시행 중 · 전면 적용 2027-12-11', 'Reporting live since 2026-09-11 · full application 2027-12-11'), src: 'https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng',
+      rule: { supplier: a => {
+          if (!a.s_eumarket) return null;
+          if (a.s_eumarket === 'no') return R(0, 'EU 시장에 출시하지 않습니다.', 'Not placed on the EU market.');
+          if (!a.s_med) return null;
+          if (a.s_med === 'all') return R(0, '전 품목이 MED 대상이라 제2조 4항으로 제외됩니다. UR E27과 MED 체계가 대신 적용됩니다.', 'All products are MED items and excluded by Art. 2(4). UR E27 and the MED regime apply instead.');
+          return R(3, 'MED 비대상 디지털 제품을 EU에 출시합니다. 취약점과 사고 보고 의무는 이미 시행 중입니다.', 'You place non-MED digital products on the EU market. Vulnerability and incident reporting is already live.');
+        },
+        yard: a => a.y_eumarket ? (a.y_eumarket === 'yes' ? R(2, '자체 브랜드 통합 시스템을 출시하면 제조자나 수입자로 취급될 수 있습니다.', 'Placing own-brand integrated systems can make you a manufacturer or importer.') : R(1, '공급사 제품의 적합성이 조달 조건으로 들어옵니다.', 'Supplier product conformity enters procurement terms.')) : null,
+        owner: a => a.o_loc ? (euLoc(a.o_loc).length ? R(1, '장비 조달 시 CRA 적합 제품을 요구하게 됩니다.', 'Procurement will call for CRA-conformant products.') : R(0, 'EU 법인이 없습니다.', 'No EU entity.')) : null } },
+    { id: 'red', type: 'law', name: L('EU 무선기기 지침 위임규정 2022/30', 'EU RED Delegated Regulation 2022/30'),
+      sum: L('인터넷 연결 무선기기에 네트워크 보호, 개인정보 보호, 사기 방지 요건을 부과합니다. MED 대상 무선 장비는 제외됩니다.', 'Network protection, privacy and anti-fraud requirements for connected radio equipment. MED radio equipment is excluded.'),
+      dates: L('2025-08-01 적용', 'Applies from 2025-08-01'), unverified: true, src: 'https://eur-lex.europa.eu/eli/reg_del/2022/30/oj/eng',
+      rule: { supplier: a => {
+          if (!a.s_eumarket || !a.s_radio) return null;
+          if (a.s_eumarket === 'no') return R(0, 'EU 시장에 출시하지 않습니다.', 'Not placed on the EU market.');
+          if (a.s_radio === 'no') return R(0, '무선 기능이 없습니다.', 'No radio functions.');
+          if (!a.s_med) return null;
+          if (a.s_med === 'all') return R(0, 'MED 대상 무선 장비는 무선기기 지침에서 제외됩니다.', 'MED radio equipment is outside the RED.');
+          return R(3, 'MED 비대상 무선 제품을 EU에 출시합니다.', 'You place non-MED radio products on the EU market.');
+        } } },
+    { id: 'ai_act', type: 'law', upcoming: true, name: L('EU AI Act (2024/1689)', 'EU AI Act (2024/1689)'),
+      sum: L('MED가 부속서 I B절에 올라 있어 형식승인 품목의 고위험 요건은 향후 MED 이행법으로 들어옵니다. 그 외 AI는 일반 체계를 따릅니다.', 'MED sits in Annex I Section B, so high-risk rules for wheel-marked items arrive via future MED implementing acts. Other AI follows the general regime.'),
+      dates: L('고위험 의무 2027-12-02, 제품 내장형 2028-08-02로 연기', 'High-risk duties deferred to 2027-12-02, product-embedded to 2028-08-02'), unverified: true, src: 'https://artificialintelligenceact.eu/annex/1/',
+      rule: { supplier: a => {
+          if (!a.s_ai || !a.s_eumarket) return null;
+          if (a.s_ai === 'no') return R(0, 'AI 기능이 없습니다.', 'No AI functions.');
+          if (a.s_eumarket === 'no') return R(0, 'EU 시장에 출시하지 않습니다.', 'Not placed on the EU market.');
+          return a.s_med === 'all' ? R(2, 'MED 이행법을 통해 간접적으로 요건이 들어옵니다.', 'Requirements will arrive indirectly through MED implementing acts.') : R(2, 'AI 기능의 위험 등급에 따라 일반 체계가 적용됩니다.', 'The general regime applies depending on risk classification.');
+        } } },
+    { id: 'imo_code', type: 'law', upcoming: true, name: L('IMO 해사 사이버 코드(비강제) · MASS 코드', 'IMO Maritime Cyber Code (non-mandatory) / MASS Code'),
+      sum: L('비강제 사이버 코드가 2026–2028년에 개발됩니다. MASS 코드는 2026-07-01 비강제 발효, 강제화는 2032년 목표입니다.', 'A non-mandatory cyber code is being developed in 2026–2028. The MASS Code took effect as non-mandatory on 2026-07-01; mandatory target 2032.'),
+      dates: L('개발 중', 'In development'), src: 'https://www.imo.org/en/mediacentre/meetingsummaries/pages/temporary-msc-111.aspx',
+      rule: { owner: () => R(1, '현재 의무는 없습니다. 동향을 추적하십시오.', 'No duties yet. Track developments.'), yard: () => R(1, '현재 의무는 없습니다. 동향을 추적하십시오.', 'No duties yet. Track developments.'), supplier: () => R(1, '현재 의무는 없습니다. 동향을 추적하십시오.', 'No duties yet. Track developments.') } },
+
+    { id: 'e26', byClass: true, type: 'class', name: L('IACS UR E26 선박 사이버복원력', 'IACS UR E26 Cyber resilience of ships'),
+      sum: L('식별·보호·탐지·대응·복구 전 단계 요건입니다. 자산 인벤토리, 구역·도관 설계, 복원력 시험, 연차검사가 핵심입니다.', 'Requirements across identify, protect, detect, respond, recover: asset inventory, zones and conduits, resilience testing, annual survey.'),
+      dates: L('2024-07-01 이후 건조계약 선박', 'Ships contracted for construction on or after 2024-07-01'), src: 'https://iacs.org.uk/news/iacs-ur-e26-and-e27-press-release',
+      rule: { owner: a => {
+          if (!a.o_newbuild || !a.o_size || !a.o_class) return null;
+          if (!(a.o_newbuild === 'yes' && a.o_size === 'yes')) return R(1, '기존선에는 적용되지 않습니다. 자율 참조 기준으로 쓸 수 있습니다.', 'Not applicable to existing ships. Usable as a voluntary reference.');
+          if (!iacs(a.o_class)) return R(2, 'UR은 IACS 회원 선급 규칙으로 집행됩니다. 비IACS 선급은 자체 규칙 채택 여부를 확인하십시오.', 'URs are enforced through IACS member rules. Check whether your non-IACS society has adopted equivalent rules.');
+          return R(3, '해당 신조선의 운항 단계 의무(복원력 프로그램, 변경관리, 검사 수검)를 집니다. 세부 절차는 입급 선급의 이행 규칙을 따릅니다.', 'You carry operational-phase duties for those newbuilds: resilience programme, management of change, surveys. Details follow your class society\'s implementing rules.');
+        },
+        yard: a => {
+          if (!a.y_contract || !a.y_class) return null;
+          if (a.y_contract === 'no') return R(0, '적용 대상 건조계약이 없습니다.', 'No in-scope building contracts.');
+          if (!iacs(a.y_class)) return R(2, 'UR은 IACS 회원 선급 규칙으로 집행됩니다. 비IACS 선급은 자체 규칙 채택 여부를 확인하십시오.', 'URs are enforced through IACS member rules. Check whether the non-IACS society has adopted equivalent rules.');
+          return { lv: 3, why: a.y_integrator === 'out' ? L('시스템 통합자 의무가 발생합니다. 위탁하더라도 계약상 책임 배분을 명확히 해야 합니다.', 'Systems integrator duties arise. Even when outsourced, allocate responsibility clearly by contract.') : L('시스템 통합자로서 설계·건조·시운전 단계 제출물을 책임집니다. 세부 절차는 각 선급의 이행 규칙을 따릅니다.', 'As systems integrator you own the design, construction and commissioning deliverables. Details follow each class society\'s implementing rules.') };
+        },
+        supplier: a => a.s_cbs ? (a.s_cbs === 'no' ? R(0, 'E26 적용 선박에 탑재되지 않습니다.', 'Not installed on E26 ships.') : R(1, '조선사가 E26 제출물을 만들기 위해 귀사 자료를 요구합니다.', 'The yard needs your documents to build its E26 submissions.')) : null } },
+    { id: 'e27', byClass: true, type: 'class', name: L('IACS UR E27 선내 시스템·장비 사이버복원력', 'IACS UR E27 Cyber resilience of on-board systems and equipment'),
+      sum: L('최소 보안 기능과 보안 개발 수명주기를 요구합니다. IEC 62443-3-3과 4-1에 기반합니다.', 'Minimum security capabilities and a secure development lifecycle, based on IEC 62443-3-3 and 4-1.'),
+      dates: L('2024-07-01 이후 건조계약 선박', 'Ships contracted for construction on or after 2024-07-01'), src: 'https://iacs.org.uk/news/iacs-ur-e26-and-e27-press-release',
+      rule: { supplier: a => {
+          if (!a.s_cbs) return null;
+          if (a.s_cbs === 'no') return R(0, 'E26 적용 선박에 탑재되지 않습니다.', 'Not installed on E26 ships.');
+          const extra = a.s_untrusted === 'yes' ? L(' 신뢰할 수 없는 네트워크 인터페이스가 있어 추가 보안 기능 요건이 붙습니다.', ' Untrusted network interfaces trigger additional security capability requirements.') : L('', '');
+          return a.s_cbs === 'yes' ? { lv: 3, why: L('직접 대상입니다.' + extra.ko, 'Directly applicable.' + extra.en) } : { lv: 2, why: L('탑재 선박의 건조계약일을 고객에게 확인하십시오.' + extra.ko, 'Confirm the contract dates of target ships with customers.' + extra.en) };
+        },
+        yard: a => a.y_contract ? (a.y_contract === 'yes' ? R(1, '공급사의 E27 문서를 수령해 검토하고 선급 제출물에 통합합니다.', 'You collect and review supplier E27 documents and fold them into class submissions.') : R(0, '적용 대상 건조계약이 없습니다.', 'No in-scope building contracts.')) : null,
+        owner: a => a.o_newbuild ? (a.o_newbuild === 'yes' ? R(1, '인도 시 공급사 문서와 설정 가이드를 이관받습니다.', 'Supplier documents and hardening guides are handed over at delivery.') : R(0, '해당 신조선이 없습니다.', 'No such newbuilds.')) : null } },
+    { id: 'e22', type: 'class', name: L('IACS UR E22 Rev.3 컴퓨터 기반 시스템', 'IACS UR E22 Rev.3 Computer-based systems'),
+      sum: L('소프트웨어 품질, 변경관리, 시스템 분류를 요구합니다.', 'Software quality, change management and system categorisation.'),
+      dates: L('2024-07-01 이후 건조계약 선박 · 현행 Rev.3 Corr.1(2025-09)', 'Ships contracted on or after 2024-07-01 · current Rev.3 Corr.1 (Sep 2025)'), src: 'https://iacs.org.uk',
+      rule: { supplier: a => a.s_cbs ? (a.s_cbs === 'no' ? R(0, '해당 선박에 탑재되지 않습니다.', 'Not installed on such ships.') : R(a.s_cbs === 'yes' ? 3 : 2, '컴퓨터 기반 시스템 공급자로서 적용됩니다.', 'Applies to you as a computer-based system supplier.')) : null,
+        yard: a => a.y_contract ? (a.y_contract === 'yes' ? R(3, '통합자로서 소프트웨어 변경관리와 시험을 책임집니다.', 'As integrator you own software change management and testing.') : R(0, '적용 대상 건조계약이 없습니다.', 'No in-scope building contracts.')) : null } },
+
+    { id: 'notation', byClass: true, type: 'contract', name: L('선급 사이버 부기부호(자율)', 'Voluntary class cyber notations'),
+      sum: L('의무 요건을 넘는 부기부호는 건조 사양서나 용선 조건에 들어갈 때만 구속력을 가집니다. 명칭은 선급이 공개한 자료에서 확인된 것만 표시합니다.', 'Notations above the mandatory level bind only when written into the build specification or charter terms. Only names confirmed in society publications are shown.'),
+      dates: L('-', '-'), src: '',
+      rule: { owner: a => a.o_class ? R(2, '용선주나 화주가 요구하거나 자율로 취득하는 경우 적용됩니다.', 'Applies when a charterer or cargo owner requires it, or when you opt in.') : null,
+        yard: a => a.y_class ? R(2, '건조 사양서에 포함된 경우 적용됩니다.', 'Applies when written into the build specification.') : null } },
+    { id: 'iacs_rec', type: 'standard', name: L('IACS 권고 Rec 190 · Rec 194', 'IACS Rec 190 / Rec 194'),
+      sum: L('Rec 190은 컴퓨터 기반 시스템의 선박 자산 인벤토리 작성법(2025-06), Rec 194는 기존선을 위한 사이버보안 통제(2025-12)입니다. 구속력은 없습니다.', 'Rec 190 covers the vessel asset inventory for computer-based systems (Jun 2025); Rec 194 covers cybersecurity controls for existing ships (Dec 2025). Non-binding.'),
+      dates: L('2025-06 · 2025-12', 'Jun 2025 · Dec 2025'), src: 'https://iacs.org.uk',
+      rule: { owner: a => a.o_newbuild ? R(2, 'UR E26이 적용되지 않는 기존선의 기준으로 쓸 수 있습니다.', 'Usable as the benchmark for existing ships outside UR E26.') : null,
+        yard: a => a.y_contract ? R(1, '자산 인벤토리 작성 시 참조합니다.', 'Reference when compiling the asset inventory.') : null } },
+    { id: 'sire', type: 'contract', name: L('OCIMF SIRE 2.0 · TMSA 3 요소 13', 'OCIMF SIRE 2.0 / TMSA 3 Element 13'),
+      sum: L('검선 문항이 사이버 절차, 대응 계획, 교육, IT·OT 접근 통제를 확인합니다. 탱커 용선 수락의 전제입니다.', 'Inspection questions cover cyber procedures, response plans, training and IT/OT access control. A precondition for tanker charter acceptance.'),
+      dates: L('시행 중', 'In effect'), src: 'https://www.ocimf.org',
+      rule: { owner: a => a.o_type ? (has(a.o_type, 'tanker') ? R(3, '탱커를 운항합니다.', 'You operate tankers.') : R(0, '탱커가 없습니다.', 'No tankers.')) : null } },
+    { id: 'risq', type: 'contract', name: L('RightShip RISQ 3.2', 'RightShip RISQ 3.2'),
+      sum: L('SMS의 사이버 절차와 이동식 매체 통제를 확인합니다.', 'Checks cyber procedures in the SMS and removable media control.'),
+      dates: L('2026-02-01 적용', 'Applies from 2026-02-01'), unverified: true, src: 'https://safety4sea.com/cm-rightship-revises-questionnaire-risq-3-2-what-you-should-know/',
+      rule: { owner: a => a.o_type ? (has(a.o_type, 'bulk') ? R(3, '건화물선을 운항합니다.', 'You operate dry bulk ships.') : R(0, '건화물선이 없습니다.', 'No dry bulk ships.')) : null } },
+    { id: 'bimco', type: 'contract', name: L('BIMCO 사이버보안 조항 2019', 'BIMCO Cyber Security Clause 2019'),
+      sum: L('적절한 사이버보안 유지, 사고 즉시 통지와 12시간 내 상세 제공을 요구합니다. 기본 책임 한도는 USD 100,000입니다.', 'Maintain appropriate cyber security; notify promptly and give details within 12 hours. Default liability cap USD 100,000.'),
+      dates: L('2019', '2019'), src: 'https://www.bimco.org/contractual-affairs/bimco-clauses/current-clauses/cyber-security-clause-2019/',
+      rule: { owner: () => R(2, '용선계약이나 관리계약에 삽입된 경우 적용됩니다.', 'Applies when incorporated in charter parties or management agreements.'),
+        yard: () => R(1, '계약에 삽입된 경우에만 적용됩니다.', 'Only if incorporated in your contracts.'), supplier: () => R(1, '서비스 계약에 삽입된 경우에만 적용됩니다.', 'Only if incorporated in service contracts.') } },
+    { id: 'ins', type: 'contract', name: L('보험 사이버 조항 (CL380 · LMA5402 · LMA5403)', 'Insurance cyber clauses (CL380 / LMA5402 / LMA5403)'),
+      sum: L('CL380과 LMA5402는 사이버 손해를 면책합니다. LMA5403은 악의적 행위만 면책하고 비악의적 사고는 담보합니다.', 'CL380 and LMA5402 exclude cyber losses. LMA5403 excludes malicious acts and writes back non-malicious events.'),
+      dates: L('약관별 상이', 'Varies by policy'), src: 'https://lmalloyds.com',
+      rule: { owner: () => R(2, '선체·전쟁보험 약관의 면책 범위를 확인하십시오.', 'Check the exclusion wording in hull and war policies.'), yard: () => R(1, '건조보험 약관을 확인하십시오.', "Check builder's risk wording.") } },
+
+    { id: 'iec62443', type: 'standard', name: L('IEC 62443-3-3 · 4-1 · 4-2', 'IEC 62443-3-3 / 4-1 / 4-2'),
+      sum: L('UR E27의 기반 표준입니다. 인증은 선급 심사의 증빙으로 쓰이지만 선급 승인을 대체하지 않습니다.', 'The basis of UR E27. Certification supports class review but does not replace class approval.'),
+      dates: L('-', '-'), src: 'https://www.iec.ch',
+      rule: { supplier: a => a.s_cbs ? (a.s_cbs === 'no' ? R(1, '자율 증빙으로 활용할 수 있습니다.', 'Usable as voluntary evidence.') : R(2, 'E27 증빙을 준비하는 가장 직접적인 경로입니다.', 'The most direct route to E27 evidence.')) : null,
+        yard: a => a.y_contract ? R(1, '구역·도관 설계의 참조 표준입니다.', 'Reference for zones and conduits design.') : null } },
+    { id: 'iec460', type: 'standard', name: L('IEC 61162-460 3판 (2024)', 'IEC 61162-460 Ed.3 (2024)'),
+      sum: L('항해·무선 장비 네트워크의 안전과 보안 요건입니다.', 'Safety and security requirements for navigation and radio equipment networks.'),
+      dates: L('2024-04', '2024-04'), src: 'https://webstore.iec.ch/en/publication/72732',
+      rule: { supplier: a => a.s_product ? ((has(a.s_product, 'nav') || has(a.s_product, 'net')) ? R(2, '항해·통신 또는 네트워크 장비를 공급합니다.', 'You supply navigation, radio or network equipment.') : R(0, '해당 제품군이 아닙니다.', 'Not in these product groups.')) : null,
+        yard: a => a.y_contract ? R(1, '브리지 네트워크 설계 시 참조합니다.', 'Reference for bridge network design.') : null } },
+    { id: 'iec63154', type: 'standard', name: L('IEC 63154 (2021)', 'IEC 63154 (2021)'),
+      sum: L('SOLAS 항해·GMDSS 장비의 사이버보안 시험 표준입니다. 형식승인 시험 증빙에 쓰입니다.', 'Cybersecurity test standard for SOLAS navigation and GMDSS equipment, used for type-approval evidence.'),
+      dates: L('2021', '2021'), src: 'https://webstore.iec.ch/en/publication/61003',
+      rule: { supplier: a => a.s_product ? (has(a.s_product, 'nav') ? R(2, '항해·무선통신 장비를 공급합니다.', 'You supply navigation or radio equipment.') : R(0, '항해·무선통신 장비가 아닙니다.', 'Not navigation or radio equipment.')) : null } }
+  ];
+
+  /* UR E26/E27 responsibility matrix. who/to: owner | yard | supplier | class */
+  const stages = { design: L('설계', 'Design'), build: L('건조', 'Construction'), comm: L('시운전', 'Commissioning'), deliv: L('인도', 'Delivery'), ops: L('운항', 'Operation') };
+  const parties = { owner: L('선주', 'Owner'), yard: L('조선사', 'Yard'), supplier: L('공급사', 'Supplier'), class: L('선급', 'Class') };
+  const obligations = [
+    { st: 'design', who: ['yard'], to: ['class'], item: L('구역·도관 다이어그램', 'Zones and conduits diagram') },
+    { st: 'design', who: ['yard'], to: ['class'], item: L('사이버보안 설계 설명서(CSDD)', 'Cyber security design description (CSDD)') },
+    { st: 'design', who: ['yard'], to: ['class', 'owner'], item: L('선박 자산 인벤토리(공급사 자료 취합)', 'Vessel asset inventory (compiled from supplier data)') },
+    { st: 'design', who: ['yard'], to: ['class'], item: L('CBS 제외 위험평가와 보완 대책 설명', 'Risk assessment for excluded CBSs and compensating countermeasures') },
+    { st: 'design', who: ['supplier'], to: ['yard', 'class'], item: L('CBS 자산 인벤토리와 토폴로지', 'CBS asset inventory and topology diagrams') },
+    { st: 'design', who: ['supplier'], to: ['yard', 'class'], item: L('보안 기능 설명서와 보안 설정 가이드', 'Security capabilities description and hardening guide') },
+    { st: 'design', who: ['supplier'], to: ['class'], item: L('보안 개발 수명주기(SDLC) 문서', 'Secure development lifecycle (SDLC) documents') },
+    { st: 'build', who: ['supplier'], to: ['class'], item: L('보안 기능 시험 절차서와 성적서', 'Security capability test procedure and reports') },
+    { st: 'build', who: ['yard'], to: ['class'], item: L('선박 사이버 복원력 시험 절차서', 'Ship cyber resilience test procedure') },
+    { st: 'comm', who: ['yard'], to: ['class', 'owner'], item: L('복원력 시험 수행(선급 입회, 선주 참관)', 'Resilience tests (class witnessed, owner attending)') },
+    { st: 'deliv', who: ['yard', 'supplier'], to: ['owner'], item: L('자산 인벤토리, 설계 문서, 설정 가이드 이관', 'Handover of asset inventory, design documents and hardening guides') },
+    { st: 'ops', who: ['owner'], to: ['class'], item: L('선박 사이버보안·복원력 프로그램', 'Ship cyber security and resilience programme') },
+    { st: 'ops', who: ['owner'], to: ['class'], item: L('변경관리와 인벤토리 최신화(연차·정기검사)', 'Management of change and inventory upkeep (annual and special surveys)') },
+    { st: 'ops', who: ['supplier'], to: ['owner'], item: L('사고 대응·복구 지원 정보, 패치·유지보수 계획', 'Incident response and recovery information, patch and maintenance plan') }
+  ];
+
+  window.COMPASS = { data: D, classes: CLASSES, L, roles, questions, types, regs, stages, parties, obligations, asOf: '2026-09-20' };
+})();
+
+</script>
+<script>
+/* Rule Chart presentation data: sentence templates, short names, chart placement. Augments window.COMPASS. */
+(function () {
+  const C = window.COMPASS, L = C.L;
+  const yn = (yk, nk, ye, ne) => ({ yes: L(yk, ye), no: L(nk, ne) });
+
+  /* Sentence parts: plain {ko,en} text or {slot, labels?}. `if` hides a whole sentence. */
+  const euHas = p => a => (a[p + '_loc'] || []).some(c => Object.keys(C.data.nis2States).includes(c));
+  C.sentences = {
+    owner: [
+      [L('우리 선대의 기국은 ', 'Our fleet flies the flag of '), { slot: 'o_flag' }, L(', 선종은 ', ' and consists of '), { slot: 'o_type' }, L('입니다.', '.')],
+      [L('국제항해 500GT 이상 선박은 ', 'We '), { slot: 'o_size', labels: yn('있고', '없고', 'operate', 'do not operate') }, L(', 2024년 7월 이후 건조계약 선박은 ', ' ships of 500 GT or more on international voyages, and '), { slot: 'o_newbuild', labels: yn('있습니다', '없습니다', 'have', 'have no') }, L('.', ' ships contracted after July 2024.')],
+      [L('입급 선급은 ', 'Our class is '), { slot: 'o_class' }, L('이고, 운항 해역은 ', ', and we trade in '), { slot: 'o_calls' }, L('입니다.', '.')],
+      [L('법인과 사업장은 ', 'Our entities and sites are in '), { slot: 'o_loc' }, L('에 있습니다.', '.')],
+      { if: euHas('o'), parts: [L('EU·EEA 내 법인은 ', 'Our EU/EEA entity is a '), { slot: 'o_eusize' }, L('입니다.', ' enterprise.')] }
+    ],
+    yard: [
+      [L('우리 조선소는 2024년 7월 이후 계약한 UR E26 적용 선박을 ', 'Our yard '), { slot: 'y_contract', labels: yn('건조합니다', '건조하지 않습니다', 'builds', 'does not build') }, L('.', ' UR E26 ships contracted after July 2024.')],
+      [L('적용하는 선급은 ', 'We build to '), { slot: 'y_class' }, L('이며, 시스템 통합은 ', ', and systems integration is '), { slot: 'y_integrator', labels: { self: L('자체 수행합니다', 'done in-house'), out: L('외부에 위탁합니다', 'outsourced') } }, L('.', '.')],
+      [L('법인과 사업장은 ', 'Our entities and sites are in '), { slot: 'y_loc' }, L('에 있습니다.', '.')],
+      { if: euHas('y'), parts: [L('EU·EEA 내 법인은 ', 'Our EU/EEA entity is a '), { slot: 'y_eusize' }, L('입니다.', ' enterprise.')] },
+      [L('자체 브랜드 디지털 시스템을 EU 시장에 ', 'We '), { slot: 'y_eumarket', labels: yn('출시합니다', '출시하지 않습니다', 'place', 'do not place') }, L('. 함정·방산 계약의 발주국은 ', ' own-brand digital systems on the EU market. Our naval or defence customers: '), { slot: 'y_def' }, L('입니다.', '.')]
+    ],
+    supplier: [
+      [L('우리 제품은 ', 'We supply '), { slot: 's_product' }, L('이고, UR E26 적용 선박에 ', '. Our products '), { slot: 's_cbs', labels: { yes: L('탑재됩니다', 'are installed'), no: L('탑재되지 않습니다', 'are not installed'), unsure: L('탑재되는지 모릅니다', 'may be installed') } }, L('. 납품 선박의 선급은 ', ' on UR E26 ships, classed by '), { slot: 's_class' }, L('입니다.', '.')],
+      [L('원격접속 같은 외부 네트워크 연결은 ', 'They '), { slot: 's_untrusted', labels: yn('있습니다', '없습니다', 'connect', 'do not connect') }, L('. 무선 기능은 ', ' to untrusted networks, '), { slot: 's_radio', labels: yn('있고', '없고', 'include', 'do not include') }, L(', AI 기능은 ', ' radio functions, and '), { slot: 's_ai', labels: yn('있습니다', '없습니다', 'include', 'do not include') }, L('.', ' AI functions.')],
+      [L('EU 시장에 ', 'We '), { slot: 's_eumarket', labels: yn('출시합니다', '출시하지 않습니다', 'place', 'do not place') }, L('. 선박용 기자재 지침(MED) 대상은 ', ' them on the EU market. Under the Marine Equipment Directive, '), { slot: 's_med', labels: { all: L('전 품목입니다', 'all of them are covered'), some: L('일부 품목입니다', 'some of them are covered'), none: L('없습니다', 'none of them is covered') } }, L('.', '.')],
+      [L('법인과 사업장은 ', 'Our entities and sites are in '), { slot: 's_loc' }, L('에 있습니다.', '.')],
+      { if: euHas('s'), parts: [L('EU·EEA 내 법인은 ', 'Our EU/EEA entity is a '), { slot: 's_eusize' }, L('입니다.', ' enterprise.')] },
+      [L('심사 제도가 있는 납품 시장은 ', 'Screened markets we supply: '), { slot: 's_sell' }, L('이고, 함정·방산 발주국은 ', '. Naval or defence customers: '), { slot: 's_def' }, L('입니다.', '.')]
+    ]
+  };
+
+  /* Chart columns: corp (company and product level) then lifecycle stages. */
+  C.columns = [
+    { id: 'corp', t: L('기업·제품', 'Company and product') },
+    { id: 'design', t: L('설계', 'Design') }, { id: 'build', t: L('건조', 'Construction') },
+    { id: 'comm', t: L('시운전', 'Commissioning') }, { id: 'deliv', t: L('인도', 'Delivery') }, { id: 'ops', t: L('운항', 'Operation') }
+  ];
+  C.lanes = ['owner', 'yard', 'supplier', 'class'];
+
+  /* Duty nature replaces relevance tiers as the primary expression. */
+  C.duty = {
+    law: { t: L('법으로 강제', 'Required by law'), g: '§' },
+    class: { t: L('입급 조건', 'Condition of class'), g: '⚓' },
+    contract: { t: L('계약으로 요구', 'Required by contract'), g: '✎' },
+    standard: { t: L('입증 수단', 'Means of evidence'), g: '✓' }
+  };
+
+  const meta = {
+    imo428: ['IMO MSC.428(98)', 'IMO MSC.428(98)', 'ops'], flag: ['기국 추가 요건', 'Flag additions', 'ops'],
+    calls: ['기항지·연안국 의무', 'Port and coastal duties', 'ops'], natlaw: ['소재국 사이버법', 'National cyber law', 'corp'],
+    natlaw_up: ['소재국 예정 법안', 'Pending national bills', 'corp'], defence: ['방산 계약 보안', 'Defence contract security', 'corp'],
+    screen: ['공급망 심사·진입 제한', 'Supply-chain screening', 'corp'],
+    nis2: ['EU NIS 2', 'EU NIS 2', 'corp'], cra: ['EU CRA', 'EU CRA', 'corp'], red: ['EU 무선기기 지침', 'EU RED 2022/30', 'corp'], ai_act: ['EU AI Act', 'EU AI Act', 'corp'],
+    imo_code: ['IMO 사이버 코드', 'IMO Cyber Code', 'ops'],
+    e26: ['IACS UR E26', 'IACS UR E26', { owner: 'ops', yard: 'design', supplier: 'design' }],
+    e27: ['IACS UR E27', 'IACS UR E27', { owner: 'deliv', yard: 'design', supplier: 'design' }],
+    e22: ['IACS UR E22', 'IACS UR E22', 'design'],
+    notation: ['선급 부기부호', 'Class notations', { owner: 'ops', yard: 'design' }],
+    iacs_rec: ['IACS Rec 190·194', 'IACS Rec 190 / 194', { owner: 'ops', yard: 'design' }],
+    sire: ['SIRE 2.0 · TMSA 3', 'SIRE 2.0 / TMSA 3', 'ops'], risq: ['RightShip RISQ', 'RightShip RISQ', 'ops'],
+    bimco: ['BIMCO 사이버 조항', 'BIMCO cyber clause', { owner: 'ops', yard: 'corp', supplier: 'corp' }],
+    ins: ['보험 사이버 조항', 'Insurance cyber clauses', { owner: 'ops', yard: 'build' }],
+    iec62443: ['IEC 62443', 'IEC 62443', 'design'], iec460: ['IEC 61162-460', 'IEC 61162-460', 'design'], iec63154: ['IEC 63154', 'IEC 63154', 'build']
+  };
+  C.regs.forEach(r => { const m = meta[r.id]; r.short = L(m[0], m[1]); r.at = m[2]; });
+})();
+
+</script>
+<script>
+(function(){
+const C=window.COMPASS;
+const UI={
+  title:{ko:'해사 사이버 규제 해도',en:'Maritime Cyber Rule Chart'},
+  no:{ko:'Chart MCR-01 · 규칙 데이터 {d}',en:'Chart MCR-01 · rule data {d}'},
+  share:{ko:'링크 복사',en:'Copy link'},copied:{ko:'복사됨',en:'Copied'},print:{ko:'인쇄',en:'Print'},reset:{ko:'처음부터',en:'Start over'},
+  iam:{ko:['나는 ','입니다.'],en:['I am a ','.']},
+  start:{ko:'한 문장으로 회사를 소개하면, 선박의 생애주기 위에 적용 규제와 제출물이 그려집니다.',en:'Describe your company in a sentence and the rules and deliverables are plotted along the ship lifecycle.'},
+  choose:{ko:'선택',en:'choose'},more:{ko:' 외 {n}',en:' +{n}'},blanks:{ko:'빈칸 {n}개가 남았습니다. 밑줄을 눌러 채우십시오.',en:'{n} blanks left. Tap an underline to fill it.'},
+  done:{ko:'완료',en:'Done'},next:{ko:'다음 빈칸',en:'Next blank'},
+  lane:{owner:{ko:'선주',en:'Owner'},yard:{ko:'조선사',en:'Yard'},supplier:{ko:'공급사',en:'Supplier'},class:{ko:'선급',en:'Class'}},
+  me:{ko:'나',en:'me'},counter:{ko:'제출·입회 상대',en:'counterpart'},
+  lv:[{ko:'해당 없음',en:'Not applicable'},{ko:'간접 영향',en:'Indirect'},{ko:'조건부',en:'Conditional'},{ko:'적용',en:'Applies'}],
+  lgApplies:{ko:'적용',en:'applies'},lgCond:{ko:'조건부',en:'conditional'},lgInd:{ko:'간접',en:'indirect'},
+  showNA:{ko:'해당 없음도 표시',en:'Show not applicable'},
+  upcoming:{ko:'예정',en:'Upcoming'},unver:{ko:'원문 대조 전',en:'Pending source check'},
+  deliver:{ko:'제출물',en:'Deliverable'},toward:{ko:'→',en:'→'},
+  approve:{ko:'승인·입회 {n}건',en:'{n} to approve or witness'},survey:{ko:'검사 {n}건',en:'{n} to survey'},
+  pending:{ko:'빈칸을 채우면 판정되는 항목',en:'Decided once blanks are filled'},
+  obHint:{ko:'UR E26 적용 조건이 채워지면 세 역할의 제출물 흐름이 함께 그려집니다.',en:'Once UR E26 applies, the deliverable flow across all three roles is plotted.'},
+  hover:{ko:'제출물 카드에 올리면 누구에게 가는지 선으로 표시됩니다. 카드를 누르면 상세가 열립니다.',en:'Hover a deliverable to trace where it goes. Click any card for details.'},
+  why:{ko:'판정 근거',en:'Why'},dates:{ko:'일정',en:'Dates'},source:{ko:'출처',en:'Source'},open:{ko:'원문 열기',en:'Open source'},what:{ko:'요구 내용',en:'What it requires'},
+  from:{ko:'제공',en:'From'},to:{ko:'수령',en:'To'},stage:{ko:'단계',en:'Stage'},
+  disc:{ko:'이 도구는 프로토타입이며 결과는 참고용입니다. 법률 자문이 아닙니다. "원문 대조 전" 표시 항목은 1차 출처 확인이 끝나지 않았습니다. 입력은 브라우저 밖으로 전송되지 않습니다.',
+        en:'This is a prototype and results are indicative. It is not legal advice. Items marked "pending source check" are not yet verified against primary sources. Your answers never leave the browser.'}
+};
+let S={lang:'ko',role:null,a:{},na:false}, openSlot=null;
+/* Embedded mode: the blog page loads this file into a same-origin srcdoc iframe. State lives in the parent URL and the frame sizes itself. */
+let EMB=false;try{EMB=window.parent!==window&&!!window.parent.location.href&&!!window.frameElement}catch(e){EMB=false}
+const HOST=EMB?window.parent:window;
+const $=id=>document.getElementById(id);
+const t=o=>(o&&o[S.lang])||'';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=(o,v)=>t(o).replace(/\{(\w+)\}/g,(_,k)=>v[k]);
+function enc(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function dec(s){try{return JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))))}catch(e){return null}}
+function load(){const m=HOST.location.hash.match(/s=([^&]+)/),o=m&&dec(m[1]);
+  if(o&&typeof o==='object'){S.lang=o.lang==='en'?'en':'ko';S.role=C.roles.some(r=>r.v===o.role)?o.role:null;S.a=(o.a&&typeof o.a==='object')?o.a:{}}
+  else if((navigator.language||'').slice(0,2)!=='ko')S.lang='en'}
+function save(){try{HOST.history.replaceState(null,'','#s='+enc({lang:S.lang,role:S.role,a:S.a}))}catch(e){}}
+const Q=id=>C.questions.find(q=>q.id===id);
+const answered=q=>{const v=S.a[q.id];return q.type==='multi'?Array.isArray(v)&&v.length>0:!!v};
+function slotsInOrder(){if(!S.role)return[];const out=[];C.sentences[S.role].forEach(s=>{if(s.if&&!s.if(S.a))return;(s.parts||s).forEach(p=>{if(p.slot)out.push(p.slot)})});return out}
+function prune(){const vis=new Set(slotsInOrder());Object.keys(S.a).forEach(k=>{if(!vis.has(k))delete S.a[k]})}
+const isProper=qid=>{const q=qid&&C.questions.find(x=>x.id===qid);return !!(q&&q.proper)};
+const inSent=(x,qid)=>(S.lang==='en'&&!isProper(qid)&&/^[A-Z][a-z]/.test(x))?x[0].toLowerCase()+x.slice(1):x;
+const shortLabel=(o,qid)=>inSent(t(o.t).split(/[:(]/)[0].trim(),qid);
+
+function slotText(p){
+  const q=Q(p.slot),v=S.a[q.id];if(!answered(q))return null;
+  if(q.type==='multi'){const ls=v.map(x=>shortLabel(q.opts.find(o=>o.v===x),q.id));return ls.length>3?ls.slice(0,2).join(', ')+fmt(UI.more,{n:ls.length-2}):ls.join(', ')}
+  return p.labels&&p.labels[v]?t(p.labels[v]):shortLabel(q.opts.find(o=>o.v===v),q.id);
+}
+function renderSay(){
+  const iam=UI.iam[S.lang],role=C.roles.find(r=>r.v===S.role);
+  let h=`<p class="lead">${esc(iam[0])}<button class="slot ${role?'':'blank'}" data-slot="__role" aria-expanded="${openSlot==='__role'}">${esc(role?inSent(t(role.t)):t(UI.choose))}</button>${esc(iam[1])}</p>`;
+  if(!S.role){
+    h+=`<p style="font-size:15px;color:var(--ink2)">${esc(t(UI.start))}</p><div class="rolepick">`+C.roles.map(r=>`<button data-role="${r.v}"><b>${esc(t(r.t))}</b><span>${esc(t(r.d))}</span></button>`).join('')+`</div>`;
+  }else{
+    C.sentences[S.role].forEach(s=>{if(s.if&&!s.if(S.a))return;
+      h+='<p>'+(s.parts||s).map(p=>{if(!p.slot)return esc(t(p));const tx=slotText(p);
+        return `<button class="slot ${tx?'':'blank'}" data-slot="${p.slot}" aria-expanded="${openSlot===p.slot}">${esc(tx||t(UI.choose))}</button>`}).join('')+'</p>'});
+    const left=slotsInOrder().filter(id=>!answered(Q(id))).length;
+    if(left)h+=`<div class="blanks">${esc(fmt(UI.blanks,{n:left}))}</div>`;
+  }
+  $('say').innerHTML=h;
+}
+
+/* popover */
+function closePop(){const p=document.querySelector('.pop');if(p)p.remove();openSlot=null;document.querySelectorAll('.slot[aria-expanded=true]').forEach(b=>b.setAttribute('aria-expanded','false'))}
+function openPop(id){
+  closePop();const btn=document.querySelector(`.slot[data-slot="${id}"]`);if(!btn)return;openSlot=id;btn.setAttribute('aria-expanded','true');
+  const pop=document.createElement('div');pop.className='pop';pop.setAttribute('role','dialog');
+  if(id==='__role'){pop.innerHTML=`<div class="opts" style="margin:0">`+C.roles.map(r=>`<button class="opt" data-role="${r.v}" aria-pressed="${S.role===r.v}" style="width:100%"><b>${esc(t(r.t))}</b><br><span style="font-size:12px;opacity:.8">${esc(t(r.d))}</span></button>`).join('')+`</div>`}
+  else{const q=Q(id);
+    pop.innerHTML=`<h4>${esc(t(q.q))}</h4>${q.help?`<small>${esc(t(q.help))}</small>`:''}<div class="opts">`+
+      q.opts.map(o=>{const on=q.type==='multi'?(S.a[id]||[]).includes(o.v):S.a[id]===o.v;return `<button class="opt" data-q="${id}" data-v="${o.v}" aria-pressed="${on}">${esc(t(o.t))}</button>`}).join('')+
+      `</div>`+(q.type==='multi'?`<div class="done"><button class="btn" data-next="1">${esc(t(nextBlank(id)?UI.next:UI.done))}</button></div>`:'')}
+  document.body.appendChild(pop);
+  const r=btn.getBoundingClientRect(),w=pop.offsetWidth;
+  pop.style.top=(r.bottom+window.scrollY+8)+'px';
+  pop.style.left=Math.max(12,Math.min(r.left+window.scrollX,window.scrollX+document.documentElement.clientWidth-w-12))+'px';
+  const f=pop.querySelector('button');if(f)f.focus({preventScroll:true});
+}
+function nextBlank(after){const ids=slotsInOrder(),i=ids.indexOf(after);return ids.slice(i+1).concat(ids.slice(0,i)).find(id=>!answered(Q(id)))}
+
+/* evaluation */
+const TAGS={v:{ko:'원문 확인',en:'source read'},s:{ko:'2차 자료',en:'secondary'},u:{ko:'미확인',en:'unverified'}};
+function classLines(r){
+  if(!r.byClass)return[];const sel=S.a[{owner:'o_class',yard:'y_class',supplier:'s_class'}[S.role]]||[];
+  return C.data.classes.filter(k=>sel.includes(k.v)).map(k=>{
+    const body=r.id==='notation'?(k.nota||(S.lang==='ko'?'공개 자료에서 명칭을 확인하지 못했습니다':'No notation name confirmed in public sources')):(r.id==='e27'?t(k.ta):t(k.rule));
+    return{t:{ko:k.name+': '+body,en:k.name+': '+body},src:k.url,tag:k.tag}});
+}
+function evaluate(){const out=[],pend=[];C.regs.forEach(r=>{const f=r.rule[S.role];if(!f)return;const x=f(S.a);if(x)out.push({r,lv:x.lv,why:x.why,items:(x.items||[]).concat(x.lv>0?classLines(r):[])});else pend.push(r)});return{out,pend}}
+const atOf=r=>typeof r.at==='string'?r.at:(r.at[S.role]||'corp');
+
+function renderChart(){
+  const el=$('cw');if(!S.role){el.innerHTML='';return}
+  const res=evaluate(),lvOf=id=>{const x=res.out.find(o=>o.r.id===id);return x?x.lv:0};
+  const showOb=S.role==='supplier'?lvOf('e27')>=2:lvOf('e26')>=3;
+  const count={law:0,class:0,contract:0,standard:0};res.out.forEach(x=>{if(x.lv>0)count[x.r.type]++});
+  let h=`<div class="cw-h"><div class="legend">`+Object.keys(C.duty).map(k=>`<span><i style="background:var(--d-${k})"></i>${esc(C.duty[k].g)} ${esc(t(C.duty[k].t))} <em>${count[k]}</em></span>`).join('')+
+    `<span><b class="sty"></b>${esc(t(UI.lgApplies))}</span><span><b class="sty c"></b>${esc(t(UI.lgCond))}</span><span><b class="sty i"></b>${esc(t(UI.lgInd))}</span></div>`+
+    `<label class="tog"><input type="checkbox" id="na" ${S.na?'checked':''}> ${esc(t(UI.showNA))}</label></div>`;
+  h+=`<div class="scroll"><div class="chart" id="chart"><div class="ch corner" style="grid-row:1;grid-column:1"></div>`;
+  C.lanes.forEach((ln,i)=>{h+=`<div class="ln ${ln===S.role?'me':''}" style="grid-row:${i+2};grid-column:1">${esc(t(UI.lane[ln]))}<small>${ln===S.role?esc(t(UI.me)):ln==='class'?esc(t(UI.counter)):''}</small></div>`});
+  C.columns.forEach((col,ci)=>{
+    const cells=C.lanes.map(ln=>{
+      let cards='';
+      if(ln===S.role){
+        res.out.filter(x=>atOf(x.r)===col.id&&(x.lv>0||S.na)).sort((a,b)=>b.lv-a.lv).forEach(x=>{const r=x.r;
+          cards+=`<button class="card lv${x.lv}" style="--dc:var(--d-${r.type})" data-reg="${r.id}"><b><span class="g">${esc(C.duty[r.type].g)}</span>${esc(t(r.short))}</b><span class="k">${esc(t(C.duty[r.type].t))}${x.lv<3?' · '+esc(t(UI.lv[x.lv])):''}${r.upcoming?` <span class="pill up">${esc(t(UI.upcoming))}</span>`:''}</span></button>`});
+      }
+      if(showOb&&ln!=='class'){
+        C.obligations.forEach((o,oi)=>{if(o.st===col.id&&o.who.includes(ln))
+          cards+=`<button class="card ob" style="--dc:var(--d-class)" data-ob="${oi}" data-lane="${ln}"><b>${esc(t(o.item))}</b><span class="k">${esc(t(UI.toward))} ${o.to.map(p=>`<span class="pill">${esc(t(UI.lane[p]))}</span>`).join('')}</span></button>`});
+      }
+      if(showOb&&ln==='class'){const n=C.obligations.filter(o=>o.st===col.id&&o.to.includes('class')).length;if(n)cards+=`<span class="mark">${esc(fmt(col.id==='ops'?UI.survey:UI.approve,{n}))}</span>`}
+      return{ln,cards};
+    });
+    const empty=cells.every(c=>!c.cards);
+    h+=`<div class="ch ${ci>0?'life':''} ${ci===C.columns.length-1?'last':''} ${empty?'empty':''}" style="grid-row:1;grid-column:${ci+2}">${ci===0?'00':'0'+ci}<b>${esc(t(col.t))}</b></div>`;
+    cells.map((c,li)=>({c,li})).sort((a,b)=>(b.c.ln===S.role)-(a.c.ln===S.role)).forEach(({c,li})=>{h+=`<div class="cell ${c.ln===S.role?'me':'dim'} ${c.cards?'':'empty'}" data-lane="${c.ln}" data-col="${col.id}" style="grid-row:${li+2};grid-column:${ci+2}"><span class="cell-lane">${esc(t(UI.lane[c.ln]))}</span>${c.cards}</div>`});
+  });
+  h+=`<svg class="links" id="links"><defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#0a2342"/></marker></defs></svg></div></div>`;
+  h+=`<p class="note">${esc(t(showOb?UI.hover:UI.obHint))}</p>`;
+  if(res.pend.length)h+=`<p class="note">${esc(t(UI.pending))}: ${res.pend.map(r=>esc(t(r.short))).join(' · ')}</p>`;
+  el.innerHTML=h;el._res=res;
+}
+
+/* hand-off lines */
+function clearLinks(){const s=$('links');if(!s)return;s.querySelectorAll('path').forEach(p=>p.remove());document.querySelectorAll('.cell.hit').forEach(c=>c.classList.remove('hit'))}
+function drawLinks(card){
+  clearLinks();const s=$('links'),chart=$('chart');if(!s||getComputedStyle(s).display==='none')return;
+  const o=C.obligations[+card.dataset.ob],base=chart.getBoundingClientRect(),cr=card.getBoundingClientRect();
+  o.to.forEach(p=>{const cell=chart.querySelector(`.cell[data-lane="${p}"][data-col="${o.st}"]`);if(!cell)return;cell.classList.add('hit');
+    const r=cell.getBoundingClientRect(),down=r.top>cr.top;
+    const x1=cr.right-base.left-14,y1=(down?cr.bottom:cr.top)-base.top,x2=r.right-base.left-22,y2=(down?r.top+6:r.bottom-6)-base.top;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M${x1} ${y1}C${x1+18} ${(y1+y2)/2},${x2+18} ${(y1+y2)/2},${x2} ${y2}`);
+    path.setAttribute('fill','none');path.setAttribute('stroke','#0a2342');path.setAttribute('stroke-width','1.5');path.setAttribute('marker-end','url(#ah)');s.appendChild(path)});
+}
+
+/* detail sheet */
+function closeSheet(){$('sheet').classList.remove('on')}
+function placeSheet(){if(!EMB)return;const sh=$('sheet'),fr=window.frameElement.getBoundingClientRect(),vh=HOST.innerHeight;
+  const top=Math.max(0,-fr.top),bottom=Math.min(fr.height,vh-fr.top),h=Math.max(240,bottom-top);
+  sh.style.position='absolute';sh.style.top=top+'px';sh.style.bottom='auto';sh.style.height=h+'px';sh.style.maxHeight=h+'px'}
+function sheetReg(id){
+  const x=$('cw')._res.out.find(o=>o.r.id===id);if(!x)return;const r=x.r;
+  $('sheet').innerHTML=`<button class="x" data-close="1" aria-label="close">×</button><div class="duty"><i style="background:var(--d-${r.type})"></i>${esc(C.duty[r.type].g)} ${esc(t(C.duty[r.type].t))}</div>
+  <h3>${esc(t(r.name))}</h3><div class="state">${esc(t(UI.lv[x.lv]))}${r.upcoming?` <span class="pill up">${esc(t(UI.upcoming))}</span>`:''}${r.unverified?` <span class="pill">${esc(t(UI.unver))}</span>`:''}</div>
+  <dl><dt>${esc(t(UI.why))}</dt><dd>${esc(t(x.why))}${x.items&&x.items.length?`<ul class="items">`+x.items.map(i=>`<li>${esc(t(i.t))} ${i.tag?`<span class="pill">${esc(t(TAGS[i.tag]))}</span>`:''}${i.src?` <a href="${esc(i.src)}" target="_blank" rel="noopener">${esc(t(UI.source))}</a>`:''}</li>`).join('')+`</ul>`:''}</dd><dt>${esc(t(UI.what))}</dt><dd>${esc(t(r.sum))}</dd><dt>${esc(t(UI.dates))}</dt><dd>${esc(t(r.dates))}</dd>
+  ${r.src?`<dt>${esc(t(UI.source))}</dt><dd><a href="${esc(r.src)}" target="_blank" rel="noopener">${esc(t(UI.open))}</a></dd>`:''}</dl>`;
+  placeSheet();$('sheet').classList.add('on');
+}
+function sheetOb(i){
+  const o=C.obligations[i],names=a=>a.map(p=>t(UI.lane[p])).join(', ');
+  $('sheet').innerHTML=`<button class="x" data-close="1" aria-label="close">×</button><div class="duty"><i style="background:var(--d-class)"></i>${esc(t(UI.deliver))} · UR E26 / E27</div>
+  <h3>${esc(t(o.item))}</h3><dl><dt>${esc(t(UI.stage))}</dt><dd>${esc(t(C.stages[o.st]))}</dd><dt>${esc(t(UI.from))}</dt><dd>${esc(names(o.who))}</dd><dt>${esc(t(UI.to))}</dt><dd>${esc(names(o.to))}</dd></dl>`;
+  placeSheet();$('sheet').classList.add('on');
+}
+
+function chrome(){
+  document.documentElement.lang=S.lang;document.title=t(UI.title);
+  $('t-title').textContent=t(UI.title);$('t-no').textContent=fmt(UI.no,{d:C.asOf});
+  $('b-share').textContent=t(UI.share);$('b-print').textContent=t(UI.print);$('b-reset').textContent=t(UI.reset);
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===S.lang));
+  $('foot').innerHTML=`<p>${esc(t(UI.disc))}</p>`;
+}
+function render(){closePop();closeSheet();chrome();renderSay();renderChart();save()}
+function setRole(v){if(S.role!==v){S.role=v;S.a={}}render();const n=slotsInOrder()[0];if(n)openPop(n)}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');
+  if(!b){if(!e.target.closest('.pop'))closePop();if(!e.target.closest('.sheet'))closeSheet();return}
+  if(b.dataset.lang){S.lang=b.dataset.lang;render()}
+  else if(b.dataset.role){setRole(b.dataset.role)}
+  else if(b.dataset.slot){openSlot===b.dataset.slot?closePop():openPop(b.dataset.slot)}
+  else if(b.dataset.q){
+    const q=Q(b.dataset.q),v=b.dataset.v;
+    if(q.type==='multi'){let cur=(S.a[q.id]||[]).slice();const o=q.opts.find(x=>x.v===v);
+      if(cur.includes(v))cur=cur.filter(x=>x!==v);else if(o.exclusive)cur=[v];else cur=cur.filter(x=>!(q.opts.find(y=>y.v===x)||{}).exclusive).concat(v);
+      if(cur.length)S.a[q.id]=cur;else delete S.a[q.id];
+      prune();renderSay();renderChart();save();openPop(q.id);
+    }else{
+      if(S.a[q.id]===v)delete S.a[q.id];else S.a[q.id]=v;
+      prune();closePop();renderSay();renderChart();save();
+      const n=S.a[q.id]&&nextBlank(q.id);if(n)openPop(n);
+    }
+  }
+  else if(b.dataset.next){const cur=openSlot,n=nextBlank(cur);closePop();renderSay();if(n)openPop(n)}
+  else if(b.dataset.reg){closePop();sheetReg(b.dataset.reg)}
+  else if(b.dataset.ob){closePop();drawLinks(b);sheetOb(+b.dataset.ob)}
+  else if(b.dataset.close){closeSheet()}
+  else if(b.id==='b-reset'){S.role=null;S.a={};render();EMB?window.frameElement.scrollIntoView({block:'start'}):window.scrollTo(0,0)}
+  else if(b.id==='b-print'){window.print()}
+  else if(b.id==='b-share'){const ok=()=>{b.textContent=t(UI.copied);setTimeout(()=>b.textContent=t(UI.share),1400)};const url=HOST.location.href,cb=(EMB&&HOST.navigator.clipboard)||navigator.clipboard;cb?cb.writeText(url).then(ok,ok):ok()}
+});
+document.addEventListener('change',e=>{if(e.target.id==='na'){S.na=e.target.checked;renderChart()}});
+document.addEventListener('mouseover',e=>{const c=e.target.closest('.card.ob');if(c)drawLinks(c)});
+document.addEventListener('mouseout',e=>{const c=e.target.closest('.card.ob');if(c&&!c.contains(e.relatedTarget)&&!$('sheet').classList.contains('on'))clearLinks()});
+document.addEventListener('focusin',e=>{const c=e.target.closest&&e.target.closest('.card.ob');if(c)drawLinks(c)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePop();closeSheet();clearLinks()}});
+if(EMB){document.documentElement.style.setProperty('--vh',(HOST.innerHeight/100)+'px');
+  const fit=()=>{const h=Math.max(document.body.scrollHeight,document.querySelector('.wrap').offsetHeight+40,...[...document.querySelectorAll('.pop')].map(p=>p.offsetTop+p.offsetHeight+24));window.frameElement.style.height=h+'px'};
+  new ResizeObserver(fit).observe(document.body);new MutationObserver(fit).observe(document.body,{childList:true,subtree:true});window.addEventListener('load',fit)}
+load();render();
+})();
+</script>
+</body>
+</html>
