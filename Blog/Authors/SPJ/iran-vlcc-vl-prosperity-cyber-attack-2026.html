@@ -1,0 +1,473 @@
+<!--════════════════════════════════════════════════════════════
+     Article: State-Sponsored Hackers Hit a Korean-Managed Supertanker — What the VL Prosperity Attack Reveals
+     Author  : Captain Paul (In Sung Lee) | ShipPaulJobs
+     Source  : Herald Economy (단독) + CBS News + SecurityWeek + Recorded Future
+     Style   : Maritime 4.0 Design System — Insight / Incident Analysis
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing: border-box; font-family: &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif; line-height: 1.75; margin: 0px auto; max-width: 780px;">
+
+  <!--══ HEADER ══-->
+  <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%); border-radius: 16px; margin-bottom: 36px; padding: 40px 36px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px;">
+      <span style="background: rgba(255, 193, 7, 0.35); border-radius: 20px; color: #ffe082; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">🚨 Incident Analysis</span>
+      <span style="background: rgba(192, 57, 43, 0.4); border-radius: 20px; color: #fca5a5; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Iran Link Suspected</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">IACS UR E26/E27</span>
+      <span style="background: rgba(255, 255, 255, 0.13); border-radius: 20px; color: #b8d4ea; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">OT Security</span>
+    </div>
+    <h1 style="color: white; font-size: 21px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin: 0px 0px 8px;">
+      State-Sponsored Hackers Hit a Korean-Managed Supertanker — What the <em>VL Prosperity</em> Attack Reveals
+    </h1>
+    <p style="color: #b8d4ea; font-size: 13px; font-style: italic; margin: 0px 0px 20px;">
+      A VLCC carrying Egyptian crude to Texas lost communications for 30 hours after its engine-room OT systems were compromised. The FBI confirmed malicious cyber activity — and pointed at a state actor. Here is what the evidence suggests.
+    </p>
+    <div style="align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 18px;">
+      <div style="align-items: center; display: flex; gap: 10px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+          <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.4); flex-shrink: 0; height: 36px; object-fit: cover; width: 36px;" />
+        </a>
+        <div>
+          <div style="color: white; font-size: 13px; font-weight: 700; line-height: 1.3;">Captain Paul</div>
+          <div style="color: #9ab5c9; font-size: 10px;">Maritime Cybersecurity Consultant · IACS UR E26/E27 · Sep 19, 2026 · 12 min read</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ INCIDENT AT A GLANCE ══-->
+  <div style="background: rgb(255, 248, 240); border-left: 4px solid #e67e22; border-radius: 0px 10px 10px 0px; border: 1px solid rgb(245, 213, 160); margin-bottom: 36px; padding: 20px 24px;">
+    <div style="color: #7a4f10; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 14px; text-transform: uppercase;">⚡ Incident at a Glance</div>
+    <table style="border-collapse: collapse; font-size: 13px; width: 100%;">
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Vessel</td><td style="color: #1c1917; padding: 5px 0px;"><strong>VL Prosperity</strong> — VLCC, Liberia-flagged, 333 m, ~2.3 million barrels</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Owner / Manager</td><td style="color: #1c1917; padding: 5px 0px;">Hyundai Glovis (owner) · HMM Ocean Service Co., Ltd. (safety manager)</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Route</td><td style="color: #1c1917; padding: 5px 0px;">Sidi Kerir, Egypt → Galveston, Texas, USA (departed Aug 1, 2026)</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Attack Date</td><td style="color: #1c1917; padding: 5px 0px;">August 7, 2026 — while transiting the <strong>Strait of Gibraltar</strong></td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Comm. Blackout</td><td style="color: #1c1917; padding: 5px 0px;"><strong>~30 hours</strong> total loss of external communications</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">OT Impact</td><td style="color: #1c1917; padding: 5px 0px;">Engine cooling flow reduced · main engine RPM increased · fuel &amp; LO systems interfered</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Malware</td><td style="color: #1c1917; padding: 5px 0px;">Wiper-type malware — partial data deleted before departure</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">US Response</td><td style="color: #1c1917; padding: 5px 0px;">USCG + FBI boarding on <strong>Aug 21</strong> (PSC inspection + Cyber Action Team)</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Attribution</td><td style="color: #1c1917; padding: 5px 0px;">Iran suspected; not officially confirmed. FBI confirmed "malicious cyber actor."</td></tr>
+      <tr><td style="color: #7a4f10; font-weight: 700; padding: 5px 12px 5px 0px; vertical-align: top; white-space: nowrap;">Current Status</td><td style="color: #1c1917; padding: 5px 0px;">USCG cleared vessel to resume operations; final investigation report pending</td></tr>
+    </table>
+  </div>
+
+  <!--══ SECTION Ⅰ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅰ. What Happened — Verified Facts</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">On August 1, 2026, the <em>VL Prosperity</em> — a 333-metre, Liberian-flagged Very Large Crude Carrier (VLCC) owned by South Korean shipping major Hyundai Glovis — departed Sidi Kerir terminal in Egypt loaded with crude oil bound for Galveston, Texas. Safety management of the vessel was entrusted to HMM Ocean Service Co., Ltd., a South Korea-based ship management firm.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">Six days into the voyage, on August 7, as the vessel transited the Strait of Gibraltar, the crew experienced a total loss of external communications lasting approximately 30 hours. According to accounts sourced from crew members, attackers had reached the vessel's engine-room automation systems — reducing coolant flow to the main engine, elevating shaft RPM, and interfering with both fuel and lubricating-oil delivery. Before departure, Hyundai Glovis had already detected that malware had infected shipboard computers and deleted a portion of operational data. This was reported to US authorities upon arrival, triggering a Port State Control (PSC) inspection.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">On August 21, a joint team comprising US Coast Guard law enforcement officers, a vessel inspector, Coast Guard Cyber Protection Team specialists, and FBI Cyber Action Team operators boarded the vessel in the Gulf of Mexico. Rear Admiral Amy Grable, Commander of US Coast Guard Cyber Command, confirmed that investigators found <strong style="color: #0a2342;">"evidence of a malicious cyber actor"</strong> after reviewing the vessel's IT and OT systems. The vessel has since been cleared to resume normal operations, while the investigation continues.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">HMM Ocean Service received formal inquiries from US authorities regarding the vessel's cybersecurity management programme — placing both the owner and the technical manager squarely inside the FBI's investigative perimeter.</p>
+
+    <div style="background: rgb(240, 247, 255); border-left: 3px solid rgb(21, 79, 122); border-radius: 0px 10px 10px 0px; margin-top: 20px; padding: 16px 20px;">
+      <div style="color: #154f7a; font-size: 11px; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase;">📋 Second Incident — LNG Carrier</div>
+      <p style="color: #354a5e; font-size: 13.5px; line-height: 1.75; margin: 0px;">In early September 2026, a separate LNG carrier — built by <strong>HD Hyundai Samho</strong> and managed by <strong>H Line Shipping</strong> under a Liberia flag — experienced a sudden, unexplained operational halt while transporting LNG within US waters. The incident pattern mirrors the VLCC attack: abrupt systems disruption, suspected cyber intrusion, and no crew injury. US authorities are investigating both cases for potential links to a single threat actor or coordinated campaign.</p>
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION Ⅱ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(21, 79, 122), rgb(192, 57, 43)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅱ. The Attack Anatomy — A Technical Assessment</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 20px;">While the FBI has not published a technical advisory, the publicly available facts — corroborated by crew testimony, USCG statements, and prior Iran-attributed maritime operations — allow a structured hypothesis of the attack chain. The pattern is consistent with a sophisticated, state-sponsored intrusion combining conventional IT exploitation with deliberate OT manipulation.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); padding: 18px 20px;">
+        <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 10px;">
+          <span style="background: rgb(10, 35, 66); border-radius: 8px; color: white; font-size: 10.5px; font-weight: 800; padding: 3px 11px; white-space: nowrap;">PHASE 1</span>
+          <strong style="color: #0a2342; font-size: 14.5px;">Initial Access — VSAT &amp; Satellite Communications</strong>
+        </div>
+        <p style="color: #354a5e; font-size: 13.5px; line-height: 1.75; margin: 0px;">The most probable initial entry point is the vessel's <strong>VSAT (Very Small Aperture Terminal)</strong> internet gateway. All modern VLCCs maintain a persistent satellite internet link for operational reporting, electronic chart updates, email, and crew welfare. VSAT terminals — particularly older Cobham, Thales, and Inmarsat Fleet Broadband units — have well-documented CVEs involving default credentials, open administrative interfaces, and unencrypted traffic. A threat actor with access to the satellite provider's ground segment, or capable of spoofing satellite signals in a geofenced area such as the Strait of Gibraltar, could intercept or inject traffic at this layer. The 30-hour communications blackout may reflect either deliberate GMDSS system shutdown by the attacker to conceal the intrusion, or a consequence of the VSAT terminal itself being taken offline as part of the attack.</p>
+      </div>
+
+      <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); padding: 18px 20px;">
+        <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 10px;">
+          <span style="background: rgb(124, 58, 237); border-radius: 8px; color: white; font-size: 10.5px; font-weight: 800; padding: 3px 11px; white-space: nowrap;">PHASE 2</span>
+          <strong style="color: #0a2342; font-size: 14.5px;">Lateral Movement — From IT Network to OT Domain</strong>
+        </div>
+        <p style="color: #354a5e; font-size: 13.5px; line-height: 1.75; margin: 0px;">Once inside the IT network (typically on the vessel's administrative LAN), the attacker would pivot toward the operational technology (OT) domain. On a VLCC of the <em>VL Prosperity</em>'s vintage, the Engine Control Room hosts an <strong>Integrated Automation System (IAS)</strong> — commonly from vendors such as Kongsberg Maritime, Wärtsilä, or Rolls-Royce — networked via an industrial Ethernet or Modbus/OPC-DA backbone. If no network segmentation or industrial firewall separates the crew/admin network from the machinery automation network (a compliance gap common on pre-2024 contracts), an attacker with IT-level access can reach IAS Human Machine Interfaces (HMIs) via standard TCP/IP protocols. The absence of robust IT/OT segmentation is a known deficiency addressed by IACS UR E26 Table 1 (CAT-3 systems), but that requirement applies only to ships contracted from July 1, 2024.</p>
+      </div>
+
+      <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); padding: 18px 20px;">
+        <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 10px;">
+          <span style="background: rgb(192, 57, 43); border-radius: 8px; color: white; font-size: 10.5px; font-weight: 800; padding: 3px 11px; white-space: nowrap;">PHASE 3</span>
+          <strong style="color: #0a2342; font-size: 14.5px;">OT Manipulation — Engine &amp; Propulsion System Interference</strong>
+        </div>
+        <p style="color: #354a5e; font-size: 13.5px; line-height: 1.75; margin: 0px;">The reported OT effects — reduced engine cooling flow, increased engine RPM, fuel system interference, and lubricating-oil supply disruption — constitute a direct attack on the vessel's <strong>Main Engine Management System (MEMS)</strong> and <strong>Central Cooling System controllers</strong>. This is the maritime equivalent of the Stuxnet playbook: manipulate set-point values and PID controller parameters through the HMI to create physical damage without obvious alarm escalation, at least not immediately. Sustained high RPM with reduced cooling and inadequate lubrication risks catastrophic bearing failure, piston seizure, or turbocharger damage on a two-stroke low-speed diesel (typically a MAN B&amp;W or Wärtsilä RT-flex engine on a VLCC). Had the crew not detected and responded in time, a loss of propulsion in a busy shipping lane — or on approach to a US port — could have resulted in a collision, grounding, or major oil spill.</p>
+      </div>
+
+      <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); padding: 18px 20px;">
+        <div style="align-items: center; display: flex; gap: 12px; margin-bottom: 10px;">
+          <span style="background: rgb(180, 83, 9); border-radius: 8px; color: white; font-size: 10.5px; font-weight: 800; padding: 3px 11px; white-space: nowrap;">PHASE 4</span>
+          <strong style="color: #0a2342; font-size: 14.5px;">Wiper Malware — Data Destruction for Evidence Concealment</strong>
+        </div>
+        <p style="color: #354a5e; font-size: 13.5px; line-height: 1.75; margin: 0px;">The data deletion detected before departure is consistent with <strong>wiper-type malware</strong> — a class of destructive payload that has been a hallmark of Iranian state-sponsored operations since the 2012 Shamoon (DistTrack) attack on Saudi Aramco. Wipers serve a dual purpose: destroying forensic evidence of the intrusion path, and maximising disruption to shore-based monitoring and recovery processes. The pre-departure timing suggests the malware may have been pre-positioned weeks or months earlier — a common APT tradecraft pattern known as "living off the land" — before being triggered remotely. The partial deletion (not total) may indicate the attacker retained persistence for subsequent missions, or that the crew's early detection interrupted full execution.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION Ⅲ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(192, 57, 43), rgb(230, 126, 34)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅲ. Threat Actor Profile — Iran's Maritime Cyber Capability</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">Iran's Mehr News Agency — a state-controlled outlet with historical links to IRGC information operations — was unusually forthcoming in reporting the attack on the <em>VL Prosperity</em> on August 20, naming the vessel, the attack date, and technical details about propulsion system interference. This level of specificity from an adversary's state media, before any US official confirmation, is itself an intelligence signal. It is consistent with a deliberate PSYOP component: Iran projecting capability and deterrence against US energy supply chains.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">The suspected threat actors relevant to this incident are within Iran's <strong style="color: #0a2342;">IRGC Cyber Electronic Command (IRGC-CEC)</strong> and affiliated groups:</p>
+
+    <div style="margin: 0px 0px 16px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 13px; width: 100%;">
+        <tr>
+          <th style="background: rgb(10, 35, 66); color: white; font-size: 11.5px; font-weight: 700; padding: 10px 14px; text-align: left;">Threat Group</th>
+          <th style="background: rgb(10, 35, 66); color: white; font-size: 11.5px; font-weight: 700; padding: 10px 14px; text-align: left;">Focus</th>
+          <th style="background: rgb(10, 35, 66); color: white; font-size: 11.5px; font-weight: 700; padding: 10px 14px; text-align: left;">Relevant Capability</th>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">APT34 / OilRig</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Energy sector, Gulf states</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Supply chain compromise, wiper malware, long-term persistence</td>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">APT33 / Refined Kitten</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Aviation, energy, petrochemicals</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">ICS/SCADA targeting, spear-phishing fleet management systems</td>
+        </tr>
+        <tr>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">Charming Kitten (APT42)</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Intelligence collection, maritime</td>
+          <td style="border-bottom: 1px solid rgb(209, 224, 238); color: #354a5e; padding: 10px 14px; vertical-align: top;">Credential theft from ship management portals, shipping company targeting</td>
+        </tr>
+        <tr>
+          <td style="color: #0a2342; font-weight: 700; padding: 10px 14px; vertical-align: top;">IRGC-CEC (direct)</td>
+          <td style="color: #354a5e; padding: 10px 14px; vertical-align: top;">Kinetic + cyber hybrid ops</td>
+          <td style="color: #354a5e; padding: 10px 14px; vertical-align: top;">GPS spoofing, VSAT jamming, OT sabotage — documented against Israeli-linked tankers (2021–2022)</td>
+        </tr>
+      </table>
+    </div>
+
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">The motive is strategically coherent: with US sanctions severely constraining Iranian oil exports, attacking tankers that carry crude to US ports disrupts American energy supply chains, raises insurance premiums for Gulf-route operators, and signals deterrence capability — all without direct military engagement. The targeting of Korean-managed vessels specifically may also be calculated: Korea is a major purchaser of Middle Eastern crude and a critical node in global LNG supply chains, making it an attractive leverage point in Iran's broader geopolitical calculus.</p>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION Ⅳ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(230, 126, 34), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅳ. The Regulatory Gap — Why These Ships Were Exposed</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">The <em>VL Prosperity</em> and the LNG carrier at the centre of the second incident are, in all probability, not subject to the new mandatory cybersecurity requirements. Here is why:</p>
+
+    <div style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; overflow: hidden;">
+      <div style="background: rgb(10, 35, 66); color: white; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; padding: 10px 18px; text-transform: uppercase;">Regulatory Timeline</div>
+      <div style="padding: 18px 20px;">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="align-items: flex-start; display: flex; gap: 12px;">
+            <span style="background: rgb(107, 114, 128); border-radius: 4px; color: white; font-size: 10px; font-weight: 700; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">2017</span>
+            <span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">IMO MSC-FAL.1/Circ.3 issued — <em>guidelines</em> on maritime cyber risk management (voluntary)</span>
+          </div>
+          <div style="align-items: flex-start; display: flex; gap: 12px;">
+            <span style="background: rgb(107, 114, 128); border-radius: 4px; color: white; font-size: 10px; font-weight: 700; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Jan 2021</span>
+            <span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">IMO Resolution MSC-428(98) effective — cyber risk to be addressed in ISM Code Safety Management Systems (SMS)</span>
+          </div>
+          <div style="align-items: flex-start; display: flex; gap: 12px;">
+            <span style="background: rgb(107, 114, 128); border-radius: 4px; color: white; font-size: 10px; font-weight: 700; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Jul 2022</span>
+            <span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;">IACS UR E26 &amp; E27 adopted — mandatory cyber resilience requirements for <strong>new ships contracted from July 1, 2024</strong></span>
+          </div>
+          <div style="align-items: flex-start; display: flex; gap: 12px;">
+            <span style="background: rgb(192, 57, 43); border-radius: 4px; color: white; font-size: 10px; font-weight: 700; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Jul 2024 →</span>
+            <span style="color: #354a5e; font-size: 13.5px; line-height: 1.6;"><strong>IACS UR E26/E27 mandatory threshold</strong> — new-build contracts from this date must comply. Ships contracted before this date: <em>not covered</em>.</span>
+          </div>
+          <div style="align-items: flex-start; display: flex; gap: 12px;">
+            <span style="background: rgb(26, 158, 130); border-radius: 4px; color: white; font-size: 10px; font-weight: 700; margin-top: 2px; padding: 2px 9px; white-space: nowrap;">Aug 2026</span>
+            <span style="color: #c0392b; font-size: 13.5px; font-weight: 700; line-height: 1.6;">← VL Prosperity attack occurs. Vessel is a pre-2024 contract ship. Not bound by IACS UR E26.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">The immediate consequence is that criminal or civil liability for Korean operators in this incident is legally limited, as industry sources confirm. The ISM Code requires cyber risk to be addressed within the Safety Management System, but does not prescribe specific technical controls. Without a documented, auditable cybersecurity programme aligned to a recognised standard (IEC 62443-2-1, BIMCO Guidelines, or IACS UR E26), ship managers are exposed to reputational and insurance risk but face limited regulatory sanction — at least for now.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px;">The more serious exposure is forward-looking: every ship contracted on or after July 1, 2024 — including the newbuildings currently on order at Hyundai, Samsung, and HD Hyundai Heavy Industries — <strong style="color: #0a2342;">must</strong> be delivered with UR E26-compliant cyber resilience architecture. Should a similar attack succeed against one of those vessels post-delivery, the accountability picture changes entirely: from a soft ISM-SMS obligation to hard technical verification requirements, class survey obligations, and potential flag state enforcement.</p>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION Ⅴ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(192, 57, 43), rgb(230, 126, 34)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅴ. What This Means for Korean Operators &amp; Shipbuilders</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 16px;">The <em>VL Prosperity</em> incident is a stress-test result for the existing Korean maritime cybersecurity posture — and the result is unflattering. Five specific gaps demand immediate attention:</p>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="background: rgb(255, 245, 245); border-left: 3px solid rgb(239, 68, 68); border-radius: 0px 10px 10px 0px; padding: 14px 18px;">
+        <strong style="color: #991b1b; font-size: 13.5px;">Flat IT/OT network topology on in-service vessels</strong>
+        <p style="color: #5a2d2d; font-size: 13px; line-height: 1.65; margin: 4px 0px 0px;">Engine automation networks and administrative IT networks are frequently on the same Layer-2 VLAN on older ships. Without an industrial demilitarised zone (IDMZ), lateral movement from VSAT to IAS is trivial.</p>
+      </div>
+      <div style="background: rgb(255, 245, 245); border-left: 3px solid rgb(239, 68, 68); border-radius: 0px 10px 10px 0px; padding: 14px 18px;">
+        <strong style="color: #991b1b; font-size: 13.5px;">No real-time OT monitoring on the existing fleet</strong>
+        <p style="color: #5a2d2d; font-size: 13px; line-height: 1.65; margin: 4px 0px 0px;">USCG and FBI had to physically board and forensically examine the vessel — the manager had no remote OT telemetry or anomaly detection that would have triggered a shore-side alert when set-points were altered.</p>
+      </div>
+      <div style="background: rgb(255, 245, 245); border-left: 3px solid rgb(239, 68, 68); border-radius: 0px 10px 10px 0px; padding: 14px 18px;">
+        <strong style="color: #991b1b; font-size: 13.5px;">Reactive incident response, not proactive cyber resilience</strong>
+        <p style="color: #5a2d2d; font-size: 13px; line-height: 1.65; margin: 4px 0px 0px;">The ship departed with known malware on board — data had already been deleted. Pre-departure cyber checks (log review, integrity verification, AV sweep) were either absent or inadequate to flag the active threat before sailing.</p>
+      </div>
+      <div style="background: rgb(255, 245, 245); border-left: 3px solid rgb(239, 68, 68); border-radius: 0px 10px 10px 0px; padding: 14px 18px;">
+        <strong style="color: #991b1b; font-size: 13.5px;">Passive engagement in IMO cybersecurity discussions</strong>
+        <p style="color: #5a2d2d; font-size: 13px; line-height: 1.65; margin: 4px 0px 0px;">South Korea builds more ships than almost any other nation, yet industry stakeholders confirm that Korean participation in IMO Maritime Safety Committee (MSC) and IACS cyber working groups remains limited — forfeiting the opportunity to shape standards that will govern Korean-built vessels worldwide.</p>
+      </div>
+      <div style="background: rgb(255, 245, 245); border-left: 3px solid rgb(239, 68, 68); border-radius: 0px 10px 10px 0px; padding: 14px 18px;">
+        <strong style="color: #991b1b; font-size: 13.5px;">Economic exposure at scale</strong>
+        <p style="color: #5a2d2d; font-size: 13px; line-height: 1.65; margin: 4px 0px 0px;">A VLCC carrying 2.3 million barrels of crude generates tens of millions of dollars in cargo value per voyage. Loss of propulsion on approach to a US port could trigger collision, grounding, and catastrophic spill — with P&amp;I liability exposure potentially running into the billions, cascading through the owner, manager, cargo insurer, and flag state.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 2px solid rgb(226, 234, 243); margin: 0px 0px 36px;" />
+
+  <!--══ SECTION Ⅵ ══-->
+  <div style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;">
+      <div style="background: linear-gradient(rgb(26, 158, 130), rgb(39, 174, 143)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div>
+      <h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Ⅵ. Preventive Measures — Mapped to Each Threat Vector</h2>
+    </div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 20px;">The following matrix maps each identified threat vector from the <em>VL Prosperity</em> incident to practical countermeasures — with links to in-depth guides published on this site.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+
+      <div style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 12px; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); padding: 10px 16px;">
+          <span style="color: #7ec8f4; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Threat Vector 01</span>
+          <span style="color: #f0f9ff; font-size: 13.5px; font-weight: 700; margin-left: 10px;">VSAT / Satellite Communications Exploitation</span>
+        </div>
+        <div style="padding: 16px 18px;">
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Risk:</strong> Attacker enters the vessel network via an unsecured or poorly patched VSAT terminal. Default credentials, open admin ports, and unencrypted management traffic are common attack surfaces. The 30-hour blackout may reflect GMDSS/VSAT being deliberately disabled to hide the intrusion.</p>
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Countermeasures:</strong> Harden VSAT terminals (change defaults, disable unused services, enforce TLS). Implement satellite traffic inspection. Configure GMDSS and VSAT on separate physical or logically isolated segments. Enable continuous availability monitoring with shore-side alerting on blackout events.</p>
+          <div style="border-top: 1px dashed rgb(209, 224, 238); margin-top: 10px; padding-top: 10px;">
+            <span style="color: #6b8599; font-size: 11px; font-weight: 700;">📎 Related Guide: </span>
+            <a href="https://www.shippauljobs.com/2026/07/ship-communication-systems.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">Ship Communication Systems — Architecture, Security &amp; Vulnerabilities ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 12px; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); padding: 10px 16px;">
+          <span style="color: #7ec8f4; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Threat Vector 02</span>
+          <span style="color: #f0f9ff; font-size: 13.5px; font-weight: 700; margin-left: 10px;">IT → OT Lateral Movement (Flat Network Topology)</span>
+        </div>
+        <div style="padding: 16px 18px;">
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Risk:</strong> Once inside the ship's IT network, an attacker can reach IAS/ECDIS/MEMS systems if no demilitarised zone (IDMZ) or industrial firewall separates IT from OT. This is the critical enabler for propulsion and cargo system manipulation.</p>
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Countermeasures:</strong> Deploy an Industrial DMZ (IDMZ) between IT and OT networks. Apply strict zone-and-conduit segmentation per IEC 62443-3-2. Block all direct routing between crew/admin VLAN and machinery automation VLAN. Use unidirectional security gateways (data diodes) for monitoring feeds from OT.</p>
+          <div style="border-top: 1px dashed rgb(209, 224, 238); margin-top: 10px; padding-top: 10px;">
+            <span style="color: #6b8599; font-size: 11px; font-weight: 700;">📎 Related Guides: </span>
+            <a href="https://www.shippauljobs.com/2026/06/maritime-otit-firewall.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">Maritime OT/IT Firewall — Zone Segmentation for Ships ↗</a>
+            <span style="color: #cbd5e1; margin: 0px 6px;">|</span>
+            <a href="https://www.shippauljobs.com/2026/07/l2l3-network-switch-security-for-ships.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">L2/L3 Switch Security for Ships ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 12px; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); padding: 10px 16px;">
+          <span style="color: #7ec8f4; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Threat Vector 03</span>
+          <span style="color: #f0f9ff; font-size: 13.5px; font-weight: 700; margin-left: 10px;">Engine Room OT Manipulation (IAS / MEMS Tampering)</span>
+        </div>
+        <div style="padding: 16px 18px;">
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Risk:</strong> Attacker modifies PID set-points in the Integrated Automation System — cooling, RPM, fuel, LO — to cause physical damage or loss of propulsion. No safety system tripped because the changes were within individually plausible (but collectively dangerous) parameter ranges.</p>
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Countermeasures:</strong> Deploy OT anomaly detection with baseline process-value profiling (any deviation from normal operating envelope triggers alert). Enable read-only HMI sessions by default with change-authorisation workflow. Implement independent safety instrumented systems (SIS) that cannot be overridden via the HMI network. Conduct regular ICS penetration testing.</p>
+          <div style="border-top: 1px dashed rgb(209, 224, 238); margin-top: 10px; padding-top: 10px;">
+            <span style="color: #6b8599; font-size: 11px; font-weight: 700;">📎 Related Guides: </span>
+            <a href="https://www.shippauljobs.com/2026/07/ot-vulnerability-management-for-ships.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">OT Vulnerability Management for Ships ↗</a>
+            <span style="color: #cbd5e1; margin: 0px 6px;">|</span>
+            <a href="https://www.shippauljobs.com/2026/05/ics-security-chapter-8-ot-security.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">ICS Security Ch. 8 — OT Security Architecture ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 12px; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); padding: 10px 16px;">
+          <span style="color: #7ec8f4; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Threat Vector 04</span>
+          <span style="color: #f0f9ff; font-size: 13.5px; font-weight: 700; margin-left: 10px;">Wiper Malware &amp; Pre-Positioned Destructive Payload</span>
+        </div>
+        <div style="padding: 16px 18px;">
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Risk:</strong> Destructive malware may be planted weeks or months ahead of the intended trigger date, surviving standard AV scans by using novel payloads or "living off the land" tools. Pre-departure data deletion can eliminate forensic trails and disrupt ISM-required record-keeping.</p>
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Countermeasures:</strong> Implement application whitelisting on OT HMIs (deny-by-default). Enforce file integrity monitoring (FIM) on critical system directories. Conduct a formal pre-departure cybersecurity departure check (SIRE2.0 and TMSA 3 include cyber checkpoints). Maintain immutable, offline backups of all OT configuration files and navigational data.</p>
+          <div style="border-top: 1px dashed rgb(209, 224, 238); margin-top: 10px; padding-top: 10px;">
+            <span style="color: #6b8599; font-size: 11px; font-weight: 700;">📎 Related Guides: </span>
+            <a href="https://www.shippauljobs.com/2026/06/ot-patch-management-for-ships.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">OT Patch Management for Ships ↗</a>
+            <span style="color: #cbd5e1; margin: 0px 6px;">|</span>
+            <a href="https://www.shippauljobs.com/2026/05/ics-security-chapter-7-security-testing.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">ICS Security Ch. 7 — Security Testing &amp; Audit ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 12px; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); padding: 10px 16px;">
+          <span style="color: #7ec8f4; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Threat Vector 05</span>
+          <span style="color: #f0f9ff; font-size: 13.5px; font-weight: 700; margin-left: 10px;">Remote Access / Vendor Maintenance Pathway Abuse</span>
+        </div>
+        <div style="padding: 16px 18px;">
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Risk:</strong> Shore-based technical support, OEM remote diagnostics, and third-party software updates are frequent entry points for adversaries. If vendor remote access uses persistent, always-on VPN tunnels or shared credentials, the attack surface extends to every shipyard, service vendor, and flag state surveyor with system access.</p>
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Countermeasures:</strong> Implement Secure Vendor Remote Access (SVRA): just-in-time access grants, MFA, recorded sessions, and automatic session termination. Audit all third-party accounts quarterly. Apply the principle of least privilege — vendors should access only their specific system, not the entire OT network.</p>
+          <div style="border-top: 1px dashed rgb(209, 224, 238); margin-top: 10px; padding-top: 10px;">
+            <span style="color: #6b8599; font-size: 11px; font-weight: 700;">📎 Related Guide: </span>
+            <a href="https://www.shippauljobs.com/2026/02/secure-vendor-remote-access-svra-for.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">Secure Vendor Remote Access (SVRA) for Ships ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 12px; overflow: hidden;">
+        <div style="background: linear-gradient(90deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); padding: 10px 16px;">
+          <span style="color: #7ec8f4; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Threat Vector 06</span>
+          <span style="color: #f0f9ff; font-size: 13.5px; font-weight: 700; margin-left: 10px;">Compliance Gap — In-Service Fleet Not Covered by IACS UR E26</span>
+        </div>
+        <div style="padding: 16px 18px;">
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Risk:</strong> Ships contracted before July 1, 2024 operate outside the scope of mandatory IACS UR E26/E27 requirements. Thousands of ships currently in service — including the <em>VL Prosperity</em> — have no class-verified cybersecurity architecture. Port State Control, flag state, and charterers are beginning to demand evidence of cyber management, but the in-service fleet has no unified compliance framework.</p>
+          <p style="color: #354a5e; font-size: 13px; line-height: 1.7; margin: 0px 0px 10px;"><strong style="color: #0a2342;">Countermeasures:</strong> Voluntarily apply IACS UR E26 principles to the in-service fleet as a risk management measure. Engage class societies for Cyber Notation retrofits. Align with BIMCO Guidelines v.4 and IMO MSC-FAL.1/Circ.3 Rev.1 for the SMS cyber risk assessment. Conduct annual cyber gap assessments referenced to IACS UR E26 Appendix A.</p>
+          <div style="border-top: 1px dashed rgb(209, 224, 238); margin-top: 10px; padding-top: 10px;">
+            <span style="color: #6b8599; font-size: 11px; font-weight: 700;">📎 Related Guides: </span>
+            <a href="https://www.shippauljobs.com/2026/08/iacs-ur-e26-complete-guide-to-cyber.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">IACS UR E26 — Complete Guide to Cyber Resilience ↗</a>
+            <span style="color: #cbd5e1; margin: 0px 6px;">|</span>
+            <a href="https://www.shippauljobs.com/2026/08/iacs-ur-e26e27-two-years-of-survey.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">IACS UR E26/E27 — Two Years of Survey Experience ↗</a>
+            <span style="color: #cbd5e1; margin: 0px 6px;">|</span>
+            <a href="https://www.shippauljobs.com/2026/08/ship-cyber-resilience-complete-guide.html" rel="noopener" style="color: #1a9e82; font-size: 12px; font-weight: 600; text-decoration: none;" target="_blank">Ship Cyber Resilience — Complete Guide ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--══ CAPTAIN'S TAKE / ASSESSMENT ══-->
+  <div style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 14px; margin-bottom: 36px; padding: 28px 32px;">
+    <div style="color: #7effd8; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 12px; text-transform: uppercase;">⚓ Captain Paul's Take — Assessment</div>
+    <p style="color: #e0f2fe; font-size: 14.5px; line-height: 1.85; margin: 0px;">The <em>VL Prosperity</em> incident is not an outlier — it is a preview. State-sponsored actors with the capability to manipulate ship propulsion systems, maintain 30-hour communication blackouts, and pre-position wiper malware months in advance represent a threat category that the maritime industry's existing voluntary guidelines were never designed to counter. The regulatory floor is rising with IACS UR E26/E27, but the in-service fleet — tens of thousands of vessels — sails in a compliance vacuum. The question for every Korean owner, manager, and shipbuilder is no longer whether cyber incidents will occur at scale, but <strong style="color: white;">whether their systems, processes, and response plans are prepared for when they do</strong>.</p>
+  </div>
+
+  <!--══ NEWS SOURCES ══-->
+  <div style="margin-bottom: 32px;">
+    <p style="color: #0a2342; font-size: 13px; font-weight: 800; letter-spacing: 0.3px; margin: 0px 0px 10px;">📰 News Sources:</p>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <a href="https://v.daum.net/v/20260919060155356" rel="noopener" style="align-items: flex-start; background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 12px; padding: 12px 16px; text-decoration: none;" target="_blank">
+        <span style="flex-shrink: 0; font-size: 18px; line-height: 1.4;">🇰🇷</span>
+        <div>
+          <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 2px;">[단독] 韓선박도 이란 해킹 정황…美 FBI 수사 받았다</div>
+          <div style="color: #6b8599; font-size: 11.5px;">Herald Economy (헤럴드경제) · Park Hye-won · Sep 19, 2026 — original exclusive report</div>
+        </div>
+      </a>
+      <a href="https://www.cbsnews.com/news/coast-guard-fbi-boarded-energy-tankers-cyberattacks-amy-grable-iran/" rel="noopener" style="align-items: flex-start; background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 12px; padding: 12px 16px; text-decoration: none;" target="_blank">
+        <span style="flex-shrink: 0; font-size: 18px; line-height: 1.4;">🇺🇸</span>
+        <div>
+          <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 2px;">Coast Guard and FBI boarded 2 energy tankers due to cyberattacks. How big is the risk?</div>
+          <div style="color: #6b8599; font-size: 11.5px;">CBS News — Rear Adm. Amy Grable interview, Iran attribution discussion</div>
+        </div>
+      </a>
+      <a href="https://www.securityweek.com/cyberattacks-on-two-oil-tankers-prompt-coast-guard-fbi-to-board-vessels/" rel="noopener" style="align-items: flex-start; background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 12px; padding: 12px 16px; text-decoration: none;" target="_blank">
+        <span style="flex-shrink: 0; font-size: 18px; line-height: 1.4;">🛡️</span>
+        <div>
+          <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 2px;">Cyberattacks on Two Oil Tankers Prompt Coast Guard, FBI to Board Vessels</div>
+          <div style="color: #6b8599; font-size: 11.5px;">SecurityWeek</div>
+        </div>
+      </a>
+      <a href="https://therecord.media/oil-tanker-cyberattack-coast-guard-fbi" rel="noopener" style="align-items: flex-start; background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); display: flex; gap: 12px; padding: 12px 16px; text-decoration: none;" target="_blank">
+        <span style="flex-shrink: 0; font-size: 18px; line-height: 1.4;">📡</span>
+        <div>
+          <div style="color: #0a2342; font-size: 13px; font-weight: 700; margin-bottom: 2px;">Coast Guard, FBI boarded tanker after attack by "foreign cyber actors"</div>
+          <div style="color: #6b8599; font-size: 11.5px;">The Record by Recorded Future News</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!--══ RELATED ARTICLES ══-->
+  <div style="font-family: &quot;Segoe UI&quot;, &quot;Apple SD Gothic Neo&quot;, Arial, sans-serif; margin-bottom: 32px;">
+    <p style="color: #0a2342; font-size: 13px; font-weight: 800; letter-spacing: 0.3px; margin: 0px 0px 10px;">📚 Further Reading — Related Posts on ShipPaulJobs:</p>
+    <ul style="display: flex; flex-direction: column; gap: 8px; list-style: none; margin: 0px; padding: 0px;">
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/07/maritime-cybersecurity-complete-guide.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Maritime Cybersecurity Complete Guide — Threats, Regulations &amp; Defence</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/08/iacs-ur-e26-complete-guide-to-cyber.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">IACS UR E26 — Cyber Resilience of Ships (Full Technical Guide)</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/08/ship-cyber-resilience-complete-guide.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Ship Cyber Resilience — Building a Defence-in-Depth Strategy</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/08/iacs-ur-e26e27-two-years-of-survey.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">IACS UR E26/E27 — Two Years of Survey Experience &amp; Field Notes</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/06/maritime-otit-firewall.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Maritime OT/IT Firewall — Industrial Zone Segmentation Explained</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/07/ot-vulnerability-management-for-ships.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">OT Vulnerability Management for Ships — From CVE to Patch</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/07/ship-communication-systems.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Ship Communication Systems — VSAT, GMDSS, and Cyber Risks</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/2026/02/secure-vendor-remote-access-svra-for.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Secure Vendor Remote Access (SVRA) for Maritime OT Systems</a></li>
+      <li style="align-items: center; display: flex; gap: 10px;"><span style="background: rgb(21, 79, 122); border-radius: 50%; flex-shrink: 0; height: 6px; width: 6px;"></span><a href="https://www.shippauljobs.com/p/maritime-cyber-threat-intel-ransomware.html" rel="noopener" style="color: #154f7a; font-size: 13.5px; font-weight: 600; text-decoration: none;" target="_blank">Maritime Cyber Threat Intelligence — Live Feed &amp; Ransomware Tracker</a></li>
+    </ul>
+  </div>
+
+  <!--══ HASHTAGS ══-->
+  <div style="margin-bottom: 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px;">
+      <span style="background: rgb(254, 242, 242); border-radius: 20px; color: #c0392b; font-size: 11px; font-weight: 700; padding: 4px 12px;">#VLProsperity</span>
+      <span style="background: rgb(254, 242, 242); border-radius: 20px; color: #c0392b; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IranCyber</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#MaritimeCyberAttack</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#VLCCHacking</span>
+      <span style="background: rgb(232, 240, 247); border-radius: 20px; color: #154f7a; font-size: 11px; font-weight: 700; padding: 4px 12px;">#IACSURE26</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#OTSecurity</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#MaritimeCybersecurity</span>
+      <span style="background: rgb(238, 246, 243); border-radius: 20px; color: #1a9e82; font-size: 11px; font-weight: 700; padding: 4px 12px;">#Maritime40</span>
+    </div>
+  </div>
+
+  <!--══ DISCLAIMER ══-->
+  <div style="background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); margin-bottom: 32px; padding: 14px 18px;">
+    <p style="color: #6b8599; font-size: 11.5px; line-height: 1.7; margin: 0px;"><strong style="color: #4a6278;">Disclaimer:</strong> This post is based on publicly available reporting including Herald Economy, CBS News, SecurityWeek, CyberNews, and The Record by Recorded Future. Technical attack analysis is the author's independent assessment and does not represent official findings of the FBI, USCG, or any government agency. Attribution to Iran has not been officially confirmed as of the publication date. The vessel names and operator names are cited as reported in the public domain.</p>
+  </div>
+
+  <!--══ AUTHOR CARD ══-->
+  <div style="align-items: flex-start; border-top: 2px solid rgb(226, 234, 243); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 28px;">
+    <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 52px; object-fit: cover; width: 52px;" />
+    <div style="flex: 1 1 0%; min-width: 220px;">
+      <div style="color: #0a2342; font-size: 14px; font-weight: 800; margin-bottom: 2px;">Captain Paul (In Sung Lee)</div>
+      <div style="color: #6b8599; font-size: 11px; margin-bottom: 10px;">Maritime Cybersecurity Analyst · ShipPaulJobs</div>
+      <p style="color: #6b8599; font-size: 12.5px; line-height: 1.7; margin: 0px 0px 14px;">Captain Paul has conducted E26 CRSI project assessments and cyber resilience evaluations across vessel types, working at the intersection of ship systems engineering and cybersecurity compliance. He writes on IACS UR E26/E27, OT security, and emerging threats to the maritime sector.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" style="align-items: center; background: rgb(10, 35, 66); border-radius: 9px; border: 2px solid rgb(26, 158, 130); color: white; display: inline-flex; font-size: 12px; font-weight: 700; gap: 7px; padding: 9px 20px; text-decoration: none;" target="_blank">
+          💼 LinkedIn ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--══ JSON-LD STRUCTURED DATA ══-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "State-Sponsored Hackers Hit Korean-Managed VLCC: What the VL Prosperity Attack Reveals",
+  "description": "A VLCC managed by HMM Ocean Service lost communications for 30 hours after engine-room OT systems were compromised. FBI confirmed malicious cyber activity. Technical analysis of the attack chain, Iran threat actor profile, regulatory gaps, and countermeasures.",
+  "datePublished": "2026-09-19",
+  "dateModified": "2026-09-19",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Captain Paul",
+    "url": "https://www.shippauljobs.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ShipPaulJobs",
+    "url": "https://www.shippauljobs.com"
+  },
+  "about": [
+    {"@type": "Thing", "name": "Maritime Cybersecurity"},
+    {"@type": "Thing", "name": "VLCC Cyber Attack"},
+    {"@type": "Thing", "name": "IACS UR E26"},
+    {"@type": "Thing", "name": "OT Security"},
+    {"@type": "Thing", "name": "Iran Maritime Threat"}
+  ],
+  "keywords": "VL Prosperity, maritime cyber attack, VLCC hacking, Iran cyber, FBI maritime, USCG cyber, OT security ship, IACS UR E26, ship cybersecurity, HMM Ocean Service"
+}
+</script>
