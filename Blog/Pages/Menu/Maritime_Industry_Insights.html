@@ -70,7 +70,14 @@
     .spj-period-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
     .spj-period-btn { background: rgba(200,228,248,0.10); border: 1px solid rgba(200,228,248,0.22); border-radius: 20px; color: rgba(200,228,248,0.72); cursor: pointer; font-size: 11px; font-weight: 600; padding: 4px 11px; transition: background 0.15s, color 0.15s; }
     .spj-period-btn.active, .spj-period-btn:hover { background: #1a9e82; border-color: #1a9e82; color: #fff; }
-  </style>
+  /* ─── Feed Label badge (shows Blogger label used for this page) ─── */
+.spj-feed-label-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;margin-top:10px;}
+.spj-feed-label-key{color:rgba(232,244,253,0.6);font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.spj-feed-label-pill{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:14px;color:#e8f4fd;font-size:10px;font-weight:700;padding:2px 11px;white-space:nowrap;}
+/* ─── Group label pills (right side of group header row) ─── */
+.mii-group-label-wrap{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+.mii-group-label-pill{background:rgba(21,79,122,0.08);border:1px solid rgba(21,79,122,0.18);border-radius:8px;color:#5a7d9e;font-size:9px;font-weight:600;padding:1px 6px;white-space:nowrap;}
+</style>
 
 <link
   href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&amp;family=Inter:wght@400;600;700&amp;display=swap"
@@ -297,6 +304,7 @@
   <div id="mii-header">
     <div id="mii-eyebrow">Maritime Industry Insights · Trends &amp; Perspectives</div>
     <h1 id="mii-h1">Maritime Industry Insights</h1>
+  <div class="spj-feed-label-row"><span class="spj-feed-label-key">📌 Blogger Label :</span> <span class="spj-feed-label-pill">"Maritime Industry Insights"</span> <span class="spj-feed-label-pill">"Maritime Leadership & Strategy"</span></div>
     <p id="mii-sub">Perspectives on shipping technology, digitalization, workforce, and the market forces reshaping the global maritime industry — organized by topic.</p>
     <div id="mii-search-bar">
       <div id="mii-search-panel">
@@ -926,6 +934,19 @@
       }
       tagJumpEl.innerHTML = pillsHTML;
 
+
+      var groupLabelMap = {};
+      GROUP_MAP.forEach(function(g){ groupLabelMap[g.name] = g.labels || []; });
+      function groupLabelPillsHTML(groupName) {
+        var lbls = groupLabelMap[groupName] || [];
+        if (!lbls.length) return '';
+        var MAX = 4;
+        var pills = lbls.slice(0, MAX).map(function(l){
+          return '<span class="mii-group-label-pill">' + escHTML(l) + '</span>';
+        }).join('');
+        if (lbls.length > MAX) pills += '<span class="mii-group-label-pill" style="color:#9fb5c2">+' + (lbls.length - MAX) + '</span>';
+        return '<span class="mii-group-label-wrap">' + pills + '</span>';
+      }
       archiveEl.innerHTML = tagsSorted
         .map(function (t, idx) {
           var posts = groups[t].slice().sort(function (a, b) {
@@ -933,7 +954,7 @@
           });
           return (
             '<details class="mii-tag-block" id="mii-tag-' + slugTag(t) + '"' + (idx === 0 ? " open" : "") + '>' +
-            '<summary class="mii-tag-summary"><span class="mii-tag-chevron">▶</span><h2 class="mii-tag-title">' + escHTML(t) + '</h2><span class="mii-tag-badge">' + posts.length + " posts</span></summary>" +
+            '<summary class="mii-tag-summary"><span class="mii-tag-chevron">▶</span><h2 class="mii-tag-title">' + escHTML(t) + '</h2>' + groupLabelPillsHTML(t) + '<span class="mii-tag-badge">' + posts.length + " posts</span></summary>" +
             '<div class="mii-tag-body">' + carouselHTML(posts) + "</div>" +
             "</details>"
           );

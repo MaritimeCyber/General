@@ -2013,6 +2013,8 @@
       .sb-btn{background:rgba(21,79,122,0.1);border:1px solid rgba(21,79,122,0.35);border-radius:3px;color:#154f7a;font-family:monospace;font-size:14px;font-weight:700;width:20px;height:20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;line-height:1;transition:background 0.15s;}
       .sb-btn:hover{background:rgba(21,79,122,0.2);}
       .sb-collapsible.minimized .sb-body{display:none;}
+      /* ─── Post by Authors (HTML21) heading → INTEL MENU (Top10) style ─── */
+      #HTML21 .title{display:block!important;font-size:13px!important;font-weight:800!important;letter-spacing:0.08em!important;text-transform:uppercase!important;color:#0d4275!important;border-bottom:2px solid #0d4275!important;padding:6px 0 8px!important;margin:0 0 8px!important;text-align:left!important;width:100%!important;}
       /* &#9472;&#9472; 모바일: 패널 바디 숨김, 토글 버튼만 고정 표시 &#9472;&#9472; */
       @media (max-width:1024px){
         #right-panel{position:fixed;top:0;right:0;}
@@ -7964,12 +7966,19 @@ if(!window.b1WC){window.b1WC=function(btn){
             authorPhoto = ai['gd$image'].src.replace(/\/s\d+\//, '/s200/');
           }
         }
-        if (authorPhoto) {
-          imgWrap.innerHTML = '<img id="am-author-img" src="'+amEsc(authorPhoto)+'" alt="'+amEsc(author)+'">';
-        } else {
-          var initials = author.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
-          imgWrap.innerHTML = '<div id="am-author-initials">'+amEsc(initials)+'</div>';
+        /* 2nd fallback: member image from post HTML content */
+        if (!authorPhoto && filtered.length) {
+          for (var fi = 0; fi < filtered.length && !authorPhoto; fi++) {
+            var fhtml = (filtered[fi].content && filtered[fi].content.$t) || (filtered[fi].summary && filtered[fi].summary.$t) || '';
+            var mi2 = fhtml.match(/<img\s[^>]*Asset\/img\/member\/[^>]*>/);
+            if (mi2) {
+              var msrc = mi2[0].match(/src="([^"]+)"/);
+              if (msrc) authorPhoto = msrc[1];
+            }
+          }
         }
+        var DEFAULT_POPUP_IMG = 'https://raw.githubusercontent.com/MaritimeCyber/General/5f9ee4b19681dea998ec271475a277de53264aa8/Asset/img/member/needtoupload.png';
+        imgWrap.innerHTML = '<img id="am-author-img" src="'+amEsc(authorPhoto || DEFAULT_POPUP_IMG)+'" alt="'+amEsc(author)+'">';
 
         if (!filtered.length) {
           listWrap.innerHTML = '<p style="color:#aaa;padding:16px 0;text-align:center;">작성한 글이 없습니다.</p>';

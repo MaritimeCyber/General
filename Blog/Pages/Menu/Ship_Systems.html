@@ -6,6 +6,13 @@
 <!--══ Hide comments ══-->
 <style>
   #comments,.comments,#comment-holder,.comments-widget-container{display:none!important}
+/* ─── Feed Label badge (shows Blogger label used for this page) ─── */
+.spj-feed-label-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;margin-top:10px;}
+.spj-feed-label-key{color:rgba(232,244,253,0.6);font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.spj-feed-label-pill{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:14px;color:#e8f4fd;font-size:10px;font-weight:700;padding:2px 11px;white-space:nowrap;}
+/* ─── Group label pills (right side of group header row) ─── */
+.ss-group-label-wrap{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+.ss-group-label-pill{background:rgba(21,79,122,0.08);border:1px solid rgba(21,79,122,0.18);border-radius:8px;color:#5a7d9e;font-size:9px;font-weight:600;padding:1px 6px;white-space:nowrap;}
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
@@ -146,6 +153,7 @@
 <div id="ss-header">
   <div id="ss-eyebrow">ShipPaulJobs · Ship Systems & Digital Vessel Technology</div>
   <h1 id="ss-h1">Introduction to Ship Systems</h1>
+  <div class="spj-feed-label-row"><span class="spj-feed-label-key">📌 Blogger Label :</span> <span class="spj-feed-label-pill">"Ships and Systems"</span></div>
   <div id="ss-count-badge" style="display:none"></div>
   <p id="ss-sub">Learn the fundamentals of modern ship systems — integrated bridge systems, ECDIS, engine automation, onboard networks, CBS, and IACS E26-compliant architectures.</p>
   <div id="ss-search-bar">
@@ -460,13 +468,26 @@
     showingEl.textContent = total;
     emptyEl.style.display = total===0?'block':'none';
     if(!total) return;
+
+  var categoryKeyMap = {};
+  CATEGORIES.forEach(function(c){ categoryKeyMap[c.name] = c.keys || []; });
+  function catKeyPillsHTML(groupName) {
+    var keys = categoryKeyMap[groupName] || [];
+    if (!keys.length) return '';
+    var MAX = 4;
+    var pills = keys.slice(0, MAX).map(function(k){
+      return '<span class="'+PFX+'-group-label-pill">' + escHtml(k) + '</span>';
+    }).join('');
+    if (keys.length > MAX) pills += '<span class="'+PFX+'-group-label-pill" style="color:#9fb5c2">+' + (keys.length - MAX) + '</span>';
+    return '<span class="'+PFX+'-group-label-wrap">' + pills + '</span>';
+  }
     groupPosts(filteredPosts).forEach(function(grp){
       var sec = document.createElement('div');
       sec.className = PFX+'-group';
       var hdr = document.createElement('div');
       hdr.className = PFX+'-group-hdr';
       hdr.innerHTML='<span class="'+PFX+'-group-name">'+escHtml(grp.name)+'</span>'+
-        '<span class="'+PFX+'-group-count">'+grp.posts.length+'</span>';
+        catKeyPillsHTML(grp.name)+'<span class="'+PFX+'-group-count">'+grp.posts.length+'</span>';
       sec.appendChild(hdr);
       var ul = document.createElement('ul');
       ul.className = PFX+'-list-ul';
