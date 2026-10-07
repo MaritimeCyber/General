@@ -46,7 +46,7 @@
 | /2025/11/cyber-regulatory-landscape-and-industry.html | 제목 입력 |
 | /2025/10/kormarin-2025-back-on-that-sea-again.html | 제목 입력 (전시회 참관기 = 1차 경험, 유지 가치 높음) |
 | /2025/10/he-8-global-cybersecurity-institutions.html | 제목 입력 (슬러그 오타 "he-8") |
-| /2025/10/blog-post.html | **슬러그 없음** → 내용 확인 후 Draft 또는 재작성 |
+| /2025/10/blog-post.html | ✅ **Draft 전환 완료 (2026-10-07)** |
 | /2025/05/understanding-imo-msc-fal1circ3rev3.html | 제목 입력 |
 | /2025/03/the-relationship-between-cbs-definition.html | 제목 입력 |
 | /2025/02/reconnecting-with-my-shipbuilding.html | 제목 입력 |
@@ -55,7 +55,7 @@
 | /2024/12/must-read-for-maritime-industry-review.html | 제목 입력 |
 | /2024/12/imo-cybersecurity-regulations-and.html | 제목 입력 |
 | /2024/10/impact-of-starlink-on-maritime.html | 제목 입력 |
-| /2024/08/blog-post.html | **슬러그 없음** → Draft 권장 |
+| /2024/08/blog-post.html | ✅ **Draft 전환 완료 (2026-10-07)** |
 | /2024/08/auto-gpt-autonomous-gpt-4-experiment.html | 주제 이탈 → Draft 권장 |
 | /2024/06/langgraph-building-stateful-multi-actor.html | 주제 이탈 → Draft 권장 |
 | /2024/06/generative-agents-interactive-simulacra.html | 주제 이탈 → Draft 권장 |
@@ -106,7 +106,7 @@
 ## 2. ✅ 조치 계획 (우선순위)
 
 ### 1단계 — 즉시 (1주 이내)
-1. **제목 확인 필요 28개 점검**: 실제로 비어 있는 글만 제목 입력. `blog-post.html` 2개(한글 제목 추정)와 주제 이탈 AI 글 3개는 Draft.
+1. **제목 확인 필요 28개 점검**: 실제로 비어 있는 글만 제목 입력. `blog-post.html` 2개(한글 제목 추정)는 ✅ Draft 완료 (10/7). 주제 이탈 AI 글 3개(auto-gpt, langgraph, generative-agents)는 Draft.
 2. **주제 이탈 글 Draft 전환** (약 30~40개 — 전체 목록은 **부록 A**):
    - 일반 AI 논문 리뷰 전부 (BERT, ReAct, Toolformer, NL2SQL, Sora, AutoGen, CrewAI, MCP, LangGraph, Auto-GPT, Generative Agents, NeurIPS RL, NLP Review, CV Roadmap, Deep Learning Fundamentals, Face Recognition)
    - "2027 Revised Series" Part 1~5
@@ -140,7 +140,7 @@
 ## 3. 재심사 전 체크리스트
 
 - [ ] 제목 확인 필요 28개 점검 → 실제 "(제목 없음)" 글 0개
-- [ ] 슬러그 `blog-post.html` 형태 URL 0개
+- [x] 슬러그 `blog-post.html` 형태 URL 0개 (2개 Draft 전환, 10/7)
 - [ ] 일반 AI 논문 리뷰 / 2027 Revised Series / 주제 이탈 글 Draft 완료
 - [ ] Chapter·Part 번호만 있는 제목 0개
 - [ ] 중복 시리즈 병합 완료, 공개 포스트 ~100~120개
