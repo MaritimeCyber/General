@@ -10,7 +10,8 @@
      열 폭은 빈 공간에 맞춰 180~252px 사이로 자동 조정(비율 유지).
    - 오른쪽 빈 공간이 부족한 화면(좁은 창·태블릿·모바일)에서는
      첫 번째 본문 위젯 아래에 inlineSlots 개수만큼만 표시합니다(기본 1개 = 300×250).
-   - homeOnly: true 이면 홈에서만 표시, false 이면 모든 페이지에 표시.
+   - showOn: 표시할 페이지 종류 — "home"(홈), "post"(포스트 상세), "page"(정적 페이지 /p/...),
+             "list"(라벨·검색·아카이브 목록). 기본값: 홈 + 포스트 상세.
 
   설정 : 각 슬롯의 sponsors 에 배너를 넣으면 배너가 표시되고,
          비워두면 해당 크기의 "Advertise here" 광고 자리(판매 중)가 표시됩니다.
@@ -67,20 +68,20 @@
 (function () {
   var SPJ_RIGHT_BANNER = {
     slots: [
-      { size: "300 × 250", ratio: "6 / 5", sponsors: [
+      { size: "300 \u00d7 250", ratio: "6 / 5", sponsors: [
         // { name: "Company Name", image: "https://.../banner-300x250.png",
         //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=right_300x250",
         //   alt: "Company Name — maritime cyber security solutions" }
       ] },
-      { size: "300 × 500", ratio: "3 / 5", sponsors: [
+      { size: "300 \u00d7 500", ratio: "3 / 5", sponsors: [
         // { name: "...", image: "https://.../banner-300x500.png", url: "https://...", alt: "..." }
       ] },
-      { size: "300 × 500", ratio: "3 / 5", sponsors: [
+      { size: "300 \u00d7 500", ratio: "3 / 5", sponsors: [
         // { name: "...", image: "https://.../banner-300x500.png", url: "https://...", alt: "..." }
       ] }
     ],
     inlineSlots: 1,          // 좁은 화면에서 본문에 보여줄 슬롯 개수 (위에서부터)
-    homeOnly: true,
+    showOn: ["home", "post"],
     advertiseUrl: "https://www.shippauljobs.com/p/advertisement-policy.html",
     contactUrl: "https://www.shippauljobs.com/p/contact-shippauljobs.html"
   };
@@ -88,7 +89,15 @@
   var MAX_W = 252, MIN_W = 180, GAP = 12;
   var box = document.getElementById("spj-right-banner");
   if (!box) return;
-  if (SPJ_RIGHT_BANNER.homeOnly && !document.body.classList.contains("is-homepage")) return;
+  // ── 현재 페이지 종류 판별 ──
+  function pageType() {
+    var path = location.pathname;
+    if (document.body.classList.contains("is-homepage") || path === "/" || path === "/index.html") return "home";
+    if (/^\/\d{4}\/\d{2}\/[^\/]+\.html$/.test(path)) return "post";
+    if (/^\/p\/[^\/]+\.html$/.test(path)) return "page";
+    return "list";
+  }
+  if (SPJ_RIGHT_BANNER.showOn.indexOf(pageType()) === -1) return;
 
   function esc(t) { return String(t || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
@@ -109,7 +118,7 @@
       html +=
         '<div class="spj-rb-card' + railOnly + '"><span class="spj-rb-label">Advertise here</span>' +
           '<a class="spj-rb-slot" style="aspect-ratio:' + esc(slot.ratio) + '" href="' + esc(SPJ_RIGHT_BANNER.advertiseUrl) + '" target="_blank" rel="noopener">' +
-            '<span class="spj-rb-size">' + esc(slot.size) + " · RIGHT</span>" +
+            '<span class="spj-rb-size">' + esc(slot.size) + " \u00b7 RIGHT</span>" +
             '<span class="spj-rb-title">Your banner here</span>' +
             '<span class="spj-rb-text">Reach maritime engineers, OT/cyber specialists and decision-makers at shipowners, shipyards and makers.</span>' +
             '<span class="spj-rb-cta">See ad options</span>' +
