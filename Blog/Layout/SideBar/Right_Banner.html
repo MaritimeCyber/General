@@ -1,0 +1,135 @@
+<!--════════════════════════════════════════════════════════════
+  Widget : Home right column — Corporate banner / "Advertise here" slot
+  Where  : Blogger Layout → 사이드바 아무 곳 → Add a Gadget → HTML/JavaScript (title empty)
+  Shows  : Home page only, on the RIGHT side directly below "Popular Posts"
+           (Popular Posts 는 홈에서 right:12px / width:252px 로 배치되어 있음)
+
+  동작
+   - 가젯은 사이드바에 추가하지만, 스크립트가 배너를 Popular Posts 바로 아래로 옮겨
+     홈 화면 오른쪽에 표시합니다. 테마 HTML 수정은 필요 없습니다.
+   - 화면 폭 960px 이하(태블릿·모바일)에서는 Popular Posts 아래 본문 흐름에 표시됩니다.
+   - 홈이 아닌 페이지에서는 표시되지 않습니다.
+
+  설정 : 아래 SPJ_RIGHT_BANNER.sponsors 에 배너를 넣으면 배너가 표시되고,
+         비워두면 "Advertise here" 광고 자리(판매 중)가 표시됩니다.
+════════════════════════════════════════════════════════════-->
+<style>
+  #spj-right-banner { display: none; font-family: "Segoe UI", Arial, sans-serif; box-sizing: border-box; }
+  #spj-right-banner.spj-rb-on { display: block; }
+  /* 데스크톱: Popular Posts 와 같은 오른쪽 열 */
+  #spj-right-banner.spj-rb-float { position: absolute; right: 12px; width: 252px; z-index: 59; padding: 0 8px 16px; }
+  /* 태블릿·모바일: 본문 흐름 */
+  @media (max-width: 960px) {
+    #spj-right-banner.spj-rb-float { position: static; width: 100%; padding: 8px; }
+  }
+
+  #spj-right-banner .spj-rb-card {
+    background: #fff; border-radius: 8px; box-shadow: 0 1px 5px rgba(10,35,66,.08);
+    padding: 8px 10px 10px;
+  }
+  #spj-right-banner .spj-rb-label {
+    display: block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #8a9bb0; margin: 0 0 7px;
+  }
+  #spj-right-banner a { text-decoration: none; }
+
+  /* 등록된 기업 배너 */
+  #spj-right-banner .spj-rb-banner { display: block; }
+  #spj-right-banner .spj-rb-banner img { display: block; width: 100%; height: auto; border-radius: 6px; }
+  #spj-right-banner .spj-rb-name { display: block; margin-top: 6px; font-size: 11px; color: #4a6080; text-align: center; }
+
+  /* 광고 자리 (판매 중) */
+  #spj-right-banner .spj-rb-slot {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    aspect-ratio: 6 / 5; padding: 12px; box-sizing: border-box;
+    border: 2px dashed #9fb3c8; border-radius: 8px; text-align: center;
+    background: repeating-linear-gradient(135deg, #f6f9fc 0 12px, #eef3f8 12px 24px);
+  }
+  #spj-right-banner .spj-rb-slot:hover { border-color: #1a9e82; }
+  #spj-right-banner .spj-rb-size {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #8a9bb0;
+    border: 1px solid #c9d6e3; border-radius: 4px; padding: 2px 7px; background: #fff;
+  }
+  #spj-right-banner .spj-rb-title { font-size: 16px; font-weight: 800; color: #0a2342; line-height: 1.25; }
+  #spj-right-banner .spj-rb-text { font-size: 11px; line-height: 1.55; color: #4a6080; }
+  #spj-right-banner .spj-rb-cta {
+    margin-top: 4px; padding: 6px 13px; border-radius: 6px;
+    background: #0a2342; color: #7effd8; font-size: 11.5px; font-weight: 700;
+  }
+  #spj-right-banner .spj-rb-slot:hover .spj-rb-cta { background: #154f7a; }
+  #spj-right-banner .spj-rb-alt { display: block; margin-top: 7px; font-size: 10px; color: #8a9bb0; text-align: center; }
+  #spj-right-banner .spj-rb-alt a { color: #154f7a; text-decoration: underline; }
+</style>
+
+<div id="spj-right-banner">
+  <div class="spj-rb-card">
+    <span class="spj-rb-label">Advertise here</span>
+    <div class="spj-rb-body"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var SPJ_RIGHT_BANNER = {
+    sponsors: [
+      // { name: "Company Name", image: "https://.../banner-300x250.png",
+      //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=home_right",
+      //   alt: "Company Name — maritime cyber security solutions" }
+    ],
+    advertiseUrl: "https://www.shippauljobs.com/p/advertisement-policy.html",
+    contactUrl: "https://www.shippauljobs.com/p/contact-shippauljobs.html"
+  };
+
+  var box = document.getElementById("spj-right-banner");
+  if (!box || !document.body.classList.contains("is-homepage")) return;
+  var pp = document.getElementById("PopularPosts1");
+  if (!pp || !pp.parentNode) return;
+
+  function esc(t) { return String(t || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  // ── 내용 채우기 ──
+  var body = box.querySelector(".spj-rb-body");
+  var list = SPJ_RIGHT_BANNER.sponsors.filter(function (x) { return x && x.image && x.url; });
+  if (list.length) {
+    var sp = list[Math.floor(Math.random() * list.length)];
+    box.querySelector(".spj-rb-label").textContent = "Sponsored";
+    body.innerHTML =
+      '<a class="spj-rb-banner" href="' + esc(sp.url) + '" target="_blank" rel="sponsored noopener">' +
+        '<img src="' + esc(sp.image) + '" alt="' + esc(sp.alt || sp.name) + '" loading="lazy" width="300" height="250">' +
+        (sp.name ? '<span class="spj-rb-name">' + esc(sp.name) + "</span>" : "") +
+      "</a>";
+  } else {
+    body.innerHTML =
+      '<a class="spj-rb-slot" href="' + esc(SPJ_RIGHT_BANNER.advertiseUrl) + '" target="_blank" rel="noopener">' +
+        '<span class="spj-rb-size">300 × 250 · HOME RIGHT</span>' +
+        '<span class="spj-rb-title">Your banner here</span>' +
+        '<span class="spj-rb-text">Reach maritime engineers, OT/cyber specialists and decision-makers at shipowners, shipyards and makers.</span>' +
+        '<span class="spj-rb-cta">See ad options</span>' +
+      "</a>" +
+      '<span class="spj-rb-alt">or <a href="' + esc(SPJ_RIGHT_BANNER.contactUrl) + '" target="_blank" rel="noopener">contact us</a> for a media kit</span>';
+  }
+
+  // ── Popular Posts 바로 아래로 이동 (같은 부모 → 같은 기준 위치) ──
+  pp.parentNode.insertBefore(box, pp.nextSibling);
+  box.classList.add("spj-rb-float", "spj-rb-on");
+
+  function place() {
+    var cs = getComputedStyle(pp);
+    if (window.innerWidth <= 960 || cs.position !== "absolute") {
+      box.style.top = box.style.width = box.style.boxSizing = box.style.paddingLeft = box.style.paddingRight = "";
+      return;
+    }
+    // Popular Posts 와 같은 폭·좌우 여백 → 카드 가장자리가 정확히 맞도록
+    box.style.boxSizing = cs.boxSizing;
+    box.style.width = cs.width;
+    box.style.paddingLeft = cs.paddingLeft;
+    box.style.paddingRight = cs.paddingRight;
+    box.style.right = cs.right;
+    box.style.top = (pp.offsetTop + pp.offsetHeight + 4) + "px";
+  }
+  place();
+  window.addEventListener("load", place);
+  window.addEventListener("resize", place);
+  if (window.ResizeObserver) new ResizeObserver(place).observe(pp);
+})();
+</script>
