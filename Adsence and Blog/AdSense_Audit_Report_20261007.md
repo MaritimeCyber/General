@@ -23,8 +23,12 @@
 
 ## 1. 🔴 원인 분석 (심각도 순)
 
-### 1-1. 제목 없는 포스트 28개 — 가장 직접적인 저품질 신호
-sitemap 기준 `[제목 없음]` 으로 노출되는 포스트가 **28개 (전체의 14.6%)** 입니다. Blogger에서 제목 필드가 비어 있으면 `<title>`이 블로그 이름만 남고, 검색결과·AdSense 크롤러 모두 "제목 없는 페이지"로 인식합니다.
+### 1-1. 제목 확인이 필요한 포스트 28개 — ⚠️ 실제 누락 여부 미확인
+`all_192_posts.txt` 추출 결과에서 제목이 `[제목 없음]` 으로 표기된 포스트가 **28개** 입니다. 단, **이것이 실제로 제목이 비어 있다는 뜻인지는 확인되지 않았습니다.**
+
+- Blogger는 **첫 게시 시점의 제목으로 URL 슬러그를 만듭니다.** 28개 중 26개는 `kormarin-2025-back-on-that-sea-again` 처럼 영문 슬러그가 있으므로, 게시 당시에는 제목이 있었습니다. → 대부분 **추출 스크립트가 제목을 못 가져온 표기 오류**일 가능성이 높습니다 (sitemap.xml 자체에는 제목이 없음).
+- `/2025/10/blog-post.html`, `/2024/08/blog-post.html` 2개는 Blogger가 **한글 제목으로 게시된 글**에 자동으로 붙이는 슬러그입니다. 영문 사이트에서 한글 제목 글이 남아 있을 가능성이 높으므로 우선 확인 대상입니다.
+- 만약 실제로 제목이 비어 있다면 `<title>`이 블로그 이름만 남아 저품질 신호가 되므로 1순위 조치입니다.
 
 | URL | 조치 |
 |---|---|
@@ -57,7 +61,7 @@ sitemap 기준 `[제목 없음]` 으로 노출되는 포스트가 **28개 (전�
 | /2024/06/generative-agents-interactive-simulacra.html | 주제 이탈 → Draft 권장 |
 | /2024/05/have-you-tried-journey-of-challenge-and.html | 내용 확인 후 결정 |
 
-> sitemap의 `[제목 없음]` 은 추출 스크립트의 표기일 수 있으므로, **Blogger 관리자 → 글 목록에서 "(제목 없음)" 으로 표시되는지** 먼저 확인하세요. 실제로 비어 있다면 이것이 1순위 조치입니다.
+> **확인 방법**: 위 URL을 브라우저로 열어 탭 제목이 "글 제목 | 블로그명" 인지, 블로그명만 나오는지 확인하거나, Blogger 관리자 글 목록에서 "(제목 없음)" 으로 표시되는지 확인하세요. 표의 "제목 입력" 조치는 실제로 비어 있을 때만 해당합니다.
 
 ### 1-2. 버스트 발행 = "Scaled content" 패턴
 | 연도 | 포스트 수 |
@@ -102,13 +106,13 @@ sitemap 기준 `[제목 없음]` 으로 노출되는 포스트가 **28개 (전�
 ## 2. ✅ 조치 계획 (우선순위)
 
 ### 1단계 — 즉시 (1주 이내)
-1. **제목 없는 28개 처리**: 유지할 글은 제목 입력, 슬러그 없는 `blog-post.html` 2개와 주제 이탈 AI 글 3개는 Draft.
-2. **주제 이탈 글 Draft 전환** (약 30~40개 예상):
+1. **제목 확인 필요 28개 점검**: 실제로 비어 있는 글만 제목 입력. `blog-post.html` 2개(한글 제목 추정)와 주제 이탈 AI 글 3개는 Draft.
+2. **주제 이탈 글 Draft 전환** (약 30~40개 — 전체 목록은 **부록 A**):
    - 일반 AI 논문 리뷰 전부 (BERT, ReAct, Toolformer, NL2SQL, Sora, AutoGen, CrewAI, MCP, LangGraph, Auto-GPT, Generative Agents, NeurIPS RL, NLP Review, CV Roadmap, Deep Learning Fundamentals, Face Recognition)
    - "2027 Revised Series" Part 1~5
    - 2014–2021 글 중 해양 사이버와 무관한 글
    - 판단 기준: **"이 글은 조선해양 사이버 보안 컨설턴트만 쓸 수 있는가?"** 아니면 Draft.
-3. **Chapter 번호형 제목 수정**: "Chapter 7. Role of Shipyard and Supplier" → "Shipyard vs Supplier Responsibilities Under IACS UR E26/E27 (Ch.7)" 처럼 단독으로 의미가 통하게.
+3. **Chapter 번호형 제목 수정** (전체 목록·수정안은 **부록 B**): "Chapter 7. Role of Shipyard and Supplier" → "Shipyard vs Supplier Responsibilities Under IACS UR E26/E27 (Ch.7)" 처럼 단독으로 의미가 통하게.
 4. **중복 시리즈 병합**: 동일 주제는 대표 글 1개로 합치고 나머지는 Draft (Blogger는 301을 지원하지 않으므로, Draft 전환 후 대표 글로 내부 링크 정리).
 
 목표: **공개 포스트 192 → 약 100~120개**, 남은 글 전부 제목·주제·깊이 기준 통과.
@@ -135,7 +139,7 @@ sitemap 기준 `[제목 없음]` 으로 노출되는 포스트가 **28개 (전�
 
 ## 3. 재심사 전 체크리스트
 
-- [ ] Blogger 관리자에서 "(제목 없음)" 글 0개
+- [ ] 제목 확인 필요 28개 점검 → 실제 "(제목 없음)" 글 0개
 - [ ] 슬러그 `blog-post.html` 형태 URL 0개
 - [ ] 일반 AI 논문 리뷰 / 2027 Revised Series / 주제 이탈 글 Draft 완료
 - [ ] Chapter·Part 번호만 있는 제목 0개
@@ -156,4 +160,131 @@ sitemap 기준 `[제목 없음]` 으로 노출되는 포스트가 **28개 (전�
 |---|---|---|
 | 진단 초점 | 개별 글 단어 수 (E26 소항목 25개) | **사이트 전체 신호** (발행 패턴 · 색인율 · 주제 분산 · 제목 누락) |
 | 핵심 조치 | Draft 25개 → 즉시 재신청 | Draft 60~90개 + Pillar 강화 + **4~8주 운영 후** 재신청 |
-| 새로 발견된 문제 | — | 제목 없는 글 28개, 7월 46개 버스트, 색인율 54%, AI 논문 리뷰 주제 이탈, 저작권 문서 배포 위험 |
+| 새로 발견된 문제 | — | 제목 확인 필요 28개(대부분 추출 오류 추정), 7월 46개 버스트, 색인율 54%, AI 논문 리뷰 주제 이탈, 저작권 문서 배포 위험 |
+
+---
+
+## 부록 A. 주제 이탈 후보 목록 (41개)
+
+판단 기준: "조선해양 사이버 보안 컨설턴트만 쓸 수 있는 글인가?" 번호는 `all_192_posts.txt` 순번입니다.
+
+### A-1. 일반 AI 논문 리뷰·AI 기초 — **Draft 권장 (18개)**
+제목에 "Maritime"을 붙였지만 본문은 일반 AI 논문 요약일 가능성이 높아, 고유 가치가 가장 낮은 그룹입니다.
+
+| # | 연월 | 제목 |
+|---|---|---|
+| 163 | 2025/01 | [PAPER] Model Context Protocol (MCP) — Open Standard Specification |
+| 165 | 2025/01 | [AI Cyber Lab] AutoGen Paper Review |
+| 176 | 2024/05 | [PAPER] CrewAI — Role-based AI Multi-Agent Framework |
+| 177 | 2024/03 | [AI Cyber Lab] Toolformer Paper Review |
+| 178 | 2024/02 | [AI Cyber Lab] OpenAI Sora & Maritime Cybersecurity |
+| 179 | 2023/11 | [AI Cyber Lab] NL2SQL × Maritime Cybersecurity |
+| 180 | 2023/06 | [AI Cyber Lab] ReAct Paper Review |
+| 181 | 2021/05 | [Paper] Dynamic Allocation in Reinforcement Learning: NeurIPS 2020 |
+| 182 | 2021/04 | [Paper] Natural Language Processing: A Review |
+| 183 | 2021/04 | Computer Vision R&D Roadmap: CNN, GAN, and 3D Reconstruction |
+| 184 | 2021/02 | [AI Cyber Lab] BERT Paper Review |
+| 185 | 2021/02 | From Mathematical Foundations to AI Chatbot Development |
+| 186 | 2021/02 | The Shift in Market Keywords and the Role of AI |
+| 187 | 2020/07 | [R&D] Open-Source Face Recognition with dlib & OpenCV |
+| 188 | 2020/07 | Deep Learning Fundamentals — Neural Networks, CNN, RNN, LSTM & Transformers |
+| — | 2024/08 | /auto-gpt-autonomous-gpt-4-experiment.html |
+| — | 2024/06 | /langgraph-building-stateful-multi-actor.html |
+| — | 2024/06 | /generative-agents-interactive-simulacra.html |
+
+### A-2. 기업 AI 경영 시리즈 — **Draft 권장 (5개)**
+해양·사이버와 직접 관련 없는 일반 경영/AI 도입론입니다.
+
+| # | 제목 |
+|---|---|
+| 8 | Building Org-Wide Consensus in the LLM Era (this article) [2027 Revised Series · Part 1] |
+| 4 | Channel Strategy in the AI Agent Era [Part 2] |
+| 9 | RAG and AI Agents — Activating Intelligent Service [Part 3] |
+| 2 | LLM Architecture & AI Ethics [Part 4] |
+| 6 | Enterprise AI in the Agent Era [Part 5 — Finale] |
+
+### A-3. 조직·리더십 에세이 시리즈 — **검토 후 Draft 또는 별도 정리 (7개)**
+개인 경험이 담긴 글이라 E-E-A-T에 도움이 될 수 있지만, 사이트 주제와는 떨어져 있고 제목도 번호형입니다. 유지한다면 해양 업계 경험으로 다시 연결해 제목을 바꾸고, 아니면 Draft.
+
+| # | 제목 |
+|---|---|
+| 144 | Chapter 1. Is Yi Sun-sin Essential to an Organization? |
+| 143 | Chapter 2. In the end, it was myself who led me. |
+| — | /2026/07/chapter-3-do-not-kill-goose-that-lays.html |
+| 142 | Chapter 4. Why do I clash with my boss every time? |
+| 127 | Chapter 5. Reflecting on my past career and the taboos of organizational life. |
+| 124 | Chapter 6. The Villain Effect — A Story of How Organizations Lose Themselves |
+| 94 | Chapter 7. Negotiation: The Game Is Different at Every Level |
+
+### A-4. 개인·회사 소식, 인사말 — **검토: 1개 About/Journey 글로 통합 권장 (7개)**
+짧은 공지·감사글은 단독 페이지로는 가치가 낮습니다. 경력 스토리는 About 페이지나 "My Journey" 글 하나로 통합하세요.
+
+| # | 제목 |
+|---|---|
+| 161 | A New Chapter: From Curiosity to Action |
+| — | /2025/02/reconnecting-with-my-shipbuilding.html |
+| 145 | The First Step Toward the World's First Cyber Ship – With Sincere Thanks for the Cybersecurity Policy Briefing |
+| 138 | ⚓ A Letter of Gratitude and Commitment – 2025 |
+| 131 | Evergreen Collaboration Begins: A Significant Step Toward Global Growth |
+| 130 | Returning to the Shipyard: Where My Past, Present, and Future Converge |
+| — | /2024/05/have-you-tried-journey-of-challenge-and.html |
+
+### A-5. 오래된 레거시 글 — **검토 (4개)**
+| # | 제목 | 의견 |
+|---|---|---|
+| 192 | (2014) SK Telecom × DSME Smart Ship Partnership | 스마트십 역사 자료로 보강 시 유지 가능 |
+| 191 | (2018) DSME · Naver · Intel Smart Ship 4.0 MOU | 위와 동일 |
+| 190 | (2019) The vision behind ShipPaulJobs | About 페이지로 통합 |
+| 189 | (2020) DID System Autonomous Operation | 주제 이탈 → Draft |
+
+### A-6. 별도 주의 — 사실 확인 필요
+아래 글은 주제 이탈은 아니지만, **사실 여부가 불확실하면 "신뢰할 수 있는 정보" 기준에서 감점**됩니다. 출처 링크가 본문에 있는지 확인하세요.
+- #36 "OpenAI's Model Escaped Its Sandbox and Breached Hugging Face"
+- #60/95/79 "AI Cyber Threats (1~3/3): Understanding Claude Mythos …"
+- #5 "Floating Data Centers", #53 "AI Shipyard Has Officially Begun" — 해양 연관성은 있으나 근거 자료 보강 필요
+
+---
+
+## 부록 B. 제목 수정 목록
+
+### B-1. 번호만으로는 내용을 알 수 없는 제목 → 수정안
+E26/E27 엔지니어링 시리즈(Chapter 1~9)는 핵심 콘텐츠이므로 **유지하되 제목만 단독으로 읽히게** 바꿉니다. 시리즈 표기는 뒤로 보냅니다.
+
+| # | 현재 제목 | 수정안 |
+|---|---|---|
+| 77 | Chapter 1. Digitalization of Modern Ships | How Ship Digitalization Created the Cyber Risk Behind IACS UR E26 (Ch.1) |
+| 76 | Chapter 2. Increasing OT System Interdependency | Why Shipboard OT Interdependency Turns One Failure into Many (Ch.2) |
+| 75 | Chapter 3. Why Cybersecurity Became a System Engineering Issue | Ship Cybersecurity Is a System Engineering Problem, Not an IT Add-On (Ch.3) |
+| 74 | Chapter 4: Understanding Why IACS Introduced E26 and E27 | Why IACS Introduced UR E26 and E27: The Engineering Gap They Close (Ch.4) |
+| 11 | Chapter 5. From Functional Design to Explainable Design | From Functional to Explainable Design: What UR E26 Reviewers Expect (Ch.5) |
+| 50 | Chapter 6. Required Engineering Evidence | What Engineering Evidence UR E26/E27 Approval Actually Requires (Ch.6) |
+| 55 | Chapter 7. Role of Shipyard and Supplier | Shipyard vs. Supplier Responsibilities Under IACS UR E26/E27 (Ch.7) |
+| 49 | Chapter 8. How Engineering Information Flows Through a Project | How Cyber Engineering Information Flows from Supplier to Class in a Newbuild (Ch.8) |
+| 7 | Chapter 9 From Compliance Documentation to Sustainable Cybersecurity Engineering | Beyond E26 Paperwork: Building Sustainable Ship Cybersecurity Engineering (Ch.9) |
+| 46 | Article 1 : The Cyber Resilience System Integrator and the Six Core Ship-Level Deliverables | The Cyber Resilience System Integrator: Six Ship-Level Deliverables Under UR E26 |
+| 83 | Which Comes First — the Chicken or the Egg? (Part 1) | 본문 주제를 제목에 명시 (예: "E26 vs E27: Which Comes First in a Newbuild Project?") |
+
+### B-2. 시리즈 표기는 있으나 주제가 앞에 와야 하는 제목
+| # | 현재 | 수정안 |
+|---|---|---|
+| 85 | Part 1. Why Modern Ships Need Jump Servers (Maritime Jump Server Series) | Why Modern Ships Need Jump Servers — Maritime Jump Server Series (1/3) |
+| 67 | Part 2. Designing Secure Remote Access for Ships | Designing Secure Remote Access for Ships — Maritime Jump Server Series (2/3) |
+| 34 | Part 3. How to Evaluate a Maritime Jump Server Solution | How to Evaluate a Maritime Jump Server Solution — Jump Server Series (3/3) |
+| 111 | ICS Security Chapter 1 The Nature of Industrial Control Systems … | The Nature of ICS/OT and Its Security Paradigm — ICS Security Ch.1 |
+| 110 | ICS Security Chapter 2 CS Network Architecture Fundamentals | ICS Network Architecture Fundamentals — ICS Security Ch.2 (오타 "CS" 수정) |
+| 109 | ICS Security Chapter 4 Threat Modeling Fundamentals … | ICS Threat Modeling: Attack Chains & EWS Pivot Analysis — ICS Security Ch.4 |
+| 108 | ICS Security Chapter 5 Host Security … | ICS Host Security After Preventive Controls — ICS Security Ch.5 |
+| 100 | ICS Securit Chapter 6 Documentation Fundamentals … | ICS Security Documentation Fundamentals — ICS Security Ch.6 (오타 "Securit" 수정) |
+| 93 | ICS Security Chapter 7 Security Testing Fundamentals … | ICS Security Testing Fundamentals — ICS Security Ch.7 |
+| 92 | ICS Security Chapter 8 · OT Security Architecture & Deployment Fundamentals | OT Security Architecture & Deployment — ICS Security Ch.8 |
+
+### B-3. 오타·편집 흔적 (즉시 수정)
+| # | 문제 | 수정 |
+|---|---|---|
+| 8 | 제목에 "(this article)" 이 남아 있음 | 삭제 (A-2 Draft 대상이면 생략) |
+| 100 | "ICS Securit" | "ICS Security" |
+| 110 | "CS Network" | "ICS Network" |
+| 41 | "Binding. : Effective …" 구두점 중복 | "Italy Makes Maritime Cyber Compliance Binding from 1 Nov 2026 — What Circular 177/2025 Requires" |
+| 3 | 문장형 제목 + 마침표 | "Rushing CSDD During Construction Breaks SCARP After Vessel Delivery" |
+| 27, 134, 136, 168 | 공백 2칸 ("Cable to Cyber Resilience  Designing", "Poor  Documentation", "Why  Compliance", "E27]  Compliance") | 공백 1칸 |
+| — | 슬러그 `ics-security-hapter-3`, `he-8-global-…` | Blogger는 게시 후 슬러그 변경 시 URL이 바뀌므로 **제목만** 수정 |
