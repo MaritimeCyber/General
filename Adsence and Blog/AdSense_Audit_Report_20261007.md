@@ -143,7 +143,8 @@
 - [x] 슬러그 `blog-post.html` 형태 URL 0개 (2개 Draft 전환, 10/7)
 - [x] AI 논문 리뷰 18편 Draft 완료 (10/7)
 - [ ] Publications 페이지·내부 링크에서 Draft 18편 링크 정리
-- [ ] 2027 Revised Series 보완 또는 Draft / 기타 주제 이탈 글 정리
+- [x] 2027 Revised Series 5편 해양 조직 관점 보완 원고 (10/7) — Blogger 반영 필요
+- [ ] 기타 주제 이탈 글 정리
 - [ ] Chapter·Part 번호만 있는 제목 0개
 - [ ] 중복 시리즈 병합 완료, 공개 포스트 ~100~120개
 - [ ] Pillar 글 15개 이상에 1차 경험 사례 · 자체 제작 도식 · 바이라인 · 검토일 추가
@@ -235,6 +236,8 @@
 | — | 2024/06 | /generative-agents-interactive-simulacra.html |
 
 ### A-2. 기업 AI 경영 시리즈 — **해양 조직 관점으로 보완, 불가능한 편만 Draft (5개)**
+
+> ✅ **보완 원고 완료 (2026-10-07)** — `Blog/POST/AI/ChatBot/ChatBot_1~5_2027.html` 에 해양 조직 섹션 추가, 제목을 "Maritime Enterprise AI 1~5/5" 로 변경, 확인되지 않는 통계·제품명·IMO AI 지침 언급 등 사실 오류 수정. Blogger 반영은 `Blog/Tools/blogger_update_maritime_ai_series.py --apply`.
 현재는 해양·사이버와 직접 관련 없는 일반 경영/AI 도입론입니다. 이 시리즈는 논문 리뷰가 아니므로 A-1과 기준이 다릅니다. 유지하려면 **"선사·조선소가 AI를 도입할 때"** 로 관점을 바꿔야 합니다.
 
 - Part 1 (Org-Wide Consensus): 조선소 설계·생산·품질 부서 간 AI 도입 합의 사례로 재구성
