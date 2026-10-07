@@ -1,0 +1,154 @@
+<!--════════════════════════════════════════════════════════════
+  Widget : Sidebar — AdSense frame + Corporate banner (Home only)
+  Where  : Blogger Layout → Sidebar (Top) → Add a Gadget → HTML/JavaScript
+           (title empty)
+  Shows  : Only on the home page (template adds body.is-homepage)
+
+  설정 (아래 SPJ_SIDEBAR_ADS 의 값만 바꾸면 됩니다)
+   1) adSlot   : AdSense → 광고 → 광고 단위 기준 → 디스플레이 광고 생성 후
+                 data-ad-slot 숫자. 비워두면 광고 영역은 표시되지 않습니다.
+   2) sponsors : 기업 배너 목록. 여러 개면 방문마다 하나씩 무작위로 표시.
+                 비워두면 "Advertise with Us" 안내 배너가 표시됩니다.
+
+  AdSense 정책 메모
+   - 광고 라벨은 "Advertisement" / "Sponsored Links" 만 허용 → "Advertisement" 사용
+   - 테두리는 허용되지만, 클릭을 유도하는 문구·화살표·이미지는 금지
+   - 광고가 채워지지 않으면(unfilled) 테두리 박스 전체를 숨김 → 빈 광고 칸 노출 방지
+   - 기업 배너는 광고 단위와 간격을 두고 "Sponsored" 라벨로 구분 (AdSense 광고로 오인 방지)
+════════════════════════════════════════════════════════════-->
+<style>
+  body:not(.is-homepage) #spj-sidebar-ads { display: none !important; }
+
+  #spj-sidebar-ads { font-family: "Segoe UI", Arial, sans-serif; margin: 0 0 18px; }
+
+  /* ── AdSense frame ── */
+  #spj-sidebar-ads .spj-ad-frame {
+    border: 1px solid #d5dfea;
+    border-radius: 10px;
+    background: #fbfcfe;
+    padding: 8px 10px 10px;
+    margin-bottom: 22px;
+  }
+  #spj-sidebar-ads .spj-ad-frame[hidden],
+  #spj-sidebar-ads .spj-ad-frame:has(ins.adsbygoogle[data-ad-status="unfilled"]) { display: none; }
+  #spj-sidebar-ads .spj-label {
+    display: block;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a9bb0;
+    margin: 0 0 6px;
+  }
+  #spj-sidebar-ads ins.adsbygoogle { display: block; min-height: 250px; }
+
+  /* ── Corporate banner ── */
+  #spj-sidebar-ads .spj-banner {
+    border: 1px solid #d5dfea;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+  #spj-sidebar-ads .spj-banner .spj-label { padding: 8px 10px 0; margin: 0 0 6px; }
+  #spj-sidebar-ads .spj-banner a { display: block; text-decoration: none; }
+  #spj-sidebar-ads .spj-banner img { display: block; width: 100%; height: auto; }
+  #spj-sidebar-ads .spj-banner-name {
+    display: block;
+    padding: 7px 10px 9px;
+    font-size: 11px;
+    color: #4a6080;
+    border-top: 1px solid #eef2f6;
+  }
+
+  /* fallback when no sponsor is configured */
+  #spj-sidebar-ads .spj-banner-empty {
+    display: block;
+    margin: 0 10px 10px;
+    padding: 18px 14px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0a2342, #154f7a);
+    color: #b8d4ea;
+    font-size: 11.5px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  #spj-sidebar-ads .spj-banner-empty strong { display: block; color: #fff; font-size: 13px; margin-bottom: 4px; }
+  #spj-sidebar-ads .spj-banner-empty span { display: inline-block; margin-top: 10px; color: #7effd8; font-weight: 700; }
+</style>
+
+<div id="spj-sidebar-ads">
+  <!-- AdSense display unit -->
+  <div class="spj-ad-frame" hidden>
+    <span class="spj-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         data-ad-client="ca-pub-1136000774216453"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- Corporate banner -->
+  <div class="spj-banner">
+    <span class="spj-label">Sponsored</span>
+    <div class="spj-banner-body"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var SPJ_SIDEBAR_ADS = {
+    adSlot: "",            // 예: "1234567890"  (AdSense 디스플레이 광고 단위 slot ID)
+    sponsors: [
+      // { name: "Company Name", image: "https://.../banner-300x250.png",
+      //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=sidebar",
+      //   alt: "Company Name — maritime cyber security solutions" }
+    ],
+    advertiseUrl: "https://www.shippauljobs.com/p/contact-shippauljobs.html"
+  };
+
+  if (!document.body.classList.contains("is-homepage")) return;
+  var root = document.getElementById("spj-sidebar-ads");
+  if (!root) return;
+
+  // ── AdSense ──
+  var frame = root.querySelector(".spj-ad-frame");
+  var ins = frame.querySelector("ins.adsbygoogle");
+  if (SPJ_SIDEBAR_ADS.adSlot) {
+    ins.setAttribute("data-ad-slot", SPJ_SIDEBAR_ADS.adSlot);
+    frame.hidden = false;
+    if (!document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')) {
+      var s = document.createElement("script");
+      s.async = true;
+      s.crossOrigin = "anonymous";
+      s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1136000774216453";
+      document.head.appendChild(s);
+    }
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { frame.hidden = true; }
+    // :has() 미지원 브라우저용 — 광고가 채워지지 않으면 프레임 숨김
+    setTimeout(function () {
+      if (ins.getAttribute("data-ad-status") === "unfilled") frame.hidden = true;
+    }, 4000);
+  }
+
+  // ── Corporate banner ──
+  var body = root.querySelector(".spj-banner-body");
+  var list = SPJ_SIDEBAR_ADS.sponsors.filter(function (x) { return x && x.image && x.url; });
+  function esc(t) { return String(t || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  if (list.length) {
+    var sp = list[Math.floor(Math.random() * list.length)];
+    body.innerHTML =
+      '<a href="' + esc(sp.url) + '" target="_blank" rel="sponsored noopener">' +
+        '<img src="' + esc(sp.image) + '" alt="' + esc(sp.alt || sp.name) + '" loading="lazy" width="300" height="250">' +
+        (sp.name ? '<span class="spj-banner-name">' + esc(sp.name) + '</span>' : "") +
+      "</a>";
+  } else {
+    root.querySelector(".spj-banner .spj-label").textContent = "Partner with us";
+    body.innerHTML =
+      '<a class="spj-banner-empty" href="' + esc(SPJ_SIDEBAR_ADS.advertiseUrl) + '" target="_blank" rel="noopener">' +
+        "<strong>Your brand here</strong>" +
+        "Reach maritime engineers, OT/cyber specialists and industry decision-makers." +
+        "<span>Advertise with ShipPaulJobs</span>" +
+      "</a>";
+  }
+})();
+</script>
