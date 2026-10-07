@@ -11,7 +11,7 @@ AdSense 2차 감사(AdSense_Audit_Report_20261007.md) 부록 B-1/B-2의
 
 사용법:
   1. Blog/Tools 의 credentials.json / token.json 을 그대로 사용합니다 (다른 Tools 스크립트와 동일).
-  2. pip install google-api-python-client google-auth-oauthlib
+  2. pip install google-auth google-auth-oauthlib requests
   3. python blogger_title_updater.py           # 미리보기
   4. python blogger_title_updater.py --apply   # 실제 적용
 """
@@ -19,6 +19,7 @@ AdSense 2차 감사(AdSense_Audit_Report_20261007.md) 부록 B-1/B-2의
 import json
 import os
 import sys
+import types
 from datetime import datetime
 
 BLOG_ID          = "8002758868633250458"
@@ -100,6 +101,49 @@ def norm(s: str) -> str:
     return " ".join(s.split())
 
 
+API_BASE = "https://blogger.googleapis.com/v3"
+
+
+class HttpError(Exception):
+    def __init__(self, response):
+        super().__init__(f"{response.status_code} {response.text[:200]}")
+        self.resp = types.SimpleNamespace(status=response.status_code)
+
+
+class _Call:
+    def __init__(self, session, method, url, **kwargs):
+        self.session, self.method, self.url, self.kwargs = session, method, url, kwargs
+
+    def execute(self):
+        r = self.session.request(self.method, self.url, **self.kwargs)
+        if not r.ok:
+            raise HttpError(r)
+        return r.json() if r.content else {}
+
+
+class _Posts:
+    def __init__(self, session):
+        self.session = session
+
+    def getByPath(self, blogId, path):
+        return _Call(self.session, "GET", f"{API_BASE}/blogs/{blogId}/posts/bypath", params={"path": path})
+
+    def patch(self, blogId, postId, body):
+        return _Call(self.session, "PATCH", f"{API_BASE}/blogs/{blogId}/posts/{postId}", json=body)
+
+    def revert(self, blogId, postId):
+        return _Call(self.session, "POST", f"{API_BASE}/blogs/{blogId}/posts/{postId}/revert")
+
+
+class BloggerService:
+    """googleapiclient 없이 Blogger REST API 를 호출 (add_naver_verification.py 와 같은 AuthorizedSession 방식)."""
+    def __init__(self, session):
+        self.session = session
+
+    def posts(self):
+        return _Posts(self.session)
+
+
 def load_token_info(path: str) -> dict:
     """token.json 을 읽되, expiry 가 숫자(epoch 초)로 저장된 경우 google-auth 형식 문자열로 변환."""
     from datetime import timezone
@@ -114,10 +158,9 @@ def load_token_info(path: str) -> dict:
 
 
 def get_service():
-    from googleapiclient.discovery import build
     from google.oauth2.credentials import Credentials
     from google_auth_oauthlib.flow import InstalledAppFlow
-    from google.auth.transport.requests import Request
+    from google.auth.transport.requests import Request, AuthorizedSession
 
     SCOPES = ["https://www.googleapis.com/auth/blogger"]
     creds = None
@@ -134,7 +177,7 @@ def get_service():
         with open(TOKEN_FILE, "w") as f:
             f.write(creds.to_json())
 
-    return build("blogger", "v3", credentials=creds)
+    return BloggerService(AuthorizedSession(creds))
 
 
 def main():
@@ -146,7 +189,6 @@ def main():
     print(f"  {'[LIVE — Blogger 제목 변경]' if apply else '[DRY RUN — 실제 변경 없음, --apply 로 적용]'}")
     print("=" * 60)
 
-    from googleapiclient.errors import HttpError
     service = get_service()
 
     updated = already = mismatch = missing = 0
