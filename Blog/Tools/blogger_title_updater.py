@@ -10,7 +10,7 @@ AdSense 2차 감사(AdSense_Audit_Report_20261007.md) 부록 B-1/B-2의
   - 기본은 DRY RUN (변경 없음). 실제 적용은 --apply 옵션.
 
 사용법:
-  1. blogger_label_classifier.py 와 같은 credentials.json 을 이 폴더에 둡니다.
+  1. Blog/Tools 의 credentials.json / token.json 을 그대로 사용합니다 (다른 Tools 스크립트와 동일).
   2. pip install google-api-python-client google-auth-oauthlib
   3. python blogger_title_updater.py           # 미리보기
   4. python blogger_title_updater.py --apply   # 실제 적용
@@ -179,4 +179,5 @@ def main():
 
 
 if __name__ == "__main__":
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     main()
