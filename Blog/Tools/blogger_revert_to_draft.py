@@ -49,6 +49,19 @@ POSTS_TO_DRAFT = [
 ]
 
 
+def load_token_info(path: str) -> dict:
+    """token.json 을 읽되, expiry 가 숫자(epoch 초)로 저장된 경우 google-auth 형식 문자열로 변환."""
+    from datetime import timezone
+    with open(path, encoding="utf-8") as f:
+        info = json.load(f)
+    expiry = info.get("expiry")
+    if isinstance(expiry, (int, float)):
+        if expiry > 1e12:  # 밀리초 단위
+            expiry /= 1000
+        info["expiry"] = datetime.fromtimestamp(expiry, tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return info
+
+
 def get_service():
     from googleapiclient.discovery import build
     from google.oauth2.credentials import Credentials
@@ -59,7 +72,7 @@ def get_service():
     creds = None
 
     if os.path.exists(TOKEN_FILE):
-        creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
+        creds = Credentials.from_authorized_user_info(load_token_info(TOKEN_FILE), SCOPES)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
