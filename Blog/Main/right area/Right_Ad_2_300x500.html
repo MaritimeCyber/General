@@ -1,0 +1,180 @@
+<!--============================================================
+  Gadget : Right column ad slot 2 of 3  -  300 x 500  (middle of the right column)
+  Where  : Blogger > Layout > any section > Add a Gadget > HTML/JavaScript
+           (leave the title empty). Add all three slot gadgets
+           (Right_Ad_1, Right_Ad_2, Right_Ad_3); their order in Layout
+           does not matter - they always stack 1-2-3.
+
+  How it works
+   - The three gadgets share one right column. Whichever runs first
+     creates it; each gadget only adds its own card.
+   - Wide screens: the column sits in the free space to the right of
+     the content, 180-252px wide, and scrolls with the page.
+   - Narrow screens (tablet/mobile): only slots with inline: true are
+     shown, after the first content widget (slot 1 by default).
+   - showOn: which pages show the slot - "home", "post", "page"
+     (static /p/ pages), "list" (label/search/archive lists).
+
+  Settings - edit only the SLOT and COMMON values below.
+   - sponsors empty  : shows an "Advertise here" placeholder for this size.
+   - sponsors filled : shows the banner (300 x 500 image, 2x recommended).
+     Several sponsors rotate at random on each page view.
+============================================================-->
+<script>
+(function () {
+  var SLOT = {
+    order: 2,                       // position in the column (1 = top)
+    size: "300 \u00d7 500",
+    ratio: "3 / 5",                 // width / height of the slot
+    inline: false,                     // also show on narrow screens?
+    sponsors: [
+      // { name: "Company Name", image: "https://.../banner-300x500.png",
+      //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=right_300x500_a",
+      //   alt: "Company Name - maritime cyber security solutions" }
+    ]
+  };
+  var COMMON = {
+    showOn: ["home", "post", "page", "list"],
+    advertiseUrl: "https://www.shippauljobs.com/p/advertisement-policy.html",
+    contactUrl: "https://www.shippauljobs.com/p/contact-shippauljobs.html"
+  };
+
+  /* ---- Shared right-column core (identical in all three slot gadgets; runs once) ---- */
+  var R = window.SPJ_RIGHT_RAIL;
+  if (!R) {
+    R = window.SPJ_RIGHT_RAIL = (function () {
+      var MAX_W = 252, MIN_W = 180, GAP = 12;
+      var css =
+        "#spj-right-rail{display:none;width:252px;font-family:'Segoe UI',Arial,sans-serif;box-sizing:border-box}" +
+        "#spj-right-rail.spj-rb-rail{display:flex;flex-direction:column;gap:14px;position:absolute;z-index:50}" +
+        "#spj-right-rail.spj-rb-inline{display:flex;flex-direction:column;gap:14px;width:auto;max-width:300px;margin:0 auto 16px}" +
+        "#spj-right-rail.spj-rb-inline .spj-rb-card.spj-rb-rail-only{display:none}" +
+        "#spj-right-rail .spj-rb-card{background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(4,12,28,.25);padding:8px 10px 10px}" +
+        "#spj-right-rail .spj-rb-label{display:block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8a9bb0;margin:0 0 7px}" +
+        "#spj-right-rail a{text-decoration:none}" +
+        "#spj-right-rail .spj-rb-banner{display:block}" +
+        "#spj-right-rail .spj-rb-banner img{display:block;width:100%;height:auto;border-radius:6px;object-fit:cover}" +
+        "#spj-right-rail .spj-rb-name{display:block;margin-top:6px;font-size:11px;color:#4a6080;text-align:center}" +
+        "#spj-right-rail .spj-rb-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;box-sizing:border-box;border:2px dashed #9fb3c8;border-radius:8px;text-align:center;background:repeating-linear-gradient(135deg,#f6f9fc 0 12px,#eef3f8 12px 24px)}" +
+        "#spj-right-rail .spj-rb-slot:hover{border-color:#1a9e82}" +
+        "#spj-right-rail .spj-rb-size{font-size:9.5px;font-weight:700;letter-spacing:.1em;color:#8a9bb0;border:1px solid #c9d6e3;border-radius:4px;padding:2px 7px;background:#fff}" +
+        "#spj-right-rail .spj-rb-title{font-size:16px;font-weight:800;color:#0a2342;line-height:1.25}" +
+        "#spj-right-rail .spj-rb-text{font-size:11px;line-height:1.55;color:#4a6080}" +
+        "#spj-right-rail .spj-rb-cta{margin-top:4px;padding:6px 13px;border-radius:6px;background:#0a2342;color:#7effd8;font-size:11.5px;font-weight:700}" +
+        "#spj-right-rail .spj-rb-slot:hover .spj-rb-cta{background:#154f7a}" +
+        "#spj-right-rail .spj-rb-alt{display:block;margin-top:7px;font-size:10px;color:#8a9bb0;text-align:center}" +
+        "#spj-right-rail .spj-rb-alt a{color:#154f7a;text-decoration:underline}";
+      var style = document.createElement("style");
+      style.id = "spj-right-rail-css";
+      style.textContent = css;
+      document.head.appendChild(style);
+
+      var rail = document.createElement("div");
+      rail.id = "spj-right-rail";
+      document.body.appendChild(rail);
+
+      // Blogger stores non-ASCII characters in gadgets as &#NNN; - decode first, then escape.
+      function decode(t) {
+        return String(t || "")
+          .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(+n); })
+          .replace(/&#x([0-9a-f]+);/gi, function (_, h) { return String.fromCharCode(parseInt(h, 16)); })
+          .replace(/&nbsp;/g, "\u00a0").replace(/&middot;/g, "\u00b7").replace(/&times;/g, "\u00d7").replace(/&amp;/g, "&");
+      }
+      function esc(t) { return decode(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+      function pageType() {
+        var path = location.pathname;
+        if (document.body.classList.contains("is-homepage") || path === "/" || path === "/index.html") return "home";
+        if (/^\/\d{4}\/\d{2}\/[^\/]+\.html$/.test(path)) return "post";
+        if (/^\/p\/[^\/]+\.html$/.test(path)) return "page";
+        return "list";
+      }
+
+      // Right edge / top of the visible content column (widest content widget or post card).
+      function contentEdges() {
+        var els = document.querySelectorAll("#page_body .widget, .post-outer-container, .widget.Blog, .widget.PopularPosts, .widget.FeaturedPost");
+        var right = null, top = null;
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (rail.contains(el) || el.contains(rail)) continue;
+          if (getComputedStyle(el).position === "fixed") continue;
+          var r = el.getBoundingClientRect();
+          if (r.width < 200 || r.height < 30) continue;
+          if (right === null || r.right > right) right = r.right;
+          if (top === null || r.top < top) top = r.top;
+        }
+        return right === null ? null : { right: right, top: top + window.scrollY };
+      }
+      // Narrow screens: put the rail after the first content widget (never inside a card grid).
+      function inlineAnchor() {
+        var ws = document.querySelectorAll("#page_body > .widget, #page_body .widget.Blog");
+        for (var i = 0; i < ws.length; i++) {
+          if (ws[i].contains(rail)) continue;
+          if (ws[i].getBoundingClientRect().height > 30) return ws[i];
+        }
+        return null;
+      }
+
+      function place() {
+        if (!rail.children.length) return;
+        var edge = contentEdges();
+        var vw = document.documentElement.clientWidth;
+        var free = edge === null ? 0 : vw - edge.right;
+        var w = Math.min(MAX_W, free - GAP * 2);
+        if (w >= MIN_W) {
+          if (rail.parentNode !== document.body) document.body.appendChild(rail);
+          rail.className = "spj-rb-rail";
+          rail.style.width = w + "px";
+          rail.style.left = Math.round(edge.right + window.scrollX + (free - w) / 2) + "px";
+          rail.style.top = Math.round(edge.top) + "px";
+        } else {
+          var a = inlineAnchor();
+          rail.className = "spj-rb-inline";
+          rail.style.left = rail.style.top = rail.style.width = "";
+          if (a && a.parentNode && a.nextSibling !== rail) a.parentNode.insertBefore(rail, a.nextSibling);
+        }
+      }
+
+      function add(slot, common) {
+        if ((slot.showOn || common.showOn).indexOf(pageType()) === -1) return;
+        var list = (slot.sponsors || []).filter(function (x) { return x && x.image && x.url; });
+        var card = document.createElement("div");
+        card.className = "spj-rb-card" + (slot.inline ? "" : " spj-rb-rail-only");
+        card.setAttribute("data-order", slot.order);
+        if (list.length) {
+          var sp = list[Math.floor(Math.random() * list.length)];
+          card.innerHTML =
+            '<span class="spj-rb-label">Sponsored</span>' +
+            '<a class="spj-rb-banner" href="' + esc(sp.url) + '" target="_blank" rel="sponsored noopener">' +
+              '<img src="' + esc(sp.image) + '" alt="' + esc(sp.alt || sp.name) + '" loading="lazy" style="aspect-ratio:' + esc(slot.ratio) + '">' +
+              (sp.name ? '<span class="spj-rb-name">' + esc(sp.name) + "</span>" : "") +
+            "</a>";
+        } else {
+          card.innerHTML =
+            '<span class="spj-rb-label">Advertise here</span>' +
+            '<a class="spj-rb-slot" style="aspect-ratio:' + esc(slot.ratio) + '" href="' + esc(common.advertiseUrl) + '" target="_blank" rel="noopener">' +
+              '<span class="spj-rb-size">' + esc(slot.size) + " \u00b7 RIGHT</span>" +
+              '<span class="spj-rb-title">Your banner or ad here</span>' +
+              '<span class="spj-rb-text">Promote your brand, product, service or job opening to maritime engineers, OT/cyber specialists and industry leaders.</span>' +
+              '<span class="spj-rb-cta">See ad options</span>' +
+            "</a>" +
+            '<span class="spj-rb-alt">or <a href="' + esc(common.contactUrl) + '" target="_blank" rel="noopener">contact us</a> for a media kit</span>';
+        }
+        // Keep slots in order 1-2-3 no matter which gadget runs first.
+        var next = null;
+        for (var i = 0; i < rail.children.length; i++) {
+          if (+rail.children[i].getAttribute("data-order") > slot.order) { next = rail.children[i]; break; }
+        }
+        rail.insertBefore(card, next);
+        place();
+      }
+
+      window.addEventListener("load", place);
+      window.addEventListener("resize", place);
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", place);
+      return { add: add, place: place };
+    })();
+  }
+  R.add(SLOT, COMMON);
+})();
+</script>
