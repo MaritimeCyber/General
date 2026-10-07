@@ -157,7 +157,14 @@
   // ── Corporate banner ──
   var body = root.querySelector(".spj-banner-body");
   var list = SPJ_SIDEBAR_ADS.sponsors.filter(function (x) { return x && x.image && x.url; });
-  function esc(t) { return String(t || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  // Blogger 가 가젯 저장 시 ×, · 같은 문자를 &#215; 형태로 바꿔 저장하므로, 먼저 원래 문자로 되돌린 뒤 이스케이프
+  function decode(t) {
+    return String(t || "")
+      .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(+n); })
+      .replace(/&#x([0-9a-f]+);/gi, function (_, h) { return String.fromCharCode(parseInt(h, 16)); })
+      .replace(/&nbsp;/g, "\u00a0").replace(/&middot;/g, "\u00b7").replace(/&times;/g, "\u00d7").replace(/&amp;/g, "&");
+  }
+  function esc(t) { return decode(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   if (list.length) {
     var sp = list[Math.floor(Math.random() * list.length)];
