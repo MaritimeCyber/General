@@ -1,30 +1,25 @@
 <!--════════════════════════════════════════════════════════════
-  Widget : Home right column — Corporate banner / "Advertise here" slot
-  Where  : Blogger Layout → 사이드바 아무 곳 → Add a Gadget → HTML/JavaScript (title empty)
-  Shows  : Home page only, on the RIGHT side directly below "Popular Posts"
-           (Popular Posts 는 홈에서 right:12px / width:252px 로 배치되어 있음)
+  Widget : Right-side corporate banner / "Advertise here" slot
+  Where  : Blogger Layout → 아무 영역 → Add a Gadget → HTML/JavaScript (title empty)
+           ※ 어느 영역에 추가해도 화면 오른쪽 빈 공간에 표시됩니다.
 
   동작
-   - 가젯은 사이드바에 추가하지만, 스크립트가 배너를 Popular Posts 바로 아래로 옮겨
-     홈 화면 오른쪽에 표시합니다. 테마 HTML 수정은 필요 없습니다.
-   - 화면 폭 960px 이하(태블릿·모바일)에서는 Popular Posts 아래 본문 흐름에 표시됩니다.
-   - 홈이 아닌 페이지에서는 표시되지 않습니다.
+   - 본문 영역의 오른쪽 끝을 측정해, 그 오른쪽 빈 공간 가운데에 배너를 고정(스크롤해도 보임).
+     배너 폭은 빈 공간에 맞춰 180~252px 사이로 자동 조정.
+   - 오른쪽 빈 공간이 부족한 화면(좁은 창·태블릿·모바일)에서는
+     첫 번째 본문 위젯 아래, 본문 흐름에 표시됩니다.
+   - homeOnly: true 이면 홈에서만 표시, false 이면 모든 페이지에 표시.
 
-  설정 : 아래 SPJ_RIGHT_BANNER.sponsors 에 배너를 넣으면 배너가 표시되고,
+  설정 : sponsors 에 배너를 넣으면 배너가 표시되고,
          비워두면 "Advertise here" 광고 자리(판매 중)가 표시됩니다.
 ════════════════════════════════════════════════════════════-->
 <style>
-  #spj-right-banner { display: none; font-family: "Segoe UI", Arial, sans-serif; box-sizing: border-box; }
-  #spj-right-banner.spj-rb-on { display: block; }
-  /* 데스크톱: Popular Posts 와 같은 오른쪽 열 */
-  #spj-right-banner.spj-rb-float { position: absolute; right: 12px; width: 252px; z-index: 59; padding: 0 8px 16px; }
-  /* 태블릿·모바일: 본문 흐름 */
-  @media (max-width: 960px) {
-    #spj-right-banner.spj-rb-float { position: static; width: 100%; padding: 8px; }
-  }
+  #spj-right-banner { display: none; width: 252px; font-family: "Segoe UI", Arial, sans-serif; box-sizing: border-box; }
+  #spj-right-banner.spj-rb-rail { display: block; position: fixed; z-index: 50; }
+  #spj-right-banner.spj-rb-inline { display: block; width: auto; max-width: 300px; margin: 0 auto 16px; }
 
   #spj-right-banner .spj-rb-card {
-    background: #fff; border-radius: 8px; box-shadow: 0 1px 5px rgba(10,35,66,.08);
+    background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(4,12,28,.25);
     padding: 8px 10px 10px;
   }
   #spj-right-banner .spj-rb-label {
@@ -73,17 +68,18 @@
   var SPJ_RIGHT_BANNER = {
     sponsors: [
       // { name: "Company Name", image: "https://.../banner-300x250.png",
-      //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=home_right",
+      //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=right_rail",
       //   alt: "Company Name — maritime cyber security solutions" }
     ],
+    homeOnly: true,
     advertiseUrl: "https://www.shippauljobs.com/p/advertisement-policy.html",
     contactUrl: "https://www.shippauljobs.com/p/contact-shippauljobs.html"
   };
 
+  var MAX_W = 252, MIN_W = 180, GAP = 12;
   var box = document.getElementById("spj-right-banner");
-  if (!box || !document.body.classList.contains("is-homepage")) return;
-  var pp = document.getElementById("PopularPosts1");
-  if (!pp || !pp.parentNode) return;
+  if (!box) return;
+  if (SPJ_RIGHT_BANNER.homeOnly && !document.body.classList.contains("is-homepage")) return;
 
   function esc(t) { return String(t || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
@@ -101,7 +97,7 @@
   } else {
     body.innerHTML =
       '<a class="spj-rb-slot" href="' + esc(SPJ_RIGHT_BANNER.advertiseUrl) + '" target="_blank" rel="noopener">' +
-        '<span class="spj-rb-size">300 × 250 · HOME RIGHT</span>' +
+        '<span class="spj-rb-size">300 × 250 · RIGHT</span>' +
         '<span class="spj-rb-title">Your banner here</span>' +
         '<span class="spj-rb-text">Reach maritime engineers, OT/cyber specialists and decision-makers at shipowners, shipyards and makers.</span>' +
         '<span class="spj-rb-cta">See ad options</span>' +
@@ -109,27 +105,67 @@
       '<span class="spj-rb-alt">or <a href="' + esc(SPJ_RIGHT_BANNER.contactUrl) + '" target="_blank" rel="noopener">contact us</a> for a media kit</span>';
   }
 
-  // ── Popular Posts 바로 아래로 이동 (같은 부모 → 같은 기준 위치) ──
-  pp.parentNode.insertBefore(box, pp.nextSibling);
-  box.classList.add("spj-rb-float", "spj-rb-on");
-
-  function place() {
-    var cs = getComputedStyle(pp);
-    if (window.innerWidth <= 960 || cs.position !== "absolute") {
-      box.style.top = box.style.width = box.style.boxSizing = box.style.paddingLeft = box.style.paddingRight = "";
-      return;
+  // ── 본문 영역의 오른쪽 끝 측정 (보이는 본문 위젯·글 카드 중 가장 오른쪽) ──
+  function contentRight() {
+    var els = document.querySelectorAll("#page_body .widget, .post-outer-container, .widget.Blog, .widget.PopularPosts, .widget.FeaturedPost");
+    var max = null;
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el === box || box.contains(el) || el.contains(box)) continue;
+      if (getComputedStyle(el).position === "fixed") continue;
+      var r = el.getBoundingClientRect();
+      if (r.width < 200 || r.height < 30) continue;
+      if (max === null || r.right > max) max = r.right;
     }
-    // Popular Posts 와 같은 폭·좌우 여백 → 카드 가장자리가 정확히 맞도록
-    box.style.boxSizing = cs.boxSizing;
-    box.style.width = cs.width;
-    box.style.paddingLeft = cs.paddingLeft;
-    box.style.paddingRight = cs.paddingRight;
-    box.style.right = cs.right;
-    box.style.top = (pp.offsetTop + pp.offsetHeight + 4) + "px";
+    return max;
+  }
+  // 상단 검색 헤더 아래에서 시작 (헤더가 스크롤로 사라졌으면 화면 위쪽부터)
+  function headerBottom() {
+    var h = document.querySelector(".centered-top-container");
+    var b = h ? h.getBoundingClientRect().bottom : 0;
+    return Math.max(16, Math.min(b, 260)) + GAP;
+  }
+  // 좁은 화면: 첫 번째 본문 위젯 "다음"에 넣는다 (카드 그리드 안으로 끼어들지 않도록)
+  function inlineAnchor() {
+    var ws = document.querySelectorAll("#page_body > .widget, #page_body .widget.Blog");
+    for (var i = 0; i < ws.length; i++) {
+      if (ws[i] === box || ws[i].contains(box)) continue;
+      if (ws[i].getBoundingClientRect().height > 30) return ws[i];
+    }
+    return null;
+  }
+
+  var home = box.parentNode, homeNext = box.nextSibling;
+  function place() {
+    var right = contentRight();
+    var vw = document.documentElement.clientWidth;          // 세로 스크롤바 제외 폭
+    var free = right === null ? 0 : vw - right;
+    var w = Math.min(MAX_W, free - GAP * 2);
+    if (w >= MIN_W) {
+      // 오른쪽 빈 공간 가운데에 고정
+      if (box.parentNode !== document.body) document.body.appendChild(box);
+      box.className = "spj-rb-rail";
+      box.style.width = w + "px";
+      box.style.left = Math.round(right + (free - w) / 2) + "px";
+      box.style.top = headerBottom() + "px";
+    } else {
+      // 공간 부족 → 첫 글 카드 아래 본문 흐름
+      var a = inlineAnchor();
+      box.className = "spj-rb-inline";
+      box.style.left = box.style.top = box.style.width = "";
+      if (a && a.parentNode) { if (a.nextSibling !== box) a.parentNode.insertBefore(box, a.nextSibling); }
+      else if (box.parentNode !== home) home.insertBefore(box, homeNext);
+    }
   }
   place();
   window.addEventListener("load", place);
   window.addEventListener("resize", place);
-  if (window.ResizeObserver) new ResizeObserver(place).observe(pp);
+  // 헤더가 스크롤로 접히거나 펼쳐질 때 위치 보정
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    if (ticking || box.className !== "spj-rb-rail") return;
+    ticking = true;
+    requestAnimationFrame(function () { box.style.top = headerBottom() + "px"; ticking = false; });
+  }, { passive: true });
 })();
 </script>
