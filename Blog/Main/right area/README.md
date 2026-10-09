@@ -34,6 +34,27 @@ sponsors: [
 ]
 ```
 
+## 분석 (Google Analytics 4)
+테마에 이미 설치된 GA4 태그(`gtag.js`, `G-BB27P8MFK7`)로 광고 노출·클릭 이벤트를 보냅니다. `gtag` 가 없으면 GTM `dataLayer` 로 보냅니다.
+
+| 이벤트 | 언제 |
+|---|---|
+| `spj_ad_view` | 광고 칸이 화면에 절반 이상 보였을 때 (페이지당 칸마다 1번) |
+| `spj_ad_click` | 광고 칸 안의 링크를 클릭했을 때 (가운데 버튼 클릭 포함) |
+
+| 매개변수 | 값 |
+|---|---|
+| `ad_slot` | 칸 번호 1~5 |
+| `ad_size` | `300x250`, `300x500` |
+| `ad_type` | `sponsor`(배너) / `placeholder`("Advertise here") |
+| `ad_name` | 배너의 `name` → `alt` → 이미지 파일명, 빈 칸은 `(advertise here)` |
+| `ad_layout` | `rail`(넓은 화면 오른쪽 열) / `inline`(좁은 화면, 본문 사이) |
+| `page_type` | `home` / `post` / `page` / `list` |
+| `link_type` | 클릭만: `banner` / `advertise` / `contact` |
+| `link_url` | 클릭만: 이동한 주소 |
+
+GA4 보고서에서 매개변수별로 보려면 **관리 → 데이터 표시 → 맞춤 정의 → 맞춤 측정기준 만들기**에서 위 매개변수 이름을 이벤트 범위로 하나씩 등록하세요 (등록 후부터 수집, 반영까지 최대 24~48시간). 실시간 확인은 **보고서 → 실시간** 또는 **관리 → DebugView**.
+
 ## 유지보수
 - 가젯 코드에는 영어(ASCII)만 사용합니다. Blogger 가 한글·특수문자를 `&#…;` 로 바꿔 저장하기 때문입니다.
 - 다섯 파일의 공통 코드(`Shared right-column core`)는 동일해야 합니다. 공통 부분을 고칠 때는 다섯 파일 모두 같이 수정하세요.

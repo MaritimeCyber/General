@@ -169,6 +169,34 @@
         }
       }
 
+      // Analytics: ad views / clicks go to GA4 via the theme's gtag.js (or the GTM dataLayer).
+      function track(name, card, extra) {
+        var p = {}, k, info = card.spjInfo;
+        for (k in info) p[k] = info[k];
+        for (k in extra) p[k] = extra[k];
+        p.ad_layout = card.parentNode === rail ? "rail" : "inline";
+        p.page_type = pageType();
+        try {
+          if (typeof window.gtag === "function") window.gtag("event", name, p);
+          else { p.event = name; (window.dataLayer = window.dataLayer || []).push(p); }
+        } catch (e) {}
+      }
+      // View = at least half of the card on screen; sent once per card per page view.
+      var seen = typeof IntersectionObserver === "function" ? new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (!entries[i].isIntersecting) continue;
+          seen.unobserve(entries[i].target);
+          track("spj_ad_view", entries[i].target);
+        }
+      }, { threshold: 0.5 }) : null;
+      function onAdClick(e) {
+        if (e.type === "auxclick" && e.button !== 1) return;
+        var a = e.target.closest ? e.target.closest("a") : null;
+        if (!a) return;
+        var type = a.className === "spj-rb-banner" ? "banner" : a.className === "spj-rb-slot" ? "advertise" : "contact";
+        track("spj_ad_click", e.currentTarget, { link_type: type, link_url: a.href });
+      }
+
       function add(slot, common) {
         if ((slot.showOn || common.showOn).indexOf(pageType()) === -1) return;
         var list = (slot.sponsors || []).filter(function (x) { return x && x.image && x.url; });
@@ -193,6 +221,15 @@
             "</a>" +
             '<span class="spj-rb-alt">or <a href="' + esc(common.contactUrl) + '" target="_blank" rel="noopener">contact us</a> for a media kit</span>';
         }
+        card.spjInfo = {
+          ad_slot: slot.order,
+          ad_size: decode(slot.size).replace(/\s*\u00d7\s*/, "x"),
+          ad_type: list.length ? "sponsor" : "placeholder",
+          ad_name: list.length ? decode(sp.name || sp.alt || sp.image.split("/").pop()) : "(advertise here)"
+        };
+        card.addEventListener("click", onAdClick);
+        card.addEventListener("auxclick", onAdClick);
+        if (seen) seen.observe(card);
         // Keep slots in order 1-2-3-4-5 no matter which gadget runs first.
         var mobile = slot.mobile !== undefined ? slot.mobile : (slot.inline ? "top" : false);
         var at = 0;
