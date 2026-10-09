@@ -44,14 +44,6 @@
       }
     </style>
     <!-- canonical은 all-head-content(line ~184)가 자동 주입 &#8212; 중복 제거 -->
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({&#39;gtm.start&#39;:
-      new Date().getTime(),event:&#39;gtm.js&#39;});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!=&#39;dataLayer&#39;?&#39;&amp;l=&#39;+l:&#39;&#39;;j.async=true;j.src=
-      &#39;https://www.googletagmanager.com/gtm.js?id=&#39;+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,&#39;script&#39;,&#39;dataLayer&#39;,&#39;GTM-WPNJMQS&#39;);
-    </script>
 
 <!-- Google tag (gtag.js) -->
 
@@ -74,7 +66,6 @@
 </script>
 
 
-    <!-- End Google Tag Manager -->
 
 
     <!-- 모바일 반응형 설정 -->
@@ -241,13 +232,12 @@
 
 <!-- thin content noindex 해제 완료 (2026-08-22): 콘텐츠 보강 후 색인 허용 -->
 <!-- have-you-tried / deep-learning-preview: URL 존재하지 않아 삭제 (2026-08-22) -->
+<!-- meta description: Blogger all-head-content가 검색 설명(글·페이지·블로그)을 이미 출력함 → 중복 방지를 위해 테마는 설명이 비어 있을 때만 대체 문구 출력 (2026-10-09) -->
+<b:if cond='data:blog.metaDescription'>
+<b:else/>
 <b:if cond='data:view.isPost'>
   <!-- 포스트 페이지: 편집기 검색설명 우선, 없으면 generic -->
-  <b:if cond='data:blog.metaDescription'>
-    <meta expr:content='data:blog.metaDescription' name='description'/>
-  <b:else/>
-    <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' name='description'/>
-  </b:if>
+  <meta content='Maritime 4.0 driven by AI, data and cybersecurity. IACS UR E26/E27 compliance, vessel cybersecurity, smart ship, AI for maritime operations.' name='description'/>
 <b:elseif cond='data:view.isPage'/>
   <!-- 정적 페이지: 페이지별 커스텀 description -->
   <b:if cond='data:blog.pageName == &quot;About&quot;'>
@@ -265,6 +255,7 @@
 <b:else/>
   <!-- 홈 및 기타 -->
   <meta content='Insights and validation from industry experts to lead the market: IACS UR E26/E27, IMO MSC, USCG, NIS2 &amp; ISPS, smart ships, and cyber resilience.' name='description'/>
+</b:if>
 </b:if>
 
 <!-- &#9552;&#9552; SEO: Open Graph (소셜 공유 &#183; AI 크롤러) &#9552;&#9552; -->
@@ -1693,7 +1684,6 @@
 
     <b:include cond='not data:view.isPreview' data='{                         image: data:skin.vars.body_background.image,                         selector: &quot;.bg-photo&quot;,                         imageSizes: [480, 640, 800, 1200, 1600]                      }' name='responsiveImageStyle'/>
 
-    <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1136000774216453'/>
     <b:include data='blog' name='google-analytics'/>
 
     <!-- clipboard.min.js 제거: 모든 복사 기능이 navigator.clipboard 네이티브 API 사용 -->
@@ -2047,9 +2037,6 @@
       .widget.Attribution{display:block!important;width:100%!important;text-align:center!important;}
       .widget.Attribution .widget-content{display:block;width:100%;text-align:center;}
     </style>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe height='0' src='https://www.googletagmanager.com/ns.html?id=GTM-WPNJMQS' style='display: none; visibility: hidden' width='0'/></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <b:class cond='data:view.isPreview' name='preview'/>
     <b:class cond='data:view.isHomepage' name='is-homepage'/>
     <b:class cond='data:view.isSingleItem' name='item-view'/>
@@ -9411,6 +9398,25 @@ if(!window.b1WC){window.b1WC=function(btn){
   </script>
   <!-- &#9552;&#9552; /Cookie Consent Banner &#9552;&#9552; -->
 
+  <!-- &#9552;&#9552; 본문 이미지 alt 보완 (2026-10-09): alt 없는 이미지에 캡션 또는 글 제목을 alt로 지정 &#9552;&#9552; -->
+  <script type='text/javascript'>
+  //<![CDATA[
+  (function(){
+    function fix(){
+      var t=(document.querySelector('h1.post-title, h3.post-title, .post-title')||{}).textContent||document.title||'ShipPaulJobs';
+      t=t.replace(/\s+/g,' ').trim();
+      var imgs=document.querySelectorAll('.post-body img:not([alt]), .post-body img[alt=""]');
+      for(var i=0;i<imgs.length;i++){
+        var im=imgs[i],cap='';
+        var tb=im.closest&&im.closest('table.tr-caption-container');
+        if(tb){var c=tb.querySelector('.tr-caption');if(c)cap=c.textContent.replace(/\s+/g,' ').trim();}
+        im.setAttribute('alt',cap||im.getAttribute('title')||(t+(imgs.length>1?' - image '+(i+1):'')));
+      }
+    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
+  })();
+  //]]>
+  </script>
   <!-- &#9552;&#9552; Network Access Control &#9552;&#9552; -->
   <script type='text/javascript'>
   //<![CDATA[
