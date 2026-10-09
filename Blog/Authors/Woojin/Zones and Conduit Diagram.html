@@ -1,0 +1,1035 @@
+<!--═══════════════════════════════════════════════════════
+     Article: Zones and Conduit Diagram: Establishing the Vessel's Security-Zone Architecture
+     Series : IACS UR E26 Compliance Series (2/7)
+     Author : Woojin Lee | Automation Cyber Engineering · Cyber Tech Consultant
+     URL    : https://www.shippauljobs.com/2026/10/iacs-ur-e26-compliance-series-27-zones.html
+     Style  : Same inline-style design as Article 1 + series navigation + related articles
+     ═══════════════════════════════════════════════════════-->
+
+<div lang="en" style="box-sizing: border-box; color: #2c3e50; font-family: Segoe UI, Apple SD Gothic Neo, Arial, sans-serif; line-height: 1.75; margin: 0px auto; max-width: 780px;">
+
+  <!--══ HEADER ══-->
+  <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 55%, rgb(26, 158, 130) 100%); border-radius: 16px; margin-bottom: 36px; padding: 40px 36px 32px;">
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px;">
+      <span style="background: rgba(255, 193, 7, 0.35); color: #ffe082; border-radius: 20px; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">&#128203; Compliance</span>
+      <span style="background: rgba(26, 158, 130, 0.35); color: #7effd8; border-radius: 20px; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">IACS UR E26 &amp; E27</span>
+      <span style="background: rgba(255, 255, 255, 0.13); color: #b8d4ea; border-radius: 20px; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">ZCD</span>
+      <span style="background: rgba(255, 193, 7, 0.2); color: #ffe082; border-radius: 20px; font-size: 9px; font-weight: 800; letter-spacing: 1.4px; padding: 3px 11px; text-transform: uppercase;">Series &#183; Article 2 of 7</span>
+    </div>
+    <h1 style="color: white; font-size: 21px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin: 0px 0px 8px;">Zones and Conduit Diagram: Establishing the Vessel&#8217;s Security-Zone Architecture</h1>
+    <p style="color: #b8d4ea; font-size: 13px; font-style: italic; margin: 0px 0px 20px;">From CBS allocation and network segmentation to conduit control, as-built verification and survey-cycle maintenance</p>
+    <div style="align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-wrap: wrap; gap: 18px; padding-top: 18px;">
+      <div style="align-items: center; display: flex; gap: 10px;">
+        <a href="https://www.linkedin.com/in/woojin-lee-87ab812a2/" rel="noopener" target="_blank"><span role="img" aria-label="Woojin Lee" style="background: url('https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/Jin.jpeg?raw=true') center center / cover no-repeat; border-radius: 50%; border: 2px solid rgb(26, 158, 130); display: block; flex-shrink: 0; height: 36px; width: 36px;"></span></a>
+        <div>
+          <div style="color: white; font-size: 13px; font-weight: 700; line-height: 1.3;">Woojin Lee</div>
+          <div style="color: #9ab5c9; font-size: 10px;">Automation Cyber Engineering &#183; Cyber Tech Consultant &nbsp;&#183;&nbsp; <a href="https://www.linkedin.com/in/woojin-lee-87ab812a2/" rel="noopener" style="color: #7effd8;" target="_blank">LinkedIn</a> &nbsp;&#183;&nbsp; <a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" rel="noopener" style="color: #7effd8;" target="_blank">Crew Profile</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--══ SERIES NAVIGATION ══-->
+  <nav aria-label="IACS UR E26 Compliance Series navigation" style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 28px; padding: 16px 20px;">
+    <div style="color: #0a2342; font-size: 11px; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase;">IACS UR E26 Compliance Series &#183; 7 Articles</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px;">
+      <a href="https://www.shippauljobs.com/2026/07/iacs-ur-e26-compliance-series-17-cyber.html" style="display: inline-block; background: white; border: 1px solid rgb(209, 224, 238); border-radius: 20px; color: #154f7a; font-size: 12px; font-weight: 700; padding: 4px 12px 4px 4px; text-decoration: none;"><span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 10.5px; font-weight: 800; margin-right: 6px; background: rgb(10, 35, 66); color: white;">1</span>The CRSI Role and Six Core Deliverables</a>
+      <span aria-current="page" style="display: inline-block; background: rgb(26, 158, 130); border: 1px solid rgb(26, 158, 130); border-radius: 20px; color: white; font-size: 12px; font-weight: 700; padding: 4px 12px 4px 4px;"><span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 10.5px; font-weight: 800; margin-right: 6px; background: white; color: #1a9e82;">2</span>Zones and Conduit Diagram</span>
+      <span title="Coming soon" style="display: inline-block; background: rgb(242, 245, 248); border: 1px solid rgb(222, 226, 230); border-radius: 20px; color: #8494a6; font-size: 12px; font-weight: 700; padding: 4px 12px 4px 4px;"><span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 10.5px; font-weight: 800; margin-right: 6px; background: rgb(180, 195, 210); color: white;">3</span>Cyber Security Design Description</span>
+      <span title="Coming soon" style="display: inline-block; background: rgb(242, 245, 248); border: 1px solid rgb(222, 226, 230); border-radius: 20px; color: #8494a6; font-size: 12px; font-weight: 700; padding: 4px 12px 4px 4px;"><span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 10.5px; font-weight: 800; margin-right: 6px; background: rgb(180, 195, 210); color: white;">4</span>Vessel Asset Inventory</span>
+      <span title="Coming soon" style="display: inline-block; background: rgb(242, 245, 248); border: 1px solid rgb(222, 226, 230); border-radius: 20px; color: #8494a6; font-size: 12px; font-weight: 700; padding: 4px 12px 4px 4px;"><span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 10.5px; font-weight: 800; margin-right: 6px; background: rgb(180, 195, 210); color: white;">5</span>Risk Assessment for the Exclusion of CBSs</span>
+      <span title="Coming soon" style="display: inline-block; background: rgb(242, 245, 248); border: 1px solid rgb(222, 226, 230); border-radius: 20px; color: #8494a6; font-size: 12px; font-weight: 700; padding: 4px 12px 4px 4px;"><span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 10.5px; font-weight: 800; margin-right: 6px; background: rgb(180, 195, 210); color: white;">6</span>Description of Compensating Countermeasures</span>
+      <span title="Coming soon" style="display: inline-block; background: rgb(242, 245, 248); border: 1px solid rgb(222, 226, 230); border-radius: 20px; color: #8494a6; font-size: 12px; font-weight: 700; padding: 4px 12px 4px 4px;"><span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; text-align: center; font-size: 10.5px; font-weight: 800; margin-right: 6px; background: rgb(180, 195, 210); color: white;">7</span>Ship Cyber Resilience Test Procedure</span>
+    </div>
+    <div style="display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+      <a href="https://www.shippauljobs.com/2026/07/iacs-ur-e26-compliance-series-17-cyber.html" style="display: block; background: white; border: 1px solid rgb(209, 224, 238); border-radius: 10px; padding: 12px 16px; text-decoration: none;">
+        <span style="display: block; color: #6b8599; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">&#8592; Previous &#183; Article 1</span>
+        <span style="display: block; color: #0a2342; font-size: 14px; font-weight: 800; margin-top: 2px;">The CRSI Role and Six Core Deliverables</span>
+      </a>
+      <div style="background: rgb(247, 250, 254); border: 1px solid rgb(222, 226, 230); border-radius: 10px; padding: 12px 16px; text-align: right;">
+        <span style="display: block; color: #8494a6; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Next &#183; Article 3 &#183; Coming soon</span>
+        <span style="display: block; color: #8494a6; font-size: 14px; font-weight: 800; margin-top: 2px;">Cyber Security Design Description</span>
+      </div>
+    </div>
+  </nav>
+
+  <!--══ REGULATORY BASIS CARD ══-->
+  <div style="background: rgb(248, 249, 250); border-radius: 10px; border: 1px solid rgb(222, 226, 230); margin-bottom: 24px; padding: 16px 20px;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div>
+        <div style="color: #6c757d; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Regulatory basis reviewed</div>
+        <div style="color: #2c3e50; font-size: 13px; margin-top: 3px;">5 October 2026</div>
+      </div>
+      <div>
+        <div style="color: #6c757d; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Primary references</div>
+        <div style="color: #2c3e50; font-size: 13px; margin-top: 3px;">IACS UR E26 Rev.1; UR E27 Rev.1; UR E22 Rev.3 Corr.1</div>
+      </div>
+      <div>
+        <div style="color: #6c757d; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Implementation references</div>
+        <div style="color: #2c3e50; font-size: 13px; margin-top: 3px;">ClassNK Guidelines Edition 1.1 and Q&A; LR publication information</div>
+      </div>
+      <div>
+        <div style="color: #6c757d; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Supporting standards</div>
+        <div style="color: #2c3e50; font-size: 13px; margin-top: 3px;">IEC 62443-3-2:2020 and IEC 62443-3-3:2013</div>
+      </div>
+    </div>
+  </div>
+
+<div>
+<div style="background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; padding: 16px 18px;"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgwPFyizyDcn0DxbdTCutoi9Eu9Ri1pImzMx5hxKFdFexZl0FZfxQHvBx66RrF_91YlCZL6qrQ32mxDjvNiYhpQdo5SLuPx6Z_cstHX8gFKlmtnG1W_kTTJd_-GzaABM9GTxMntqPW991Tivxao2a3U4pgMuRySxDk6eyPNqaN4uYJ2bsauguoWn_WlWHc/s1600/01_Cover.jpg" width="2560" height="1440" alt="Conceptual illustration of a merchant ship with translucent security architecture overlays at sea." style="border-radius: 8px; display: block; height: auto; max-width: 100%; width: 100%;"><div style="color: #4a6278; font-size: 12.5px; line-height: 1.7; margin-top: 10px;">Article 2 — Zones and Conduit Diagram. Conceptual cover illustration.</div></div>
+  <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">This article follows <a href="https://www.shippauljobs.com/2026/07/iacs-ur-e26-compliance-series-17-cyber.html" style="color: #154f7a; font-weight: 600;">Article 1: The Cyber Resilience System Integrator and the Six Core Ship-Level Deliverables</a> and examines the first deliverable: the Zones and conduit diagram.</div>
+  <p style="background: rgb(240, 247, 255); border-left: 4px solid rgb(26, 158, 130); border-radius: 12px; color: #354a5e; font-size: 15px; line-height: 1.85; margin: 0px 0px 20px; padding: 20px 22px;">
+    The Zones and Conduit Diagram, or ZCD, is the principal ship-level document used to demonstrate how computer-based systems (CBSs) are grouped into security zones, how communication is permitted within and across those zones, and how interfaces with networks outside the IACS UR E26 scope are controlled. A reliable ZCD is not merely a network drawing: it is the controlled architectural baseline linking supplier information, vessel design, commissioning evidence and operation-phase maintenance.
+  </p>
+
+  <div aria-label="Key message" role="note" style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); border-radius: 14px; margin-bottom: 28px; padding: 24px 28px;">
+    <p style="color: white; font-size: 14.5px; line-height: 1.85; margin: 0px;"><strong style="color: #ffe082;">Key message:</strong> A compliant ZCD must represent the same in-scope CBSs as the Vessel Asset Inventory, show their zone allocation and physical locations, and agree with the communication and boundary-control design in the Cyber Security Design Description (CSDD) and the final installed vessel. It must also remain maintainable after delivery, because the Shipowner is required to keep the diagram updated and demonstrate continued management of security-zone boundaries during the operational survey cycle.</p>
+  </div>
+
+  <div aria-labelledby="crsi-zcd-interpretation-note" style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 18px 20px;">
+    <span style="background: rgba(26, 158, 130, 0.12); border-radius: 4px; color: #1a9e82; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">Terminology and interpretation note</span>
+    <h2 id="crsi-zcd-interpretation-note" style="color: #0a2342; font-size: 15px; font-weight: 800; margin: 0px 0px 10px;">How This Article Uses “ZCD,” “Conduit” and Related Terms</h2>
+    <p style="color: #1a4a40; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;"><strong>Series scope.</strong> The six core deliverables group the five document categories in UR E26 §5.1 and the test procedure in §5.2.1. The exclusion assessment and description of compensating countermeasures apply where relevant. Supplier documentation, test records and the Shipowner’s operation-phase program are also part of the compliance framework.</p>
+    <p style="color: #1a4a40; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;"><strong>CRSI</strong> means <em>Cyber Resilience System Integrator</em> in this series: a specialist performing or supporting the cyber-resilience aspects of the IACS-defined <em>Systems Integrator</em> function. CRSI is not a separate IACS stakeholder category. Responsibilities follow the applicable requirements and the party’s appointment.</p>
+    <p style="color: #1a4a40; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;"><strong>Applicability.</strong> UR E26 Rev.1 is implemented by IACS Societies for ships within its scope contracted for construction on or after 1 July 2024. It may serve as non-mandatory guidance for other ships. The applicable Class Rules, implementation dates and project conditions must be identified for each vessel; the newest published edition is not automatically the applicable project edition.</p>
+    <p style="color: #1a4a40; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+      IACS UR E26 uses the document title <strong>“Zones and conduit diagram.”</strong> This article uses the abbreviation <strong>ZCD</strong> for readability. UR E26 formally defines a <strong>security zone</strong>, a <strong>network segment</strong>, a <strong>logical network segment</strong>, a <strong>physical network segment</strong> and an <strong>untrusted network</strong>. It does not provide a separate formal definition of <strong>conduit</strong> or <strong>zone boundary device</strong> in Section 2.
+    </p>
+    <p style="color: #1a4a40; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+      For the ZCD requirement, UR E26 expressly uses the term <em>conduit</em> for network communication between different security zones and for any communication between a security zone and an untrusted network. IEC 62443 uses a broader supporting concept in which a conduit groups communication channels connecting zones under a common security treatment. That IEC concept may support the engineering method, but it should not be presented as the formal IACS definition.
+    </p>
+    <p style="color: #1a4a40; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+      IACS UR E26 does not prescribe a mandatory number of ZCD sheets or require separately titled “Physical ZCD” and “Logical ZCD” drawings. Separate coordinated views are recommended for complex vessels, while a combined representation may be used where all required information remains clear, complete and acceptable to the Society. A Purdue Model overlay may also be used for explanation, but it is not an IACS requirement and does not replace the UR E26 zone and conduit decisions.
+    </p>
+  </div>
+
+  <div aria-label="Source classification used in this article" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+    <div style="background: white; border: 1px solid rgb(209, 224, 238); border-top: 3px solid #1a9e82; border-radius: 10px; flex: 1 1 0%; min-width: 200px; padding: 14px 16px;">
+      <span style="background: rgb(21, 79, 122); border-radius: 4px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">IACS requirement</span>
+      <p style="color: #4a6278; font-size: 12.5px; line-height: 1.65; margin: 0px;">Content expressly required by an IACS Unified Requirement. Additional or class-specific obligations are identified separately.</p>
+    </div>
+    <div style="background: white; border: 1px solid rgb(209, 224, 238); border-top: 3px solid #1a9e82; border-radius: 10px; flex: 1 1 0%; min-width: 200px; padding: 14px 16px;">
+      <span style="background: rgb(227, 238, 248); border-radius: 4px; color: #154f7a; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">Class guidance</span>
+      <p style="color: #4a6278; font-size: 12.5px; line-height: 1.65; margin: 0px;">Implementation explanation provided by a Classification Society, including examples of acceptable documentation or verification.</p>
+    </div>
+    <div style="background: white; border: 1px solid rgb(209, 224, 238); border-top: 3px solid #1a9e82; border-radius: 10px; flex: 1 1 0%; min-width: 200px; padding: 14px 16px;">
+      <span style="background: rgb(223, 243, 236); border-radius: 4px; color: #1a7a5e; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">CRSI recommended practice</span>
+      <p style="color: #4a6278; font-size: 12.5px; line-height: 1.65; margin: 0px;">A structured engineering method recommended for consistency, traceability and lifecycle maintenance, but not presented as a standalone IACS obligation.</p>
+    </div>
+  </div>
+
+  <nav aria-label="Table of contents" style="background: rgb(247, 250, 254); border-radius: 12px; border: 1px solid rgb(209, 224, 238); margin-bottom: 36px; padding: 20px 24px;">
+    <h2 style="color: #0a2342; font-size: 13px; font-weight: 800; letter-spacing: 0.6px; margin: 0px 0px 12px; text-transform: uppercase;">Contents</h2>
+    <ol style="color: #154f7a; column-gap: 24px; columns: 2; font-size: 13px; line-height: 1.9; margin: 0px; padding-left: 20px;">
+      <li><a href="#crsi-zcd-why-zcd" style="color: #154f7a; text-decoration: none;">Why the ZCD matters</a></li>
+      <li><a href="#crsi-zcd-regulatory-content" style="color: #154f7a; text-decoration: none;">Regulatory purpose and mandatory content</a></li>
+      <li><a href="#crsi-zcd-core-concepts" style="color: #154f7a; text-decoration: none;">Core concepts and interpretation boundaries</a></li>
+      <li><a href="#crsi-zcd-roles-inputs" style="color: #154f7a; text-decoration: none;">Roles, inputs and data ownership</a></li>
+      <li><a href="#crsi-zcd-zone-design" style="color: #154f7a; text-decoration: none;">Zone design and segmentation</a></li>
+      <li><a href="#crsi-zcd-conduits" style="color: #154f7a; text-decoration: none;">Conduits and communication scope</a></li>
+      <li><a href="#crsi-zcd-document-structure" style="color: #154f7a; text-decoration: none;">Recommended ZCD package</a></li>
+      <li><a href="#crsi-zcd-development-lifecycle" style="color: #154f7a; text-decoration: none;">Development and as-built lifecycle</a></li>
+      <li><a href="#crsi-zcd-traceability-surveys" style="color: #154f7a; text-decoration: none;">Traceability, commissioning and surveys</a></li>
+      <li><a href="#crsi-zcd-class-notes" style="color: #154f7a; text-decoration: none;">Classification Society implementation notes</a></li>
+      <li><a href="#crsi-zcd-practical-appendices" style="color: #154f7a; text-decoration: none;">Practical review appendices</a></li>
+      <li><a href="#crsi-zcd-conclusion" style="color: #154f7a; text-decoration: none;">Conclusion</a></li>
+    </ol>
+  </nav>
+
+  <div id="crsi-zcd-why-zcd" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">1. Why the Zones and Conduit Diagram Matters</h2></div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A conventional network drawing may show switches, cables, IP networks and connected equipment. A ZCD must go further by explaining the vessel’s security architecture. It must identify the in-scope CBSs, allocate them to security zones, show the relevant physical locations, illustrate required communication relationships and make boundary-crossing communication traceable to the controls described in the CSDD.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">The ZCD serves three related functions:</p>
+    <ol style="color: #4a6278; font-size: 13.5px; line-height: 1.9; margin: 0px 0px 16px; padding-left: 20px;">
+      <li><strong style="color: #0a2342;">Architectural definition:</strong> it establishes the vessel-level segmentation model used to limit cyber-incident propagation and unauthorised lateral movement.</li>
+      <li><strong style="color: #0a2342;">Design traceability:</strong> it provides the architectural basis for the CSDD, which explains communication purpose, protocols, data flows, boundary devices and permitted traffic.</li>
+      <li><strong style="color: #0a2342;">Lifecycle control:</strong> it becomes an as-built baseline that the Shipowner must maintain under Management of Change and use during the operational survey cycle.</li>
+    </ol>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Under UR E26, all CBSs within scope are grouped into security zones with defined security policies and capabilities. Zones are either isolated or connected through means that control the communicated data, and only explicitly authorised traffic may cross a security-zone boundary.
+    </p>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory reference: IACS UR E26 Rev.1, §§4.2.1.1–4.2.1.3.</div>
+
+    
+    <div style="background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; padding: 16px 18px;"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_Kit0A2ew0BdGrGZVXaZfmf2y18Rc4ZVsg7XpJeC3rmE8dM4kts11wzqQKh6rctUTASuIjHFoHIVp26ngJ5p3G_B7ruqRkxbPgMubTvz5F2XRX153qNFlUITIE9Fjggv1sWkTryTyLs9073GYn2XiUhoD0a7vBgN4rLa65pzaEjSB1qi0ZUl7MdoxDHA/s1600/02_Zones_and_Conduits.jpg" width="2560" height="1440" alt="Two illustrative security zones with internal network communication and controlled conduits between zones and an untrusted network outside UR E26 scope." style="border-radius: 8px; display: block; height: auto; max-width: 100%; width: 100%;"><div style="color: #4a6278; font-size: 12.5px; line-height: 1.7; margin-top: 10px;">Figure 1. Security zones and controlled communication paths. The ZCD identifies the architecture; the CSDD explains the communication and boundary controls. Conceptual example only.</div></div>
+  </div>
+
+  <div id="crsi-zcd-regulatory-content" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">2. Regulatory Purpose and Mandatory Content</h2></div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">2.1 Security-Zone Requirement</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      UR E26 defines a security zone as a collection of in-scope CBSs that meet the same security requirements and are subject to an applicable access-control policy. This means that a security zone is not automatically equivalent to one Supplier system, one shipboard department, one room, one switch, one VLAN, one IP subnet or one Purdue level.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Those attributes may influence the design, but the zone decision must be defensible in terms of common security requirements, trust, exposure, access policy, functional dependencies and the ability to control boundary-crossing communication.
+    </p>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory reference: IACS UR E26 Rev.1, §2, definition of “Security zone,” and §4.2.1.3.</div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">2.2 Minimum ZCD Content</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">The Systems Integrator is required to submit the ZCD and CSDD during the design phase. The ZCD must include the following information.</p>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-1" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-1" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">2.2 Minimum ZCD Content</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Required content</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Practical meaning</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Obligation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Clear identification of security zones</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Each zone boundary and zone identifier must be distinguishable.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Simplified illustration of each in-scope CBS</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Each CBS must be identifiable, allocated to a zone and associated with a physical location.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Reference to approved Supplier topology diagrams</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">The vessel-level representation must be traceable to the detailed system topology approved under UR E27.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Network communication within a security zone</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Same-zone network relationships must be illustrated at a level that remains complete and traceable.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Network communication between different security zones</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Inter-zone network communication is represented as conduits.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Any communication between a security zone and an untrusted network</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Boundary-crossing communication to out-of-scope networks is represented as conduits; the CSDD must also address discrete and serial interfaces.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory reference: IACS UR E26 Rev.1, §4.2.1.4.1 and §5.1.1.</div>
+
+    <div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(21, 79, 122); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 16px 18px;">
+      <span style="background: rgb(223, 243, 236); border-radius: 4px; color: #1a7a5e; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">CRSI recommended practice</span>
+      <h3 style="color: #0a2342; font-size: 14px; font-weight: 800; margin: 0px 0px 8px;">Grouped Representation Must Remain Complete</h3>
+      <p style="color: #2c4a6e; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        A complex ZCD may group same-zone communication to preserve readability, but only where the underlying communication relationships remain complete and traceable through a controlled communication register or approved Supplier topology reference. Aggregation should not conceal an undocumented path or omit a relationship needed to understand the zone policy.
+      </p>
+    </div>
+  </div>
+
+  <div id="crsi-zcd-core-concepts" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(21, 79, 122), rgb(192, 57, 43)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">3. Core Concepts and Interpretation Boundaries</h2></div>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-2" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-2" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">3. Core Concepts and Interpretation Boundaries</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Concept</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Status</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Meaning for ZCD development</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Security zone</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IACS-defined term</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">A collection of in-scope CBSs meeting common security requirements and subject to an access-control policy.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Network</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IACS-defined term</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Two or more computers communicating through a protocol over a communication medium. This definition is not limited to IP. The narrower Ethernet definition below applies to <em>network segment</em>.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Network segment</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IACS-defined term</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">An OSI Layer 2 Ethernet segment or broadcast domain in the context of UR E26.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Logical network segment</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IACS-defined term</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">A network segment sharing physical components with one or more other logical network segments.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Physical network segment</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IACS-defined term</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">A network segment whose physical components are not shared with other network segments.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Untrusted network</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IACS-defined term</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Any network outside the scope of applicability of UR E26.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Conduit</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IACS usage; not separately defined in §2</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">A boundary-crossing communication relationship identified in the ZCD between different security zones or between a security zone and an untrusted network. Detailed engineering may group one or more channels under a common security treatment.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Zone boundary device</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Implementation term used by UR E26</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">A device or function enforcing or mediating communication across a zone boundary. UR E26 requires the CSDD to identify such devices but does not provide a separate formal definition in §2.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">DMZ</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Architectural pattern; not an automatic compliance designation</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">An intermediate security zone may be used where services, trust relationships or exposure justify it. The actual assets, functions, scope and boundary controls must be defined.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 16px 20px;">
+      <span style="background: rgb(255, 241, 204); border-radius: 4px; color: #9a6700; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">Interpretation boundary</span>
+      <h3 style="color: #0a2342; font-size: 14px; font-weight: 800; margin: 0px 0px 8px;">Inter-Zone Non-IP Communication</h3>
+      <p style="color: #7a4f10; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        UR E26 §4.2.1.4.1 requires <em>network communication</em> between in-scope zones and <em>any communication</em> with untrusted networks to be illustrated. “Non-IP” is not a blanket exemption: distinguish a non-IP network from a point-to-point serial or discrete interface. ClassNK’s Edition 1.1 guidance (§4-2.2) describes same-zone and inter-zone communication in IP terms and separately addresses serial and discrete communication with untrusted networks. This is a class implementation explanation, not a universal redefinition of “network” in UR E26.
+      </p>
+      <p style="color: #7a4f10; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">For other inter-zone links, document the protocol, direction and boundary-control or isolation implications, and agree the representation with the Society. Showing boundary-crossing serial, fieldbus and discrete links is recommended to make functional dependencies visible. Communication with an untrusted network must be illustrated regardless of whether it uses IP.
+      </p>
+    </div>
+  </div>
+
+  <div id="crsi-zcd-roles-inputs" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(26, 158, 130), rgb(39, 174, 143)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">4. Roles, Inputs and Data Ownership</h2></div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">4.1 Stakeholder Responsibilities</h3>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-3" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-3" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">4.1 Stakeholder Responsibilities</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Stakeholder</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Principal ZCD responsibility</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Systems Integrator</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Establish the vessel-wide zone model, allocate CBSs, define conduits, coordinate Supplier information, submit the ZCD, maintain it during construction and verify the as-built implementation.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">CBS Suppliers</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Provide approved CBS Asset Inventories, physical and logical topology diagrams, interface information, protocols, connected-system information and relevant security-capability documentation.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Shipyard design disciplines</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Provide equipment locations, network architecture, wiring and cable information, switch and firewall arrangements, redundancy information and construction changes.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Shipowner</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Provide operational requirements, Owner-supplied equipment information, shore interfaces, remote-access requirements and applicable cyber-security policies.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Classification Society</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Review the design, issue comments or approval status, and witness or assess relevant commissioning verification.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;"><strong style="color: #0a2342;">Shipowner/Company after delivery</strong></td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Maintain the ZCD under Management of Change and demonstrate continued implementation during applicable surveys.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">4.2 IACS Source Information and CRSI-Recommended Engineering Inputs</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      The following table distinguishes information expressly required by IACS from structured project inputs recommended for efficient integration. Not every recommended register is a separate IACS submission.
+    </p>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-4" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-4" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">4.2 IACS Source Information and CRSI-Recommended Engineering Inputs</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Input</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Purpose</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Basis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Preliminary Vessel Asset Inventory</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Identifies candidate CBSs, network devices, security devices, Suppliers, locations and scope status.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">IACS UR E26/E27</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">CBS categorisation results</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Records applicability, the required UR E22 category where applicable, exclusion status and safety significance. A combined categorisation register is a recommended format.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">IACS basis</span><br>Register format: CRSI practice</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Vessel system-of-systems architecture</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Identifies functions, system boundaries, interfaces and dependencies.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">IACS UR E22</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Supplier CBS Asset Inventories</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Provides hardware, software and interface information for vessel-level integration.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">IACS UR E27</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Supplier physical and logical topology diagrams</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Provides detailed endpoints, devices, communication paths, protocols and external connections.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">IACS UR E27</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Vessel network, wiring and equipment-location information</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Confirms actual physical connections, network segments, boundary devices and mandatory location data.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Design evidence</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Communication and interface matrix</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Structures source, destination, purpose, direction, medium, protocol and data-flow information.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(223, 243, 236); border-radius: 10px; color: #1a7a5e; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">CRSI practice</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Zone Catalogue and Conduit Catalogue</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Creates controlled identifiers, policy descriptions and cross-document references.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(223, 243, 236); border-radius: 10px; color: #1a7a5e; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">CRSI practice</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Owner-supplied equipment register</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Prevents late identification of equipment that may connect to OT or ship networks.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(255, 235, 183); border-radius: 10px; color: #8a5a00; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Class guidance / practice</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Remote-access, wireless and shore-interface design</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Identifies high-exposure conduits, dedicated zones and boundary arrangements.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">IACS UR E26</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Isolation and functional-dependency analysis</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Confirms whether a zone can be isolated without loss of its primary functionality.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(223, 243, 236); border-radius: 10px; color: #1a7a5e; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Evidence method</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory references: IACS UR E22 Rev.3 Corr.1, §§4.3.3 and 4.3.5; IACS UR E27 Rev.1, §§3.1.1–3.1.2; IACS UR E26 Rev.1, §4.2.1.4.1.</div>
+  </div>
+
+  <div id="crsi-zcd-zone-design" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(154, 89, 130), rgb(230, 126, 34)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">5. Zone Design and Segmentation</h2></div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">5.1 Zone-Allocation Criteria</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Correct zone allocation requires more than grouping systems by equipment name or physical location. A CRSI should assess the following characteristics and document the rationale for the chosen grouping.
+    </p>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-5" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-5" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">5.1 Zone-Allocation Criteria</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Criterion</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Zone-design consideration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Safety function and consequence</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether compromise or failure could affect human safety, vessel safety or the environment.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">System category</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">The UR E22 category and associated integrity, availability and segregation expectations, where applicable.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Security requirements</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether the CBSs can comply with a common set of UR E26 and UR E27 requirements.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Access-control policy</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether the same users, roles, devices and administrative rules can apply.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Trust and exposure</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether systems have different exposure to shore, crew, wireless, remote-maintenance or other lower-trust domains.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Communication purpose</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether the data flows are operationally related and compatible with the proposed zone policy.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Availability and isolation</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether the zone can be isolated without impairing the primary functionality of its CBSs.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Maintenance model</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether the systems share compatible update, support and remote-access arrangements.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Supplier capability</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether inherent security capabilities, limitations and compensating measures are compatible.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Lifecycle ownership</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Whether the zone policy, devices and configurations can be maintained coherently after delivery.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">5.2 UR E26 Segmentation and Dedicated-Zone Principles</h3>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-6" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-6" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">5.2 UR E26 Segmentation and Dedicated-Zone Principles</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Design subject</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Required treatment</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Obligation level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">General zone separation</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Networks of a security zone are logically or physically segmented from other zones or networks.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Required safety functions</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CBSs providing required safety functions are grouped into separate security zones and physically segmented from other security zones.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Navigation/communication versus machinery/cargo</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Navigational and communication systems are not placed in the same zone as machinery or cargo systems.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall not</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Navigation or radiocommunication systems approved to an equivalent standard</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Such systems should be placed in a dedicated security zone.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(255, 235, 183); border-radius: 10px; color: #8a5a00; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Should</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Wireless devices</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Wireless devices are placed in dedicated security zones.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Systems, networks or CBSs outside UR E26 scope</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">They are treated as untrusted and physically segmented from required security zones. As an alternative, an OT system may form part of a zone if it meets the same requirements as that zone.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(245, 216, 216); border-radius: 10px; color: #a33a3a; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall, with stated alternative</span></td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Required local/backup control and monitoring systems covered by §4.4.2</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Where networked to a remote-control system or another CBS, the local control and monitoring system is treated as a separate security zone and protected under §§4.2.1 and 4.2.2.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(245, 216, 216); border-radius: 10px; color: #a33a3a; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall; case-by-case special consideration possible</span></td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Zone isolation</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">It is possible to isolate the zone without affecting the primary functionality of the CBSs within it.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;"><span style="background: rgb(21, 79, 122); border-radius: 10px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 8px; white-space: nowrap;">Shall</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory references: IACS UR E26 Rev.1, §4.2.1.3 and §4.4.2.3.</div>
+
+    <div style="background: rgb(238, 246, 243); border-left: 3px solid rgb(26, 158, 130); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 18px 20px;">
+      <span style="background: rgb(21, 79, 122); border-radius: 4px; color: #ffffff; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">IACS requirement</span>
+      <h3 style="color: #0a2342; font-size: 14px; font-weight: 800; margin: 0px 0px 8px;">Local Control and Monitoring Must Be Addressed in the Zone Model</h3>
+      <p style="color: #1a4a40; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        For CBSs needed for local backup control under SOLAS II-1 Regulation 31, including the HMI needed for effective local operation, UR E26 §4.4.2 requires independence from the primary control system. The local control and monitoring CBS must be self-contained for its intended operation. Where network communication is arranged with a remote-control system or another CBS, the applicable segmentation and network-protection safeguards apply and the local control and monitoring system is treated as a separate security zone. Different design concepts may receive case-by-case consideration from the Society.
+      </p>
+    </div>
+
+        <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">5.3 Physical and Logical Segmentation</h3>
+<div style="background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; padding: 16px 18px;"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyP7u4RPT7JdC9bJThOb2U6QJLR6P_1xT5FHSzws2TqkL6RFD6cDvf3IBHr1Fvw-O_AyUaY1GEc_d1W88zr3daDrYdx2heV8-FqckjqNBbcIPxpYzwGgP2PMdljPngiyplAYV3QaBfH4WtBHlY_Jhc3qVN3a9pg1zZaP8YKE2HZurGF8wGQU6Xu1ffv6Y/s1600/03_Physical_and_Logical_Segmentation.jpg" width="2560" height="1440" alt="Comparison of separate physical Layer 2 infrastructure with shared infrastructure using VLANs and enforced boundary control." style="border-radius: 8px; display: block; height: auto; max-width: 100%; width: 100%;"><div style="color: #4a6278; font-size: 12.5px; line-height: 1.7; margin-top: 10px;">Figure 2. Physical and logical segmentation. Both require controlled boundary communication; logical segmentation is used only where physical segmentation is not required.</div></div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      ClassNK explains physical segmentation as the use of separate Layer 2 network components without sharing the same Layer 2 switch. Logical segmentation may use VLANs or other logical mechanisms on shared infrastructure, provided that communication crossing the zones is redirected through the applicable boundary-control function.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">ClassNK Q&amp;A Q99 clarifies that a single firewall can serve separate physical segments when its functions and configuration keep the relevant physical ports independent. VLAN separation over one shared physical port does not meet this physical-segmentation interpretation. This is ClassNK guidance; verify the arrangement with the vessel’s Society.
+    </p>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Class implementation guidance: ClassNK, Guidelines for Cyber Resilience of Ships, Edition 1.1, Chapter 4, §4-2; <a href="https://www.classnk.or.jp/hp/en/activities/cybersecurity/ur-e26e27/faq.html" style="color: #154f7a; font-weight: 600;">UR E26/27 Q&amp;A, Q99</a>.</div>
+
+    <div style="background: rgb(253, 242, 242); border-left: 4px solid rgb(192, 57, 43); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 16px 20px;">
+      <span style="background: rgb(251, 227, 224); border-radius: 4px; color: #c0392b; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">Interpretation caution</span>
+      <h3 style="color: #0a2342; font-size: 14px; font-weight: 800; margin: 0px 0px 8px;">A Router or Layer 3 Switch Is Not Automatically Equivalent to a Firewall</h3>
+      <p style="color: #7a2e2e; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        UR E26 identifies routers as one example of a means that may control data communicated between zones. It separately requires security zones to be protected by firewalls or equivalent means. A router or Layer 3 switch may therefore form part of an accepted boundary solution only where the implemented security functions provide demonstrable protection equivalent to the applicable firewall requirement and the arrangement is accepted by the Society.
+      </p>
+      <p style="color: #7a2e2e; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        Simple Layer 3 forwarding, static routing or basic subnet separation should not be presented as equivalent boundary protection. Supporting evidence should address, as applicable, restrictive traffic policy, prevention of unintended bypass, secure configuration management, logging, denial-of-service considerations, configuration backup, change control and suitability for the availability and safety requirements of the connected zones. These evidence items are CRSI-recommended substantiation, not a separate universal checklist stated verbatim by UR E26.
+      </p>
+    </div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">5.4 DMZ Use</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      UR E26 does not require a DMZ at every security-zone boundary. A DMZ is an architectural pattern that may be appropriate where direct communication between high-trust OT and lower-trust networks should be avoided, where intermediary services are required, or where remote maintenance and ship-to-shore communication justify an intermediate zone.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Determine the scope of DMZ assets from their functions, interfaces and role in the vessel architecture under UR E26 §1.3.2. A missing E26/E27 capability does not by itself make an asset out of scope: it may require remediation, accepted compensating countermeasures or a justified exclusion. Identify the DMZ assets, services, scope and boundary controls, including any equipment relied upon to meet the vessel’s cyber-resilience requirements.
+    </p>
+  </div>
+
+  <div id="crsi-zcd-conduits" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(230, 126, 34), rgb(192, 57, 43)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">6. Conduits and Communication Scope</h2></div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">6.1 Communication within a Security Zone</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      UR E26 requires the ZCD to illustrate network communication between systems within the same security zone. The CSDD then describes the purpose and characteristics of that communication, including relevant protocols and data flows.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Every packet-level flow does not need to be printed individually on the overview diagram. Grouped representation is a recommended documentation method, subject to Society acceptance, where the underlying flow set remains complete, controlled and traceable.
+    </p>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">6.2 Communication between Security Zones</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Network communication between different security zones is represented as a conduit. The ZCD should show the source and destination zones, the direction where relevant, the communication path, the applicable boundary device or control function and a controlled conduit identifier or reference. The CSDD specifies the communication purpose, protocols, data flows and traffic permitted to cross the boundary.
+    </p>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">6.3 Communication with Untrusted Networks</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      An untrusted network is any network outside the scope of UR E26. Communication between an in-scope security zone and an untrusted network is represented as a conduit. The associated CSDD description must include discrete signals, serial communication and the purpose and characteristics of IP-based network communication, together with boundary devices and permitted traffic.
+    </p>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory reference: IACS UR E26 Rev.1, §2 and §4.2.1.4.1.</div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">6.4 Communication-Scope Matrix</h3>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-7" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-7" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">6.4 Communication-Scope Matrix</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Communication type</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Minimum IACS treatment</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">CRSI-recommended representation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Network communication within one zone</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Illustrate in the ZCD; describe purpose, protocols and data flows in the CSDD.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Show individual or grouped relationships supported by a complete communication register or Supplier topology reference.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Network communication between in-scope zones</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Illustrate as conduits; describe purpose, protocols, data flows, boundary devices and permitted traffic.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Assign conduit IDs and show direction, boundary device and CSDD reference.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">IP communication to an untrusted network</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Illustrate as a conduit and fully describe in the CSDD.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Show the complete external path, intermediate domains, boundary controls and communication direction.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Serial communication or discrete signals to an untrusted system</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Include in the CSDD communication description; the ZCD requirement covers any communication to untrusted networks.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Illustrate every such boundary-crossing path in the ZCD or a coordinated sheet; cross-reference supporting detail in the CSDD.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Non-IP communication between two in-scope zones</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Do not exclude a network communication path solely because it is non-IP. Distinguish network communication from point-to-point serial or discrete interfaces; see Section 3 for the IACS wording and ClassNK interpretation.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Show boundary-crossing links and their control or isolation implications; agree any simplified treatment with the Society.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Supplier-internal serial, fieldbus or I/O communication</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">UR E27 §3.1.2 requires supplier topology information, including serial links and communication with I/O units. The ship-level ZCD may reference this detail, while still showing required same-zone network relationships and boundary crossings.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Avoid redrawing every internal link; show interfaces that affect zone allocation, external dependency or isolation.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Temporary maintenance connection</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Treat according to actual connectivity, trust and access path.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Show the authorised connection point, target zone, control mechanism and temporary-use condition.</td>
+          </tr>
+          <tr>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Wireless connection</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Wireless devices are allocated to a dedicated security zone and the boundary is controlled.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Show access points, wireless zone, connected zones, external or portable endpoints and boundary device.</td>
+          </tr>
+          <tr style="background: rgb(248, 249, 250);">
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Remote-access path</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">All relevant untrusted-network communication and security boundaries must be addressed.</td>
+            <td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Show the full path through shore interface, DMZ or remote-maintenance zone to the target zone.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">6.5 Excluded CBSs and Untrusted-Network Treatment</h3>
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 16px 20px;">
+      <span style="background: rgb(255, 241, 204); border-radius: 4px; color: #9a6700; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">Scope consequence</span>
+      <p style="color: #7a4f10; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        Exclusion status and interface trust classification should be recorded separately, but they are related. Where the Society accepts exclusion of a CBS from the UR E26 scope under §6.4, the resulting scope boundary must be reflected in the design. UR E26 §4.2.1.3 states that systems, networks or CBSs outside the scope are considered untrusted networks.
+      </p>
+      <p style="color: #7a4f10; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        Communication between such an excluded CBS and an in-scope security zone must be shown as communication with an untrusted system and controlled in accordance with §4.2.1, including the physical-segmentation requirement or the stated alternative where accepted. An exclusion does not remove the boundary obligations of the remaining in-scope zone. Record the exclusion basis and Society decision, and reconcile them with the asset scope and interface documentation.
+      </p>
+    </div>
+  </div>
+
+  <div id="crsi-zcd-document-structure" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">7. Recommended ZCD Package</h2></div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      IACS requires specified information, not a fixed drawing count. For a simple vessel, one combined diagram may be sufficient. For a complex vessel, a controlled package with coordinated physical and logical views is generally easier to review, maintain and verify.
+    </p>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-8" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-8" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">7. Recommended ZCD Package</caption>
+        <thead>
+          <tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));">
+            <th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">ZCD component</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Recommended content</th>
+            <th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Document control and legend</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Project, vessel, drawing number, revision, status, symbols, line types, zone conventions and abbreviations.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Necessary document control</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Zone Catalogue</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Zone ID, name, purpose, included functions, policy basis, segmentation type, principal locations and isolation considerations.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CRSI recommended practice</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Physical ZCD</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Physical locations, CBSs, cabinets or racks, network/security devices, interface media, external connections and Supplier topology references.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Recommended for complex vessels</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Logical ZCD</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Zone boundaries, logical segments, conduits, direction, boundary controls, wireless, remote access and untrusted domains.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Recommended for complex vessels</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Conduit Catalogue</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Conduit ID, source, destination, purpose, direction, medium, boundary device, CSDD reference and implementation status.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CRSI recommended practice</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Boundary Device Allocation Table</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Device ID, type, location, connected zones, security role, redundancy and controlled configuration reference.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CRSI recommended practice</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Switch and Network Allocation Table</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Switch ID, location, connected equipment, network classification, zone assignment and boundary role.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CRSI recommended practice</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Cross-Reference Matrix</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Mapping between CBS IDs, asset entries, Supplier drawings, zones, conduits, CSDD sections and test cases.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CRSI recommended practice</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Revision and Change Log</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Changes, affected zones or conduits, MoC reference, approval status and as-built closure.</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Lifecycle control</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">7.1 Data Ownership and Sensitive Information</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      The ZCD should not become an unreadable substitute for the CSDD or a repository for every IP address, port number and firewall rule. A controlled data-ownership model reduces conflicting duplication. However, §4.2.1.4.1 requires the CSDD to specify permitted boundary traffic. An external register must not leave this required content outside the reviewed design baseline. The CSDD also covers the other applicable design-phase requirements in UR E26 Section 4; communication control is only one part.
+    </p>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-9" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-9" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">7.1 Data Ownership and Sensitive Information</caption>
+        <thead><tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));"><th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Data type</th><th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Recommended authoritative source</th></tr></thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Asset identity and hardware/software version</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Vessel Asset Inventory</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Zone and conduit architecture</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">ZCD</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Communication purpose and security rationale</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CSDD</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Detailed addresses, ports and permitted-traffic rules</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CSDD or a controlled, revision-identified annex/register incorporated into the CSDD review package and accepted by the Society</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Passwords, private keys and other authentication secrets</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Separate protected credential-management process; drawings and communication registers reference the process or account role without containing the secrets</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Exclusion rationale</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Risk Assessment for Exclusion</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Compensating-measure basis</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Description of Compensating Countermeasures</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Verification method and acceptance criteria</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Ship Cyber Resilience Test Procedure</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Executed evidence</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Test records and survey records</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">7.2 Optional Purdue Overlay</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A Purdue-level overlay may help explain the functional hierarchy of a complex OT environment. It remains informative only: Purdue levels are not security zones, one level may contain multiple zones, and one zone may span more than one functional level where justified. Project conventions such as “Level 3.5” should be labelled as conventions and must not override UR E26 requirements for safety, wireless, navigation/machinery separation, untrusted networks or zone isolation.
+    </p>
+  </div>
+
+  <div id="crsi-zcd-development-lifecycle" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(21, 79, 122), rgb(26, 158, 130)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">8. Development and As-Built Lifecycle</h2></div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      The ZCD should be developed iteratively from preliminary scope identification through as-built verification. During construction, the Systems Integrator is required to keep the diagram updated. Changes affecting hardware, software, interfaces, segmentation, boundary devices, wireless, remote access or Owner-supplied equipment must be assessed through Management of Change.
+    </p>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory references: IACS UR E26 Rev.1, §4.2.1.4.2 and §5.1; IACS UR E22 Rev.3 Corr.1, applicable MoC provisions.</div>
+
+    <details style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 10px; margin-bottom: 20px; overflow: hidden;">
+      <summary style="background: rgb(247, 250, 254); color: #0a2342; cursor: pointer; font-size: 13.5px; font-weight: 800; padding: 14px 18px;">Detailed 15-Step ZCD Development Methodology</summary>
+      <div style="padding: 16px 18px;">
+        <ol style="color: #4a6278; font-size: 13.5px; line-height: 1.9; margin: 0px 0px 16px; padding-left: 20px;">
+          <li><strong style="color: #0a2342;">Establish the preliminary CBS scope.</strong> Prepare the preliminary Vessel Asset Inventory and categorisation register.</li>
+          <li><strong style="color: #0a2342;">Assign controlled identifiers.</strong> Establish IDs for CBSs, equipment, zones, conduits, segments, boundary devices and external domains.</li>
+          <li><strong style="color: #0a2342;">Collect Supplier architecture information.</strong> Obtain asset inventories, physical/logical topologies, interfaces, protocols and remote-access information.</li>
+          <li><strong style="color: #0a2342;">Identify actual interfaces and dependencies.</strong> Reconcile Supplier information with vessel wiring, network and location data.</li>
+          <li><strong style="color: #0a2342;">Define zone-design principles.</strong> Agree criteria for safety, trust, access policy, exposure, availability, isolation and maintenance.</li>
+          <li><strong style="color: #0a2342;">Develop the preliminary Zone Catalogue.</strong> Allocate each CBS to a proposed zone or other approved domain and document the rationale.</li>
+          <li><strong style="color: #0a2342;">Identify network segments and segmentation type.</strong> Determine whether each boundary is physical or logical and verify where physical separation is mandatory.</li>
+          <li><strong style="color: #0a2342;">Identify communication paths.</strong> Map same-zone network communication, inter-zone communication and communication with untrusted networks.</li>
+          <li><strong style="color: #0a2342;">Define conduits and boundary controls.</strong> Assign conduit IDs and identify the boundary device or other control mechanism.</li>
+          <li><strong style="color: #0a2342;">Validate isolation and primary functionality.</strong> Resolve dependencies that prevent a zone from operating its primary function when isolated.</li>
+          <li><strong style="color: #0a2342;">Reconcile all UR E26 deliverables.</strong> Verify alignment with the Asset Inventory, CSDD, exclusion decisions, compensating measures and test procedure.</li>
+          <li><strong style="color: #0a2342;">Submit and resolve Society comments.</strong> Control comments, responses, decisions and affected-document updates.</li>
+          <li><strong style="color: #0a2342;">Maintain the ZCD during construction.</strong> Assess substitutions, interface changes, network changes, late equipment and construction deviations.</li>
+          <li><strong style="color: #0a2342;">Complete as-built verification.</strong> Confirm physical installation, segmentation, zone allocation, boundary devices and documented communication paths.</li>
+          <li><strong style="color: #0a2342;">Hand over the lifecycle baseline.</strong> Transfer the approved ZCD package, change history and controlled supporting records to the Shipowner.</li>
+        </ol>
+      </div>
+    </details>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">8.1 Management of TBD Information</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Early design submissions may contain “TBD” information where data is genuinely unavailable. Each TBD should have an owner, required source, closure milestone and identified impact on other documents. A TBD should not remain unresolved at commissioning where it affects scope, zone allocation, segmentation, boundary-device selection, untrusted-network connectivity, permitted communication, isolation capability, compensating measures or test coverage.
+    </p>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">8.2 Typical Change Triggers</h3>
+    <ul style="color: #4a6278; font-size: 13.5px; line-height: 1.9; margin: 0px 0px 16px; padding-left: 20px;">
+      <li>equipment-model substitution;</li>
+      <li>firmware, operating-system or application-version change;</li>
+      <li>addition or removal of an interface;</li>
+      <li>new VLAN, subnet, route or trunk;</li>
+      <li>firewall or ACL change;</li>
+      <li>new remote-access function;</li>
+      <li>new wireless connection;</li>
+      <li>equipment relocation;</li>
+      <li>new inter-zone communication;</li>
+      <li>new untrusted-network connection;</li>
+      <li>change to Supplier security capability;</li>
+      <li>change to exclusion or compensating-measure status.</li>
+    </ul>
+  </div>
+
+  <div id="crsi-zcd-traceability-surveys" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(21, 79, 122), rgb(192, 57, 43)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">9. Traceability, Commissioning and Survey-Cycle Relevance</h2></div>
+       
+
+<div style="background: rgb(247, 250, 254); border-radius: 10px; border: 1px solid rgb(209, 224, 238); margin: 0px 0px 20px; padding: 16px 18px;"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjgXgA-sln6LEtsUNFbaJBz1Nhovl0UOeS9Xdel8ZLI1gNnv5vX3Bmj3D1mW7tuKdcJvTyaiLmkfGeiKkeFGqtZTBdjC8Ax00hSKST7Ms7bKCG0ThwKxhA6R98XAyDFLaDGE41XuurDFC3XbCOn1_YVKbJaeIcmocPyDUMNTxZ0DfH8E6FSXJmrK81azoM/s1600/04_Documentation_and_Lifecycle.jpg" width="2560" height="1440" alt="Related asset, zone, security design and test documents with an integrator-to-shipowner handover and operational change-management cycle." style="border-radius: 8px; display: block; height: auto; max-width: 100%; width: 100%;"><div style="color: #4a6278; font-size: 12.5px; line-height: 1.7; margin-top: 10px;">Figure 3. Document consistency and lifecycle maintenance. Asset information, the ZCD, the CSDD, test procedures and actual results must remain aligned through changes and handover.</div></div>
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">9.1 Cross-Document Traceability</h3>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-10" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-10" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">9.1 Cross-Document Traceability</caption>
+        <thead><tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));"><th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Related document</th><th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Consistency and traceability check</th></tr></thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Vessel Asset Inventory</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">The ZCD and inventory cover the same in-scope CBSs with consistent identities. Zone and physical-location information must appear in the ZCD; zone/category fields in the inventory are optional under §4.1.1.3.1. If duplicated in the inventory, zone and location data must agree.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Supplier CBS Asset Inventory</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Hardware and interface information matches the vessel-level representation.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Supplier physical topology</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">The simplified ZCD references the approved detailed physical architecture.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Supplier logical topology</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Endpoints, paths and protocols support the vessel-level logical design.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">CSDD</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Each relevant internal flow and conduit has a corresponding purpose, protocol, data-flow and boundary-control description.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Risk Assessment for Exclusion</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">The excluded CBS and interface treatment are consistent with the approved scope decision.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Description of Compensating Countermeasures</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Boundary or intermediary devices used as compensating measures appear in the ZCD and Asset Inventory.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Ship Cyber Resilience Test Procedure</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Tests verify zone implementation, segmentation, boundary traffic and isolation arrangements.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Ship Cyber Security and Resilience Program</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">The maintained ZCD supports operation-phase boundary management, change control and survey evidence.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">9.2 Commissioning Verification</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">Before final commissioning, UR E26 §5.2 requires the Systems Integrator to submit the updated as-built design documents and test procedure, and carry out testing witnessed by the Society under the approved procedure.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      During commissioning, the Systems Integrator must demonstrate that the onboard security zones match the approved ZCD, CSDD, Vessel Asset Inventory and relevant Supplier documents, and that security-zone boundaries permit only the traffic documented in the approved design. UR E26 gives physical inspection, network scanning, firewall-rule evaluation and port scanning as examples of suitable verification methods.
+    </p>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory reference: IACS UR E26 Rev.1, §4.2.1.4.3.</div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">The following are evidence methods, not a complete list of required tests. The approved procedure must also address applicable network-protection and isolation demonstrations under §§4.2.2 and 4.4.3. Scanning is an example method under §4.2.1.4.3, not a universally required ZCD test. Any permitted omission of previously certified tests is decided by the Society under §5.2.1. Plan intrusive tests with the affected CBS suppliers and within the vessel’s safe test conditions.</p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">Depending on the vessel and approved test plan, commissioning evidence may include:</p>
+    <ul style="color: #4a6278; font-size: 13.5px; line-height: 1.9; margin: 0px 0px 16px; padding-left: 20px;">
+      <li>inspection of equipment and cable installation;</li>
+      <li>switch, router and firewall configuration review;</li>
+      <li>VLAN and routing verification;</li>
+      <li>network and port scans;</li>
+      <li>rule-set comparison;</li>
+      <li>communication-path tests;</li>
+      <li>zone-isolation tests;</li>
+      <li>configuration exports and backups;</li>
+      <li>photographic evidence;</li>
+      <li>discrepancy and closure records.</li>
+    </ul>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">9.3 Operation-Phase Survey Cycle</h3>
+    <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-11" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-11" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">9.3 Operation-Phase Survey Cycle</caption>
+        <thead><tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));"><th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Survey stage</th><th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Direct responsible party</th><th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">ZCD-related demonstration</th></tr></thead>
+        <tbody>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">First Annual Survey</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Shipowner/Company</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Demonstrate that the ZCD has been kept updated and that security-zone boundaries are managed under the approved Ship Cyber Security and Resilience Program.</td></tr>
+          <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Subsequent Annual Surveys</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Shipowner/Company</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Demonstrate continued implementation upon request by the Society.</td></tr>
+          <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">Special Survey</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Shipowner/Company</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Demonstrate the zone implementation and boundary-traffic activities in §4.2.1.4.3 under the maintained test procedure. Other tests follow the specific operation-phase clauses; not every commissioning test is repeated automatically.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Regulatory reference: IACS UR E26 Rev.1, §4.2.1.4.4 and §5.3.</div>
+
+    <div style="background: rgb(240, 247, 255); border-left: 4px solid rgb(21, 79, 122); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 16px 18px;">
+      <span style="background: rgb(223, 243, 236); border-radius: 4px; color: #1a7a5e; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">Lifecycle-ready handover</span>
+      <p style="color: #2c4a6e; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        The Systems Integrator hands over the documentation required by UR E26 §5. The Shipowner carries the operation-phase duties; continued CRSI support depends on its appointment. Recommended operation-phase evidence includes the current ZCD revision, change log, MoC records, boundary-device configuration reviews, firewall or ACL review records, network or port-scan results, isolation-test records, configuration backups and relevant Society correspondence.
+      </p>
+    </div>
+  </div>
+
+  <div id="crsi-zcd-class-notes" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(26, 158, 130), rgb(39, 174, 143)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">10. Classification Society and Supporting-Standard Notes</h2></div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">10.1 ClassNK</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      ClassNK’s <em>Guidelines for Cyber Resilience of Ships</em>, Edition 1.1, provides detailed implementation explanations for the ZCD, including scope display, Supplier topology references, conduit treatment, physical and logical segmentation, VLAN examples, dedicated-zone requirements, untrusted-network separation and zone isolation. The official ClassNK page listed Edition 1.1 when checked on 5 October 2026. Its Q&amp;A provides further implementation explanations. These ClassNK interpretations should not be treated as additional universal IACS clauses.
+    </p>
+    <div style="color: #8a9bab; font-size: 12px; font-style: italic; margin: 0px 0px 16px;">Implementation reference: ClassNK, Guidelines for Cyber Resilience of Ships, Edition 1.1, Chapter 4, §4-2.</div>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">10.2 Lloyd’s Register</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      Lloyd’s Register’s public publication page lists the <em>Rules and Regulations for the Classification of Ships</em> dated 1 July 2026 and directs readers to Regs4ships. This article verifies that publication information; it does not claim a clause-by-clause review of the 2026 rule text. For an LR-classed vessel, identify the applicable edition, effective amendments, notices and project instructions with LR.
+    </p>
+
+    <h3 style="color: #154f7a; font-size: 14.5px; font-weight: 800; margin: 22px 0px 10px;">10.3 IEC 62443</h3>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      IEC 62443-3-2:2020 provides the supporting industrial-control-system methodology for partitioning a system under consideration into zones and conduits, assessing risk and documenting target security levels. IEC 62443-3-3:2013 provides detailed system security requirements used with defined zones and conduits. These standards are supporting references; the governing marine compliance basis remains IACS UR E26, the applicable Class Rules and Society decisions.
+    </p>
+
+    <div style="background: rgb(255, 248, 240); border-left: 4px solid rgb(230, 126, 34); border-radius: 0px 10px 10px 0px; margin-bottom: 24px; padding: 16px 20px;">
+      <span style="background: rgb(255, 241, 204); border-radius: 4px; color: #9a6700; display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 8px; padding: 2px 8px; text-transform: uppercase;">Class-specific verification</span>
+      <p style="color: #7a4f10; font-size: 13.5px; line-height: 1.8; margin: 0px 0px 10px;">
+        IACS UR E26 provides a common minimum baseline. Within their implementation of that baseline, Classification Societies may differ in document codes, accepted formats, treatment of inter-zone non-IP communication, evidence expected for segmentation, acceptance of equivalent boundary devices and commissioning-test depth. Interpretations affecting architecture, scope or acceptance should be agreed with the vessel’s Society.
+      </p>
+    </div>
+  </div>
+
+  <div id="crsi-zcd-practical-appendices" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(154, 89, 130), rgb(230, 126, 34)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">11. Practical Review Appendices</h2></div>
+
+    <details style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 10px; margin-bottom: 20px; overflow: hidden;">
+      <summary style="background: rgb(247, 250, 254); color: #0a2342; cursor: pointer; font-size: 13.5px; font-weight: 800; padding: 14px 18px;">Common ZCD Deficiencies</summary>
+      <div style="padding: 16px 18px;">
+        <ol style="color: #4a6278; font-size: 13.5px; line-height: 1.9; margin: 0px 0px 16px; padding-left: 20px;">
+          <li><strong style="color: #0a2342;">Using departments or rooms as zones without a security-policy basis.</strong></li>
+          <li><strong style="color: #0a2342;">Treating a VLAN identifier as proof of effective segmentation.</strong></li>
+          <li><strong style="color: #0a2342;">Claiming physical segmentation while sharing the same Layer 2 switch.</strong></li>
+          <li><strong style="color: #0a2342;">Omitting managed switches, firewalls, routers, gateways or remote-access devices.</strong></li>
+          <li><strong style="color: #0a2342;">Omitting Owner-supplied or late-installed equipment.</strong></li>
+          <li><strong style="color: #0a2342;">Showing only the public Internet as untrusted while omitting other out-of-scope networks.</strong></li>
+          <li><strong style="color: #0a2342;">Omitting serial or discrete communication with untrusted systems.</strong></li>
+          <li><strong style="color: #0a2342;">Showing a firewall symbol without identifying the connected zones, conduit or controlled-traffic reference.</strong></li>
+          <li><strong style="color: #0a2342;">Combining navigation/communication with machinery/cargo contrary to UR E26.</strong></li>
+          <li><strong style="color: #0a2342;">Failing to allocate wireless devices to a dedicated zone.</strong></li>
+          <li><strong style="color: #0a2342;">Omitting the separate-zone requirement for networked local/backup controls covered by §4.4.2.</strong></li>
+          <li><strong style="color: #0a2342;">Failing to confirm that each zone can be isolated without loss of primary functionality.</strong></li>
+          <li><strong style="color: #0a2342;">Using inconsistent asset, zone and conduit identifiers across documents.</strong></li>
+          <li><strong style="color: #0a2342;">Overloading the ZCD with sensitive addresses, ports and rule details that belong in controlled records.</strong></li>
+          <li><strong style="color: #0a2342;">Using Purdue levels as the compliance basis instead of UR E26 zone requirements.</strong></li>
+          <li><strong style="color: #0a2342;">Failing to update the design-stage drawing to the installed and tested as-built condition.</strong></li>
+        </ol>
+      </div>
+    </details>
+
+    <details style="background: white; border: 1px solid rgb(209, 224, 238); border-radius: 10px; margin-bottom: 20px; overflow: hidden;">
+      <summary style="background: rgb(247, 250, 254); color: #0a2342; cursor: pointer; font-size: 13.5px; font-weight: 800; padding: 14px 18px;">25-Point ZCD Quality Review Checklist</summary>
+      <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">This checklist combines UR requirements with recommended evidence methods; named registers are not additional mandatory IACS submissions.</p>
+      <div style="padding: 16px 18px;">
+        <div role="region" tabindex="0" aria-labelledby="crsi-zcd-table-12" style="border-radius: 12px; border: 1.5px solid rgb(209, 224, 238); margin-bottom: 24px; overflow-x: auto;">
+      <table style="border-collapse: collapse; font-size: 12.5px; min-width: 560px; width: 100%;">
+        <caption id="crsi-zcd-table-12" style="clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px;">25-Point ZCD Quality Review Checklist</caption>
+            <thead><tr style="background: linear-gradient(135deg, rgb(10, 35, 66), rgb(21, 79, 122));"><th scope="col" style="color: #7effd8; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">No.</th><th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Review question</th><th scope="col" style="color: #b8d4ea; font-size: 10px; font-weight: 800; padding: 10px 12px; text-align: left; text-transform: uppercase; vertical-align: bottom;">Expected evidence</th></tr></thead>
+            <tbody>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">1</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are all in-scope CBSs represented?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Reconciliation with the Vessel Asset Inventory</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">2</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Can each CBS be uniquely identified?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Controlled CBS or equipment IDs</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">3</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Is the allocated security zone shown for each CBS?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Zone allocation in the ZCD; consistency with any repeated inventory fields</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">4</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Is the physical location shown?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Deck, room, cabinet, rack or equivalent reference</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">5</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are approved Supplier topology diagrams referenced?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Drawing number and revision</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">6</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are zone boundaries clearly distinguishable?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Consistent boundary convention and legend</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">7</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Does each zone have a defined purpose and policy basis?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Zone Catalogue and CSDD reference</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">8</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are required safety-function CBSs physically segmented?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Physical architecture and installation evidence</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">9</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are navigation/communication separated from machinery/cargo?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Zone allocation and segmentation evidence</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">10</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are wireless devices in dedicated zones?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Wireless architecture and zone allocation</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">11</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are networked local/backup controls covered by §4.4.2 treated as separate zones?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Zone allocation and CSDD rationale</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">12</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are out-of-scope networks identified as untrusted?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Scope and external-domain review</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">13</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are excluded CBS interfaces treated consistently with out-of-scope/untrusted status?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Exclusion RA and interface treatment</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">14</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are all inter-zone network communications represented as conduits?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Conduit Catalogue</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">15</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are all communications with untrusted networks illustrated in the ZCD or coordinated sheets?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">IP, serial and discrete interface review</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">16</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Is each conduit linked to a boundary device or control function?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Boundary Device Allocation Table</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">17</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Is only necessary communication intended to cross each boundary?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">CSDD and permitted-traffic reference</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">18</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Is physical or logical segmentation described accurately?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Network design and configuration evidence</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">19</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Can each zone be isolated without loss of primary functionality?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Isolation analysis and test reference</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">20</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are Owner-supplied and late-installed systems included?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Procurement and installation reconciliation</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">21</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are compensating boundary devices represented?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Compensating-measure cross-reference</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">22</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Does the ZCD match the CSDD and Vessel Asset Inventory?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Cross-document consistency review</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">23</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Does the ZCD map to the Ship Cyber Resilience Test Procedure?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Test-case mapping</td></tr>
+              <tr><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">24</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Are all TBDs assigned and closed by the required milestone?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">TBD register</td></tr>
+              <tr style="background: rgb(248, 249, 250);"><td style="border-top: 1px solid rgb(232, 238, 244); color: #0a2342; font-size: 12.5px; font-weight: 700; padding: 9px 12px; text-align: left; vertical-align: top;">25</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">Does the final issue reflect the installed and commissioned vessel?</td><td style="border-top: 1px solid rgb(232, 238, 244); color: #4a6278; font-size: 12.5px; padding: 9px 12px; vertical-align: top;">As-built verification and revision approval</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div id="crsi-zcd-conclusion" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(230, 126, 34), rgb(192, 57, 43)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">12. Conclusion</h2></div>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      The Zones and Conduit Diagram is the central architectural document for vessel-level cyber resilience under IACS UR E26. It establishes the applicable security zones, CBS allocation, physical implementation, boundary-crossing communication, untrusted-network interfaces and the traceability linking Supplier information, ship-level design and verification evidence.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A compliant ZCD begins with accurate scope identification and Supplier data. It requires defensible zone-allocation criteria, correct physical or logical segmentation, complete interface analysis and controlled conduit definition. It must remain consistent with the Vessel Asset Inventory, CSDD, exclusion assessments, compensating countermeasures and Ship Cyber Resilience Test Procedure.
+    </p>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">The quality of the final ZCD should be assessed against four questions:</p>
+    <ol style="color: #4a6278; font-size: 13.5px; line-height: 1.9; margin: 0px 0px 16px; padding-left: 20px;">
+      <li>Does it represent the correct scope?</li>
+      <li>Does it describe a defensible security architecture?</li>
+      <li>Does it match the installed and tested vessel?</li>
+      <li>Can the Shipowner maintain and use it throughout the operational survey cycle?</li>
+    </ol>
+    <p style="color: #4a6278; font-size: 14px; line-height: 1.85; margin: 0px 0px 12px;">
+      A ZCD that satisfies all four questions is more than a plan-approval drawing. It is the controlled architectural baseline for vessel cyber resilience.
+    </p>
+    <div style="background: linear-gradient(135deg, rgb(10, 35, 66) 0%, rgb(21, 79, 122) 100%); border-radius: 14px; color: white; font-size: 14px; line-height: 1.85; padding: 24px 28px;"><div style="color: #7effd8; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; margin-bottom: 10px; text-transform: uppercase;">Next Article &#183; Article 3 (coming soon)</div>
+      The next article will examine the Cyber Security Design Description, including its relationship with the ZCD, the required description of communication flows and boundary controls, its recommended submission structure and its role in lifecycle maintenance and survey evidence.
+    </div>
+  </div>
+
+  <div aria-labelledby="crsi-zcd-series-navigation" style="margin-bottom: 36px;">
+    <div style="align-items: center; display: flex; gap: 10px; margin-bottom: 16px;"><div style="background: linear-gradient(rgb(10, 35, 66), rgb(21, 79, 122)); border-radius: 2px; flex-shrink: 0; height: 26px; width: 4px;"></div><h2 id="crsi-zcd-series-navigation" style="color: #0a2342; font-size: 17px; font-weight: 800; letter-spacing: 0.1px; margin: 0px;">Series Navigation</h2></div>
+    <div style="align-items: center; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); display: flex; gap: 14px; margin-bottom: 10px; padding: 14px 16px;">
+      <span style="background: rgb(180, 195, 210); border-radius: 50%; color: white; flex-shrink: 0; font-size: 13px; font-weight: 800; height: 32px; line-height: 32px; text-align: center; width: 32px;">1</span>
+      <div><h3 style="color: #0a2342; font-size: 13.5px; font-weight: 800; margin: 0px;"><a href="https://www.shippauljobs.com/2026/07/iacs-ur-e26-compliance-series-17-cyber.html" style="color: #154f7a; text-decoration: none;">The CRSI Role and Six Core Ship-Level Deliverables</a></h3><p style="color: #6b8599; font-size: 11.5px; margin: 2px 0px 0px;">Systems Integrator responsibilities, lifecycle baseline and the six-document framework.</p></div>
+    </div>
+    <div aria-current="step" style="align-items: center; background: rgba(26, 158, 130, 0.08); border-radius: 10px; border: 1px solid rgba(26, 158, 130, 0.35); display: flex; gap: 14px; margin-bottom: 10px; padding: 14px 16px;">
+      <span style="background: rgb(26, 158, 130); border-radius: 50%; color: white; flex-shrink: 0; font-size: 13px; font-weight: 800; height: 32px; line-height: 32px; text-align: center; width: 32px;">2</span>
+      <div><h3 style="color: #0a2342; font-size: 13.5px; font-weight: 800; margin: 0px;">Zones and Conduit Diagram</h3><p style="color: #6b8599; font-size: 11.5px; margin: 2px 0px 0px;">Security-zone architecture, segmentation, conduit scope and lifecycle verification.</p></div>
+    </div>
+    <div style="align-items: center; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); display: flex; gap: 14px; margin-bottom: 10px; padding: 14px 16px;">
+      <span style="background: rgb(180, 195, 210); border-radius: 50%; color: white; flex-shrink: 0; font-size: 13px; font-weight: 800; height: 32px; line-height: 32px; text-align: center; width: 32px;">3</span>
+      <div><h3 style="color: #0a2342; font-size: 13.5px; font-weight: 800; margin: 0px;">Cyber Security Design Description</h3><p style="color: #6b8599; font-size: 11.5px; margin: 2px 0px 0px;">Communication controls, security design rationale and requirement traceability.</p></div>
+    </div>
+    <div style="align-items: center; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); display: flex; gap: 14px; margin-bottom: 10px; padding: 14px 16px;">
+      <span style="background: rgb(180, 195, 210); border-radius: 50%; color: white; flex-shrink: 0; font-size: 13px; font-weight: 800; height: 32px; line-height: 32px; text-align: center; width: 32px;">4</span>
+      <div><h3 style="color: #0a2342; font-size: 13.5px; font-weight: 800; margin: 0px;">Vessel Asset Inventory</h3><p style="color: #6b8599; font-size: 11.5px; margin: 2px 0px 0px;">Asset scope, Supplier integration, Rec.190 structure and lifecycle updates.</p></div>
+    </div>
+    <div style="align-items: center; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); display: flex; gap: 14px; margin-bottom: 10px; padding: 14px 16px;">
+      <span style="background: rgb(180, 195, 210); border-radius: 50%; color: white; flex-shrink: 0; font-size: 13px; font-weight: 800; height: 32px; line-height: 32px; text-align: center; width: 32px;">5</span>
+      <div><h3 style="color: #0a2342; font-size: 13.5px; font-weight: 800; margin: 0px;">Risk Assessment for the Exclusion of CBSs</h3><p style="color: #6b8599; font-size: 11.5px; margin: 2px 0px 0px;">Exclusion criteria, evidence, risk methodology and approval basis.</p></div>
+    </div>
+    <div style="align-items: center; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); display: flex; gap: 14px; margin-bottom: 10px; padding: 14px 16px;">
+      <span style="background: rgb(180, 195, 210); border-radius: 50%; color: white; flex-shrink: 0; font-size: 13px; font-weight: 800; height: 32px; line-height: 32px; text-align: center; width: 32px;">6</span>
+      <div><h3 style="color: #0a2342; font-size: 13.5px; font-weight: 800; margin: 0px;">Description of Compensating Countermeasures</h3><p style="color: #6b8599; font-size: 11.5px; margin: 2px 0px 0px;">Capability gaps, equivalent protection, implementation ownership and testing.</p></div>
+    </div>
+    <div style="align-items: center; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); display: flex; gap: 14px; margin-bottom: 10px; padding: 14px 16px;">
+      <span style="background: rgb(180, 195, 210); border-radius: 50%; color: white; flex-shrink: 0; font-size: 13px; font-weight: 800; height: 32px; line-height: 32px; text-align: center; width: 32px;">7</span>
+      <div><h3 style="color: #0a2342; font-size: 13.5px; font-weight: 800; margin: 0px;">Ship Cyber Resilience Test Procedure</h3><p style="color: #6b8599; font-size: 11.5px; margin: 2px 0px 0px;">Test selection, acceptance criteria, evidence and survey-cycle maintenance.</p></div>
+    </div>
+  </div>
+
+  <div aria-labelledby="crsi-zcd-references" style="background: rgb(244, 247, 251); border-radius: 12px; margin-bottom: 20px; padding: 24px 26px;">
+    <h2 id="crsi-zcd-references" style="color: #0a2342; font-size: 15px; font-weight: 800; margin: 0px 0px 14px;">References</h2>
+    <ol style="color: #4a6278; font-size: 12.5px; line-height: 1.9; margin: 0px; padding-left: 20px;">
+      <li>International Association of Classification Societies, <a href="https://iacs.org.uk/resolutions/unified-requirements/ur-e/ur-e26-new" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;">UR E26 Rev.1: <em>Cyber Resilience of Ships</em></a>, November 2023, particularly §§1.3, 2, 4.1.1.3.1, 4.2.1, 4.2.2, 4.4.2–4.4.3, 5 and 6.4. <a href="https://www.classnk.or.jp/hp/pdf/info_service/iacs_ur_and_ui/ur_e26_rev.1_nov_2023_cr.pdf" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;">Rev.1 PDF hosted by ClassNK</a>.</li>
+      <li>International Association of Classification Societies, <a href="https://iacs.org.uk/resolutions/ur-e/ur-e27-rev1/ur-e27-rev1" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;">UR E27 Rev.1: <em>Cyber Resilience of On-board Systems and Equipment</em></a>, September 2023, particularly §§3.1.1–3.1.3 and Appendix II.</li>
+      <li>International Association of Classification Societies, <a href="https://iacs.org.uk/resolutions/unified-requirements/ur-e/ur-e22-rev2-cln-2" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;">UR E22 Rev.3 Corr.1: <em>Computer-based Systems</em></a>, September 2025. <a href="https://www.classnk.or.jp/HP/pdf/info_service/iacs_ur_and_ui/ur_e22_rev.3_corr.1_sep_2025_cln.pdf" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;">Rev.3 Corr.1 PDF hosted by ClassNK</a>.</li>
+      <li>ClassNK, <a href="https://www.classnk.or.jp/hp/en/activities/cybersecurity/ur-e26e27.html" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;"><em>Guidelines for Cyber Resilience of Ships</em>, Edition 1.1</a>, 29 August 2025, particularly Chapter 4, §4-2. <a href="https://www.classnk.or.jp/hp/pdf/activities/cybersecurity/gl_CyberResilienceofShips_202508e.pdf" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;">Edition 1.1 PDF</a>; <a href="https://www.classnk.or.jp/hp/en/activities/cybersecurity/ur-e26e27/faq.html" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;">UR E26/27 Q&amp;A, Q99</a>.</li>
+      <li>Lloyd’s Register, <a href="https://www.lr.org/en/knowledge/lloyds-register-rules/rules-and-regulations-for-the-classification-of-ships/" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;"><em>Rules and Regulations for the Classification of Ships</em></a>, public listing for the edition dated 1 July 2026, checked 5 October 2026; rule text available through Regs4ships. Publication information only.</li>
+      <li>International Electrotechnical Commission, <a href="https://webstore.iec.ch/en/publication/30727" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;"><em>IEC 62443-3-2:2020 — Security risk assessment for system design</em></a>.</li>
+      <li>International Electrotechnical Commission, <a href="https://webstore.iec.ch/en/publication/7033" target="_blank" rel="noopener" style="color: #154f7a; font-weight: 600;"><em>IEC 62443-3-3:2013 — System security requirements and security levels</em></a>.</li>
+    </ol>
+
+    <div style="background: white; border: 1px solid rgb(222, 226, 230); border-radius: 10px; color: #6c757d; font-size: 12px; line-height: 1.75; margin-top: 18px; padding: 14px 18px;">
+      <strong style="color: #0a2342;">Disclaimer.</strong> This article provides general technical guidance on the implementation of IACS cyber-resilience requirements. It does not replace the applicable IACS Unified Requirements, statutory and Flag Administration requirements, the current Rules and instructions of the relevant Classification Society, approved project documentation, contractual requirements or ship-specific decisions made by the Society. Class-specific wording and acceptance criteria should be verified against the current applicable edition before use on a project.
+    </div>
+  </div>
+</div>
+
+  <!--══ ABOUT THE AUTHOR ══-->
+  <div style="background: rgb(244, 247, 251); border-radius: 12px; padding: 22px 24px;">
+    <h2 style="color: #0a2342; font-size: 15px; font-weight: 800; margin: 0px 0px 12px;">About the Author</h2>
+    <div style="align-items: center; display: flex; gap: 12px; margin: 0px 0px 14px;">
+      <a href="https://www.linkedin.com/in/woojin-lee-87ab812a2/" rel="noopener" target="_blank"><img alt="Woojin Lee" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/Jin.jpeg?raw=true" style="border-radius: 50%; border: 2px solid rgb(26, 158, 130); flex-shrink: 0; height: 52px; object-fit: cover; width: 52px;" /></a>
+      <div>
+        <div style="color: #0a2342; font-size: 14px; font-weight: 800; line-height: 1.3;">Woojin Lee</div>
+        <div style="color: #6b8599; font-size: 11.5px;">Automation Cyber Engineering &#183; Cyber Tech Consultant &nbsp;&#183;&nbsp; <a href="https://www.linkedin.com/in/woojin-lee-87ab812a2/" rel="noopener" style="color: #1a9e82; font-weight: 700;" target="_blank">LinkedIn</a> &nbsp;&#183;&nbsp; <a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" rel="noopener" style="color: #1a9e82; font-weight: 700;" target="_blank">Crew Profile</a></div>
+      </div>
+    </div>
+    <p style="color: #4a6278; font-size: 13.5px; line-height: 1.85; margin: 0px 0px 16px;">Woojin Lee specializes in maritime and IoT security with expertise spanning multiple ISO standards and compliance frameworks, including <strong>IACS UR E26/E27</strong>, <strong>ISO 27001</strong>, <strong>ISO 27701</strong>, <strong>ISO 42001</strong>, and <strong>ISMS-P</strong>. Woojin brings technical depth in automation cybersecurity engineering and privacy advisory services, holding an M.S. in Computer Software Engineering from Korea University and a B.S. in Software Engineering from Lancaster University (Upper Second Class Honours). Recognitions include the Outstanding Paper Award at the Korea Blockchain Academic Conference (2021) and the Grand Prize at the Korea Financial Security Institute (2022).</p>
+    <div style="color: #4a6278; font-size: 13px; line-height: 2;">
+      LinkedIn: <a href="https://www.linkedin.com/in/woojin-lee-87ab812a2/" rel="noopener" style="color: #154f7a; font-weight: 600;" target="_blank">https://www.linkedin.com/in/woojin-lee-87ab812a2/</a><br />
+      GitHub: <a href="https://github.com/lwjace" rel="noopener" style="color: #154f7a; font-weight: 600;" target="_blank">https://github.com/lwjace</a><br />
+      Meet Woojin and the ShipJobs Crew: <a href="https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html" rel="noopener" style="color: #154f7a; font-weight: 600;" target="_blank">https://www.shippauljobs.com/p/202601-crew-behind-shipjobs-ship-ai.html</a>
+    </div>
+  </div>
+</div>
+
+<!--══ RELATED ARTICLES ══-->
+<div id="related-articles-section" style="box-sizing: border-box; font-family: Segoe UI, Apple SD Gothic Neo, Arial, sans-serif; margin: 40px auto 0px; max-width: 780px;">
+  <div style="background: rgb(244, 247, 251); border-radius: 12px; padding: 22px 24px;">
+    <div style="color: #0a2342; font-size: 13px; font-weight: 800; letter-spacing: 0.6px; margin-bottom: 4px; text-transform: uppercase;">Related Articles on ShipPaulJobs</div>
+    <div style="color: #6b8599; font-size: 12.5px; margin-bottom: 14px;">Continue with these related practitioner articles on Zones, Conduits and ship network design.</div>
+    <div style="display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+    <a href="https://www.shippauljobs.com/2026/07/ship-zcd-anatomy-building-blocks-iacs-ur-e26.html" style="display: block; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); border-top: 3px solid rgb(26, 158, 130); padding: 14px 16px; text-decoration: none;">
+      <div style="color: #0a2342; font-size: 13.5px; font-weight: 800; line-height: 1.45;">Anatomy of a Ship ZCD</div>
+      <div style="color: #6b8599; font-size: 12px; line-height: 1.6; margin-top: 4px;">Understanding the building blocks of an IACS UR E26 Zone and Conduit Diagram.</div>
+      <div style="color: #1a9e82; font-size: 11.5px; font-weight: 800; margin-top: 8px;">Read article &#8594;</div>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/07/ship-zcd-documentation-zone-conduit-diagram-iacs-ur-e26.html" style="display: block; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); border-top: 3px solid rgb(26, 158, 130); padding: 14px 16px; text-decoration: none;">
+      <div style="color: #0a2342; font-size: 13.5px; font-weight: 800; line-height: 1.45;">From Networks to ZCD</div>
+      <div style="color: #6b8599; font-size: 12px; line-height: 1.6; margin-top: 4px;">Translating physical and logical networks into IACS UR E26 documentation.</div>
+      <div style="color: #1a9e82; font-size: 11.5px; font-weight: 800; margin-top: 8px;">Read article &#8594;</div>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/07/zone-conduit-vlan-purdue-model-ship-iacs-ur-e26.html" style="display: block; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); border-top: 3px solid rgb(26, 158, 130); padding: 14px 16px; text-decoration: none;">
+      <div style="color: #0a2342; font-size: 13.5px; font-weight: 800; line-height: 1.45;">Zone Before VLAN</div>
+      <div style="color: #6b8599; font-size: 12px; line-height: 1.6; margin-top: 4px;">Designing logical networks using the Purdue Model and Zone &amp; Conduit concepts.</div>
+      <div style="color: #1a9e82; font-size: 11.5px; font-weight: 800; margin-top: 8px;">Read article &#8594;</div>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/07/ship-zcd-failures-iacs-ur-e26-e27-seven-mistakes.html" style="display: block; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); border-top: 3px solid rgb(26, 158, 130); padding: 14px 16px; text-decoration: none;">
+      <div style="color: #0a2342; font-size: 13.5px; font-weight: 800; line-height: 1.45;">Why Most Ship ZCDs Fail</div>
+      <div style="color: #6b8599; font-size: 12px; line-height: 1.6; margin-top: 4px;">Seven common mistakes in IACS UR E26/E27 Zone and Conduit Diagram projects.</div>
+      <div style="color: #1a9e82; font-size: 11.5px; font-weight: 800; margin-top: 8px;">Read article &#8594;</div>
+    </a>
+    <a href="https://www.shippauljobs.com/2026/07/ship-ot-network-design-iacs-ur-e26-e27.html" style="display: block; background: white; border-radius: 10px; border: 1px solid rgb(222, 226, 230); border-top: 3px solid rgb(26, 158, 130); padding: 14px 16px; text-decoration: none;">
+      <div style="color: #0a2342; font-size: 13.5px; font-weight: 800; line-height: 1.45;">From Cable to Cyber Resilience</div>
+      <div style="color: #6b8599; font-size: 12px; line-height: 1.6; margin-top: 4px;">Designing physical networks for IACS UR E26/E27 &#8212; the foundation for logical networks and the ZCD.</div>
+      <div style="color: #1a9e82; font-size: 11.5px; font-weight: 800; margin-top: 8px;">Read article &#8594;</div>
+    </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,193 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 5 — Endpoint Security
+     Lesson : 2 of 2 — CrowdStrike, SentinelOne and Microsoft Defender for Endpoint
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 5</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 2 of 2</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#051e18 0%,#0a4a36 55%,#0a7a58 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(10,120,88,0.18);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 5 · Lesson 2</span>
+    <span style="background:rgba(220,60,60,0.4);border-radius:20px;color:#ffaaaa;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">CrowdStrike · SentinelOne</span>
+    <span style="background:rgba(10,120,88,0.3);border-radius:20px;color:#80ffcc;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Defender for Endpoint</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">CrowdStrike, SentinelOne and Microsoft Defender for Endpoint</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f0fff8;border-left:4px solid #0a6a48;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a6a48;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can describe the architecture and key capabilities of CrowdStrike Falcon, SentinelOne Singularity, and Microsoft Defender for Endpoint, identify the key differentiators between the three platforms, understand which platform is most suitable for different maritime deployment scenarios, and explain how managed detection and response (MDR) services extend EDR capability for small security teams.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The EDR market has consolidated around three dominant platforms: CrowdStrike Falcon, SentinelOne Singularity, and Microsoft Defender for Endpoint. Each has a distinct architecture, a different approach to AI-driven detection, and different integration points that make it more or less suitable for specific organisational contexts. The choice between them — for a maritime operator selecting their first EDR platform — is a significant strategic decision.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">CrowdStrike pioneered the cloud-native EDR model with its Falcon platform, processing all detection logic in the cloud against a massive corpus of global threat telemetry. SentinelOne differentiated with on-agent AI — the ability to detect and respond to threats without a cloud connection, critical for vessel environments with intermittent VSAT connectivity. Microsoft Defender for Endpoint is deeply integrated into the Windows operating system and Microsoft's broader security ecosystem, making it the obvious choice for organisations already running Microsoft 365.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Beyond the technology, the managed detection and response (MDR) ecosystem around each platform is equally important for maritime operators with small security teams. CrowdStrike Falcon Complete MDR, SentinelOne's Vigilance MDR, and Microsoft's own MSSP partner network all provide 24/7 human analyst coverage that supplements or replaces the need for an in-house SOC — a critical consideration for shipping companies that cannot staff and maintain a security operations team.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#051e18,#0a4a36);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. CrowdStrike Falcon</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #80d4b0;">
+    <div style="background:#051e18;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. CrowdStrike Falcon</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Cloud-Native Architecture</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">CrowdStrike Falcon is built on a cloud-native architecture: a lightweight agent on the endpoint (the Falcon Sensor) streams telemetry to the CrowdStrike cloud, where detection logic runs against the combined telemetry from millions of endpoints globally. This 'crowd-sourced' intelligence model — seeing threats across all CrowdStrike customers simultaneously — provides extremely fast time-to-detection for novel threats that have been seen on any other customer's endpoint.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Threat Graph</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">CrowdStrike's Threat Graph is the backend data store that records every process, connection, and action across all Falcon-monitored endpoints. Investigators query the Threat Graph to reconstruct attack timelines, pivot from one indicator to all related activity, and hunt for threats that have not yet generated an alert. The Threat Graph is also the foundation of CrowdStrike's threat intelligence — mapping attacker infrastructure, techniques, and campaigns across the global sensor network.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Module Architecture</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Falcon is a modular platform. The base Falcon Prevent module provides next-generation AV and EDR. Additional modules provide: Falcon Insight XDR (cross-domain correlation), Falcon Identity Threat Detection (AD-based lateral movement detection), Falcon Exposure Management (attack surface management), Falcon Firewall Management (host-based firewall control), and Falcon Discover (IT asset inventory). Maritime operators typically start with Falcon Prevent + Falcon Insight and add modules as their security programme matures.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Offline Operation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A critical maritime consideration: Falcon Sensor maintains a local prevention model that operates without cloud connectivity. When VSAT is down, the agent continues to prevent and detect threats using its locally cached machine learning model. Telemetry is queued and uploaded when connectivity resumes. This offline capability is a key differentiator for vessel deployments.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a3a28,#0a5a40);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. SentinelOne Singularity</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #80d4b0;">
+    <div style="background:#0a3a28;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. SentinelOne Singularity</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">On-Agent AI Architecture</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">SentinelOne's defining architectural distinction is that its AI detection models run on the endpoint itself, not in the cloud. The SentinelOne agent contains an embedded AI engine trained on SentinelOne's global threat corpus. This means full detection and prevention capability operates regardless of network connectivity — a significant advantage in maritime vessel environments where satellite connectivity is intermittent and sometimes unavailable for extended periods.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Storyline Technology</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">SentinelOne's Storyline technology automatically correlates every event into contextual stories — linking process executions, file operations, network connections, and registry changes into a coherent timeline that shows exactly what happened before, during, and after a detection. This dramatically reduces investigation time: instead of manually correlating raw events, analysts review a pre-built attack timeline that shows the complete story of the incident.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">ActiveEDR and Autonomous Response</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">SentinelOne's ActiveEDR mode enables autonomous response without requiring cloud connectivity or analyst approval: when a threat is detected, the agent can automatically kill the process, quarantine the file, roll back file system changes, and network-isolate the endpoint — all within seconds of detection. For vessels where the response team is hours away (literally at sea), autonomous response is a critical capability for limiting damage before human intervention is possible.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Purple AI</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">SentinelOne's Purple AI is an AI-powered threat hunting and investigation assistant integrated into the Singularity platform. Analysts can query Purple AI in natural language — 'show me all processes that connected to external IPs in the last 7 days on vessels in the Atlantic fleet' — and receive structured results without writing complex detection queries. For small maritime security teams with limited SIEM query expertise, AI-assisted investigation significantly reduces the skill barrier to effective threat hunting.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a5a40,#0a7a58);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Microsoft Defender for Endpoint</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #80d4b0;">
+    <div style="background:#0a5a40;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Microsoft Defender for Endpoint</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Deep Windows Integration</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Microsoft Defender for Endpoint (MDE) is built into Windows 10/11 and Windows Server 2019+. No separate agent installation is required on modern Windows systems — Defender is already present and can be configured centrally via Intune or Group Policy. This zero-deployment advantage is significant for vessel fleets where software deployment logistics are complex: enabling MDE is a configuration change, not a software rollout.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Microsoft 365 Defender Integration</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">MDE integrates natively with Microsoft 365 Defender — correlating endpoint alerts with email threats (Defender for Office 365), identity threats (Defender for Identity), and cloud app threats (Defender for Cloud Apps). A phishing email that delivers malware to a vessel workstation generates a correlated incident across MDE and Defender for Office 365, visible in the Microsoft 365 Defender portal as a single unified incident with the complete attack chain.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Defender for Endpoint P1 vs P2</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Microsoft Defender for Endpoint comes in two tiers: P1 (included with Microsoft 365 Business Premium) provides next-generation AV, device control, and basic EDR. P2 (included with Microsoft 365 E5 or as a standalone licence) adds full EDR telemetry and investigation capabilities, threat and vulnerability management, automated investigation and response, and Microsoft Threat Experts managed hunting. For maritime operators on a budget, P1 provides meaningful improvement over legacy AV; P2 provides full EDR capability at a price competitive with CrowdStrike and SentinelOne.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Platform Selection Guide</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Choose CrowdStrike Falcon when: existing security investments are not Microsoft-centric, threat intelligence quality is the top priority, or a managed detection service (Falcon Complete) is needed. Choose SentinelOne when: vessel connectivity is frequently interrupted and on-agent autonomous response is critical, or the security team is small and needs AI-assisted investigation. Choose Microsoft Defender for Endpoint when: the organisation is already on Microsoft 365 E5, integration with Microsoft Sentinel is the priority, or minimising per-device licensing cost is a key constraint.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(10,120,88,0.18);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, the EDR platform question often comes second to the connectivity question: whatever EDR you deploy on vessels, it must tolerate the connectivity profile of a working vessel — intermittent VSAT, 300-500ms latency, limited bandwidth, multi-week gaps during satellite maintenance windows. CrowdStrike and SentinelOne both have documented vessel deployment case studies; Microsoft Defender for Endpoint's offline capabilities are less well-documented for maritime scenarios. The recommendation across most assessments is to require a connectivity-tolerance test from any EDR vendor before fleet deployment: deploy a single agent on a vessel representative of the fleet, observe its behaviour over a 30-day period including connectivity interruptions, and validate that detection capability, telemetry queuing, and cloud sync all function correctly before committing to a fleet-wide rollout.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Before selecting a platform, run a proof-of-concept on 2-3 vessels for 60 days. Measure: (1) Detection rate on simulated test events (run a safe ATT&CK technique simulator like Atomic Red Team). (2) Connectivity impact: does the agent increase VSAT bandwidth usage? (3) Performance impact: does the agent affect ECDIS or other navigation software performance? (4) Offline behaviour: does detection continue when the satellite link is down? These four data points will give you more confidence than any vendor benchmark.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#f0fff8;border:1.5px solid #80d4b0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0a6a48;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 21</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>CrowdStrike Falcon uses a cloud-native architecture that processes telemetry against a global threat corpus, providing fast time-to-detection for novel threats; offline prevention mode supports vessel deployments.</li>
+    <li>SentinelOne Singularity runs its AI detection models on the endpoint, providing full detection and autonomous response without cloud connectivity — a critical advantage for intermittently-connected vessels.</li>
+    <li>Microsoft Defender for Endpoint is built into modern Windows, requires no additional agent for existing Windows fleets, and integrates natively with the Microsoft 365 security ecosystem.</li>
+    <li>All three platforms provide managed detection and response (MDR) services — 24/7 human analyst coverage that is critical for maritime operators who cannot staff and maintain an in-house SOC.</li>
+    <li>Platform selection should be driven by connectivity profile (SentinelOne excels for poor connectivity), ecosystem alignment (Defender for Microsoft shops), and threat intelligence quality requirements (CrowdStrike for intelligence-led operations).</li>
+    <li>A 60-day proof-of-concept on representative vessels, measuring detection rate, connectivity impact, performance impact, and offline behaviour, should precede any fleet-wide EDR deployment decision.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 22</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 22 — Threat Hunting</strong> — PART 6 begins with Lesson 22 — Threat Hunting. We move from reactive detection (waiting for alerts) to proactive threat hunting: the practice of actively searching for threats that have evaded detection tools, using hypothesis-driven investigation and threat intelligence to find attackers before they cause damage.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 5 — Endpoint Security</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0fff8;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 20 — From Antivirus to EDR and XDR</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a6a48;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 21 — CrowdStrike, SentinelOne and Microsoft Defender for Endpoint</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,190 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 6 — Advanced Detection and Response
+     Lesson : 1 of 3 — Threat Hunting
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 6</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 1 of 3</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#0a0820 0%,#1a1040 55%,#3a1070 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(90,16,144,0.18);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 6 · Lesson 1</span>
+    <span style="background:rgba(90,16,144,0.5);border-radius:20px;color:#d8a8ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Threat Hunting</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Hypothesis · TTP · IOC</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Threat Hunting</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f8f0ff;border-left:4px solid #5a1090;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#5a1090;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can define threat hunting and distinguish it from alert-based incident detection, describe the hypothesis-driven hunting methodology, explain how the MITRE ATT&CK framework drives hunting hypotheses, identify the data sources and tools used in threat hunting, and understand how maritime-specific threat hunting hypotheses are constructed for vessel OT environments.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Detection rules and SIEM alerts are reactive: they fire when an attacker's technique matches a known pattern. But sophisticated attackers know which patterns are being detected, and they specifically craft their campaigns to avoid them. Living-off-the-land techniques (using legitimate system tools), encrypted command-and-control traffic, and slow-and-low data exfiltration are all designed to fall below the detection threshold. A threat hunter's job is to find these attackers proactively — before they cause damage, before an alert fires.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Threat hunting starts from a hypothesis: 'What if a threat actor with these capabilities has already compromised our environment? What evidence would that leave?' The hunter then goes looking for that evidence across available log data and endpoint telemetry, using knowledge of attacker TTPs and the specific characteristics of the organisation's environment. Finding the evidence confirms the hypothesis and begins an incident response. Finding no evidence either means the hypothesis was wrong (no attacker with those capabilities is present) or the data needed to test it is not available — also an important finding.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">In maritime cybersecurity, threat hunting is particularly valuable because vessel environments are likely to have poor baseline visibility and long dwell times. An attacker who compromised a vessel's navigation system software update mechanism might have been present for months before any alert fired — if any alert fired at all. A threat hunt specifically looking for evidence of supply chain compromise in update processes would detect this long before the attacker chose to act.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a0820,#1a1040);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. The Threat Hunting Process</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c090e0;">
+    <div style="background:#0a0820;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. The Threat Hunting Process</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Hypothesis Generation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Every threat hunt starts with a hypothesis — a specific, testable statement about attacker behaviour. Good hypotheses are driven by: (1) Threat intelligence ('APT group X targeting maritime organisations has been observed using T1059.001 PowerShell execution to download second-stage payloads') — hunt for evidence of that specific technique in your environment. (2) Organisational context ('Our VSAT management interface is externally accessible; an attacker who compromised it would need to perform discovery to map the internal network') — hunt for discovery activity from the VSAT management system IP. (3) Security control gaps ('We have no EDR on engine room workstations') — hunt for signs of compromise on the systems that lack visibility.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Data Collection and Analysis</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">With a hypothesis defined, the hunter identifies which data sources contain evidence relevant to that hypothesis, queries them using the SIEM search language (KQL, SPL, or similar), and examines the results. Effective hunting requires high-fidelity telemetry: process execution logs with command-line arguments, network connection logs with DNS resolution data, authentication logs with source IP and user-agent. Data that has not been collected cannot be hunted — improving data collection is a key output of threat hunting programmes.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Hunt Output — True Positives and Improvements</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A successful hunt produces one of two outcomes. A true positive — evidence of malicious activity — initiates the incident response process. A true negative — no evidence found — documents what was searched, confirms the data quality needed to test the hypothesis, and becomes a new detection rule (if this hypothesis is valuable enough to hunt manually, it is valuable enough to automate). Both outcomes have value; a hunt that finds nothing but produces a new detection rule has improved the organisation's security posture.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Hunt Teams and Skills</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Effective threat hunters combine deep technical knowledge (OS internals, attacker TTPs, SIEM query expertise) with the analytical mindset of an investigator (hypothesis-driven, evidence-based, comfortable with ambiguity). In maritime, hunters also need operational context: understanding what 'normal' ECDIS behaviour looks like, what a legitimate port state control inspection would involve in terms of system access, and what maintenance traffic from authorised third-party vendors looks like on the OT network.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#1a1040,#3a1070);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Hunting Tools and Data Sources</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c090e0;">
+    <div style="background:#1a1040;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. Hunting Tools and Data Sources</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">SIEM as the Primary Hunt Platform</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The SIEM is the primary hunting platform, providing historical access to all ingested log data and the search language to query it at scale. A threat hunt against 90 days of endpoint telemetry from a fleet of 20 vessels — looking for evidence of a specific ATT&CK technique — would involve querying billions of events in the SIEM's data lake. Proficiency with the SIEM's search language (KQL, SPL, or similar) is the foundational skill for any threat hunter.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">EDR Telemetry</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">EDR platforms provide the richest endpoint telemetry for threat hunting: process execution trees (what spawned what), file system operations, network connections with resolved DNS names, memory operations (including injection attempts), and credential access events. EDR-native hunt tools (CrowdStrike Falcon Insight, SentinelOne's hunting interface) provide optimised query interfaces for hunting across endpoint data without requiring full SIEM ingestion.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Network Traffic Analysis</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Network-level hunting uses flow data (NetFlow, IPFIX — source/destination IP, port, bytes transferred, duration) and full packet capture (where storage permits) to find command-and-control beaconing, data exfiltration, and lateral movement. Beaconing detection — identifying processes that connect to external IPs at regular intervals (a characteristic of C2 malware) — is a powerful hunting technique that works even against encrypted traffic, because the periodicity of the connections is visible in flow data regardless of payload encryption.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Threat Intelligence for Hunt Targeting</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Threat intelligence narrows the hunt target: which specific indicators (IP ranges, domain patterns, file hashes), which specific techniques (the ATT&CK sub-techniques observed in the latest threat report), and which specific sectors (if maritime-targeted campaigns have been observed) should be prioritised. A threat hunt without intelligence targeting is inefficient — it has an infinite search space. Intelligence-driven hunting focuses the hunt on the highest-probability locations for the most likely threats.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#3a1070,#5a10a0);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Maritime-Specific Hunting Hypotheses</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c090e0;">
+    <div style="background:#3a1070;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Maritime-Specific Hunting Hypotheses</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Hypothesis: Unauthorised VSAT Interface Access</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">If an attacker has compromised the VSAT management interface, they would need to access it using either a stolen credential or an exploited vulnerability. Hunt: examine all logon events to the VSAT management interface over the last 90 days. Identify any logons from IP addresses not in the expected shore office or vendor ranges. For each anomalous logon, examine what actions were taken post-authentication — configuration changes, firmware queries, routing table modifications.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Hypothesis: Malicious USB Execution on Bridge Workstation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">USB-delivered malware is a common vector for vessel compromise (technicians, port agents, crew members with infected drives). Hunt: query EDR telemetry for all processes executed from removable drives over the last 90 days. Examine each result: is the executable signed by a known vendor? Does it spawn child processes or make network connections? Any unsigned executable launched from a USB device on a bridge workstation is high-priority for further investigation.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Hypothesis: OT Network Reconnaissance from IT Segment</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">If an attacker has compromised the vessel IT network and is exploring toward OT systems, they would perform network scanning or SNMP enumeration from the IT segment toward OT IP ranges. Hunt: query firewall and switch logs for any traffic from IT segment IP ranges to OT segment IP ranges that is not explicitly permitted by the firewall ruleset. Any such traffic indicates either a firewall misconfiguration or active lateral movement — both requiring immediate investigation.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(90,16,144,0.18);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, defining the threat hunt programme for a vessel operator almost always starts with the same uncomfortable question: what data do we actually have to hunt in? For most shipping companies, the answer is: Windows event logs from shore-based servers, firewall logs from shore office perimeter devices, and nothing from vessels. A threat hunt programme that has no vessel telemetry cannot find attacker activity on vessels — regardless of how skilled the hunters are. The first recommendation in every assessment with no vessel monitoring is to establish the data collection foundation before investing in advanced hunting capability. A hunter with vessel network flow data and bridge workstation process execution logs can find threats. A hunter with no vessel data can only hunt in the shore office, where the interesting threats are less likely to be.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Start your threat hunting programme with three hunts: (1) Beaconing detection — find all processes making regular external connections at intervals shorter than 5 minutes. (2) PowerShell encoded commands — find all PowerShell executions with base64-encoded arguments. (3) Logon from new IP — find all successful logons from IP addresses not seen in the previous 30 days. These three hunts can be run in any SIEM, require minimal data sources, and have detected real attacker activity in maritime environments.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#f8f0ff;border:1.5px solid #c090e0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#5a1090;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 22</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>Threat hunting is proactive, hypothesis-driven investigation for threats that have evaded automated detection — it finds attackers before alerts fire rather than responding to alerts after.</li>
+    <li>Hypotheses are generated from threat intelligence (known attacker TTPs), organisational context (specific vulnerabilities and exposures), and security control gaps (systems with no visibility).</li>
+    <li>Effective hunting requires high-quality telemetry: process execution with command-line arguments, network flow data with DNS, and authentication logs with source context.</li>
+    <li>Hunt outputs are binary: a true positive (incident found, IR initiated) or a true negative (hypothesis not confirmed, but a new detection rule created). Both outcomes improve security posture.</li>
+    <li>Maritime-specific hunting hypotheses focus on VSAT management interface access, USB execution on bridge workstations, and lateral movement from IT to OT network segments.</li>
+    <li>Building the vessel telemetry foundation — collecting and centralising vessel log data — is the prerequisite for any meaningful maritime threat hunting programme.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 23</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 23 — Detection Engineering</strong> — Lesson 23 covers Detection Engineering — the systematic practice of building and maintaining detection rules at scale. We examine the detection engineering lifecycle, rule quality metrics, and how to build a maritime-specific detection rule library mapped to ATT&CK for ICS.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 6 — Advanced Detection and Response</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#5a1090;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 22 — Threat Hunting</span>
+    </div>
+    <div style="align-items:center;background:#f8f0ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 23 — Detection Engineering</span></div>
+    <div style="align-items:center;background:#f8f0ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 24 — Security Analytics and Detection Validation</span></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

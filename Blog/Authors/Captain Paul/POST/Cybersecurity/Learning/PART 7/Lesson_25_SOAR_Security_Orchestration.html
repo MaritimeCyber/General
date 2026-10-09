@@ -1,0 +1,188 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 7 — Security Automation
+     Lesson : 1 of 1 — SOAR: Security Orchestration, Automation and Response
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 7</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 1 of 1</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#1a0530 0%,#3a0a5a 55%,#7a1a9a 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(122,26,154,0.18);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 7 · Lesson 1</span>
+    <span style="background:rgba(122,26,154,0.5);border-radius:20px;color:#e8b0ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">SOAR</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Playbooks · Automation · Orchestration</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">SOAR: Security Orchestration, Automation and Response</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#fdf0ff;border-left:4px solid #7a1a9a;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#7a1a9a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can define SOAR and explain its three pillars (Orchestration, Automation, Response), describe the anatomy of a SOAR playbook and how it responds to a security alert, list common automation use cases that save the most analyst time, compare Splunk SOAR and Microsoft Sentinel Playbooks as the two dominant platforms, and explain how SOAR enables small maritime security teams to operate at the scale of much larger SOCs.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">A typical SOC alert requires, before an analyst can begin meaningful investigation, a series of repetitive enrichment steps: look up the source IP address in threat intelligence feeds, check whether the affected user account has had recent password resets, query the EDR for the process history on the affected endpoint, check whether the same IP has appeared in other recent alerts, and open a ticket in the case management system. These steps might take 10-15 minutes per alert. A busy SOC handling 200 alerts per day is spending 33-50 analyst-hours on mechanical enrichment alone.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">SOAR — Security Orchestration, Automation, and Response — was built to eliminate this mechanical overhead. SOAR platforms connect to every security tool in the environment through integrations (APIs, webhooks, pre-built connectors), execute predefined response playbooks automatically when alerts fire, and deliver a pre-enriched incident to the analyst: 'Here is the alert, here is the threat intelligence on the IP, here is the process tree from the EDR, here is the user's recent authentication history, and here is the ticket already opened.' The analyst's first action is informed investigation, not mechanical data gathering.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">For maritime security teams — typically small teams managing a complex environment of shore infrastructure and vessel systems — SOAR is particularly valuable. A team of three security engineers cannot manually triage 200 alerts per day and also perform threat hunting, detection engineering, and incident response. SOAR enables the same team to effectively operate at the scale of a team three times its size by automating the tier-1 work that does not require human judgement.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#1a0530,#3a0a5a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. SOAR Pillars — Orchestration, Automation, Response</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #d0a0f0;">
+    <div style="background:#1a0530;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. SOAR Pillars — Orchestration, Automation, Response</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Orchestration</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Orchestration is the coordination of multiple security tools into a unified workflow. Instead of an analyst manually querying three different platforms for information about an IP address, the SOAR orchestrates all three queries simultaneously and aggregates the results. Orchestration requires integrations: pre-built connectors or custom API calls for each tool in the environment. A mature SOAR deployment integrates: the SIEM (alert source), EDR platforms (endpoint context and response), threat intelligence platforms (indicator enrichment), firewalls (blocking actions), email gateways (email incident context), ticketing systems (case management), and communication platforms (Teams, Slack notifications).</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Automation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Automation eliminates human involvement in repetitive, rule-based tasks that have deterministic outcomes. If an alert fires for a brute-force attack from an external IP, the automated response is always the same: block the IP at the firewall, query the threat intelligence database for context, check whether the targeted account was successfully compromised (successful logon after the failed attempts), and open a ticket. There is no judgement required; the same action should always be taken. Automating these deterministic tasks frees analysts for the judgement-intensive work that automation cannot replace.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Response</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The response pillar covers the actions taken when a threat is confirmed: endpoint isolation, user account disabling, firewall rule creation, malicious email deletion from user inboxes, DNS sinkholing. SOAR executes these response actions via API calls to the relevant tools. Response actions can be fully automated (auto-isolate when ransomware is detected), semi-automated (auto-isolate proposed, analyst approves with one click), or analyst-initiated (analyst triggers isolation manually from the SOAR case interface). The tier of automation is set based on risk tolerance and confidence in the detection.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Case Management</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">SOAR platforms include integrated case management: every alert generates a case, automated enrichment is documented in the case timeline, analyst actions are recorded, and the case is closed with a disposition (true positive, false positive, or undetermined) and lessons-learned notes. Case data provides the raw material for SOC metrics (MTTD, MTTR, false positive rate) and the incident database that informs future detection rule development.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#3a0a5a,#7a1a9a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. SOAR Playbooks — Anatomy and Examples</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #d0a0f0;">
+    <div style="background:#3a0a5a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. SOAR Playbooks — Anatomy and Examples</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Playbook Structure</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A SOAR playbook is a workflow: a trigger (an alert type or condition), a sequence of actions (API calls, conditional logic, human decision points), and outcomes (actions taken, case notes written, notifications sent). Playbooks are built visually (drag-and-drop workflow editors in Splunk SOAR and Microsoft Sentinel) or programmatically (Python scripts in Splunk SOAR). The trigger-action-outcome structure means playbooks are readable and auditable — security engineers can review the logic of every automated response.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Phishing Response Playbook</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A phishing email response playbook: Trigger — email security alert for suspected phishing. Actions: (1) Extract all URLs and attachments from the email. (2) Query VirusTotal and threat intelligence feeds for each URL and file hash. (3) Check which users received the email and whether any clicked the link. (4) If any user clicked: query EDR for process execution on that user's endpoint in the 60 minutes after the click. (5) If malicious process detected: isolate endpoint, disable user account, notify security team. (6) Delete the phishing email from all recipient inboxes. Outcome: case documented, analyst notified with full context. Time from alert to completed response: 90 seconds.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Brute Force Response Playbook</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Brute force response: Trigger — 10+ failed logons against a single account in 5 minutes. Actions: (1) Check whether any successful logon followed the failed attempts. (2) Query GeoIP for the source IP — is it in an expected location? (3) Query threat intel for the source IP — is it a known bad actor? (4) If successful logon and anomalous location: disable the account, terminate active sessions, notify the account owner. (5) Block the source IP at the firewall if it is threat-intel confirmed malicious. (6) Open a case with all context pre-populated. Analyst receives a pre-enriched, pre-actioned case — they review and confirm, they do not start from scratch.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime-Specific Playbook — Vessel Alert</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A vessel-specific playbook: Trigger — VSAT management interface logon from non-whitelisted IP. Actions: (1) Query shore office records for any expected maintenance activity from external vendors today. (2) Send automated notification to the vessel master and shore-based IT team. (3) Capture current VSAT configuration and log it as evidence. (4) If no maintenance activity scheduled: escalate to on-call security analyst with full context. (5) Open a case tagged as 'Vessel: [Vessel Name]' for fleet-level correlation. Time from logon anomaly to shore-side notification: under 60 seconds.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#7a1a9a,#9a2aba);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. SOAR Platforms — Splunk SOAR and Microsoft Sentinel Playbooks</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #d0a0f0;">
+    <div style="background:#7a1a9a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. SOAR Platforms — Splunk SOAR and Microsoft Sentinel Playbooks</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Splunk SOAR</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk SOAR (formerly Phantom) is the leading independent SOAR platform, with 350+ pre-built app integrations and a Python-based playbook engine. Playbooks are built visually or as Python code, enabling both simple drag-and-drop workflows and highly complex, programmatic automation logic. Splunk SOAR integrates natively with Splunk ES (notable events trigger SOAR playbooks automatically) but also supports non-Splunk SIEM sources. For large maritime security operations with complex, diverse tool environments, Splunk SOAR's integration breadth is a significant advantage.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Microsoft Sentinel Automation (Playbooks)</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Microsoft Sentinel implements SOAR through Azure Logic Apps, branded as 'Automation' and 'Playbooks'. Logic Apps provide a low-code visual workflow editor with 400+ connectors to Microsoft and third-party services. Sentinel analytics rules trigger playbooks automatically; playbooks can also be run manually on incidents by analysts. The tight integration with Microsoft services (Teams, Outlook, Defender for Endpoint, Azure AD) makes Sentinel Playbooks particularly powerful for Microsoft-centric environments. The no-code/low-code nature is accessible to security engineers without Python experience.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#7a1a9a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Choosing a SOAR Platform</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Organisations already using Splunk ES will typically deploy Splunk SOAR for seamless integration. Organisations on Microsoft Sentinel should use Sentinel Automation (Logic Apps) for native integration and zero additional licensing cost. Both platforms support the use cases most relevant to maritime security operations — the key driver is ecosystem alignment, not platform capability. Start with the SOAR that integrates natively with your existing SIEM; complexity of customisation is a secondary concern.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(122,26,154,0.18);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, SOAR is often positioned as an advanced capability for organisations that have already solved the basics — detection rules, alert management, and incident response procedures. The typical recommendation is sequential: establish detection coverage first, then automate the response. This is correct in principle, but the automation opportunity should not be deferred indefinitely. Even a simple SOAR playbook that auto-enriches every alert with threat intelligence context and opens a pre-formatted ticket reduces per-alert handling time by 5-10 minutes. Across a security operation handling 50 vessel alerts per day, that is 4-8 hours of analyst time saved daily — time that can be redirected to threat hunting, detection engineering, and actual investigation. The ROI calculation for SOAR is almost always compelling; the barrier is usually integration development time, not technology cost.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Identify your three highest-volume, most repetitive alert types. Document the manual steps an analyst currently takes to triage each alert. For each manual step, identify which SOAR integration would automate it (VirusTotal API for IP/URL lookups, EDR API for endpoint context, ITSM API for ticket creation). Build the first playbook for the highest-volume alert type. Measure time saved per alert. Use that measurement to justify the next playbook development investment.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#fdf0ff;border:1.5px solid #d0a0f0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#7a1a9a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 25</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>SOAR orchestrates multiple security tools, automates deterministic tasks, executes response actions, and manages case documentation — transforming alert-driven manual workflows into automated, auditable processes.</li>
+    <li>SOAR playbooks encode response logic as visual or code-based workflows: trigger (alert type) → actions (API calls, conditional logic, human approval points) → outcomes (response executed, case documented).</li>
+    <li>Common high-value SOAR playbooks: phishing response (email deletion, user notification, endpoint investigation), brute force response (account protection, IP blocking), and vessel-specific playbooks (VSAT anomaly notification, vessel alert case creation).</li>
+    <li>Splunk SOAR offers broad third-party integration depth suitable for complex diverse environments; Microsoft Sentinel Automation (Logic Apps) provides native Microsoft ecosystem integration with low-code accessibility.</li>
+    <li>For small maritime security teams, SOAR's primary value is time multiplication: automating 10-15 minutes of per-alert enrichment across 50 daily vessel alerts recovers 8-12 analyst-hours per day for higher-value work.</li>
+    <li>SOAR implementation follows detection maturity: establish detection coverage and alert procedures first, then automate the highest-volume, most repetitive response workflows.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 26</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 26 — AI in Cybersecurity</strong> — PART 8 begins with Lesson 26 — AI in Cybersecurity. We examine how artificial intelligence and machine learning are transforming both the attack and defence sides of cybersecurity, from AI-generated phishing to ML-driven anomaly detection, and what maritime operators need to understand about the AI threat landscape.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 7 — Security Automation</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#7a1a9a;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 25 — SOAR: Security Orchestration, Automation and Response</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

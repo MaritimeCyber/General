@@ -1,0 +1,190 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 3 — Attackers, Defenders and Cyber Defence
+     Lesson : 2 of 2 — MITRE ATT&CK: Understanding Adversary Behavior
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 3</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 2 of 2</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#051c30 0%,#0a4060 55%,#0a8090 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(10,128,144,0.15);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 3 · Lesson 2</span>
+    <span style="background:rgba(10,128,144,0.4);border-radius:20px;color:#a0e8f0;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">MITRE ATT&CK</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">TTP · Kill Chain</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">MITRE ATT&CK: Understanding Adversary Behavior</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f0f9ff;border-left:4px solid #0a7080;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a7080;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can describe the structure of the MITRE ATT&CK framework — tactics, techniques, and sub-techniques — explain how threat intelligence maps adversary campaigns to ATT&CK, use the ATT&CK Navigator to visualise detection coverage, understand the difference between ATT&CK Enterprise and ATT&CK for ICS, and explain how maritime OT threats map into the ICS framework.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">In 2013, MITRE Corporation began systematically documenting what real-world attackers actually do after gaining initial access to a target network. The result — the Adversarial Tactics, Techniques, and Common Knowledge framework, universally known as ATT&CK — has become the closest thing the cybersecurity industry has to a universal language for describing attacker behaviour.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">ATT&CK organises adversary behaviour into a matrix of Tactics (the 'why' — what the attacker is trying to achieve at each phase) and Techniques (the 'how' — the specific methods used to achieve each tactic). Every technique is documented with real-world examples, detection guidance, mitigation recommendations, and citations to threat intelligence reports. As of 2026, the Enterprise matrix contains over 200 techniques and 400 sub-techniques.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">For maritime cybersecurity, the most relevant addition is ATT&CK for ICS — a parallel matrix covering Industrial Control Systems, including the systems found in vessel machinery management, cargo handling, and navigation. As the maritime sector increases its connectivity through VSAT, remote maintenance, and fleet monitoring platforms, ICS attack techniques that were previously theoretical are becoming documented threats to real vessels.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#051c30,#0a4060);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. ATT&CK Matrix Structure — Tactics and Techniques</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #a0d4e0;">
+    <div style="background:#051c30;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. ATT&CK Matrix Structure — Tactics and Techniques</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Tactics — The 'Why'</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">ATT&CK organises attacker objectives into 14 tactics for Enterprise: Reconnaissance, Resource Development, Initial Access, Execution, Persistence, Privilege Escalation, Defence Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command and Control, Exfiltration, and Impact. Each tactic represents a phase in the attack — from the attacker's first look at the target to their final objective.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Techniques — The 'How'</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Under each tactic sit specific techniques. Under Initial Access, for example: Phishing (T1566), Exploit Public-Facing Application (T1190), Valid Accounts (T1078), Supply Chain Compromise (T1195). Each technique includes a description, which adversary groups have used it, how to detect it, and what mitigations reduce its effectiveness. Sub-techniques provide additional granularity — T1566 Phishing has sub-techniques for Spearphishing Attachment, Spearphishing Link, and Spearphishing via Service.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Threat Groups</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">ATT&CK documents over 130 named threat groups — nation-state APTs, criminal organisations, hacktivist groups — with their known technique usage mapped into the matrix. Knowing which groups target your sector, and which techniques they favour, allows a blue team to prioritise detection coverage where the risk is highest. Groups known to target maritime include Sandworm (NotPetya/Maersk) and APT40 (targeting maritime and defence organisations).</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">ATT&CK Navigator</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The ATT&CK Navigator is a free web tool that overlays data onto the ATT&CK matrix. Blue teams use it to colour-code which techniques they have detection coverage for (green), which they log but do not alert on (yellow), and which generate no signal (red). The result is a visual coverage map that drives prioritisation of detection engineering and purple team exercises.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2a4a,#0a5a7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. ATT&CK for ICS — Maritime OT Relevance</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #a0d4e0;">
+    <div style="background:#0a2a4a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. ATT&CK for ICS — Maritime OT Relevance</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">ICS Matrix Structure</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">ATT&CK for ICS covers the full lifecycle of an attack on an industrial control system: Initial Access, Execution, Persistence, Privilege Escalation, Evasion, Discovery, Lateral Movement, Collection, Command and Control, Inhibit Response Function, Impair Process Control, and Impact. The final three tactics are unique to ICS — they describe the attacker's ability to inhibit safety systems, manipulate physical processes, and cause damage or disruption to the physical world.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime-Relevant ICS Techniques</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">ECDIS and AIS manipulation map to Manipulate I/O Image (T0835) and Spoof Reporting Message (T0856). Remote access to vessel systems through maintenance ports maps to Exploit Remote Services (T0866). Cargo management system compromise maps to Modify Control Logic (T0833) and Loss of Productivity and Revenue (T0828). These are not theoretical — each has been demonstrated in maritime-adjacent ICS environments.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Mapping E26 Controls to ATT&CK</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">IACS UR E26 cyber resilience requirements can be mapped directly to ATT&CK mitigations. The E26 requirement for network segmentation mitigates Lateral Movement techniques. The requirement for access control mitigates Credential Access and Valid Accounts. The requirement for security monitoring enables detection of Discovery and Collection techniques. This mapping helps vessel operators prioritise E26 implementation against real attacker behaviour.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Detection Coverage for OT</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The challenge in maritime OT is that traditional detection tools — EDR, SIEM agents — are incompatible with PLCs, field devices, and legacy SCADA systems. Passive network monitoring (OT-specific tools like Claroty, Nozomi, Dragos) provides detection without interfering with OT operations. These tools are configured to alert on ATT&CK for ICS techniques: unusual command sequences, unexpected network connections, changes to control logic or configuration files.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#2a1060,#5a20a0);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Using ATT&CK in Practice</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #a0d4e0;">
+    <div style="background:#2a1060;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Using ATT&CK in Practice</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Threat Intelligence Mapping</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">When a threat intelligence report describes a new campaign — 'APT group X used spearphishing with a malicious Excel attachment to target shipping companies' — mapping it to ATT&CK (T1566.001: Spearphishing Attachment) connects it to the full body of knowledge on that technique: how to detect it, how to mitigate it, which other groups use it. Threat intel without ATT&CK mapping is anecdote; with it, it drives action.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Detection Engineering</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Detection engineers use ATT&CK techniques as their target list. For each technique, the goal is to write a SIEM rule, EDR policy, or network detection signature that fires when the technique is executed. A mature detection engineering programme works systematically through the ATT&CK matrix, prioritising based on the techniques most relevant to the organisation's threat model.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a7080;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Red Team Planning</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Red teams use ATT&CK to plan engagements. The selection of techniques to exercise is driven by which techniques the target organisation's threat actors are known to use, and which detection gaps the blue team needs to close. A red team that executes ten ATT&CK techniques and provides the blue team with a detection report for each generates far more value than an engagement that simply achieves the objective without documenting the path.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(10,128,144,0.15);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, ATT&CK for ICS provides the most useful framework for translating general cybersecurity concepts into vessel-specific risk. When a shipowner asks 'what could an attacker actually do to our vessel?', walking through the ICS Impact tactic — Loss of Availability (T0826), Loss of Control (T0827), Manipulation of Physical Processes (T0831) — makes the consequence concrete. These are not hypothetical outcomes. They describe what happened to a Ukrainian power grid in 2015, what the Triton malware attempted against a petrochemical safety system in 2017, and what a motivated attacker targeting a vessel's dynamic positioning system could achieve. Mapping the vessel's specific systems to ATT&CK for ICS, then mapping E26 controls to the relevant mitigations, is one of the most effective ways to demonstrate the value of a cyber resilience programme to a shipowner who has not yet invested in it.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Download the ATT&CK Navigator (attack.mitre.org/resources/navigator) and load the ATT&CK for ICS layer. Colour every technique your vessel currently has detection coverage for in green — honestly. The red cells that remain are your detection gap list and your next detection engineering backlog.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#f0f9ff;border:1.5px solid #a0d4e0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0a7080;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 15</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>MITRE ATT&CK organises adversary behaviour into Tactics (objectives) and Techniques (methods), providing a common language for red teams, blue teams, and threat intelligence analysts.</li>
+    <li>The ATT&CK matrix covers 14 Enterprise tactics from Reconnaissance to Impact, with over 200 techniques documented with real-world examples, detection guidance, and mitigations.</li>
+    <li>ATT&CK for ICS extends the framework to industrial control systems with three additional tactics — Inhibit Response Function, Impair Process Control, and Impact — directly relevant to maritime vessel systems.</li>
+    <li>Named threat groups are documented in ATT&CK with their known technique usage, enabling maritime organisations to prioritise defences against the adversaries most likely to target their sector.</li>
+    <li>The ATT&CK Navigator visualises detection coverage across the matrix, turning abstract 'are we detecting threats?' questions into a concrete map of covered and uncovered techniques.</li>
+    <li>Mapping IACS UR E26 requirements to ATT&CK mitigations shows how compliance controls directly reduce the effectiveness of documented attacker techniques — connecting regulatory requirement to operational security improvement.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 16</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 16 — What Is a Security Operations Center?</strong> — PART 4 begins with Lesson 16 — What Is a Security Operations Center? We move from understanding attackers and their techniques to building the organisational capability that detects and responds to them: the SOC, its people, processes, and technology, and what a maritime SOC looks like.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 3 — Attackers, Defenders and Cyber Defence</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f0f9ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 14 — Red Team vs Blue Team</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a7080;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 15 — MITRE ATT&CK: Understanding Adversary Behavior</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,192 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 4 — Security Operations
+     Lesson : 4 of 4 — Splunk for Security Operations
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 4</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 4 of 4</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#05082a 0%,#1a1a5a 55%,#3a0a7a 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(100,30,200,0.15);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 4 · Lesson 4</span>
+    <span style="background:rgba(100,30,200,0.4);border-radius:20px;color:#d0a0ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Splunk</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">SPL · SIEM · ES</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Splunk for Security Operations</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f5f0ff;border-left:4px solid #3a0a7a;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#3a0a7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can describe Splunk's architecture and deployment models, write basic SPL searches for security investigation, explain what Splunk Enterprise Security (ES) adds over the base Splunk platform, describe Splunk SOAR and its role in automated incident response, and understand the trade-offs between Splunk and Microsoft Sentinel for maritime SOC deployments.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Splunk is the platform that defined the modern SIEM category. Founded in 2003 and launched as a log management tool, it grew into the dominant security analytics platform through its combination of a powerful, flexible search language (SPL — Search Processing Language), an open data model that ingests almost any log format, and an extensive ecosystem of apps and integrations. For much of the 2010s, 'SIEM' and 'Splunk' were nearly synonymous in enterprise security operations.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Splunk Enterprise Security (Splunk ES) is the security-focused overlay on top of the base Splunk platform, providing pre-built security dashboards, notable events (Splunk's term for alerts), correlation searches (detection rules), asset and identity management, and threat intelligence integration. Splunk SOAR (formerly Phantom) provides the automation and response layer. Together, Splunk ES and SOAR form a full SIEM/SOAR stack comparable to Microsoft Sentinel.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The maritime security operations question — Splunk or Sentinel? — does not have a universal answer. Organisations with existing Splunk investments and on-premise or hybrid infrastructure often find Splunk's flexibility and deployment options better suited to their architecture. Microsoft-centric organisations with cloud-first strategies often find Sentinel's native integrations and consumption pricing more cost-effective. Both platforms can support maritime vessel monitoring with appropriate custom development.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#05082a,#1a1a5a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Splunk Architecture and SPL</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c0a0e0;">
+    <div style="background:#05082a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. Splunk Architecture and SPL</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Indexers, Search Heads, and Forwarders</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk's distributed architecture separates data collection (Forwarders — lightweight agents that send data to Splunk), data storage and indexing (Indexers — process and store log data as time-series events), and search execution (Search Heads — receive search queries, distribute them to Indexers, and aggregate results). Heavy Forwarders can pre-process and filter data before sending it to the Indexers. In a maritime deployment, vessel-based Heavy Forwarders aggregate vessel logs, compress them, and forward over VSAT to shore-based Indexers.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Splunk Processing Language (SPL)</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">SPL is a powerful, pipe-based search language. A basic search: `index=main sourcetype=WinEventLog EventCode=4625 | stats count by user, src_ip | where count > 5`. SPL's strength is its flexibility — virtually any transformation, aggregation, or visualisation is achievable through SPL. Key commands: search (filter), stats (aggregate), eval (calculate), rex (extract fields with regex), transaction (group related events into sessions), lookup (enrich events from external data).</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Data Onboarding</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk's open data model accepts almost any log format through: pre-built Add-ons (TA-splunk-addon-for-windows, TA-cisco-asa, and 2,000+ others in Splunkbase), Syslog-NG/rsyslog forwarding for standard syslog sources, the HTTP Event Collector (HEC) API for application log shipping, and custom source type configurations with SPL-based field extraction. For vessel OT systems with proprietary log formats, custom source types with regex-based field extraction are the standard approach.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Deployment Models</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk can be deployed on-premises (self-managed), in the cloud (Splunk Cloud Platform — SaaS), or in a hybrid model with on-premises Indexers and cloud Search Heads. On-premises deployment gives full control over data residency and network architecture — relevant for maritime organisations with data sovereignty requirements or low-bandwidth vessel environments. Splunk's licensing model (historically based on daily ingest volume) can be expensive at high log volumes; the newer Splunk Workload Pricing model provides more predictable costs.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#1a1a5a,#3a0a7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Splunk Enterprise Security</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c0a0e0;">
+    <div style="background:#1a1a5a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. Splunk Enterprise Security</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Notable Events and Risk-Based Alerting</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk ES introduces Notable Events — the ES term for security alerts generated by correlation searches. Risk-Based Alerting (RBA), a key Splunk ES capability, assigns risk scores to individual users and systems based on lower-confidence detections, then generates a Notable Event only when a risk score threshold is crossed. This dramatically reduces alert volume — individual low-confidence detections (a single failed logon, a slightly unusual process) are recorded but do not generate alerts; only the accumulation of risk does.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Correlation Searches</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Correlation searches are SPL queries that run on a schedule and generate Notable Events when their results meet defined conditions. Splunk provides hundreds of pre-built correlation searches mapped to the MITRE ATT&CK framework. Maritime-relevant examples: 'Brute Force Access Behavior Detected or Multiple Disabled Accounts', 'Processes Launching Netsh', 'Excessive DNS Failures'. These searches are a starting point — they should be reviewed, tuned, and supplemented with maritime-specific searches.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Asset and Identity Framework</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk ES maintains an Asset and Identity database — a record of every known device and user in the environment, with attributes (criticality, category, owner, physical location). When a Notable Event references a device or user, Splunk ES automatically enriches it with Asset/Identity context: this device is on the bridge of Vessel X, it is classified as High criticality, its owner is the IT department. For maritime, populating the Asset database with vessel-specific information (which device is on which vessel, what is its function) transforms raw alerts into operationally meaningful context.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Threat Intelligence Management</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk ES includes a Threat Intelligence Management framework that ingests threat intel feeds (STIX/TAXII, CSV), normalises them, and automatically applies them to incoming events — flagging connections to known malicious IPs, file hashes matching known malware, and domains associated with threat actors. The M-ISAC (Maritime ISAC) provides sector-specific threat intel in STIX/TAXII format that integrates directly with Splunk's framework.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#3a0a7a,#6a1aaa);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Splunk SOAR and Maritime Considerations</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c0a0e0;">
+    <div style="background:#3a0a7a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Splunk SOAR and Maritime Considerations</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Splunk SOAR (formerly Phantom)</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk SOAR provides automated playbook execution, case management, and integration with hundreds of security tools through its app ecosystem. SOAR playbooks respond to incidents automatically: when a phishing email is detected, the playbook extracts URLs, queries threat intelligence, blocks the sender, and notifies the security team — in seconds, without analyst involvement. For high-alert-volume maritime operations, SOAR is critical for handling the tier-1 triage workload that would otherwise overwhelm a small security team.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Splunk vs Sentinel — Key Trade-offs</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Splunk excels in flexibility, on-premises deployment options, and environments with diverse, complex log sources requiring heavy custom parsing. Its SPL language is arguably more powerful than KQL for complex analytics. Sentinel excels in Microsoft-ecosystem integration, cloud-native architecture, and consumption-based pricing that favours lower-volume deployments. For maritime organisations starting fresh with a Microsoft 365 foundation, Sentinel is typically faster and cheaper to deploy. For organisations with existing Splunk infrastructure or mixed-vendor environments, Splunk ES is often the better fit.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime OT Monitoring with Splunk</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The Splunk App for OT Security (built on Splunk with add-ons for common OT protocols — Modbus, DNP3, IEC 61850) provides monitoring capabilities for industrial control systems. OT Add-ons parse protocol-level telemetry from OT network sensors. For maritime vessels, Splunk's OT capabilities, combined with passive OT network monitoring sensors (Claroty, Nozomi, or similar) that forward data to Splunk, provide the foundation for vessel-level security monitoring that bridges IT and OT telemetry in a single platform.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(100,30,200,0.15);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments of larger shipping companies, Splunk is frequently already deployed for IT operations — used for application performance monitoring, log search, and troubleshooting rather than security. This creates an interesting situation: the platform infrastructure exists, but it has not been configured for security use cases. No correlation searches are enabled. No security dashboards exist. The Splunk deployment that could be a security monitoring platform is being used as an expensive log archive. Converting an existing Splunk deployment into a functioning security monitoring tool — enabling Splunk ES, activating and tuning the built-in correlation searches, deploying vessel-specific searches — is typically far faster and cheaper than deploying a new SIEM from scratch. If you have Splunk, activate the security capabilities before you evaluate buying something new.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> The Splunk Security Essentials app (free in Splunkbase) provides a library of over 300 pre-built security searches mapped to MITRE ATT&CK. Install it, run the Data Security Posture assessment to see which searches your current data sources support, and activate the highest-priority searches for your environment. This is the fastest path from 'Splunk installed' to 'security monitoring active'.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#f5f0ff;border:1.5px solid #c0a0e0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#3a0a7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 19</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>Splunk's distributed architecture (Forwarders → Indexers → Search Heads) enables flexible, scalable deployment from a single server to a global enterprise — including maritime vessel-to-shore forwarding architectures.</li>
+    <li>SPL (Search Processing Language) is Splunk's powerful query language, enabling complex log analysis, aggregation, correlation, and visualisation for security investigation and detection.</li>
+    <li>Splunk Enterprise Security (ES) adds the security operations layer: Notable Events, Risk-Based Alerting, Correlation Searches, the Asset/Identity Framework, and Threat Intelligence Management.</li>
+    <li>Risk-Based Alerting (RBA) dramatically reduces alert volume by accumulating risk scores rather than generating individual alerts for each low-confidence detection — critical for managing SOC alert fatigue.</li>
+    <li>Splunk SOAR provides automated playbook execution for tier-1 triage, freeing analysts for investigation and judgement rather than repetitive enrichment and notification tasks.</li>
+    <li>For maritime OT monitoring, Splunk's OT Security add-ons combined with passive OT network sensors provide the most mature pathway to combined IT/OT security visibility in a single platform.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 20</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 20 — From Antivirus to EDR and XDR</strong> — PART 5 begins with Lesson 20 — From Antivirus to EDR and XDR. We trace the evolution of endpoint security from signature-based antivirus to behavioural EDR and cross-domain XDR, and examine why traditional antivirus is insufficient against modern threats — including on maritime vessel workstations.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 4 — Security Operations</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f5f0ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 16 — What Is a Security Operations Center?</span></div>
+    <div style="align-items:center;background:#f5f0ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 17 — SIEM: Turning Logs into Security Intelligence</span></div>
+    <div style="align-items:center;background:#f5f0ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 18 — Microsoft Sentinel</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#3a0a7a;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 19 — Splunk for Security Operations</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,169 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 10 — Maritime Threat Detection and Resilience
+     Lesson : 2 of 3 — Detection Engineering for Maritime OT
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 10</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 2 of 3</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<div style="background:linear-gradient(135deg,#051428 0%,#0a2a3a 55%,#0a4a5a 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(10,74,90,0.20);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;"><span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 10 · Lesson 2</span>
+    <span style="background:rgba(10,74,90,0.5);border-radius:20px;color:#80d8e8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">OT Detection</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">NMEA · ICS Rules · Segmentation</span>
+    </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Detection Engineering for Maritime OT</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"><img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" /></a>
+      <div><div style="color:white;font-size:13px;font-weight:700;">Captain Paul</div><div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div></div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<div style="background:#f0f8fa;border-left:4px solid #0a4a5a;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a4a5a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can apply detection engineering principles to maritime OT environments, write detection rules for maritime-specific attack techniques (NMEA anomalies, Modbus irregularities, AIS spoofing indicators), understand the data model differences between IT and OT detection, explain how passive OT network monitoring tools (Claroty, Nozomi) integrate with SIEM for detection, and describe what a maritime OT detection use case library looks like.</p>
+</div>
+
+<div style="margin-bottom:32px;">  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Detection engineering for maritime OT builds on the general detection engineering principles covered in Lesson 23, but faces unique challenges that require maritime-specific adaptations. Enterprise IT detection rules look for Windows event IDs, PowerShell command patterns, network connection anomalies. Maritime OT detection rules look for NMEA sentence anomalies, Modbus register access outside expected patterns, AIS message irregularities, and network connections between vessel segments that should never communicate.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The data model is different. Where enterprise IT detection works with structured Windows event log data, authentication logs, and process telemetry, maritime OT detection works with decoded protocol frames from industrial and maritime communication standards — NMEA 0183, NMEA 2000, Modbus RTU/TCP, IEC 61162. The fields that matter are maritime-domain-specific: sentence type codes, message field values, register addresses, function codes. A detection engineer building maritime OT rules must understand both the protocol semantics and the operational context to write rules that are both accurate and low-noise.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The tooling is also different. OT-specific network monitoring platforms (Claroty, Nozomi Networks, Dragos) provide the protocol decode capability and the baseline learning that SIEM platforms cannot. These tools feed structured OT events to the SIEM, where detection rules can then be applied. The detection engineering workflow for maritime OT is typically: OT sensor (decode) → OT platform (baseline, alert) → SIEM (correlate with IT events, case management). Understanding this toolchain is the foundation for maritime OT detection engineering.</p>
+</div>
+
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#051428,#0a2a3a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Maritime OT Protocol Detection Fundamentals</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #80b8c8;overflow:hidden;">
+    <div style="background:#051428;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. Maritime OT Protocol Detection Fundamentals</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">NMEA 0183 Anomaly Detection</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">NMEA 0183 sentences are the standard data format for maritime navigation sensors. Each sentence has a defined structure: talker identifier, sentence type, comma-separated data fields, and checksum. Valid sentences have known talker codes (GP for GPS, GL for GLONASS, RA for radar), known sentence types ($GPGGA for GPS fix data, $GPRMC for recommended minimum data, $AISRM for AIS received messages), and field values within operational ranges (latitude -90 to 90, longitude -180 to 180, speed 0 to 30 knots for most commercial vessels). Detection rules for NMEA anomalies: field values outside valid operational ranges, unexpected talker/sentence combinations, sentences with invalid checksums (potential injection), and position updates with speed-of-change impossible for the vessel type.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Modbus Detection Patterns</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Modbus is the dominant communication protocol in vessel engine and machinery OT systems. Detection patterns: function code 8 (Diagnostics) executed during normal operation (used for testing, suspicious during operations), write operations (function codes 5, 6, 15, 16) to registers not in the documented write-permitted list, read operations to registers not in the normal polling sequence, and Modbus traffic from IP addresses not in the documented engineering workstation list. Write operations to safety relay registers (over-speed trip, high-temperature shutdown) are the highest-severity detection: these registers should never receive write commands from IT-network IP addresses.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Network Segmentation Violation Detection</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The most impactful maritime OT detection rule is also the simplest: any accepted network connection from an IT segment IP range to an OT segment IP range that is not in the documented exception list. This rule fires on lateral movement attempts, firewall misconfigurations that create IT-to-OT paths, and malware that scans across segments after compromising an IT host. Implementation: export the firewall accept logs to the SIEM, define the IT and OT IP ranges as lookup tables, and alert on any accepted flow where source is in IT range and destination is in OT range and the connection is not in the approved exception list.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">AIS Anomaly Detection</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">AIS message anomaly detection requires access to the vessel's received AIS data stream. Suspicious patterns: vessels transmitting AIS with MMSI numbers that do not match the vessel's registered data (potential spoofing), AIS position reports that place a vessel at a physically impossible location given its last known position and elapsed time, multiple vessels transmitting with the same MMSI (MMSI collision, possibly indicative of AIS spoofing for sanctions evasion), and AIS messages with vessel name or call sign fields containing anomalous characters or lengths.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2a3a,#0a3a4a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. OT Platform Integration and SIEM Detection</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #80b8c8;overflow:hidden;">
+    <div style="background:#0a2a3a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. OT Platform Integration and SIEM Detection</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Claroty and Nozomi Integration</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Claroty and Nozomi Networks are the leading OT security platforms for maritime deployments. Both deploy passive network sensors on OT network SPAN ports, decode OT protocols (including maritime-specific protocols), learn baselines of normal communication patterns, and generate structured events and alerts. Both integrate with major SIEM platforms (Microsoft Sentinel, Splunk) via API or syslog connectors, forwarding decoded OT events and platform alerts to the SIEM for correlation with IT events and centralised case management. The SIEM receives: Claroty/Nozomi alert events (pre-classified by the OT platform), OT protocol events (decoded Modbus, NMEA, IEC 61162 frames), and asset inventory updates (new devices detected on the OT network).</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Dragos for Maritime ICS</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Dragos is an ICS-focused security platform with deep ATT&CK for ICS integration. The Dragos platform provides: OT asset discovery (identifying every device on the OT network and its protocol profile), threat detection (pre-built detections for ICS-specific attack techniques mapped to ATT&CK for ICS), investigation workflow (ICS-aware incident investigation tools), and threat intelligence (the Dragos WorldView intelligence feed covers ICS-targeted threat groups). For maritime operators building a mature OT detection programme, Dragos provides the ICS-specific intelligence and detection content that general-purpose OT monitoring tools lack.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">SIEM Correlation — IT and OT Events</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The most powerful maritime detection engineering occurs at the IT/OT correlation layer in the SIEM: correlating an IT event (suspicious logon to a vessel workstation) with an OT event (Modbus write to an engine safety register 10 minutes later) into a single incident that tells the story of lateral movement from IT to OT. This correlation requires: (1) both IT and OT events in the same SIEM, (2) a common time synchronisation source (NTP) ensuring that IT and OT event timestamps align, and (3) correlation rules that bridge the IT and OT event namespaces. Building these correlation rules is the pinnacle of maritime OT detection engineering.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Data Normalisation for OT Events</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">OT events from passive monitoring sensors are not natively compatible with SIEM data models. Maritime OT detection engineering requires custom data normalisation: mapping NMEA talker/sentence codes to SIEM field names, mapping Modbus function codes and register addresses to descriptive names, and defining vessel-specific asset identifiers (vessel name, IMO number) that link OT events to the correct vessel context in the SIEM. This normalisation work is unglamorous but essential — detection rules written against normalised OT data are readable, maintainable, and transferable across vessel deployments.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a3a4a,#0a4a5a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Maritime OT Detection Use Case Library</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #80b8c8;overflow:hidden;">
+    <div style="background:#0a3a4a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Maritime OT Detection Use Case Library</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Priority 1 — Safety System Integrity</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Detection rules that protect safety-critical systems have the highest priority. These include: any write command to safety relay registers (over-speed trip, emergency shutdown, CO2 suppression activation) from unauthorised IP addresses; ECDIS application process termination outside scheduled maintenance windows; loss of primary GPS signal without switchover to backup source; and navigation system alarm suppression events (an attacker who has accessed a navigation system may suppress alarms to hide anomalies from the crew).</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Priority 2 — IT/OT Boundary Violations</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Detection rules that identify IT-to-OT lateral movement: accepted firewall connections from IT to OT segments not in the exception list; new IP addresses appearing on the OT network switch not in the asset inventory; ECDIS or engine management system making outbound internet connections not via the approved update paths; and Modbus traffic from IP addresses not in the engineering workstation list.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Priority 3 — Access and Authentication Anomalies</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Detection rules for access control violations: VSAT management interface logon from non-whitelisted IPs; ECDIS system access using shared or administrative credentials rather than individual officer credentials; remote access VPN sessions active to OT network segment IP ranges outside scheduled maintenance windows; and multiple simultaneous remote access sessions to the same OT system from different geographic locations (credential sharing or compromise indicator).</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(10,74,90,0.20);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"><img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" /></a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments that include OT detection engineering reviews, the most common finding is that the detection rules that exist — if any exist — are all IT rules applied to IT systems, with zero detection content for vessel OT systems. The shore-based SIEM may have Sentinel analytics rules for Windows Security events; it has nothing for ECDIS behaviour, nothing for Modbus anomalies, nothing for AIS data integrity. This is not a sophisticated detection gap — it is an absence of detection. Building even the Priority 1 safety system integrity detections described above — five rules, all straightforward, all based on data that is already flowing from the OT monitoring sensor — would represent the largest single improvement to vessel security detection capability that most assessments encounter. Detection engineering for maritime OT does not require exotic skills; it requires maritime domain knowledge applied to basic detection engineering principles.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Identify one OT system on one vessel that currently has an available log or event output — most likely the VSAT router, the vessel firewall, or the ECDIS event log. Define three detection rules for that system: one for administrative access anomalies, one for unexpected connections, one for process or configuration change events. Implement those three rules in your SIEM. You now have maritime OT detection capability where you had none. Iterate one system at a time until you have coverage across all critical vessel systems.</p>
+</div>
+
+<div style="background:#f0f8fa;border:1.5px solid #80b8c8;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0a4a5a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 32</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">    <li>Maritime OT detection rules work with protocol-specific data — NMEA sentence fields, Modbus function codes and register addresses, AIS message fields — requiring maritime domain knowledge to write effectively.</li>
+    <li>The highest-impact maritime OT detection rule is IT-to-OT network segmentation violation monitoring: any accepted firewall connection from IT to OT segments not in the documented exception list.</li>
+    <li>OT platforms (Claroty, Nozomi, Dragos) decode maritime protocols, learn baselines, and forward structured events to the SIEM — the detection engineering layer sits in the SIEM, not in the OT platform itself.</li>
+    <li>IT/OT correlation in the SIEM — correlating a suspicious IT logon with an OT Modbus write 10 minutes later — is the most powerful maritime detection capability, requiring common time synchronisation and custom correlation rules.</li>
+    <li>Maritime OT detection use cases are prioritised: safety system integrity (Priority 1), IT/OT boundary violations (Priority 2), access and authentication anomalies (Priority 3).</li>
+    <li>Data normalisation — mapping OT protocol fields to SIEM schemas, defining vessel-specific asset identifiers — is the prerequisite engineering work that makes maritime OT detection rules maintainable and transferable.</li>
+</ul>
+</div>
+
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 33</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0;"><strong>Lesson 33 — Maritime SOC and Shore-based Cyber Monitoring</strong> — Lesson 33 closes PART 10 by examining the Maritime SOC: how shore-based security teams monitor vessel fleets, the operational model for 24/7 vessel alert coverage, and how commercial maritime SOC services are structured for shipping companies that cannot maintain in-house monitoring capability.</p>
+</div>
+
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 10 — Maritime Threat Detection and Resilience</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">    <div style="align-items:center;background:#f0f8fa;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 31 — Threat Hunting in Maritime OT</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a4a5a;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 32 — Detection Engineering for Maritime OT</span>
+    </div>
+    <div style="align-items:center;background:#f0f8fa;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 33 — Maritime SOC and Shore-based Cyber Monitoring</span></div>
+</div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

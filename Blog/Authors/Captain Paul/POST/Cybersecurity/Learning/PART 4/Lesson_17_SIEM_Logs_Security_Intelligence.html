@@ -1,0 +1,192 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 4 — Security Operations
+     Lesson : 2 of 4 — SIEM: Turning Logs into Security Intelligence
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 4</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 2 of 4</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#05082a 0%,#1a1a5a 55%,#3a0a7a 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(100,30,200,0.15);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 4 · Lesson 2</span>
+    <span style="background:rgba(100,30,200,0.4);border-radius:20px;color:#d0a0ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">SIEM</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Log Analysis · Correlation</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">SIEM: Turning Logs into Security Intelligence</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f5f0ff;border-left:4px solid #3a0a7a;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#3a0a7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain how a SIEM ingests, normalises, and indexes log data, describe the structure of a SIEM detection rule and the concept of correlation, distinguish between rule-based detection and behaviour analytics (UEBA), explain what a use case library is and how it maps to ATT&CK, and understand the specific log sources and parsing challenges in a maritime vessel environment.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">A firewall generates thousands of log entries per hour. A server generates tens of thousands. An enterprise network generates hundreds of millions of log events per day. Without a system to collect, organise, and analyse those logs, they are useless for security — a record of every event that occurred, all of them equally invisible. The SIEM's job is to turn that firehose of raw log data into security intelligence: prioritised, contextualised alerts that tell an analyst exactly where to look.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The SIEM does this through three core capabilities. First, data ingestion and normalisation — collecting logs from hundreds of different sources, each with their own format, and converting them into a consistent schema that can be searched and correlated. Second, correlation — applying rules that look across multiple log sources to identify patterns of activity that are suspicious when viewed together, even if each individual event is benign. Third, alerting — surfacing the highest-priority correlated events as alerts for human review.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Modern SIEMs have extended far beyond rule-based correlation. Machine learning models now establish baselines of normal behaviour for each user and device (User and Entity Behaviour Analytics — UEBA) and alert when behaviour deviates from the baseline, even without a matching rule. Cloud-native SIEMs like Microsoft Sentinel and Splunk Cloud handle petabyte-scale ingestion with built-in threat intelligence enrichment and AI-assisted investigation.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#05082a,#1a1a5a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Log Ingestion and Normalisation</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c0a0e0;">
+    <div style="background:#05082a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. Log Ingestion and Normalisation</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Log Sources and Connectors</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A SIEM ingests logs from every security-relevant source in the environment: firewalls, routers, servers (Windows Event Logs, Linux syslog), endpoints (EDR telemetry), applications (web servers, databases, authentication systems), cloud services (Azure AD sign-in logs, AWS CloudTrail), and email gateways. Each source connects to the SIEM via an agent (software installed on the source), an API connector, or syslog forwarding. The SIEM's connector library determines which sources can be integrated out-of-the-box versus requiring custom parsing.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Normalisation and Parsing</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Every log source generates events in its own format. A Windows security event has a different structure than a Cisco firewall log, which has a different structure than an AWS CloudTrail record. Normalisation converts all of these into a common schema — typically based on standards like Common Event Format (CEF) or the Elastic Common Schema (ECS) — so that a rule searching for 'failed logon followed by successful logon from a different IP' works regardless of whether the logon events came from a Windows server or an AWS console.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Indexing and Retention</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Normalised log data is indexed for fast search. The SIEM's storage architecture must balance ingestion volume, search performance, and retention period. Many regulatory frameworks require 90 days to 1 year of log retention. Cloud SIEMs increasingly use tiered storage — hot storage (expensive, fast, for recent data) and cold storage (cheap, slow, for historical data) — to manage cost at scale.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime Log Challenges</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Vessel systems — ECDIS, AIS, VDR (Voyage Data Recorder), GMDSS — generate logs in proprietary formats, often with no standard connector available. Custom parsers must be developed for each system. VSAT connectivity limits the volume of logs that can be transmitted to a shore-based SIEM in real time. On-vessel log aggregators that buffer, compress, and prioritise before transmission are a common architectural approach.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#1a1a5a,#3a0a7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Detection — Rules, Correlation, and Analytics</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c0a0e0;">
+    <div style="background:#1a1a5a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. Detection — Rules, Correlation, and Analytics</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Rule-Based Correlation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Detection rules define conditions that, when matched, generate an alert. A simple rule: 'alert if a user account has 5 or more failed logon attempts in 60 seconds' (brute force detection). A correlated rule: 'alert if a user account has 5 or more failed logon attempts followed by a successful logon from a new geographic location within 10 minutes' (credential stuffing with success). Rules that correlate events across multiple sources and time windows are the core of SIEM detection capability.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Use Case Library and ATT&CK Mapping</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A use case library is a catalogue of detection rules, each mapped to a specific threat scenario and an ATT&CK technique. A mature SOC maintains a use case library of hundreds of rules covering the highest-priority ATT&CK techniques for their environment. Each rule includes a description, the data sources required, the ATT&CK mapping, the expected false positive rate, and the investigation procedure when it fires. Use case libraries are built iteratively — starting with the highest-impact, lowest-noise rules and expanding over time.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">UEBA — Behaviour Analytics</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">User and Entity Behaviour Analytics (UEBA) establishes a baseline of normal behaviour for each user and device — typical logon hours, typical data access volumes, typical network connections — and alerts when behaviour deviates. UEBA detects threats that have no rule: a legitimate user account that has been compromised and is now accessing unusual resources at unusual times generates a UEBA alert even if the attacker's specific technique has no matching signature.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Alert Fatigue and Tuning</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A poorly tuned SIEM generates thousands of false positive alerts per day, overwhelming analysts and causing real alerts to be missed. Alert tuning — adjusting rule thresholds, adding suppression conditions for known-benign activity, and retiring rules that generate too much noise — is an ongoing SOC function. The target is a manageable daily alert queue where the vast majority of alerts warrant investigation, not a firehose of noise that leads analysts to ignore the alert channel entirely.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#3a0a7a,#6a1aaa);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. SIEM Investigation and Response Workflow</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c0a0e0;">
+    <div style="background:#3a0a7a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. SIEM Investigation and Response Workflow</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Alert Triage</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">When a SIEM rule fires, a Tier 1 analyst reviews the alert. Triage determines: Is this a true positive or false positive? What is the severity? Is further investigation required? The analyst examines the raw log events that triggered the rule, enriches them with context (is this user account known? is this IP address malicious according to threat intel?), and either closes the alert as a false positive or escalates to Tier 2 for investigation.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Investigation and Pivot</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Tier 2 investigation involves pivoting across the SIEM data lake — searching for related events around the same user, device, or time window. What did this user do before and after the suspicious event? What other devices communicated with this IP address? Investigation turns a single alert into a timeline of the attacker's activity, establishing scope (which systems were accessed), impact (what data was exfiltrated), and the initial access vector.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#3a0a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Case Management and Reporting</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Confirmed incidents are documented in a case management system (often integrated with the SIEM or a dedicated platform like Jira Service Management or ServiceNow) with the full timeline, evidence, actions taken, and lessons learned. Case data feeds into reporting — weekly/monthly SOC metrics for management — and continuous improvement — which new detection rules did this incident suggest?</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(100,30,200,0.15);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, the SIEM conversation almost always surfaces the same fundamental gap: the log sources that matter most for vessel security — ECDIS, VSAT management interface, OT network switches — either generate no security-relevant logs or generate them in formats no SIEM connector knows how to parse. The result is a SIEM that monitors the vessel's Windows workstations reasonably well and has essentially no visibility into the systems that pose the highest consequence risk. Building the parser library for vessel-specific systems — a custom ECDIS log parser, a VSAT syslog normaliser — is unglamorous engineering work, but it is the prerequisite for any meaningful vessel monitoring capability.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Start your SIEM use case library with four rules that every maritime operator should have: (1) Successful logon to VSAT management interface from an IP address not in your shore office range. (2) USB storage device inserted on a bridge workstation. (3) ECDIS application crash or unexpected restart. (4) Any outbound connection from the vessel OT network to an internet IP address. These four rules alone will detect the most common maritime cyber attack vectors and generate very few false positives.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#f5f0ff;border:1.5px solid #c0a0e0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#3a0a7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 17</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>The SIEM collects logs from across the environment, normalises them into a common schema, applies correlation rules to detect threats, and surfaces prioritised alerts for analyst review.</li>
+    <li>Detection rules range from simple threshold rules (5 failed logons) to complex multi-source correlated rules (failed logons followed by a new geographic success) that detect multi-step attack patterns.</li>
+    <li>UEBA extends detection beyond rules by establishing behavioural baselines and alerting on anomalous deviation — catching threats that have no signature.</li>
+    <li>Alert tuning is critical: an over-alerting SIEM creates fatigue that causes analysts to miss real incidents; the goal is a high-fidelity alert queue where every alert warrants investigation.</li>
+    <li>Maritime vessel environments present unique SIEM challenges: proprietary log formats requiring custom parsers, bandwidth-constrained log transmission, and OT systems with no native SIEM connector support.</li>
+    <li>The most impactful maritime SIEM use cases focus on vessel access control (VSAT login monitoring), physical security (USB detection), and OT integrity (navigation system restart, unexpected outbound connections from OT network).</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 18</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 18 — Microsoft Sentinel</strong> — Lesson 18 focuses on Microsoft Sentinel — the cloud-native SIEM/SOAR platform most commonly adopted by maritime organisations with Microsoft 365 environments. We cover deployment architecture, maritime-relevant content packages, and KQL query writing for vessel monitoring use cases.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 4 — Security Operations</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f5f0ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 16 — What Is a Security Operations Center?</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#3a0a7a;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 17 — SIEM: Turning Logs into Security Intelligence</span>
+    </div>
+    <div style="align-items:center;background:#f5f0ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 18 — Microsoft Sentinel</span></div>
+    <div style="align-items:center;background:#f5f0ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 19 — Splunk for Security Operations</span></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

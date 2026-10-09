@@ -1,0 +1,190 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 6 — Advanced Detection and Response
+     Lesson : 3 of 3 — Security Analytics and Detection Validation
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 6</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 3 of 3</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#0a0820 0%,#1a1040 55%,#3a1070 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(90,16,144,0.18);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 6 · Lesson 3</span>
+    <span style="background:rgba(90,16,144,0.5);border-radius:20px;color:#d8a8ff;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Security Analytics</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Detection Validation · BAS</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Security Analytics and Detection Validation</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f8f0ff;border-left:4px solid #5a1090;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#5a1090;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain what security analytics adds beyond rule-based detection, describe UEBA (User and Entity Behaviour Analytics) and its role in detecting insider threats and compromised accounts, explain Breach and Attack Simulation (BAS) and how it validates detection coverage, and understand how continuous validation is applied in a maritime fleet monitoring context.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Detection rules answer a specific question: 'Has this specific thing happened?' Security analytics asks a broader question: 'Is anything happening here that is unusual, anomalous, or statistically inconsistent with what this user or system normally does?' The distinction is between known-threat detection (rules) and unknown-threat discovery (analytics). Both are necessary; neither alone is sufficient.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Rules fail when attackers know them and avoid the patterns they detect. Analytics fail when the attacker's behaviour is statistically similar to normal (slow-and-low approaches, using legitimate credentials). The most mature detection programmes use both: rules for known-pattern detection, analytics for anomaly discovery, and human judgement for the synthesis of both into accurate threat assessment.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Detection validation — the practice of testing whether detection rules actually fire when the techniques they target are executed — is the quality control layer for both rules and analytics. Without validation, a detection programme is built on assumptions: 'We have a rule for this technique, therefore we detect it.' Validation converts assumptions into evidence — actually executing the technique, in the environment, and confirming the detection fires.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a0820,#1a1040);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Security Analytics and UEBA</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c090e0;">
+    <div style="background:#0a0820;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. Security Analytics and UEBA</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">User and Entity Behaviour Analytics (UEBA)</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">UEBA establishes statistical baselines of normal behaviour for each user and device (entity) in the environment. Normal behaviour for a vessel officer: logon from the vessel IP range, access to navigation applications, email usage during watch hours. An anomaly: logon from a previously unseen IP at 03:00, access to the HR system, large data download. UEBA scores these deviations from baseline and generates alerts when accumulated anomaly scores exceed a threshold, even without a matching rule.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Insider Threat Detection</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">UEBA is the primary tool for detecting insider threats — employees or contractors who abuse legitimate access. An insider's credentials are valid, their initial access is authorised, and their actions may individually look legitimate. But the pattern of access — accessing systems they never access, downloading unusually large volumes of data, working at unusual hours before a resignation — is detectable as a statistical anomaly even when each individual action is not policy-violating in isolation.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Machine Learning Detection Models</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Beyond UEBA, machine learning models are used for: network traffic anomaly detection (models trained on normal traffic patterns that flag deviations), email security (models that classify phishing emails based on content, sender reputation, and recipient behaviour), and log anomaly detection (models that flag unusual sequences of log events in process execution chains). ML models complement rules by detecting threats in the 'long tail' — techniques and variants that have not yet generated specific detection rules.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Analytics Limitations</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Analytics models have two failure modes: false negatives (the attacker's behaviour looks 'normal') and false positives (legitimate unusual behaviour that looks like an attack). A new employee accessing systems they have never accessed before triggers UEBA false positives. A sophisticated attacker who studies the baseline and deliberately stays within normal parameters evades UEBA detection. Analytics are not a replacement for rules — they are a complementary detection layer.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#1a1040,#3a1070);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Breach and Attack Simulation (BAS)</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c090e0;">
+    <div style="background:#1a1040;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. Breach and Attack Simulation (BAS)</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">What is BAS?</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Breach and Attack Simulation (BAS) platforms (Cymulate, AttackIQ, SafeBreach, Picus Security) automatically execute simulated attack techniques — safe versions of real ATT&CK techniques that do not cause damage but produce the same telemetry as the real attack — and check whether the detection controls (SIEM rules, EDR, email gateway) generate the expected alerts. BAS converts the question 'would we detect this attack?' from a theoretical assumption into an empirical measurement.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Continuous Validation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Unlike a penetration test (performed annually or quarterly), BAS runs continuously — executing the same validation tests every day or week. Any change to the environment that breaks a detection (a SIEM rule update that introduces a syntax error, a log source that stops sending data, an EDR policy change that disables a detection) is immediately identified and flagged. Continuous validation ensures that the detection coverage that exists today still exists tomorrow.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">ATT&CK Coverage Measurement</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">BAS platforms report detection coverage as a percentage of ATT&CK techniques tested that generate a detection alert. This provides an objective, empirical measurement of detection coverage that can be tracked over time and reported to security leadership. Improving the ATT&CK coverage score from 40% to 70% over six months is a concrete, measurable security improvement — not a subjective 'we have improved our security posture' claim.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime BAS Considerations</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Standard BAS platforms test enterprise IT attack techniques. Maritime-specific validation requires: (1) Testing detection rules for maritime-specific scenarios (ECDIS process anomaly, OT network lateral movement) using custom test cases or OT-capable BAS platforms. (2) Testing detection coverage from the vessel perspective — running validation tests from a vessel-representative network segment to confirm that telemetry transmission over VSAT does not introduce delays or packet loss that affects detection latency. (3) Validating that detection rules that work in the lab also fire on real vessel hardware.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#3a1070,#5a10a0);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Building a Maritime Validation Programme</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #c090e0;">
+    <div style="background:#3a1070;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Building a Maritime Validation Programme</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Validation Test Library</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">A maritime validation test library covers: phishing simulation (email delivery, user click tracking, payload execution on vessel workstations), endpoint protection validation (safe ATT&CK technique execution on vessel workstations using Atomic Red Team), network detection validation (safe network scanning and lateral movement simulation on vessel network segments), and OT-specific validation (safe simulation of OT protocol anomalies — unusual Modbus commands, unexpected NMEA sentence injection — in a test environment representative of vessel OT systems).</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Purple Team Exercises as Validation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">For maritime operators without a BAS platform, structured purple team exercises provide manual validation. The red team executes a specific ATT&CK technique (under controlled conditions, on representative systems); the blue team confirms whether the detection fired. Documenting every technique tested, whether it generated a detection, and what improvement is required produces a validation report that serves the same function as an automated BAS scan.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#5a1090;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Reporting Detection Programme Maturity</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Detection programme maturity is reported through a dashboard: ATT&CK coverage score (% of techniques with validated detection), false positive rate per rule, MTTD per technique category, open detection gaps (techniques in the threat model with no validated coverage), and rule health (rules that failed most recently in validation). This dashboard provides security leadership with a quantitative view of the organisation's detection capability — and a prioritised improvement backlog.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(90,16,144,0.18);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, the question 'would you detect an attack on your vessels?' is almost always answered with a confident 'yes' — before the data is examined. After examining the data — no vessel telemetry in the SIEM, no detection rules active for vessel systems, no testing of detection capability ever conducted — the honest answer becomes 'we would not know'. Introducing BAS or purple team validation into a maritime security programme is the single most effective way to convert a 'we believe our detection works' assumption into 'we have tested our detection and it catches X% of the techniques we care about'. The number that comes back from the first validation run is almost always a shock — and a powerful catalyst for investment in detection engineering.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Run the MITRE ATT&CK Evaluations emulation plans (freely available at attackevals.mitre.org) as a manual purple team exercise. Pick the evaluation most relevant to your threat model (APT29 for espionage threats, Carbanak/FIN7 for financially-motivated attackers). Execute the emulation steps on a test vessel workstation. Count how many steps generated a detection alert. Divide by total steps. That is your detection coverage percentage — and your improvement target.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#f8f0ff;border:1.5px solid #c090e0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#5a1090;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 24</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>Security analytics (UEBA, ML models) detects unknown threats through statistical anomaly identification rather than known-pattern matching — complementing rule-based detection rather than replacing it.</li>
+    <li>UEBA establishes individual user and entity behavioural baselines, alerting on statistical deviations that may indicate compromised accounts, insider threats, or novel attack techniques.</li>
+    <li>BAS platforms continuously execute safe simulations of ATT&CK techniques and measure whether detection controls respond — converting 'would we detect this?' from assumption to empirical measurement.</li>
+    <li>Continuous validation (daily or weekly BAS execution) catches detection regressions immediately: SIEM rule changes, log source failures, or EDR policy modifications that break detection coverage.</li>
+    <li>ATT&CK coverage score — the percentage of in-scope techniques with validated detection — is the key detection programme metric for reporting to security leadership.</li>
+    <li>Maritime validation requires OT-specific test cases and vessel-representative network testing to confirm that detection coverage demonstrated in lab conditions translates to real vessel deployments.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 25</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 25 — SOAR: Security Orchestration, Automation and Response</strong> — PART 7 introduces SOAR — Security Orchestration, Automation and Response. We examine how SOAR platforms automate repetitive SOC tasks, accelerate incident response, and enable small maritime security teams to handle high alert volumes without proportionally scaling headcount.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 6 — Advanced Detection and Response</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#f8f0ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 22 — Threat Hunting</span></div>
+    <div style="align-items:center;background:#f8f0ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 23 — Detection Engineering</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#5a1090;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 24 — Security Analytics and Detection Validation</span>
+    </div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

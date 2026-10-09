@@ -1,0 +1,169 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 10 — Maritime Threat Detection and Resilience
+     Lesson : 3 of 3 — Maritime SOC and Shore-based Cyber Monitoring
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 10</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 3 of 3</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<div style="background:linear-gradient(135deg,#051428 0%,#0a2a3a 55%,#0a4a5a 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(10,74,90,0.20);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;"><span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 10 · Lesson 3</span>
+    <span style="background:rgba(10,74,90,0.5);border-radius:20px;color:#80d8e8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Maritime SOC</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Fleet Monitoring · MSSP</span>
+    </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Maritime SOC and Shore-based Cyber Monitoring</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"><img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" /></a>
+      <div><div style="color:white;font-size:13px;font-weight:700;">Captain Paul</div><div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div></div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<div style="background:#f0f8fa;border-left:4px solid #0a4a5a;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a4a5a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can describe how a shore-based SOC monitors a fleet of vessels, explain the connectivity and operational adaptations required for maritime fleet monitoring, understand the commercial maritime SOC service models (in-house, MSSP, hybrid), describe the operational procedures for responding to a vessel cyber incident from shore, and explain what IACS UR E26 requires in terms of monitoring and incident response capability.</p>
+</div>
+
+<div style="margin-bottom:32px;">  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">A vessel at sea is not monitored by anyone for cybersecurity in the vast majority of the global fleet. The bridge has no security displays. The shore office IT team receives no vessel security alerts. The SOC — if the shipping company has one — monitors shore-based systems only. The vessel is operationally isolated from the security monitoring infrastructure that might detect an ongoing attack. This is the current reality for most commercial shipping.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The maritime SOC — a shore-based security operations capability specifically designed to monitor vessel fleets — is the operational model that closes this gap. It combines vessel-side telemetry collection (OT network sensors, log forwarders, vessel EDR agents) with shore-side aggregation (SIEM, OT platform) and analyst coverage (in-house or MSSP) to provide continuous visibility into vessel security status. When an anomaly is detected, the maritime SOC initiates communication with the vessel and coordinates the response.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">The maritime SOC model is not simply a copy of an enterprise IT SOC applied to vessels. It requires adaptation for the unique operational constraints of maritime: bandwidth-limited telemetry, time zone coverage for vessels operating globally, maritime domain knowledge for analysts to correctly interpret vessel-specific events, and operational procedures that account for the vessel master's authority and the crew's role as first responders.</p>
+</div>
+
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#051428,#0a2a3a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Maritime SOC Architecture</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #80b8c8;overflow:hidden;">
+    <div style="background:#051428;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. Maritime SOC Architecture</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Vessel-Side Collection</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The vessel-side collection layer aggregates telemetry from all available vessel sources: OT network sensor (passive Claroty/Nozomi sensor on OT SPAN port), vessel firewall/router logs, VSAT management access logs, vessel EDR agents on bridge and engine room workstations, ECDIS event logs where accessible, and AIS data stream. A vessel-based log aggregator (lightweight Linux server or hardened appliance) collects all sources, buffers during connectivity outages, prioritises high-severity events for immediate transmission, and compresses/encrypts the data stream for VSAT transmission.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Shore-Side Aggregation</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The shore-side aggregation layer receives vessel telemetry from all vessels in the fleet, normalises it to a common schema, indexes it in the SIEM, and makes it available for the OT platform and SOC analysts. The aggregation layer must handle: fleet-scale log volume (50 vessels × average 100MB/day = 5GB/day), telemetry gaps during VSAT outages (data arriving in bursts after reconnection), multi-vessel correlation (detecting the same attack pattern appearing across multiple vessels simultaneously), and vessel context enrichment (tagging every event with the vessel name, IMO number, fleet segment, and current operational status).</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Analyst Coverage Model</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The maritime SOC can be structured as: (1) In-house (shipping company employs SOC analysts with maritime domain knowledge — typically only viable for large operators with 50+ vessels and dedicated security budgets). (2) MSSP (a commercial maritime security service provider provides 24/7 monitoring, alert triage, and incident response services on a contracted basis — the most common model for mid-size operators). (3) Hybrid (in-house security engineer manages detection content, OT platform, and threat intelligence; MSSP provides 24/7 Tier 1 alert monitoring). The hybrid model provides the best balance of in-house control and coverage scale for most mid-size shipping companies.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Fleet Dashboard</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The maritime SOC fleet dashboard provides the operational view: a map or list of all monitored vessels with real-time security status indicators, current alert counts by vessel and severity, vessel connectivity status (which vessels have active VSAT links, which are in a telemetry gap), recent incidents by vessel, and compliance indicators (which vessels are current on patch status, which have active remote access sessions). This dashboard is the SOC analyst's starting point for each shift — a situational awareness view of the entire fleet's security status in a single screen.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2a3a,#0a3a4a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Operational Procedures for Vessel Incidents</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #80b8c8;overflow:hidden;">
+    <div style="background:#0a2a3a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. Operational Procedures for Vessel Incidents</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Shore-to-Vessel Communication</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">When the maritime SOC detects an anomaly on a vessel, the first response step is shore-to-vessel communication: contacting the vessel master or chief officer via the most reliable available channel (satellite phone, email, GMDSS message) to report the detection and request confirmation. The communication must be clear about: what was detected, which system is potentially affected, what the crew should observe or check, and what immediate actions the crew should take (if any). This communication is documented as the first step in the incident record.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Crew First Responder Procedures</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Vessel crew are the maritime SOC's eyes and hands on the vessel. Pre-defined crew cyber incident response procedures (included in the Ship Security Plan under ISPS Code requirements, and increasingly required under IACS UR E26 Ship Security Plans) define what the crew should do when directed by the shore SOC or when they observe a cyber anomaly themselves: which systems to disconnect from the network, how to preserve evidence (log exports, photographs of unusual displays), how to switch to manual/backup navigation procedures if safety-critical systems are affected, and how to communicate the incident to shore.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Remote SOC Response Actions</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Where vessel systems support remote management (VSAT router, vessel firewall, remote access VPN), the maritime SOC can take direct response actions without requiring crew involvement: blocking suspicious IP addresses at the vessel firewall, terminating active remote access sessions, changing credentials on the VSAT management interface. Remote EDR capabilities (if deployed on vessel workstations) enable network isolation of compromised endpoints. Remote response capabilities must be documented, tested, and limited to pre-approved actions — an SOC analyst accidentally disabling the wrong system remotely on a vessel at sea could create a safety incident.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Escalation to Incident Response</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">When a vessel cyber incident is confirmed, the maritime SOC escalates to the formal incident response process: notifying the shipping company's incident response team, engaging the maritime cybersecurity service provider (if contracted), notifying the vessel master and shipowner, and determining whether regulatory notification is required (flag state, port state control, GMDSS authorities). Large vessel cyber incidents may also require notification of the vessel's P&I club (Protection and Indemnity insurance) and hull and machinery underwriters — most maritime cyber insurance policies require prompt notification of incidents to preserve coverage.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a3a4a,#0a4a5a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Commercial Maritime SOC Services and E26 Compliance</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #80b8c8;overflow:hidden;">
+    <div style="background:#0a3a4a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Commercial Maritime SOC Services and E26 Compliance</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime MSSP Landscape</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The commercial maritime SOC service market has grown significantly since 2018, driven by IACS UR E26/E27 requirements and high-profile incidents. Key providers include: Naval Dome, CyberOwl, Redscan Maritime, Sapura Secured Technologies, and divisions of major maritime service companies (Bureau Veritas Cyber Security, DNV Cyber). These services typically provide: vessel security monitoring (sensor deployment and telemetry collection), shore-based SOC coverage (24/7 alert monitoring and response), incident response support, and compliance reporting for E26/E27 and ISM Code requirements. Pricing is typically per-vessel per-month, ranging from USD 500-2,500 depending on service level and sensor coverage.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">IACS UR E26 Monitoring Requirements</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">IACS UR E26 requires that vessels have capability to detect cyber incidents and that appropriate response procedures exist. Specifically, E26 requires: (1) Security monitoring capability for computer-based systems used for ship functions. (2) Documented incident response procedures. (3) Mechanisms for reporting cyber incidents to the shipowner. The E26 requirement does not specify the form of monitoring — on-vessel sensors, shore-based SIEM, or commercial MSSP services are all acceptable approaches, provided they meet the capability requirement of detecting incidents affecting ship functions.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a4a5a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">E26 Compliance Reporting</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Maritime SOC services typically include E26 compliance reporting: monthly security summary reports for the ISM audit record, evidence of monitoring capability for class society survey, incident records with documented response actions, and vulnerability management tracking (patch status by vessel, outstanding CVEs, scheduled maintenance windows). These reports form part of the vessel's cyber risk management documentation required by IACS UR E26 and increasingly requested by port state control inspectors.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(10,74,90,0.20);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"><img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" /></a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, the maritime SOC conversation is where the gap between compliance requirement and operational reality is most visible. IACS UR E26 requires monitoring capability; the assessment finds no vessel telemetry reaching the shore-based IT team, no SOC alert channel for vessel events, and no documented procedure for what a crew member should do if they suspect a cyber incident. The commercial maritime SOC service market exists precisely because most shipping companies cannot build this capability in-house cost-effectively. For a fleet of 10-30 vessels, a commercial maritime SOC service at USD 1,000-2,000 per vessel per month provides monitoring coverage, compliance documentation, and incident response support that would cost 5-10x more to replicate with in-house staffing. The E26 implementation path for mid-size operators almost always includes a commercial maritime SOC service as the monitoring solution.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Define your vessel cyber incident communication chain before you need it. Who calls the vessel when the SOC detects an anomaly? What phone number? Who on the vessel is the cyber incident first responder contact? Is there a procedure for what they do? Write this down as a one-page vessel cyber incident response quick reference card — the vessel master's name, the SAT phone number, the three actions they take when called about a cyber incident. Laminate it. Put it on the bridge. This preparation costs nothing and is the prerequisite for every other incident response capability.</p>
+</div>
+
+<div style="background:#f0f8fa;border:1.5px solid #80b8c8;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0a4a5a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 33</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">    <li>The maritime SOC monitors vessel fleets from shore, aggregating vessel-side telemetry (OT sensors, firewall logs, EDR agents) through a SIEM into a fleet dashboard visible to security analysts.</li>
+    <li>Maritime SOC commercial service models — in-house, MSSP, hybrid — provide shipping companies with 24/7 monitoring capability without the headcount cost of full in-house SOC staffing.</li>
+    <li>Shore-to-vessel communication at incident detection is the critical maritime SOC procedure: contacting the vessel master, providing clear detection information, and directing crew first responder actions.</li>
+    <li>Crew first responder procedures — pre-defined, tested, and in the Ship Security Plan — define what vessel crew do before shore-side response team involvement: network isolation, evidence preservation, manual fallback.</li>
+    <li>IACS UR E26 requires security monitoring capability for ship functions and documented incident response procedures — commercial maritime SOC services provide both capabilities at a per-vessel cost that is viable for mid-size operators.</li>
+    <li>E26 compliance reporting from commercial SOC services (monthly security summaries, vulnerability tracking, incident records) satisfies class society survey requirements and port state control documentation requests.</li>
+</ul>
+</div>
+
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 34</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0;"><strong>Lesson 34 — IACS UR E26: Cyber Resilience of Ships</strong> — PART 11 opens with Lesson 34 — IACS UR E26: Cyber Resilience of Ships. This is the foundational maritime cyber resilience standard from the International Association of Classification Societies, covering the functional requirements for ship-level cyber resilience that all IACS class society members apply from July 2024.</p>
+</div>
+
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 10 — Maritime Threat Detection and Resilience</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">    <div style="align-items:center;background:#f0f8fa;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 31 — Threat Hunting in Maritime OT</span></div>
+    <div style="align-items:center;background:#f0f8fa;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 32 — Detection Engineering for Maritime OT</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a4a5a;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 33 — Maritime SOC and Shore-based Cyber Monitoring</span>
+    </div>
+</div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

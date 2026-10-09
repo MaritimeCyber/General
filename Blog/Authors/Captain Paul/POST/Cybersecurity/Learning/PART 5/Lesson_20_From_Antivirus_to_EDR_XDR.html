@@ -1,0 +1,185 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 5 — Endpoint Security
+     Lesson : 1 of 2 — From Antivirus to EDR and XDR
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<!--══ SERIES NAV — TOP ══-->
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 5</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 1 of 2</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<!--══ HERO HEADER ══-->
+<div style="background:linear-gradient(135deg,#051e18 0%,#0a4a36 55%,#0a7a58 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(10,120,88,0.18);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+    <span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 5 · Lesson 1</span>
+    <span style="background:rgba(10,120,88,0.5);border-radius:20px;color:#80ffcc;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">EDR · XDR</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Endpoint Security</span>
+    
+  </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">From Antivirus to EDR and XDR</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+        <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" />
+      </a>
+      <div>
+        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;">Captain Paul</div>
+        <div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div>
+      </div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<!--══ LESSON OBJECTIVE ══-->
+<div style="background:#f0fff8;border-left:4px solid #0a6a48;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a6a48;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can explain why signature-based antivirus is insufficient against modern threats, describe how Endpoint Detection and Response (EDR) improves on AV through behavioural monitoring and telemetry, explain the concept of Extended Detection and Response (XDR) and how it correlates signals across domains, and understand why maritime vessel workstations need EDR-class protection rather than legacy AV.</p>
+</div>
+
+<!--══ INTRO ══-->
+<div style="margin-bottom:32px;">
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">For most of the 1990s and 2000s, antivirus was the primary endpoint security control. It worked on a simple principle: collect samples of known malware, extract unique byte patterns (signatures), and scan incoming files and processes for those signatures. If a file matches a signature, block it. If it does not match, allow it. This model worked reasonably well when malware was relatively simple and circulated slowly.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Modern attackers broke this model in two ways. First, they developed techniques to evade signature detection: packing and obfuscating malware so its byte pattern changes with each instance (polymorphic malware), using legitimate system tools like PowerShell and WMI to execute malicious code without dropping a detectable file (living-off-the-land), and exploiting zero-days where no signature exists. Second, the sheer volume and velocity of new malware made comprehensive signature coverage impossible — AV vendors cannot write signatures fast enough to cover every new variant.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">EDR (Endpoint Detection and Response) addresses this by shifting from signature matching to behavioural monitoring. Instead of asking 'does this file match a known bad pattern?', EDR asks 'is this process behaving in a way that is consistent with malicious activity?' — launching a child process that connects to an external IP, accessing sensitive registry keys, injecting code into another process, encrypting files at high speed. These behaviours are malicious regardless of whether the file that triggers them has a known signature.</p>
+
+</div>
+
+<!--══ SECTIONS ══-->
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#051e18,#0a4a36);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. The Limits of Signature-Based AV</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #80d4b0;">
+    <div style="background:#051e18;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. The Limits of Signature-Based AV</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Signature Detection and its Failure Modes</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Signature-based AV requires a sample of a malicious file to create a detection. Zero-days, polymorphic malware, and fileless attacks (which run entirely in memory without a detectable file) all evade signature detection by design. Nation-state attackers and sophisticated ransomware groups test their payloads against the major AV products before deployment, iterating until they achieve low detection rates. The 'arms race' between AV vendors and attackers has consistently favoured the attackers for more than a decade.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Living-off-the-Land (LotL) Attacks</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Living-off-the-land attacks use legitimate operating system tools — PowerShell, WMI, certutil, mshta, regsvr32 — to execute malicious code. Because these tools are part of Windows and routinely used by administrators, their execution does not trigger AV signatures. A PowerShell command that downloads and executes a payload from a remote server is indistinguishable from a legitimate admin script to signature-based AV. LotL is the dominant technique in ransomware and APT campaigns.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">The Detection Gap</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Studies consistently show that signature-based AV misses 10-30% of novel malware samples. For targeted attacks — where the attacker has specifically crafted their payload to evade the target's AV — detection rates can be near zero. In maritime environments where AV is often out of date (vessels with infrequent connectivity cannot update signatures in real time), the detection gap is even larger. Legacy AV provides a false sense of security against modern threats.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a3a28,#0a5a40);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. EDR — Behavioural Detection and Response</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #80d4b0;">
+    <div style="background:#0a3a28;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. EDR — Behavioural Detection and Response</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Continuous Monitoring and Telemetry</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">EDR agents run continuously on the endpoint, collecting telemetry: every process that starts (with its parent process, command line, and hash), every file created or modified, every registry key accessed, every network connection initiated, every memory allocation. This telemetry stream is sent to a cloud backend or on-premises server for real-time analysis and historical retention. Investigators can query this telemetry to reconstruct exactly what happened on an endpoint during an incident — days, weeks, or months after the fact.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Behavioural Detection Rules</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">EDR detection rules fire on behavioural patterns rather than signatures: PowerShell executing encoded commands (T1059.001), a process spawning cmd.exe from a browser (browser exploitation indicator), a ransomware-like pattern of mass file encryption with extension change, credential dumping from LSASS memory (T1003.001). These rules fire on behaviour that is suspicious regardless of the specific malware involved, providing detection capability against novel threats.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Response Capabilities</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">EDR's 'R' — Response — differentiates it from traditional AV. When a threat is detected, the EDR can: isolate the endpoint from the network (preventing lateral movement while preserving remote management), kill malicious processes, quarantine or delete malicious files, roll back file system changes (undoing ransomware encryption in some cases), and provide the investigator with a forensic timeline. Remote response capabilities mean an incident on a vessel can be triaged and contained from the shore-based SOC without physical access to the device.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">4</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime EDR Considerations</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Bridge workstations running ECDIS, GMDSS, and other navigation applications have specific EDR deployment considerations: the EDR agent must not interfere with safety-critical software operation, must function during satellite connectivity outages (local detection, queued telemetry), and must be validated against the navigation software vendor's compatibility requirements. IACS UR E27 Type Approval for navigation systems increasingly includes cybersecurity testing that validates EDR compatibility.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a5a40,#0a7a58);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. XDR — Extended Detection and Response</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0;margin-bottom:8px;overflow:hidden;border-radius:12px;border:1.5px solid #80d4b0;">
+    <div style="background:#0a5a40;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. XDR — Extended Detection and Response</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">XDR Concept</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Extended Detection and Response (XDR) extends the EDR concept beyond the endpoint to correlate signals across multiple domains: endpoint, network, email, cloud, and identity. An XDR platform sees that a phishing email delivered a malicious attachment (email layer), a user opened it and a suspicious process spawned (endpoint layer), that process connected to a C2 server (network layer), and then used the compromised credentials to access a cloud service from an unusual location (identity and cloud layer). No single domain sees the complete attack; XDR correlates across all of them to produce a unified incident.</p></div>
+      </div>
+      <div style="background:#fff8fe;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Native XDR vs Open XDR</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Native XDR platforms are built by a single vendor whose products share a common telemetry schema and investigation interface — Microsoft Defender XDR, CrowdStrike Falcon platform, SentinelOne Singularity. Open XDR platforms ingest telemetry from multiple vendors' products into a common correlation engine. Native XDR provides the tightest integration; open XDR provides flexibility for organisations with diverse vendor environments. Both approaches deliver better cross-domain correlation than siloed point products.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #f0e8f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a6a48;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#1a1a3a;font-size:13px;font-weight:800;margin-bottom:4px;">Maritime XDR Application</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">For a shipping company with Microsoft 365 for corporate email and collaboration, Defender for Endpoint on vessel workstations, and Defender for Office 365 for email security, Microsoft Defender XDR provides native cross-domain correlation across all three layers. A phishing email targeting a vessel officer, a malicious document opened on the ship's workstation, and a subsequent credential theft attempt are correlated into a single incident — visible in one investigation interface, with automated containment available from the shore-based SOC.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--══ AUTHOR INSIGHT ══-->
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(10,120,88,0.18);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank">
+      <img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" />
+    </a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, the endpoint security question on vessels almost always reveals the same finding: Windows Defender (basic, built-in AV) or a legacy AV product that has not received updates since the last port call. Neither provides meaningful protection against the living-off-the-land PowerShell attacks and commodity ransomware that currently dominate maritime cyber incidents. The argument that 'vessel workstations are isolated and therefore lower risk' underestimates the threat — crew internet access, USB devices from third-party technicians, and VSAT-connected management interfaces all provide attack paths to vessel workstations that are not exposed to the isolated OT network myth. EDR deployment on bridge and engine room workstations is now a minimum acceptable standard for vessels operating under IACS UR E26.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Validate your EDR deployment against your navigation software vendor's compatibility matrix before rollout. CrowdStrike, SentinelOne, and Microsoft Defender for Endpoint all maintain compatibility lists for maritime navigation software. Deploy in monitor-only mode first, confirm no interference with navigation application performance over a two-week observation period, then move to prevention mode. This approach eliminates the safety-vs-security conflict that is the most common objection to EDR deployment on bridge systems.</p>
+</div>
+
+<!--══ KEY TAKEAWAYS ══-->
+<div style="background:#f0fff8;border:1.5px solid #80d4b0;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0a6a48;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 20</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">
+    <li>Signature-based AV cannot detect zero-days, polymorphic malware, or fileless/living-off-the-land attacks — the dominant techniques in modern maritime cyber incidents.</li>
+    <li>EDR monitors endpoint behaviour continuously — every process, file, registry, and network event — enabling detection of malicious activity based on behaviour rather than known signatures.</li>
+    <li>EDR response capabilities (network isolation, process kill, file quarantine, forensic timeline) enable remote incident containment on vessels from a shore-based SOC without physical access.</li>
+    <li>XDR extends correlation across multiple domains (endpoint, email, network, identity, cloud), enabling detection of multi-stage attacks that are invisible when viewed through any single domain lens.</li>
+    <li>EDR deployment on vessel workstations requires compatibility validation with navigation software vendors — an increasingly standard part of IACS UR E27 Type Approval cybersecurity requirements.</li>
+    <li>IACS UR E26 requires security controls on vessel systems; EDR-class endpoint protection is the minimum standard for vessel bridge and engine room workstations connected to any network.</li>
+  </ul>
+</div>
+
+<!--══ WHAT'S NEXT ══-->
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 21</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0 0 10px;"><strong>Lesson 21 — CrowdStrike, SentinelOne and Microsoft Defender for Endpoint</strong> — Lesson 21 compares the three dominant EDR platforms — CrowdStrike Falcon, SentinelOne Singularity, and Microsoft Defender for Endpoint — examining their architectures, detection capabilities, and suitability for maritime vessel deployments.</p>
+</div>
+
+<!--══ SERIES NAV — BOTTOM ══-->
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 5 — Endpoint Security</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a6a48;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 20 — From Antivirus to EDR and XDR</span>
+    </div>
+    <div style="align-items:center;background:#f0fff8;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 21 — CrowdStrike, SentinelOne and Microsoft Defender for Endpoint</span></div>
+  </div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>

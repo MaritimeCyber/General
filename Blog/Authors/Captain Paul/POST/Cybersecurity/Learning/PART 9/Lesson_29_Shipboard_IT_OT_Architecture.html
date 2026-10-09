@@ -1,0 +1,161 @@
+<!--════════════════════════════════════════════════════════════
+     Series : Maritime Cybersecurity Learning Roadmap
+     Part   : PART 9 — Maritime Cybersecurity
+     Lesson : 2 of 3 — Shipboard IT and OT Architecture
+     Author : Captain Paul  |  ShipPaulJobs
+     Style  : Maritime 4.0 Design System
+════════════════════════════════════════════════════════════-->
+
+<div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,&quot;Apple SD Gothic Neo&quot;,Arial,sans-serif;line-height:1.75;margin:0 auto;max-width:780px;">
+
+<div style="background:rgb(240,247,255);border-radius:10px;border:1px solid rgb(200,223,247);font-size:12px;margin-bottom:24px;padding:12px 18px;">
+  <span style="color:#6b8599;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">📚 Series</span>
+  <span style="color:#4a6278;margin:0 6px;">Maritime Cybersecurity Learning Roadmap</span>
+  <span style="color:#c8dff7;">|</span>
+  <span style="background:rgb(21,79,122);border-radius:4px;color:white;font-size:10px;font-weight:700;margin:0 6px;padding:2px 8px;">PART 9</span>
+  <span style="color:#0a2342;font-weight:700;">Lesson 2 of 3</span>
+  <span style="color:#9fb5c2;margin:0 8px;">·</span>
+  <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-weight:600;text-decoration:none;" target="_blank">Course Index →</a>
+</div>
+
+<div style="background:linear-gradient(135deg,#051428 0%,#0a2a4a 55%,#0a5a7a 100%);border-radius:16px;margin-bottom:28px;overflow:hidden;padding:40px 36px 32px;position:relative;">
+  <div style="background:rgba(10,90,122,0.20);border-radius:50%;height:260px;position:absolute;right:-60px;top:-60px;width:260px;"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;"><span style="background:rgba(255,193,7,0.35);border-radius:20px;color:#ffe082;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">PART 9 · Lesson 2</span>
+    <span style="background:rgba(10,90,122,0.5);border-radius:20px;color:#90d8f8;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Vessel IT/OT</span>
+    <span style="background:rgba(255,255,255,0.13);border-radius:20px;color:#b8d4ea;font-size:9px;font-weight:800;letter-spacing:1.4px;padding:3px 11px;text-transform:uppercase;">Architecture · Network · ECDIS</span>
+    </div>
+  <h1 style="color:white;font-size:30px;font-weight:900;letter-spacing:-0.5px;line-height:1.25;margin:0 0 12px;">Shipboard IT and OT Architecture</h1>
+  <div style="align-items:center;border-top:1px solid rgba(255,255,255,0.15);display:flex;flex-wrap:wrap;gap:18px;padding-top:18px;">
+    <div style="align-items:center;display:flex;gap:10px;">
+      <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"><img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border-radius:50%;border:1.5px solid rgba(255,255,255,0.4);flex-shrink:0;height:36px;object-fit:cover;width:36px;" /></a>
+      <div><div style="color:white;font-size:13px;font-weight:700;">Captain Paul</div><div style="color:#9ab5c9;font-size:10px;">Maritime Cybersecurity · IACS UR E26/E27</div></div>
+    </div>
+    <div style="color:#9ab5c9;font-size:11px;margin-left:auto;">September 2026</div>
+  </div>
+</div>
+
+<div style="background:#f0f7ff;border-left:4px solid #0a5a7a;border-radius:0 10px 10px 0;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#0a5a7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:8px;text-transform:uppercase;">🎯 Lesson Objective</div>
+  <p style="color:#2c3e50;font-size:14px;line-height:1.8;margin:0;">After this lesson you can describe the typical IT and OT network architecture of a modern commercial vessel, identify the key OT systems by function (navigation, propulsion, cargo, safety), explain the convergence points between IT and OT networks and why they are security risks, describe the IEC 62443 zone and conduit model as applied to vessel network segmentation, and explain what IACS UR E26 requires in terms of network architecture.</p>
+</div>
+
+<div style="margin-bottom:32px;">  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">A modern commercial vessel is a floating data centre and industrial control system simultaneously. On the IT side: a corporate network for vessel administration and communications, a crew internet network for personal use, VSAT terminals and satellite modems, Windows workstations for bridge officers and engineers, email servers, and connections to fleet management platforms ashore. On the OT side: navigation systems (ECDIS, AIS, GPS, radar), propulsion and engine management systems, cargo handling systems (for tankers, bulk carriers, container ships), ballast water management, fire detection and suppression, and safety systems.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">These two worlds — IT and OT — have historically been separate. The OT network was air-gapped or physically isolated from the IT network and from external connections. Maintenance was performed by technicians physically present on the vessel. Updates were applied manually. This isolation was never intentional security design; it was simply how these systems were built and operated before internet connectivity became standard.</p>
+  <p style="color:#354a5e;font-size:14.5px;line-height:1.9;margin:0 0 16px;">Today, the air gap is gone for most modern vessels. Fleet management platforms require real-time data from OT systems. Remote maintenance contracts require vendor access to engine monitoring systems. Chart update services connect to ECDIS directly. The isolation that provided de facto security has been replaced by connectivity that provides operational efficiency — and attack surface.</p>
+</div>
+
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#051428,#0a2a4a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">1. Vessel IT Network Architecture</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #90c0d8;overflow:hidden;">
+    <div style="background:#051428;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">1. Vessel IT Network Architecture</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Administrative Network</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The vessel's administrative network supports business functions: officer workstations for voyage documentation, cargo planning, and administrative tasks; a file server for vessel documents; email and messaging; and connections to the shipowner's shore-based IT systems via the VSAT link. This network typically runs Windows workstations and standard enterprise network equipment, and is the most similar to a shore-based enterprise IT environment. It is also the most likely entry point for commodity cyber attacks (phishing, ransomware) targeting the vessel.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Crew Network</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Most modern vessels provide crew internet access via a segregated network — separate from the administrative network — allowing crew members to access personal email, video calls, and streaming services via their own devices. Crew networks introduce significant risk: personal devices bring malware, phishing links are clicked outside of any corporate security control, and the crew network's connection to the VSAT shares bandwidth with the operational network. Crew network segregation quality varies enormously — from properly isolated VLANs to a shared switch with no segmentation.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">VSAT and Communications</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The VSAT system is the vessel's gateway to the internet and to shore-based systems. It includes a modem, a router, and typically a management interface accessible remotely for configuration and monitoring by the satellite provider. The VSAT management interface is one of the highest-risk components on a vessel: it is externally accessible, often runs default or weak credentials, and provides privileged access to the vessel's entire internet gateway. VSAT management interfaces have been the initial access vector in multiple documented maritime cyber incidents.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a2a4a,#0a4a6a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">2. Vessel OT Network Architecture</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #90c0d8;overflow:hidden;">
+    <div style="background:#0a2a4a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">2. Vessel OT Network Architecture</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Navigation Systems</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Navigation OT systems include: ECDIS (Electronic Chart Display and Information System — the primary navigation tool, displaying electronic charts with GPS position overlay), AIS (Automatic Identification System — broadcasting and receiving vessel identity and position), radar systems, GPS receivers, and the Integrated Navigation System (INS) that integrates these into a unified bridge display. These systems communicate using maritime-specific protocols: NMEA 0183 and NMEA 2000 for sensor data, IEC 61162 for inter-system communication. They run proprietary software on dedicated hardware, often with OS versions 5-10 years behind current.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Propulsion and Engine Management</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Engine and propulsion OT systems include: the Engine Control Room (ECR) management system, auxiliary machinery monitoring, fuel management, propulsion control (variable pitch propellers, thruster control on DP vessels), and increasingly, condition monitoring and predictive maintenance systems that stream performance data to shore. These systems are typically Modbus or proprietary protocol-based, run on PLCs (Programmable Logic Controllers), and connect to the ship's network for data sharing with performance monitoring platforms.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">Cargo and Safety Systems</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">Cargo OT varies by vessel type: tankers have cargo pump control and gas detection; container ships have reefer monitoring and container tracking; bulk carriers have hold monitoring. All vessel types carry safety OT: fire detection and alarm systems, flooding/bilge alarm systems, CO2 suppression systems, emergency shutdown systems. Safety systems have the highest integrity requirements — a false-triggered CO2 suppression in an engine room can incapacitate machinery and crew.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <div style="align-items:center;display:flex;gap:10px;margin-bottom:14px;">
+    <div style="background:linear-gradient(#0a4a6a,#0a5a7a);border-radius:2px;flex-shrink:0;height:26px;width:4px;"></div>
+    <h2 style="color:#0a2342;font-size:19px;font-weight:800;margin:0;">3. Network Segmentation and the Zone/Conduit Model</h2>
+  </div>
+  <div style="border-radius:12px;border:1.5px solid #90c0d8;overflow:hidden;">
+    <div style="background:#0a4a6a;color:white;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:10px 18px;text-transform:uppercase;">3. Network Segmentation and the Zone/Conduit Model</div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">1</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">The Convergence Problem</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The IT/OT convergence problem arises where the two networks must share data. Fleet management platforms need real-time engine data. Chart update services need to reach the ECDIS. Performance monitoring needs propulsion data. Each data-sharing connection is a potential attack path from IT to OT. In practice, these connections are often implemented as direct network connections between IT and OT segments — without firewalls, without protocol filtering, and without monitoring — creating a path from the crew internet network to the navigation system.</p></div>
+      </div>
+      <div style="background:#f8f0ff;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">2</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">IEC 62443 Zones and Conduits</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">The IEC 62443 standard provides the primary framework for OT network segmentation. It defines Zones (groups of systems with similar security requirements and trust levels) and Conduits (controlled connections between zones that enforce security policy). Applied to a vessel: Zone 1 (external connectivity — VSAT, internet), Zone 2 (vessel IT — administrative and crew networks), Zone 3 (vessel OT — navigation systems), Zone 4 (safety-critical OT — safety systems with highest integrity requirements). Conduits between zones are implemented as firewalls, data diodes (for one-way data flow from OT to IT), or DMZ architectures.</p></div>
+      </div>
+      <div style="background:white;border-bottom:1px solid #e8f0f8;display:flex;gap:14px;padding:14px 18px;align-items:flex-start;">
+        <div style="background:#0a5a7a;border-radius:50%;color:white;flex-shrink:0;font-size:10px;font-weight:800;height:22px;line-height:22px;text-align:center;width:22px;">3</div>
+        <div><div style="color:#0a1a2a;font-size:13px;font-weight:800;margin-bottom:4px;">IACS UR E26 Network Requirements</div><p style="color:#4a6278;font-size:13px;line-height:1.7;margin:0;">IACS UR E26 requires that vessels implement network segmentation to separate OT systems from IT systems and from external networks, with access control at segment boundaries. The specific requirement is that 'computer-based systems used for ship functions' are in a protected network segment, separated from business IT and crew networks by firewalls with documented rule sets. E26 also requires that remote access to OT systems is controlled, logged, and provided only through approved access methods — not through open internet connections to the OT network directly.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="background:linear-gradient(135deg,#051428,#0a2342);border-radius:14px;margin-bottom:28px;padding:24px 26px;position:relative;overflow:hidden;">
+  <div style="background:rgba(10,90,122,0.20);border-radius:50%;height:180px;position:absolute;right:-40px;top:-40px;width:180px;"></div>
+  <div style="align-items:center;display:flex;gap:14px;margin-bottom:16px;">
+    <a href="https://www.linkedin.com/in/shipjobs/" rel="noopener" target="_blank"><img alt="Captain Paul" loading="lazy" src="https://github.com/MaritimeCyber/General/blob/main/Asset/img/member/insung.jpeg?raw=true" style="border:2px solid rgba(100,150,200,0.6);border-radius:50%;flex-shrink:0;height:46px;object-fit:cover;width:46px;" /></a>
+    <div>
+      <div style="color:#a0c8f0;font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">✍️ Author Insight — From the Field</div>
+      <div style="color:#9ab5c9;font-size:11px;margin-top:2px;">Captain Paul · Maritime Cybersecurity Consultant · IACS UR E26/E27</div>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.88);font-size:14px;line-height:1.9;margin:0 0 14px;">During E26 CRSI assessments, the network architecture finding is almost universal: the vessel's IT and OT networks are not properly segmented. The typical finding is a flat network where the crew Wi-Fi VLAN, the administrative workstation VLAN, the ECDIS, and the engine monitoring system are all on the same physical network switch, with no firewall between them. An attacker who compromises the crew Wi-Fi network — through a phishing link clicked on a crew member's personal device — has network-level access to the bridge navigation systems and engine OT network without any additional exploitation step. The path from 'phishing click on crew device' to 'ECDIS access' is one hop on a properly analysed switch, not a sophisticated multi-stage attack. Fixing this — implementing proper VLAN segmentation, deploying a vessel firewall with documented rules, and restricting direct IT-to-OT connectivity — is typically the highest-priority technical recommendation in every vessel assessment.</p>
+  <p style="color:rgba(255,255,255,0.78);font-size:13.5px;line-height:1.85;margin:0;"><strong style="color:#a0c8f0;">Practical first step:</strong> Draw your vessel's network diagram before your next port inspection. Include: every VLAN or network segment, every connection between segments (and whether there is a firewall on that connection), every device on each segment, and every external connection (VSAT, remote maintenance VPN, chart update service). If you cannot draw this diagram from memory or documentation — if no one on the vessel knows what is connected to what — you have a network architecture problem that must be resolved before any other security control can be effectively implemented.</p>
+</div>
+
+<div style="background:#f0f7ff;border:1.5px solid #90c0d8;border-radius:12px;margin-bottom:20px;padding:20px 22px;">
+  <div style="color:#0a5a7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">✅ Key Takeaways — Lesson 29</div>
+  <ul style="color:#2c3e50;font-size:13.5px;line-height:1.85;margin:0;padding-left:18px;">    <li>Modern vessels have both IT (administrative, crew, communications) and OT (navigation, propulsion, cargo, safety) networks — each with different security requirements, protocols, and risk profiles.</li>
+    <li>The maritime IT/OT convergence problem arises where operational data sharing requirements (fleet management, remote maintenance, chart updates) create network connections between IT and OT segments that become attack paths.</li>
+    <li>Maritime OT systems use proprietary protocols (NMEA 0183/2000, Modbus, IEC 61162) on dedicated hardware running legacy OS versions — incompatible with standard enterprise security tools and requiring OT-specific security approaches.</li>
+    <li>The IEC 62443 zone and conduit model provides the segmentation framework: zones group systems by trust level, conduits provide controlled inter-zone connectivity enforced by firewalls or data diodes.</li>
+    <li>IACS UR E26 requires network segmentation separating OT from IT and external networks, with firewall-enforced access control and documented rule sets at segment boundaries.</li>
+    <li>The most common vessel network finding: flat networks with crew Wi-Fi, administrative workstations, ECDIS, and engine OT on the same switch — one compromise away from safety-critical system access.</li>
+</ul>
+</div>
+
+<div style="background:white;border:1.5px solid #d1e0ee;border-radius:12px;margin-bottom:28px;padding:18px 22px;">
+  <div style="color:#154f7a;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:10px;text-transform:uppercase;">▶ Next — Lesson 30</div>
+  <p style="color:#354a5e;font-size:13.5px;line-height:1.8;margin:0;"><strong>Lesson 30 — Cyber Threats Against Maritime IT/OT</strong> — Lesson 30 maps specific cyber threats to maritime vessel systems — from ransomware on bridge workstations to GPS spoofing, AIS manipulation, and supply chain attacks on navigation software update mechanisms. We examine documented incidents and extract practical lessons.</p>
+</div>
+
+<div style="background:#f4f9ff;border:1.5px solid #d1e0ee;border-radius:12px;padding:18px 22px;">
+  <div style="color:#6b8599;font-size:11px;font-weight:800;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">📚 PART 9 — Maritime Cybersecurity</div>
+  <div style="display:flex;flex-direction:column;gap:6px;">    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#4a6278;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#9fb5c2;font-size:10px;font-weight:700;white-space:nowrap;">Done</span><span>Lesson 28 — What Makes Maritime Cybersecurity Different?</span></div>
+    <div style="align-items:center;background:#0a2342;border-radius:6px;display:flex;gap:10px;padding:9px 14px;">
+      <span style="background:#0a5a7a;border-radius:4px;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;white-space:nowrap;">Current</span>
+      <span style="color:#fff;font-size:13px;font-weight:700;">Lesson 29 — Shipboard IT and OT Architecture</span>
+    </div>
+    <div style="align-items:center;background:#f0f7ff;border-radius:6px;color:#9fb5c2;display:flex;gap:10px;font-size:13px;padding:9px 14px;"><span style="color:#c8d8e4;font-size:10px;font-weight:700;white-space:nowrap;">Next</span><span>Lesson 30 — Cyber Threats Against Maritime IT/OT</span></div>
+</div>
+  <div style="border-top:1px solid #d1e0ee;margin-top:14px;padding-top:12px;text-align:center;">
+    <a href="https://www.shippauljobs.com/2026/09/maritime-cybersecurity-learning-roadmap.html" rel="noopener" style="color:#1a9e82;font-size:13px;font-weight:700;text-decoration:none;" target="_blank">← View Full Course Index</a>
+  </div>
+</div>
+
+</div>
