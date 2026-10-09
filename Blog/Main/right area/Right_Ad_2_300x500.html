@@ -1,12 +1,12 @@
 <!--============================================================
-  Gadget : Right column ad slot 2 of 3  -  300 x 500  (middle of the right column)
+  Gadget : Right column ad slot 2 of 5  -  300 x 500  (below slot 1)
   Where  : Blogger > Layout > any section > Add a Gadget > HTML/JavaScript
-           (leave the title empty). Add all three slot gadgets
-           (Right_Ad_1, Right_Ad_2, Right_Ad_3); their order in Layout
-           does not matter - they always stack 1-2-3.
+           (leave the title empty). Add all five slot gadgets
+           (Right_Ad_1 ... Right_Ad_5); their order in Layout
+           does not matter - they always stack 1-2-3-4-5.
 
   How it works
-   - The three gadgets share one right column. Whichever runs first
+   - The slot gadgets share one right column. Whichever runs first
      creates it; each gadget only adds its own card.
    - Wide screens: the column sits in the free space to the right of
      the content, 180-252px wide, and scrolls with the page.
@@ -41,7 +41,7 @@
     contactUrl: "https://www.shippauljobs.com/p/contact-shippauljobs.html"
   };
 
-  /* ---- Shared right-column core (identical in all three slot gadgets; runs once) ---- */
+  /* ---- Shared right-column core (identical in all slot gadgets; runs once) ---- */
   var R = window.SPJ_RIGHT_RAIL;
   if (!R) {
     R = window.SPJ_RIGHT_RAIL = (function () {
@@ -193,7 +193,7 @@
             "</a>" +
             '<span class="spj-rb-alt">or <a href="' + esc(common.contactUrl) + '" target="_blank" rel="noopener">contact us</a> for a media kit</span>';
         }
-        // Keep slots in order 1-2-3 no matter which gadget runs first.
+        // Keep slots in order 1-2-3-4-5 no matter which gadget runs first.
         var mobile = slot.mobile !== undefined ? slot.mobile : (slot.inline ? "top" : false);
         var at = 0;
         while (at < cards.length && cards[at].order <= slot.order) at++;
