@@ -10,8 +10,10 @@
      creates it; each gadget only adds its own card.
    - Wide screens: the column sits in the free space to the right of
      the content, 180-252px wide, and scrolls with the page.
-   - Narrow screens (tablet/mobile): only slots with inline: true are
-     shown, after the first content widget (slot 1 by default).
+   - Narrow screens (tablet/mobile): each slot is placed on its own
+     between the content blocks (posts / widgets), set by mobile:
+     "top" (after the 1st block), "middle", "end" (after the last
+     block), or false (hidden on narrow screens).
    - showOn: which pages show the slot - "home", "post", "page"
      (static /p/ pages), "list" (label/search/archive lists).
 
@@ -26,7 +28,7 @@
     order: 5,                       // position in the column (1 = top)
     size: "300 \u00d7 500",
     ratio: "3 / 5",                 // width / height of the slot
-    inline: false,                     // also show on narrow screens?
+    mobile: false,                 // narrow screens: "top" | "middle" | "end" | false
     sponsors: [
       // { name: "Company Name", image: "https://.../banner-300x500.png",
       //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=right_300x500_d",
@@ -47,14 +49,14 @@
       var css =
         "#spj-right-rail{display:none;width:252px;font-family:'Segoe UI',Arial,sans-serif;box-sizing:border-box}" +
         "#spj-right-rail.spj-rb-rail{display:flex;flex-direction:column;gap:14px;position:absolute;z-index:50}" +
-        "#spj-right-rail.spj-rb-inline{display:flex;flex-direction:column;gap:14px;width:auto;max-width:300px;margin:0 auto 16px}" +
-        "#spj-right-rail.spj-rb-inline .spj-rb-card.spj-rb-rail-only{display:none}" +
+        ".spj-rb-inline-box{display:flex;flex-direction:column;gap:14px;max-width:300px;margin:14px auto 16px;font-family:'Segoe UI',Arial,sans-serif}" +
         "#spj-right-rail .spj-rb-card{background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(4,12,28,.25);padding:8px 10px 10px}" +
         "#spj-right-rail .spj-rb-label{display:block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8a9bb0;margin:0 0 7px}" +
         "#spj-right-rail a{text-decoration:none}" +
         "#spj-right-rail .spj-rb-banner{display:block}" +
         "#spj-right-rail .spj-rb-banner img{display:block;width:100%;height:auto;border-radius:6px;object-fit:cover}" +
-        "#spj-right-rail .spj-rb-name{display:block;margin-top:6px;font-size:11px;color:#4a6080;text-align:center}" +
+        "#spj-right-rail .spj-rb-card.spj-rb-ad{padding:3px;overflow:hidden}" +
+        "#spj-right-rail .spj-rb-ad .spj-rb-banner img{border-radius:7px}" +
         "#spj-right-rail .spj-rb-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;box-sizing:border-box;border:2px dashed #9fb3c8;border-radius:8px;text-align:center;background:repeating-linear-gradient(135deg,#f6f9fc 0 12px,#eef3f8 12px 24px)}" +
         "#spj-right-rail .spj-rb-slot:hover{border-color:#1a9e82}" +
         "#spj-right-rail .spj-rb-size{font-size:9.5px;font-weight:700;letter-spacing:.1em;color:#8a9bb0;border:1px solid #c9d6e3;border-radius:4px;padding:2px 7px;background:#fff}" +
@@ -64,6 +66,8 @@
         "#spj-right-rail .spj-rb-slot:hover .spj-rb-cta{background:#154f7a}" +
         "#spj-right-rail .spj-rb-alt{display:block;margin-top:7px;font-size:10px;color:#8a9bb0;text-align:center}" +
         "#spj-right-rail .spj-rb-alt a{color:#154f7a;text-decoration:underline}";
+      // Card rules also apply inside the narrow-screen boxes placed between content blocks.
+      css = css.replace(/#spj-right-rail ([^{,]+)\{/g, "#spj-right-rail $1,#page_body .spj-rb-inline-box $1{");
       var style = document.createElement("style");
       style.id = "spj-right-rail-css";
       style.textContent = css;
@@ -105,33 +109,63 @@
         }
         return right === null ? null : { right: right, top: top + window.scrollY };
       }
-      // Narrow screens: put the rail after the first content widget (never inside a card grid).
-      function inlineAnchor() {
-        var ws = document.querySelectorAll("#page_body > .widget, #page_body .widget.Blog");
+      // Narrow screens: content blocks the slots go between - the widgets of the main
+      // column, with the Blog widget split into its posts on list pages (never inside a card grid).
+      function contentBlocks() {
+        var ws = document.querySelectorAll("#page_body > .widget, #page_body .widget.Blog"), out = [];
         for (var i = 0; i < ws.length; i++) {
-          if (ws[i].contains(rail)) continue;
-          if (ws[i].getBoundingClientRect().height > 30) return ws[i];
+          var w = ws[i];
+          if (out.indexOf(w) !== -1 || w.getBoundingClientRect().height <= 30) continue;
+          var posts = w.classList.contains("Blog") ? w.querySelectorAll(".blog-posts .post-outer-container") : [];
+          if (posts.length > 1) { for (var j = 0; j < posts.length; j++) out.push(posts[j]); }
+          else out.push(w);
         }
-        return null;
+        return out;
+      }
+      function inlineAnchor(blocks, pos) {
+        var n = blocks.length;
+        if (!n) return null;
+        return blocks[pos === "end" ? n - 1 : pos === "middle" ? Math.round((n - 1) / 2) : 0];
+      }
+      // One box per anchor; cards sharing an anchor stack in slot order.
+      var boxes = [];
+      function clearBoxes() {
+        for (var i = 0; i < boxes.length; i++) if (boxes[i].parentNode) boxes[i].parentNode.removeChild(boxes[i]);
+        boxes = [];
       }
 
+      var cards = [];
       function place() {
-        if (!rail.children.length) return;
+        if (!cards.length) return;
         var edge = contentEdges();
         var vw = document.documentElement.clientWidth;
         var free = edge === null ? 0 : vw - edge.right;
         var w = Math.min(MAX_W, free - GAP * 2);
         if (w >= MIN_W) {
-          if (rail.parentNode !== document.body) document.body.appendChild(rail);
+          clearBoxes();
+          for (var i = 0; i < cards.length; i++) rail.appendChild(cards[i].el);
           rail.className = "spj-rb-rail";
           rail.style.width = w + "px";
           rail.style.left = Math.round(edge.right + window.scrollX + (free - w) / 2) + "px";
           rail.style.top = Math.round(edge.top) + "px";
         } else {
-          var a = inlineAnchor();
-          rail.className = "spj-rb-inline";
-          rail.style.left = rail.style.top = rail.style.width = "";
-          if (a && a.parentNode && a.nextSibling !== rail) a.parentNode.insertBefore(rail, a.nextSibling);
+          rail.className = "";
+          var blocks = contentBlocks(), anchors = [], want = [];
+          for (var k = 0; k < cards.length; k++) {
+            var a = cards[k].mobile ? inlineAnchor(blocks, cards[k].mobile) : null;
+            if (!a || !a.parentNode) { rail.appendChild(cards[k].el); continue; }
+            var idx = anchors.indexOf(a);
+            if (idx === -1) { idx = anchors.push(a) - 1; want.push([]); }
+            want[idx].push(cards[k].el);
+          }
+          clearBoxes();
+          for (var m = 0; m < anchors.length; m++) {
+            var box = document.createElement("div");
+            box.className = "spj-rb-inline-box";
+            for (var c = 0; c < want[m].length; c++) box.appendChild(want[m][c]);
+            anchors[m].parentNode.insertBefore(box, anchors[m].nextSibling);
+            boxes.push(box);
+          }
         }
       }
 
@@ -139,15 +173,14 @@
         if ((slot.showOn || common.showOn).indexOf(pageType()) === -1) return;
         var list = (slot.sponsors || []).filter(function (x) { return x && x.image && x.url; });
         var card = document.createElement("div");
-        card.className = "spj-rb-card" + (slot.inline ? "" : " spj-rb-rail-only");
+        card.className = "spj-rb-card";
         card.setAttribute("data-order", slot.order);
         if (list.length) {
           var sp = list[Math.floor(Math.random() * list.length)];
+          card.className += " spj-rb-ad";
           card.innerHTML =
-            '<span class="spj-rb-label">Sponsored</span>' +
             '<a class="spj-rb-banner" href="' + esc(sp.url) + '" target="_blank" rel="sponsored noopener">' +
               '<img src="' + esc(sp.image) + '" alt="' + esc(sp.alt || sp.name) + '" loading="lazy" style="aspect-ratio:' + esc(slot.ratio) + '">' +
-              (sp.name ? '<span class="spj-rb-name">' + esc(sp.name) + "</span>" : "") +
             "</a>";
         } else {
           card.innerHTML =
@@ -161,11 +194,10 @@
             '<span class="spj-rb-alt">or <a href="' + esc(common.contactUrl) + '" target="_blank" rel="noopener">contact us</a> for a media kit</span>';
         }
         // Keep slots in order 1-2-3-4-5 no matter which gadget runs first.
-        var next = null;
-        for (var i = 0; i < rail.children.length; i++) {
-          if (+rail.children[i].getAttribute("data-order") > slot.order) { next = rail.children[i]; break; }
-        }
-        rail.insertBefore(card, next);
+        var mobile = slot.mobile !== undefined ? slot.mobile : (slot.inline ? "top" : false);
+        var at = 0;
+        while (at < cards.length && cards[at].order <= slot.order) at++;
+        cards.splice(at, 0, { el: card, order: slot.order, mobile: mobile });
         place();
       }
 
