@@ -1,0 +1,279 @@
+<!--============================================================
+  Gadget : Right column ads - ALL slots in one gadget
+  Where  : Blogger > Layout > any section > Add a Gadget > HTML/JavaScript
+           (leave the title empty). Use this ONE gadget instead of the
+           five Right_Ad_1 ... Right_Ad_5 gadgets.
+
+  How it works
+   - One right column with up to N slots, always stacked by "order".
+   - Wide screens: the column sits in the free space to the right of
+     the content, 180-252px wide, and scrolls with the page.
+   - Narrow screens (tablet/mobile): each slot is placed on its own
+     between the content blocks, set by mobile: "top" | "middle" |
+     "end" | false (hidden on narrow screens).
+   - showOn (COMMON): which pages show the slots - "home", "post",
+     "page" (static /p/ pages), "list" (label/search/archive lists).
+
+  Managing slots - edit only the SLOTS list (and COMMON) below.
+   - show: false     -> slot is not shown at all (same as hiding the
+                        old per-slot gadget in Layout).
+   - start / end     -> optional "YYYY-MM-DD" (Korea time). Outside
+                        the period the slot is hidden automatically.
+   - sponsors empty  -> shows an "Advertise here" placeholder.
+   - sponsors filled -> shows the banner; several sponsors rotate at
+                        random on each page view.
+   - Add a 6th slot by copying one block and giving it order: 6.
+   - Use English (ASCII) only - Blogger rewrites other characters.
+============================================================-->
+<script>
+(function () {
+  var SLOTS = [
+    { order: 1, show: true, start: "", end: "",
+      size: "300 \u00d7 250", ratio: "6 / 5", mobile: "top",
+      sponsors: [
+        { image: "https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/advertise/Rakuten/MATS2026-300x250.png",
+          url: "https://rakuten-maritime.com/en/insights/mats2026?utm_source=ShipPaulJobs&utm_medium=Website&utm_campaign=MATS2026",
+          alt: "Rakuten Maritime - MATS 2026" }
+      ] },
+    { order: 2, show: true, start: "", end: "",
+      size: "300 \u00d7 500", ratio: "3 / 5", mobile: "middle",
+      sponsors: [
+        { image: "https://raw.githubusercontent.com/MaritimeCyber/General/main/Asset/img/advertise/Rakuten/MATS2026-300x500.png",
+          url: "https://rakuten-maritime.com/en/insights/mats2026?utm_source=ShipPaulJobs&utm_medium=Website&utm_campaign=MATS2026",
+          alt: "Rakuten Maritime - MATS 2026" }
+      ] },
+    { order: 3, show: true, start: "", end: "",
+      size: "300 \u00d7 250", ratio: "6 / 5", mobile: "end",
+      sponsors: [] },
+    { order: 4, show: false, start: "", end: "",
+      size: "300 \u00d7 250", ratio: "6 / 5", mobile: false,
+      sponsors: [] },
+    { order: 5, show: false, start: "", end: "",
+      size: "300 \u00d7 500", ratio: "3 / 5", mobile: false,
+      sponsors: [] }
+    // Sponsor format:
+    // { name: "Company Name", image: "https://.../banner-300x250.png",
+    //   url: "https://www.company.com/?utm_source=shippauljobs&utm_medium=right_300x250",
+    //   alt: "Company Name - maritime cyber security solutions" }
+  ];
+  var COMMON = {
+    showOn: ["home", "post", "page", "list"],
+    advertiseUrl: "https://www.shippauljobs.com/p/advertisement-policy.html",
+    contactUrl: "https://www.shippauljobs.com/p/contact.html"
+  };
+
+  /* ---- Shared right-column core (identical in all slot gadgets; runs once) ---- */
+  var R = window.SPJ_RIGHT_RAIL;
+  if (!R) {
+    R = window.SPJ_RIGHT_RAIL = (function () {
+      var MAX_W = 252, MIN_W = 180, GAP = 12;
+      var css =
+        "#spj-right-rail{display:none;width:252px;font-family:'Segoe UI',Arial,sans-serif;box-sizing:border-box}" +
+        "#spj-right-rail.spj-rb-rail{display:flex;flex-direction:column;gap:14px;position:absolute;z-index:50}" +
+        ".spj-rb-inline-box{display:flex;flex-direction:column;gap:14px;max-width:300px;margin:14px auto 16px;font-family:'Segoe UI',Arial,sans-serif}" +
+        "#spj-right-rail .spj-rb-card{background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(4,12,28,.25);padding:8px 10px 10px}" +
+        "#spj-right-rail .spj-rb-label{display:block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8a9bb0;margin:0 0 7px}" +
+        "#spj-right-rail a{text-decoration:none}" +
+        "#spj-right-rail .spj-rb-banner{display:block}" +
+        "#spj-right-rail .spj-rb-banner img{display:block;width:100%;height:auto;border-radius:6px;object-fit:cover}" +
+        "#spj-right-rail .spj-rb-card.spj-rb-ad{padding:3px;overflow:hidden}" +
+        "#spj-right-rail .spj-rb-ad .spj-rb-banner img{border-radius:7px}" +
+        "#spj-right-rail .spj-rb-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;box-sizing:border-box;border:2px dashed #9fb3c8;border-radius:8px;text-align:center;background:repeating-linear-gradient(135deg,#f6f9fc 0 12px,#eef3f8 12px 24px)}" +
+        "#spj-right-rail .spj-rb-slot:hover{border-color:#1a9e82}" +
+        "#spj-right-rail .spj-rb-size{font-size:9.5px;font-weight:700;letter-spacing:.1em;color:#8a9bb0;border:1px solid #c9d6e3;border-radius:4px;padding:2px 7px;background:#fff}" +
+        "#spj-right-rail .spj-rb-title{font-size:16px;font-weight:800;color:#0a2342;line-height:1.25}" +
+        "#spj-right-rail .spj-rb-text{font-size:11px;line-height:1.55;color:#4a6080}" +
+        "#spj-right-rail .spj-rb-cta{margin-top:4px;padding:6px 13px;border-radius:6px;background:#0a2342;color:#7effd8;font-size:11.5px;font-weight:700}" +
+        "#spj-right-rail .spj-rb-slot:hover .spj-rb-cta{background:#154f7a}" +
+        "#spj-right-rail .spj-rb-alt{display:block;margin-top:7px;font-size:10px;color:#8a9bb0;text-align:center}" +
+        "#spj-right-rail .spj-rb-alt a{color:#154f7a;text-decoration:underline}";
+      // Card rules also apply inside the narrow-screen boxes placed between content blocks.
+      css = css.replace(/#spj-right-rail ([^{,]+)\{/g, "#spj-right-rail $1,#page_body .spj-rb-inline-box $1{");
+      var style = document.createElement("style");
+      style.id = "spj-right-rail-css";
+      style.textContent = css;
+      document.head.appendChild(style);
+
+      var rail = document.createElement("div");
+      rail.id = "spj-right-rail";
+      document.body.appendChild(rail);
+
+      // Blogger stores non-ASCII characters in gadgets as &#NNN; - decode first, then escape.
+      function decode(t) {
+        return String(t || "")
+          .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(+n); })
+          .replace(/&#x([0-9a-f]+);/gi, function (_, h) { return String.fromCharCode(parseInt(h, 16)); })
+          .replace(/&nbsp;/g, "\u00a0").replace(/&middot;/g, "\u00b7").replace(/&times;/g, "\u00d7").replace(/&amp;/g, "&");
+      }
+      function esc(t) { return decode(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+      function pageType() {
+        var path = location.pathname;
+        if (document.body.classList.contains("is-homepage") || path === "/" || path === "/index.html") return "home";
+        if (/^\/\d{4}\/\d{2}\/[^\/]+\.html$/.test(path)) return "post";
+        if (/^\/p\/[^\/]+\.html$/.test(path)) return "page";
+        return "list";
+      }
+
+      // Right edge / top of the visible content column (widest content widget or post card).
+      function contentEdges() {
+        var els = document.querySelectorAll("#page_body .widget, .post-outer-container, .widget.Blog, .widget.PopularPosts, .widget.FeaturedPost");
+        var right = null, top = null;
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (rail.contains(el) || el.contains(rail)) continue;
+          if (getComputedStyle(el).position === "fixed") continue;
+          var r = el.getBoundingClientRect();
+          if (r.width < 200 || r.height < 30) continue;
+          if (right === null || r.right > right) right = r.right;
+          if (top === null || r.top < top) top = r.top;
+        }
+        return right === null ? null : { right: right, top: top + window.scrollY };
+      }
+      // Narrow screens: content blocks the slots go between - the widgets of the main
+      // column, with the Blog widget split into its posts on list pages (never inside a card grid).
+      function contentBlocks() {
+        var ws = document.querySelectorAll("#page_body > .widget, #page_body .widget.Blog"), out = [];
+        for (var i = 0; i < ws.length; i++) {
+          var w = ws[i];
+          if (out.indexOf(w) !== -1 || w.getBoundingClientRect().height <= 30) continue;
+          var posts = w.classList.contains("Blog") ? w.querySelectorAll(".blog-posts .post-outer-container") : [];
+          if (posts.length > 1) { for (var j = 0; j < posts.length; j++) out.push(posts[j]); }
+          else out.push(w);
+        }
+        return out;
+      }
+      function inlineAnchor(blocks, pos) {
+        var n = blocks.length;
+        if (!n) return null;
+        return blocks[pos === "end" ? n - 1 : pos === "middle" ? Math.round((n - 1) / 2) : 0];
+      }
+      // One box per anchor; cards sharing an anchor stack in slot order.
+      var boxes = [];
+      function clearBoxes() {
+        for (var i = 0; i < boxes.length; i++) if (boxes[i].parentNode) boxes[i].parentNode.removeChild(boxes[i]);
+        boxes = [];
+      }
+
+      var cards = [];
+      function place() {
+        if (!cards.length) return;
+        var edge = contentEdges();
+        var vw = document.documentElement.clientWidth;
+        var free = edge === null ? 0 : vw - edge.right;
+        var w = Math.min(MAX_W, free - GAP * 2);
+        if (w >= MIN_W) {
+          clearBoxes();
+          for (var i = 0; i < cards.length; i++) rail.appendChild(cards[i].el);
+          rail.className = "spj-rb-rail";
+          rail.style.width = w + "px";
+          rail.style.left = Math.round(edge.right + window.scrollX + (free - w) / 2) + "px";
+          rail.style.top = Math.round(edge.top) + "px";
+        } else {
+          rail.className = "";
+          var blocks = contentBlocks(), anchors = [], want = [];
+          for (var k = 0; k < cards.length; k++) {
+            var a = cards[k].mobile ? inlineAnchor(blocks, cards[k].mobile) : null;
+            if (!a || !a.parentNode) { rail.appendChild(cards[k].el); continue; }
+            var idx = anchors.indexOf(a);
+            if (idx === -1) { idx = anchors.push(a) - 1; want.push([]); }
+            want[idx].push(cards[k].el);
+          }
+          clearBoxes();
+          for (var m = 0; m < anchors.length; m++) {
+            var box = document.createElement("div");
+            box.className = "spj-rb-inline-box";
+            for (var c = 0; c < want[m].length; c++) box.appendChild(want[m][c]);
+            anchors[m].parentNode.insertBefore(box, anchors[m].nextSibling);
+            boxes.push(box);
+          }
+        }
+      }
+
+      // Analytics: ad views / clicks go to GA4 via the theme's gtag.js (or the GTM dataLayer).
+      function track(name, card, extra) {
+        var p = {}, k, info = card.spjInfo;
+        for (k in info) p[k] = info[k];
+        for (k in extra) p[k] = extra[k];
+        p.ad_layout = card.parentNode === rail ? "rail" : "inline";
+        p.page_type = pageType();
+        try {
+          if (typeof window.gtag === "function") window.gtag("event", name, p);
+          else { p.event = name; (window.dataLayer = window.dataLayer || []).push(p); }
+        } catch (e) {}
+      }
+      // View = at least half of the card on screen; sent once per card per page view.
+      var seen = typeof IntersectionObserver === "function" ? new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (!entries[i].isIntersecting) continue;
+          seen.unobserve(entries[i].target);
+          track("spj_ad_view", entries[i].target);
+        }
+      }, { threshold: 0.5 }) : null;
+      function onAdClick(e) {
+        if (e.type === "auxclick" && e.button !== 1) return;
+        var a = e.target.closest ? e.target.closest("a") : null;
+        if (!a) return;
+        var type = a.className === "spj-rb-banner" ? "banner" : a.className === "spj-rb-slot" ? "advertise" : "contact";
+        track("spj_ad_click", e.currentTarget, { link_type: type, link_url: a.href });
+      }
+
+      function add(slot, common) {
+        if ((slot.showOn || common.showOn).indexOf(pageType()) === -1) return;
+        var list = (slot.sponsors || []).filter(function (x) { return x && x.image && x.url; });
+        var card = document.createElement("div");
+        card.className = "spj-rb-card";
+        card.setAttribute("data-order", slot.order);
+        if (list.length) {
+          var sp = list[Math.floor(Math.random() * list.length)];
+          card.className += " spj-rb-ad";
+          card.innerHTML =
+            '<a class="spj-rb-banner" href="' + esc(sp.url) + '" target="_blank" rel="sponsored noopener">' +
+              '<img src="' + esc(sp.image) + '" alt="' + esc(sp.alt || sp.name) + '" loading="lazy" style="aspect-ratio:' + esc(slot.ratio) + '">' +
+            "</a>";
+        } else {
+          card.innerHTML =
+            '<span class="spj-rb-label">Advertise here</span>' +
+            '<a class="spj-rb-slot" style="aspect-ratio:' + esc(slot.ratio) + '" href="' + esc(common.advertiseUrl) + '" target="_blank" rel="noopener">' +
+              '<span class="spj-rb-size">' + esc(slot.size) + " \u00b7 RIGHT</span>" +
+              '<span class="spj-rb-title">Your banner or ad here</span>' +
+              '<span class="spj-rb-text">Promote your brand, product, service or job opening to maritime engineers, OT/cyber specialists and industry leaders.</span>' +
+              '<span class="spj-rb-cta">See ad options</span>' +
+            "</a>" +
+            '<span class="spj-rb-alt">or <a href="' + esc(common.contactUrl) + '" target="_blank" rel="noopener">contact us</a> for a media kit</span>';
+        }
+        card.spjInfo = {
+          ad_slot: slot.order,
+          ad_size: decode(slot.size).replace(/\s*\u00d7\s*/, "x"),
+          ad_type: list.length ? "sponsor" : "placeholder",
+          ad_name: list.length ? decode(sp.name || sp.alt || sp.image.split("/").pop()) : "(advertise here)"
+        };
+        card.addEventListener("click", onAdClick);
+        card.addEventListener("auxclick", onAdClick);
+        if (seen) seen.observe(card);
+        // Keep slots in order 1-2-3-4-5 no matter which gadget runs first.
+        var mobile = slot.mobile !== undefined ? slot.mobile : (slot.inline ? "top" : false);
+        var at = 0;
+        while (at < cards.length && cards[at].order <= slot.order) at++;
+        cards.splice(at, 0, { el: card, order: slot.order, mobile: mobile });
+        place();
+      }
+
+      window.addEventListener("load", place);
+      window.addEventListener("resize", place);
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", place);
+      return { add: add, place: place };
+    })();
+  }
+  function slotActive(s) {
+    if (s.show === false) return false;
+    var now = Date.now();
+    if (s.start && now < Date.parse(s.start + "T00:00:00+09:00")) return false;
+    if (s.end && now > Date.parse(s.end + "T23:59:59+09:00")) return false;
+    return true;
+  }
+  for (var n = 0; n < SLOTS.length; n++) {
+    if (slotActive(SLOTS[n])) R.add(SLOTS[n], COMMON);
+  }
+})();
+</script>
