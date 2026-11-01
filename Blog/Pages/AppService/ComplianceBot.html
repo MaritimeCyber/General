@@ -1448,7 +1448,7 @@
   function sjLoad() {
     if (sjIndex) return Promise.resolve(sjIndex);
     if (sjLoading) return sjLoading;
-    sjLoading = fetch(SJ_INDEX_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (d) {
+    sjLoading = fetch(SJ_INDEX_URL, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (d) {
       var df = {}, chunks = [];
       d.posts.forEach(function (p, pi) {
         p.c.forEach(function (text) {
