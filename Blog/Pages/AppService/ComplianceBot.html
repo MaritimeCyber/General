@@ -1,5 +1,5 @@
 <!-- ════════════════════════════════════════════════════════════
-     ComplianceBot.html — ShipPaul Intelligence
+     ComplianceBot.html — ShipJobs, the ShipPaul Intelligence bot
      Maritime Cyber Compliance AI — Knowledge-Base Q&A Bot
      Injected via ComplianceBot_Injection.html
 ════════════════════════════════════════════════════════════ -->
@@ -10,8 +10,8 @@
   <div id="cb-hdr">
     <span id="cb-hdr-icon">🤖</span>
     <div id="cb-hdr-text">
-      <div id="cb-hdr-title">ShipPaul Intelligence</div>
-      <div id="cb-hdr-sub">Maritime Cyber Compliance AI</div>
+      <div id="cb-hdr-title">ShipJobs</div>
+      <div id="cb-hdr-sub">ShipPaul Intelligence · Maritime Cyber Compliance AI</div>
     </div>
     <button id="cb-ai-toggle" title="AI Settings">🔑 Connect AI</button>
     <span id="cb-status-dot"></span>
@@ -1056,7 +1056,7 @@
     var hdrs   = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key };
     if (provider === 'claude') {
       hdrs['HTTP-Referer'] = 'https://www.shippauljobs.com';
-      hdrs['X-Title'] = 'ShipPaul Compliance AI';
+      hdrs['X-Title'] = 'ShipJobs';
     }
     var label = provider === 'claude' ? '🤖 OpenRouter' : '🟢 ChatGPT';
 
@@ -1207,7 +1207,7 @@
     if (e26ctx) {
       ctx = 'IACS UR E26 Article Detail (ShipPaul blog — primary source):\n' + e26ctx + '\n\n---\nKB Summary:\n' + ctx;
     }
-    var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
+    var sys = 'You are ShipJobs, the ShipPaul Intelligence assistant — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
       'For each answer point, cite [Document | Article/Section]. Under 320 words. Professional maritime tone.';
 
@@ -1271,7 +1271,7 @@
     if (e26ctx) {
       ctx = 'IACS UR E26 Article Detail (ShipPaul blog — primary source):\n' + e26ctx + '\n\n---\nKB Summary:\n' + ctx;
     }
-    var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
+    var sys = 'You are ShipJobs, the ShipPaul Intelligence assistant — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
       'For each answer point, cite [Document | Article/Section]. Under 320 words. Professional maritime tone.';
     fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -1280,7 +1280,7 @@
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + AI_KEY_CLAUDE,
         'HTTP-Referer': 'https://www.shippauljobs.com',
-        'X-Title': 'ShipPaul Compliance AI'
+        'X-Title': 'ShipJobs'
       },
       body: JSON.stringify({
         model: 'meta-llama/llama-3.1-8b-instruct:free',
@@ -1318,7 +1318,7 @@
     if (e26ctx) {
       ctx = 'IACS UR E26 Article Detail (ShipPaul blog — primary source):\n' + e26ctx + '\n\n---\nKB Summary:\n' + ctx;
     }
-    var sys = 'You are ShipPaul Compliance AI — maritime cybersecurity compliance expert.\n' +
+    var sys = 'You are ShipJobs, the ShipPaul Intelligence assistant — maritime cybersecurity compliance expert.\n' +
       'Relevant KB:\n' + ctx + '\n\n' +
       'For each answer point, cite [Document | Article/Section]. Under 320 words. Professional maritime tone.';
     fetch('https://text.pollinations.ai/', {
@@ -1423,6 +1423,122 @@
   }
 
   /* ── 8. Handle Query ─────────────────────────────────────── */
+  /* ── ShipJobs search: published posts and document titles, built by .github/scripts/build_search_index.py.
+     The index (about 1 MB compressed) loads on the first question. ── */
+  var SJ_INDEX_URL = 'https://cdn.jsdelivr.net/gh/MaritimeCyber/General@main/Asset/data/search-index.json';
+  var SJ_STOP = {is:1,in:1,on:1,to:1,of:1,at:1,by:1,an:1,or:1,as:1,it:1,be:1,do:1,my:1,me:1,we:1,the:1,and:1,for:1,are:1,what:1,how:1,why:1,when:1,does:1,with:1,that:1,this:1,from:1,about:1,which:1,who:1,can:1,should:1,must:1,have:1,has:1,into:1,your:1,our:1,you:1,not:1,was:1,were:1,will:1,tell:1,please:1,more:1,
+    '무엇':1,'어떻게':1,'알려줘':1,'설명':1,'대해':1,'관련':1,'무엇인가요':1,'뭐야':1,'있나요':1};
+  /* Most posts are in English, so common Korean terms also search their English word. */
+  var SJ_KO = {'사이버':'cyber','보안':'security','선박':'ship vessel','규정':'regulation requirement','사고':'incident','공격':'attack','위협':'threat','취약점':'vulnerability','네트워크':'network','위성':'satellite','스타링크':'starlink','항해':'navigation','인증':'certification','선급':'class','조선소':'shipyard','선주':'shipowner','채용':'job career hiring','컨플라이언스':'compliance','위험':'risk','평가':'assessment','백업':'backup','로그':'log','원격':'remote','접근':'access','암호화':'encryption','해운':'shipping','항만':'port','교육':'training','침해':'breach','랜섬웨어':'ransomware','재밍':'jamming','스푸핑':'spoofing'};
+  var sjIndex = null, sjLoading = null;
+
+  function sjEsc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function sjTokens(s) { return (s.toLowerCase().match(/[a-z0-9][a-z0-9.\-]*[a-z0-9]|[a-z0-9]|[가-힣]+/g) || []); }
+  function sjQueryTerms(q) {
+    var seen = {}, out = [];
+    sjTokens(q).forEach(function (w) {
+      var kw = w.replace(/(은|는|이|가|을|를|의|에|에서|으로|로|과|와|도)$/, '');
+      var extra = SJ_KO[kw] ? SJ_KO[kw].split(' ') : [];
+      [w].concat(extra).forEach(function (x) {
+        if (x.length > 1 && !SJ_STOP[x] && !seen[x]) { seen[x] = 1; out.push(x); }
+      });
+    });
+    return out;
+  }
+  function sjLoad() {
+    if (sjIndex) return Promise.resolve(sjIndex);
+    if (sjLoading) return sjLoading;
+    sjLoading = fetch(SJ_INDEX_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (d) {
+      var df = {}, chunks = [];
+      d.posts.forEach(function (p, pi) {
+        p.c.forEach(function (text) {
+          var tf = {}, words = sjTokens(p.t + ' ' + p.l.join(' ') + ' ' + text);
+          words.forEach(function (w) { tf[w] = (tf[w] || 0) + 1; });
+          Object.keys(tf).forEach(function (w) { df[w] = (df[w] || 0) + 1; });
+          chunks.push({ p: pi, text: text, tf: tf, len: words.length });
+        });
+        p.titleWords = sjTokens(p.t + ' ' + p.l.join(' '));
+      });
+      var total = 0; chunks.forEach(function (c) { total += c.len; });
+      sjIndex = { posts: d.posts, docs: d.docs, chunks: chunks, df: df, avg: total / Math.max(chunks.length, 1) };
+      return sjIndex;
+    }).catch(function (e) { sjLoading = null; throw e; });
+    return sjLoading;
+  }
+  /* BM25 over passages; a post appears once, with its best passage. */
+  function sjSearch(ix, q) {
+    var terms = sjQueryTerms(q), N = ix.chunks.length, best = {};
+    if (!terms.length) return { posts: [], docs: [], terms: terms };
+    var idf = terms.map(function (w) { var n = ix.df[w] || 0; return n ? Math.log(1 + (N - n + 0.5) / (n + 0.5)) : 0; });
+    ix.chunks.forEach(function (c) {
+      var score = 0, matched = 0;
+      terms.forEach(function (w, i) {
+        var f = c.tf[w];
+        if (!f) return;
+        matched++;
+        score += idf[i] * (f * 2.2) / (f + 1.2 * (0.25 + 0.75 * c.len / ix.avg));
+      });
+      if (!matched) return;
+      var titleWords = ix.posts[c.p].titleWords;
+      terms.forEach(function (w, i) { if (titleWords.indexOf(w) !== -1) score += idf[i]; });
+      if (!best[c.p] || score > best[c.p].score) best[c.p] = { post: ix.posts[c.p], text: c.text, score: score, matched: matched };
+    });
+    var known = idf.filter(function (v) { return v > 0; }).length;
+    var need = known > 2 ? 2 : 1;
+    var posts = Object.keys(best).map(function (k) { return best[k]; }).filter(function (h) { return h.matched >= need; });
+    posts.sort(function (a, b) { return b.score - a.score; });
+    var docs = ix.docs.map(function (d) {
+      var w = sjTokens(d.t), n = terms.filter(function (x) { return w.indexOf(x) !== -1; }).length;
+      return { doc: d, n: n };
+    }).filter(function (x) { return x.n >= need; }).sort(function (a, b) { return b.n - a.n; }).slice(0, 3).map(function (x) { return x.doc; });
+    return { posts: posts.slice(0, 4), docs: docs, terms: terms };
+  }
+  function sjSnippet(text, terms) {
+    var lower = text.toLowerCase(), at = -1;
+    terms.forEach(function (w) { var i = lower.indexOf(w); if (i !== -1 && (at === -1 || i < at)) at = i; });
+    var start = Math.max(0, at - 90), part = text.slice(start, start + 280);
+    var html = sjEsc(part);
+    terms.forEach(function (w) {
+      html = html.replace(new RegExp('(^|[^a-z0-9가-힣])(' + w.replace(/[.\-]/g, '\\$&') + ')', 'ig'), '$1<strong style="color:#6fcfb0;">$2</strong>');
+    });
+    return (start > 0 ? '… ' : '') + html + (start + 280 < text.length ? ' …' : '');
+  }
+  function sjResultsHTML(res, title) {
+    var html = '';
+    if (res.posts.length) {
+      html += '<div class="cb-related"><div class="cb-related-title">' + title + '</div>';
+      res.posts.forEach(function (h) {
+        html += '<div style="margin-bottom:10px;"><a class="cb-gpt-url" style="font-weight:700;" href="' + sjEsc(h.post.u) + '" target="_blank" rel="noopener">' + sjEsc(h.post.t) + '</a>' +
+          '<div class="cb-gpt-text" style="font-size:10.5px;line-height:1.6;margin-top:3px;">' + sjSnippet(h.text, res.terms) + '</div>' +
+          '<div style="color:#5a5a6e;font-size:9px;margin-top:2px;">ShipPaulJobs · ' + sjEsc(h.post.d) + '</div></div>';
+      });
+      html += '</div>';
+    }
+    if (res.docs.length) {
+      html += '<div class="cb-related"><div class="cb-related-title">Reference documents</div>';
+      res.docs.forEach(function (d) {
+        html += '<a class="cb-related-link" href="' + sjEsc(d.u) + '" target="_blank" rel="noopener">&#8594; ' + sjEsc(d.t) + ' <span style="color:#5a5a6e;">(' + sjEsc(d.s) + ')</span></a>';
+      });
+      html += '</div>';
+    }
+    return html;
+  }
+  /* KB answer, if any, stays on top; passages from the posts follow in the same bubble. */
+  function sjAnswer(q, bubble, hadKb) {
+    sjLoad().then(function (ix) {
+      var res = sjSearch(ix, q), html = sjResultsHTML(res, 'From ShipPaulJobs posts');
+      if (hadKb) { if (html) bubble.insertAdjacentHTML('beforeend', html); }
+      else if (html) { bubble.innerHTML = html.replace('class="cb-related"', 'class="cb-related" style="border-top:none;margin-top:0;padding-top:0;"'); }
+      else {
+        bubble.innerHTML = '<div class="cb-gpt-text">ShipPaulJobs 글에서 이 질문에 맞는 내용을 찾지 못했습니다. 다른 표현이나 영어 키워드로 물어봐 주세요.</div>' +
+          '<button class="cb-connect-btn" onclick="cbRetryFree(' + sjEsc(JSON.stringify(q)) + ')" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#c5c5c5;cursor:pointer;font-family:inherit;font-size:10px;margin-top:8px;padding:6px 10px;">일반 AI 답변 보기 (블로그 근거 아님)</button>';
+      }
+      chat.scrollTop = chat.scrollHeight;
+    }).catch(function () {
+      if (!hadKb) bubble.innerHTML = '<div class="cb-gpt-text">검색 자료를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</div>';
+    });
+  }
+
   function handleQuery(q) {
     if (!q.trim()) return;
 
@@ -1517,84 +1633,12 @@
         _doAICall(null);
       }
     } else {
-      /* kb-only mode — KB match → structured response, miss → free AI → commercial AI fallback */
+      /* no AI key — built-in KB answer if any, plus passages from the blog */
       var hits = search(q);
       if (hits.length) {
-        addMsg(renderAnswer(hits[0]), 'bot');
+        sjAnswer(q, addMsg(renderAnswer(hits[0]), 'bot'), true);
       } else {
-        var bubble = addMsg('<span class="cb-thinking">● Thinking…</span>', 'bot');
-
-        /* ── Tier 3: no key → conversational connect-AI CTA ── */
-        function showConnectAIPrompt(bubble2, qRelated, origQ) {
-          var oq = JSON.stringify(origQ || q);
-          var html =
-            '<div style="color:#8e8ea0;font-size:11px;margin-bottom:10px;">' +
-              '내장 KB 및 무료 AI에 해당 주제의 정보가 없습니다.<br>' +
-              '<span style="color:#5a5a6e;font-size:10px;">AI를 연결하면 모든 해사 사이버 주제에 바로 답변받을 수 있습니다.</span>' +
-            '</div>' +
-            '<div style="background:rgba(16,163,127,0.08);border:1px solid rgba(16,163,127,0.25);border-radius:8px;padding:11px 13px;margin-bottom:8px;">' +
-              '<div style="color:#6fcfb0;font-size:9.5px;font-weight:700;letter-spacing:0.06em;margin-bottom:8px;text-transform:uppercase;">🔑 AI 연결 — 모든 주제 무제한 답변</div>' +
-              '<div style="display:flex;flex-direction:column;gap:6px;">' +
-                /* Free retry */
-                '<button class="cb-connect-btn" onclick="cbRetryFree(' + oq + ')" ' +
-                'style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#c5c5c5;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;transition:background .15s;width:100%;">' +
-                  '🔄 무료 AI 재시도 (키 불필요)' +
-                '</button>' +
-                /* OpenRouter — free account */
-                '<button class="cb-connect-btn" onclick="cbRequestKey(\'claude\',' + oq + ')" ' +
-                'style="background:rgba(16,163,127,0.18);border:1px solid rgba(16,163,127,0.5);border-radius:6px;color:#19c37d;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;transition:background .15s;width:100%;">' +
-                  '🟣 Claude 연결 (OpenRouter · 무료 계정 · 카드 불필요) →' +
-                '</button>' +
-                /* ChatGPT — paid */
-                '<button class="cb-connect-btn" onclick="cbRequestKey(\'gpt\',' + oq + ')" ' +
-                'style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;color:#6ee7b7;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 13px;text-align:left;transition:background .15s;width:100%;">' +
-                  '🟢 ChatGPT 연결 (OpenAI API 키 · 유료) →' +
-                '</button>' +
-              '</div>' +
-              '<div style="color:#4a4a5a;font-size:9px;margin-top:8px;line-height:1.5;">' +
-                'Claude (OpenRouter): <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:#5a5a6a;">openrouter.ai/keys</a> &nbsp;|&nbsp; ' +
-                'ChatGPT (OpenAI): <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" style="color:#5a5a6a;">platform.openai.com/api-keys</a>' +
-              '</div>' +
-            '</div>';
-          if (qRelated.length) html += buildRelatedBlock(qRelated);
-          bubble2.innerHTML = html;
-          chat.scrollTop = chat.scrollHeight;
-        }
-
-        /* ── Tier 2: commercial AI fallback (key stored despite kb-only state) ── */
-        function tryCommercialFallback(bubble2, q2) {
-          var qRelated = findRelatedByQuery(q2);
-          if (AI_KEY_CLAUDE) {
-            callClaude(q2, null, function (text) {
-              bubble2.innerHTML =
-                '<span class="cb-gpt-badge">OpenRouter · Fallback</span><br><br>' +
-                '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
-              appendSourcesAndRelated(bubble2, q2);
-              chat.scrollTop = chat.scrollHeight;
-            }, function () { showConnectAIPrompt(bubble2, qRelated, q2); });
-          } else if (AI_KEY_GPT) {
-            callGPT(q2, null, function (text) {
-              bubble2.innerHTML =
-                '<span class="cb-gpt-badge">GPT · Fallback</span><br><br>' +
-                '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
-              appendSourcesAndRelated(bubble2, q2);
-              chat.scrollTop = chat.scrollHeight;
-            }, function () { showConnectAIPrompt(bubble2, qRelated, q2); });
-          } else {
-            showConnectAIPrompt(bubble2, qRelated, q2);
-          }
-        }
-
-        /* ── Tier 1: Pollinations free AI ── */
-        callFreeAI(q, null, function (text) {
-          bubble.innerHTML =
-            '<span class="cb-gpt-badge">AI · Free</span><br><br>' +
-            '<span class="cb-gpt-text">' + renderGPTText(text) + '</span>';
-          appendSourcesAndRelated(bubble, q);
-          chat.scrollTop = chat.scrollHeight;
-        }, function () {
-          tryCommercialFallback(bubble, q);
-        });
+        sjAnswer(q, addMsg('<span class="cb-thinking">● Searching ShipPaulJobs…</span>', 'bot'), false);
       }
     }
   }
@@ -1618,14 +1662,14 @@
   refreshAIUI();
 
   addMsg(
-    'Hello — I\'m <strong style="color:#19c37d;">ShipPaul Compliance AI</strong>.<br>' +
+    'Hello — I\'m <strong style="color:#19c37d;">ShipJobs</strong>, the ShipPaul Intelligence bot. I answer from ShipPaulJobs posts and always show the source.<br>' +
     '<span style="color:#8e8ea0;font-size:10.5px;">' +
     'Ask about IACS UR E26/E27/Rec, BIMCO, NIS2, EU CRA, GDPR, IEC 62443, USCG, DNV, LR, BV, NK, CCS, RINA, KR, ABS, IMO, and more.<br>' +
     'Each answer includes <strong style="color:#6fcfb0;">document · clause reference</strong> — click the document name to open the official source.<br>' +
     'You can also ask me to <strong style="color:#6fcfb0;">list ShipPaulJobs posts</strong> on a topic — e.g. "list posts about Starlink" or "UR E26 관련 글 목록".<br>' +
     (ACTIVE_AI !== 'kb-only'
       ? '<span style="color:#19c37d;">✅ AI connected — any maritime cyber question will be answered.</span>'
-      : '<span style="color:#5a5a6e;">23 built-in regulations · KB 외 질문은 무료 AI 자동 응답 · AI 키 연결 시 ChatGPT/Claude로 무제한 답변.</span>'
+      : '<span style="color:#5a5a6e;">23 built-in regulations · all published ShipPaulJobs posts searched · AI 키 연결 시 ChatGPT/Claude 답변.</span>'
     ) +
     '</span>',
     'bot'
@@ -1653,7 +1697,7 @@
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + val,
         'HTTP-Referer': 'https://www.shippauljobs.com',
-        'X-Title': 'ShipPaul Compliance AI'
+        'X-Title': 'ShipJobs'
       },
       body: JSON.stringify({
         model: 'meta-llama/llama-3.1-8b-instruct:free',

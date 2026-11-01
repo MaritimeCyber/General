@@ -17,6 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python .github/scripts/build_feed_data.py
+      - run: python .github/scripts/build_search_index.py
       - name: Commit if changed
         run: |
           git add Asset/data
