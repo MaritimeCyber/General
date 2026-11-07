@@ -154,14 +154,19 @@
   ].join('');
   document.head.appendChild(s);
 
-  /* ── 2. Blog Posts — Atom feed (weekly cache) ───────────────
-     Source: Blogger's own atom feed (same-origin, up to 500 posts).
+  /* ── 2. Blog Posts — every published post (6-hour cache) ───
+     Source: Blogger's JSON summary feed, read page by page. Blogger returns far fewer
+     entries than max-results (one atom request gave 38 of 248 posts), so each page
+     advances by the number of entries actually returned until a page comes back empty.
+     The list is cached for 6 hours; an older copy is shown at once and refreshed behind it,
+     so new posts appear within hours, not a week. (2026-11-07)
      Gives real titles, publish dates, and labels — used both for
      "related posts" footers and for direct "list my posts" queries. */
   var POSTS = { items: [], loaded: false };
-  var PF_CACHE_KEY = 'cb_posts_cache_v2';
-  var PF_TTL = 7 * 24 * 60 * 60 * 1000; /* 7 days */
-  var PF_ROOT = 'https://www.shippauljobs.com/atom.xml?redirect=false&start-index=1&max-results=500';
+  var PF_CACHE_KEY = 'cb_posts_cache_v3';
+  var PF_TTL = 6 * 60 * 60 * 1000; /* 6 hours */
+  var PF_FEED = 'https://www.shippauljobs.com/feeds/posts/summary?alt=json&max-results=150&start-index=';
+  try { localStorage.removeItem('cb_posts_cache_v2'); } catch (e) {}
 
   function pfStripHtml(raw) {
     return (raw || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -216,11 +221,38 @@
     pfSaveCache(items);
   }
 
+  function pfMapJson(e) {
+    var url = '';
+    (e.link || []).forEach(function (l) { if (l.rel === 'alternate') url = l.href; });
+    if (!url) return null;
+    var raw = (e.summary && e.summary.$t) || '';
+    raw = raw.replace(/<!\-\-[\s\S]*?(?:\-\->|$)/g, ' ').replace(/<[^>]*$/, ' '); /* drop HTML comments and any tag cut off by the summary limit */
+    return {
+      title: ((e.title && e.title.$t) || '').trim(),
+      url: url,
+      published: (e.published && e.published.$t) || '',
+      labels: (e.category || []).map(function (c) { return c.term; }),
+      summary: pfStripHtml(raw).slice(0, 200)
+    };
+  }
+
+  var pfBusy = false;
   function pfFetchFresh() {
-    fetch(PF_ROOT, { cache: 'no-cache' })
-      .then(function (r) { return r.text(); })
-      .then(function (text) { pfFinish(parseAtomEntries(text)); })
-      .catch(function () {});
+    if (pfBusy) return;
+    pfBusy = true;
+    var all = [], start = 1;
+    function done() { pfBusy = false; if (all.length) pfFinish(all); }
+    function page() {
+      fetch(PF_FEED + start, { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (d) {
+          var es = (d.feed && d.feed.entry) || [];
+          es.forEach(function (e) { var it = pfMapJson(e); if (it) all.push(it); });
+          if (es.length && start < 3000) { start += es.length; page(); } else done();
+        })
+        .catch(done);
+    }
+    page();
   }
 
   function loadPosts() {
@@ -232,6 +264,10 @@
           POSTS.items = c.items;
           POSTS.loaded = true;
           return; /* cache hit — skip fetch */
+        }
+        if (c && Array.isArray(c.items) && c.items.length) {
+          POSTS.items = c.items; /* older copy: show it now, refresh below */
+          POSTS.loaded = true;
         }
       }
     } catch (e) {}

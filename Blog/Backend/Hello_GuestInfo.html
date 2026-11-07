@@ -1348,7 +1348,9 @@
     /* ═══════════════════════════════════════════════════════
      G) 캐시 전략 — 2단 계층
         1순위: sessionStorage  — 탭 세션 유지 (블로그 내 이동 시 API 재호출 없음)
-        2순위: localStorage    — 브라우저 재방문 시 보존 (TTL 없음)
+        2순위: localStorage    — 브라우저 재방문 시 보존 (24시간 TTL, 2026-11-07)
+        개인정보: ipapi.co 응답 전체가 아니라 화면에 쓰는 값만 저장한다.
+                  IP는 마스킹된 값(a.b.c.**)만, 좌표는 0.1도(약 11km)로 반올림.
         3순위: ipapi.co fetch  — 신규 접속자 최초 1회만 호출
   ═══════════════════════════════════════════════════════ */
     var PERSIST_KEY = "hg_ip_cache";   // localStorage — 재방문자용
@@ -1362,12 +1364,44 @@
       }
     }
 
+    var PERSIST_TTL = 24 * 60 * 60 * 1000;
+
     function getPersist() {
       try {
-        return JSON.parse(localStorage.getItem(PERSIST_KEY) || "null");
+        var c = JSON.parse(localStorage.getItem(PERSIST_KEY) || "null");
+        /* 타임스탬프가 없는 옛 기록(전체 IP 포함)이나 24시간이 지난 기록은 지운다 */
+        if (c && (!c._t || Date.now() - c._t > PERSIST_TTL)) {
+          localStorage.removeItem(PERSIST_KEY);
+          return null;
+        }
+        return c;
       } catch (e) {
         return null;
       }
+    }
+
+    function round1(v) {
+      var n = parseFloat(v);
+      return isNaN(n) ? null : Math.round(n * 10) / 10;
+    }
+
+    /* 위젯·테마가 실제로 쓰는 값만 남긴다 */
+    function minimize(d) {
+      return {
+        ip: d.ip ? maskIP(String(d.ip)) : "",
+        city: d.city || "",
+        region: d.region || "",
+        country_code: d.country_code || "",
+        country_name: d.country_name || "",
+        country_calling_code: d.country_calling_code || "",
+        currency: d.currency || "",
+        timezone: d.timezone || "",
+        utc_offset: d.utc_offset || "",
+        org: d.org || "",
+        latitude: round1(d.latitude),
+        longitude: round1(d.longitude),
+        _t: Date.now(),
+      };
     }
 
     function saveAll(data) {
@@ -1379,7 +1413,9 @@
 
     /* 1순위: 탭 내 이동 → sessionStorage 즉시 사용 */
     /* 2순위: 재방문 → localStorage 사용             */
-    var cached = getSession() || getPersist();
+    var cached = getSession();
+    if (cached && !cached._t) cached = null; /* 옛 형식(전체 IP) 세션 기록은 쓰지 않는다 */
+    cached = cached || getPersist();
     if (cached) {
       render(cached);
     } else {
@@ -1393,7 +1429,9 @@
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
           })
-          .then(function (data) {
+          .then(function (raw) {
+            if (!raw || raw.error) throw new Error((raw && raw.reason) || "lookup failed");
+            var data = minimize(raw);
             clearTimeout(fallbackTimer);
             saveAll(data);
             render(data);
