@@ -202,14 +202,21 @@
           else { p.event = name; (window.dataLayer = window.dataLayer || []).push(p); }
         } catch (e) {}
       }
-      // View = at least half of the card on screen; sent once per card per page view.
+      // View = IAB viewable impression: at least half of the card on screen for 1 second
+      // without interruption; sent once per card per page view.
       var seen = typeof IntersectionObserver === "function" ? new IntersectionObserver(function (entries) {
         for (var i = 0; i < entries.length; i++) {
-          if (!entries[i].isIntersecting) continue;
-          seen.unobserve(entries[i].target);
-          track("spj_ad_view", entries[i].target);
+          var card = entries[i].target;
+          if (entries[i].isIntersecting && entries[i].intersectionRatio >= 0.5) {
+            if (!card.spjViewTimer) card.spjViewTimer = setTimeout(function (c) {
+              return function () { seen.unobserve(c); c.spjViewTimer = null; track("spj_ad_view", c); };
+            }(card), 1000);
+          } else if (card.spjViewTimer) {
+            clearTimeout(card.spjViewTimer);
+            card.spjViewTimer = null;
+          }
         }
-      }, { threshold: 0.5 }) : null;
+      }, { threshold: [0, 0.5] }) : null;
       function onAdClick(e) {
         if (e.type === "auxclick" && e.button !== 1) return;
         var a = e.target.closest ? e.target.closest("a") : null;

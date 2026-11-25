@@ -39,7 +39,7 @@ Blogger 레이아웃의 사이드바(하단) 맨 위 HTML/JavaScript 가젯 **HT
 
 | 이벤트 | 언제 |
 |---|---|
-| `spj_ad_view` | 광고 칸이 화면에 절반 이상 보였을 때 (페이지당 칸마다 1번) |
+| `spj_ad_view` | 광고 칸이 화면에 절반 이상, **1초 이상** 보였을 때 (IAB 기준, 페이지당 칸마다 1번) |
 | `spj_ad_click` | 광고 칸 안의 링크를 클릭했을 때 |
 
 매개변수: `ad_slot`, `ad_size`, `ad_type`(sponsor/placeholder), `ad_name`, `ad_layout`(rail/inline), `page_type`, 클릭 시 `link_type`, `link_url`.

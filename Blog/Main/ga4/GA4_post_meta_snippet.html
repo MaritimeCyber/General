@@ -1,0 +1,3 @@
+<!-- Paste INSIDE <b:includable id='postMetadataJSON' var='post'>, right after its JSON-LD </script>.
+     Emits the real author and labels of each post for the GA4 head snippet. -->
+                      <script class='spj-ga-post' type='application/json'>{&quot;author&quot;:&quot;<data:post.author.name.jsonEscaped/>&quot;,&quot;labels&quot;:[<b:loop index='i' values='data:post.labels' var='label'><b:if cond='data:i != 0'>,</b:if>&quot;<data:label.name.jsonEscaped/>&quot;</b:loop>]}</script>

@@ -1,0 +1,60 @@
+<!-- Google tag (gtag.js) - ShipPaulJobs GA4 with content dimensions
+     Sends ONE page_view per page, enriched with:
+       page_type      home | post | page | label | search | archive
+       post_author    post author (posts only)
+       post_labels    all labels, comma separated (posts only)
+       primary_label  first label (posts) - also sent as GA4 content_group
+       publish_month  YYYY-MM from the post URL (posts only)
+     Post author/labels come from <script class='spj-ga-post'> emitted in postMetadataJSON. -->
+<script async='async' src='https://www.googletagmanager.com/gtag/js?id=G-BB27P8MFK7'/>
+<script>//<![CDATA[
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BB27P8MFK7', { anonymize_ip: true, send_page_view: false });
+
+  (function () {
+    var sent = false;
+    function pageType() {
+      var p = location.pathname;
+      if (p === '/' || p === '/index.html') return 'home';
+      if (/^\/\d{4}\/\d{2}\/[^\/]+\.html$/.test(p)) return 'post';
+      if (/^\/p\/[^\/]+\.html$/.test(p)) return 'page';
+      if (/^\/search\/label\//.test(p)) return 'label';
+      if (/^\/search/.test(p)) return 'search';
+      if (/^\/\d{4}(\/\d{2})?\/?$/.test(p)) return 'archive';
+      return 'other';
+    }
+    function send() {
+      if (sent) return;
+      sent = true;
+      var params = { page_type: pageType() };
+      try {
+        if (params.page_type === 'post' || params.page_type === 'page') {
+          var el = document.querySelector('script.spj-ga-post');
+          if (el) {
+            var meta = JSON.parse(el.textContent);
+            var labels = (meta.labels || []).filter(Boolean);
+            if (meta.author) params.post_author = String(meta.author).slice(0, 100);
+            if (labels.length) {
+              params.post_labels = labels.join(', ').slice(0, 100);
+              params.primary_label = String(labels[0]).slice(0, 100);
+              params.content_group = params.primary_label;
+            }
+          }
+          var m = location.pathname.match(/^\/(\d{4})\/(\d{2})\//);
+          if (m) params.publish_month = m[1] + '-' + m[2];
+        } else if (params.page_type === 'label') {
+          var lab = decodeURIComponent(location.pathname.replace(/^\/search\/label\//, '')).replace(/\+/g, ' ');
+          params.primary_label = lab.slice(0, 100);
+          params.content_group = 'label: ' + params.primary_label;
+        }
+        if (!params.content_group) params.content_group = params.page_type;
+      } catch (e) { /* fall through with page_type only */ }
+      gtag('event', 'page_view', params);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', send);
+    else send();
+    setTimeout(send, 4000);   /* safety net: never lose the page_view */
+  })();
+//]]></script>
